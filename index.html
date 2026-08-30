@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ONESTOP Computer & Skill Development Center</title>
+<style>
+:root{--blue:#0757c9;--dark:#06265f;--sky:#eef6ff;--gold:#ffbf22;--text:#14213d;--muted:#60708d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#f7faff;line-height:1.55}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid #e2eafa}
+.nav{max-width:1180px;margin:auto;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;text-decoration:none}.brand img{width:205px;height:58px;object-fit:contain;object-position:left center}
+nav{display:flex;gap:20px;align-items:center}nav a{text-decoration:none;color:#223354;font-weight:700;font-size:14px}nav a:hover{color:var(--blue)}
+.menu{display:none;border:0;background:none;font-size:28px}
+.hero{background:linear-gradient(135deg,#031d50 0%,#0757c9 58%,#1688e8 100%);color:white;overflow:hidden}
+.heroInner{max-width:1180px;margin:auto;padding:78px 20px;display:grid;grid-template-columns:1.15fr .85fr;gap:45px;align-items:center}
+.badge{display:inline-block;padding:7px 14px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);border-radius:30px;font-weight:700}
+h1{font-size:clamp(38px,5.5vw,68px);line-height:1.05;margin:16px 0}.hero p{font-size:18px;color:#e3edff;max-width:650px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.btn{padding:13px 20px;border-radius:10px;text-decoration:none;font-weight:800;display:inline-block}.primary{background:white;color:var(--blue)}.outline{border:1px solid rgba(255,255,255,.55);color:white}
+.heroVisual{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:28px;padding:28px;text-align:center}
+.heroVisual .big{font-size:105px}.heroVisual h3{font-size:27px;margin:5px 0}.heroVisual p{font-size:15px}
+.stats{max-width:1180px;margin:-30px auto 0;padding:0 20px;position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.stat{background:white;border:1px solid #e1e8f4;border-radius:16px;padding:20px;text-align:center;box-shadow:0 12px 30px rgba(20,60,120,.1)}.stat b{display:block;color:var(--blue);font-size:30px}
+section{padding:75px 20px}.container{max-width:1180px;margin:auto}.title{text-align:center;margin-bottom:38px}.title h2{font-size:36px;color:var(--dark);margin:0}.title p{color:var(--muted);margin:7px 0}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:center}.panel{background:white;border:1px solid #e1e8f4;border-radius:22px;padding:30px;box-shadow:0 10px 30px rgba(20,60,120,.06)}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.feature{padding:17px;border-radius:14px;background:var(--sky)}.feature b{display:block;color:var(--dark);margin-bottom:3px}
+.courseGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.course{background:white;border:1px solid #e1e8f4;border-radius:20px;padding:25px;position:relative;overflow:hidden}.course:before{content:"";position:absolute;left:0;top:0;width:100%;height:5px;background:var(--blue)}.course .icon{font-size:42px}.course h3{margin:8px 0;color:var(--dark)}.course p{color:var(--muted)}
+.course a{display:inline-block;margin-top:8px;color:var(--blue);font-weight:800;text-decoration:none}
+.noticeSection{background:var(--sky)}.notices{display:grid;gap:12px}.notice{background:white;padding:17px 20px;border-radius:12px;border-left:5px solid var(--blue);display:flex;justify-content:space-between;gap:20px}.notice strong{color:var(--blue)}
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.photo{height:170px;border-radius:18px;background:linear-gradient(135deg,#dceaff,#fff);display:grid;place-items:center;font-size:58px;border:1px solid #d9e4f5}
+.cta{background:linear-gradient(120deg,#05265f,#0757c9);color:#fff;border-radius:25px;padding:40px;display:flex;justify-content:space-between;align-items:center;gap:25px}.cta h2{margin:0;font-size:34px}.cta p{color:#dce8ff}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:25px}.contact h3{color:var(--dark)}form{display:grid;gap:12px}input,textarea,select{padding:13px;border:1px solid #d5deed;border-radius:9px;font:inherit}textarea{min-height:120px}form button{border:0;border-radius:9px;padding:13px;background:var(--blue);color:#fff;font-weight:800;cursor:pointer}
+footer{background:#041a43;color:#dbe6fb;padding:42px 20px}.footer{max-width:1180px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}.footer img{width:210px;background:white;border-radius:8px;padding:4px}.footer h3{color:#fff}.footer a{display:block;color:#dbe6fb;text-decoration:none;margin:6px 0}.copy{text-align:center;border-top:1px solid rgba(255,255,255,.15);margin-top:28px;padding-top:18px;color:#aebdd8}
+.whatsapp{position:fixed;right:20px;bottom:20px;z-index:60;width:58px;height:58px;border-radius:50%;background:#19b957;color:white;display:grid;place-items:center;text-decoration:none;font-size:29px;box-shadow:0 10px 25px rgba(0,0,0,.25)}
+@media(max-width:850px){nav{display:none}.menu{display:block}nav.open{display:flex;position:absolute;top:78px;left:0;right:0;background:#fff;padding:18px 20px;flex-direction:column;box-shadow:0 12px 20px rgba(0,0,0,.12)}.heroInner,.about,.contact{grid-template-columns:1fr}.courseGrid{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr 1fr}.footer{grid-template-columns:1fr}.cta{flex-direction:column;align-items:flex-start}}
+@media(max-width:520px){.brand img{width:175px}.courseGrid,.features{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.gallery{grid-template-columns:1fr 1fr}.heroInner{padding:55px 18px}section{padding:55px 18px}}
+</style>
+</head>
+<body>
+
+<header><div class="nav">
+<a class="brand" href="#home"><img src="onestop_logo.png" alt="ONESTOP Computer & Skill Development Center"></a>
+<button class="menu" id="menu" aria-label="Open navigation">☰</button>
+<nav id="nav">
+<a href="#home">Home</a><a href="#about">About</a><a href="#courses">Courses</a><a href="#notices">Notices</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
+</nav>
+</div></header>
+
+<main>
+<section class="hero" id="home"><div class="heroInner">
+<div><span class="badge">🎓 Learn Today • Lead Tomorrow</span>
+<h1>Computer Skills for a Better Future.</h1>
+<p>Welcome to <b>ONESTOP Computer & Skill Development Center</b> — learn practical computer, design and digital skills in a student-friendly environment.</p>
+<div class="actions"><a class="btn primary" href="#courses">Explore Courses</a><a class="btn outline" href="#contact">Admission Enquiry</a></div></div>
+<div class="heroVisual"><div class="big">💻</div><h3>Admissions Open</h3><p>Start learning practical skills and build confidence for study, work and business.</p></div>
+</div></section>
+
+<div class="stats">
+<div class="stat"><b>6+</b>Career-Focused Courses</div><div class="stat"><b>100%</b>Practical Learning</div><div class="stat"><b>1:1</b>Student Guidance</div><div class="stat"><b>ONESTOP</b>Trusted Learning Brand</div>
+</div>
+
+<section id="about"><div class="container">
+<div class="title"><h2>About ONESTOP</h2><p>सीखें कंप्यूटर • बढ़ाएं अपना कौशल • बनाएं बेहतर भविष्य</p></div>
+<div class="about">
+<div><h2 style="color:#06265f">Practical learning that makes you job-ready.</h2><p>हमारा उद्देश्य students को computer education और practical digital skills आसान भाषा में सिखाना है। हमारे courses में fundamentals से लेकर designing, data entry और hardware/networking तक का practical exposure शामिल है।</p>
+<div class="features"><div class="feature"><b>👨‍🏫 Expert Guidance</b>Student-focused learning</div><div class="feature"><b>💻 Practical Training</b>Hands-on computer practice</div><div class="feature"><b>🎨 Creative Skills</b>Design & digital projects</div><div class="feature"><b>📈 Career Focus</b>Skills for study & work</div></div></div>
+<div class="panel"><h3 style="font-size:27px;color:#06265f">Why Choose ONESTOP?</h3><p>✓ Beginner-friendly teaching<br>✓ Modern computer learning<br>✓ Practical assignments<br>✓ Skill development approach<br>✓ Supportive learning environment<br>✓ Courses designed for real-world use</p></div>
+</div></div></section>
+
+<section id="courses" style="background:#f0f5fc"><div class="container">
+<div class="title"><h2>Our Courses</h2><p>Choose a course and start building your skills.</p></div>
+<div class="courseGrid">
+<div class="course"><div class="icon">💻</div><h3>Computer Basics & Fundamentals</h3><p>Computer fundamentals, operating systems, files, internet and essential digital skills.</p><a href="#contact">Enquire →</a></div>
+<div class="course"><div class="icon">🖥️</div><h3>Computer Hardware & Networking</h3><p>Hardware concepts, components, troubleshooting, networking basics and practical training.</p><a href="#contact">Enquire →</a></div>
+<div class="course"><div class="icon">🎨</div><h3>Computer DTP</h3><p>Photoshop, CorelDRAW, Canva and practical desktop publishing & design projects.</p><a href="#contact">Enquire →</a></div>
+<div class="course"><div class="icon">🖌️</div><h3>Graphic Designing</h3><p>Creative design, social media graphics, branding and visual communication skills.</p><a href="#contact">Enquire →</a></div>
+<div class="course"><div class="icon">⌨️</div><h3>Data Entry</h3><p>Typing, accuracy, document handling and practical data-entry workflow.</p><a href="#contact">Enquire →</a></div>
+<div class="course"><div class="icon">📚</div><h3>Computer Gyan</h3><p>Easy computer tips, keyboard shortcuts, productivity techniques and everyday computer knowledge.</p><a href="#contact">Learn More →</a></div>
+</div></div></section>
+
+<section id="notices" class="noticeSection"><div class="container">
+<div class="title"><h2>Latest Notices</h2><p>Important updates for students and admissions.</p></div>
+<div class="notices">
+<div class="notice"><span><strong>NEW</strong> Admissions are open for selected computer courses.</span><span>2026</span></div>
+<div class="notice"><span><strong>INFO</strong> Contact the center for course details and batch availability.</span><span>Update</span></div>
+<div class="notice"><span><strong>TIP</strong> Follow ONESTOP for daily computer knowledge and learning tips.</span><span>Daily</span></div>
+</div></div></section>
+
+<section id="gallery"><div class="container">
+<div class="title"><h2>Learning & Activities</h2><p>Learn • Practice • Create • Grow</p></div>
+<div class="gallery"><div class="photo">💻</div><div class="photo">⌨️</div><div class="photo">🎨</div><div class="photo">🖥️</div><div class="photo">📚</div><div class="photo">🧑‍💻</div><div class="photo">🏆</div><div class="photo">🚀</div></div>
+</div></section>
+
+<section><div class="container"><div class="cta"><div><h2>Ready to start learning?</h2><p>Take the first step toward better computer and digital skills.</p></div><a class="btn primary" href="#contact">Join ONESTOP</a></div></div></section>
+
+<section id="contact"><div class="container">
+<div class="title"><h2>Contact & Admission Enquiry</h2><p>हमसे संपर्क करें और अपने course की जानकारी प्राप्त करें।</p></div>
+<div class="contact">
+<div class="panel"><h3>📍 Visit ONESTOP</h3><p>Front of Village Mondha,<br>Near Cyber Police Station,<br>Firozabad</p><h3>📞 Mobile</h3><p>9389063550</p><h3>✉️ Email</h3><p>oscomputer.sdc@gmail.com</p><h3>🕘 Office</h3><p>Contact us for current batch timings.</p></div>
+<form class="panel" id="form"><input required placeholder="Student Name"><input required placeholder="Mobile Number" type="tel"><select required><option value="">Select Course</option><option>Computer Basics & Fundamentals</option><option>Computer Hardware & Networking</option><option>Computer DTP</option><option>Graphic Designing</option><option>Data Entry</option><option>Computer Gyan</option></select><textarea placeholder="Your message"></textarea><button type="submit">Submit Admission Enquiry</button><div id="msg" style="color:#0757c9;font-weight:700"></div></form>
+</div></div></section>
+</main>
+
+<footer><div class="footer">
+<div><img src="onestop_logo.png" alt="ONESTOP logo"><p>ONESTOP Computer & Skill Development Center</p><p>Learn Today • Lead Tomorrow</p></div>
+<div><h3>Quick Links</h3><a href="#about">About</a><a href="#courses">Courses</a><a href="#notices">Notices</a><a href="#contact">Contact</a></div>
+<div><h3>Contact</h3><p>9389063550</p><p>oscomputer.sdc@gmail.com</p><p>Firozabad, Uttar Pradesh</p></div>
+</div><div class="copy">© 2026 ONESTOP Computer & Skill Development Center. All Rights Reserved.</div></footer>
+
+<a class="whatsapp" href="https://wa.me/919389063550" target="_blank" rel="noopener" aria-label="WhatsApp">☏</a>
+<script>
+const menu=document.getElementById("menu"),nav=document.getElementById("nav");
+menu.addEventListener("click",()=>nav.classList.toggle("open"));
+nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
+document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();document.getElementById("msg").textContent="✅ Enquiry received. Please call 9389063550 to continue.";e.target.reset()});
+</script>
+</body>
+</html>
