@@ -2,12 +2,10 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width,initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>ONESTOP Computer & Skill Development Center</title>
 
@@ -16,14 +14,20 @@
 :root{
   --blue:#0757c9;
   --dark:#06265f;
-  --sky:#eef6ff;
+  --sky:#1688e8;
   --gold:#ffbf22;
   --text:#14213d;
   --muted:#60708d;
+  --light:#f5f9ff;
+  --white:#ffffff;
+  --green:#16a34a;
+  --red:#dc2626;
 }
 
 *{
   box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
 html{
@@ -31,11 +35,21 @@ html{
 }
 
 body{
-  margin:0;
   font-family:Arial,Helvetica,sans-serif;
   color:var(--text);
-  background:#f7faff;
-  line-height:1.55;
+  background:var(--light);
+  line-height:1.6;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+.container{
+  max-width:1180px;
+  margin:auto;
+  padding:0 20px;
 }
 
 /* HEADER */
@@ -43,8 +57,8 @@ body{
 header{
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(255,255,255,.96);
+  z-index:1000;
+  background:rgba(255,255,255,.97);
   backdrop-filter:blur(10px);
   border-bottom:1px solid #e2eafa;
 }
@@ -59,27 +73,19 @@ header{
   gap:20px;
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  text-decoration:none;
-}
-
-.brand img{
-  width:205px;
+.logo img{
+  width:120px;
   height:58px;
   object-fit:contain;
-  object-position:left center;
 }
 
 nav{
   display:flex;
-  gap:20px;
+  gap:25px;
   align-items:center;
 }
 
 nav a{
-  text-decoration:none;
   color:#223354;
   font-weight:700;
   font-size:14px;
@@ -100,26 +106,17 @@ nav a:hover{
 /* HERO */
 
 .hero{
-  background:
-  linear-gradient(
-    135deg,
-    #031d50 0%,
-    #0757c9 58%,
-    #1688e8 100%
-  );
-
+  background:linear-gradient(135deg,#031d50 0%,#0757c9 58%,#1688e8 100%);
   color:white;
   overflow:hidden;
 }
 
-.heroInner{
+.hero-inner{
   max-width:1180px;
   margin:auto;
-  padding:78px 20px;
-
+  padding:78px 20px 95px;
   display:grid;
   grid-template-columns:1.15fr .85fr;
-
   gap:45px;
   align-items:center;
 }
@@ -127,16 +124,14 @@ nav a:hover{
 .badge{
   display:inline-block;
   padding:7px 14px;
-
   border:1px solid rgba(255,255,255,.28);
-  background:rgba(255,255,255,.1);
-
   border-radius:30px;
-
+  background:rgba(255,255,255,.12);
   font-weight:700;
+  margin-bottom:18px;
 }
 
-h1{
+.hero h1{
   font-size:clamp(38px,5.5vw,68px);
   line-height:1.05;
   margin:16px 0;
@@ -144,7 +139,7 @@ h1{
 
 .hero p{
   font-size:18px;
-  color:#e3edff;
+  color:#e3efff;
   max-width:650px;
 }
 
@@ -152,578 +147,427 @@ h1{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:26px;
+  margin-top:28px;
 }
 
 .btn{
   padding:13px 20px;
   border-radius:10px;
-
-  text-decoration:none;
+  border:1px solid transparent;
   font-weight:800;
-
+  cursor:pointer;
   display:inline-block;
 }
 
-.primary{
+.btn-primary{
   background:white;
   color:var(--blue);
 }
 
-.outline{
-  border:1px solid rgba(255,255,255,.55);
+.btn-outline{
   color:white;
+  border-color:rgba(255,255,255,.5);
+  background:transparent;
 }
 
-.heroVisual{
-  background:rgba(255,255,255,.1);
-
-  border:1px solid rgba(255,255,255,.2);
-
-  border-radius:28px;
-
-  padding:28px;
-
+.hero-card{
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:30px;
+  padding:45px 30px;
   text-align:center;
 }
 
-.heroVisual .big{
-  font-size:105px;
+.hero-icon{
+  font-size:70px;
+  margin-bottom:15px;
 }
 
-.heroVisual h3{
-  font-size:27px;
-  margin:5px 0;
+.hero-card h2{
+  font-size:30px;
+  margin-bottom:15px;
 }
 
-.heroVisual p{
-  font-size:15px;
+.hero-card p{
+  font-size:16px;
 }
 
 /* STATS */
 
 .stats{
-  max-width:1180px;
-  margin:-30px auto 0;
-
-  padding:0 20px;
-
+  margin-top:-30px;
   position:relative;
+  z-index:5;
+}
 
+.stats-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-
-  gap:15px;
+  gap:16px;
 }
 
 .stat{
   background:white;
-
-  border:1px solid #e1e8f4;
-
-  border-radius:16px;
-
-  padding:20px;
-
+  border-radius:18px;
+  padding:25px 15px;
   text-align:center;
-
-  box-shadow:
-    0 12px 30px rgba(20,60,120,.1);
+  box-shadow:0 10px 30px rgba(20,33,61,.08);
 }
 
-.stat b{
+.stat strong{
   display:block;
-
   color:var(--blue);
-
   font-size:30px;
 }
 
-/* GENERAL */
+/* SECTIONS */
 
 section{
-  padding:75px 20px;
+  padding:75px 0;
 }
 
-.container{
-  max-width:1180px;
-  margin:auto;
-}
-
-.title{
+.section-title{
   text-align:center;
-  margin-bottom:38px;
+  margin-bottom:40px;
 }
 
-.title h2{
+.section-title h2{
   font-size:36px;
   color:var(--dark);
-  margin:0;
 }
 
-.title p{
+.section-title p{
   color:var(--muted);
-  margin:7px 0;
+  margin-top:8px;
 }
 
 /* ABOUT */
 
-.about{
+.about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-
-  gap:35px;
-
+  gap:30px;
   align-items:center;
 }
 
-.panel{
+.about-card{
   background:white;
-
-  border:1px solid #e1e8f4;
-
-  border-radius:22px;
-
   padding:30px;
-
-  box-shadow:
-    0 10px 30px rgba(20,60,120,.06);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(20,33,61,.06);
 }
 
-.features{
-  display:grid;
+.about-card h3{
+  color:var(--blue);
+  margin-bottom:12px;
+}
 
-  grid-template-columns:1fr 1fr;
-
-  gap:14px;
-
+.about-list{
   margin-top:20px;
+  list-style:none;
 }
 
-.feature{
-  padding:17px;
-
-  border-radius:14px;
-
-  background:var(--sky);
-}
-
-.feature b{
-  display:block;
-
-  color:var(--dark);
-
-  margin-bottom:3px;
+.about-list li{
+  margin:10px 0;
 }
 
 /* COURSES */
 
-.courseGrid{
+.course-grid{
   display:grid;
-
   grid-template-columns:repeat(3,1fr);
-
   gap:20px;
 }
 
 .course{
   background:white;
-
-  border:1px solid #e1e8f4;
-
-  border-radius:20px;
-
   padding:25px;
-
-  position:relative;
-
-  overflow:hidden;
+  border-radius:18px;
+  border:1px solid #e2eafa;
+  transition:.2s;
 }
 
-.course:before{
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:0;
-
-  width:100%;
-  height:5px;
-
-  background:var(--blue);
+.course:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 30px rgba(20,33,61,.08);
 }
 
-.course .icon{
-  font-size:42px;
+.course-icon{
+  font-size:38px;
 }
 
 .course h3{
-  margin:8px 0;
-
   color:var(--dark);
+  margin:10px 0;
 }
 
 .course p{
   color:var(--muted);
 }
 
-.course a{
+.fee{
   display:inline-block;
-
-  margin-top:8px;
-
+  margin-top:15px;
+  padding:6px 12px;
+  border-radius:20px;
+  background:#eaf3ff;
   color:var(--blue);
-
   font-weight:800;
-
-  text-decoration:none;
 }
 
-/* NOTICES */
-
-.noticeSection{
-  background:var(--sky);
-}
-
-.notices{
-  display:grid;
-  gap:12px;
-}
+/* NOTICE */
 
 .notice{
   background:white;
-
-  padding:17px 20px;
-
-  border-radius:12px;
-
   border-left:5px solid var(--blue);
-
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:20px;
-}
-
-.notice strong{
-  color:var(--blue);
-}
-
-/* GALLERY */
-
-.gallery{
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  gap:14px;
-}
-
-.photo{
-  height:170px;
-
-  border-radius:18px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #dceaff,
-      #fff
-    );
-
-  display:grid;
-
-  place-items:center;
-
-  font-size:58px;
-
-  border:1px solid #d9e4f5;
-}
-
-/* CTA */
-
-.cta{
-  background:
-    linear-gradient(
-      120deg,
-      #05265f,
-      #0757c9
-    );
-
-  color:#fff;
-
-  border-radius:25px;
-
-  padding:40px;
-
-  display:flex;
-
-  justify-content:space-between;
-
-  align-items:center;
-
-  gap:25px;
-}
-
-.cta h2{
-  margin:0;
-
-  font-size:34px;
-}
-
-.cta p{
-  color:#dce8ff;
+  padding:22px;
+  margin-bottom:15px;
+  border-radius:10px;
 }
 
 /* CONTACT */
 
-.contact{
-  display:grid;
+.contact-section{
+  background:#eef5ff;
+}
 
+.contact-grid{
+  display:grid;
   grid-template-columns:1fr 1fr;
-
-  gap:25px;
+  gap:28px;
 }
 
-.contact h3{
+.contact-card{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(20,33,61,.06);
+}
+
+.contact-card h3{
   color:var(--dark);
+  margin-bottom:20px;
 }
 
-form{
-  display:grid;
-
-  gap:12px;
+.contact-item{
+  margin-bottom:22px;
 }
 
-input,
-textarea,
-select{
+.contact-item strong{
+  display:block;
+  color:var(--blue);
+  font-size:18px;
+  margin-bottom:4px;
+}
 
-  padding:13px;
+/* FORM */
 
-  border:1px solid #d5deed;
+.form-group{
+  margin-bottom:14px;
+}
 
-  border-radius:9px;
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:700;
+}
 
-  font:inherit;
-
+.form-control{
   width:100%;
+  padding:13px 14px;
+  border:1px solid #ccd8ef;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+  background:white;
 }
 
-textarea{
-  min-height:120px;
+.form-control:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(7,87,201,.08);
+}
 
+textarea.form-control{
+  min-height:120px;
   resize:vertical;
 }
 
-form button{
-
+.submit-btn{
+  width:100%;
   border:0;
-
-  border-radius:9px;
-
-  padding:13px;
-
+  padding:15px;
+  border-radius:10px;
   background:var(--blue);
-
-  color:#fff;
-
+  color:white;
+  font-size:16px;
   font-weight:800;
-
   cursor:pointer;
-
-  font-size:15px;
 }
 
-form button:disabled{
-  opacity:.65;
+.submit-btn:hover{
+  background:#064ba9;
+}
+
+.submit-btn:disabled{
+  opacity:.6;
   cursor:not-allowed;
+}
+
+/* SUCCESS / ERROR */
+
+.form-message{
+  display:none;
+  margin-top:15px;
+  padding:14px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.form-message.success{
+  display:block;
+  background:#dcfce7;
+  color:#166534;
+}
+
+.form-message.error{
+  display:block;
+  background:#fee2e2;
+  color:#991b1b;
 }
 
 /* FOOTER */
 
 footer{
-  background:#041a43;
-
-  color:#dbe6fb;
-
-  padding:42px 20px;
+  background:#031b4c;
+  color:white;
+  padding:45px 0 20px;
 }
 
-.footer{
-  max-width:1180px;
-
-  margin:auto;
-
+.footer-grid{
   display:grid;
-
-  grid-template-columns:2fr 1fr 1fr;
-
+  grid-template-columns:1.2fr 1fr 1fr;
   gap:30px;
 }
 
-.footer img{
-  width:210px;
-
+.footer-logo{
   background:white;
-
-  border-radius:8px;
-
-  padding:4px;
+  border-radius:12px;
+  padding:8px;
+  width:150px;
+  margin-bottom:15px;
 }
 
-.footer h3{
-  color:#fff;
+.footer-title{
+  font-size:20px;
+  margin-bottom:12px;
 }
 
-.footer a{
-  display:block;
-
-  color:#dbe6fb;
-
-  text-decoration:none;
-
-  margin:6px 0;
+.footer-links{
+  list-style:none;
 }
 
-.copy{
+.footer-links li{
+  margin:8px 0;
+  color:#d8e6ff;
+}
+
+.copyright{
   text-align:center;
-
-  border-top:
-    1px solid rgba(255,255,255,.15);
-
-  margin-top:28px;
-
-  padding-top:18px;
-
-  color:#aebdd8;
+  border-top:1px solid rgba(255,255,255,.15);
+  margin-top:30px;
+  padding-top:20px;
+  color:#c7d8f5;
 }
 
-/* WHATSAPP */
+/* FLOATING CALL */
 
-.whatsapp{
+.call-button{
   position:fixed;
-
-  right:20px;
+  right:22px;
   bottom:20px;
-
-  z-index:60;
-
-  width:58px;
-  height:58px;
-
+  width:60px;
+  height:60px;
   border-radius:50%;
-
-  background:#19b957;
-
+  background:#42c65a;
   color:white;
-
-  display:grid;
-
-  place-items:center;
-
-  text-decoration:none;
-
-  font-size:29px;
-
-  box-shadow:
-    0 10px 25px rgba(0,0,0,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+  box-shadow:0 8px 25px rgba(0,0,0,.2);
+  z-index:1000;
 }
 
 /* MOBILE */
 
 @media(max-width:850px){
 
-  nav{
-    display:none;
-  }
-
   .menu{
     display:block;
   }
 
-  nav.open{
-
-    display:flex;
-
+  nav{
+    display:none;
     position:absolute;
-
     top:78px;
     left:0;
     right:0;
-
-    background:#fff;
-
-    padding:18px 20px;
-
+    background:white;
     flex-direction:column;
-
-    box-shadow:
-      0 12px 20px rgba(0,0,0,.12);
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
   }
 
-  .heroInner,
-  .about,
-  .contact{
+  nav.show{
+    display:flex;
+  }
+
+  .hero-inner{
+    grid-template-columns:1fr;
+    padding-top:55px;
+  }
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .about-grid,
+  .contact-grid{
     grid-template-columns:1fr;
   }
 
-  .courseGrid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .stats{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .gallery{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .footer{
+  .course-grid{
     grid-template-columns:1fr;
   }
 
-  .cta{
-    flex-direction:column;
-
-    align-items:flex-start;
+  .footer-grid{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:520px){
+@media(max-width:500px){
 
-  .brand img{
-    width:175px;
+  .hero h1{
+    font-size:42px;
   }
 
-  .courseGrid,
-  .features{
-    grid-template-columns:1fr;
+  .hero p{
+    font-size:16px;
   }
 
-  .stats{
+  .stats-grid{
     grid-template-columns:1fr 1fr;
-  }
-
-  .gallery{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .heroInner{
-    padding:55px 18px;
   }
 
   section{
-    padding:55px 18px;
+    padding:55px 0;
   }
+
 }
 
 </style>
-
 </head>
+
 
 <body>
 
@@ -733,37 +577,19 @@ footer{
 
 <div class="nav">
 
-<a class="brand" href="#home">
-
-<img
-src="onestop_logo.png"
-alt="ONESTOP Computer & Skill Development Center">
-
+<a href="#home" class="logo">
+<img src="onestop_logo.png" alt="ONESTOP Logo">
 </a>
 
-<button
-class="menu"
-id="menu"
-aria-label="Open navigation">
+<button class="menu" onclick="toggleMenu()">☰</button>
 
-☰
-
-</button>
-
-<nav id="nav">
-
+<nav id="mainNav">
 <a href="#home">Home</a>
-
 <a href="#about">About</a>
-
 <a href="#courses">Courses</a>
-
 <a href="#notices">Notices</a>
-
 <a href="#gallery">Gallery</a>
-
 <a href="#contact">Contact</a>
-
 </nav>
 
 </div>
@@ -771,52 +597,35 @@ aria-label="Open navigation">
 </header>
 
 
-<!-- MAIN -->
-
-<main>
-
-
 <!-- HERO -->
 
 <section class="hero" id="home">
 
-<div class="heroInner">
+<div class="hero-inner">
 
 <div>
 
-<span class="badge">
-🎓 Learn Today • Lead Tomorrow
-</span>
+<span class="badge">🎓 Learn Today • Lead Tomorrow</span>
 
 <h1>
-Computer Skills for a Better Future.
+Computer Skills for<br>
+a Better Future.
 </h1>
 
 <p>
-
-Welcome to
-<b>ONESTOP Computer & Skill Development Center</b>
-— learn practical computer, design and digital skills
-in a student-friendly environment.
-
+Welcome to <strong>ONESTOP Computer & Skill Development Center</strong> —
+learn practical computer, design and digital skills in a
+student-friendly environment.
 </p>
 
 <div class="actions">
 
-<a
-class="btn primary"
-href="#courses">
-
+<a href="#courses" class="btn btn-primary">
 Explore Courses
-
 </a>
 
-<a
-class="btn outline"
-href="#contact">
-
+<a href="#contact" class="btn btn-outline">
 Admission Enquiry
-
 </a>
 
 </div>
@@ -824,21 +633,15 @@ Admission Enquiry
 </div>
 
 
-<div class="heroVisual">
+<div class="hero-card">
 
-<div class="big">
-💻
-</div>
+<div class="hero-icon">💻</div>
 
-<h3>
-Admissions Open
-</h3>
+<h2>Admissions Open</h2>
 
 <p>
-
 Start learning practical skills and build confidence
 for study, work and business.
-
 </p>
 
 </div>
@@ -852,38 +655,31 @@ for study, work and business.
 
 <div class="stats">
 
+<div class="container">
+
+<div class="stats-grid">
+
 <div class="stat">
-
-<b>6+</b>
-
+<strong>6+</strong>
 Career-Focused Courses
-
 </div>
 
-
 <div class="stat">
-
-<b>100%</b>
-
+<strong>100%</strong>
 Practical Learning
-
 </div>
 
-
 <div class="stat">
-
-<b>1:1</b>
-
+<strong>1:1</strong>
 Student Guidance
-
 </div>
 
-
 <div class="stat">
-
-<b>ONESTOP</b>
-
+<strong>ONESTOP</strong>
 Trusted Learning Brand
+</div>
+
+</div>
 
 </div>
 
@@ -896,113 +692,61 @@ Trusted Learning Brand
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>
-About ONESTOP
-</h2>
+<h2>About ONESTOP</h2>
 
 <p>
-सीखें कंप्यूटर • बढ़ाएं अपना कौशल • बनाएं बेहतर भविष्य
+Practical computer education for students and professionals.
 </p>
 
 </div>
 
 
-<div class="about">
+<div class="about-grid">
 
-<div>
+<div class="about-card">
 
-<h2 style="color:#06265f">
-
-Practical learning that makes you job-ready.
-
-</h2>
+<h3>Learn. Practice. Grow.</h3>
 
 <p>
-
-हमारा उद्देश्य students को computer education
-और practical digital skills आसान भाषा में सिखाना है।
-हमारे courses में fundamentals से लेकर designing,
-data entry और hardware/networking तक का practical
-exposure शामिल है।
-
+ONESTOP Computer & Skill Development Center provides
+practical computer and digital skill training designed
+to help students become confident and career-ready.
 </p>
 
+<ul class="about-list">
 
-<div class="features">
+<li>✅ Practical computer training</li>
+<li>✅ Design & digital skills</li>
+<li>✅ Career-focused learning</li>
+<li>✅ Student guidance</li>
+<li>✅ Friendly learning environment</li>
 
-<div class="feature">
-
-<b>
-👨‍🏫 Expert Guidance
-</b>
-
-Student-focused learning
-
-</div>
-
-
-<div class="feature">
-
-<b>
-💻 Practical Training
-</b>
-
-Hands-on computer practice
+</ul>
 
 </div>
 
 
-<div class="feature">
+<div class="about-card">
 
-<b>
-🎨 Creative Skills
-</b>
-
-Design & digital projects
-
-</div>
-
-
-<div class="feature">
-
-<b>
-📈 Career Focus
-</b>
-
-Skills for study & work
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="panel">
-
-<h3 style="font-size:27px;color:#06265f">
-
-Why Choose ONESTOP?
-
-</h3>
+<h3>Why Choose ONESTOP?</h3>
 
 <p>
-
-✓ Beginner-friendly teaching<br>
-
-✓ Modern computer learning<br>
-
-✓ Practical assignments<br>
-
-✓ Skill development approach<br>
-
-✓ Supportive learning environment<br>
-
-✓ Courses designed for real-world use
-
+Our focus is not only on completing a course but on
+developing practical skills that students can use in
+education, employment and business.
 </p>
+
+<ul class="about-list">
+
+<li>💻 Hands-on computer practice</li>
+<li>🎨 Designing & creative skills</li>
+<li>📊 Data entry skills</li>
+<li>🌐 Digital skills</li>
+<li>🚀 Career-oriented training</li>
+
+</ul>
 
 </div>
 
@@ -1015,157 +759,116 @@ Why Choose ONESTOP?
 
 <!-- COURSES -->
 
-<section
-id="courses"
-style="background:#f0f5fc">
+<section id="courses">
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>
-Our Courses
-</h2>
+<h2>Our Courses</h2>
 
 <p>
-Choose a course and start building your skills.
+Choose the right skill for your future.
 </p>
 
 </div>
 
 
-<div class="courseGrid">
+<div class="course-grid">
 
 
 <div class="course">
 
-<div class="icon">
-💻
-</div>
+<div class="course-icon">💻</div>
 
-<h3>
-Computer Basics & Fundamentals
-</h3>
+<h3>Computer Basics & Fundamentals</h3>
 
 <p>
-Computer fundamentals, operating systems,
-files, internet and essential digital skills.
+Learn computer fundamentals, Windows,
+MS Office, internet and everyday computer skills.
 </p>
 
-<a href="#contact">
-Enquire →
-</a>
+<span class="fee">₹500/month*</span>
 
 </div>
 
 
 <div class="course">
 
-<div class="icon">
-🖥️
-</div>
+<div class="course-icon">🖥️</div>
 
-<h3>
-Computer Hardware & Networking
-</h3>
+<h3>Computer Hardware & Networking</h3>
 
 <p>
-Hardware concepts, components, troubleshooting,
-networking basics and practical training.
+Learn computer hardware, installation,
+troubleshooting and networking fundamentals.
 </p>
 
-<a href="#contact">
-Enquire →
-</a>
+<span class="fee">₹5,000*</span>
 
 </div>
 
 
 <div class="course">
 
-<div class="icon">
-🎨
-</div>
+<div class="course-icon">🎨</div>
 
-<h3>
-Computer DTP
-</h3>
+<h3>Computer DTP</h3>
 
 <p>
-Photoshop, CorelDRAW, Canva and practical
-desktop publishing & design projects.
+Learn Photoshop, CorelDRAW, Canva and
+professional designing fundamentals.
 </p>
 
-<a href="#contact">
-Enquire →
-</a>
+<span class="fee">₹5,000*</span>
 
 </div>
 
 
 <div class="course">
 
-<div class="icon">
-🖌️
-</div>
+<div class="course-icon">✨</div>
 
-<h3>
-Graphic Designing
-</h3>
+<h3>Graphic Designing</h3>
 
 <p>
-Creative design, social media graphics,
-branding and visual communication skills.
+Develop professional creative design skills
+for digital and print media.
 </p>
 
-<a href="#contact">
-Enquire →
-</a>
+<span class="fee">₹5,000*</span>
 
 </div>
 
 
 <div class="course">
 
-<div class="icon">
-⌨️
-</div>
+<div class="course-icon">⌨️</div>
 
-<h3>
-Data Entry
-</h3>
+<h3>Data Entry</h3>
 
 <p>
-Typing, accuracy, document handling and
-practical data-entry workflow.
+Learn typing, data handling, documentation
+and practical data-entry work.
 </p>
 
-<a href="#contact">
-Enquire →
-</a>
+<span class="fee">₹1,000*</span>
 
 </div>
 
 
 <div class="course">
 
-<div class="icon">
-📚
-</div>
+<div class="course-icon">🌐</div>
 
-<h3>
-Computer Gyan
-</h3>
+<h3>Digital Skills</h3>
 
 <p>
-Easy computer tips, keyboard shortcuts,
-productivity techniques and everyday
-computer knowledge.
+Build essential digital skills for study,
+work, business and online services.
 </p>
 
-<a href="#contact">
-Learn More →
-</a>
+<span class="fee">Enquire Now</span>
 
 </div>
 
@@ -1179,81 +882,37 @@ Learn More →
 
 <!-- NOTICES -->
 
-<section
-id="notices"
-class="noticeSection">
+<section id="notices">
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>
-Latest Notices
-</h2>
+<h2>Latest Notices</h2>
 
-<p>
-Important updates for students and admissions.
-</p>
-
-</div>
-
-
-<div class="notices">
-
-
-<div class="notice">
-
-<span>
-
-<strong>NEW</strong>
-
-Admissions are open for selected computer courses.
-
-</span>
-
-<span>
-2026
-</span>
+<p>Important information for students.</p>
 
 </div>
 
 
 <div class="notice">
-
-<span>
-
-<strong>INFO</strong>
-
-Contact the center for course details
-and batch availability.
-
-</span>
-
-<span>
-Update
-</span>
-
+<strong>📢 Admissions Open</strong><br>
+Admissions are currently open for selected computer
+and skill development courses.
 </div>
 
 
 <div class="notice">
-
-<span>
-
-<strong>TIP</strong>
-
-Follow ONESTOP for daily computer knowledge
-and learning tips.
-
-</span>
-
-<span>
-Daily
-</span>
-
+<strong>📚 Practical Learning</strong><br>
+Students receive practical computer-based learning
+and guidance.
 </div>
 
 
+<div class="notice">
+<strong>📞 Admission Enquiry</strong><br>
+Call <strong>9389063550</strong> for current batch timings
+and course details.
 </div>
 
 </div>
@@ -1267,36 +926,25 @@ Daily
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>
-Learning & Activities
-</h2>
+<h2>Gallery</h2>
 
-<p>
-Learn • Practice • Create • Grow
-</p>
+<p>ONESTOP learning environment.</p>
 
 </div>
 
 
-<div class="gallery">
+<div class="about-card" style="text-align:center">
 
-<div class="photo">💻</div>
+<p style="font-size:20px;">
+📸 Gallery photos will be added here.
+</p>
 
-<div class="photo">⌨️</div>
-
-<div class="photo">🎨</div>
-
-<div class="photo">🖥️</div>
-
-<div class="photo">📚</div>
-
-<div class="photo">🧑‍💻</div>
-
-<div class="photo">🏆</div>
-
-<div class="photo">🚀</div>
+<p style="color:#60708d;margin-top:10px;">
+Training activities, classroom, student work
+and institute events.
+</p>
 
 </div>
 
@@ -1305,196 +953,239 @@ Learn • Practice • Create • Grow
 </section>
 
 
-<!-- CTA -->
+<!-- CONTACT / ADMISSION -->
 
-<section>
+<section class="contact-section" id="contact">
 
 <div class="container">
 
-<div class="cta">
+<div class="section-title">
 
-<div>
-
-<h2>
-Ready to start learning?
-</h2>
+<h2>Admission Enquiry</h2>
 
 <p>
-Take the first step toward better computer
-and digital skills.
+Fill the form and our team will contact you.
 </p>
 
 </div>
 
 
-<a
-class="btn primary"
-href="#contact">
-
-Join ONESTOP
-
-</a>
-
-</div>
-
-</div>
-
-</section>
+<div class="contact-grid">
 
 
-<!-- CONTACT -->
+<!-- CONTACT INFORMATION -->
 
-<section id="contact">
+<div class="contact-card">
 
-<div class="container">
-
-<div class="title">
-
-<h2>
-Contact & Admission Enquiry
-</h2>
-
-<p>
-हमसे संपर्क करें और अपने course की जानकारी प्राप्त करें।
-</p>
-
-</div>
+<h3>Contact ONESTOP</h3>
 
 
-<div class="contact">
+<div class="contact-item">
 
-
-<!-- CONTACT DETAILS -->
-
-<div class="panel">
-
-<h3>
-📍 Visit ONESTOP
-</h3>
-
-<p>
+<strong>📍 Address</strong>
 
 Front of Village Mondha,<br>
 Near Cyber Police Station,<br>
 Firozabad
 
-</p>
+</div>
 
 
-<h3>
-📞 Mobile
-</h3>
+<div class="contact-item">
 
-<p>
+<strong>📞 Mobile</strong>
+
+<a href="tel:9389063550">
 9389063550
-</p>
+</a>
+
+</div>
 
 
-<h3>
-✉️ Email
-</h3>
+<div class="contact-item">
 
-<p>
+<strong>✉️ Email</strong>
+
+<a href="mailto:oscomputer.sdc@gmail.com">
 oscomputer.sdc@gmail.com
-</p>
+</a>
+
+</div>
 
 
-<h3>
-🕘 Office
-</h3>
+<div class="contact-item">
 
-<p>
+<strong>🕐 Office</strong>
+
 Contact us for current batch timings.
-</p>
+
+</div>
 
 </div>
 
 
 <!-- ADMISSION FORM -->
 
-<form
-class="panel"
-id="form">
+<div class="contact-card">
 
+<h3>Admission Form</h3>
+
+
+<form id="admissionForm">
+
+
+<div class="form-group">
+
+<label for="studentName">
+Student Name *
+</label>
 
 <input
-required
+type="text"
 id="studentName"
-placeholder="Student Name">
+class="form-control"
+placeholder="Enter student name"
+required>
 
+</div>
+
+
+<div class="form-group">
+
+<label for="fatherName">
+Father / Guardian Name
+</label>
 
 <input
-required
+type="text"
 id="fatherName"
-placeholder="Father / Guardian Name">
+class="form-control"
+placeholder="Enter father/guardian name">
 
+</div>
+
+
+<div class="form-group">
+
+<label for="dob">
+Date of Birth
+</label>
 
 <input
-id="dob"
 type="date"
-title="Date of Birth">
+id="dob"
+class="form-control">
 
+</div>
+
+
+<div class="form-group">
+
+<label for="mobile">
+Mobile Number *
+</label>
 
 <input
-required
-id="mobile"
-placeholder="Mobile Number"
 type="tel"
-maxlength="10">
+id="mobile"
+class="form-control"
+placeholder="Enter mobile number"
+pattern="[0-9]{10}"
+maxlength="10"
+required>
 
+</div>
+
+
+<div class="form-group">
+
+<label for="address">
+Address
+</label>
 
 <textarea
 id="address"
-placeholder="Full Address"></textarea>
+class="form-control"
+placeholder="Enter address"></textarea>
 
+</div>
+
+
+<div class="form-group">
+
+<label for="course">
+Select Course *
+</label>
 
 <select
-required
-id="course">
+id="course"
+class="form-control"
+required>
 
-<option value="">
-Select Course
-</option>
+<option value="">Select Course</option>
 
-<option>
+<option value="Computer Basics & Fundamentals">
 Computer Basics & Fundamentals
 </option>
 
-<option>
+<option value="Computer Hardware & Networking">
 Computer Hardware & Networking
 </option>
 
-<option>
+<option value="Computer DTP">
 Computer DTP
 </option>
 
-<option>
+<option value="Graphic Designing">
 Graphic Designing
 </option>
 
-<option>
+<option value="Data Entry">
 Data Entry
 </option>
 
-<option>
-Computer Gyan
+<option value="Digital Skills">
+Digital Skills
 </option>
 
 </select>
 
+</div>
+
+
+<div class="form-group">
+
+<label for="admissionFee">
+Admission Fee
+</label>
 
 <input
+type="text"
 id="admissionFee"
-placeholder="Admission Fee">
+class="form-control"
+placeholder="Enter fee if applicable">
 
+</div>
+
+
+<div class="form-group">
+
+<label for="message">
+Message
+</label>
 
 <textarea
 id="message"
-placeholder="Your Message"></textarea>
+class="form-control"
+placeholder="Your message"></textarea>
+
+</div>
 
 
 <button
-type="submit">
+type="submit"
+class="submit-btn"
+id="submitBtn">
 
 Submit Admission Enquiry
 
@@ -1502,9 +1193,8 @@ Submit Admission Enquiry
 
 
 <div
-id="msg"
-style="font-weight:700">
-
+id="formMessage"
+class="form-message">
 </div>
 
 
@@ -1514,30 +1204,32 @@ style="font-weight:700">
 
 </div>
 
+</div>
+
 </section>
-
-
-</main>
 
 
 <!-- FOOTER -->
 
 <footer>
 
-<div class="footer">
+<div class="container">
+
+<div class="footer-grid">
 
 
 <div>
 
 <img
 src="onestop_logo.png"
-alt="ONESTOP logo">
+class="footer-logo"
+alt="ONESTOP Logo">
 
 <p>
 ONESTOP Computer & Skill Development Center
 </p>
 
-<p>
+<p style="color:#c7d8f5;margin-top:8px;">
 Learn Today • Lead Tomorrow
 </p>
 
@@ -1546,46 +1238,42 @@ Learn Today • Lead Tomorrow
 
 <div>
 
-<h3>
+<div class="footer-title">
 Quick Links
-</h3>
+</div>
 
-<a href="#about">
-About
-</a>
+<ul class="footer-links">
 
-<a href="#courses">
-Courses
-</a>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#courses">Courses</a></li>
+<li><a href="#notices">Notices</a></li>
+<li><a href="#contact">Contact</a></li>
 
-<a href="#notices">
-Notices
-</a>
-
-<a href="#contact">
-Contact
-</a>
+</ul>
 
 </div>
 
 
 <div>
 
-<h3>
+<div class="footer-title">
 Contact
-</h3>
+</div>
 
-<p>
-9389063550
-</p>
+<ul class="footer-links">
 
-<p>
-oscomputer.sdc@gmail.com
-</p>
+<li>📍 Firozabad</li>
 
-<p>
-Firozabad, Uttar Pradesh
-</p>
+<li>
+📞 9389063550
+</li>
+
+<li>
+✉️ oscomputer.sdc@gmail.com
+</li>
+
+</ul>
 
 </div>
 
@@ -1593,275 +1281,266 @@ Firozabad, Uttar Pradesh
 </div>
 
 
-<div class="copy">
+<div class="copyright">
 
 © 2026 ONESTOP Computer & Skill Development Center.
 All Rights Reserved.
 
 </div>
 
+</div>
+
 </footer>
 
 
-<!-- WHATSAPP -->
+<!-- FLOATING CALL BUTTON -->
 
 <a
-class="whatsapp"
-href="https://wa.me/919389063550"
-target="_blank"
-rel="noopener"
-aria-label="WhatsApp">
+href="tel:9389063550"
+class="call-button"
+title="Call ONESTOP">
 
-☏
+☎
 
 </a>
 
 
 <script>
 
-/* MOBILE MENU */
+/* ==========================================
+   GOOGLE APPS SCRIPT WEB APP
+========================================== */
 
-const menu =
-document.getElementById("menu");
-
-const nav =
-document.getElementById("nav");
-
-
-menu.addEventListener(
-"click",
-() => {
-
-  nav.classList.toggle("open");
-
-});
-
-
-nav.querySelectorAll("a")
-.forEach(a => {
-
-  a.addEventListener(
-    "click",
-    () => nav.classList.remove("open")
-  );
-
-});
-
-
-/* GOOGLE APPS SCRIPT */
-
-const ADMISSION_SCRIPT_URL =
+const GOOGLE_SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxmG_HSUolxc-dORfh_QEQA8ao75u6bG3uLBSpQqLEXzeHIgrMwfh85VOfw-ujXvQkJ/exec";
 
 
-/* ADMISSION FORM */
+/* ==========================================
+   MOBILE MENU
+========================================== */
+
+function toggleMenu(){
+
+  const nav = document.getElementById("mainNav");
+
+  nav.classList.toggle("show");
+
+}
+
+
+/* Close mobile menu after clicking link */
+
+document.querySelectorAll("#mainNav a").forEach(function(link){
+
+  link.addEventListener("click", function(){
+
+    document.getElementById("mainNav").classList.remove("show");
+
+  });
+
+});
+
+
+/* ==========================================
+   GENERATE ADMISSION ID
+========================================== */
+
+function generateAdmissionId(){
+
+  const now = new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    String(now.getMonth()+1).padStart(2,"0");
+
+  const day =
+    String(now.getDate()).padStart(2,"0");
+
+  const hours =
+    String(now.getHours()).padStart(2,"0");
+
+  const minutes =
+    String(now.getMinutes()).padStart(2,"0");
+
+  const seconds =
+    String(now.getSeconds()).padStart(2,"0");
+
+  return "ADM-" +
+    year +
+    month +
+    day +
+    "-" +
+    hours +
+    minutes +
+    seconds;
+}
+
+
+/* ==========================================
+   ADMISSION FORM SUBMISSION
+========================================== */
 
 document
-.getElementById("form")
-.addEventListener(
-"submit",
-async function(e){
+.getElementById("admissionForm")
+.addEventListener("submit", function(event){
 
-  e.preventDefault();
+  event.preventDefault();
 
 
-  const form = e.target;
+  const submitBtn =
+    document.getElementById("submitBtn");
 
-  const msg =
-  document.getElementById("msg");
+  const messageBox =
+    document.getElementById("formMessage");
 
-  const button =
-  form.querySelector("button");
 
+  /* Get form values */
 
   const studentName =
-  document
-  .getElementById("studentName")
-  .value
-  .trim();
-
+    document.getElementById("studentName").value.trim();
 
   const fatherName =
-  document
-  .getElementById("fatherName")
-  .value
-  .trim();
-
+    document.getElementById("fatherName").value.trim();
 
   const dob =
-  document
-  .getElementById("dob")
-  .value;
-
+    document.getElementById("dob").value;
 
   const mobile =
-  document
-  .getElementById("mobile")
-  .value
-  .trim();
-
+    document.getElementById("mobile").value.trim();
 
   const address =
-  document
-  .getElementById("address")
-  .value
-  .trim();
-
+    document.getElementById("address").value.trim();
 
   const course =
-  document
-  .getElementById("course")
-  .value;
-
+    document.getElementById("course").value;
 
   const admissionFee =
-  document
-  .getElementById("admissionFee")
-  .value
-  .trim();
+    document.getElementById("admissionFee").value.trim();
+
+  const userMessage =
+    document.getElementById("message").value.trim();
 
 
-  const message =
-  document
-  .getElementById("message")
-  .value
-  .trim();
+  /* Validate mobile */
 
+  if(!/^[0-9]{10}$/.test(mobile)){
 
-  /* VALIDATION */
+    messageBox.className =
+      "form-message error";
 
-  if(
-    !studentName ||
-    !fatherName ||
-    !mobile ||
-    !course
-  ){
-
-    msg.style.color =
-    "#d00000";
-
-    msg.textContent =
-    "⚠️ Please fill all required fields.";
+    messageBox.innerHTML =
+      "❌ Please enter a valid 10-digit mobile number.";
 
     return;
 
   }
 
 
-  if(
-    !/^[0-9]{10}$/.test(mobile)
-  ){
+  /* Generate Admission ID */
 
-    msg.style.color =
-    "#d00000";
-
-    msg.textContent =
-    "⚠️ Please enter a valid 10-digit mobile number.";
-
-    return;
-
-  }
+  const admissionId =
+    generateAdmissionId();
 
 
-  /* BUTTON */
-
-  button.disabled = true;
-
-  button.textContent =
-  "Submitting...";
-
-  msg.textContent = "";
-
-
-  /* DATA */
+  /* Prepare data */
 
   const data = {
 
-    studentName:
-    studentName,
+    admissionId: admissionId,
 
-    fatherName:
-    fatherName,
+    studentName: studentName,
 
-    dob:
-    dob,
+    fatherName: fatherName,
 
-    mobile:
-    mobile,
+    dob: dob,
 
-    address:
-    address,
+    mobile: mobile,
 
-    course:
-    course,
+    address: address,
 
-    admissionFee:
-    admissionFee,
+    course: course,
 
-    message:
-    message
+    admissionFee: admissionFee,
+
+    message: userMessage
 
   };
 
 
-  try{
+  /* Disable button */
+
+  submitBtn.disabled = true;
+
+  submitBtn.innerText =
+    "Submitting...";
 
 
-    await fetch(
-      ADMISSION_SCRIPT_URL,
-      {
+  /*
+    Send to Google Apps Script.
 
-        method:"POST",
+    no-cors is used because Google Apps Script
+    web apps can redirect their response.
+  */
 
-        mode:"no-cors",
+  fetch(GOOGLE_SCRIPT_URL, {
 
-        headers:{
-          "Content-Type":
-          "text/plain;charset=UTF-8"
-        },
+    method:"POST",
 
-        body:
-        JSON.stringify(data)
+    mode:"no-cors",
 
-      }
-    );
+    headers:{
+      "Content-Type":"text/plain;charset=utf-8"
+    },
 
+    body:JSON.stringify(data)
 
-    /* SUCCESS */
+  })
 
-    msg.style.color =
-    "#128a32";
+  .then(function(){
 
-    msg.innerHTML =
-    "✅ Admission enquiry submitted successfully!<br>" +
-    "Our team will contact you on " +
-    mobile +
-    ".";
+    /*
+      Because no-cors does not expose the response,
+      we use the generated Admission ID locally.
+    */
 
+    messageBox.className =
+      "form-message success";
 
-    form.reset();
+    messageBox.innerHTML =
+      "✅ Admission enquiry submitted successfully!<br><br>" +
+      "<strong>Admission ID:</strong> " +
+      admissionId +
+      "<br><br>" +
+      "Please call <strong>9389063550</strong> to continue.";
 
+    document
+      .getElementById("admissionForm")
+      .reset();
 
-  }catch(error){
+  })
 
+  .catch(function(error){
 
     console.error(error);
 
+    messageBox.className =
+      "form-message error";
 
-    msg.style.color =
-    "#d00000";
+    messageBox.innerHTML =
+      "❌ Something went wrong. Please call 9389063550.";
 
-    msg.textContent =
-    "❌ Submission failed. Please call 9389063550.";
+  })
 
-  }
+  .finally(function(){
 
+    submitBtn.disabled = false;
 
-  button.disabled = false;
+    submitBtn.innerText =
+      "Submit Admission Enquiry";
 
-  button.textContent =
-  "Submit Admission Enquiry";
-
+  });
 
 });
 
