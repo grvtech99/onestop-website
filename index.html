@@ -112,7 +112,57 @@ footer{background:#041a43;color:#dbe6fb;padding:42px 20px}.footer{max-width:1180
 const menu=document.getElementById("menu"),nav=document.getElementById("nav");
 menu.addEventListener("click",()=>nav.classList.toggle("open"));
 nav.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
-document.getElementById("form").addEventListener("submit",e=>{e.preventDefault();document.getElementById("msg").textContent="✅ Enquiry received. Please call 9389063550 to continue.";e.target.reset()});
+const ADMISSION_SCRIPT_URL="https://script.google.com/macros/s/AKfycbxmG_HSUolxc-dORfh_QEQA8ao75u6bG3uLBSpQqLEXzeHIgrMwfh85VOfw-ujXvQkJ/exec";
+
+document.getElementById("form").addEventListener("submit",async e=>{
+  e.preventDefault();
+
+  const form=e.target;
+  const msg=document.getElementById("msg");
+  const button=form.querySelector("button");
+  const inputs=form.querySelectorAll("input");
+
+  const studentName=inputs[0].value.trim();
+  const mobile=inputs[1].value.trim();
+  const course=form.querySelector("select").value;
+  const message=form.querySelector("textarea").value.trim();
+
+  if(!studentName || !mobile || !course){
+    msg.textContent="⚠️ Please fill all required fields.";
+    return;
+  }
+
+  button.disabled=true;
+  button.textContent="Submitting...";
+  msg.textContent="";
+
+  try{
+    await fetch(ADMISSION_SCRIPT_URL,{
+      method:"POST",
+      mode:"no-cors",
+      headers:{
+        "Content-Type":"text/plain;charset=UTF-8"
+      },
+      body:JSON.stringify({
+        studentName:studentName,
+        mobile:mobile,
+        course:course,
+        message:message
+      })
+    });
+
+    msg.textContent="✅ Enquiry submitted successfully. Please call 9389063550 to continue.";
+    form.reset();
+
+  }catch(error){
+    msg.textContent="❌ Submission failed. Please call 9389063550.";
+    console.error(error);
+
+  }finally{
+    button.disabled=false;
+    button.textContent="Submit Admission Enquiry";
+  }
+});
 </script>
 </body>
 </html>
