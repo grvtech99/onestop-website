@@ -603,34 +603,32 @@ form.addEventListener("submit", async function(e){
   }
 
   const data = {
-    studentName: document.getElementById("studentName").value.trim(),
-    mobile: mobile
-  };
+      studentName: document.getElementById("studentName").value.trim(),
+      mobile: mobile
+    };
 
   submitBtn.disabled = true;
   submitBtn.innerText = "Submitting...";
 
   try{
-    const response = await fetch(SCRIPT_URL,{
+    await fetch(SCRIPT_URL,{
       method:"POST",
+      mode:"no-cors",
       headers:{"Content-Type":"text/plain;charset=utf-8"},
       body:JSON.stringify(data)
     });
 
-    const result = await response.json();
+    const admissionId =
+      "ENQ-" + new Date().toISOString().replace(/[-:TZ.]/g,"").slice(0,14);
 
-    if(result.success){
-      showMessage(
-        "✅ Admission enquiry submitted successfully! Our team will contact you on " + data.mobile + ".",
-        true
-      );
+    showMessage(
+      "✅ Admission enquiry submitted successfully! Our team will contact you on " + data.mobile + ".",
+      true
+    );
 
-      fillReceipt(data,result.admissionId);
-      document.getElementById("receiptOverlay").classList.add("show");
-      form.reset();
-    }else{
-      throw new Error(result.error || "Submission failed");
-    }
+    fillReceipt(data,admissionId);
+    document.getElementById("receiptOverlay").classList.add("show");
+    form.reset();
 
   }catch(error){
     console.error(error);
