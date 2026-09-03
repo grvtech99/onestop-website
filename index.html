@@ -491,30 +491,13 @@ footer{background:#031b4c;color:#fff;padding:45px 0 20px}
 
         <form id="admissionForm">
           <div class="form-group">
-            <label for="studentName">Name *</label>
+            <label for="studentName">Student Name *</label>
             <input type="text" id="studentName" class="form-control" placeholder="Enter student name" required>
           </div>
 
           <div class="form-group">
             <label for="mobile">Mobile Number *</label>
             <input type="tel" id="mobile" class="form-control" placeholder="Enter mobile number" pattern="[0-9]{10}" maxlength="10" required>
-          </div>
-
-          <div class="form-group">
-            <label for="course">Select Course *</label>
-            <select id="course" class="form-control" required>
-              <option value="">Select Course</option>
-              <option>Computer Basics & Fundamentals</option>
-              <option>CCC – Course on Computer Concepts</option>
-              <option>DCA – Diploma in Computer Applications</option>
-              <option>ADCA – Advanced Diploma in Computer Applications</option>
-              <option>O Level</option>
-              <option>Tally Prime</option>
-              <option>Computer Hardware & Networking</option>
-              <option>DTP – Desktop Publishing</option>
-              <option>Graphic Designing</option>
-              <option>Data Entry</option>
-            </select>
           </div>
 
           <button type="submit" id="submitBtn" class="submit-btn">Submit Admission Enquiry</button>
@@ -577,13 +560,7 @@ footer{background:#031b4c;color:#fff;padding:45px 0 20px}
       <table class="receipt-table">
         <tr><td>Date</td><td id="rDate">—</td></tr>
         <tr><td>Student Name</td><td id="rStudentName">—</td></tr>
-        <tr><td>Father / Guardian</td><td id="rFatherName">—</td></tr>
-        <tr><td>Date of Birth</td><td id="rDob">—</td></tr>
         <tr><td>Mobile</td><td id="rMobile">—</td></tr>
-        <tr><td>Address</td><td id="rAddress">—</td></tr>
-        <tr><td>Course</td><td id="rCourse">—</td></tr>
-        <tr><td>Admission Fee</td><td id="rFee">—</td></tr>
-        <tr><td>Message</td><td id="rMessage">—</td></tr>
       </table>
 
       <div class="receipt-actions">
@@ -627,13 +604,7 @@ form.addEventListener("submit", async function(e){
 
   const data = {
     studentName: document.getElementById("studentName").value.trim(),
-    fatherName: document.getElementById("fatherName").value.trim(),
-    dob: document.getElementById("dob").value,
-    mobile: mobile,
-    address: document.getElementById("address").value.trim(),
-    course: document.getElementById("course").value,
-    admissionFee: document.getElementById("admissionFee").value.trim(),
-    message: document.getElementById("message").value.trim()
+    mobile: mobile
   };
 
   submitBtn.disabled = true;
@@ -685,26 +656,9 @@ function fillReceipt(data,admissionId){
   document.getElementById("rStudentName").textContent =
     data.studentName || "—";
 
-  document.getElementById("rFatherName").textContent =
-    data.fatherName || "—";
-
-  document.getElementById("rDob").textContent =
-    data.dob || "—";
-
   document.getElementById("rMobile").textContent =
     data.mobile || "—";
 
-  document.getElementById("rAddress").textContent =
-    data.address || "—";
-
-  document.getElementById("rCourse").textContent =
-    data.course || "—";
-
-  document.getElementById("rFee").textContent =
-    data.admissionFee || "—";
-
-  document.getElementById("rMessage").textContent =
-    data.message || "—";
 }
 
 function closeReceipt(){
@@ -715,15 +669,12 @@ function sendReceiptWhatsApp(){
   const id = document.getElementById("receiptAdmissionId").textContent;
   const student = document.getElementById("rStudentName").textContent;
   const mobile = document.getElementById("rMobile").textContent;
-  const course = document.getElementById("rCourse").textContent;
-
   const text =
     "ONESTOP Computer & Skill Development Center%0A" +
     "Admission Enquiry Submitted%0A%0A" +
     id + "%0A" +
     "Student: " + encodeURIComponent(student) + "%0A" +
-    "Mobile: " + encodeURIComponent(mobile) + "%0A" +
-    "Course: " + encodeURIComponent(course) + "%0A%0A" +
+    "Mobile: " + encodeURIComponent(mobile) + "%0A%0A" +
     "Please contact ONESTOP at 9389063550.";
 
   window.open("https://wa.me/?text=" + text,"_blank");
