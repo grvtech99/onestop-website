@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style id="v45-responsive-clean-layout">
+:root{
+  --blue:#0759b8;--dark:#063b78;--bg:#eef3f9;--line:#d4dfeb;--text:#172334;
+  --soft:#f7fafd;--soft2:#eef4fa;--muted:#63778d;--green:#16813d;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+body{overflow:hidden}
+header{height:56px;background:linear-gradient(135deg,var(--dark),var(--blue));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 16px}
+.brand{font-size:18px;font-weight:900;letter-spacing:.15px;white-space:nowrap}.tag{font-size:11px;font-weight:700;opacity:.95;text-align:right}
+.app{height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(400px,520px) minmax(0,1fr) minmax(270px,310px);gap:10px;padding:9px;min-width:0}
+.panel,.stage{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 14px #12345b12;min-width:0;min-height:0}
+.panel{padding:8px}.left-panel{overflow:hidden;background:linear-gradient(180deg,#fbfdff 0%,#f6f9fc 100%)}
+.right-panel{overflow-y:auto;overflow-x:hidden}.stage{display:flex;flex-direction:column;overflow:hidden}
+.tool-category-bar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:8px;min-width:0}
+.category-btn{width:100%;min-width:0;height:74px;border:1px solid #cbd9e7;border-radius:10px;background:#fff;color:#234866;padding:6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:12px;line-height:1.05;font-weight:900;cursor:pointer;overflow:hidden}
+.category-btn:hover{background:#f2f7fd;border-color:#94b7dd}.category-btn.active{background:#e8f2ff;border-color:#5f97d1;color:#0759b8;box-shadow:inset 0 0 0 1px #b9d4ef}
+.category-btn .cat-icon{font-size:27px;line-height:27px;flex:0 0 auto}.category-btn>span:last-child{width:100%;white-space:normal;overflow-wrap:anywhere;text-align:center}
+.tool-section{background:#fff;border:1px solid #d8e1eb;border-radius:10px;padding:10px;margin-bottom:8px;box-shadow:0 1px 4px rgba(20,45,75,.05);min-width:0}
+.section-head{display:flex;align-items:center;gap:8px;height:34px;margin-bottom:9px;color:#173f67;font-size:17px;font-weight:950;letter-spacing:.4px;border-bottom:1px solid #e4ebf2}
+.section-icon{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:7px;background:#e8f1fb;color:#0759b8;font-size:18px;flex:0 0 30px}
+.control-grid{display:grid;gap:8px;min-width:0}.two-col{grid-template-columns:1fr 1fr}.four-col{grid-template-columns:repeat(4,minmax(0,1fr))}
+.control-card,.compact-control,.replace-row>*, .signature-grid>div,.border-box{min-width:0}
+.control-card{background:#f8fbfe;border:1px solid #dbe5ee;border-radius:8px;padding:8px}
+label{display:block;color:#41566d;font-size:13px;font-weight:800;line-height:1.15;margin:0 0 5px}
+input,select{width:100%;height:42px;min-width:0;border:1px solid #c6d4e2;border-radius:7px;background:#fff;padding:6px 8px;font-size:14px;font-weight:700;color:#233b52}
+input:focus,select:focus{outline:none;border-color:#6ea5e8;box-shadow:0 0 0 2px #1769d21a}
+input[type=range]{height:24px;padding:0;accent-color:#1769d2;cursor:pointer}input[type=color]{padding:3px}input[type=file]{height:46px;padding:4px 6px;background:#f8fafc;font-size:12px}
+input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 9px;border:1px solid #c7d6e5;border-radius:6px;background:#eef4fa;color:#294d6e;font-weight:800}
+.custom-card{margin-top:8px}.photo-adjust-row{margin-top:8px}.photo-extra{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 125px;gap:8px;align-items:end;margin-top:8px}
+.zoom-control{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:6px;align-items:center}.zoom-control .zoom-btn{width:44px;min-width:44px;height:42px;padding:0;font-size:21px;line-height:1}
+.tool-btn{height:44px;border:1px solid transparent;border-radius:7px;background:var(--blue);color:#fff;padding:7px 12px;font-size:14px;font-weight:900;cursor:pointer;white-space:nowrap}.tool-btn:hover{transform:translateY(-1px)}.tool-btn.secondary{background:#edf3f9;color:#17456f;border-color:#cad8e5}.tool-btn.green{background:var(--green)}
+#resetPos{width:100%}#removeBg{width:100%;background:linear-gradient(180deg,#1b73db,#135db9);box-shadow:0 2px 5px #0d4e9d22}#removeBg:disabled{opacity:.65;cursor:wait;transform:none}
+.bg-action-row{display:grid;grid-template-columns:minmax(150px,1.15fr) minmax(110px,.8fr) minmax(120px,1fr);gap:8px;align-items:end}.compact-control input[type=color],.compact-control select{height:42px}
+.replace-row{display:grid;grid-template-columns:110px minmax(0,1fr);gap:8px;align-items:center;margin-top:8px}.replace-row label{margin:0}.replace-row input[type=file]{width:100%}
+.progress{height:4px;background:#e6edf5;border-radius:9px;overflow:hidden;margin-top:8px}.progress>i{display:block;height:100%;width:0;background:var(--blue);transition:width .2s}
+.hint,.bgStatus{font-size:11px;color:var(--muted);line-height:1.3}.status{font-size:11px;font-weight:800;color:#17713c;min-height:15px}
+#bgStatus{display:flex;align-items:center;min-height:34px;height:auto;padding:7px 9px;margin-top:7px;background:#f7fafc;border-left:2px solid #9ab9d9;border-radius:4px;white-space:normal;overflow:visible}
+.bg-reset-btn{width:100%;margin-top:8px;background:#f3f6f9;color:#4b6278;border-color:#cbd8e4}
+.action-row{display:flex;gap:8px;margin-top:8px}.action-row .tool-btn{flex:1}
+.border-horizontal{display:grid;grid-template-columns:1fr 1fr;gap:9px}.professional-border{background:#f7fafd;border:1px solid #d6e1eb;border-radius:8px;padding:9px}.inner-box{background:#fbfcfe}.border-title{display:flex;justify-content:space-between;align-items:center;color:#17456f;font-size:15px;font-weight:950;margin-bottom:7px}.border-title small{font-size:10px;color:#718399;font-weight:800}.border-controls{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:7px}.professional-border select{margin-top:7px}.border-hint{display:flex;align-items:center;justify-content:center;min-height:34px;font-size:10px;color:#506a83;background:#f0f5fa;border-radius:5px;padding:5px 7px;margin-top:8px;text-align:center;font-weight:800}
+.signature-grid{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(0,.85fr) minmax(0,.85fr) minmax(0,.85fr);gap:8px;align-items:end}.signature-grid>div{background:#f8fbfe;border:1px solid #dbe5ee;border-radius:8px;padding:8px}.signature-grid label{margin-bottom:5px}.clear-signature{width:100%;margin-top:8px}
+.stagebar{height:42px;min-height:42px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid var(--line);font-size:14px;font-weight:900}.stagebar .hint{font-size:10px}
+.canvasbox{position:relative;flex:1;min-width:0;min-height:0;background:#dce5ef;display:flex;align-items:center;justify-content:center;padding:10px;overflow:hidden}.canvasbox canvas{display:block;max-width:100%;max-height:100%;width:auto;height:auto;background:#fff;box-shadow:0 3px 12px #0002;touch-action:none}
+.fixed-wm{position:absolute;left:50%;bottom:17px;transform:translateX(-50%);color:rgba(7,89,184,.5);font-size:9px;font-weight:900;letter-spacing:1.15px;pointer-events:none;white-space:nowrap}
+.bottom{height:34px;min-height:34px;padding:4px 9px;border-top:1px solid var(--line);display:flex;align-items:center}.bottom .status{font-size:10px}
+.mini{border:1px solid var(--line);border-radius:9px;padding:10px;margin-bottom:8px}.mini-title{font-size:14px;font-weight:950;margin-bottom:6px}.price{font-size:20px;font-weight:900;color:#a35a00}.premium{background:#fff7df;border:1px solid #efd18a;border-radius:8px;padding:9px;font-size:11px;line-height:1.4}.lock{display:flex;align-items:center;gap:6px;background:#f4f7fb;border:1px solid #d9e3ed;border-radius:7px;padding:7px;font-size:11px;font-weight:800;color:#405b75}
+.a4-side-card{background:linear-gradient(180deg,#f8fbff,#fff);border:1px solid #cddceb;border-radius:10px;padding:11px;margin-bottom:8px;box-shadow:0 2px 8px #173b5c10}.a4-side-title{display:flex;align-items:center;gap:9px;margin-bottom:10px}.a4-side-icon{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:9px;background:#e8f2ff;color:#0759b8;font-size:20px;flex:0 0 38px}.a4-side-title b{display:block;color:#153f67;font-size:15px;line-height:1.15}.a4-side-title span:not(.a4-side-icon){display:block;color:#708297;font-size:10px;line-height:1.3;margin-top:3px}.a4-side-controls{display:flex;flex-direction:column;gap:7px}.a4-side-controls label{font-size:12px}.a4-side-controls select{height:42px;font-size:13px}.a4-side-controls #a4{height:46px;min-height:46px;width:100%;font-size:13px}.a4-side-controls .status{min-height:16px;font-size:10px}
+/* Only the active tool is shown by JS; these rules keep inactive sections safe even before JS runs. */
+.tool-section[aria-hidden="true"]{display:none}
+/* Desktop: never let a panel force the whole page wider than the viewport. */
+@media (min-width:1200px){.app{grid-template-columns:minmax(430px,540px) minmax(0,1fr) minmax(275px,315px)}}
+/* Medium desktop/tablet: one-column workspace prevents squeezed three-column layouts. */
+@media (max-width:1199px){
+  body{overflow:auto}.app{height:auto;min-height:calc(100vh - 56px);display:flex;flex-direction:column;gap:10px}.left-panel,.stage,.right-panel{width:100%;min-width:0}.left-panel{overflow:visible}.right-panel{overflow:visible}.stage{height:min(72vh,760px);min-height:520px}.canvasbox{padding:12px}
+}
+@media (min-width:769px) and (max-width:1199px){
+  .tool-category-bar{grid-template-columns:repeat(5,minmax(0,1fr))}.category-btn{height:70px}.signature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.photo-extra{grid-template-columns:1fr 1fr 125px}.four-col{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+/* Mobile: comfortable touch controls and zero horizontal overflow. */
+@media (max-width:768px){
+  header{height:auto;min-height:58px;padding:10px 12px;align-items:flex-start;flex-direction:column;gap:3px}.brand{font-size:17px;white-space:normal}.tag{text-align:left;font-size:10px}.app{width:100%;padding:7px;gap:8px;min-height:0}.panel,.stage{border-radius:10px}.left-panel{padding:7px}.tool-category-bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.category-btn{height:68px;font-size:12px}.category-btn .cat-icon{font-size:25px;line-height:25px}.tool-section{padding:9px;margin-bottom:7px}.section-head{height:34px;font-size:16px;margin-bottom:8px}.section-icon{width:29px;height:29px;font-size:17px}.two-col,.four-col{grid-template-columns:1fr}.photo-extra,.signature-grid,.border-horizontal{grid-template-columns:1fr}.bg-action-row{grid-template-columns:1fr}.replace-row{grid-template-columns:1fr;gap:5px}.replace-row label{margin-bottom:0}.action-row{flex-direction:column}.photo-extra{gap:7px}.photo-extra #resetPos{height:42px}.control-card{padding:7px}label{font-size:13px}input,select{height:42px;font-size:14px}.stage{height:68vh;min-height:430px;max-height:720px}.stagebar{height:40px;min-height:40px;font-size:13px;padding:0 9px}.canvasbox{padding:7px}.bottom{height:auto;min-height:34px;padding:6px 8px}.a4-side-card{padding:9px}.a4-side-title b{font-size:14px}.a4-side-controls #a4{height:48px;min-height:48px}.fixed-wm{bottom:14px;font-size:8px}
+}
+@media (max-width:390px){.category-btn{height:64px;font-size:11px}.category-btn .cat-icon{font-size:23px}.section-head{font-size:15px}.stage{min-height:400px}}
+
+/* V46 UI polish: keep main tool labels on one line and use the same ONESTOP blue for A4 */
+.category-btn{font-size:11px;letter-spacing:-.15px;padding:6px 2px;white-space:nowrap}
+.category-btn>span:last-child{white-space:nowrap;overflow:hidden;text-overflow:clip;overflow-wrap:normal}
+.category-btn .cat-icon{font-size:26px;line-height:26px}
+
+.a4-side-controls #a4{background:var(--blue)!important;color:#fff!important;border-color:var(--blue)!important;font-weight:900!important;box-shadow:0 2px 5px #0d4e9d22}
+.a4-side-controls #a4:hover{background:#0a67c9!important;border-color:#0a67c9!important}
+@media (max-width:768px){.category-btn{font-size:12px;letter-spacing:0;padding-left:3px;padding-right:3px}.category-btn .cat-icon{font-size:25px;line-height:25px}}
+@media (max-width:390px){.category-btn{font-size:11px;letter-spacing:-.1px}}</style>
+<title>FREE PASSPORT PHOTO MAKER</title>
+<meta name="description" content="FREE PASSPORT PHOTO MAKER — Professional passport photo editing and exact-size A4 photo sheet tool by Gaurav Yadav.">
+<meta name="copyright" content="ONESTOP DIGITAL SOLUTIONS - All rights reserved.">
+
+<style id="v52-free-premium-details">
+.premium-feature-card{
+  margin-top:8px;padding:10px;border:1px solid #d9c27a;border-radius:9px;
+  background:linear-gradient(180deg,#fffaf0,#fff7df);
+}
+.premium-feature-title{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  color:#7b4a00;font-size:12px;font-weight:950;line-height:1.25;
+}
+.premium-feature-title span{
+  flex:0 0 auto;padding:3px 6px;border-radius:999px;background:#173f67;
+  color:#fff;font-size:8px;font-weight:900;letter-spacing:.3px;
+}
+.premium-feature-desc{
+  margin-top:5px;color:#6a5a3c;font-size:10px;font-weight:700;line-height:1.35;
+}
+.premium-cta{
+  width:100%;margin-top:7px;height:38px;font-size:12px;
+}
+.upgrade-modal-backdrop{
+  position:fixed;inset:0;z-index:100000;background:#071d35aa;
+  display:flex;align-items:center;justify-content:center;padding:18px;
+}
+.upgrade-modal{
+  width:min(430px,94vw);background:#fff;border:1px solid #c8d9e9;
+  border-radius:14px;box-shadow:0 16px 50px #00182f55;padding:20px;
+}
+.upgrade-modal h3{margin:0 0 7px;color:#123f69;font-size:20px}
+.upgrade-modal p{margin:7px 0;color:#50677e;font-size:13px;line-height:1.45}
+.upgrade-list{
+  margin:12px 0;padding:10px 12px;background:#f4f8fc;border-radius:8px;
+  color:#274965;font-size:12px;font-weight:800;line-height:1.6;
+}
+.upgrade-wa{
+  display:block;width:100%;margin-top:12px;text-align:center;padding:11px;
+  border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;
+  font-size:14px;font-weight:900;
+}
+.upgrade-close{
+  width:100%;margin-top:8px;height:40px;border:1px solid #c9d7e4;
+  border-radius:8px;background:#eef4fa;color:#294d6e;font-weight:900;cursor:pointer;
+}
+</style>
+
+<style id="v52-photo-custom-size-highlight">
+.photo-size-premium-card{margin-top:8px}
+.photo-size-premium-card .premium-feature-title{font-size:11px}
+.photo-size-premium-card .premium-feature-desc{font-size:10px}
+</style>
+
+<style id="v52-a4-plan-comparison">
+.a4-plan-comparison{
+  margin-top:10px;padding:10px;border:1px solid #d9c27a;border-radius:9px;
+  background:linear-gradient(180deg,#fffaf0,#fff7df);
+}
+.a4-plan-comparison .plan-title{
+  color:#7b4a00;font-size:12px;font-weight:950;margin-bottom:7px;
+  text-align:center;letter-spacing:.1px;
+}
+.a4-plan-comparison .plan-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:7px;
+}
+.a4-plan-comparison .plan-row>div{
+  border-radius:7px;padding:8px;display:flex;flex-direction:column;gap:4px;
+  font-size:9.5px;line-height:1.25;font-weight:750;
+}
+.a4-plan-comparison .plan-free{
+  background:#f3f7fb;border:1px solid #cbdbea;color:#34536d;
+}
+.a4-plan-comparison .plan-premium{
+  background:#fff3cf;border:1px solid #e1c56c;color:#714900;
+}
+.a4-plan-comparison .plan-row b{
+  font-size:11px;margin-bottom:1px;
+}
+.a4-plan-comparison .a4-premium-cta{
+  width:100%;height:38px;margin-top:8px;font-size:11px;
+}
+@media(max-width:390px){
+  .a4-plan-comparison .plan-row{grid-template-columns:1fr}
+}
+</style>
+
+<style id="v52-professional-copyright">
+.developer-credit{margin-top:8px}
+.developer-credit .hint{line-height:1.5}
+.professional-footer{
+  width:100%;padding:8px 14px 10px;text-align:center;
+  color:#5b7187;font-size:9px;font-weight:700;line-height:1.45;
+  border-top:1px solid #d7e2ed;background:#f7fafc;
+}
+.professional-footer .app-title{
+  color:#174b7a;font-size:10px;font-weight:950;letter-spacing:.2px;
+}
+.professional-footer .copyright{
+  color:#52697f;
+}
+.professional-footer .developer{
+  color:#174b7a;font-weight:900;
+}
+@media(max-width:768px){
+  .professional-footer{font-size:8.5px;padding:7px 8px 9px}
+  .professional-footer .app-title{font-size:9.5px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">FREE PASSPORT PHOTO MAKER</div>
+  <div class="tag">Passport Photo • Signature • A4 Studio • Fast</div>
+</header>
+
+<div class="app">
+<aside class="panel left-panel">
+  <div class="tool-category-bar" role="tablist" aria-label="Editing tools">
+  <button class="category-btn active" data-tool-tab="photo" role="tab" aria-selected="true"><span class="cat-icon">▣</span><span>PHOTO</span></button>
+  <button class="category-btn" data-tool-tab="background" role="tab" aria-selected="false"><span class="cat-icon">◈</span><span>BACKGROUND</span></button>
+  <button class="category-btn" data-tool-tab="adjustment" role="tab" aria-selected="false"><span class="cat-icon">☼</span><span>ADJUSTMENT</span></button>
+  <button class="category-btn" data-tool-tab="border" role="tab" aria-selected="false"><span class="cat-icon">▤</span><span>BORDER</span></button>
+  <button class="category-btn" data-tool-tab="signature" role="tab" aria-selected="false"><span class="cat-icon">✎</span><span>SIGNATURE</span></button>
+</div>
+
+<div class="tool-section photo-section">
+    <div class="section-head"><span class="section-icon">▣</span><span>PHOTO</span></div>
+    <div class="control-grid two-col">
+      <div class="control-card"><label>Upload Photo</label><input id="photo" type="file" accept="image/*"></div>
+      <div class="control-card"><label>Photo Size</label><select id="size">
+        <option value="35,45">35 × 45 mm</option>
+        
+      </select></div>
+      <div class="premium-feature-card photo-size-premium-card" data-premium="Custom Photo Sizes">
+        <div class="premium-feature-title">🔒 CUSTOM PHOTO SIZES <span>PREMIUM</span></div>
+        <div class="premium-feature-desc">Choose passport, visa, ID and other custom photo dimensions in Premium.</div>
+        <button type="button" class="tool-btn premium-cta" data-feature="Custom Photo Sizes">Upgrade to Premium</button>
+      </div>
+    </div>
+    <div id="customBox" style="display:none" class="control-card custom-card"><div class="control-grid two-col"><div><label>W mm</label><input id="cw" type="number" min="5" value="35"></div><div><label>H mm</label><input id="ch" type="number" min="5" value="45"></div></div></div>
+    <div class="control-grid two-col photo-adjust-row">
+      <div class="control-card"><label>Zoom</label><div class="zoom-control"><button type="button" id="zoomOut" class="tool-btn secondary zoom-btn">−</button><input id="zoom" type="range" min=".5" max="3" step=".01" value="1"><button type="button" id="zoomIn" class="tool-btn secondary zoom-btn">+</button></div></div>
+      <div class="control-card"><label>Horizontal</label><input id="px" type="range" min="-300" max="300" value="0"></div>
+    </div>
+    <div class="photo-extra">
+      <div><label>Vertical</label><input id="py" type="range" min="-300" max="300" value="0"></div>
+      <div><label>Rotate</label><select id="rotate"><option value="0">0°</option><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select></div>
+      <button id="resetPos" class="tool-btn secondary">↺ Reset</button>
+    </div>
+  </div>
+
+  <div class="tool-section background-section">
+    <div class="section-head"><span class="section-icon">◈</span><span>BACKGROUND</span></div>
+    <div class="bg-action-row">
+      <div class="premium-feature-card" data-premium="AI Background Removal">
+      <div class="premium-feature-title">🔒 AI BACKGROUND REMOVAL <span>PREMIUM</span></div>
+      <div class="premium-feature-desc">Automatically remove the photo background for a clean professional passport photo.</div>
+      <button type="button" class="tool-btn premium-cta" data-feature="AI Background Removal">Upgrade to Premium</button>
+    </div>
+      <div class="compact-control"><label>Background Colour</label><input id="bg" type="color" value="#ffffff"></div>
+      <div class="compact-control"><label>Preset</label><select id="bgPreset"><option value="#ffffff">White</option><option value="#eeeeee">Gray</option><option value="#eaf4ff">Blue</option></select></div>
+    </div>
+    <div class="premium-feature-card" data-premium="Background Replacement">
+      <div class="premium-feature-title">🔒 BACKGROUND REPLACEMENT <span>PREMIUM</span></div>
+      <div class="premium-feature-desc">Use a custom background image behind the subject.</div>
+      <button type="button" class="tool-btn premium-cta" data-feature="Background Replacement">Upgrade to Premium</button>
+    </div>
+    <div class="progress"><i id="bgProgress"></i></div><div id="bgStatus" class="hint">AI remover ready • fast browser processing.</div>
+    <button id="resetBg" type="button" class="tool-btn secondary bg-reset-btn">↺ Reset Background</button>
+  </div>
+
+  <div class="tool-section adjustment-section">
+    <div class="section-head"><span class="section-icon">☼</span><span>PHOTO ADJUSTMENT</span></div>
+    <div class="control-grid">
+      <div><label>Brightness</label><input id="bright" type="range" min="-100" max="100" value="0"></div>
+    </div>
+    <div class="premium-feature-card" data-premium="Advanced Photo Adjustments">
+      <div class="premium-feature-title">🔒 ADVANCED ADJUSTMENTS <span>PREMIUM</span></div>
+      <div class="premium-feature-desc">Contrast, saturation, warmth and one-tap Auto Adjust.</div>
+      <button type="button" class="tool-btn premium-cta" data-feature="Advanced Photo Adjustments">Upgrade to Premium</button>
+    </div>
+  </div>
+
+  <div class="tool-section border-section">
+    <div class="section-head"><span class="section-icon">▤</span><span>BORDER SETTINGS</span></div>
+    <div class="border-horizontal">
+      <div class="border-box professional-border">
+        <div class="border-title"><span>OUTER</span><small>CUT GUIDE</small></div>
+        <div class="border-controls"><div><label>Colour</label><input id="border" type="color" value="#000000"></div><div><label>Thickness (pt)</label><input id="bt" type="number" min="0" max="12" step="0.5" value="1.5" inputmode="decimal"></div></div>
+        <select id="bs"><option>Solid</option><option>Dashed</option><option>Double</option></select>
+      </div>
+      <div class="premium-feature-card" data-premium="Inner Border / Outline">
+      <div class="premium-feature-title">🔒 INNER BORDER / OUTLINE <span>PREMIUM</span></div>
+      <div class="premium-feature-desc">Add a professional inner image boundary with adjustable inset and style.</div>
+      <button type="button" class="tool-btn premium-cta" data-feature="Inner Border / Outline">Upgrade to Premium</button>
+    </div>
+  </div>
+    <div class="border-hint">PHOTO STAYS INSIDE INNER BORDER • OUTER BORDER = CUT GUIDE</div>
+  </div>
+
+  <div class="tool-section signature-section">
+    <div class="section-head"><span class="section-icon">✎</span><span>SIGNATURE EDIT</span></div>
+    <div class="premium-feature-card" data-premium="Signature Editor">
+      <div class="premium-feature-title">🔒 SIGNATURE EDITOR <span>PREMIUM</span></div>
+      <div class="premium-feature-desc">Upload, resize and precisely position your signature on the photo.</div>
+      <button type="button" class="tool-btn premium-cta" data-feature="Signature Editor">Upgrade to Premium</button>
+    </div>
+  </div>
+</aside>
+
+<main class="stage">
+  <div class="stagebar"><span>LIVE PREVIEW</span><span id="dim" class="hint">35 × 45 mm</span></div>
+  <div class="canvasbox"><canvas id="cv"></canvas><div class="fixed-wm">ONESTOP DIGITAL SOLUTIONS</div></div>
+  <div class="bottom"><span id="status" class="status">Upload a photo to begin.</span></div>
+</main>
+
+<aside class="panel right-panel">
+  <div class="a4-side-card">
+    <div class="a4-side-title"><span class="a4-side-icon">🖨️</span><div><b>A4 PHOTO SHEET</b><span>Exact-size 300 DPI • Zero outer margin</span></div></div>
+    <div class="a4-side-controls">
+      <label for="qty">Number of Photos</label>
+      <select id="qty"><option value="6">6 Photos</option></select>
+      <button id="a4" class="green">Generate &amp; Download A4</button>
+      <span id="a4Status" class="status"></span>
+      <div class="a4-plan-comparison">
+        <div class="plan-title">📄 FREE vs PREMIUM A4</div>
+        <div class="plan-row">
+          <div class="plan-free">
+            <b>FREE</b>
+            <span>✓ 6 Photos / A4</span>
+            <span>✓ 35 × 45 mm</span>
+            <span>✓ ONESTOP Watermark</span>
+          </div>
+          <div class="plan-premium">
+            <b>🔒 PREMIUM</b>
+            <span>✓ 12 / 18 / 36 Photos</span>
+            <span>✓ Custom Photo Sizes</span>
+            <span>✓ Watermark-Free Output</span>
+          </div>
+        </div>
+        <button type="button" class="tool-btn premium-cta a4-premium-cta"
+                data-feature="Premium A4 Sheets">🔒 Unlock Premium A4</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-title">⭐ PREMIUM MEMBERSHIP</div>
+    <div class="premium"><span class="price">₹499 / MONTH</span><br><b>REMOVE WATERMARK</b><br>Premium membership removes the ONESTOP watermark and unlocks premium A4 sheets.<br><br><b>Contact ONESTOP DIGITAL SOLUTIONS on WhatsApp:</b><br><span style="font-size:13px;font-weight:900">📱 9389063550</span><br><span class="hint">Message on WhatsApp to get Premium.</span></div>
+  </div>
+  <div class="mini developer-credit">
+    <div class="mini-title">© COPYRIGHT &amp; DEVELOPMENT</div>
+    <div class="hint">
+      <b>FREE PASSPORT PHOTO MAKER</b><br>
+      © 2026 Gaurav Yadav. All Rights Reserved.<br>
+      <span>Developed &amp; Designed by <b>Gaurav Yadav</b></span><br>
+      <span>Product &amp; Brand: <b>ONESTOP DIGITAL SOLUTIONS</b></span>
+    </div>
+  </div>
+<div class="hint" style="text-align:center">ONESTOP · Firozabad · 9389063550</div>
+</aside>
+</div>
+
+<script id="onestop-local-runtime">
+/* ONESTOP HOSTING MODE
+   Standalone HTML version: no Google Apps Script dependency.
+   Kept as a no-op compatibility layer so existing action hooks never fail. */
+(function(){
+  'use strict';
+  window.ONESTOP_SERVER={ready:true,session:null,version:'V52',name:'FREE PASSPORT PHOTO MAKER',watermark:'ONESTOP DIGITAL SOLUTIONS',localOnly:true};
+  window.onestopServerInit=function(){};
+  window.onestopRecordAction=function(){ /* Local browser mode: no server call required. */ };
+})();
+</script>
+<script>
+const $=id=>document.getElementById(id);
+const cv=$('cv'),ctx=cv.getContext('2d');
+let photo=null,originalPhoto=null,bgImage=null,bgColor='#ffffff',dx=0,dy=0,drag=false,lastX=0,lastY=0;
+function dims(){
+  return [35,45];
+}
+function resizeCanvas(){
+  const [w,h]=dims();
+  cv.width=Math.round(w/25.4*300);cv.height=Math.round(h/25.4*300);
+  $('dim').textContent=w+' × '+h+' mm';
+  draw();
+}
+function loadImage(file,cb){
+  if(!file)return;
+  const r=new FileReader();
+  r.onload=e=>{const im=new Image();im.onload=()=>cb(im);im.src=e.target.result};
+  r.readAsDataURL(file);
+}
+function filterString(){
+  return `brightness(${100 + +$('bright').value}%)`;
+}
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.fillStyle=bgColor;
+  ctx.fillRect(0,0,cv.width,cv.height);
+  if(bgImage) ctx.drawImage(bgImage,0,0,cv.width,cv.height);
+  if(photo){
+    const rot=+$('rotate').value*Math.PI/180;
+    const scale=Math.max(cv.width/photo.width,cv.height/photo.height)*+$('zoom').value;
+    const w=photo.width*scale,h=photo.height*scale;
+    ctx.save();
+    ctx.translate(cv.width/2+dx,cv.height/2+dy);
+    ctx.rotate(rot);
+    ctx.filter=filterString();
+    ctx.drawImage(photo,-w/2,-h/2,w,h);
+    ctx.restore();
+    ctx.filter='none';
+  }
+  const t=+$('bt').value*300/72;
+  if(t){
+    ctx.strokeStyle=$('border').value;
+    ctx.lineWidth=t;
+    if($('bs').value==='Dashed')ctx.setLineDash([9,6]);
+    ctx.strokeRect(t,t,cv.width-2*t,cv.height-2*t);
+    ctx.setLineDash([]);
+    if($('bs').value==='Double'){
+      ctx.lineWidth=Math.max(1,t/2);
+      ctx.strokeRect(t*4,t*4,cv.width-t*8,cv.height-t*8);
+    }
+  }
+}
+$('photo').onchange=e=>{
+  onestopRecordAction('photo_upload');
+  loadImage(e.target.files[0],im=>{
+    photo=im;originalPhoto=im;bgImage=null;bgColor='#ffffff';
+    $('bg').value='#ffffff';$('bgPreset').value='#ffffff';
+    dx=dy=0;$('px').value=$('py').value=0;
+    draw();
+    $('status').textContent='Photo loaded ✓';
+    $('bgStatus').textContent='Free version • Basic background colours available.';
+  });
+};
+$('bgPreset').onchange=e=>{$('bg').value=e.target.value;bgColor=e.target.value;bgImage=null;draw()};
+$('bg').oninput=e=>{bgColor=e.target.value;bgImage=null;draw()};
+
+['zoom','rotate','bright','bt','bs','border'].forEach(id=>{
+  const el=$(id); if(!el)return;
+  el.addEventListener('input',draw);
+  el.addEventListener('change',draw);
+});
+$('px').addEventListener('input',e=>{dx=+e.target.value;draw()});
+$('py').addEventListener('input',e=>{dy=+e.target.value;draw()});
+$('zoomOut').onclick=()=>{$('zoom').value=Math.max(.5,(+$('zoom').value-.1)).toFixed(2);$('zoom').dispatchEvent(new Event('input'))};
+$('zoomIn').onclick=()=>{$('zoom').value=Math.min(3,(+$('zoom').value+.1)).toFixed(2);$('zoom').dispatchEvent(new Event('input'))};
+$('resetPos').onclick=()=>{dx=dy=0;$('px').value=$('py').value=0;$('zoom').value=1;$('rotate').value=0;draw()};
+$('resetBg').onclick=()=>{
+  if(originalPhoto){photo=originalPhoto}
+  bgImage=null;bgColor='#ffffff';$('bg').value='#ffffff';$('bgPreset').value='#ffffff';
+  $('bgProgress').style.width='0%';$('bgStatus').textContent='Background reset to white ✓';
+  draw();$('status').textContent='Background reset ✓';
+};
+function downloadCanvas(c,name){const a=document.createElement('a');a.download=name;a.href=c.toDataURL('image/png');a.click()}
+
+$('a4').onclick=()=>{
+  if(!photo){alert('Upload a photo first.');return}
+  const [wmm,hmm]=dims(),n=6,dpi=300;
+  const aw=Math.round(210/25.4*dpi),ah=Math.round(297/25.4*dpi);
+  const pw=Math.round(wmm/25.4*dpi),ph=Math.round(hmm/25.4*dpi);
+  const sheet=document.createElement('canvas');sheet.width=aw;sheet.height=ah;
+  const q=sheet.getContext('2d');q.fillStyle='#fff';q.fillRect(0,0,aw,ah);
+  for(let i=0;i<n;i++){
+    const col=i%6,row=Math.floor(i/6),x=col*pw,y=row*ph;
+    q.fillStyle=bgColor;q.fillRect(x,y,pw,ph);
+    if(bgImage)q.drawImage(bgImage,x,y,pw,ph);
+    const rot=+$('rotate').value*Math.PI/180;
+    const scale=Math.max(pw/photo.width,ph/photo.height)*+$('zoom').value;
+    const dw=photo.width*scale,dh=photo.height*scale;
+    q.save();q.translate(x+pw/2+dx*pw/cv.width,y+ph/2+dy*ph/cv.height);q.rotate(rot);
+    q.filter=filterString();q.drawImage(photo,-dw/2,-dh/2,dw,dh);q.restore();q.filter='none';
+    const t=+$('bt').value*300/72;
+    if(t){q.strokeStyle=$('border').value;q.lineWidth=t;if($('bs').value==='Dashed')q.setLineDash([9,6]);q.strokeRect(x+t,y+t,pw-2*t,ph-2*t);q.setLineDash([]);if($('bs').value==='Double'){q.lineWidth=Math.max(1,t/2);q.strokeRect(x+t*4,y+t*4,pw-t*8,ph-t*8)}}
+    q.save();q.globalAlpha=.5;q.fillStyle='#0759b8';q.font='bold 12px Arial';q.textAlign='center';q.fillText('ONESTOP DIGITAL SOLUTIONS',x+pw/2,y+ph-12);q.restore();
+  }
+  downloadCanvas(sheet,'ONESTOP-A4-35x45mm-6-Photos.png');
+  $('a4Status').textContent='A4 ready ✓ 6 photos • Free Version';
+};
+resizeCanvas();
+
+cv.onpointerdown=e=>{if(!photo)return;drag=true;lastX=e.clientX;lastY=e.clientY;cv.setPointerCapture(e.pointerId)};
+cv.onpointermove=e=>{if(!drag)return;dx=Math.max(-cv.width,Math.min(cv.width,dx+(e.clientX-lastX)*1.2));dy=Math.max(-cv.height,Math.min(cv.height,dy+(e.clientY-lastY)*1.2));$('px').value=dx;$('py').value=dy;lastX=e.clientX;lastY=e.clientY;draw()};
+cv.onpointerup=()=>drag=false;cv.onpointercancel=()=>drag=false;
+
+
+
+// V23 tabbed tool navigation — keep only the selected editor open.
+(function(){
+  const tabs=document.querySelectorAll('[data-tool-tab]');
+  const sections={
+    photo:document.querySelector('.photo-section'),
+    background:document.querySelector('.background-section'),
+    adjustment:document.querySelector('.adjustment-section'),
+    border:document.querySelector('.border-section'),
+    signature:document.querySelector('.signature-section')
+  };
+  function activate(name){
+    tabs.forEach(btn=>{
+      const on=btn.dataset.toolTab===name;
+      btn.classList.toggle('active',on);
+      btn.setAttribute('aria-selected',on?'true':'false');
+    });
+    Object.entries(sections).forEach(([key,el])=>{
+      if(!el)return;
+      const show=key===name;
+      el.classList.toggle('tab-hidden',!show);
+      // Explicit display state prevents older responsive CSS from hiding SIGNATURE.
+      el.style.display=show?'block':'none';
+      el.setAttribute('aria-hidden',show?'false':'true');
+    });
+  }
+  tabs.forEach(btn=>btn.addEventListener('click',()=>activate(btn.dataset.toolTab)));
+  activate('photo');
+})();
+</script>
+
+<div aria-hidden="true" style="position:fixed;left:8px;bottom:3px;z-index:9999;font:700 8px Arial,sans-serif;letter-spacing:.25px;color:rgba(7,89,184,.45);pointer-events:none">© 2026 Gaurav Yadav • FREE PASSPORT PHOTO MAKER • ONESTOP DIGITAL SOLUTIONS</div>
+
+
+<script id="v52-free-upgrade-ui">
+(function(){
+  'use strict';
+  function showUpgrade(feature){
+    var old=document.querySelector('.upgrade-modal-backdrop');
+    if(old) old.remove();
+    var b=document.createElement('div');
+    b.className='upgrade-modal-backdrop';
+    b.innerHTML='<div class="upgrade-modal" role="dialog" aria-modal="true">'+
+      '<h3>🔒 '+feature+' is Premium</h3>'+
+      '<p>This feature is available only in ONESTOP Premium Membership.</p>'+
+      '<div class="upgrade-list">'+
+      '✓ AI Background Removal<br>'+
+      '✓ Custom Photo Sizes<br>'+
+      '✓ Advanced Photo Adjustments<br>'+
+      '✓ Background Replacement<br>'+
+      '✓ Signature Editor<br>'+
+      '✓ Inner Border / Outline<br>'+
+      '✓ 12 / 18 / 36 Photo A4 Sheets<br>'+
+      '✓ Watermark-free output</div>'+
+      '<div style="text-align:center;margin-top:6px;font-size:16px;font-weight:950;color:#a35a00">₹499 / MONTH</div>'+
+      '<a class="upgrade-wa" href="https://wa.me/919389063550?text=Hello%20ONESTOP%2C%20I%20want%20Premium%20Passport%20Photo%20Maker" target="_blank" rel="noopener">💬 Get Premium on WhatsApp</a>'+
+      '<button class="upgrade-close" type="button">Close</button>'+
+      '</div>';
+    document.body.appendChild(b);
+    b.querySelector('.upgrade-close').onclick=function(){b.remove()};
+    b.addEventListener('click',function(e){if(e.target===b)b.remove()});
+  }
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('.premium-cta');
+    if(c){e.preventDefault();showUpgrade(c.getAttribute('data-feature')||'Premium Tool')}
+  });
+})();
+</script>
+
+<footer class="professional-footer">
+  <div class="app-title">FREE PASSPORT PHOTO MAKER</div>
+  <div class="copyright">© 2026 Gaurav Yadav. All Rights Reserved.</div>
+  <div>Developed &amp; Designed by <span class="developer">Gaurav Yadav</span> • ONESTOP DIGITAL SOLUTIONS</div>
+  <div>Unauthorized copying, reproduction, modification, redistribution, or commercial use of this application or its source code is prohibited.</div>
+</footer>
+</body>
+</html>
