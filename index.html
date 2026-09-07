@@ -159,41 +159,7 @@ footer{background:#031b4c;color:#fff;padding:45px 0 20px}
 }
 
 
-/* =========================
-   FREE TOOLS FOR CSC MENU
-   Keep all future public/free tools in FREE_CSC_TOOLS below.
-========================= */
-.free-tools-wrap{position:relative;display:flex;align-items:center}
-.free-tools-btn{
-  border:0;background:transparent;color:#223354;font-weight:700;font-size:14px;
-  padding:8px 0;cursor:pointer;display:flex;align-items:center;gap:5px
-}
-.free-tools-btn:hover{color:var(--blue)}
-.free-tools-arrow{font-size:12px;transition:transform .18s}
-.free-tools-wrap.open .free-tools-arrow{transform:rotate(180deg)}
-.free-tools-menu{
-  display:none;position:absolute;right:0;top:calc(100% + 10px);width:310px;
-  background:#fff;border:1px solid var(--border);border-radius:14px;
-  box-shadow:0 16px 40px rgba(20,33,61,.16);padding:8px;z-index:1100
-}
-.free-tools-wrap.open .free-tools-menu{display:block}
-.free-tool-item{
-  display:flex;align-items:center;gap:11px;width:100%;padding:12px;
-  border-radius:10px;color:var(--text);font-weight:700
-}
-.free-tool-item:hover{background:#eef5ff;color:var(--blue)}
-.free-tool-icon{width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-  border-radius:9px;background:#eaf3ff;font-size:19px;flex:0 0 34px}
-.free-tool-copy{display:flex;flex-direction:column;min-width:0}
-.free-tool-name{font-size:14px;line-height:1.25}
-.free-tool-desc{font-size:11px;color:var(--muted);font-weight:500;margin-top:2px}
-.free-tools-empty{padding:12px;color:var(--muted);font-size:13px}
-@media(max-width:850px){
-  .free-tools-wrap{width:100%;display:block}
-  .free-tools-btn{width:100%;justify-content:space-between;padding:10px 0}
-  .free-tools-menu{position:static;width:100%;margin-top:4px;box-shadow:none;border-radius:10px}
-  .free-tools-wrap.open .free-tools-menu{display:block}
-}
+
 
 /* Receipt */
 .receipt-overlay{
@@ -287,6 +253,12 @@ footer{background:#031b4c;color:#fff;padding:45px 0 20px}
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1083654273012557" crossorigin="anonymous"></script>
 </head>
 <body>
+  <!-- LEFT SIDE QUICK ACCESS -->
+  <div class="left-quick-access" aria-label="Quick access">
+    <a class="left-quick-btn tools" href="free-tools.html" title="Free Tools For CSC"><span class="left-quick-icon">🧰</span><span>Free Tools For CSC</span></a>
+    <a class="left-quick-btn games" href="free-online-games.html" title="Free Online Games"><span class="left-quick-icon">🎮</span><span>Free Online Games</span></a>
+  </div>
+
 
   <!-- LEFT SIDE QUICK ACCESS: stays outside the top header -->
   <div class="left-quick-access" aria-label="Quick access">
@@ -311,18 +283,7 @@ footer{background:#031b4c;color:#fff;padding:45px 0 20px}
       <a href="#notices">Notices</a>
       <a href="#gallery">Gallery</a>
       <a href="#contact">Contact</a>
-
-      <!-- All public CSC/free tools live only inside this menu. -->
-      <div class="free-tools-wrap">
-        <button type="button" class="free-tools-btn" id="freeToolsBtn"
-                aria-haspopup="true" aria-expanded="false"
-                onclick="toggleFreeTools(event)">
-          🧰 Free Tools For CSC <span class="free-tools-arrow">▾</span>
-        </button>
-        <div class="free-tools-menu" id="freeToolsMenu" role="menu" aria-label="Free Tools For CSC"></div>
-      </div>
-
-      <a href="https://script.google.com/macros/s/AKfycbwstipCa7XzhFdsMaNczkzEiK_kqAtxj9SZdGDvQqvhT2yBGCmItlQaa1HjrNFpga-rdg/exec" target="_blank" class="admin-nav" rel="noopener">🔐 Admin</a>
+<a href="https://script.google.com/macros/s/AKfycbwstipCa7XzhFdsMaNczkzEiK_kqAtxj9SZdGDvQqvhT2yBGCmItlQaa1HjrNFpga-rdg/exec" target="_blank" class="admin-nav" rel="noopener">🔐 Admin</a>
     </nav>
   </div>
 </header>
