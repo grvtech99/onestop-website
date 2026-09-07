@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Tools For CSC | ONESTOP</title>
+<style>
+:root{--blue:#0757c9;--dark:#06265f;--light:#f5f9ff;--text:#14213d;--muted:#60708d;--border:#e2eafa}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text)}
+header{background:linear-gradient(135deg,#031d50,#0757c9);color:#fff;padding:30px 20px}
+.container{max-width:1100px;margin:auto;padding:0 20px}
+.back{display:inline-block;color:#fff;text-decoration:none;font-weight:800;margin-bottom:20px}
+h1{margin:0;font-size:clamp(30px,5vw,48px)}header p{margin:8px 0 0;color:#dceaff}
+section{padding:45px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 8px 25px rgba(20,33,61,.07);transition:.2s}
+.card:hover{transform:translateY(-4px)}.icon{font-size:40px}.card h2{font-size:19px;color:var(--dark);margin:12px 0 6px}.card p{color:var(--muted);font-size:14px}
+.open{display:inline-block;margin-top:12px;background:var(--blue);color:#fff;text-decoration:none;padding:10px 14px;border-radius:9px;font-weight:800}
+.empty{background:#fff;padding:25px;border-radius:16px;color:var(--muted)}
+@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="container">
+<a class="back" href="index.html">← Back to ONESTOP</a>
+<h1>🧰 Free Tools For CSC</h1>
+<p>Free online tools for CSC, cyber cafe and everyday digital work.</p>
+</div>
+</header>
+<section>
+<div class="container">
+<div class="grid" id="toolsGrid"></div>
+</div>
+</section>
+<script>
+/* =========================================================
+   FUTURE FREE CSC TOOLS
+   Add new tools ONLY inside this array.
+   Example:
+   {name:"Tool Name",icon:"🛠️",description:"What it does",url:"tool.html"}
+   ========================================================= */
+const FREE_TOOLS = [
+  {
+    name:"Free Passport Photo Maker",
+    icon:"📸",
+    description:"Passport photos, signatures and A4 photo sheets.",
+    url:"onestop-free-passport-photo-maker.html"
+  },
+  {
+    name:"Fast Document Print — Free",
+    icon:"🖨️",
+    description:"Aadhaar front + back, 1-side and A4 document printing.",
+    url:"onestop-fast-document-print-free-premium.html"
+  }
+];
+
+const grid=document.getElementById("toolsGrid");
+if(!FREE_TOOLS.length){
+  grid.innerHTML='<div class="empty">More free tools coming soon.</div>';
+}else{
+  FREE_TOOLS.forEach(tool=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=
+      '<div class="icon">'+escapeHtml(tool.icon||"🧰")+'</div>'+
+      '<h2>'+escapeHtml(tool.name||"Free Tool")+'</h2>'+
+      '<p>'+escapeHtml(tool.description||"Free online tool.")+'</p>'+
+      '<a class="open" href="'+escapeAttr(tool.url||"#")+'" target="_blank" rel="noopener">Open Tool →</a>';
+    grid.appendChild(card);
+  });
+}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function escapeAttr(v){return escapeHtml(v);}
+</script>
+</body>
+</html>
