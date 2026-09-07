@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP Aadhaar Fast Document Print — Free Version</title>
+<style>
+:root{--blue:#0b63ce;--dark:#102033;--bg:#eef3f8;--line:#d7e0ea}
+*{box-sizing:border-box}html,body{height:100%;overflow:hidden}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark)}
+header{height:68px;background:linear-gradient(135deg,#0757b8,#1591ff);color:#fff;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;gap:14px;overflow:hidden}
+header h1{font-size:20px;margin:0}
+.header-left{min-width:0}.header-right{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:0}
+.header-copyright{font-size:8.5px;line-height:1.2;text-align:right;color:#fff;max-width:430px;white-space:nowrap}.header-copyright strong{font-weight:700}.header-copyright .brand{font-weight:700}
+.app{display:grid;grid-template-columns:320px 1fr;height:calc(100vh - 68px);min-height:0}
+aside{background:#fff;border-right:1px solid var(--line);padding:9px;overflow:hidden;min-height:0}
+main{padding:10px;min-width:0;min-height:0}
+.section{background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px}
+.section h3{margin:0 0 7px;font-size:13px}
+button,input{font:inherit}button{border:1px solid #cbd7e4;background:#fff;border-radius:7px;padding:7px 8px;cursor:pointer}
+button:hover{border-color:#9bb9da;background:#f7fbff} .primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.premium-feature{width:100%;display:flex;align-items:center;justify-content:space-between;gap:6px;padding:7px 8px;margin:0;border-radius:7px;background:#f8fafc;color:#344054;border-color:#d0d5dd;cursor:not-allowed;font-size:10px;font-weight:700}
+.premium-feature:disabled{opacity:1;background:#f8fafc;color:#344054}
+.premium-tag{display:inline-block;background:#111827;color:#fff;border-radius:10px;padding:2px 6px;font-size:8px;letter-spacing:.3px}
+.premium-price{font-size:9px;color:#0757b8;font-weight:700;text-align:right;margin:-2px 0 5px}
+label{font-size:10px;color:#526273;display:block;margin:5px 0 2px}
+input[type=file]{width:100%;font-size:10px}
+.status{font-size:10px;color:#5b6b7c;margin-top:5px}
+.tools-section{padding:9px}
+.tools-section h3{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.tool-icon{font-size:13px;line-height:1}
+.adjust-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px 8px}
+.adjust{min-width:0}.adjust label{display:flex;justify-content:space-between;align-items:center;gap:4px;margin:0 0 1px}
+.adjust output{font-size:9px;color:#0757b8;font-weight:700;min-width:30px;text-align:right}
+input[type=range]{width:100%;height:12px;margin:0;accent-color:var(--blue)}
+.item{cursor:grab;user-select:none;overflow:hidden}
+.item.dragging{cursor:grabbing}
+.pan-hint{font-size:9px;color:#6b7a89;margin:5px 0 0;line-height:1.25}
+.upload-buttons{display:grid;grid-template-columns:1fr;gap:5px;margin-top:6px}
+.upload-mode{width:100%;font-weight:700;text-align:left;padding:8px 10px;border-radius:8px;background:#fff}
+.upload-mode.active{background:#eaf3ff;border-color:var(--blue);color:#0757b8}
+.hidden-file{display:none}
+.previewWrap{background:#dfe7ef;border-radius:12px;padding:12px;min-height:0;height:100%;overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+#paper{position:relative;background:#fff;margin:0;box-shadow:0 2px 14px #0002;transform-origin:center center;flex:0 0 auto}
+.item{position:absolute;border:1px dashed #8da2b6;background:#fff;touch-action:none;cursor:grab}
+.item img{display:block;max-width:none;max-height:none;user-select:none;-webkit-user-drag:none}
+.item.selected{outline:2px solid var(--blue);outline-offset:-2px}
+.empty{text-align:center;padding:80px 20px;color:#6d7c8c}
+.badge{display:inline-block;background:#eef5ff;color:#0757b8;border-radius:20px;padding:4px 8px;font-size:11px}
+ .footerNote{font-size:9.5px;color:#66788a;line-height:1.25;padding:0 2px}
+@media(max-width:850px){html,body{overflow:auto}header{height:auto;min-height:68px}.header-right{gap:8px}.header-copyright{display:none}.app{grid-template-columns:1fr;height:auto;min-height:calc(100vh - 68px)}aside{border-right:0;border-bottom:1px solid var(--line);overflow:visible}.previewWrap{height:calc(100vh - 360px);min-height:420px}}
+
+</style>
+</head>
+<body>
+<header>
+  <div class="header-left"><h1>ONESTOP Fast Document Print</h1><small>Free Version • Aadhaar Front + Back</small></div>
+  <div class="header-right">
+    <div class="header-copyright">
+      <strong>© COPYRIGHT &amp; DEVELOPMENT</strong> · <strong>FREE PASSPORT PHOTO MAKER</strong><br>
+      © 2026 Gaurav Yadav. All Rights Reserved. · Developed &amp; Designed by <strong>Gaurav Yadav</strong><br>
+      Product &amp; Brand: <strong>ONESTOP DIGITAL SOLUTIONS</strong> · <strong>ONESTOP · Firozabad · 9389063550</strong>
+    </div>
+    <span class="badge">LOCAL PROCESSING</span>
+  </div>
+</header>
+<div class="app">
+<aside>
+  <div class="section upload-section">
+    <h3>Document Type</h3>
+    <div class="upload-buttons">
+      <button class="upload-mode active" id="twoSideBtn" type="button">▣ 2 Side ID Card</button>
+      <button class="upload-mode" id="oneSideBtn" type="button">▤ 1 Side ID Card</button>
+      <button class="upload-mode" id="a4DocBtn" type="button">▥ A4 Document</button>
+    </div>
+    <input id="frontFile" class="hidden-file" type="file" accept="image/*">
+    <input id="backFile" class="hidden-file" type="file" accept="image/*">
+    <input id="singleFile" class="hidden-file" type="file" accept="image/*">
+    <div class="status" id="filesStatus">2 Side ID Card: add Front and Back.</div>
+  </div>
+  <div class="section tools-section">
+    <h3><span class="tool-icon">✦</span> Image Tools</h3>
+    <div class="pan-hint">↔ ↕ Drag the image inside the Front/Back box to position it. The box is a crop window: zoom in, then drag the exact document area into place. Image proportions are preserved.</div>
+    <div class="premium-price">Premium features: ₹499/month</div>
+    <div class="adjust-grid">
+      <div class="adjust"><label for="zoom">Zoom <output id="zoomVal">100%</output></label><input id="zoom" type="range" min="25" max="2000" value="100"></div>
+      <button class="premium-feature" type="button" disabled><span>↻ Rotation</span><span class="premium-tag">PREMIUM</span></button>
+      <button class="premium-feature" type="button" disabled><span>↔ Perspective H</span><span class="premium-tag">PREMIUM</span></button>
+      <button class="premium-feature" type="button" disabled><span>↕ Perspective V</span><span class="premium-tag">PREMIUM</span></button>
+      <button class="premium-feature" type="button" disabled><span>☀ Brightness</span><span class="premium-tag">PREMIUM</span></button>
+      <button class="premium-feature" type="button" disabled><span>◐ Contrast</span><span class="premium-tag">PREMIUM</span></button>
+    </div>
+  </div><div class="section action-section">
+    <button class="premium-feature" type="button" disabled style="font-size:14px;padding:7px 8px"><span>⬇ Download PNG</span><span class="premium-tag">PREMIUM</span></button>
+    <button class="premium-feature" type="button" disabled style="margin-top:5px;font-size:14px;padding:7px 8px"><span>🖨 Print</span><span class="premium-tag">PREMIUM</span></button>
+    <button id="downloadJpg" class="primary" style="width:100%;margin-top:5px;font-size:14px;padding:7px 8px">⬇ Download JPG</button>
+    <div class="pan-hint">Free: Zoom, Drag/Position and JPG download. Premium: ₹499/month.</div>
+  </div>
+  <div class="footerNote">Privacy: selected files are processed in this browser. This V1 does not upload document images to a server.</div>
+</aside>
+<main>
+  <div class="previewWrap"><div id="paper"><div class="empty">Choose a document type and upload an image.</div></div></div>
+</main>
+</div>
+
+<script>
+const CARD_W_MM=86;
+const CARD_H_MM=54;
+const A4_W_MM=210;
+const A4_H_MM=297;
+const CARD_GAP_MM=4;
+const PX_PER_MM=3.7795275591;
+
+let images=[];
+let imageSizes=[null,null];
+let selectedIndex=-1;
+let documentMode="two";
+
+const sideTools=()=>({zoom:100,panX:0,panY:0});
+let edits=[sideTools(),sideTools()];
+
+function mmPx(mm){return mm*PX_PER_MM;}
+
+function readImage(file){
+  return new Promise((resolve,reject)=>{
+    if(!file || !file.type.startsWith("image/")){
+      reject(new Error("image required"));
+      return;
+    }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      const src=reader.result;
+      const img=new Image();
+      img.onload=()=>resolve({src,width:img.naturalWidth,height:img.naturalHeight});
+      img.onerror=()=>reject(new Error("image load failed"));
+      img.src=src;
+    };
+    reader.onerror=()=>reject(new Error("read failed"));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function setSide(file,index){
+  if(!file)return;
+  try{
+    const data=await readImage(file);
+    images[index]=data.src;
+    imageSizes[index]={width:data.width,height:data.height};
+    edits[index]=sideTools();
+    selectedIndex=index;
+    syncToolsFromSelected();
+    updateStatus();
+    render();
+  }catch(err){
+    document.getElementById("filesStatus").textContent="Unable to read image.";
+  }
+}
+
+function updateStatus(){
+  const status=document.getElementById("filesStatus");
+  if(documentMode==="two"){
+    status.textContent=images[0]&&images[1]
+      ?"2 Side ID Card: Front ✓ • Back ✓ • Ready to print"
+      :"2 Side ID Card: add Front and Back.";
+  }else if(documentMode==="one"){
+    status.textContent=images[0]?"1 Side ID Card: Ready to print":"1 Side ID Card: add image.";
+  }else{
+    status.textContent=images[0]?"A4 Document: Ready to print":"A4 Document: add image.";
+  }
+}
+
+function resetImages(){
+  images=[];
+  imageSizes=[null,null];
+  selectedIndex=-1;
+  edits=[sideTools(),sideTools()];
+  syncToolsFromSelected();
+  render();
+}
+
+function activateMode(mode){
+  documentMode=mode;
+  resetImages();
+  document.querySelectorAll(".upload-mode").forEach(button=>button.classList.remove("active"));
+  const button=mode==="two"
+    ?document.getElementById("twoSideBtn")
+    :mode==="one"
+      ?document.getElementById("oneSideBtn")
+      :document.getElementById("a4DocBtn");
+  button.classList.add("active");
+  updateStatus();
+}
+
+function chooseUpload(mode){
+  if(documentMode!==mode) activateMode(mode);
+  if(mode==="two"){
+    if(!images[0]) document.getElementById("frontFile").click();
+    else if(!images[1]) document.getElementById("backFile").click();
+  }else{
+    document.getElementById("singleFile").click();
+  }
+}
+
+document.getElementById("twoSideBtn").onclick=()=>chooseUpload("two");
+document.getElementById("oneSideBtn").onclick=()=>chooseUpload("one");
+document.getElementById("a4DocBtn").onclick=()=>chooseUpload("a4");
+document.getElementById("frontFile").onchange=e=>setSide(e.target.files[0],0);
+document.getElementById("backFile").onchange=e=>setSide(e.target.files[0],1);
+document.getElementById("singleFile").onchange=e=>setSide(e.target.files[0],0);
+
+function getPaperScale(){
+  const paper=document.getElementById("paper");
+  if(!paper || !paper.offsetWidth)return 1;
+  return Math.max(0.01,paper.getBoundingClientRect().width/paper.offsetWidth);
+}
+
+function addImage(index,x,y,w,h){
+  if(!images[index])return;
+  const paper=document.getElementById("paper");
+  const item=document.createElement("div");
+  item.className="item"+(index===selectedIndex?" selected":"");
+  item.style.cssText=`width:${w}px;height:${h}px;left:${x}px;top:${y}px;overflow:hidden;position:absolute`;
+
+  const image=document.createElement("img");
+  image.src=images[index];
+  image.draggable=false;
+  image.alt="Document image";
+
+  const tool=edits[index]||sideTools();
+  const panX=Number(tool.panX)||0;
+  const panY=Number(tool.panY)||0;
+  const natural=imageSizes[index]||{width:w,height:h};
+  const fit=Math.min(w/natural.width,h/natural.height);
+  const baseW=natural.width*fit;
+  const baseH=natural.height*fit;
+
+  image.style.width=`${baseW}px`;
+  image.style.height=`${baseH}px`;
+  image.style.position="absolute";
+  image.style.left=`calc(50% + ${panX}px)`;
+  image.style.top=`calc(50% + ${panY}px)`;
+  image.style.transform=`translate(-50%,-50%) scale(${tool.zoom/100})`;
+  image.style.transformOrigin="center center";
+  item.appendChild(image);
+
+  let dragging=false;
+  let startX=0,startY=0,originX=panX,originY=panY;
+
+  item.addEventListener("pointerdown",e=>{
+    selectedIndex=index;
+    syncToolsFromSelected();
+    dragging=true;
+    startX=e.clientX;
+    startY=e.clientY;
+    originX=Number(edits[index].panX)||0;
+    originY=Number(edits[index].panY)||0;
+    item.classList.add("dragging");
+    item.setPointerCapture?.(e.pointerId);
+    e.preventDefault();
+  });
+
+  item.addEventListener("pointermove",e=>{
+    if(!dragging)return;
+    const tool=edits[index];
+    const paperScale=getPaperScale();
+    tool.panX=originX+(e.clientX-startX)/paperScale;
+    tool.panY=originY+(e.clientY-startY)/paperScale;
+    image.style.left=`calc(50% + ${tool.panX}px)`;
+    image.style.top=`calc(50% + ${tool.panY}px)`;
+  });
+
+  const stopDrag=e=>{
+    if(!dragging)return;
+    dragging=false;
+    item.classList.remove("dragging");
+    try{item.releasePointerCapture?.(e.pointerId);}catch(_){ }
+  };
+
+  item.addEventListener("pointerup",stopDrag);
+  item.addEventListener("pointercancel",stopDrag);
+  item.addEventListener("click",()=>{
+    selectedIndex=index;
+    syncToolsFromSelected();
+    render();
+  });
+  paper.appendChild(item);
+}
+
+function addPlaceholder(label,x,y,w,h){
+  const paper=document.getElementById("paper");
+  const item=document.createElement("div");
+  item.className="item";
+  item.style.cssText=`width:${w}px;height:${h}px;left:${x}px;top:${y}px;border:2px dashed #8da2b6;display:flex;align-items:center;justify-content:center;color:#637486;font-size:14px`;
+  item.textContent=label;
+  paper.appendChild(item);
+}
+
+function fitPreviewToViewport(){
+  const wrap=document.querySelector(".previewWrap");
+  const paper=document.getElementById("paper");
+  if(!wrap || !paper)return;
+  const pad=8;
+  const availableW=Math.max(1,wrap.clientWidth-pad*2);
+  const availableH=Math.max(1,wrap.clientHeight-pad*2);
+  const scale=Math.min(availableW/paper.offsetWidth,availableH/paper.offsetHeight,1);
+  paper.style.transform=`scale(${scale})`;
+}
+
+function render(){
+  const paper=document.getElementById("paper");
+  const pw=mmPx(A4_W_MM);
+  const ph=mmPx(A4_H_MM);
+  const w=mmPx(CARD_W_MM);
+  const h=mmPx(CARD_H_MM);
+  const gap=mmPx(CARD_GAP_MM);
+
+  paper.style.width=`${pw}px`;
+  paper.style.height=`${ph}px`;
+  paper.style.transform="scale(1)";
+  paper.innerHTML="";
+
+  if(documentMode==="two"){
+    const x=(pw-w)/2;
+    const pairH=h*2+gap;
+    const y=(ph-pairH)/2;
+    if(images[0]) addImage(0,x,y,w,h); else addPlaceholder("UPLOAD FRONT",x,y,w,h);
+    if(images[1]) addImage(1,x,y+h+gap,w,h); else addPlaceholder("UPLOAD BACK",x,y+h+gap,w,h);
+  }else if(documentMode==="one"){
+    const x=(pw-w)/2;
+    const y=(ph-h)/2;
+    if(images[0]) addImage(0,x,y,w,h); else addPlaceholder("UPLOAD ID CARD",x,y,w,h);
+  }else if(images[0]){
+    addImage(0,0,0,pw,ph);
+  }else{
+    addPlaceholder("UPLOAD A4 DOCUMENT",0,0,pw,ph);
+  }
+
+  fitPreviewToViewport();
+}
+
+function updateToolOutput(){
+  document.getElementById("zoomVal").textContent=document.getElementById("zoom").value+"%";
+}
+
+function syncToolsFromSelected(){
+  const tool=selectedIndex>=0 ? (edits[selectedIndex]||sideTools()) : sideTools();
+  document.getElementById("zoom").value=tool.zoom;
+  updateToolOutput();
+}
+
+function updateSelectedZoom(value){
+  if(selectedIndex<0 || !images[selectedIndex])return;
+  const tool=edits[selectedIndex]||sideTools();
+  tool.zoom=value;
+  edits[selectedIndex]=tool;
+  updateToolOutput();
+  render();
+}
+
+document.getElementById("zoom").oninput=e=>updateSelectedZoom(+e.target.value);
+
+function drawImageForExport(ctx,src,index,x,y,w,h){
+  return new Promise((resolve,reject)=>{
+    const img=new Image();
+    img.onload=()=>{
+      const tool=edits[index]||sideTools();
+      const natural=imageSizes[index]||{width:img.naturalWidth,height:img.naturalHeight};
+      const fit=Math.min(w/natural.width,h/natural.height);
+      const drawW=natural.width*fit;
+      const drawH=natural.height*fit;
+      const panX=(Number(tool.panX)||0)/PX_PER_MM;
+      const panY=(Number(tool.panY)||0)/PX_PER_MM;
+      const zoom=(Number(tool.zoom)||100)/100;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(x,y,w,h);
+      ctx.clip();
+      ctx.translate(x+w/2+panX,y+h/2+panY);
+      ctx.scale(zoom,zoom);
+      ctx.drawImage(img,-drawW/2,-drawH/2,drawW,drawH);
+      ctx.restore();
+      resolve();
+    };
+    img.onerror=()=>reject(new Error("image load failed"));
+    img.src=src;
+  });
+}
+
+async function makeJpgBlob(){
+  const dpi=300;
+  const scale=dpi/25.4;
+  const canvas=document.createElement("canvas");
+  canvas.width=Math.round(A4_W_MM*scale);
+  canvas.height=Math.round(A4_H_MM*scale);
+  const ctx=canvas.getContext("2d");
+  if(!ctx)throw new Error("canvas unavailable");
+
+  ctx.fillStyle="#fff";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.save();
+  ctx.scale(scale,scale);
+
+  const w=CARD_W_MM;
+  const h=CARD_H_MM;
+  const gap=CARD_GAP_MM;
+
+  if(documentMode==="two"){
+    const x=(A4_W_MM-w)/2;
+    const pairH=h*2+gap;
+    const y=(A4_H_MM-pairH)/2;
+    for(let i=0;i<2;i++){
+      if(images[i]) await drawImageForExport(ctx,images[i],i,x,i===0?y:y+h+gap,w,h);
+    }
+  }else if(documentMode==="one"){
+    if(images[0]) await drawImageForExport(ctx,images[0],0,(A4_W_MM-w)/2,(A4_H_MM-h)/2,w,h);
+  }else if(images[0]){
+    await drawImageForExport(ctx,images[0],0,0,0,A4_W_MM,A4_H_MM);
+  }
+
+  ctx.restore();
+  return new Promise((resolve,reject)=>{
+    canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("JPG creation failed")),"image/jpeg",0.9);
+  });
+}
+
+function downloadBlob(blob,filename){
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;
+  link.download=filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),3000);
+}
+
+async function downloadJpg(){
+  if(!images[0] && !images[1]){
+    alert("Please add at least one document image first.");
+    return;
+  }
+  if(documentMode==="two" && !images[1]){
+    alert("Please upload Aadhaar Back also.");
+    return;
+  }
+
+  const button=document.getElementById("downloadJpg");
+  const old=button.textContent;
+  button.disabled=true;
+  button.textContent="Creating JPG…";
+
+  try{
+    const blob=await makeJpgBlob();
+    downloadBlob(blob,"aadhaar-fast-print-A4.jpg");
+    button.textContent="JPG Downloaded ✓";
+  }catch(err){
+    alert("Unable to create JPG. Please try again.");
+  }finally{
+    setTimeout(()=>{
+      button.disabled=false;
+      button.textContent=old;
+    },900);
+  }
+}
+
+document.getElementById("downloadJpg").onclick=downloadJpg;
+window.addEventListener("resize",fitPreviewToViewport);
+
+updateStatus();
+render();
+</script>
+</body>
+</html>
