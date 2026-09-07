@@ -12,7 +12,12 @@
 html,body{margin:0;width:100%;min-height:100%;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
 body{overflow:hidden}
 header{height:56px;background:linear-gradient(135deg,var(--dark),var(--blue));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:0 16px}
-.brand{font-size:18px;font-weight:900;letter-spacing:.15px;white-space:nowrap}.tag{font-size:11px;font-weight:700;opacity:.95;text-align:right}
+.brand{font-size:18px;font-weight:900;letter-spacing:.15px;white-space:nowrap}
+.header-right{text-align:right;min-width:0;line-height:1.15;color:#fff}
+.header-copyright-title{font-size:9px;font-weight:950;letter-spacing:.35px}
+.header-copyright-line{font-size:8px;font-weight:700;opacity:.96;white-space:nowrap}
+.header-copyright-line b{font-weight:950}
+.tag{font-size:11px;font-weight:700;opacity:.95;text-align:right}
 .app{height:calc(100vh - 56px);display:grid;grid-template-columns:minmax(400px,520px) minmax(0,1fr) minmax(270px,310px);gap:10px;padding:9px;min-width:0}
 .panel,.stage{background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 14px #12345b12;min-width:0;min-height:0}
 .panel{padding:8px}.left-panel{overflow:hidden;background:linear-gradient(180deg,#fbfdff 0%,#f6f9fc 100%)}
@@ -66,7 +71,17 @@ input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 
 @media (max-width:768px){
   header{height:auto;min-height:58px;padding:10px 12px;align-items:flex-start;flex-direction:column;gap:3px}.brand{font-size:17px;white-space:normal}.tag{text-align:left;font-size:10px}.app{width:100%;padding:7px;gap:8px;min-height:0}.panel,.stage{border-radius:10px}.left-panel{padding:7px}.tool-category-bar{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.category-btn{height:68px;font-size:12px}.category-btn .cat-icon{font-size:25px;line-height:25px}.tool-section{padding:9px;margin-bottom:7px}.section-head{height:34px;font-size:16px;margin-bottom:8px}.section-icon{width:29px;height:29px;font-size:17px}.two-col,.four-col{grid-template-columns:1fr}.photo-extra,.signature-grid,.border-horizontal{grid-template-columns:1fr}.bg-action-row{grid-template-columns:1fr}.replace-row{grid-template-columns:1fr;gap:5px}.replace-row label{margin-bottom:0}.action-row{flex-direction:column}.photo-extra{gap:7px}.photo-extra #resetPos{height:42px}.control-card{padding:7px}label{font-size:13px}input,select{height:42px;font-size:14px}.stage{height:68vh;min-height:430px;max-height:720px}.stagebar{height:40px;min-height:40px;font-size:13px;padding:0 9px}.canvasbox{padding:7px}.bottom{height:auto;min-height:34px;padding:6px 8px}.a4-side-card{padding:9px}.a4-side-title b{font-size:14px}.a4-side-controls #a4{height:48px;min-height:48px}.fixed-wm{bottom:14px;font-size:8px}
 }
-@media (max-width:390px){.category-btn{height:64px;font-size:11px}.category-btn .cat-icon{font-size:23px}.section-head{font-size:15px}.stage{min-height:400px}}
+@media (max-width:390px){
+  header{padding:6px 8px;min-height:58px}
+  .brand{font-size:13px}
+  .header-right{max-width:60%}
+  .header-copyright-title{font-size:6.5px}
+  .header-copyright-line{font-size:5.8px}
+  .category-btn{height:64px;font-size:11px}
+  .category-btn .cat-icon{font-size:23px}
+  .section-head{font-size:15px}
+  .stage{min-height:400px}
+}
 
 /* V46 UI polish: keep main tool labels on one line and use the same ONESTOP blue for A4 */
 .category-btn{font-size:11px;letter-spacing:-.15px;padding:6px 2px;white-space:nowrap}
@@ -165,8 +180,6 @@ input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 
 </style>
 
 <style id="v52-professional-copyright">
-.developer-credit{margin-top:8px}
-.developer-credit .hint{line-height:1.5}
 .professional-footer{
   width:100%;padding:8px 14px 10px;text-align:center;
   color:#5b7187;font-size:9px;font-weight:700;line-height:1.45;
@@ -182,6 +195,11 @@ input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 
   color:#174b7a;font-weight:900;
 }
 @media(max-width:768px){
+  header{padding:7px 10px;min-height:60px}
+  .brand{font-size:15px}
+  .header-right{max-width:58%;overflow:hidden}
+  .header-copyright-title{font-size:7px}
+  .header-copyright-line{font-size:6.5px;overflow:hidden;text-overflow:clip}
   .professional-footer{font-size:8.5px;padding:7px 8px 9px}
   .professional-footer .app-title{font-size:9.5px}
 }
@@ -190,7 +208,11 @@ input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 
 <body>
 <header>
   <div class="brand">FREE PASSPORT PHOTO MAKER</div>
-  <div class="tag">Passport Photo • Signature • A4 Studio • Fast</div>
+  <div class="header-right">
+    <div class="header-copyright-title">© COPYRIGHT &amp; DEVELOPMENT</div>
+    <div class="header-copyright-line">© 2026 Gaurav Yadav. All Rights Reserved.</div>
+    <div class="header-copyright-line">Developed &amp; Designed by <b>Gaurav Yadav</b> • ONESTOP DIGITAL SOLUTIONS</div>
+  </div>
 </header>
 
 <div class="app">
@@ -328,16 +350,7 @@ input[type=file]::file-selector-button{height:34px;margin-right:7px;padding:4px 
     <div class="mini-title">⭐ PREMIUM MEMBERSHIP</div>
     <div class="premium"><span class="price">₹499 / MONTH</span><br><b>REMOVE WATERMARK</b><br>Premium membership removes the ONESTOP watermark and unlocks premium A4 sheets.<br><br><b>Contact ONESTOP DIGITAL SOLUTIONS on WhatsApp:</b><br><span style="font-size:13px;font-weight:900">📱 9389063550</span><br><span class="hint">Message on WhatsApp to get Premium.</span></div>
   </div>
-  <div class="mini developer-credit">
-    <div class="mini-title">© COPYRIGHT &amp; DEVELOPMENT</div>
-    <div class="hint">
-      <b>FREE PASSPORT PHOTO MAKER</b><br>
-      © 2026 Gaurav Yadav. All Rights Reserved.<br>
-      <span>Developed &amp; Designed by <b>Gaurav Yadav</b></span><br>
-      <span>Product &amp; Brand: <b>ONESTOP DIGITAL SOLUTIONS</b></span>
-    </div>
-  </div>
-<div class="hint" style="text-align:center">ONESTOP · Firozabad · 9389063550</div>
+  <div class="hint" style="text-align:center">ONESTOP · Firozabad · 9389063550</div>
 </aside>
 </div>
 
