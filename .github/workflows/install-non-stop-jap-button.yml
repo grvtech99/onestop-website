@@ -1,0 +1,49 @@
+name: Install Non Stop Jap Button
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/install-non-stop-jap-button.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  install:
+    if: ${{ !contains(github.event.head_commit.message, 'Non Stop Jap button installed') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add button below Admin
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          text = p.read_text(encoding='utf-8')
+          old = '<a href="https://script.google.com/macros/s/AKfycbwstipCa7XzhFdsMaNczkzEiK_kqAtxj9SZdGDvQqvhT2yBGCmItlQaa1HjrNFpga-rdg/exec" target="_blank" class="admin-nav" rel="noopener">🔐 Admin</a>'
+          new = old + '\n      <a href="non-stop-jap.html" class="admin-nav jap-nav" title="नॉन स्टॉप जप">🙏 नॉन स्टॉप जप</a>'
+          if 'href="non-stop-jap.html"' in text:
+              print('Button already installed.')
+          elif old not in text:
+              raise SystemExit('Admin button anchor not found; index.html was not changed.')
+          else:
+              text = text.replace(old, new, 1)
+              p.write_text(text, encoding='utf-8')
+              print('Non Stop Jap button added below Admin.')
+          PY
+
+      - name: Commit index change and remove temporary workflow
+        run: |
+          rm -f .github/workflows/install-non-stop-jap-button.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html .github/workflows/install-non-stop-jap-button.yml
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Install Non Stop Jap button installed [skip ci]"
+          git push
