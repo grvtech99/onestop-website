@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>✨ Glow Dots — ONESTOP Relax Games</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{background:linear-gradient(180deg,#071c2d,#0b4155);color:#fff;overflow-x:hidden}
+.page{width:min(100%,980px);margin:auto;padding:10px 12px 18px}
+.credit{width:100%;height:52px;min-height:52px;padding:5px 10px;margin:3px auto 7px;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center;border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(255,255,255,.06)}
+.credit .avatar{width:36px;height:36px;flex:0 0 36px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,.12)}
+.credit .avatar img{width:100%;height:100%;display:block;object-fit:cover;border-radius:50%}
+.credit small{display:block;font-size:8px;letter-spacing:1.2px;opacity:.7;font-weight:800}
+.credit strong{font-size:11px}
+.hero{text-align:center;margin:0 0 7px}.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.1);font-size:9px;font-weight:800;letter-spacing:1px}
+h1{margin:3px 0 4px;font-size:28px;line-height:1}.hero p{margin:0 auto 7px;opacity:.78;font-size:11px}
+.hud{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:7px;margin-bottom:7px;background:rgba(255,255,255,.07);border-radius:16px}
+.h{min-height:62px;padding:8px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-radius:12px;background:rgba(0,0,0,.16)}
+.h small{font-size:8px;line-height:1.1;opacity:.7}.h b{font-size:21px;line-height:1.05;margin-top:3px}
+.stage{position:relative;width:100%;height:min(68vh,650px);min-height:420px;border-radius:20px;overflow:hidden;background:#0b6077;box-shadow:0 15px 50px rgba(0,0,0,.25)}
+canvas{width:100%;height:100%;display:block;touch-action:none}
+.controls{display:flex;justify-content:center;gap:8px;margin-top:8px;flex-wrap:wrap}
+button{border:0;border-radius:13px;padding:9px 16px;font-weight:800;color:#062033;background:#fff;cursor:pointer}
+button:active{transform:scale(.97)}
+.hint,.info{display:none}
+@media(max-width:650px){
+html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+.page{width:100%;max-width:100%;padding:8px 8px 10px}
+.credit{width:100%;height:50px;min-height:50px;margin:2px auto 5px;padding:4px 8px;justify-content:center;gap:8px}
+.credit .avatar{width:34px;height:34px;flex-basis:34px}.credit strong{font-size:10px;white-space:nowrap}.credit small{font-size:7px}
+.hero{margin:0 0 5px}.tag{font-size:8px;padding:4px 8px}h1{font-size:23px;margin:2px 0 4px}.hero p{font-size:10px;margin:0 auto 5px}
+.hud{width:100%;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:6px}.h{min-width:0;min-height:62px;padding:8px 3px}.h small{font-size:8px}.h b{font-size:21px}
+.stage{width:100%;height:clamp(420px,calc(100svh - 245px),680px);min-height:420px;max-height:680px}
+}
+@media(max-width:430px){
+.page{padding:7px 7px 8px}.credit{height:48px;min-height:48px}.credit .avatar{width:32px;height:32px;flex-basis:32px}.credit strong{font-size:9.5px}
+.hud{gap:4px;padding:5px}.h{min-height:60px}.h small{font-size:7.5px}.h b{font-size:20px}
+.stage{height:clamp(410px,calc(100svh - 235px),650px);min-height:410px;max-height:650px}
+}
+@media(max-width:360px){
+.credit{height:46px;min-height:46px}.credit .avatar{width:30px;height:30px;flex-basis:30px}
+.hud{gap:3px;padding:4px}.h{min-height:56px}.h small{font-size:7px}.h b{font-size:19px}
+.stage{height:clamp(400px,calc(100svh - 225px),620px);min-height:400px;max-height:620px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="credit"><div class="avatar"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAwICQsJCAwLCgsODQwOEh4UEhEREiUbHBYeLCcuLisnKyoxN0Y7MTRCNCorPVM+QkhKTk9OLztWXFVMW0ZNTkv/2wBDAQ0ODhIQEiQUFCRLMisyS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0v/wAARCABAADUDASIAAhEBAxEB/8QAHAAAAgMAAwEAAAAAAAAAAAAABQYABAcBAgMI/8QAMBAAAgEDAgQEBQMFAAAAAAAAAQIDAAQRBRIGITFBEyJRYQcUFXGRI4GhMmKx0eH/xAAXAQEBAQEAAAAAAAAAAAAAAAACAwAB/8QAHBEAAwEAAwEBAAAAAAAAAAAAAAERAhIxQQMh/9oADAMBAAIRAxEAPwDOs1a06wuNSn8K3AJA3MzHAUepqpTnwcUj09xHHvkkJLkDsOg/itTFObRrfT7dXyHcDLyNz5+iigM0kpkyAVBPLcOdaHbafJeeV0QqCW246DJFD9S02yhYyF/Ekx5VxyFHkjqT9E+KF7olRGpcED0Jz0p7+HLlpHgVfMmzIIwRjrmliHTH8dmUsmGDA+tFdC1t9E4jT5jaYpQYy/fBPLP711aTM00aq1SuFcSIrqcqwyDUpBPnlFVnAzgE1onw3t1OnXTnntm2j8ZrOSB2NaJwJmLhieWMSsTcvuC8uijv6Yoa/UJdjP4XgI6KvI0u3tqFbCdC2WNWNC1eDVll8FpgyHBWQ5z9q51BkRH3yBMdSe1S4xwpy9At0SMhOVA/pk2p63bWik7p22gntyzRQt8w5NpcxTbeqdDRbhe1STiK1uJWVBbxMwVmALO3lAHqev4pZUZtOofbaH5e1hhJ3GNApPrgVK7sxzUqxE+ec5rVvhWVl4buIsjK3TZ/dVrK4kaWVI4wWdiAqjqTWi/D8y6NqV5pN4VWSeNZ4wrZyRyI++P8UNdCXY7WGi6faSvLFAgkJySBiljX7JZL99p553YFMd3MyxHwHyw5lM9aXEmaW73umD361MogFbaJb2BZ4ixZjnn2o5w5pDXF8L6VdsUDDZ/ef9A153ARrmNGYJ4sgQZ9SacYYkt4BFGMIihQKWbp1nNNZURGIqV0frUqpIHcMaJa2tpCzQWz3CLt8WOMc/cVduuGNPub9NRMW2+iH6cgJAH3A6/9r34d0s6PpNtZPMZ3iTBkIxn7e1E60OPQu6hZxMxWRF3Kc7uh/NCjCIQy2sZdj03Py/NOU1vHMPOoNUG0eLdlTgH2oPA19XIJP0a6udQtbu7uFBt5RIsUYO3l9+/vTwHDxlh0IzXaPSYV/qJb+K5ltlhiOwkAdiaSUC9VlQvzqVUkcrI20kg+9SumP//Z" alt="Developer photo"></div><div><small>GAME CREATOR</small><strong>Developed &amp; Designed by Venkatesh Yadav</strong></div></section>
+<section class="hero"><span class="tag">🧘 RELAX GAMES</span><h1>✨ Glow Dots</h1><p>Connect drifting lights to create calming constellations.</p></section>
+<section class="hud"><div class="h"><small>SCORE</small><b id="score">0</b></div><div class="h"><small>STREAK</small><b id="streak">0</b></div><div class="h"><small>BEST</small><b id="best">0</b></div><div class="h"><small>CALM</small><b id="calm">100%</b></div></section>
+<section class="stage"><canvas id="game"></canvas></section>
+<div class="controls"><button id="soundBtn" type="button">🔊 Sound On</button><button id="reset" type="button">↻ Reset</button></div>
+</main>
+<script>
+"use strict";
+
+let audioCtx=null,soundOn=true;
+const soundBtn=document.getElementById("soundBtn");
+function ensureAudio(){if(!soundOn)return null;if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==="suspended")audioCtx.resume();return audioCtx}
+function tone(freq,duration=.1,type="sine",volume=.035,slide=0){
+ const a=ensureAudio();if(!a)return;
+ const o=a.createOscillator(),g=a.createGain(),n=a.currentTime;
+ o.type=type;o.frequency.setValueAtTime(freq,n);
+ if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(45,freq+slide),n+duration);
+ g.gain.setValueAtTime(.0001,n);g.gain.exponentialRampToValueAtTime(volume,n+.008);g.gain.exponentialRampToValueAtTime(.0001,n+duration);
+ o.connect(g);g.connect(a.destination);o.start(n);o.stop(n+duration+.02)
+}
+function popSound(){tone(520,.09,"sine",.04,170);setTimeout(()=>tone(790,.11,"sine",.022,100),35)}
+function gentleSound(){tone(360,.12,"sine",.025,80)}
+function resetSound(){tone(300,.1,"sine",.025,90);setTimeout(()=>tone(450,.11,"sine",.02,100),70)}
+soundBtn.addEventListener("click",()=>{soundOn=!soundOn;soundBtn.textContent=soundOn?"🔊 Sound On":"🔇 Sound Off";if(soundOn)gentleSound()});
+
+
+const canvas=document.getElementById("game"),ctx=canvas.getContext("2d");
+const scoreEl=document.getElementById("score"),streakEl=document.getElementById("streak"),bestEl=document.getElementById("best"),calmEl=document.getElementById("calm"),resetBtn=document.getElementById("reset");
+let dpr=1,w=0,h=0,score=0,streak=0,best=Number(localStorage.getItem("RELAX_BEST_dots")||0),calm=100,last=performance.now(),items=[],time=0;
+bestEl.textContent=best;
+function resize(){const r=canvas.getBoundingClientRect();dpr=Math.min(devicePixelRatio||1,2);w=Math.max(1,Math.floor(r.width));h=Math.max(1,Math.floor(r.height));canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);initItems()}
+window.addEventListener("resize",resize,{passive:true});
+function stats(){scoreEl.textContent=score;streakEl.textContent=streak;bestEl.textContent=best;calmEl.textContent=Math.round(calm)+"%"}
+function gain(n=1){score+=n;streak++;calm=Math.min(100,calm+0.5);if(streak>best){best=streak;localStorage.setItem("RELAX_BEST_dots",best)}stats();popSound()}
+function gentle(){calm=Math.min(100,calm+.2);gentleSound()}
+function reset(){score=0;streak=0;calm=100;initItems();stats();resetSound()}
+resetBtn.addEventListener("click",reset);
+function pointer(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+canvas.addEventListener("pointerdown",e=>handle(pointer(e)),{passive:true});
+function circle(x,y,r){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2)}
+function bg(top="#0b6077",bottom="#08384d"){const g=ctx.createLinearGradient(0,0,0,h);g.addColorStop(0,top);g.addColorStop(1,bottom);ctx.fillStyle=g;ctx.fillRect(0,0,w,h)}
+function text(t,x,y,size=18){ctx.fillStyle="rgba(255,255,255,.8)";ctx.font=`700 ${size}px system-ui`;ctx.textAlign="center";ctx.fillText(t,x,y)}
+function loop(now){const dt=Math.min(.04,(now-last)/1000);last=now;time+=dt;update(dt);draw(now);requestAnimationFrame(loop)}
+resize();stats();requestAnimationFrame(loop);
+
+function initItems(){items=[];for(let i=0;i<14;i++)items.push({x:Math.random()*w,y:Math.random()*h,r:5+Math.random()*5,p:Math.random()*7})}
+function handle(p){let hit=items.find(o=>Math.hypot(p.x-o.x,p.y-o.y)<24);if(hit){gain();hit.x=Math.random()*w;hit.y=Math.random()*h}}
+function update(dt){items.forEach(o=>{o.x+=Math.cos(time*.4+o.p)*7*dt;o.y+=Math.sin(time*.5+o.p)*7*dt})}
+function draw(){bg("#171f45","#090f2b");items.forEach((o,i)=>{ctx.fillStyle="rgba(180,235,255,.9)";ctx.shadowBlur=18;ctx.shadowColor="#9ee9ff";circle(o.x,o.y,o.r);ctx.fill();ctx.shadowBlur=0;if(i){let q=items[i-1];ctx.strokeStyle="rgba(160,220,255,.08)";ctx.beginPath();ctx.moveTo(o.x,o.y);ctx.lineTo(q.x,q.y);ctx.stroke()}})}
+
+</script>
+</body>
+</html>
