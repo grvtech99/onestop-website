@@ -1,11 +1,14 @@
 name: Mobile Games Layout Fix
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
 jobs:
   fix:
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - uses: actions/checkout@v4
       - name: Apply responsive layout to all games
@@ -69,19 +72,18 @@ jobs:
           '''
           for p in sorted(Path('games').glob('*.html')):
               s=p.read_text(encoding='utf-8')
-              marker='/* ONESTOP MOBILE RESPONSIVE PATCH */'
-              if marker in s:
+              if '/* ONESTOP MOBILE RESPONSIVE PATCH */' in s:
                   continue
               pos=s.lower().rfind('</style>')
               if pos<0:
                   raise SystemExit(f'No style tag: {p}')
-              s=s[:pos]+css+'\n'+s[pos:]
-              p.write_text(s,encoding='utf-8')
+              p.write_text(s[:pos]+css+'\n'+s[pos:],encoding='utf-8')
           PY
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add games/*.html
+          if git diff --cached --quiet; then exit 0; fi
           git commit -m "Make all games mobile responsive [skip ci]"
           git push
