@@ -1,0 +1,87 @@
+name: Mobile Games Layout Fix
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply responsive layout to all games
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          css = '''
+          /* ONESTOP MOBILE RESPONSIVE PATCH */
+          html{width:100%;max-width:100%;overflow-x:hidden}
+          body{width:100%;max-width:100%;overflow-x:hidden}
+          .top,.topin,.page,main{max-width:100%;width:100%}
+          .page{box-sizing:border-box}
+          .gamebox,.panel,.stage,canvas{max-width:100%;box-sizing:border-box}
+          .gamebox{width:100%;margin-left:auto;margin-right:auto}
+          .panel{width:100%}
+          .stage{width:100%;min-width:0}
+          img,video,canvas,svg{max-width:100%}
+          button,.primary{max-width:100%}
+          @media(max-width:650px){
+            .topin{padding-left:10px;padding-right:10px;gap:8px}
+            .brand{min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+            .back{flex:0 0 auto;font-size:11px;padding:8px 9px;white-space:nowrap}
+            .page{padding:16px 10px 30px}
+            h1{font-size:clamp(28px,9vw,42px);line-height:1.05;overflow-wrap:anywhere}
+            .hero p{font-size:14px;line-height:1.45;max-width:100%}
+            .gamebox{border-radius:18px}
+            .panel{border-radius:17px}
+            .hud{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px}
+            .h{min-width:0;padding:7px 4px}
+            .h b{font-size:17px}
+            .h small{font-size:8px}
+            .stage{height:min(62vh,520px);min-height:360px}
+            .overlay{padding:12px}
+            .modal{width:100%;max-width:calc(100vw - 44px);max-height:calc(100% - 24px);overflow:auto;padding:22px 16px;border-radius:17px}
+            .modal .big{font-size:42px}
+            .modal h2{font-size:28px;line-height:1.15}
+            .modal p{font-size:14px;line-height:1.45}
+            .primary{width:100%;padding:12px 14px;font-size:15px}
+            .credit{margin-top:12px;padding:9px 10px;gap:8px;justify-content:center}
+            .info{margin-top:12px;padding:13px;font-size:12px}
+          }
+          @media(max-width:430px){
+            .topin{padding-left:8px;padding-right:8px}
+            .brand{font-size:14px}
+            .back{font-size:10px}
+            .page{padding-left:8px;padding-right:8px}
+            .tag{font-size:9px;letter-spacing:.5px;padding:6px 9px}
+            .stage{min-height:340px;height:min(60vh,500px)}
+            .modal{max-width:calc(100vw - 34px);padding:18px 13px}
+            .modal h2{font-size:25px}
+            .modal p{font-size:13px}
+            .primary{font-size:14px}
+          }
+          @media(max-width:360px){
+            .hud{gap:4px}
+            .h b{font-size:15px}
+            .stage{min-height:320px;height:58vh}
+          }
+          '''
+          for p in sorted(Path('games').glob('*.html')):
+              s=p.read_text(encoding='utf-8')
+              marker='/* ONESTOP MOBILE RESPONSIVE PATCH */'
+              if marker in s:
+                  continue
+              pos=s.lower().rfind('</style>')
+              if pos<0:
+                  raise SystemExit(f'No style tag: {p}')
+              s=s[:pos]+css+'\n'+s[pos:]
+              p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games/*.html
+          git commit -m "Make all games mobile responsive [skip ci]"
+          git push
