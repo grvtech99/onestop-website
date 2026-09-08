@@ -2,102 +2,74 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Tools For CSC | ONESTOP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070916">
+<title>Free Tools | ONESTOP</title>
 <style>
-:root{--blue:#0757c9;--dark:#06265f;--light:#f5f9ff;--text:#14213d;--muted:#60708d;--border:#e2eafa}
+:root{--bg:#070916;--panel:#11162f;--panel2:#0d1128;--text:#f7f9ff;--muted:#aeb7d8;--cyan:#38e8ff;--pink:#ff4fd8;--blue:#5aa7ff}
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text)}
-header{background:linear-gradient(135deg,#031d50,#0757c9);color:#fff;padding:30px 20px}
-.container{max-width:1100px;margin:auto;padding:0 20px}
-.back{display:inline-block;color:#fff;text-decoration:none;font-weight:800;margin-bottom:20px}
-h1{margin:0;font-size:clamp(30px,5vw,48px)}
-header p{margin:8px 0 0;color:#dceaff}
-section{padding:45px 0}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 8px 25px rgba(20,33,61,.07);transition:.2s}
-.card:hover{transform:translateY(-4px)}
-.icon{font-size:40px}
-.card h2{font-size:19px;color:var(--dark);margin:12px 0 6px}
-.card p{color:var(--muted);font-size:14px;line-height:1.5}
-.open{display:inline-block;margin-top:12px;background:var(--blue);color:#fff;text-decoration:none;padding:10px 14px;border-radius:9px;font-weight:800}
-.empty{background:#fff;padding:25px;border-radius:16px;color:var(--muted)}
-.badge{display:inline-block;margin-top:8px;background:#e7f7ee;color:#13743d;border:1px solid #9bd4b3;border-radius:999px;padding:4px 9px;font-size:10px;font-weight:900}
-@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.grid{grid-template-columns:1fr}}
+html,body{height:100%}
+body{margin:0;font-family:Inter,system-ui,Arial;background:radial-gradient(circle at 15% 5%,rgba(56,232,255,.15),transparent 28%),radial-gradient(circle at 85% 5%,rgba(255,79,216,.13),transparent 25%),var(--bg);color:var(--text);overflow:hidden}
+.top{height:58px;background:rgba(7,9,22,.84);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.08)}
+.topin{height:100%;max-width:1100px;margin:auto;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.brand{font-weight:950;font-size:16px}.brand span{color:var(--cyan)}
+.back{color:#fff;text-decoration:none;font-weight:800;font-size:12px;padding:8px 11px;border:1px solid rgba(255,255,255,.12);border-radius:9px}
+main{height:calc(100vh - 58px);max-width:1100px;margin:auto;padding:14px 14px 18px;display:flex;flex-direction:column;min-height:0}
+.hero{text-align:center;flex:0 0 auto}.tag{display:inline-block;padding:5px 10px;border-radius:999px;background:rgba(56,232,255,.08);border:1px solid rgba(56,232,255,.2);color:#9af5ff;font-size:9px;font-weight:950;letter-spacing:1px}
+h1{font-size:clamp(28px,5vw,46px);margin:7px 0 3px;letter-spacing:-1.5px}.hero p{color:var(--muted);margin:0 auto 10px;font-size:12px}
+.search{width:min(650px,100%);margin:0 auto 10px;display:flex}.search input{width:100%;background:rgba(17,22,47,.9);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:11px;padding:10px 13px;outline:none;font-size:13px}.search input:focus{border-color:rgba(56,232,255,.5);box-shadow:0 0 0 3px rgba(56,232,255,.07)}
+.tools-area{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:2px 4px 12px;scrollbar-width:thin;scroll-behavior:smooth}
+.categories{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}.category{background:linear-gradient(180deg,rgba(17,22,47,.96),rgba(13,17,40,.96));border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden}
+.cat-head{width:100%;border:0;background:transparent;color:#fff;text-align:left;padding:12px 13px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;font-weight:950;font-size:13px;min-height:48px}.cat-head small{color:var(--muted);font-size:10px;font-weight:700;margin-left:auto;margin-right:9px}.arrow{transition:.2s}.category.open .arrow{transform:rotate(180deg)}
+.tool-list{display:none;padding:0 8px 8px;grid-template-columns:1fr 1fr;gap:6px}.category.open .tool-list{display:grid}
+.tool{min-width:0;display:flex;align-items:center;gap:8px;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025);border-radius:9px;padding:8px 9px;transition:.16s}.tool:hover{border-color:rgba(56,232,255,.32);background:rgba(56,232,255,.06);transform:translateY(-1px)}
+.tool-icon{font-size:18px;width:23px;text-align:center;flex:0 0 23px}.tool-info{min-width:0;flex:1}.tool-title{font-size:11px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}.tool-desc{font-size:9px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;display:block}.open{margin-left:auto;color:var(--cyan);font-size:9px;font-weight:950;white-space:nowrap}
+.empty{display:none;text-align:center;color:var(--muted);padding:25px}.credit{text-align:center;color:#687292;font-size:10px;padding-top:8px;flex:0 0 auto}.credit b{color:#8d97b5}
+@media(max-width:700px){.categories{grid-template-columns:1fr}.tool-list{grid-template-columns:1fr 1fr}}
+@media(max-width:430px){.tool-list{grid-template-columns:1fr}.topin{padding-left:11px;padding-right:11px}.brand{font-size:14px}h1{font-size:30px}}
+@media(max-height:700px){main{padding-top:10px}.hero p{margin-bottom:7px}.search{margin-bottom:7px}.tools-area{padding-bottom:8px}}
 </style>
 </head>
 <body>
-<header>
-<div class="container">
-<a class="back" href="index.html">← Back to ONESTOP</a>
-<h1>🧰 Free Tools For CSC</h1>
-<p>Free online tools for CSC, cyber cafe and everyday digital work.</p>
-</div>
-</header>
-
-<section>
-<div class="container">
-<div class="grid" id="toolsGrid"></div>
+<header class="top"><div class="topin"><div class="brand">🧰 ONESTOP <span>FREE TOOLS</span></div><a class="back" href="index.html">← Back to ONESTOP</a></div></header>
+<main>
+<section class="hero">
+<span class="tag">⚡ FREE • NO LOGIN • MOBILE + DESKTOP</span>
+<h1>FREE ONLINE TOOLS</h1>
+<p>Choose a tool from the compact category list and get started instantly.</p>
+<div class="search"><input id="search" type="search" placeholder="🔎 Search a tool..." autocomplete="off"></div>
+</section>
+<div class="tools-area">
+<div class="categories">
+<section class="category">
+<button class="cat-head" type="button" aria-expanded="false"><span>📸 PHOTO &amp; DOCUMENT TOOLS</span><small>2 Tools</small><span class="arrow">▼</span></button>
+<div class="tool-list">
+<a class="tool" href="onestop-free-passport-photo-maker.html"><span class="tool-icon">📸</span><span class="tool-info"><span class="tool-title">Free Passport Photo Maker</span><span class="tool-desc">Passport photos, signatures &amp; A4 sheets</span></span><span class="open">OPEN</span></a>
+<a class="tool" href="onestop-fast-document-print-free-premium.html"><span class="tool-icon">🖨️</span><span class="tool-info"><span class="tool-title">Fast Document Print</span><span class="tool-desc">Aadhaar &amp; A4 document printing</span></span><span class="open">OPEN</span></a>
 </div>
 </section>
-
+<section class="category">
+<button class="cat-head" type="button" aria-expanded="false"><span>📄 PDF &amp; FILE TOOLS</span><small>1 Tool</small><span class="arrow">▼</span></button>
+<div class="tool-list">
+<a class="tool" href="onestop-pdf-tools.html"><span class="tool-icon">📄</span><span class="tool-info"><span class="tool-title">ONESTOP PDF Tools</span><span class="tool-desc">Merge, split, rotate, watermark &amp; convert</span></span><span class="open">OPEN</span></a>
+</div>
+</section>
+<section class="category">
+<button class="cat-head" type="button" aria-expanded="false"><span>🎨 DESIGN &amp; SOCIAL MEDIA</span><small>1 Tool</small><span class="arrow">▼</span></button>
+<div class="tool-list">
+<a class="tool" href="ONESTOP_SOCIAL_MEDIA_POST_MAKER_FREE_V14_CLEAN.html"><span class="tool-icon">🎨</span><span class="tool-info"><span class="tool-title">Social Media Post Maker</span><span class="tool-desc">Create professional social media posts</span></span><span class="open">OPEN</span></a>
+</div>
+</section>
+</div>
+<div class="empty" id="empty">No tool found. Try another search.</div>
+</div>
+<div class="credit">All tools are <b>Free to use • Developed &amp; Designed by ONESTOP</b>.</div>
+</main>
 <script>
-/* =========================================================
-   FREE CSC TOOLS
-   Add new tools ONLY inside this array.
-   ========================================================= */
-const FREE_TOOLS = [
-  {
-    name:"Free Passport Photo Maker",
-    icon:"📸",
-    description:"Passport photos, signatures and A4 photo sheets.",
-    url:"onestop-free-passport-photo-maker.html"
-  },
-  {
-    name:"Fast Document Print — Free",
-    icon:"🖨️",
-    description:"Aadhaar front + back, 1-side and A4 document printing.",
-    url:"onestop-fast-document-print-free-premium.html"
-  },
-  {
-    name:"ONESTOP PDF Tools",
-    icon:"📄",
-    description:"Merge, split, rotate, watermark, sign, convert and manage PDF files online.",
-    url:"onestop-pdf-tools.html"
-  },
-  {
-    name:"Free Social Media Post Maker",
-    icon:"🎨",
-    description:"Create professional 1:1 social media posts with heading, subtitle, CTA, photo, design effects and JPG export.",
-    url:"ONESTOP_SOCIAL_MEDIA_POST_MAKER_FREE_V14_CLEAN.html"
-  }
-];
-
-const grid=document.getElementById("toolsGrid");
-
-if(!FREE_TOOLS.length){
-  grid.innerHTML='<div class="empty">More free tools coming soon.</div>';
-}else{
-  FREE_TOOLS.forEach(tool=>{
-    const card=document.createElement("div");
-    card.className="card";
-    card.innerHTML=
-      '<div class="icon">'+escapeHtml(tool.icon||"🧰")+'</div>'+
-      '<h2>'+escapeHtml(tool.name||"Free Tool")+'</h2>'+
-      '<p>'+escapeHtml(tool.description||"Free online tool.")+'</p>'+
-      '<span class="badge">✓ FREE TOOL</span><br>'+
-      '<a class="open" href="'+escapeAttr(tool.url||"#")+'" target="_blank" rel="noopener">Open Tool →</a>';
-    grid.appendChild(card);
-  });
-}
-
-function escapeHtml(v){
-  return String(v??"").replace(/[&<>"']/g,c=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-  }[c]));
-}
-function escapeAttr(v){return escapeHtml(v);}
+const cats=[...document.querySelectorAll('.category')];
+cats.forEach(cat=>{const head=cat.querySelector('.cat-head');head.addEventListener('click',()=>{const wasOpen=cat.classList.contains('open');cats.forEach(c=>{c.classList.remove('open');c.querySelector('.cat-head').setAttribute('aria-expanded','false')});if(!wasOpen){cat.classList.add('open');head.setAttribute('aria-expanded','true')}})});
+const input=document.getElementById('search'),empty=document.getElementById('empty');
+input.addEventListener('input',()=>{const q=input.value.trim().toLowerCase();let total=0;cats.forEach(cat=>{let visible=0;cat.querySelectorAll('.tool').forEach(t=>{const ok=!q||t.innerText.toLowerCase().includes(q);t.style.display=ok?'flex':'none';if(ok)visible++});if(q&&visible){cats.forEach(c=>{if(c!==cat){c.classList.remove('open');c.querySelector('.cat-head').setAttribute('aria-expanded','false')}});cat.classList.add('open');cat.querySelector('.cat-head').setAttribute('aria-expanded','true')}else if(q&&!visible){cat.classList.remove('open');cat.querySelector('.cat-head').setAttribute('aria-expanded','false')}total+=visible});if(!q)cats.forEach(c=>{c.classList.remove('open');c.querySelector('.cat-head').setAttribute('aria-expanded','false')});empty.style.display=total?'none':'block'});
 </script>
 </body>
 </html>
