@@ -1,30 +1,41 @@
-name: Compact Mobile Game Header
+name: Repair Game HTML Structure
 on:
   push:
     paths:
       - '.github/workflows/compact-game-header.yml'
 jobs:
-  compact:
+  repair:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Compact all game headers and enlarge play areas
+      - name: Remove accidentally appended CSS text
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           names='01-reaction-rush 02-color-match 03-2048-neon 04-whack-a-mole 05-space-dodge 06-memory-match 07-brick-breaker 08-number-ninja 09-fruit-catch 10-word-scramble 11-math-master 12-science-quiz 13-geography-explorer 14-english-vocabulary 15-typing-academy 16-money-smart 17-element-challenge 18-logic-sequence 19-history-challenge 20-computer-genius'.split()
-          css='''<style id="onestop-mobile-focus-final">@media(max-width:650px){.topin{padding:5px 8px!important;min-height:38px!important;height:38px!important}.brand{font-size:12px!important}.back{font-size:8px!important;padding:5px 6px!important}.page{padding:5px!important}.credit{height:34px!important;min-height:34px!important;margin:0 auto 4px!important;padding:3px 6px!important;border-radius:10px!important;gap:5px!important}.credit:before{display:none!important}.credit img{width:27px!important;height:27px!important;flex:0 0 27px!important;border-width:1px!important}.credit small{font-size:5.5px!important}.credit strong{font-size:9px!important;line-height:1!important}.hero .tag{font-size:6.5px!important;padding:3px 6px!important;line-height:1!important}.hero h1{font-size:clamp(21px,6.5vw,28px)!important;line-height:1!important;margin:3px 0!important}.hero p{display:none!important}.gamebox,.box{border-radius:13px!important}.panel{border-radius:12px!important}.hud{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:2px!important;padding:3px!important}.h{padding:4px 2px!important;min-height:36px!important;border-radius:6px!important}.h small{font-size:5.5px!important}.h b{font-size:13px!important;line-height:1!important}.stage{width:100%!important;height:clamp(470px,78svh,720px)!important;min-height:470px!important;max-height:720px!important;padding:0!important;overflow:hidden!important}.stage canvas{width:100%!important;height:100%!important;display:block!important}.info{display:none!important}}@media(max-width:430px){.topin{padding:4px 6px!important;min-height:36px!important;height:36px!important}.brand{font-size:11px!important}.back{font-size:7.5px!important;padding:4px 5px!important}.page{padding:4px!important}.credit{height:32px!important;min-height:32px!important;padding:2px 5px!important;margin-bottom:3px!important}.credit img{width:25px!important;height:25px!important;flex-basis:25px!important}.credit strong{font-size:8.5px!important}.credit small{font-size:5px!important}.hero .tag{font-size:6px!important;padding:2px 5px!important}.hero h1{font-size:21px!important;margin:2px 0!important}.hud{padding:2px!important}.h{min-height:34px!important;padding:3px 2px!important}.h small{font-size:5px!important}.h b{font-size:12px!important}.stage{height:clamp(460px,82svh,700px)!important;min-height:460px!important}}</style>'''
+          markers=['/* ONESTOP_MOBILE_GAME_FOCUS_V3 */','/* ONESTOP_FINAL_MOBILE_V2 */']
           for n in names:
-            p=Path('games')/(n+'.html'); t=p.read_text(encoding='utf-8');
-            if 'onestop-mobile-focus-final' not in t: p.write_text(t.replace('</head>',css+'</head>',1),encoding='utf-8')
+              p=Path('games')/(n+'.html')
+              t=p.read_text(encoding='utf-8')
+              cut=None
+              for m in markers:
+                  i=t.find(m)
+                  if i!=-1:
+                      cut=i if cut is None else min(cut,i)
+              if cut is not None:
+                  t=t[:cut].rstrip()
+                  if not t.endswith('</html>'):
+                      t += '\n</body></html>\n'
+                  p.write_text(t,encoding='utf-8')
           PY
-      - name: Commit changes
+      - name: Commit repair
         run: |
-          git config user.name 'ONESTOP Mobile Layout Bot'
+          git config user.name 'ONESTOP HTML Repair Bot'
           git config user.email 'actions@users.noreply.github.com'
           git add games/*.html
-          git commit -m 'Compact mobile game headers and enlarge play area [skip ci]' || true
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Repair game HTML structure [skip ci]'
           git push
