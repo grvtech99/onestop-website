@@ -188,3 +188,69 @@ function end(){active=false;clearInterval(tm);let seconds=Math.floor((Date.now()
 s('startBtn').onclick=start;s('again').onclick=start
 })();
 </script></body></html>
+
+
+/* ONESTOP_MOBILE_GAME_FOCUS_V3 */
+@media(max-width:650px){
+  .topin{padding:6px 8px!important;min-height:42px!important;gap:6px!important}
+  .brand{font-size:13px!important;line-height:1!important}
+  .back{font-size:9px!important;padding:6px 7px!important;border-radius:8px!important}
+  .page{padding:7px 6px 18px!important}
+  .credit{margin:0 auto 5px!important;padding:4px 7px!important;min-height:40px!important;height:40px!important;border-radius:11px!important;gap:6px!important}
+  .credit:before{display:none!important}
+  .credit img{width:30px!important;height:30px!important;flex:0 0 30px!important;border-width:1.5px!important}
+  .credit small{font-size:6px!important;line-height:1!important;margin-bottom:1px!important;letter-spacing:.5px!important}
+  .credit strong{font-size:10px!important;line-height:1.05!important}
+  .hero .tag{font-size:7px!important;padding:4px 7px!important;letter-spacing:.35px!important;line-height:1!important}
+  .hero h1{font-size:clamp(23px,7vw,32px)!important;line-height:1!important;margin:4px 0 3px!important;letter-spacing:-.8px!important}
+  .hero p{font-size:10px!important;line-height:1.2!important;margin:0 auto 6px!important;max-width:100%!important}
+  .gamebox,.box{border-radius:14px!important}
+  .panel{border-radius:13px!important}
+  .hud{gap:3px!important;padding:4px!important}
+  .h{padding:5px 2px!important;border-radius:7px!important;min-height:43px!important}
+  .h small{font-size:6px!important;line-height:1!important;letter-spacing:.45px!important}
+  .h b{font-size:14px!important;line-height:1.05!important}
+  .stage{height:clamp(400px,calc(100svh - 230px),600px)!important;min-height:400px!important;max-height:600px!important;padding:0!important;overflow:hidden!important}
+  .stage:has(canvas){padding:0!important}
+  .stage canvas{width:100%!important;height:100%!important;max-width:100%!important;display:block!important}
+  .info{display:none!important}
+  .overlay{padding:8px!important}
+  .modal{max-width:calc(100vw - 24px)!important;max-height:calc(100% - 12px)!important;padding:13px 10px!important;border-radius:13px!important}
+  .modal .big,.modal .emoji{font-size:34px!important}
+  .modal h2{font-size:20px!important;margin:4px 0!important}
+  .modal p{font-size:11px!important;line-height:1.25!important;margin:5px 0!important}
+  .primary{padding:9px 10px!important;font-size:12px!important}
+  .question{font-size:clamp(18px,5.5vw,26px)!important;margin:7px 0 9px!important}
+  .choices{gap:6px!important}
+  .choice{padding:9px 7px!important;font-size:12px!important}
+  .input{font-size:16px!important;padding:9px!important}
+}
+@media(max-width:430px){
+  .topin{padding:5px 7px!important;min-height:40px!important}
+  .brand{font-size:12px!important}
+  .back{font-size:8px!important;padding:5px 6px!important}
+  .page{padding:6px 5px 16px!important}
+  .credit{height:36px!important;min-height:36px!important;padding:3px 6px!important;margin-bottom:4px!important;gap:5px!important}
+  .credit img{width:28px!important;height:28px!important;flex-basis:28px!important}
+  .credit strong{font-size:9px!important}
+  .credit small{font-size:5.5px!important}
+  .hero .tag{font-size:6.5px!important;padding:3px 6px!important}
+  .hero h1{font-size:clamp(21px,6.8vw,29px)!important;margin:3px 0 2px!important}
+  .hero p{font-size:9px!important;line-height:1.15!important;margin-bottom:5px!important}
+  .hud{padding:3px!important;gap:2px!important}
+  .h{padding:4px 2px!important;min-height:39px!important}
+  .h small{font-size:5.5px!important}
+  .h b{font-size:13px!important}
+  .stage{height:clamp(400px,calc(100svh - 205px),600px)!important;min-height:400px!important;max-height:600px!important}
+}
+@media(max-width:360px){
+  .topin{min-height:38px!important}
+  .credit{height:34px!important;min-height:34px!important}
+  .credit img{width:26px!important;height:26px!important;flex-basis:26px!important}
+  .credit strong{font-size:8.5px!important}
+  .hero h1{font-size:21px!important}
+  .hero p{font-size:8.5px!important}
+  .h{min-height:37px!important}
+  .stage{height:clamp(390px,calc(100svh - 195px),560px)!important;min-height:390px!important}
+}
+
