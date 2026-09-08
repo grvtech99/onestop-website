@@ -1,0 +1,85 @@
+name: Compact Mobile Game Layout
+on:
+  push:
+    branches: [main]
+jobs:
+  compact:
+    if: github.event.head_commit.message != 'Fix compact mobile game layout'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Apply compact mobile layout to all 20 games
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          files=sorted(Path('games').glob('*.html'))
+          if len(files)!=20: raise SystemExit(f'Expected 20 game files, found {len(files)}')
+          css='''<style id="onestop-hud-center-final">
+          @media(max-width:650px){
+            .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+            .credit div{text-align:center!important}
+            .hud{gap:5px!important;padding:6px!important}
+            .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
+            .h small{font-size:7px!important;line-height:1.1!important}
+            .h b{font-size:17px!important;line-height:1.1!important}
+            .hint{display:none!important}
+          }
+          @media(max-width:430px){
+            .credit{justify-content:center!important}
+            .hud{gap:4px!important;padding:5px!important}
+            .h{min-height:46px!important;padding:6px 3px!important}
+            .h small{font-size:6.5px!important}
+            .h b{font-size:16px!important}
+            .hint{display:none!important}
+          }
+          @media(max-width:360px){
+            .hud{gap:3px!important;padding:4px!important}
+            .h{min-height:43px!important;padding:5px 2px!important}
+            .h small{font-size:6px!important}
+            .h b{font-size:15px!important}
+          }
+          </style>'''
+          for p in files:
+            t=p.read_text(encoding='utf-8')
+            if 'onestop-hud-center-final' in t: continue
+            if '</head>' not in t: raise SystemExit(f'Missing head in {p}')
+            t=t.replace('</head>',css+'\n</head>',1)
+            p.write_text(t,encoding='utf-8')
+          PY
+      - name: Validate before commit
+        shell: bash
+        run: |
+          set -e
+          count=0
+          for f in games/*.html; do
+            count=$((count+1))
+            test "$(grep -o '</head>' "$f" | wc -l)" -eq 1
+            test "$(grep -o '</body>' "$f" | wc -l)" -eq 1
+            test "$(grep -o '</html>' "$f" | wc -l)" -eq 1
+            grep -q '<body' "$f"
+            grep -q '<script' "$f"
+            grep -q 'onestop-hud-center-final' "$f"
+          done
+          test "$count" -eq 20
+          echo "PASS: 20/20 games validated"
+      - name: Commit changes
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add games/*.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Fix mobile HUD size and developer center alignment'
+          git push
+      - name: Remove temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/compact-space-fix.yml || true
+          git commit -m 'Remove temporary mobile HUD workflow' || true
+          git push || true
