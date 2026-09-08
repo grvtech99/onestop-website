@@ -1,0 +1,66 @@
+name: Migrate Game Files
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Move original game sources into games folder
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p games
+
+          for file in \
+            01-reaction-rush.html \
+            02-color-match.html \
+            03-2048-neon.html \
+            04-whack-a-mole.html \
+            05-space-dodge.html \
+            06-memory-match.html \
+            07-brick-breaker.html \
+            08-number-ninja.html \
+            09-fruit-catch.html \
+            10-word-scramble.html \
+            11-math-master.html \
+            12-science-quiz.html \
+            13-geography-explorer.html \
+            14-english-vocabulary.html \
+            15-typing-academy.html \
+            16-money-smart.html \
+            17-element-challenge.html \
+            18-logic-sequence.html \
+            19-history-challenge.html \
+            20-computer-genius.html
+          do
+            if [ -f "$file" ]; then
+              rm -f "games/$file"
+              mv "$file" "games/$file"
+            fi
+          done
+
+      - name: Commit migration
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No migration changes needed."
+            exit 0
+          fi
+          git commit -m "Move original game sources into games folder [skip ci]"
+          git push
