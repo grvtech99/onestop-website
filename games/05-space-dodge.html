@@ -15,6 +15,59 @@ canvas{display:block;width:100%;height:100%}.overlay{position:absolute;inset:0;d
 .credit{max-width:1000px;margin:16px auto 0;padding:10px 14px;display:flex;justify-content:flex-end;align-items:center;gap:10px;border:1px solid rgba(56,232,255,.13);border-radius:15px;background:rgba(255,255,255,.035)}.credit img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(56,232,255,.55)}.credit div{text-align:left}.credit small{display:block;color:#8791b3;font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:900}.credit strong{font-size:13px}
 .info{max-width:1000px;margin:16px auto 0;padding:17px;border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.035);color:var(--muted);font-size:13px;line-height:1.6}.info b{color:#fff}
 @media(max-width:650px){.topin{padding:10px 12px}.page{padding:18px 10px 35px}.stage{min-height:430px;height:62vh}.hud{gap:5px;padding:7px}.h{padding:7px 4px}.h b{font-size:16px}.h small{font-size:8px}.credit img{width:46px;height:46px}.credit strong{font-size:11px}}
+
+/* ONESTOP MOBILE RESPONSIVE PATCH */
+html{width:100%;max-width:100%;overflow-x:hidden}
+body{width:100%;max-width:100%;overflow-x:hidden}
+.top,.topin,.page,main{max-width:100%;width:100%}
+.page{box-sizing:border-box}
+.gamebox,.panel,.stage,canvas{max-width:100%;box-sizing:border-box}
+.gamebox{width:100%;margin-left:auto;margin-right:auto}
+.panel{width:100%}
+.stage{width:100%;min-width:0}
+img,video,canvas,svg{max-width:100%}
+button,.primary{max-width:100%}
+@media(max-width:650px){
+  .topin{padding-left:10px;padding-right:10px;gap:8px}
+  .brand{min-width:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .back{flex:0 0 auto;font-size:11px;padding:8px 9px;white-space:nowrap}
+  .page{padding:16px 10px 30px}
+  h1{font-size:clamp(28px,9vw,42px);line-height:1.05;overflow-wrap:anywhere}
+  .hero p{font-size:14px;line-height:1.45;max-width:100%}
+  .gamebox{border-radius:18px}
+  .panel{border-radius:17px}
+  .hud{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px}
+  .h{min-width:0;padding:7px 4px}
+  .h b{font-size:17px}
+  .h small{font-size:8px}
+  .stage{height:min(62vh,520px);min-height:360px}
+  .overlay{padding:12px}
+  .modal{width:100%;max-width:calc(100vw - 44px);max-height:calc(100% - 24px);overflow:auto;padding:22px 16px;border-radius:17px}
+  .modal .big{font-size:42px}
+  .modal h2{font-size:28px;line-height:1.15}
+  .modal p{font-size:14px;line-height:1.45}
+  .primary{width:100%;padding:12px 14px;font-size:15px}
+  .credit{margin-top:12px;padding:9px 10px;gap:8px;justify-content:center}
+  .info{margin-top:12px;padding:13px;font-size:12px}
+}
+@media(max-width:430px){
+  .topin{padding-left:8px;padding-right:8px}
+  .brand{font-size:14px}
+  .back{font-size:10px}
+  .page{padding-left:8px;padding-right:8px}
+  .tag{font-size:9px;letter-spacing:.5px;padding:6px 9px}
+  .stage{min-height:340px;height:min(60vh,500px)}
+  .modal{max-width:calc(100vw - 34px);padding:18px 13px}
+  .modal h2{font-size:25px}
+  .modal p{font-size:13px}
+  .primary{font-size:14px}
+}
+@media(max-width:360px){
+  .hud{gap:4px}
+  .h b{font-size:15px}
+  .stage{min-height:320px;height:58vh}
+}
+
 </style></head>
 <body>
 <header class="top"><div class="topin"><div class="brand">🎮 ONESTOP <span>ARCADE</span></div><a class="back" href="free-online-games.html">← Game Portal</a></div></header>
