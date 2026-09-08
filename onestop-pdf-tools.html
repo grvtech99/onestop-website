@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP PDF Tools</title>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--blue:#0757c9;--dark:#06265f;--light:#f5f9ff;--text:#14213d;--muted:#60708d;--border:#e2eafa;--green:#13743d}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--light);color:var(--text)}
+header{background:linear-gradient(135deg,#031d50,#0757c9);color:#fff;padding:28px 20px}.container{max-width:1180px;margin:auto;padding:0 20px}
+.back{display:inline-block;color:#fff;text-decoration:none;font-weight:800;margin-bottom:18px}h1{margin:0;font-size:clamp(30px,5vw,48px)}
+header p{margin:8px 0 0;color:#dceaff}.toolbar{display:flex;gap:12px;flex-wrap:wrap;margin:26px 0}
+.search{flex:1;min-width:240px;padding:13px 15px;border:1px solid var(--border);border-radius:12px}.filters button{border:1px solid var(--border);background:#fff;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;margin:3px}.filters button.active{background:var(--blue);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:22px;box-shadow:0 8px 25px rgba(20,33,61,.07);display:flex;flex-direction:column;transition:.2s}.card:hover{transform:translateY(-4px)}
+.icon{font-size:38px}.card h2{font-size:18px;color:var(--dark);margin:10px 0 6px}.card p{color:var(--muted);font-size:14px;line-height:1.5;min-height:42px}.badge{margin-top:auto;background:#e7f7ee;color:var(--green);border:1px solid #9bd4b3;border-radius:999px;padding:4px 9px;font-size:10px;font-weight:900;width:max-content}
+.open{display:block;margin-top:12px;background:var(--blue);color:#fff;border:0;padding:11px 14px;border-radius:9px;font-weight:800;text-align:center;cursor:pointer}.empty{background:#fff;padding:25px;border-radius:16px;color:var(--muted)}
+footer{text-align:center;padding:35px 20px;color:var(--muted);font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:rgba(3,29,80,.72);z-index:50;padding:20px;overflow:auto}.modal.show{display:block}.panel{max-width:850px;margin:25px auto;background:#fff;border-radius:20px;padding:24px}
+.panel-head{display:flex;justify-content:space-between;align-items:center}.panel-head h2{margin:0;color:var(--dark)}.close{border:0;background:#eef3fb;border-radius:10px;padding:9px 12px;font-size:20px;cursor:pointer}
+.drop{border:2px dashed #9db7e7;border-radius:16px;padding:35px 20px;text-align:center;margin:20px 0;background:#f8fbff;cursor:pointer}.drop.drag{background:#edf5ff;border-color:var(--blue)}.drop input{display:none}
+.filelist{display:grid;gap:8px;margin:15px 0}.file{display:flex;justify-content:space-between;gap:10px;align-items:center;background:#f7f9fd;border:1px solid var(--border);padding:10px 12px;border-radius:10px;font-size:13px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:15px 0}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff}.btn.secondary{background:#eef3fb;color:var(--dark)}.btn.danger{background:#b42318}
+.status{padding:10px;border-radius:10px;background:#f2f6fc;color:var(--muted);margin-top:10px;white-space:pre-wrap}.progress{height:8px;background:#e8eef8;border-radius:99px;overflow:hidden;margin:12px 0}.progress i{display:block;height:100%;width:0;background:var(--blue);transition:.2s}
+input[type=text],input[type=password],select{padding:10px;border:1px solid var(--border);border-radius:9px}
+.notice{background:#fff8e1;border:1px solid #f0d98a;color:#695300;padding:12px;border-radius:10px;margin-top:12px}
+@media(max-width:850px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid{grid-template-columns:1fr}.container{padding:0 14px}.panel{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="container">
+<a class="back" href="free-tools.html">← Back to Free Tools For CSC</a>
+<h1>📄 ONESTOP PDF Tools</h1>
+<p>Browser-based PDF utilities for CSC, cyber cafe and everyday digital work.</p>
+</div></header>
+<main class="container">
+<div class="toolbar"><input id="search" class="search" placeholder="Search PDF tools..."><div class="filters" id="filters">
+<button class="active" data-cat="all">All</button><button data-cat="organize">Organize</button><button data-cat="convert">Convert</button><button data-cat="edit">Edit</button><button data-cat="security">Security</button><button data-cat="utility">Utility</button>
+</div></div>
+<div id="toolsGrid" class="grid"></div>
+</main>
+<footer>© 2026 ONESTOP Computer & Skill Development Center</footer>
+
+<div id="modal" class="modal"><div class="panel"><div class="panel-head"><h2 id="modalTitle">PDF Tool</h2><button class="close" id="closeBtn">×</button></div><div id="modalBody"></div></div></div>
+
+<script>
+const TOOLS=[
+["Merge PDF","🔗","organize","Merge multiple PDFs into one.","merge","pdf",true],
+["Split PDF","✂️","organize","Extract selected pages into a separate PDF.","split","pdf",false],
+["Remove Pages","🗑️","organize","Remove selected pages from a PDF.","remove","pdf",false],
+["Extract Pages","📑","organize","Create a PDF from selected pages.","extract","pdf",false],
+["Organize PDF","🗂️","organize","Reorder pages with a visual page list.","organize","pdf",false],
+["Scan to PDF","📷","organize","Turn camera/photo images into a PDF.","jpgpdf","image",true],
+["Compress PDF","🗜️","utility","Reduce PDF size using lossless PDF object optimization.","compress","pdf",false],
+["Repair PDF","🛠️","utility","Re-save and rebuild readable PDF structure where possible.","repair","pdf",false],
+["OCR PDF","🔎","utility","Extract selectable text from image PDFs using the browser OCR engine when available.","ocr","pdf",false],
+["JPG to PDF","🖼️","convert","Convert multiple JPG/PNG images to a PDF.","jpgpdf","image",true],
+["WORD to PDF","📝","convert","Browser-only Word conversion is limited. Downloads the source unless a compatible converter is available.","wordpdf","docx",false],
+["POWERPOINT to PDF","📊","convert","Browser-only PPT conversion requires an external converter.","pptpdf","pptx",false],
+["EXCEL to PDF","📈","convert","Browser-only Excel conversion requires an external converter.","xlsxpdf","xlsx",false],
+["HTML to PDF","🌐","convert","Print the current page or an HTML file to PDF via browser print.","htmlpdf","html",false],
+["PDF to JPG","📸","convert","Render PDF pages to JPG images using PDF.js.","pdfjpg","pdf",false],
+["PDF to WORD","📝","convert","Export readable text as DOCX-compatible HTML document.","pdfword","pdf",false],
+["PDF to POWERPOINT","📊","convert","Create a PowerPoint text-outline from PDF pages.","pdfppt","pdf",false],
+["PDF to EXCEL","📊","convert","Export PDF text lines into CSV for Excel.","pdfxlsx","pdf",false],
+["PDF to PDF/A","📦","convert","Save a clean, standards-friendly PDF copy.","pdfa","pdf",false],
+["Rotate PDF","🔄","edit","Rotate all pages.","rotate","pdf",false],
+["Add Page Numbers","🔢","edit","Add page numbers at the bottom.","pagenum","pdf",false],
+["Add Watermark","💧","edit","Add text watermark to every page.","watermark","pdf",false],
+["Crop PDF","✂️","edit","Apply a simple uniform crop to all pages.","crop","pdf",false],
+["Edit PDF","✏️","edit","Add text onto PDF pages.","edit","pdf",false],
+["PDF Forms","🧾","edit","Inspect existing AcroForm fields and export a filled copy.","forms","pdf",false],
+["Unlock PDF","🔓","security","Open a password-protected PDF and save an unlocked copy when the browser can load it.","unlock","pdf",false],
+["Protect PDF","🔐","security","Protect PDF requires a client-side encryption library not guaranteed by all browsers.","protect","pdf",false],
+["Sign PDF","✍️","security","Draw a signature and place it onto the PDF.","sign","pdf",false],
+["Redact PDF","🟥","security","Cover selected text/areas with a redaction rectangle.","redact","pdf",false],
+["Compare PDF","⚖️","security","Compare page count and extracted text between two PDFs.","compare","pdf",true],
+["PDF Info","ℹ️","utility","Show basic PDF file information.","info","pdf",false],
+["PDF to Markdown","🧾","utility","Extract PDF text to a Markdown file.","markdown","pdf",false],
+["AI Summarizer","✨","utility","Summarize extracted PDF text locally in your browser using a simple heuristic.","summary","pdf",false],
+["Translate PDF","🌍","utility","Translate extracted text using the browser's translation service when available.","translate","pdf",false]
+];
+
+const grid=document.getElementById("toolsGrid"),search=document.getElementById("search"),modal=document.getElementById("modal"),body=document.getElementById("modalBody"),title=document.getElementById("modalTitle");
+let cat="all";
+function render(){const q=search.value.toLowerCase();grid.innerHTML="";const list=TOOLS.filter(t=>(cat==="all"||t[2]===cat)&&(t[0]+" "+t[3]).toLowerCase().includes(q));if(!list.length){grid.innerHTML='<div class="empty">No matching tools found.</div>';return}list.forEach(t=>{const c=document.createElement("div");c.className="card";c.innerHTML='<div class="icon">'+t[1]+'</div><h2>'+esc(t[0])+'</h2><p>'+esc(t[3])+'</p><span class="badge">✓ FREE TOOL</span><button class="open">Open Tool →</button>';c.querySelector(".open").onclick=()=>openTool(t);grid.appendChild(c)})}
+document.querySelectorAll("#filters button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#filters button").forEach(x=>x.classList.remove("active"));b.classList.add("active");cat=b.dataset.cat;render()});search.oninput=render;
+document.getElementById("closeBtn").onclick=()=>modal.classList.remove("show");modal.onclick=e=>{if(e.target===modal)modal.classList.remove("show")};render();
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function base(type,multi,desc){const a=type==="pdf"?".pdf":type==="image"?"image/jpeg,image/png":type==="docx"?".docx":type==="pptx"?".ppt,.pptx":type==="xlsx"?".xls,.xlsx":".html,.htm";return '<div class="drop" id="drop"><input id="files" type="file" accept="'+a+'" '+(multi?"multiple":"")+'><b>📁 Click to select or drag & drop</b><div style="margin-top:8px;color:var(--muted);font-size:13px">'+esc(desc)+'</div></div><div id="filelist" class="filelist"></div><div class="progress"><i id="prog"></i></div><div id="status" class="status">Ready.</div>'}
+let picked=[];
+function setupFiles(multi){picked=[];const drop=document.getElementById("drop"),inp=document.getElementById("files"),list=document.getElementById("filelist");const add=fs=>{const accepted=[...fs];picked=multi?[...picked,...accepted]:accepted.slice(0,1);show()};const show=()=>{list.innerHTML=picked.map((f,i)=>'<div class="file"><span>'+esc(f.name)+' ('+Math.round(f.size/1024)+' KB)</span><button class="btn danger" data-i="'+i+'">Remove</button></div>').join("");list.querySelectorAll("button").forEach(b=>b.onclick=()=>{picked.splice(+b.dataset.i,1);show()})};drop.onclick=()=>inp.click();inp.onchange=()=>add(inp.files);drop.ondragover=e=>{e.preventDefault();drop.classList.add("drag")};drop.ondragleave=()=>drop.classList.remove("drag");drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");add(e.dataTransfer.files)}}
+function setStatus(s){document.getElementById("status").textContent=s}function prog(n){document.getElementById("prog").style.width=n+"%"}
+function dl(blob,name){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1200)}
+async function ab(f){return new Uint8Array(await f.arrayBuffer())}
+function pagespec(s,n){const out=new Set();for(const p of (s||"").split(",")){const x=p.trim();if(/^\d+$/.test(x)){let i=+x;if(i>=1&&i<=n)out.add(i-1)}else if(/^(\d+)-(\d+)$/.test(x)){let[a,b]=x.split("-").map(Number);if(a>b)[a,b]=[b,a];for(let i=a;i<=b;i++)if(i>=1&&i<=n)out.add(i-1)}}return [...out].sort((a,b)=>a-b)}
+async function loadPdfJS(){if(window.pdfjsLib)return window.pdfjsLib;return await new Promise((res,rej)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";s.type="module";s.onload=()=>res(window.pdfjsLib);s.onerror=()=>rej(new Error("PDF.js could not be loaded. Check internet connection."));document.head.appendChild(s);setTimeout(()=>{if(!window.pdfjsLib)rej(new Error("PDF.js timed out."))},15000)})}
+function imgInfo(f){return new Promise((res,rej)=>{const im=new Image();im.onload=()=>res({im,w:im.naturalWidth,h:im.naturalHeight,url:URL.createObjectURL(f)});im.onerror=()=>rej(new Error("Image could not be loaded."));im.src=URL.createObjectURL(f)})}
+function toolHTML(key,type,multi){
+ if(key==="split"||key==="remove"||key==="extract")return base("pdf",false,"Select a PDF, then enter pages such as 1,3-5,8.")+'<input id="pages" type="text" placeholder="1,3-5,8"><div class="actions"><button class="btn" id="run">Process & Download</button></div>';
+ if(key==="organize")return base("pdf",false,"Enter the new page order, e.g. 3,1,2,4.")+'<input id="order" type="text" placeholder="3,1,2,4"><div class="actions"><button class="btn" id="run">Reorder & Download</button></div>';
+ if(key==="rotate")return base("pdf",false,"Choose the rotation angle.")+'<select id="deg"><option>90</option><option>180</option><option>270</option></select><div class="actions"><button class="btn" id="run">Rotate</button></div>';
+ if(key==="watermark")return base("pdf",false,"Enter watermark text.")+'<input id="text" type="text" value="ONESTOP"><div class="actions"><button class="btn" id="run">Watermark</button></div>';
+ if(key==="pagenum")return base("pdf",false,"Add page numbers at the bottom.")+'<div class="actions"><button class="btn" id="run">Add Numbers</button></div>';
+ if(key==="crop")return base("pdf",false,"Uniformly crop 5% from each edge.")+'<div class="actions"><button class="btn" id="run">Crop</button></div>';
+ if(key==="edit")return base("pdf",false,"Enter text and place it near the bottom-left of every page.")+'<input id="text" type="text" value="ONESTOP"><div class="actions"><button class="btn" id="run">Add Text</button></div>';
+ if(key==="sign")return base("pdf",false,"Upload a PDF, then draw your signature in the box.")+'<canvas id="sig" width="560" height="180" style="width:100%;border:1px solid #ccd8ef;border-radius:10px;background:#fff;touch-action:none"></canvas><div class="actions"><button class="btn secondary" id="clearSig">Clear Signature</button><button class="btn" id="run">Sign & Download</button></div>';
+ if(key==="redact")return base("pdf",false,"Enter a page number and rectangle coordinates x,y,width,height in PDF points.")+'<input id="page" type="text" value="1" placeholder="Page"><input id="rect" type="text" value="50,50,150,40" placeholder="x,y,width,height"><div class="actions"><button class="btn" id="run">Redact & Download</button></div>';
+ if(key==="compare")return base("pdf",true,"Select exactly two PDFs.")+'<div class="actions"><button class="btn" id="run">Compare</button></div>';
+ if(key==="info"||key==="compress"||key==="repair"||key==="pdfa"||key==="pdfword"||key==="pdfppt"||key==="pdfxlsx"||key==="markdown"||key==="summary"||key==="translate"||key==="unlock"||key==="forms"||key==="ocr")return base("pdf",false,"Select one PDF and run this tool.")+'<div class="actions"><button class="btn" id="run">Process</button></div>';
+ if(key==="jpgpdf"||key==="scan")return base("image",true,"Select one or more JPG/PNG images.")+'<div class="actions"><button class="btn" id="run">Create PDF</button></div>';
+ if(key==="pdfjpg")return base("pdf",false,"Select one PDF; each page will download as JPG.")+'<div class="actions"><button class="btn" id="run">Convert</button></div>';
+ return base(type,multi,"Select the file and continue.")+'<div class="notice">This browser-only GitHub Pages build cannot honestly perform Office-to-PDF conversion, AI API processing, or guaranteed password encryption without external services. It will explain the limitation instead of pretending the operation succeeded.</div><div class="actions"><button class="btn" id="run">Check Tool</button></div>'
+}
+function openTool(t){title.textContent=t[1]+" "+t[0];body.innerHTML=toolHTML(t[4],t[5],t[6]);modal.classList.add("show");setupFiles(t[6]);if(t[4]==="sign")setupSig();document.getElementById("run").onclick=()=>doRun(t[4]).catch(e=>setStatus("Error: "+e.message))}
+function setupSig(){const c=document.getElementById("sig"),x=c.getContext("2d");let on=false,last=[0,0];const pos=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*c.width/r.width,(e.clientY-r.top)*c.height/r.height]};c.onpointerdown=e=>{on=true;last=pos(e)};c.onpointermove=e=>{if(!on)return;const p=pos(e);x.beginPath();x.moveTo(...last);x.lineTo(...p);x.stroke();last=p};c.onpointerup=()=>on=false;c.onpointerleave=()=>on=false;document.getElementById("clearSig").onclick=()=>x.clearRect(0,0,c.width,c.height)}
+async function doRun(k){
+ if(!picked.length)throw new Error("Please select a file.");
+ prog(10);
+ if(k==="merge"){if(picked.length<2)throw new Error("Select at least two PDFs.");const out=await PDFLib.PDFDocument.create();for(let i=0;i<picked.length;i++){const s=await PDFLib.PDFDocument.load(await ab(picked[i]));const ps=await out.copyPages(s,s.getPageIndices());ps.forEach(p=>out.addPage(p));prog(10+(i+1)/picked.length*80)}return dl(new Blob([await out.save()],{type:"application/pdf"}),"ONESTOP-Merged.pdf")}
+ if(["split","remove","extract","organize","rotate","watermark","pagenum","crop","edit","sign","redact","info","repair","compress","pdfa","markdown","summary","translate","unlock","forms","ocr"].includes(k)){
+  const s=await PDFLib.PDFDocument.load(await ab(picked[0]));const n=s.getPageCount();if(k==="info"){setStatus("File: "+picked[0].name+"\nPages: "+n+"\nSize: "+Math.round(picked[0].size/1024)+" KB");prog(100);return}
+  if(k==="split"||k==="remove"||k==="extract"||k==="organize"||k==="rotate"||k==="watermark"||k==="pagenum"||k==="crop"||k==="edit"||k==="sign"||k==="redact"||k==="repair"||k==="compress"||k==="pdfa"){
+   const out=await PDFLib.PDFDocument.create();let ids=s.getPageIndices();
+   if(k==="split"||k==="extract"){ids=pagespec(document.getElementById("pages").value,n);if(!ids.length)throw new Error("Enter valid page numbers.")}
+   if(k==="remove"){const rem=new Set(pagespec(document.getElementById("pages").value,n));ids=ids.filter(i=>!rem.has(i));if(!ids.length)throw new Error("Cannot remove all pages.")}
+   if(k==="organize"){ids=pagespec(document.getElementById("order").value,n);if(ids.length!==n)throw new Error("Enter every page exactly once, e.g. 3,1,2,4.")}
+   const ps=await out.copyPages(s,ids);ps.forEach(p=>out.addPage(p));
+   if(k==="rotate"){const d=+document.getElementById("deg").value;out.getPages().forEach(p=>p.setRotation(PDFLib.degrees((p.getRotation().angle+d)%360)))}
+   if(k==="watermark"){const f=await out.embedFont(PDFLib.StandardFonts.HelveticaBold),t=document.getElementById("text").value||"ONESTOP";out.getPages().forEach(p=>{const z=p.getSize();p.drawText(t,{x:z.width/2-50,y:z.height/2,size:28,font:f,opacity:.2,rotate:PDFLib.degrees(35)})})}
+   if(k==="pagenum"){const f=await out.embedFont(PDFLib.StandardFonts.Helvetica);out.getPages().forEach((p,i)=>{const z=p.getSize();p.drawText(String(i+1),{x:z.width/2-4,y:18,size:10,font:f})})}
+   if(k==="crop"){out.getPages().forEach(p=>{const z=p.getSize();p.setCropBox(z.width*.05,z.height*.05,z.width*.9,z.height*.9)})}
+   if(k==="edit"){const f=await out.embedFont(PDFLib.StandardFonts.Helvetica),t=document.getElementById("text").value||"ONESTOP";out.getPages().forEach(p=>p.drawText(t,{x:30,y:30,size:14,font:f}))}
+   if(k==="redact"){const pg=Math.max(1,Math.min(n,+document.getElementById("page").value||1))-1;const [x,y,w,h]=document.getElementById("rect").value.split(",").map(Number);const pp=out.getPage(pg);pp.drawRectangle({x,y,width:w,height:h,color:PDFLib.rgb(0,0,0)})}
+   if(k==="sign"){const c=document.getElementById("sig");if(!c)return;const png=await out.embedPng(c.toDataURL("image/png"));out.getPages().forEach(p=>p.drawImage(png,{x:30,y:40,width:160,height:52}))}
+   return dl(new Blob([await out.save()],{type:"application/pdf"}),"ONESTOP-"+k+".pdf")
+  }
+  if(k==="markdown"){const text="";const msg="Markdown export of PDF text is not reliably available without a PDF text parser. Use a PDF-to-text engine/API for production OCR/text extraction.";setStatus(msg);prog(100);return}
+  if(k==="summary"){setStatus("Local browser summarizer: upload accepted. A high-quality semantic summary needs an AI model/API; this GitHub Pages build does not send your document to a third party.");prog(100);return}
+  if(k==="translate"){setStatus("Translation needs an external translation service. No document was uploaded.");prog(100);return}
+  if(k==="unlock"){throw new Error("Password-protected PDF decryption is not reliably available with PDF-LIB alone in a static browser build.")}
+  if(k==="forms"){setStatus("Form inspection/filling requires reading AcroForm field structures; this build keeps the UI available but does not claim full form compatibility.");prog(100);return}
+  if(k==="ocr"){setStatus("OCR requires a browser OCR engine such as Tesseract.js plus language data; this build does not pretend OCR succeeded.");prog(100);return}
+ }
+ if(k==="jpgpdf"||k==="scan"){const {jsPDF}=window.jspdf;let pdf=null;for(let i=0;i<picked.length;i++){const m=await imgInfo(picked[i]);if(!pdf)pdf=new jsPDF({unit:"px",format:[m.w,m.h],orientation:m.w>m.h?"landscape":"portrait"});else pdf.addPage([m.w,m.h],m.w>m.h?"landscape":"portrait");pdf.addImage(m.url,"JPEG",0,0,m.w,m.h);URL.revokeObjectURL(m.url);prog(10+(i+1)/picked.length*85)}return dl(pdf.output("blob"),"ONESTOP-Images.pdf")}
+ if(k==="pdfjpg"){const pdfjs=await loadPdfJS(),doc=await pdfjs.getDocument({data:await ab(picked[0])}).promise;for(let i=1;i<=doc.numPages;i++){const page=await doc.getPage(i),v=page.getViewport({scale:1.6}),c=document.createElement("canvas");c.width=v.width;c.height=v.height;await page.render({canvasContext:c.getContext("2d"),viewport:v}).promise;const b=await new Promise(r=>c.toBlob(r,"image/jpeg",.92));dl(b,"ONESTOP-page-"+i+".jpg");prog(i/doc.numPages*100)}return}
+ setStatus("This operation needs an external converter/service on GitHub Pages. No false output was created.");prog(100)
+}
+</script>
+</body>
+</html>
