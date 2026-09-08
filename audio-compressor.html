@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP Audio Compressor</title>
+<style>
+body{margin:0;font-family:system-ui,Arial;background:#07142e;color:#fff}main{max-width:760px;margin:auto;padding:22px}.box{background:#111d3d;border:1px solid #2c3c6b;border-radius:16px;padding:18px}a{color:#38e8ff}input,select,button{font:inherit}input[type=file]{width:100%;margin:12px 0}label{display:block;margin:14px 0 6px}select,button{padding:11px;border-radius:10px;border:1px solid #40517f}select{background:#091632;color:#fff;width:100%}button{background:#38e8ff;color:#00101c;font-weight:800;cursor:pointer;margin:12px 8px 0 0}button.secondary{background:#27365d;color:#fff}audio{width:100%;margin-top:16px}.status{margin-top:12px;color:#a9f6ff}.note{color:#aeb7d8;font-size:13px;line-height:1.5}.hide{display:none}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:560px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body><main>
+<a href="free-tools.html">← Back to Free Tools</a>
+<h1>🎚️ Audio Compressor</h1>
+<p class="note">Reduce dynamic range with a browser-based audio compressor. Processing stays on your device.</p>
+<div class="box">
+<input id="file" type="file" accept="audio/*">
+<div class="grid">
+<div><label for="preset">Preset</label><select id="preset"><option value="light">Light</option><option value="medium" selected>Medium</option><option value="strong">Strong</option></select></div>
+<div><label for="makeup">Make-up gain</label><select id="makeup"><option value="0">0 dB</option><option value="3" selected>+3 dB</option><option value="6">+6 dB</option></select></div>
+</div>
+<button id="go">Compress Audio</button><button id="reset" class="secondary">Reset</button>
+<div id="status" class="status">Choose an audio file.</div>
+<audio id="preview" controls class="hide"></audio>
+<a id="download" class="hide" download="onestop-compressed-audio.wav">⬇ Download compressed WAV</a>
+<p class="note">Note: this is dynamic-range compression, not lossy file-size compression. WAV output can be larger than MP3/AAC.</p>
+</div></main>
+<script>
+const file=document.getElementById('file'),go=document.getElementById('go'),reset=document.getElementById('reset'),status=document.getElementById('status'),preview=document.getElementById('preview'),download=document.getElementById('download');
+let url=null;
+function dbToGain(db){return Math.pow(10,db/20)}
+function wav(buffer){const ch=buffer.numberOfChannels,len=buffer.length,rate=buffer.sampleRate,bps=16,bytes=2;let data=new ArrayBuffer(44+len*ch*bytes),v=new DataView(data);const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i))};w(0,'RIFF');v.setUint32(4,36+len*ch*bytes,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,ch,true);v.setUint32(24,rate,true);v.setUint32(28,rate*ch*bytes,true);v.setUint16(32,ch*bytes,true);v.setUint16(34,bps,true);w(36,'data');v.setUint32(40,len*ch*bytes,true);let p=44;for(let i=0;i<len;i++)for(let c=0;c<ch;c++){let x=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));v.setInt16(p,x<0?x*32768:x*32767,true);p+=2}return new Blob([data],{type:'audio/wav'})}
+async function run(){if(!file.files[0]){status.textContent='Please choose an audio file first.';return}go.disabled=true;download.classList.add('hide');preview.classList.add('hide');status.textContent='Processing…';try{const ac=new AudioContext(),src=ac.createBufferSource(),arr=await file.files[0].arrayBuffer(),buf=await ac.decodeAudioData(arr);await ac.close();const off=new OfflineAudioContext(buf.numberOfChannels,buf.length,buf.sampleRate),s=off.createBufferSource();s.buffer=buf;const comp=off.createDynamicsCompressor();const p=document.getElementById('preset').value;if(p==='light'){comp.threshold.value=-18;comp.knee.value=20;comp.ratio.value=2;comp.attack.value=.01;comp.release.value=.15}else if(p==='strong'){comp.threshold.value=-30;comp.knee.value=8;comp.ratio.value=8;comp.attack.value=.005;comp.release.value=.12}else{comp.threshold.value=-24;comp.knee.value=15;comp.ratio.value=4;comp.attack.value=.008;comp.release.value=.15}const gain=off.createGain();gain.gain.value=dbToGain(Number(document.getElementById('makeup').value));s.connect(comp).connect(gain).connect(off.destination);s.start();const out=await off.startRendering(),blob=wav(out);if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(blob);preview.src=url;preview.classList.remove('hide');download.href=url;download.classList.remove('hide');status.textContent='Done — compressed audio is ready.'}catch(e){status.textContent='Could not process this file. Try a browser-supported audio format.';console.error(e)}finally{go.disabled=false}}
+go.onclick=run;reset.onclick=()=>{file.value='';status.textContent='Choose an audio file.';preview.removeAttribute('src');preview.classList.add('hide');download.classList.add('hide');if(url){URL.revokeObjectURL(url);url=null}};
+</script></body></html>
