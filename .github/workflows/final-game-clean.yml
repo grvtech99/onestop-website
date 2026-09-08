@@ -1,0 +1,142 @@
+name: Final Game Mobile Cleanup
+on:
+  push:
+    branches: [main]
+jobs:
+  clean:
+    if: github.event.head_commit.message != 'Final game mobile cleanup'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Clean all 20 games
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          games = sorted(Path('games').glob('*.html'))
+          if len(games) != 20:
+              raise SystemExit(f'Expected exactly 20 game files, found {len(games)}')
+
+          css = r'''
+          /* ONESTOP FINAL MOBILE LAYOUT — single canonical block */
+          @media (max-width:650px){
+            html,body{width:100%;max-width:100%;overflow-x:hidden!important}
+            .top{width:100%!important}
+            .topin{width:100%!important;min-height:40px!important;height:40px!important;padding:6px 8px!important;gap:6px!important}
+            .brand{font-size:15px!important;line-height:1!important;white-space:nowrap!important}
+            .back{font-size:11px!important;padding:6px 9px!important;white-space:nowrap!important}
+            .page{width:100%!important;max-width:100%!important;padding:5px 8px 10px!important}
+            .credit{width:100%!important;max-width:100%!important;height:50px!important;min-height:50px!important;margin:2px auto 5px!important;padding:4px 8px!important;display:flex!important;justify-content:center!important;align-items:center!important;gap:8px!important;text-align:center!important}
+            .credit div{text-align:center!important}
+            .credit img,.credit .avatar{width:34px!important;height:34px!important;min-width:34px!important;flex:0 0 34px!important}
+            .credit small{font-size:7px!important;line-height:1!important;margin:0 0 2px!important}
+            .credit strong{font-size:10px!important;line-height:1.05!important;white-space:nowrap!important}
+            .hero{margin:0 0 5px!important;padding:0!important}
+            .hero .tag,.tag{font-size:8px!important;padding:4px 8px!important;line-height:1!important;margin:0 0 3px!important}
+            .hero h1,h1{font-size:23px!important;line-height:1!important;margin:2px 0 4px!important}
+            .hero p{font-size:10px!important;line-height:1.15!important;margin:0 auto 5px!important;max-width:100%!important}
+            .gamebox,.box{width:100%!important;max-width:100%!important;margin-left:auto!important;margin-right:auto!important;border-radius:15px!important}
+            .panel{width:100%!important;border-radius:14px!important}
+            .hud{width:100%!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:6px!important;margin:0!important}
+            .h{min-width:0!important;min-height:62px!important;padding:8px 3px!important;border-radius:9px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important}
+            .h small{font-size:8px!important;line-height:1.1!important;letter-spacing:.7px!important}
+            .h b{font-size:21px!important;line-height:1.05!important;margin-top:3px!important}
+            .stage{width:100%!important;min-width:0!important;height:clamp(420px,calc(100svh - 245px),680px)!important;min-height:420px!important;max-height:680px!important;margin:0!important;overflow:hidden!important}
+            .stage canvas{width:100%!important;height:100%!important;display:block!important;max-width:100%!important}
+            .hint{display:none!important}
+            .info{display:none!important}
+            .overlay{padding:8px!important}
+            .modal{max-width:calc(100vw - 24px)!important;max-height:calc(100% - 14px)!important;padding:13px 10px!important;border-radius:14px!important;overflow:auto!important}
+            .modal .big,.modal .emoji{font-size:34px!important}
+            .modal h2{font-size:21px!important;line-height:1.1!important;margin:3px 0!important}
+            .modal p{font-size:11px!important;line-height:1.25!important;margin:4px 0!important}
+            .primary{width:100%!important;padding:10px!important;font-size:12px!important}
+          }
+          @media (max-width:430px){
+            .topin{min-height:38px!important;height:38px!important;padding:5px 7px!important}
+            .brand{font-size:14px!important}
+            .back{font-size:10px!important;padding:6px 8px!important}
+            .page{padding:4px 7px 8px!important}
+            .credit{height:48px!important;min-height:48px!important;margin:2px auto 4px!important}
+            .credit img,.credit .avatar{width:32px!important;height:32px!important;min-width:32px!important;flex-basis:32px!important}
+            .credit small{font-size:6.5px!important}
+            .credit strong{font-size:9.5px!important}
+            .hero h1,h1{font-size:22px!important}
+            .hud{gap:4px!important;padding:5px!important}
+            .h{min-height:60px!important;padding:7px 2px!important}
+            .h small{font-size:7.5px!important}
+            .h b{font-size:20px!important}
+            .stage{height:clamp(410px,calc(100svh - 235px),650px)!important;min-height:410px!important;max-height:650px!important}
+          }
+          @media (max-width:360px){
+            .topin{min-height:36px!important;height:36px!important}
+            .brand{font-size:13px!important}
+            .back{font-size:9px!important;padding:5px 7px!important}
+            .credit{height:46px!important;min-height:46px!important}
+            .credit img,.credit .avatar{width:30px!important;height:30px!important;min-width:30px!important;flex-basis:30px!important}
+            .credit strong{font-size:9px!important}
+            .hud{gap:3px!important;padding:4px!important}
+            .h{min-height:56px!important;padding:6px 2px!important}
+            .h small{font-size:7px!important}
+            .h b{font-size:19px!important}
+            .stage{height:clamp(400px,calc(100svh - 225px),620px)!important;min-height:400px!important;max-height:620px!important}
+          }
+          '''
+
+          for p in games:
+              s = p.read_text(encoding='utf-8')
+              original = s
+              # Remove every known generated/duplicate mobile CSS layer, keeping the original game CSS/JS.
+              s = re.sub(r'\n/\* ONESTOP FINAL CLEAN MOBILE LAYOUT \*/.*?(?=</style>)', '', s, flags=re.S)
+              s = re.sub(r'<style\s+id=["\']onestop-compact-mobile-final["\']>.*?</style>\s*', '', s, flags=re.S|re.I)
+              s = re.sub(r'<style\s+id=["\']onestop-hud-center-final["\']>.*?</style>\s*', '', s, flags=re.S|re.I)
+              s = re.sub(r'<style\s+id=["\']onestop-[^"\']+["\']>.*?</style>\s*', '', s, flags=re.S|re.I)
+              # Remove any previous canonical block if a prior run left it behind.
+              s = re.sub(r'\n/\* ONESTOP FINAL MOBILE LAYOUT — single canonical block \*/.*?(?=</style>)', '', s, flags=re.S)
+              if s.count('</head>') != 1 or s.count('</body>') != 1 or s.count('</html>') != 1:
+                  raise SystemExit(f'Bad HTML structure before patch: {p}')
+              s = s.replace('</style>', '</style><style id="onestop-final-mobile">' + css + '\n</style>', 1)
+              if s.count('id="onestop-final-mobile"') != 1:
+                  raise SystemExit(f'Canonical CSS insertion failed: {p}')
+              p.write_text(s, encoding='utf-8')
+
+          print(f'Cleaned and rebuilt mobile CSS for {len(games)}/20 games')
+        
+      - name: Validate structure and JavaScript
+        shell: bash
+        run: |
+          set -euo pipefail
+          count=$(find games -maxdepth 1 -type f -name '*.html' | wc -l)
+          test "$count" -eq 20
+          for f in games/*.html; do
+            test "$(grep -o '</head>' "$f" | wc -l)" -eq 1
+            test "$(grep -o '</body>' "$f" | wc -l)" -eq 1
+            test "$(grep -o '</html>' "$f" | wc -l)" -eq 1
+            grep -q '<body' "$f"
+            grep -q '<script' "$f"
+            test "$(grep -o 'id=\"onestop-final-mobile\"' "$f" | wc -l)" -eq 1
+            ! grep -q 'ONESTOP FINAL CLEAN MOBILE LAYOUT' "$f"
+            ! grep -q 'onestop-compact-mobile-final' "$f"
+            ! grep -q 'onestop-hud-center-final' "$f"
+            node --check <(python3 - <<PY
+import re
+s=open('$f',encoding='utf-8').read()
+for x in re.findall(r'<script[^>]*>(.*?)</script>',s,re.S|re.I):
+    print(x)
+PY
+            )
+          done
+          echo 'PASS: 20/20 games — structure, canonical mobile CSS, and JS syntax'
+
+      - name: Remove temporary workflows and commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .github/workflows
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add games .github/workflows || true
+          git commit -m 'Final game mobile cleanup' || echo 'No changes to commit'
+          git push origin main
