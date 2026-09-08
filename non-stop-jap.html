@@ -8,7 +8,7 @@
 <style>
 :root{--saffron:#e8790b;--deep:#7c1d12;--gold:#f59e0b;--cream:#fff8ed;--text:#3b2117;--muted:#765f52;--white:#fff;--border:#f1d8bd;--green:#15803d}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,"Noto Sans Devanagari",sans-serif;background:linear-gradient(180deg,#fff8ed,#fff 45%,#fff7eb);color:var(--text)}
-a{text-decoration:none;color:inherit}.top{background:linear-gradient(135deg,#7c1d12,#c2410c,#f59e0b);color:#fff;padding:26px 18px 34px;text-align:center;box-shadow:0 5px 22px #7c1d1228}.top .om{font-size:48px}.top h1{margin:4px 0;font-size:clamp(30px,7vw,48px)}.top p{margin:8px auto 0;max-width:680px;color:#fff3df}.wrap{max-width:1050px;margin:auto;padding:22px 16px 60px}.back{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);padding:10px 15px;border-radius:10px;color:var(--deep);font-weight:800;box-shadow:0 4px 14px #7c1d1210}.section{margin-top:24px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 10px 28px #7c1d120b}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:15px}.section-head h2{margin:0;color:var(--deep);font-size:25px}.section-head span{font-size:13px;color:var(--muted)}.chant{border:1px solid #f2dfcb;border-radius:17px;margin:12px 0;padding:16px;background:#fffaf4}.chant-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.chant-name{font-size:21px;font-weight:900;color:#6b2418}.chant-meaning{font-size:12px;color:var(--muted);margin-top:3px}.buttons{display:grid;grid-template-columns:repeat(9,minmax(70px,1fr));gap:8px}.play{border:1px solid #e8c6a4;background:#fff;color:#7c1d12;border-radius:10px;padding:10px 5px;cursor:pointer;font-weight:900;transition:.18s}.play:hover{background:#fff0dc;transform:translateY(-1px)}.play.active{background:linear-gradient(135deg,#c2410c,#f59e0b);color:#fff;border-color:#c2410c}.play:disabled{opacity:.55;cursor:not-allowed}.player{position:sticky;bottom:12px;z-index:20;margin-top:22px;background:#35140f;color:#fff;border-radius:18px;padding:14px 16px;box-shadow:0 10px 35px #0005;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}.now{font-weight:900}.status{font-size:12px;color:#f8dcc0;margin-top:3px}.stop{border:0;background:#fff;color:#7c1d12;border-radius:10px;padding:11px 15px;font-weight:900;cursor:pointer}.note{margin-top:18px;background:#fff3df;border-left:4px solid var(--gold);padding:13px 15px;border-radius:10px;color:#6b4a35;font-size:13px;line-height:1.6}.footer{text-align:center;color:#8a6d5d;font-size:12px;margin-top:25px}@media(max-width:850px){.buttons{grid-template-columns:repeat(5,1fr)}}@media(max-width:520px){.wrap{padding-left:10px;padding-right:10px}.section{padding:14px}.chant-top{align-items:flex-start}.buttons{grid-template-columns:repeat(3,1fr)}.play{padding:12px 4px}.player{grid-template-columns:1fr}.stop{width:100%}}
+a{text-decoration:none;color:inherit}.top{background:linear-gradient(135deg,#7c1d12,#c2410c,#f59e0b);color:#fff;padding:24px 18px 30px;text-align:center;box-shadow:0 5px 22px #7c1d1228}.top .om{font-size:48px}.top h1{margin:4px 0;font-size:clamp(30px,7vw,48px)}.top p{margin:8px auto 0;max-width:680px;color:#fff3df}.wrap{max-width:1050px;margin:auto;padding:22px 16px 70px}.back{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--border);padding:10px 15px;border-radius:10px;color:var(--deep);font-weight:800;box-shadow:0 4px 14px #7c1d1210}.section{margin-top:24px;background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 10px 28px #7c1d120b}.section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:15px}.section-head h2{margin:0;color:var(--deep);font-size:25px}.section-head span{font-size:13px;color:var(--muted)}.chant{border:1px solid #f2dfcb;border-radius:17px;margin:12px 0;padding:16px;background:#fffaf4}.chant-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.chant-name{font-size:21px;font-weight:900;color:#6b2418}.chant-meaning{font-size:12px;color:var(--muted);margin-top:3px}.buttons{display:grid;grid-template-columns:repeat(9,minmax(70px,1fr));gap:8px}.play{border:1px solid #e8c6a4;background:#fff;color:#7c1d12;border-radius:10px;padding:10px 5px;cursor:pointer;font-weight:900;transition:.18s}.play:hover{background:#fff0dc;transform:translateY(-1px)}.play.active{background:linear-gradient(135deg,#c2410c,#f59e0b);color:#fff;border-color:#c2410c}.play:disabled{opacity:.55;cursor:not-allowed}.player{position:sticky;bottom:12px;z-index:20;margin-top:22px;background:#35140f;color:#fff;border-radius:18px;padding:15px 16px;box-shadow:0 10px 35px #0005}.player-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.now{font-weight:900}.status{font-size:12px;color:#f8dcc0;margin-top:3px}.stop{border:0;background:#fff;color:#7c1d12;border-radius:10px;padding:11px 15px;font-weight:900;cursor:pointer}.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.toggle{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:800;color:#ffe9cf;cursor:pointer}.toggle input{accent-color:#f59e0b;width:17px;height:17px}.volume{display:flex;align-items:center;gap:7px;font-size:13px;color:#ffe9cf}.volume input{width:120px;accent-color:#f59e0b}.native-audio{width:100%;height:40px;margin-top:10px;display:none}.native-audio.show{display:block}.note{margin-top:18px;background:#fff3df;border-left:4px solid var(--gold);padding:13px 15px;border-radius:10px;color:#6b4a35;font-size:13px;line-height:1.6}.file-format{margin-top:10px;background:#f7fdf8;border:1px solid #ccebd5;color:#25643a;padding:12px 14px;border-radius:10px;font-size:13px;line-height:1.6}.footer{text-align:center;color:#8a6d5d;font-size:12px;margin-top:25px}@media(max-width:850px){.buttons{grid-template-columns:repeat(5,1fr)}}@media(max-width:520px){.wrap{padding-left:10px;padding-right:10px}.section{padding:14px}.section-head{align-items:flex-start;flex-direction:column}.chant-top{align-items:flex-start}.buttons{grid-template-columns:repeat(3,1fr)}.play{padding:12px 4px}.player-top{align-items:flex-start;flex-direction:column}.stop{width:100%}.volume{width:100%}.volume input{flex:1;width:auto}}
 </style>
 </head>
 <body>
@@ -26,37 +26,60 @@ a{text-decoration:none;color:inherit}.top{background:linear-gradient(135deg,#7c1
 <div id="mantraList"></div>
 </section>
 
-<div class="player">
-<div><div class="now" id="now">कोई जप चयनित नहीं है</div><div class="status" id="status">ऑडियो चुनने के लिए ऊपर दिए Play बटन का उपयोग करें।</div></div>
-<button class="stop" id="stop">⏹ जप रोकें</button>
+<div class="player" id="playerBox">
+<div class="player-top"><div><div class="now" id="now">कोई जप चयनित नहीं है</div><div class="status" id="status">ऑडियो चुनने के लिए ऊपर दिए Play बटन का उपयोग करें।</div></div><button class="stop" id="stop" type="button">⏹ जप रोकें</button></div>
+<audio id="audio" class="native-audio" controls preload="none"></audio>
+<div class="controls">
+<label class="toggle"><input type="checkbox" id="repeat"> 🔁 नॉन स्टॉप / Repeat</label>
+<label class="volume">🔊 Volume <input id="volume" type="range" min="0" max="1" step="0.01" value="1"></label>
+</div>
 </div>
 
-<div class="note"><b>ऑडियो फाइल बाद में जोड़ें:</b> इस पेज में सभी audio paths पहले से तैयार हैं। आप GitHub में नीचे बताए गए folder और filenames के अनुसार MP3 files upload करेंगे। अभी किसी Play button पर file मौजूद न होने पर “Audio file not found” संदेश आएगा।</div>
+<div class="note"><b>ऑडियो फाइल बाद में जोड़ें:</b> पेज में सभी audio paths पहले से तैयार हैं। GitHub में नीचे बताए गए folder और filenames के अनुसार MP3 files upload करें। किसी Play button पर file मौजूद न होने पर साफ error message मिलेगा।</div>
+<div class="file-format"><b>📁 Filename format:</b><br>नाम जप → <code>audio/jap/naam-jap/ram-naam-108.mp3</code><br>मंत्र जप → <code>audio/jap/mantra-jap/om-namah-shivaya-108.mp3</code><br><b>संख्या:</b> 11, 21, 51, 108, 1008, 11000, 21000, 51000, 100000</div>
 <div class="footer">© ONESTOP • नॉन स्टॉप जप</div>
 </main>
 <script>
 const counts=[11,21,51,108,1008,11000,21000,51000,100000];
 const naam=[
- {name:'राम नाम',key:'ram-naam',meaning:'श्री राम नाम स्मरण'},
- {name:'सीता राम',key:'sita-ram',meaning:'सीता-राम नाम जप'},
- {name:'राधे राधे',key:'radhe-radhe',meaning:'राधा नाम स्मरण'},
- {name:'हरे कृष्ण',key:'hare-krishna',meaning:'हरे कृष्ण नाम जप'},
- {name:'जय श्री राम',key:'jai-shri-ram',meaning:'श्री राम नाम जप'}
+{name:'राम नाम',key:'ram-naam',meaning:'श्री राम नाम स्मरण'},
+{name:'सीता राम',key:'sita-ram',meaning:'सीता-राम नाम जप'},
+{name:'राधे राधे',key:'radhe-radhe',meaning:'राधा नाम स्मरण'},
+{name:'हरे कृष्ण',key:'hare-krishna',meaning:'हरे कृष्ण नाम जप'},
+{name:'जय श्री राम',key:'jai-shri-ram',meaning:'श्री राम नाम जप'}
 ];
 const mantra=[
- {name:'ॐ नमः शिवाय',key:'om-namah-shivaya',meaning:'भगवान शिव का पंचाक्षरी मंत्र'},
- {name:'महामृत्युंजय मंत्र',key:'mahamrityunjaya',meaning:'भगवान शिव का महामंत्र'},
- {name:'गायत्री मंत्र',key:'gayatri-mantra',meaning:'गायत्री मंत्र जप'},
- {name:'हनुमान मंत्र',key:'hanuman-mantra',meaning:'श्री हनुमान जी का मंत्र'},
- {name:'श्री राम जय राम जय जय राम',key:'shri-ram-jai-ram',meaning:'श्री राम नाम मंत्र'},
- {name:'ॐ गण गणपतये नमः',key:'om-gan-ganapataye',meaning:'श्री गणेश मंत्र'}
+{name:'ॐ नमः शिवाय',key:'om-namah-shivaya',meaning:'भगवान शिव का पंचाक्षरी मंत्र'},
+{name:'महामृत्युंजय मंत्र',key:'mahamrityunjaya',meaning:'भगवान शिव का महामंत्र'},
+{name:'गायत्री मंत्र',key:'gayatri-mantra',meaning:'गायत्री मंत्र जप'},
+{name:'हनुमान मंत्र',key:'hanuman-mantra',meaning:'श्री हनुमान जी का मंत्र'},
+{name:'श्री राम जय राम जय जय राम',key:'shri-ram-jai-ram',meaning:'श्री राम नाम मंत्र'},
+{name:'ॐ गण गणपतये नमः',key:'om-gan-ganapataye',meaning:'श्री गणेश मंत्र'}
 ];
-let currentAudio=null,currentButton=null;
-function render(list,id,folder){const root=document.getElementById(id);root.innerHTML=list.map(item=>`<article class="chant"><div class="chant-top"><div><div class="chant-name">${item.name}</div><div class="chant-meaning">${item.meaning}</div></div></div><div class="buttons">${counts.map(n=>`<button class="play" data-file="audio/jap/${folder}/${item.key}-${n}.mp3" data-name="${item.name}" data-count="${n}">▶ ${n}</button>`).join('')}</div></article>`).join('')}
+const audio=document.getElementById('audio');
+const repeat=document.getElementById('repeat');
+const volume=document.getElementById('volume');
+let currentButton=null,currentSrc='';
+function render(list,id,folder){document.getElementById(id).innerHTML=list.map(item=>`<article class="chant"><div class="chant-top"><div><div class="chant-name">${item.name}</div><div class="chant-meaning">${item.meaning}</div></div></div><div class="buttons">${counts.map(n=>`<button class="play" type="button" data-file="audio/jap/${folder}/${item.key}-${n}.mp3" data-name="${item.name}" data-count="${n}">▶ ${n}</button>`).join('')}</div></article>`).join('')}
 render(naam,'naamList','naam-jap');render(mantra,'mantraList','mantra-jap');
 document.querySelectorAll('.play').forEach(btn=>btn.addEventListener('click',()=>play(btn)));
-async function play(btn){if(currentAudio){currentAudio.pause();currentAudio.currentTime=0}if(currentButton)currentButton.classList.remove('active');const src=btn.dataset.file;const audio=new Audio(src);currentAudio=audio;currentButton=btn;btn.classList.add('active');document.getElementById('now').textContent=`${btn.dataset.name} • ${btn.dataset.count} जाप`;document.getElementById('status').textContent='ऑडियो लोड हो रहा है…';audio.addEventListener('canplay',()=>document.getElementById('status').textContent='जप चल रहा है।');audio.addEventListener('ended',()=>{btn.classList.remove('active');document.getElementById('status').textContent='जप पूरा हुआ।';currentAudio=null;currentButton=null});audio.addEventListener('error',()=>{btn.classList.remove('active');document.getElementById('status').textContent='Audio file not found. GitHub में यह file upload करें: '+src;currentAudio=null;currentButton=null});try{await audio.play()}catch(e){document.getElementById('status').textContent='Audio play नहीं हो पाया। कृपया दोबारा Play दबाएँ।'}}
-document.getElementById('stop').addEventListener('click',()=>{if(currentAudio){currentAudio.pause();currentAudio.currentTime=0}if(currentButton)currentButton.classList.remove('active');currentAudio=null;currentButton=null;document.getElementById('now').textContent='कोई जप चयनित नहीं है';document.getElementById('status').textContent='जप रोक दिया गया।'});
+function clearActive(){if(currentButton){currentButton.classList.remove('active');currentButton=null}}
+function setStatus(text){document.getElementById('status').textContent=text}
+async function play(btn){
+clearActive();
+const src=btn.dataset.file;
+currentButton=btn;currentSrc=src;btn.classList.add('active');
+document.getElementById('now').textContent=`${btn.dataset.name} • ${btn.dataset.count} जाप`;
+setStatus('ऑडियो लोड हो रहा है…');
+audio.pause();audio.currentTime=0;audio.src=src;audio.volume=Number(volume.value);audio.loop=repeat.checked;audio.classList.add('show');
+audio.onerror=()=>{clearActive();setStatus('❌ Audio file not found: '+src+' — GitHub में यही filename upload करें।')};
+audio.oncanplay=()=>setStatus(repeat.checked?'🔁 नॉन स्टॉप जप चल रहा है।':'▶ जप चल रहा है।');
+audio.onended=()=>{if(!repeat.checked){clearActive();setStatus('✅ जप पूरा हुआ।')}};
+try{await audio.play()}catch(e){setStatus('▶ Audio play नहीं हुआ। Browser में Play दबाएँ या दोबारा कोशिश करें।')}
+}
+repeat.addEventListener('change',()=>{audio.loop=repeat.checked;if(currentSrc&& !audio.paused)setStatus(repeat.checked?'🔁 नॉन स्टॉप जप चल रहा है।':'▶ जप चल रहा है।')});
+volume.addEventListener('input',()=>audio.volume=Number(volume.value));
+document.getElementById('stop').addEventListener('click',()=>{audio.pause();audio.removeAttribute('src');audio.load();currentSrc='';clearActive();document.getElementById('now').textContent='कोई जप चयनित नहीं है';setStatus('जप रोक दिया गया।')});
 </script>
 </body>
 </html>
