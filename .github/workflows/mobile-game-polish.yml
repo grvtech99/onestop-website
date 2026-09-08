@@ -1,0 +1,145 @@
+name: Mobile Game Polish
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Move developer card and improve mobile layout
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          css = r'''
+          /* ONESTOP MOBILE GAME POLISH */
+          html,body{width:100%;max-width:100%;overflow-x:hidden}
+          body{min-width:0}
+          .top,.topin,.page,main{width:100%;max-width:100%;box-sizing:border-box}
+          .page{padding-left:max(10px,env(safe-area-inset-left));padding-right:max(10px,env(safe-area-inset-right));padding-bottom:max(30px,env(safe-area-inset-bottom))}
+          .gamebox,.box,.panel,.stage{width:100%;max-width:100%;box-sizing:border-box;min-width:0}
+          .gamebox,.box{margin-left:auto;margin-right:auto}
+          canvas{display:block;width:100%;max-width:100%;box-sizing:border-box}
+          img,video,svg{max-width:100%;height:auto}
+          .topin{gap:8px}
+          .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+          .back{flex:0 0 auto;white-space:nowrap}
+
+          /* Developer credit is a top-of-game identity card */
+          .credit{position:relative;z-index:2;width:min(100%,1000px);max-width:1000px;margin:0 auto 14px;padding:9px 13px;display:flex;align-items:center;justify-content:flex-start;gap:11px;box-sizing:border-box;border:1px solid rgba(56,232,255,.25);border-radius:16px;background:linear-gradient(135deg,rgba(56,232,255,.10),rgba(255,79,216,.08) 55%,rgba(255,255,255,.035));box-shadow:0 8px 28px rgba(0,0,0,.22)}
+          .credit:before{content:'DEVELOPED & DESIGNED BY';align-self:stretch;display:flex;align-items:center;padding-right:11px;border-right:1px solid rgba(255,255,255,.10);color:#8e99bb;font-size:8px;font-weight:900;letter-spacing:1px;white-space:nowrap}
+          .credit img{width:42px;height:42px;flex:0 0 42px;border-radius:50%;object-fit:cover;object-position:center top;border:2px solid rgba(56,232,255,.65);box-shadow:0 0 0 3px rgba(56,232,255,.06)}
+          .credit div{min-width:0;text-align:left}
+          .credit small{display:block;margin:0 0 2px;color:#8290b4;font-size:8px;text-transform:uppercase;letter-spacing:.7px;font-weight:900}
+          .credit strong{display:block;color:#fff;font-size:13px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+          .credit{order:-1}
+
+          @media(max-width:650px){
+            .topin{padding:9px 10px}
+            .page{padding-top:12px;padding-left:8px;padding-right:8px}
+            .credit{margin-bottom:12px;padding:8px 10px;gap:8px;border-radius:14px}
+            .credit:before{font-size:7px;letter-spacing:.7px;padding-right:8px}
+            .credit img{width:38px;height:38px;flex-basis:38px}
+            .credit strong{font-size:12px}
+            .credit small{font-size:7px}
+            .hero h1{font-size:clamp(28px,9vw,40px);line-height:1.05;margin:8px 0 5px}
+            .hero p{font-size:13px;line-height:1.4;margin-bottom:12px}
+            .tag{font-size:9px;padding:6px 9px}
+            .gamebox,.box{border-radius:18px}
+            .panel{border-radius:17px}
+            .hud{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:6px}
+            .h{min-width:0;padding:7px 3px;border-radius:9px}
+            .h b{font-size:16px}
+            .h small{font-size:7px}
+            .stage{height:min(62dvh,520px);height:min(62vh,520px);min-height:320px;padding:clamp(8px,3vw,16px)}
+            .modal{width:100%;max-width:calc(100vw - 32px);max-height:calc(100% - 18px);overflow:auto;padding:18px 13px;border-radius:16px}
+            .modal h2{font-size:24px;line-height:1.15}
+            .modal p{font-size:13px;line-height:1.45}
+            .modal .big,.modal .emoji{font-size:40px}
+            .primary{width:100%;max-width:100%;padding:11px 12px;font-size:14px}
+            .choices{grid-template-columns:1fr!important}
+            .choice{font-size:14px;padding:13px}
+            .input{width:100%;max-width:100%;font-size:17px;padding:12px}
+            .content{width:100%;max-width:100%}
+            .info{width:100%;max-width:100%;font-size:12px;padding:12px;margin-top:12px}
+          }
+          @media(max-width:430px){
+            .topin{padding-left:7px;padding-right:7px}
+            .back{font-size:9px;padding:7px 8px}
+            .brand{font-size:13px}
+            .page{padding-left:7px;padding-right:7px}
+            .credit:before{display:none}
+            .credit{justify-content:center}
+            .credit img{width:36px;height:36px;flex-basis:36px}
+            .credit strong{font-size:11px}
+            .stage{height:min(60dvh,500px);height:min(60vh,500px);min-height:300px}
+            .modal{max-width:calc(100vw - 28px);padding:16px 11px}
+            .modal h2{font-size:22px}
+            .modal p{font-size:12px}
+            .primary{font-size:13px}
+          }
+          @media(max-width:360px){
+            .credit{padding:7px 8px}
+            .credit strong{font-size:10px}
+            .hud{gap:4px;padding:5px}
+            .h{padding:6px 2px}
+            .h b{font-size:14px}
+            .stage{height:56vh;min-height:285px}
+            .modal{max-width:calc(100vw - 24px);padding:14px 9px}
+          }
+          '''
+
+          def extract_credit(s):
+              start = s.find('<div class="credit"')
+              if start < 0:
+                  start = s.find('<div class=\"credit\"')
+              if start < 0:
+                  return None, s
+              i = start
+              depth = 0
+              token = re.compile(r'<div\b[^>]*>|</div\s*>', re.I)
+              for m in token.finditer(s, start):
+                  if m.group(0).lower().startswith('<div'):
+                      depth += 1
+                  else:
+                      depth -= 1
+                      if depth == 0:
+                          end = m.end()
+                          return s[start:end], s[:start]+s[end:]
+              raise SystemExit(f'Unclosed credit block in {start}')
+
+          for p in sorted(Path('games').glob('*.html')):
+              s = p.read_text(encoding='utf-8')
+              credit, s2 = extract_credit(s)
+              if credit is None:
+                  raise SystemExit(f'No developer credit in {p}')
+              s = s2
+              # Insert the existing developer card as the first child of main, before the hero/title.
+              main = re.search(r'<main\b[^>]*>', s, re.I)
+              if not main:
+                  raise SystemExit(f'No main element in {p}')
+              s = s[:main.end()] + '\n' + credit + '\n' + s[main.end():]
+              # Add the common polish only once.
+              if '/* ONESTOP MOBILE GAME POLISH */' not in s:
+                  pos = s.lower().rfind('</style>')
+                  if pos < 0:
+                      raise SystemExit(f'No style tag in {p}')
+                  s = s[:pos] + css + '\n' + s[pos:]
+              p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit polished games
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add games/*.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Polish mobile game layouts and developer cards [skip ci]"
+          git push
