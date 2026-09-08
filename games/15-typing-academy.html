@@ -59,29 +59,29 @@
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head><body>
@@ -96,5 +96,5 @@
 
 <section class="hero"><span class="tag">⌨️ Computer Skills</span><h1>TYPING ACADEMY</h1><p>Type the displayed sentence accurately. Speed and accuracy both matter.</p></section>
 <section class="box"><div class="panel"><div class="hud"><div class="h"><small>WPM</small><b id="wpm">0</b></div><div class="h"><small>Best</small><b id="best">0</b></div><div class="h"><small>Accuracy</small><b id="acc">100%</b></div><div class="h"><small>Time</small><b id="time">30s</b></div></div><div class="stage" id="stage"><div class="overlay" id="start"><div class="modal"><div class="emoji">🎓</div><h2>Ready to Learn?</h2><p>Play, learn and challenge your best score.</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Mobile + Desktop • No login • Free</div></div></div><div class="overlay hide" id="over"><div class="modal"><div class="emoji">🏆</div><h2>Challenge Complete!</h2><p id="result"></p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div></div></div></section>
-<div class="info">Practice real <b>computer typing skills</b>. WPM means words per minute. Accuracy is shown live.</div></main>
+</main>
 <script>(()=>{const $=id=>document.getElementById(id),st=$('stage');const lines=['Practice makes progress.','Computers help us learn and create.','Keyboard skills save time every day.','Technology can make work easier.','Learning new skills builds confidence.','Type carefully and keep a steady rhythm.'];let score=0,best=+localStorage.typBest||0,text='',startT=0,timer,active=false,typed=0,correct=0;function next(){text=lines[Math.floor(Math.random()*lines.length)];st.innerHTML=`<div class="content"><div class="question" style="font-size:clamp(20px,3vw,30px)">${text}</div><input class="input" id="inp" autocomplete="off" spellcheck="false" placeholder="Start typing here…"><div class="feedback" id="fb"></div></div>`;let inp=$('inp');inp.focus();inp.oninput=()=>{let v=inp.value;typed=v.length;correct=[...v].filter((c,i)=>c===text[i]).length;$('acc').textContent=(typed?Math.round(correct/typed*100):100)+'%';if(v===text){score+=Math.max(20,100-Math.abs(text.length-v.length)*2);next()}}}function start(){score=0;typed=correct=0;active=true;startT=Date.now();$('start').classList.add('hide');$('over').classList.add('hide');clearInterval(timer);timer=setInterval(()=>{let left=30-Math.floor((Date.now()-startT)/1000);$('time').textContent=Math.max(0,left)+'s';if(left<=0)end()},250);next()}function end(){active=false;clearInterval(timer);let sec=Math.max(1,(Date.now()-startT)/1000);let wpm=Math.round((correct/5)/(sec/60));if(wpm>best){best=wpm;localStorage.typBest=best}$('wpm').textContent=wpm;$('best').textContent=best;$('result').textContent=`Speed: ${wpm} WPM • Accuracy: ${$('acc').textContent}`;$('over').classList.remove('hide')}$('startBtn').onclick=start;$('again').onclick=start})();</script></body></html>

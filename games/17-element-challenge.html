@@ -59,29 +59,29 @@
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head><body>
@@ -96,5 +96,5 @@
 
 <section class="hero"><span class="tag">⚛️ Chemistry</span><h1>ELEMENT CHALLENGE</h1><p>Identify chemical symbols and common elements in a fast matching challenge.</p></section>
 <section class="box"><div class="panel"><div class="hud"><div class="h"><small>Score</small><b id="score">0</b></div><div class="h"><small>Best</small><b id="best">0</b></div><div class="h"><small>Streak</small><b id="streak">0</b></div><div class="h"><small>Lives</small><b id="lives">❤️❤️❤️</b></div></div><div class="stage" id="stage"><div class="overlay" id="start"><div class="modal"><div class="emoji">🎓</div><h2>Ready to Learn?</h2><p>Play, learn and challenge your best score.</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Mobile + Desktop • No login • Free</div></div></div><div class="overlay hide" id="over"><div class="modal"><div class="emoji">🏆</div><h2>Challenge Complete!</h2><p id="result"></p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div></div></div></section>
-<div class="info">Practice common chemical symbols and element names. Suitable as a <b>quick chemistry revision game</b>.</div></main>
+</main>
 <script>(()=>{const $=id=>document.getElementById(id),st=$('stage'),Q=[['H','Hydrogen'],['He','Helium'],['C','Carbon'],['O','Oxygen'],['N','Nitrogen'],['Na','Sodium'],['Cl','Chlorine'],['Fe','Iron'],['Cu','Copper'],['Ag','Silver'],['Au','Gold'],['Ca','Calcium']];let score=0,best=+localStorage.elBest||0,streak=0,lives=3,i=0,active=false;function next(){let q=Q[i%Q.length],opts=[q[1],...Q.filter(x=>x[1]!==q[1]).sort(()=>Math.random()-.5).slice(0,3).map(x=>x[1])].sort(()=>Math.random()-.5);st.innerHTML=`<div class="content"><div class="question">Which element has symbol <span style="color:#ffd45a">${q[0]}</span>?</div><div class="choices">${opts.map(x=>`<button class="choice" data-v="${x}">${x}</button>`).join('')}</div><div class="feedback" id="fb"></div></div>`;st.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pick(b.dataset.v));hud()}function pick(v){let q=Q[i%Q.length],fb=$('fb');if(v===q[1]){score+=10+streak;streak++;fb.textContent='⚛️ Correct!';fb.style.color='#43e37d'}else{lives--;streak=0;fb.textContent='❌ '+q[1];fb.style.color='#ff5573'}i++;hud();if(lives<=0||i>=15)setTimeout(end,450);else setTimeout(next,400)}function hud(){$('score').textContent=score;$('best').textContent=best;$('streak').textContent=streak;$('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives)}function start(){score=0;i=0;streak=0;lives=3;active=true;$('start').classList.add('hide');$('over').classList.add('hide');next()}function end(){active=false;if(score>best){best=score;localStorage.elBest=best}hud();$('result').textContent=`Score: ${score} • Best: ${best}`;$('over').classList.remove('hide')}$('startBtn').onclick=start;$('again').onclick=start;hud()})();</script></body></html>

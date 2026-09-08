@@ -65,29 +65,29 @@ canvas{display:block;width:100%;height:100%}.overlay{position:absolute;inset:0;d
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head>
@@ -106,8 +106,7 @@ canvas{display:block;width:100%;height:100%}.overlay{position:absolute;inset:0;d
 <div class="overlay" id="start"><div class="modal"><div class="big">🎮</div><h2>Ready?</h2><p>Free to play. No login. Beat your best score!</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Touch • Mouse • Keyboard</div></div></div>
 <div class="overlay hide" id="over"><div class="modal"><div class="big">🏆</div><h2>Game Over</h2><p id="result">Great run!</p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div>
 </div></div></section>
-
-<div class="info">Answer as many as you can. The clock is short, so <b>think fast!</b></div></main>
+</main>
 <script>
 (()=>{const s=id=>document.getElementById(id),stage=document.querySelector('.stage');let score=0,best=+localStorage.nnBest||0,streak=0,lives=3,ans=0,active=false,timer=null;
 function next(){let a=2+Math.floor(Math.random()*18),b=2+Math.floor(Math.random()*18),op=Math.random()<.5?'+':'×';ans=op==='+'?a+b:a*b;stage.innerHTML=`<div style="height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px"><div style="font-size:clamp(38px,8vw,70px);font-weight:1000">${a} ${op} ${b} = ?</div><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;width:min(480px,90%)">${[ans,ans+1+Math.floor(Math.random()*4),Math.max(2,ans-2-Math.floor(Math.random()*4)),ans+5].sort(()=>Math.random()-.5).map(v=>`<button data-v="${v}" style="padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:#151a36;color:#fff;font-size:18px;font-weight:950">${v}</button>`).join('')}</div><div id="count" style="color:#ffd45a;font-weight:900">2.5s</div></div>`;stage.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pick(+b.dataset.v));let end=Date.now()+2500;clearInterval(timer);timer=setInterval(()=>{let x=Math.max(0,end-Date.now());s('time')&&(s('time').textContent=(x/1000).toFixed(1)+'s');if(x<=0){clearInterval(timer);pick(NaN)}},50)}

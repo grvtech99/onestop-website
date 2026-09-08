@@ -59,29 +59,29 @@
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head><body>
@@ -96,5 +96,5 @@
 
 <section class="hero"><span class="tag">💰 Financial Literacy</span><h1>MONEY SMART</h1><p>Learn practical money decisions: saving, budgeting, needs, wants and smart spending.</p></section>
 <section class="box"><div class="panel"><div class="hud"><div class="h"><small>Score</small><b id="score">0</b></div><div class="h"><small>Best</small><b id="best">0</b></div><div class="h"><small>Round</small><b id="round">0/12</b></div><div class="h"><small>Lives</small><b id="lives">❤️❤️❤️</b></div></div><div class="stage" id="stage"><div class="overlay" id="start"><div class="modal"><div class="emoji">🎓</div><h2>Ready to Learn?</h2><p>Play, learn and challenge your best score.</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Mobile + Desktop • No login • Free</div></div></div><div class="overlay hide" id="over"><div class="modal"><div class="emoji">🏆</div><h2>Challenge Complete!</h2><p id="result"></p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div></div></div></section>
-<div class="info">Learn everyday <b>financial literacy</b>: budgeting, saving, needs vs wants, online safety and smart spending.</div></main>
+</main>
 <script>(()=>{const $=id=>document.getElementById(id),st=$('stage'),Q=[['You receive ₹1,000. Which is a smart first step?',['Spend all','Save a portion','Borrow more','Buy random items'],1],['A NEED is something…',['Essential','Only for fun','Always expensive','You never use'],0],['A budget helps you…',['Track money','Create money magically','Avoid all work','Increase prices'],0],['Which is usually a WANT?',['Basic food','School fee','New gaming skin','Medicine'],2],['Saving regularly helps with…',['Future goals','More impulse buys','Losing receipts','Higher waste'],0],['Before buying online, you should…',['Check price/reviews','Share password','Ignore details','Pay twice'],0],['Interest on savings can…',['Grow money','Delete money','Stop time','Reduce learning'],0],['An emergency fund is for…',['Unexpected needs','Daily snacks only','Games only','Luxury trips'],0],['A receipt is useful because it…',['Records purchase','Changes price','Creates income','Is a password'],0],['Needs should generally come…',['Before wants','After all wants','Never','Only on weekends'],0],['Comparing prices can help you…',['Save money','Lose money','Forget goals','Avoid budgets'],0],['A strong password should be…',['Unique','123456','Your name','Shared publicly'],0]];let score=0,best=+localStorage.moneyBest||0,i=0,lives=3,active=false;function next(){let q=Q[i];st.innerHTML=`<div class="content"><div class="question">${q[0]}</div><div class="choices">${q[1].map((x,n)=>`<button class="choice" data-i="${n}">${x}</button>`).join('')}</div><div class="feedback" id="fb"></div></div>`;st.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>pick(+b.dataset.i));hud()}function pick(n){if(!active)return;let fb=$('fb');if(n===Q[i][2]){score+=10;fb.textContent='💰 Smart choice!';fb.style.color='#43e37d'}else{lives--;fb.textContent='❌ Better answer: '+Q[i][1][Q[i][2]];fb.style.color='#ff5573'}i++;hud();if(lives<=0||i>=Q.length)setTimeout(end,450);else setTimeout(next,400)}function hud(){$('score').textContent=score;$('best').textContent=best;$('round').textContent=i+'/12';$('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives)}function start(){score=0;i=0;lives=3;active=true;$('start').classList.add('hide');$('over').classList.add('hide');next()}function end(){active=false;if(score>best){best=score;localStorage.moneyBest=best}hud();$('result').textContent=`Score: ${score} • Best: ${best}`;$('over').classList.remove('hide')}$('startBtn').onclick=start;$('again').onclick=start;hud()})();</script></body></html>

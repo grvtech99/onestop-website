@@ -65,29 +65,29 @@ canvas{display:block;width:100%;height:100%}.overlay{position:absolute;inset:0;d
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head>
@@ -106,8 +106,7 @@ canvas{display:block;width:100%;height:100%}.overlay{position:absolute;inset:0;d
 <div class="overlay" id="start"><div class="modal"><div class="big">🎮</div><h2>Ready?</h2><p>Free to play. No login. Beat your best score!</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Touch • Mouse • Keyboard</div></div></div>
 <div class="overlay hide" id="over"><div class="modal"><div class="big">🏆</div><h2>Game Over</h2><p id="result">Great run!</p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div>
 </div></div></section>
-
-<div class="info">Choose the <b>word</b> that matches the prompt. Ignore the font color. Speed matters!</div></main>
+</main>
 <script>
 (()=>{const s=id=>document.getElementById(id),stage=document.querySelector('.stage');let score=0,best=+localStorage.cmBest||0,streak=0,lives=3,correct='',timer=0,active=false;const cols=['RED','BLUE','GREEN','YELLOW','PINK','PURPLE'];const hex={RED:'#ff5573',BLUE:'#5aa7ff',GREEN:'#43e37d',YELLOW:'#ffd45a',PINK:'#ff4fd8',PURPLE:'#a78bfa'};
 function reset(){score=0;streak=0;lives=3;s('score').textContent=0;s('best').textContent=best;s('streak').textContent=0;s('lives').textContent='❤️❤️❤️'}

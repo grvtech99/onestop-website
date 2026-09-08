@@ -59,29 +59,29 @@
   .stage{height:clamp(245px,calc(100svh - 445px),295px)!important;min-height:245px!important;max-height:295px!important}
 }
 </style>
-<style id="onestop-hud-center-final">
+<style id="onestop-mobile-final-v2">
 @media(max-width:650px){
-  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
-  .credit div{text-align:center!important}
-  .hud{gap:5px!important;padding:6px!important}
-  .h{min-height:48px!important;padding:7px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important}
-  .h small{font-size:7px!important;line-height:1.1!important}
-  .h b{font-size:17px!important;line-height:1.1!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;}
+  .credit div{text-align:center!important;}
+  .hud{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:5px!important;padding:7px!important;margin:0!important;}
+  .h{min-height:54px!important;padding:8px 4px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;}
+  .h small{font-size:7.5px!important;line-height:1.1!important;}
+  .h b{font-size:18px!important;line-height:1.1!important;}
+  .hint{display:none!important;}
+  .info{display:none!important;}
 }
 @media(max-width:430px){
-  .credit{justify-content:center!important}
-  .hud{gap:4px!important;padding:5px!important}
-  .h{min-height:46px!important;padding:6px 3px!important}
-  .h small{font-size:6.5px!important}
-  .h b{font-size:16px!important}
-  .hint{display:none!important}
+  .credit{justify-content:center!important;}
+  .hud{gap:4px!important;padding:6px!important;}
+  .h{min-height:52px!important;padding:7px 3px!important;}
+  .h small{font-size:7px!important;}
+  .h b{font-size:17px!important;}
 }
 @media(max-width:360px){
-  .hud{gap:3px!important;padding:4px!important}
-  .h{min-height:43px!important;padding:5px 2px!important}
-  .h small{font-size:6px!important}
-  .h b{font-size:15px!important}
+  .hud{gap:3px!important;padding:5px!important;}
+  .h{min-height:49px!important;padding:6px 2px!important;}
+  .h small{font-size:6.5px!important;}
+  .h b{font-size:16px!important;}
 }
 </style>
 </head><body>
@@ -96,5 +96,5 @@
 
 <section class="hero"><span class="tag">➗ Mathematics</span><h1>MATH MASTER</h1><p>Solve arithmetic questions, build streaks and become the Math Master.</p></section>
 <section class="box"><div class="panel"><div class="hud"><div class="h"><small>Score</small><b id="score">0</b></div><div class="h"><small>Best</small><b id="best">0</b></div><div class="h"><small>Streak</small><b id="streak">0</b></div><div class="h"><small>Lives</small><b id="lives">❤️❤️❤️</b></div></div><div class="stage" id="stage"><div class="overlay" id="start"><div class="modal"><div class="emoji">🎓</div><h2>Ready to Learn?</h2><p>Play, learn and challenge your best score.</p><button class="primary" id="startBtn">▶ START GAME</button><div class="hint">Mobile + Desktop • No login • Free</div></div></div><div class="overlay hide" id="over"><div class="modal"><div class="emoji">🏆</div><h2>Challenge Complete!</h2><p id="result"></p><button class="primary" id="again">🔄 PLAY AGAIN</button></div></div></div></div></section>
-<div class="info">Practice addition, subtraction and multiplication with <b>instant feedback</b>. Great for school-age learners and adults brushing up skills.</div></main>
+</main>
 <script>(()=>{const $=id=>document.getElementById(id),st=$('stage');let score=0,best=+localStorage.mm2Best||0,streak=0,lives=3,a=0,b=0,ans=0,active=false;function next(){let op=Math.floor(Math.random()*3),x=2+Math.floor(Math.random()*25),y=2+Math.floor(Math.random()*20);if(op===0){a=x;b=y;ans=a+b}else if(op===1){a=Math.max(x,y);b=Math.min(x,y);ans=a-b}else{a=x;b=y;ans=a*b}let opts=[ans,ans+(Math.random()<.5?1:-1),Math.max(0,ans+(Math.random()<.5?3:-3)),ans+(Math.random()<.5?5:-5)].sort(()=>Math.random()-.5);st.innerHTML=`<div class="content"><div class="question">${op===0?`${a} + ${b}`:op===1?`${a} − ${b}`:`${a} × ${b}`} = ?</div><div class="choices">${opts.map(v=>`<button class="choice" data-v="${v}">${v}</button>`).join('')}</div><div class="feedback" id="fb"></div></div>`;st.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pick(+b.dataset.v))}function pick(v){if(!active)return;let fb=$('fb');if(v===ans){score+=10+streak*2;streak++;fb.textContent='✅ Correct!';fb.style.color='#43e37d'}else{lives--;streak=0;fb.textContent=`❌ Correct answer: ${ans}`;fb.style.color='#ff5573';if(lives<=0){end();return}}hud();setTimeout(next,420)}function hud(){$('score').textContent=score;$('best').textContent=best;$('streak').textContent=streak;$('lives').textContent='❤️'.repeat(lives)+'🖤'.repeat(3-lives)}function start(){score=0;streak=0;lives=3;active=true;$('start').classList.add('hide');$('over').classList.add('hide');hud();next()}function end(){active=false;if(score>best){best=score;localStorage.mm2Best=best}hud();$('result').textContent=`Score: ${score} • Best: ${best}`;$('over').classList.remove('hide')}$('startBtn').onclick=start;$('again').onclick=start;hud()})();</script></body></html>

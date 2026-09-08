@@ -1,8 +1,0 @@
-name: final-stop
-on:
-  workflow_dispatch:
-jobs:
-  noop:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo final
