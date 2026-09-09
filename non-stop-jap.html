@@ -40,42 +40,17 @@
 <script>
 'use strict';
 const counts=[11,21,51,108,1008,11000,21000,51000,100000];
-const images={
- rama:'https://commons.wikimedia.org/wiki/Special:FilePath/Rama%2C_Sita%2C_Lakshmana.jpg?width=1000',
- sita:'https://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Sita%20Ram%20Lakshman.jpg?width=1000',
- radha:'https://commons.wikimedia.org/wiki/Special:FilePath/Radha-Krishna.jpg?width=1000',
- krishna:'https://commons.wikimedia.org/wiki/Special:FilePath/Krishna.JPG?width=1000',
- shiva:'https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Shiva.jpg?width=1000',
- gayatri:'https://commons.wikimedia.org/wiki/Special:FilePath/Gayatri%20Mata.jpg?width=800',
- hanuman:'https://commons.wikimedia.org/wiki/Special:FilePath/Hanuman.jpg?width=1000',
- ganesha:'https://commons.wikimedia.org/wiki/Special:FilePath/Lord%20Ganesha.jpg?width=1000'
-};
-const naam=[
- {name:'राम नाम',key:'ram-naam',meaning:'॥ श्री राम जय राम जय जय राम ॥',img:images.rama},
- {name:'सीता राम',key:'sita-ram',meaning:'॥ सीता राम सीता राम ॥',img:images.sita},
- {name:'राधे राधे',key:'radhe-radhe',meaning:'॥ राधे राधे ॥',img:images.radha},
- {name:'हरे कृष्ण',key:'hare-krishna',meaning:'॥ हरे कृष्ण हरे राम ॥',img:images.krishna},
- {name:'जय श्री राम',key:'jai-shri-ram',meaning:'॥ जय श्री राम ॥',img:images.rama}
-];
-const mantra=[
- {name:'ॐ नमः शिवाय',key:'om-namah-shivaya',meaning:'॥ ॐ नमः शिवाय ॥',img:images.shiva},
- {name:'महामृत्युंजय मंत्र',key:'mahamrityunjaya',meaning:'॥ त्र्यम्बकं यजामहे ॥',img:images.shiva},
- {name:'गायत्री मंत्र',key:'gayatri-mantra',meaning:'॥ ॐ भूर्भुवः स्वः ॥',img:images.gayatri},
- {name:'हनुमान मंत्र',key:'hanuman-mantra',meaning:'॥ ॐ हनुमते नमः ॥',img:images.hanuman},
- {name:'श्री राम जय राम जय जय राम',key:'shri-ram-jai-ram',meaning:'॥ श्री राम जय राम ॥',img:images.rama},
- {name:'ॐ गण गणपतये नमः',key:'om-gan-ganapataye',meaning:'॥ ॐ गण गणपतये नमः ॥',img:images.ganesha}
-];
+const images={rama:'https://commons.wikimedia.org/wiki/Special:FilePath/Rama%2C_Sita%2C_Lakshmana.jpg?width=1000',sita:'https://commons.wikimedia.org/wiki/Special:FilePath/Statue%20of%20Sita%20Ram%20Lakshman.jpg?width=1000',radha:'https://commons.wikimedia.org/wiki/Special:FilePath/Radha-Krishna.jpg?width=1000',krishna:'https://commons.wikimedia.org/wiki/Special:FilePath/Krishna.JPG?width=1000',shiva:'https://commons.wikimedia.org/wiki/Special:FilePath/Image%20of%20Shiva.jpg?width=1000',gayatri:'https://commons.wikimedia.org/wiki/Special:FilePath/Gayatri%20Mata.jpg?width=800',hanuman:'https://commons.wikimedia.org/wiki/Special:FilePath/Hanuman.jpg?width=1000',ganesha:'https://commons.wikimedia.org/wiki/Special:FilePath/Lord%20Ganesha.jpg?width=1000'};
+const naam=[{name:'राम नाम',key:'ram-naam',meaning:'॥ श्री राम जय राम जय जय राम ॥',img:images.rama},{name:'सीता राम',key:'sita-ram',meaning:'॥ सीता राम सीता राम ॥',img:images.sita},{name:'राधे राधे',key:'radhe-radhe',meaning:'॥ राधे राधे ॥',img:images.radha},{name:'हरे कृष्ण',key:'hare-krishna',meaning:'॥ हरे कृष्ण हरे राम ॥',img:images.krishna},{name:'जय श्री राम',key:'jai-shri-ram',meaning:'॥ जय श्री राम ॥',img:images.rama}];
+const mantra=[{name:'ॐ नमः शिवाय',key:'om-namah-shivaya',meaning:'॥ ॐ नमः शिवाय ॥',img:images.shiva},{name:'महामृत्युंजय मंत्र',key:'mahamrityunjaya',meaning:'॥ त्र्यम्बकं यजामहे ॥',img:images.shiva},{name:'गायत्री मंत्र',key:'gayatri-mantra',meaning:'॥ ॐ भूर्भुवः स्वः ॥',img:images.gayatri},{name:'हनुमान मंत्र',key:'hanuman-mantra',meaning:'॥ ॐ हनुमते नमः ॥',img:images.hanuman},{name:'श्री राम जय राम जय जय राम',key:'shri-ram-jai-ram',meaning:'॥ श्री राम जय राम ॥',img:images.rama},{name:'ॐ गण गणपतये नमः',key:'om-gan-ganapataye',meaning:'॥ ॐ गण गणपतये नमः ॥',img:images.ganesha}];
 const allItems=[...naam,...mantra];
 let list=naam,currentIndex=0,currentCount=108,currentSrc='';
-const audio=document.getElementById('audio');
-const heroImg=document.getElementById('heroImg');
-const statusEl=document.getElementById('status');
-const playBtn=document.getElementById('playPause');
+const audio=document.getElementById('audio'),heroImg=document.getElementById('heroImg'),statusEl=document.getElementById('status'),playBtn=document.getElementById('playPause');
 function fmt(sec){if(!Number.isFinite(sec)||sec<0)sec=0;sec=Math.round(sec);const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'):String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
 function currentItem(){return list[currentIndex]}
 function srcFor(){const folder=list===naam?'naam-jap':'mantra-jap';return 'audio/jap/'+folder+'/'+currentItem().key+'-'+currentCount+'.mp3'}
 function updateStats(){const total=currentCount,duration=audio.duration||0,elapsed=audio.currentTime||0,pct=duration>0?Math.min(100,elapsed/duration*100):0,done=duration>0?Math.min(total,Math.floor(total*pct/100)):0;document.getElementById('total').textContent=total.toLocaleString('en-IN');document.getElementById('done').textContent=done.toLocaleString('en-IN');document.getElementById('remain').textContent=Math.max(0,total-done).toLocaleString('en-IN');document.getElementById('percent').textContent=pct.toFixed(1)+'%';document.getElementById('bar').style.width=pct+'%';document.getElementById('elapsed').textContent=fmt(elapsed);document.getElementById('totalTime').textContent=fmt(duration);document.getElementById('remainingTime').textContent=fmt(Math.max(0,duration-elapsed))}
-function renderCounts(){document.getElementById('countGrid').innerHTML=counts.map(n=>'<button class="count '+(n===currentCount?'selected':'')+'" type="button" data-count="'+n+'">'+n.toLocaleString('en-IN')+'</button>').join('');document.querySelectorAll('.count').forEach(btn=>btn.addEventListener('click',()=>{currentCount=Number(btn.dataset.count);renderCounts();stopAudio(true);statusEl.textContent='▶ '+currentCount.toLocaleString('en-IN')+' जप के लिए ऑडियो तैयार है।';updateStats()}))}
+function renderCounts(){document.getElementById('countGrid').innerHTML=counts.map(n=>'<button class="count '+(n===currentCount?'selected':'')+'" type="button" data-count="'+n+'">'+n.toLocaleString('en-IN')+'</button>').join('');document.querySelectorAll('.count').forEach(btn=>btn.addEventListener('click',()=>{currentCount=Number(btn.dataset.count);renderCounts();stopAudio(true);currentSrc='';statusEl.textContent='▶ '+currentCount.toLocaleString('en-IN')+' जप के लिए ऑडियो तैयार है।';updateStats()}))}
 function cardHTML(item){return '<article class="chant"><div class="chant-img"><img src="'+item.img+'" alt="'+item.name+'" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="chant-body"><div class="chant-name">'+item.name+'</div><div class="chant-sub">'+item.meaning+'</div><button class="mini" type="button" data-key="'+item.key+'">▶ जप शुरू करें</button></div></article>'}
 function renderCards(){document.getElementById('naamCards').innerHTML=naam.map(cardHTML).join('');document.getElementById('mantraCards').innerHTML=mantra.map(cardHTML).join('');document.querySelectorAll('.mini').forEach(btn=>btn.addEventListener('click',()=>{const found=allItems.find(item=>item.key===btn.dataset.key);list=naam.includes(found)?naam:mantra;currentIndex=list.indexOf(found);selectItem(found);document.querySelector('.player').scrollIntoView({behavior:'smooth',block:'start'})}))}
 function selectItem(item){document.getElementById('typePill').textContent=list===naam?'नाम जप':'मंत्र जप';document.getElementById('now').textContent=item.name;document.getElementById('mantraText').textContent=item.meaning;document.getElementById('photoCaption').textContent='🙏 '+item.name;heroImg.src=item.img;heroImg.alt=item.name;heroImg.style.display='block';stopAudio(true);currentSrc='';renderCounts();updateStats()}
@@ -87,15 +62,9 @@ document.getElementById('repeat').addEventListener('change',event=>{audio.loop=e
 document.getElementById('volume').addEventListener('input',event=>{audio.volume=Number(event.target.value)});
 document.getElementById('prev').addEventListener('click',()=>{currentIndex=(currentIndex-1+list.length)%list.length;selectItem(currentItem());loadAndPlay()});
 document.getElementById('next').addEventListener('click',()=>{currentIndex=(currentIndex+1)%list.length;selectItem(currentItem());loadAndPlay()});
-audio.addEventListener('timeupdate',updateStats);
-audio.addEventListener('loadedmetadata',()=>{updateStats();statusEl.textContent='▶ जप तैयार है।'});
-audio.addEventListener('play',()=>{playBtn.textContent='⏸';statusEl.textContent=document.getElementById('repeat').checked?'🔁 नॉन स्टॉप जप चल रहा है।':'▶ जप चल रहा है।'});
-audio.addEventListener('pause',()=>{if(audio.currentTime<audio.duration)playBtn.textContent='▶'});
-audio.addEventListener('ended',()=>{updateStats();playBtn.textContent='▶';statusEl.textContent=document.getElementById('repeat').checked?'🔁 फिर से जप शुरू हो रहा है।':'✅ जप पूरा हुआ।'});
-audio.addEventListener('error',()=>{playBtn.textContent='▶';statusEl.textContent='❌ Audio file not found: '+currentSrc;updateStats()});
+audio.addEventListener('timeupdate',updateStats);audio.addEventListener('loadedmetadata',()=>{updateStats();statusEl.textContent='▶ जप तैयार है।'});audio.addEventListener('play',()=>{playBtn.textContent='⏸';statusEl.textContent=document.getElementById('repeat').checked?'🔁 नॉन स्टॉप जप चल रहा है।':'▶ जप चल रहा है।'});audio.addEventListener('pause',()=>{if(audio.currentTime<audio.duration)playBtn.textContent='▶'});audio.addEventListener('ended',()=>{updateStats();playBtn.textContent='▶';statusEl.textContent=document.getElementById('repeat').checked?'🔁 फिर से जप शुरू हो रहा है।':'✅ जप पूरा हुआ।'});audio.addEventListener('error',()=>{playBtn.textContent='▶';statusEl.textContent='❌ Audio file not found: '+currentSrc;updateStats()});
 document.querySelectorAll('.tab').forEach(tab=>tab.addEventListener('click',()=>{const isNaam=tab.dataset.tab==='naam';document.getElementById('naamCards').classList.toggle('hidden',!isNaam);document.getElementById('mantraCards').classList.toggle('hidden',isNaam)}));
-renderCards();
-selectItem(naam[0]);
+renderCards();selectItem(naam[0]);
 </script>
 </body>
 </html>
