@@ -50,22 +50,51 @@ const mantra=[
  {key:'shri-ram-jai-ram',name:'श्री राम जय राम',sub:'श्री राम जय राम जय जय राम',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Rama%2C_Sita%2C_Lakshmana.jpg?width=1000',alt:'श्री राम'},
  {key:'om-gan-ganapataye',name:'ॐ गण गणपतये नमः',sub:'ॐ गण गणपतये नमः',img:'https://commons.wikimedia.org/wiki/Special:FilePath/Lord%20Ganesha.jpg?width=1000',alt:'श्री गणेश'}
 ];
-let list=naam,currentIndex=0,currentCount=108,currentSrc='',audio=document.getElementById('audio');
+let list=naam,currentIndex=0,currentCount=108,currentSrc='',audio=document.getElementById('audio'),japDone=0;
 const $=id=>document.getElementById(id);
 function fmt(sec){if(!isFinite(sec)||sec<0)sec=0;sec=Math.floor(sec);let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'):String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
 function srcFor(item){return 'audio/jap/'+(list===naam?'naam-jap':'mantra-jap')+'/'+item.key+'-'+currentCount+'.mp3'}
-function updateStats(){let d=audio.duration||0,t=audio.currentTime||0,p=d?Math.min(100,t/d*100):0,done=Math.min(currentCount,Math.floor(currentCount*p/100));$('done').textContent=done.toLocaleString('en-IN');$('total').textContent=currentCount.toLocaleString('en-IN');$('remain').textContent=Math.max(0,currentCount-done).toLocaleString('en-IN');$('percent').textContent=p.toFixed(1)+'%';$('bar').style.width=p+'%';$('totalTime').textContent=fmt(d);$('elapsed').textContent=fmt(t);$('remainingTime').textContent=fmt(Math.max(0,d-t))}
-function renderCounts(){let box=$('countGrid');box.innerHTML='';counts.forEach(c=>{let b=document.createElement('button');b.className='count'+(c===currentCount?' selected':'');b.textContent=c.toLocaleString('en-IN');b.onclick=()=>{currentCount=c;stop(true);currentSrc='';renderCounts();updateStats();$('status').textContent='अब '+c.toLocaleString('en-IN')+' जप चुना गया है';};box.appendChild(b)})}
+function updateStats(){let d=audio.duration||0,t=audio.currentTime||0,totalSeconds=d*currentCount,elapsedSeconds=Math.min(totalSeconds,d*japDone+t),p=totalSeconds?Math.min(100,elapsedSeconds/totalSeconds*100):0;$('done').textContent=Math.min(currentCount,japDone).toLocaleString('en-IN');$('total').textContent=currentCount.toLocaleString('en-IN');$('remain').textContent=Math.max(0,currentCount-japDone).toLocaleString('en-IN');$('percent').textContent=p.toFixed(1)+'%';$('bar').style.width=p+'%';$('totalTime').textContent=fmt(totalSeconds);$('elapsed').textContent=fmt(elapsedSeconds);$('remainingTime').textContent=fmt(Math.max(0,totalSeconds-elapsedSeconds))}
+function resetJapCount(){japDone=0;updateStats()}
+function renderCounts(){let box=$('countGrid');box.innerHTML='';counts.forEach(c=>{let b=document.createElement('button');b.className='count'+(c===currentCount?' selected':'');b.textContent=c.toLocaleString('en-IN');b.onclick=()=>{currentCount=c;stop(true);currentSrc='';japDone=0;renderCounts();updateStats();$('status').textContent='अब '+c.toLocaleString('en-IN')+' जप चुना गया है';};box.appendChild(b)})}
 function renderCards(){function build(arr,box){box.innerHTML='';arr.forEach((x,i)=>{let card=document.createElement('article');card.className='chant';card.innerHTML='<div class="chant-img"><img src="'+x.img+'" alt="'+x.alt+'" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="chant-body"><div class="chant-name">'+x.name+'</div><div class="chant-sub">'+x.sub+'</div><button class="mini">🙏 जप शुरू करें</button></div>';card.querySelector('.mini').onclick=()=>{list=arr;currentIndex=i;selectItem(x);loadAndPlay()};box.appendChild(card)})}build(naam,$('naamCards'));build(mantra,$('mantraCards'))}
-function selectItem(item){$('typePill').textContent=list===naam?'नाम जप':'मंत्र जप';$('now').textContent=item.name;$('mantraText').textContent=item.sub;$('heroImg').src=item.img;$('heroImg').alt=item.alt;$('photoCaption').textContent='🙏 '+item.name;stop(true);currentSrc='';renderCounts();updateStats()}
-function loadAndPlay(){let item=list[currentIndex],src=srcFor(item);currentSrc=src;audio.src=src;audio.volume=Number($('volume').value);audio.loop=$('repeat').checked;$('status').textContent='⏳ ऑडियो लोड हो रहा है...';let p=audio.play();if(p)p.catch(()=>{$('status').textContent='▶ Play दबाकर जप शुरू करें'});}
-function stop(reset){audio.pause();if(reset)audio.currentTime=0;if(reset)audio.removeAttribute('src');$('playPause').textContent='▶';updateStats()}
+function selectItem(item){$('typePill').textContent=list===naam?'नाम जप':'मंत्र जप';$('now').textContent=item.name;$('mantraText').textContent=item.sub;$('heroImg').src=item.img;$('heroImg').alt=item.alt;$('photoCaption').textContent='🙏 '+item.name;stop(true);currentSrc='';japDone=0;renderCounts();updateStats()}
+function loadAndPlay(){let item=list[currentIndex],src=srcFor(item);currentSrc=src;audio.src=src;audio.volume=Number($('volume').value);audio.loop=false;$('status').textContent='⏳ ऑडियो लोड हो रहा है...';let p=audio.play();if(p)p.catch(()=>{$('status').textContent='▶ Play दबाकर जप शुरू करें'});}
+function stop(reset){audio.pause();if(reset)audio.currentTime=0;if(reset){audio.removeAttribute('src');japDone=0;}$('playPause').textContent='▶';updateStats()}
 $('playPause').onclick=()=>{if(!currentSrc){loadAndPlay();return}if(audio.paused)audio.play().catch(()=>{});else audio.pause()};
 $('stop').onclick=()=>{stop(true);$('status').textContent='⏹ जप रोक दिया गया'};
 $('prev').onclick=()=>{currentIndex=(currentIndex-1+list.length)%list.length;selectItem(list[currentIndex]);loadAndPlay()};
 $('next').onclick=()=>{currentIndex=(currentIndex+1)%list.length;selectItem(list[currentIndex]);loadAndPlay()};
-$('volume').oninput=e=>audio.volume=Number(e.target.value);$('repeat').onchange=e=>audio.loop=e.target.checked;
-audio.ontimeupdate=updateStats;audio.onloadedmetadata=()=>{updateStats();$('status').textContent='▶ जप तैयार है — Play दबाएँ'};audio.onplay=()=>{$('playPause').textContent='⏸';$('status').textContent='🙏 जप चल रहा है...'};audio.onpause=()=>{$('playPause').textContent='▶'};audio.onended=()=>{updateStats();if(!$('repeat').checked)$('status').textContent='✅ जप पूरा हो गया'};audio.onerror=()=>{$('playPause').textContent='▶';$('status').textContent='❌ Audio file not found: '+currentSrc};
+$('volume').oninput=e=>audio.volume=Number(e.target.value);
+$('repeat').onchange=e=>{if(e.target.checked){$('status').textContent='🔁 नॉन स्टॉप जप चालू है';if(audio.ended){audio.currentTime=0;audio.play().catch(()=>{})}}else if(!audio.paused){$('status').textContent='🙏 चयनित जप संख्या के अनुसार जप चल रहा है...'};
+audio.ontimeupdate=updateStats;
+audio.onloadedmetadata=()=>{updateStats();$('status').textContent='▶ जप तैयार है — Play दबाएँ'};
+audio.onplay=()=>{$('playPause').textContent='⏸';$('status').textContent=$('repeat').checked?'🔁 नॉन स्टॉप जप चल रहा है...':'🙏 जप चल रहा है...'};
+audio.onpause=()=>{$('playPause').textContent='▶'};
+audio.onended=()=>{
+  if($('repeat').checked){
+    japDone++;
+    if(japDone>=currentCount)japDone=0;
+    updateStats();
+    audio.currentTime=0;
+    let p=audio.play();
+    if(p)p.catch(()=>{$('status').textContent='▶ Play दबाकर जप फिर शुरू करें'});
+    return;
+  }
+  japDone++;
+  if(japDone<currentCount){
+    updateStats();
+    audio.currentTime=0;
+    let p=audio.play();
+    if(p)p.catch(()=>{$('status').textContent='▶ Play दबाकर अगला जप शुरू करें'});
+  }else{
+    japDone=currentCount;
+    updateStats();
+    $('playPause').textContent='▶';
+    $('status').textContent='✅ '+currentCount.toLocaleString('en-IN')+' जप पूरा हो गया';
+  }
+};
+audio.onerror=()=>{$('playPause').textContent='▶';$('status').textContent='❌ Audio file not found: '+currentSrc};
 $('tabNaam').onclick=()=>{$('naamCards').classList.remove('hidden');$('mantraCards').classList.add('hidden')};$('tabMantra').onclick=()=>{$('mantraCards').classList.remove('hidden');$('naamCards').classList.add('hidden')};
 renderCounts();renderCards();selectItem(naam[0]);
 </script>
