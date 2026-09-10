@@ -22,11 +22,14 @@ iframe{display:block;width:100%;height:100%;border:0}
      var doc=frame.contentDocument||frame.contentWindow.document;
      var old=doc.querySelectorAll('script[src*="onestop-speed-widget"]');
      old.forEach(function(s){s.remove();});
+     var oldWidget=doc.getElementById('onestop-speed-widget');
+     if(oldWidget) oldWidget.remove();
+     try{delete frame.contentWindow.__ONESTOP_SPEED_WIDGET__;}catch(ignore){}
      var s=doc.createElement('script');
      s.src='onestop-speed-widget-v2.js?v='+Date.now();
-     s.defer=true;
+     s.onload=function(){status.style.display='none';};
+     s.onerror=function(){status.textContent='Widget script failed to load';status.style.background='#b91c1c';};
      doc.body.appendChild(s);
-     status.style.display='none';
    }catch(e){
      status.textContent='Preview error: '+e.message;
      status.style.background='#b91c1c';
