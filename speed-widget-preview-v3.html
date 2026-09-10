@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ONESTOP Speed Widget Preview</title>
+<style>
+html,body{margin:0;padding:0;background:#fff}
+#preview-status{position:fixed;right:12px;bottom:12px;z-index:99999;background:#06265f;color:#fff;padding:8px 12px;border-radius:8px;font:600 12px Arial;box-shadow:0 5px 18px rgba(0,0,0,.2)}
+</style>
+</head>
+<body>
+<div id="preview-status">Loading ONESTOP homepage preview…</div>
+<script>
+(async function(){
+  const status=document.getElementById('preview-status');
+  try{
+    const res=await fetch('index.html?preview='+Date.now(),{cache:'no-store'});
+    if(!res.ok) throw new Error('Homepage fetch failed: '+res.status);
+    let html=await res.text();
+    const widget='<script src="onestop-speed-widget-v2.js?preview='+Date.now()+'" defer><\\/script>';
+    if(!html.includes('onestop-speed-widget-v2.js')){
+      html=html.replace('</body>',widget+'</body>');
+    }
+    document.open();
+    document.write(html);
+    document.close();
+  }catch(err){
+    status.textContent='Preview error: '+err.message;
+    status.style.background='#b91c1c';
+  }
+})();
+</script>
+</body>
+</html>
