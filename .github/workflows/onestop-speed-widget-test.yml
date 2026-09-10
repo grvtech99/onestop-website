@@ -1,0 +1,56 @@
+name: ONESTOP Speed Widget Safe Test
+on:
+  push:
+    branches:
+      - feature/speed-widget-safe-test-20260910
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Patch index safely
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          marker='<!-- ONESTOP SPEED WIDGET SCRIPT -->'
+          if marker in s:
+              print('Widget script marker already present; nothing to do.')
+              raise SystemExit(0)
+          required=['const SCRIPT_URL=', 'id="admissionForm"', 'id="receiptOverlay"']
+          missing=[x for x in required if x not in s]
+          if missing:
+              raise SystemExit('Safety check failed; missing: '+', '.join(missing))
+          tag=marker+'\n<script src="onestop-speed-widget.js" defer></script>'
+          if '</body>' not in s:
+              raise SystemExit('Safety check failed: </body> missing')
+          s=s.replace('</body>', tag+'\n</body>',1)
+          p.write_text(s,encoding='utf-8')
+          print('Safe patch applied.')
+          PY
+      - name: Validate
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('index.html').read_text(encoding='utf-8')
+          checks=['<!-- ONESTOP SPEED WIDGET SCRIPT -->','onestop-speed-widget.js','const SCRIPT_URL=','id="admissionForm"','id="receiptOverlay"']
+          for c in checks:
+              assert c in s, c
+          assert s.count('onestop-speed-widget.js') == 1
+          print('Validation passed: existing admission/receipt markers preserved.')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'No index change to commit.'
+          else
+            git commit -m 'Integrate ONESTOP internet speed widget'
+            git push
+          fi
