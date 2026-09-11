@@ -15,6 +15,7 @@ SOURCES = {
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "government-source-snapshots.json")
+QUEUE = os.path.join(ROOT, "data", "government-update-review-queue.json")
 MAX_HISTORY = 30
 
 def fetch(url):
@@ -23,13 +24,17 @@ def fetch(url):
         body = r.read()
         return r.status, hashlib.sha256(body).hexdigest(), len(body)
 
-def main():
-    old_data = {}
-    if os.path.exists(OUT):
+def load_json(path, default):
+    if os.path.exists(path):
         try:
-            with open(OUT, encoding="utf-8") as f: old_data = json.load(f)
+            with open(path, encoding="utf-8") as f:
+                return json.load(f)
         except Exception:
-            old_data = {}
+            pass
+    return default
+
+def main():
+    old_data = load_json(OUT, {})
     old = old_data.get("sources", {})
     now = datetime.now(timezone.utc).isoformat()
     result = {"checkedAt": now, "sources": {}, "changed": [], "failed": []}
@@ -45,13 +50,39 @@ def main():
             result["failed"].append(name)
             result["sources"][name] = {"url": url, "state": "failed", "error": str(e)[:300]}
             print(f"{name}: FAILED — {e}")
+
     previous_history = old_data.get("history", [])
     entry = {"checkedAt": now, "changed": result["changed"], "failed": result["failed"], "states": {k: v.get("state") for k, v in result["sources"].items()}}
     result["history"] = ([entry] + previous_history)[:MAX_HISTORY]
+
+    queue = load_json(QUEUE, {"version": 1, "updatedAt": None, "items": []})
+    items = queue.get("items", [])
+    existing_keys = {i.get("key") for i in items}
+    for name in result["changed"]:
+        source = result["sources"][name]
+        key = f"{name}:{source.get('sha256')}"
+        if key not in existing_keys:
+            items.insert(0, {
+                "key": key,
+                "source": name,
+                "detectedAt": now,
+                "status": "pending",
+                "verificationUrl": source.get("url"),
+                "sourceSha256": source.get("sha256"),
+                "note": "Official source changed; verify the specific notice before publishing any update."
+            })
+    queue["version"] = 1
+    queue["updatedAt"] = now
+    queue["items"] = items[:100]
+
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
         f.write("\n")
+    with open(QUEUE, "w", encoding="utf-8") as f:
+        json.dump(queue, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
     if result["failed"]:
         print("One or more official sources failed.")
         return 1
