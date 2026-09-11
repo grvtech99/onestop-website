@@ -47,4 +47,33 @@ out = os.path.join(out_dir, f"{slug}-issue-{issue_number}.json")
 with open(out, "w", encoding="utf-8") as f:
     json.dump(draft, f, indent=2, ensure_ascii=False)
     f.write("\n")
+
+# Maintain a lightweight static index so GitHub Pages can render the draft center.
+index_path = os.path.join(out_dir, "index.json")
+entries = []
+for name in os.listdir(out_dir):
+    if not name.endswith(".json") or name == "index.json":
+        continue
+    path = os.path.join(out_dir, name)
+    try:
+        with open(path, encoding="utf-8") as f:
+            item = json.load(f)
+        entries.append({
+            "file": name,
+            "category": item.get("category", ""),
+            "title": item.get("title", ""),
+            "meta": item.get("meta", ""),
+            "dates": item.get("dates", ""),
+            "verifiedAt": item.get("verifiedAt", ""),
+            "verificationIssue": item.get("verificationIssue", ""),
+            "noticeUrl": item.get("noticeUrl", item.get("url", "")),
+            "applyUrl": item.get("applyUrl", item.get("url", ""))
+        })
+    except (OSError, json.JSONDecodeError):
+        continue
+entries.sort(key=lambda x: x.get("verifiedAt", ""), reverse=True)
+with open(index_path, "w", encoding="utf-8") as f:
+    json.dump({"updatedAt": now, "count": len(entries), "drafts": entries}, f, indent=2, ensure_ascii=False)
+    f.write("\n")
 print("Verified draft written to", out)
+print("Draft index updated:", index_path)
