@@ -28,11 +28,44 @@ jobs:
           ISSUE_TITLE: ${{ github.event.issue.title }}
         run: python3 scripts/process-government-verification.py
 
-      - name: Commit verified draft
+      - name: Maintain verified draft index
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          root='data/government-verified-drafts'
+          os.makedirs(root, exist_ok=True)
+          items=[]
+          for name in sorted(os.listdir(root)):
+              if not name.endswith('.json') or name == 'index.json':
+                  continue
+              path=os.path.join(root,name)
+              try:
+                  with open(path,encoding='utf-8') as f: d=json.load(f)
+              except Exception:
+                  continue
+              items.append({
+                  'path': path.replace('\\','/'),
+                  'title': d.get('title',''),
+                  'category': d.get('category',''),
+                  'meta': d.get('meta',''),
+                  'dates': d.get('dates',''),
+                  'verifiedAt': d.get('verifiedAt',''),
+                  'verificationIssue': d.get('verificationIssue','')
+              })
+          items.sort(key=lambda x:x.get('verifiedAt',''), reverse=True)
+          index={'updatedAt':datetime.now(timezone.utc).isoformat(),'items':items[:100]}
+          with open(os.path.join(root,'index.json'),'w',encoding='utf-8') as f:
+              json.dump(index,f,indent=2,ensure_ascii=False); f.write('\n')
+          PY
+
+      - name: Commit verified draft and index
         run: |
           set -euo pipefail
           if git diff --quiet -- data/government-verified-drafts; then
-            echo 'No verified draft created.'
+            echo 'No verified draft changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
@@ -49,5 +82,5 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '✅ **VERIFIED draft created.** The structured update has been saved for final publication review. Nothing has been auto-published to the public Job Update page.'
+              body: '✅ **VERIFIED draft created.** The structured update and Verified Draft index have been saved for final publication review. Nothing has been auto-published to the public Job Update page.'
             });
