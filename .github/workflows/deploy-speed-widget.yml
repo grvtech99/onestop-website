@@ -1,16 +1,20 @@
 name: Deploy ONESTOP Speed Widget
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize]
     branches:
-      - feature/speed-widget-production-20260911
+      - main
 permissions:
   contents: write
 jobs:
   deploy:
+    if: github.event.pull_request.head.ref == 'feature/speed-widget-production-20260911'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout production branch
         uses: actions/checkout@v4
+        with:
+          ref: feature/speed-widget-production-20260911
       - name: Safely integrate widget into homepage
         run: |
           python - <<'PY'
@@ -41,5 +45,5 @@ jobs:
             echo 'No changes to commit.'
           else
             git commit -m 'Integrate ONESTOP internet speed widget'
-            git push
+            git push origin feature/speed-widget-production-20260911
           fi
