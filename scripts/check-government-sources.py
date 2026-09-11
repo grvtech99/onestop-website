@@ -15,6 +15,7 @@ SOURCES = {
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "government-source-snapshots.json")
+MAX_HISTORY = 30
 
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "ONESTOP-Government-Source-Monitor/1.0"})
@@ -23,12 +24,13 @@ def fetch(url):
         return r.status, hashlib.sha256(body).hexdigest(), len(body)
 
 def main():
-    old = {}
+    old_data = {}
     if os.path.exists(OUT):
         try:
-            with open(OUT, encoding="utf-8") as f: old = json.load(f).get("sources", {})
+            with open(OUT, encoding="utf-8") as f: old_data = json.load(f)
         except Exception:
-            old = {}
+            old_data = {}
+    old = old_data.get("sources", {})
     now = datetime.now(timezone.utc).isoformat()
     result = {"checkedAt": now, "sources": {}, "changed": [], "failed": []}
     for name, url in SOURCES.items():
@@ -43,6 +45,9 @@ def main():
             result["failed"].append(name)
             result["sources"][name] = {"url": url, "state": "failed", "error": str(e)[:300]}
             print(f"{name}: FAILED — {e}")
+    previous_history = old_data.get("history", [])
+    entry = {"checkedAt": now, "changed": result["changed"], "failed": result["failed"], "states": {k: v.get("state") for k, v in result["sources"].items()}}
+    result["history"] = ([entry] + previous_history)[:MAX_HISTORY]
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
