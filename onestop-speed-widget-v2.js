@@ -17,6 +17,17 @@
   async function isp(){try{var r=await api('https://ipapi.co/json/');var j=await r.json();return j.org||j.isp||'Unknown ISP';}catch(e){return 'Unavailable';}}
   function network(){var c=navigator.connection||navigator.mozConnection||navigator.webkitConnection;return c?(c.type||c.effectiveType||'Unknown'):'Unknown';}
   async function run(){var btn=document.getElementById('osSpeedTest'),status=document.getElementById('osStatus');if(!btn)return;btn.classList.add('os-speed-testing');status.textContent='Testing connection…';set('osNet',network());try{var p=await ping();set('osPing',p);status.textContent='Measuring download…';var d=await download();set('osDown',d.toFixed(1));status.textContent='Measuring upload…';var u=await upload();set('osUp',u.toFixed(1));status.textContent='Speed test complete';}catch(e){console.error('ONESTOP speed test',e);status.textContent='Test could not complete. Try again.';}finally{btn.classList.remove('os-speed-testing');}}
-  function mount(){var hero=document.querySelector('.hero');var quick=document.querySelector('.hero-quick');if(!hero||document.getElementById(root.id))return;hero.style.position='relative';hero.style.overflow='visible';if(window.matchMedia('(max-width:850px)').matches&&quick){quick.insertAdjacentElement('afterend',root);}else{hero.appendChild(root);}set('osNet',network());isp().then(function(v){set('osIsp',v);});document.getElementById('osSpeedTest').addEventListener('click',run);}
+  function addUpdatesQuickLink(){
+    var quick=document.querySelector('.hero-quick');
+    if(!quick||document.getElementById('osGovernmentUpdatesQuick'))return;
+    var link=document.createElement('a');
+    link.id='osGovernmentUpdatesQuick';
+    link.href='onestop-updates.html';
+    link.innerHTML='<span>📢</span> Government Updates';
+    link.title='ONESTOP Government Jobs, Results, Admit Cards & Exam Updates';
+    var jap=quick.querySelector('.jap');
+    if(jap)quick.insertBefore(link,jap);else quick.appendChild(link);
+  }
+  function mount(){var hero=document.querySelector('.hero');var quick=document.querySelector('.hero-quick');if(!hero||document.getElementById(root.id))return;hero.style.position='relative';hero.style.overflow='visible';addUpdatesQuickLink();if(window.matchMedia('(max-width:850px)').matches&&quick){quick.insertAdjacentElement('afterend',root);}else{hero.appendChild(root);}set('osNet',network());isp().then(function(v){set('osIsp',v);});document.getElementById('osSpeedTest').addEventListener('click',run);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
 })();
