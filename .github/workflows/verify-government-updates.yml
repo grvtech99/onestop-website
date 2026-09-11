@@ -6,38 +6,31 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Check official government source pages
+      - name: Checkout ONESTOP
+        uses: actions/checkout@v4
+
+      - name: Detect official-source changes
         shell: bash
         run: |
           set -euo pipefail
-          urls=(
-            "https://ssc.gov.in/"
-            "https://www.upsc.gov.in/highlight"
-            "https://www.upsc.gov.in/recruitment/recruitment-test/results/final-result"
-            "https://www.upsc.gov.in/exams-related-info/interview-schedule"
-            "https://www.upsc.gov.in/examinations/Combined%20Defence%20Services%20Examination%20%28II%29%2C%202026"
-            "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All"
-            "https://scholarships.gov.in/Students"
-            "https://scholarships.gov.in/All-Scholarships"
-          )
-          failed=0
-          for url in "${urls[@]}"; do
-            echo "Checking $url"
-            code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 30 "$url" || true)
-            echo "HTTP $code"
-            if [[ "$code" -lt 200 || "$code" -ge 400 ]]; then
-              echo "FAILED: $url"
-              failed=1
-            fi
-          done
-          if [[ "$failed" -ne 0 ]]; then
-            echo "One or more official source pages could not be reached."
-            exit 1
+          python3 scripts/check-government-sources.py
+
+      - name: Commit source snapshot when changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/government-source-snapshots.json; then
+            echo 'No source snapshot changes to commit.'
+            exit 0
           fi
-          echo "All configured official source pages are reachable."
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/government-source-snapshots.json
+          git commit -m 'Update government source snapshot'
+          git push
