@@ -1,0 +1,48 @@
+name: Deploy ONESTOP Native Blue White UI
+
+on:
+  push:
+    branches:
+      - feature/native-blue-white-ui-20260911
+
+permissions:
+  contents: write
+
+jobs:
+  theme:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply shared ONESTOP UI theme
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          root=Path('.')
+          css='onestop-native-ui.css'
+          if not Path(css).exists(): raise SystemExit('Safety check failed: shared theme missing')
+          excluded={'index.html','ui-demo.html','ui-v2.html','non-stop-jap.html','ONESTOP_SOCIAL_MEDIA_POST_MAKER_FREE_V14_CLEAN.html'}
+          targets=[p for p in root.glob('*.html') if p.name not in excluded]
+          for base in [root/'games',root/'audio-tools']:
+              if base.exists(): targets.extend(base.rglob('*.html'))
+          changed=0
+          for p in sorted(set(targets)):
+              s=p.read_text(encoding='utf-8')
+              if 'onestop-native-ui.css' in s: continue
+              low=s.lower(); pos=low.find('</head>')
+              if pos<0: raise SystemExit(f'Safety check failed: missing </head> in {p}')
+              depth=len(p.parent.relative_to(root).parts)
+              href=('../'*depth)+css
+              s=s[:pos]+f'<link rel="stylesheet" href="{href}">'+s[pos:]
+              p.write_text(s,encoding='utf-8'); changed+=1
+          print(f'Themed {changed} HTML pages')
+          PY
+
+      - name: Commit theme rollout
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "No changes needed" || (git commit -m "Apply native ONESTOP blue white UI theme" && git push)
