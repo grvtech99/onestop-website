@@ -16,10 +16,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Detect official-source changes
+        id: detect
         shell: bash
         run: |
-          set -euo pipefail
+          set +e
           python3 scripts/check-government-sources.py
+          status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
 
       - name: Commit source snapshot and review queue
         shell: bash
@@ -34,3 +38,12 @@ jobs:
           git add data/government-source-snapshots.json data/government-update-review-queue.json
           git commit -m 'Update government source review queue'
           git push
+
+      - name: Report source-check status
+        shell: bash
+        run: |
+          status='${{ steps.detect.outputs.status }}'
+          if [ "$status" != '0' ]; then
+            echo 'One or more official sources failed. Snapshot and queue were still persisted for review.'
+            exit "$status"
+          fi
