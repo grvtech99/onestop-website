@@ -1,0 +1,26 @@
+/* ONESTOP Native UI — shared blue & white theme */
+:root{--os-blue:#0757c9;--os-dark:#06265f;--os-sky:#1688e8;--os-text:#14213d;--os-muted:#60708d;--os-light:#f5f9ff;--os-white:#fff;--os-border:#e2eafa;--os-shadow:0 10px 30px rgba(20,50,100,.09);--os-radius:16px}
+html{background:var(--os-light)!important;min-height:100%;scroll-behavior:smooth}
+body{margin:0!important;background:linear-gradient(180deg,#f8fbff 0%,#f5f9ff 100%)!important;color:var(--os-text)!important;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif!important;font-size:15px!important;line-height:1.55!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden!important}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(650px 280px at 50% -120px,rgba(22,136,232,.11),transparent 70%);z-index:-1}
+header,.top{background:rgba(255,255,255,.96)!important;color:var(--os-text)!important;border-bottom:1px solid var(--os-border)!important;box-shadow:0 2px 14px rgba(20,50,100,.05)!important;backdrop-filter:blur(12px)}
+header h1,.top h1{color:var(--os-dark)!important}
+.brand{color:var(--os-text)!important;font-weight:800!important}.brand span{color:var(--os-blue)!important}
+.back,a.back{color:var(--os-blue)!important;background:#fff!important;border:1px solid var(--os-border)!important;border-radius:10px!important;text-decoration:none!important;font-weight:700!important;transition:.18s!important}.back:hover{border-color:rgba(7,87,201,.35)!important;background:#f5f9ff!important;transform:translateY(-1px)}
+main,.page,.container,.wrap{color:var(--os-text)}
+.box,.card,.panel,.tool-card,.game-card,.calculator,.app,.content,.toolbox,.workspace{background:rgba(255,255,255,.98)!important;color:var(--os-text)!important;border:1px solid var(--os-border)!important;border-radius:var(--os-radius)!important;box-shadow:var(--os-shadow)!important}
+h1,h2,h3,h4{color:var(--os-dark)!important;letter-spacing:-.35px}p,.muted,.description,.subtitle{color:var(--os-muted)!important}
+input,select,textarea{background:#fff!important;color:var(--os-text)!important;border:1px solid #ccd8ec!important;border-radius:10px!important;outline:none!important;font:inherit!important}input:focus,select:focus,textarea:focus{border-color:var(--os-sky)!important;box-shadow:0 0 0 3px rgba(22,136,232,.12)!important}
+button,.btn,.primary,.action{font:700 14px Inter,"Segoe UI",Roboto,Arial,sans-serif!important;border-radius:10px!important;transition:.18s!important}
+button[type=submit],.btn-primary,.primary,.action.primary{background:var(--os-blue)!important;color:#fff!important;border:1px solid var(--os-blue)!important;box-shadow:0 6px 16px rgba(7,87,201,.18)!important}.btn-primary:hover,.primary:hover,.action.primary:hover{background:var(--os-dark)!important;transform:translateY(-1px)}
+button:not([type=submit]),.btn-secondary,.secondary{background:#fff!important;color:var(--os-blue)!important;border:1px solid #cbd9ef!important}.btn-secondary:hover,.secondary:hover{background:var(--os-light)!important;border-color:#a9bee2!important}
+a{color:var(--os-blue)}
+hr{border:0;border-top:1px solid var(--os-border)!important}
+progress{accent-color:var(--os-blue)}
+.badge,.tag,.eyebrow,.pill{background:#eef6ff!important;color:var(--os-blue)!important;border:1px solid #d7e8fb!important;border-radius:999px!important}
+.result,.output,.preview,.dropzone,.upload-area{background:#f8fbff!important;border:1px dashed #b9cbe6!important;color:var(--os-text)!important;border-radius:12px!important}
+footer,.footer,.credit{color:#71809a!important;background:transparent!important}
+canvas{border-color:#d7e2f2!important;box-shadow:0 5px 18px rgba(20,50,100,.08)!important}
+/* Keep game play surfaces functional while giving their shell the ONESTOP look. */
+.game,.game-area,.game-board,.play-area{border-radius:14px!important}
+@media(max-width:700px){body{font-size:14px!important}.box,.card,.panel,.tool-card,.game-card,.calculator,.app,.content,.toolbox,.workspace{border-radius:13px!important}.back{font-size:12px!important}}
