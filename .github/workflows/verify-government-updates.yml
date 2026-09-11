@@ -21,16 +21,16 @@ jobs:
           set -euo pipefail
           python3 scripts/check-government-sources.py
 
-      - name: Commit source snapshot when changed
+      - name: Commit source snapshot and review queue
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/government-source-snapshots.json; then
-            echo 'No source snapshot changes to commit.'
+          if git diff --quiet -- data/government-source-snapshots.json data/government-update-review-queue.json; then
+            echo 'No source snapshot or review queue changes to commit.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/government-source-snapshots.json
-          git commit -m 'Update government source snapshot'
+          git add data/government-source-snapshots.json data/government-update-review-queue.json
+          git commit -m 'Update government source review queue'
           git push
