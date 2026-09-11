@@ -58,6 +58,15 @@ var DATA={
  ]
 };
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function freshness(x){
+ var t=(x.meta||'')+' '+(x.dates||'');
+ if(/\bNew\s*:/i.test(t))return 'NEW';
+ if(/\bUpdated\s*:/i.test(t))return 'UPDATED';
+ var m=t.match(/(\d{2})\/(\d{2})\/(\d{4})/);
+ if(m){var deadline=new Date(Number(m[3]),Number(m[2])-1,Number(m[1]),23,59,59),now=new Date(),days=(deadline-now)/86400000;if(days>=0&&days<=7)return 'CLOSING SOON';}
+ if(/Exam:\s*13\/09\/2026/i.test(t)||/Exam window:\s*16\/09\/2026/i.test(t))return 'UPCOMING';
+ return '';
+}
 function injectSearch(){
  var section=document.querySelector('.grid');if(!section||document.getElementById('osUpdateSearch'))return;
  var box=document.createElement('div');box.id='osUpdateSearch';box.style.cssText='grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:4px';
@@ -69,7 +78,7 @@ function injectSearch(){
 }
 function openDetail(x){var modal=document.getElementById('updateModal');if(!modal)return;document.getElementById('detailTitle').textContent=x.title;document.getElementById('detailMeta').textContent=x.meta||'';var fields=[['Post / Vacancy',x.vacancy],['Important Dates',x.dates],['Eligibility',x.eligibility],['Application Fee',x.fee],['Age Limit',x.age],['Selection Process',x.selection]];document.getElementById('detailGrid').innerHTML=fields.map(function(f){return '<div class="detail-box"><strong>'+esc(f[0])+'</strong><span>'+esc(f[1]||NA)+'</span></div>';}).join('');document.getElementById('officialNotice').href=x.noticeUrl||x.url;document.getElementById('applyLink').href=x.applyUrl||x.url;modal.classList.add('show');document.body.style.overflow='hidden';}
 function closeDetail(){var modal=document.getElementById('updateModal');if(modal)modal.classList.remove('show');document.body.style.overflow='';}
-function render(id,items){var panel=document.getElementById(id);if(!panel)return;var ul=panel.querySelector('.list');if(!ul)return;ul.innerHTML=items.map(function(x,i){return '<li>'+(i===0?'<span class="tag">OFFICIAL</span>':'')+'<a href="#" class="item os-update-item" data-update-id="'+esc(id+'-'+i)+'">'+esc(x.title)+'</a><small style="display:block;color:#60708d;font-size:11px;margin-top:3px">'+esc(x.meta)+'</small></li>';}).join('');}
+function render(id,items){var panel=document.getElementById(id);if(!panel)return;var ul=panel.querySelector('.list');if(!ul)return;ul.innerHTML=items.map(function(x,i){var fresh=freshness(x);return '<li>'+(fresh?'<span class="fresh-badge fresh-'+fresh.toLowerCase().replace(/\s+/g,'-')+'">'+fresh+'</span>':'')+(i===0?'<span class="tag">OFFICIAL</span>':'')+'<a href="#" class="item os-update-item" data-update-id="'+esc(id+'-'+i)+'">'+esc(x.title)+'</a><small style="display:block;color:#60708d;font-size:11px;margin-top:3px">'+esc(x.meta)+'</small></li>';}).join('');}
 function run(){render('jobs',DATA.jobs);render('admit',DATA.admit);render('results',DATA.results);render('answer',DATA.answer);render('admission',DATA.admission);render('scholarship',DATA.scholarship);render('syllabus',DATA.syllabus);render('important',DATA.important);injectSearch();Object.keys(DATA).forEach(function(id){DATA[id].forEach(function(x,i){var el=document.querySelector('[data-update-id="'+id+'-'+i+'"]');if(el)el.addEventListener('click',function(e){e.preventDefault();openDetail(x);});});});var close=document.getElementById('closeModal');if(close)close.addEventListener('click',closeDetail);var modal=document.getElementById('updateModal');if(modal)modal.addEventListener('click',function(e){if(e.target===modal)closeDetail();});document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDetail();});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run);else run();
 })();
