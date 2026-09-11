@@ -1,0 +1,43 @@
+name: Verify ONESTOP Government Sources
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check official government source pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          urls=(
+            "https://ssc.gov.in/"
+            "https://www.upsc.gov.in/highlight"
+            "https://www.upsc.gov.in/recruitment/recruitment-test/results/final-result"
+            "https://www.upsc.gov.in/exams-related-info/interview-schedule"
+            "https://www.upsc.gov.in/examinations/Combined%20Defence%20Services%20Examination%20%28II%29%2C%202026"
+            "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All"
+            "https://scholarships.gov.in/Students"
+            "https://scholarships.gov.in/All-Scholarships"
+          )
+          failed=0
+          for url in "${urls[@]}"; do
+            echo "Checking $url"
+            code=$(curl -L -sS -o /dev/null -w '%{http_code}' --max-time 30 "$url" || true)
+            echo "HTTP $code"
+            if [[ "$code" -lt 200 || "$code" -ge 400 ]]; then
+              echo "FAILED: $url"
+              failed=1
+            fi
+          done
+          if [[ "$failed" -ne 0 ]]; then
+            echo "One or more official source pages could not be reached."
+            exit 1
+          fi
+          echo "All configured official source pages are reachable."
