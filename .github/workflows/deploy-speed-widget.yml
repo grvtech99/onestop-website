@@ -1,0 +1,49 @@
+name: Deploy ONESTOP Speed Widget
+on:
+  pull_request:
+    types: [opened, synchronize]
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  deploy:
+    if: github.event.pull_request.head.ref == 'feature/speed-widget-production-20260911'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout production branch
+        uses: actions/checkout@v4
+        with:
+          ref: feature/speed-widget-production-20260911
+      - name: Safely integrate widget into homepage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<!-- ONESTOP SPEED WIDGET SCRIPT -->'
+          script = '<script src="onestop-speed-widget-v2.js" defer></script>'
+          if marker in s or 'onestop-speed-widget-v2.js' in s:
+              print('Speed widget already integrated; no change needed.')
+              raise SystemExit(0)
+          required = ['id="admissionForm"', 'id="receiptOverlay"']
+          missing = [x for x in required if x not in s]
+          if missing:
+              raise SystemExit('Safety check failed; missing: ' + ', '.join(missing))
+          if '</body>' not in s:
+              raise SystemExit('Safety check failed: </body> missing')
+          s = s.replace('</body>', marker + '\n' + script + '\n</body>', 1)
+          p.write_text(s, encoding='utf-8')
+          print('Speed widget integrated safely.')
+          PY
+      - name: Commit production integration
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'No changes to commit.'
+          else
+            git commit -m 'Integrate ONESTOP internet speed widget'
+            git push origin feature/speed-widget-production-20260911
+          fi
