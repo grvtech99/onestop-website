@@ -1,5 +1,5 @@
 /* ONESTOP Games page native hero styling. Loaded after the shared theme. */
-body:has(.games-area){background:linear-gradient(180deg,#f8fbff 0%,#f5f9ff 100%)!important;color:#14213d!important}
+body:has(.games-area){background:linear-gradient(180deg,#f8fbff 0%,#f5f9ff 100%)!important;color:#14213d!important;overflow-x:hidden!important;overflow-y:auto!important}
 body:has(.games-area) .top{background:rgba(255,255,255,.97)!important;color:#14213d!important;border-bottom:1px solid #e2eafa!important;box-shadow:0 2px 14px rgba(20,50,100,.05)!important}
 body:has(.games-area) .brand{color:#14213d!important;font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-size:16px!important;font-weight:800!important}
 body:has(.games-area) .brand span{color:#0757c9!important}
