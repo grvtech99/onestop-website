@@ -1,0 +1,49 @@
+/* ONESTOP Government Updates V3 — compact, structured job-board layout */
+:root{--ogu-blue:#0757c9;--ogu-dark:#06265f;--ogu-border:#d9e6f5;--ogu-bg:#f4f8fd;--ogu-muted:#60708d}
+body:has(.grid){background:var(--ogu-bg)}
+body:has(.grid) section:not(.hero){padding:28px 0 38px}
+body:has(.grid) .title{margin-bottom:16px}
+body:has(.grid) .title h2{font-size:26px;font-weight:800;color:var(--ogu-dark)}
+body:has(.grid) .title p{font-size:12px;margin-top:2px}
+body:has(.grid) #osUpdateSearch{grid-column:1/-1!important;margin:0 0 12px!important;padding:10px!important;background:#fff;border:1px solid var(--ogu-border);border-radius:12px;box-shadow:0 3px 12px rgba(20,50,100,.04)}
+body:has(.grid) #osSearchInput{height:42px!important;padding:9px 13px!important;border:1px solid #cfdff1!important;border-radius:9px!important;box-shadow:none!important;font-size:13px!important;color:var(--ogu-dark)}
+body:has(.grid) #osSearchInput:focus{border-color:#7eace1!important;box-shadow:0 0 0 3px rgba(7,87,201,.08)!important}
+body:has(.grid) #osCategoryFilter{height:42px!important;padding:8px 12px!important;border:1px solid #cfdff1!important;border-radius:9px!important;font-size:12px!important;color:var(--ogu-dark)!important}
+body:has(.grid) .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:start}
+body:has(.grid) .panel{border:1px solid var(--ogu-border);border-radius:12px;box-shadow:0 4px 16px rgba(20,50,100,.045);background:#fff}
+body:has(.grid) .panel h3{padding:10px 13px;background:linear-gradient(90deg,#eaf3ff,#f7fbff);border-bottom:2px solid #cfe1f7;color:var(--ogu-dark);font-size:16px;font-weight:800;line-height:1.25}
+body:has(.grid) .list{padding:0}
+body:has(.grid) .list li{position:relative;padding:9px 12px 8px 14px;border-bottom:1px solid #e8eef6;min-height:0}
+body:has(.grid) .list li:last-child{border-bottom:0}
+body:has(.grid) .list li:before{content:"";position:absolute;left:5px;top:14px;width:4px;height:4px;border-radius:50%;background:#8db8e8}
+body:has(.grid) .list li:hover{background:#f8fbff}
+body:has(.grid) .item{display:block;color:#173b70;font-size:13px;font-weight:700;line-height:1.32;letter-spacing:0}
+body:has(.grid) .item:hover{color:var(--ogu-blue)}
+body:has(.grid) .list li small{display:block!important;margin-top:2px!important;color:var(--ogu-muted)!important;font-size:10.5px!important;line-height:1.3!important}
+body:has(.grid) .tag,.fresh-badge{margin-right:4px;margin-bottom:2px;padding:2px 5px;border-radius:5px;font-size:9px;font-weight:800}
+body:has(.grid) .tag{background:#eaf3ff;color:var(--ogu-blue)}
+body:has(.grid) .fresh-new{background:#e8f7ee;color:#15803d}
+body:has(.grid) .fresh-updated{background:#fff7df;color:#a16207}
+body:has(.grid) .fresh-closing-soon{background:#fff0f0;color:#b91c1c}
+body:has(.grid) .fresh-upcoming{background:#eeeaff;color:#5b21b6}
+body:has(.grid) .notice{margin-top:14px;padding:10px 13px;border-left-width:4px;border-radius:8px;font-size:11px;line-height:1.45}
+body:has(.grid) .hero{padding:38px 0 30px}
+body:has(.grid) .hero h1{font-size:clamp(32px,5vw,50px)}
+body:has(.grid) .hero p{font-size:15px;line-height:1.5}
+body:has(.grid) .quick{gap:8px;margin-top:20px}
+body:has(.grid) .quick a{padding:11px 12px;border-radius:10px;font-size:13px}
+@media(max-width:760px){
+ body:has(.grid) section:not(.hero){padding:22px 0 30px}
+ body:has(.grid) .grid{grid-template-columns:1fr;gap:10px}
+ body:has(.grid) #osUpdateSearch{padding:8px}
+ body:has(.grid) #osSearchInput{min-width:100%!important;width:100%;height:42px!important}
+ body:has(.grid) #osCategoryFilter{width:100%;height:40px!important}
+ body:has(.grid) .panel h3{padding:9px 12px;font-size:15px}
+ body:has(.grid) .list li{padding:8px 11px 7px 13px}
+ body:has(.grid) .item{font-size:12.5px;line-height:1.3}
+ body:has(.grid) .list li small{font-size:10px!important}
+ body:has(.grid) .hero{padding:30px 0 24px}
+ body:has(.grid) .quick{grid-template-columns:repeat(2,1fr);gap:7px;margin-top:17px}
+ body:has(.grid) .quick a{padding:10px 9px;font-size:12px}
+}
+@media(max-width:420px){body:has(.grid) .hero h1{font-size:29px}body:has(.grid) .hero p{font-size:13px}body:has(.grid) .title h2{font-size:23px}}
