@@ -13,9 +13,7 @@ jobs:
     if: >-
       github.event.issue.pull_request == null &&
       contains(github.event.comment.body, 'VERIFIED') &&
-      (github.event.comment.author_association == 'OWNER' ||
-       github.event.comment.author_association == 'COLLABORATOR' ||
-       github.event.comment.author_association == 'MEMBER')
+      github.event.comment.user.login == github.repository_owner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ONESTOP
