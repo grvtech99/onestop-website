@@ -19,7 +19,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/government-ingestion-candidates data/government-verified-drafts
+          git add data/government-ingestion-candidates data/government-ingestion-drafts
           if git diff --cached --quiet; then
             echo "No draft changes."
           else
