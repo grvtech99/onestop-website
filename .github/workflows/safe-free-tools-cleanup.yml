@@ -1,5 +1,7 @@
 name: One-time Free Tools cleanup and deploy
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: write
