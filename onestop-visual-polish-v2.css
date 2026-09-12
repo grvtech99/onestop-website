@@ -1,0 +1,36 @@
+/* ONESTOP visual polish — shared native typography, buttons and detail hierarchy */
+:root{--os-blue:#0757c9;--os-dark:#06265f;--os-sky:#1688e8;--os-text:#14213d;--os-muted:#60708d;--os-light:#f5f9ff;--os-border:#dbe7f6}
+html,body{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,.btn,.back,.action,.tab,.quick a,.hero-quick a,.v3-filter,.open,.play{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;letter-spacing:0!important;font-weight:600!important}
+body:has(.hero-quick) .hero{width:100%!important;background:linear-gradient(135deg,#031d50 0%,#0757c9 58%,#1688e8 100%)!important}
+body:has(.hero-quick) .hero-quick{gap:10px!important}
+body:has(.hero-quick) .hero-quick a{font-size:14px!important;font-weight:600!important;line-height:1.2!important;padding:10px 16px!important;border-radius:11px!important;background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.38)!important;box-shadow:0 5px 16px rgba(0,0,0,.08)!important}
+body:has(.hero-quick) .hero-quick a:hover{background:rgba(255,255,255,.18)!important}
+body:has(.hero-quick) .hero-quick .jap,.jap-nav{display:none!important}
+body:has(.hero-quick) .btn{font-size:15px!important;font-weight:600!important;line-height:1.25!important;padding:13px 20px!important}
+body:has(.hero-quick) .badge{font-weight:600!important;letter-spacing:0!important}
+body:has(.hero-quick) .hero h1{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:800!important;letter-spacing:-1.4px!important}
+body:has(.hero-quick) .hero p{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;line-height:1.6!important}
+.category .cat-head{font-weight:600!important;letter-spacing:0!important}
+.tool,.game{position:relative!important;background:#f8fbff!important;border:1px solid #dce8f7!important;border-left:3px solid #8bb9ed!important;color:var(--os-text)!important;box-shadow:0 3px 12px rgba(20,50,100,.035)!important}
+.tool:hover,.game:hover{background:#eef6ff!important;border-left-color:var(--os-blue)!important}
+.tool-title,.game-title{color:var(--os-blue)!important;font-weight:600!important;font-size:14px!important;line-height:1.35!important;letter-spacing:0!important}
+.tool-desc,.game-desc{color:#5b6f8d!important;font-weight:400!important;font-size:12px!important;line-height:1.45!important;letter-spacing:0!important;margin-top:4px!important}
+.open,.play{font-size:11px!important;font-weight:600!important;color:var(--os-blue)!important;padding:5px 8px!important;border-radius:7px!important;background:#eaf3ff!important;border:1px solid #d4e5fb!important}
+.tool:hover .open,.game:hover .play{background:var(--os-blue)!important;color:#fff!important}
+.tool-icon,.game-icon{background:#eef6ff!important;border-radius:9px!important}
+.category{border-color:#dbe7f6!important}
+.category.open .cat-head{border-bottom:1px solid #e1ebf8!important;background:#fafdff!important}
+.category.open .game-list,.category.open .tool-list{background:#f5f9ff!important}
+.v3-feature-card{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;border-left:3px solid #8bb9ed!important}
+.v3-feature-title{color:var(--os-blue)!important;font-weight:600!important;font-size:14px!important;letter-spacing:0!important}
+.v3-feature-desc{color:#5b6f8d!important;font-weight:400!important;font-size:12px!important;letter-spacing:0!important}
+.v3-go{font-weight:600!important;background:#eaf3ff!important;border:1px solid #d4e5fb!important;border-radius:7px!important;padding:5px 8px!important}
+body:has(.quick) .quick a{font-weight:600!important;letter-spacing:0!important}
+body:has(.quick) .item{font-weight:500!important;letter-spacing:0!important}
+body:has(.quick) .panel h3{font-weight:600!important}
+body:has(.quick) .tag,.fresh-badge{font-weight:600!important;letter-spacing:0!important}
+body:has(.template-grid) .btn,body:has(.template-grid) .tab,body:has(.template-grid) .tpl{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:600!important;letter-spacing:0!important}
+body:has(.template-grid) .btn{font-size:13px!important;padding:9px 12px!important}
+body:has(.template-grid) .tab{font-size:13px!important}
+@media(max-width:700px){body:has(.hero-quick) .hero-quick a{font-size:13px!important;padding:9px 12px!important}.tool-title,.game-title{font-size:13px!important}.tool-desc,.game-desc{font-size:11.5px!important}}
