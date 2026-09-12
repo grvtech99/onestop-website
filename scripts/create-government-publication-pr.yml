@@ -1,0 +1,3 @@
+# Deprecated placeholder: publication PR creation is performed by the
+# authenticated script scripts/create-government-publication-pr.py.
+# Keep this file as documentation only; it is not a GitHub Actions workflow.
