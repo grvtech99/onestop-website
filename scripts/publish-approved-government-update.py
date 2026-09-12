@@ -3,11 +3,11 @@
 
 Safety rules:
 - only a verified, awaiting-final-approval payload is accepted
-- the title must not already exist in the public data
+- the exact public update title must not already exist in the data layer
 - the category block must be found exactly once
 - the public data file is updated deterministically
 """
-import json, os, re, sys
+import json, re, sys
 
 DATA_FILE='onestop-updates-data.js'
 REQUIRED=['category','title','meta','url','vacancy','dates','eligibility','fee','age','selection','noticeUrl','applyUrl']
@@ -46,8 +46,12 @@ def main():
         source=f.read()
 
     title=str(d['title']).strip()
-    if title.lower() in source.lower():
-        return fail('Duplicate title already exists in '+DATA_FILE+': '+title)
+    # Check the exact title argument of a public d(...) record. This avoids
+    # false positives when the title text merely appears inside another title,
+    # a URL, or unrelated page text.
+    exact_title=js(title)
+    if re.search(r'\bd\(\s*'+re.escape(exact_title)+r'\s*,', source):
+        return fail('Duplicate public update title already exists in '+DATA_FILE+': '+title)
 
     category=d['category']
     # Match the exact top-level category array in the current DATA object.
