@@ -1,0 +1,28 @@
+name: Build Government Drafts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '57 3 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  drafts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build draft records from discovered notices
+        run: python scripts/build-ingestion-drafts.py
+      - name: Commit draft records
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/government-ingestion-candidates data/government-verified-drafts
+          if git diff --cached --quiet; then
+            echo "No draft changes."
+          else
+            git commit -m "chore: build government notice drafts"
+            git push
+          fi
