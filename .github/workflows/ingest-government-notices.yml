@@ -1,0 +1,31 @@
+name: Ingest Government Notices
+
+on:
+  schedule:
+    - cron: '47 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Discover official notice candidates
+        run: python scripts/ingest-government-notices.py
+
+      - name: Commit new draft candidates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/government-ingestion-candidates
+          if git diff --cached --quiet; then
+            echo "No new candidates."
+          else
+            git commit -m "chore: add government notice candidates"
+            git push
+          fi
