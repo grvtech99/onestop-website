@@ -1,0 +1,64 @@
+name: One-time homepage duplicate fix
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  fix:
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, 'One-time homepage duplicate fix')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Fix homepage duplicate Job Update button
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          m=re.search(r'(<div class="hero-quick"[^>]*>)(.*?)(</div>)',s,re.S)
+          if not m:
+              raise SystemExit('hero-quick block not found')
+          block=m.group(2)
+          links=re.findall(r'\s*<a\b[^>]*href="onestop-updates\.html"[^>]*>.*?</a>',block,re.S)
+          if len(links)>1:
+              first=links[0]
+              block=re.sub(r'\s*<a\b[^>]*href="onestop-updates\.html"[^>]*>.*?</a>', '', block, flags=re.S)
+              block=first + block
+              s=s[:m.start(2)]+block+s[m.end(2):]
+          guard='''\n/* Prevent accidental duplicate Job Update quick-access buttons. */\n.hero-quick a[href="onestop-updates.html"] ~ a[href="onestop-updates.html"]{display:none!important}\n'''
+          if guard.strip() not in s:
+              s=s.replace('</style>',guard+'</style>',1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit homepage fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "One-time homepage duplicate fix"
+          git push
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Remove one-time workflow
+        run: |
+          rm -f .github/workflows/fix-homepage-duplicate.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "Remove one-time homepage duplicate workflow"
+          git push
