@@ -32,11 +32,30 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python3 -m py_compile scripts/check-government-sources.py
-          python3 -m py_compile scripts/create-government-review-issues.py
-          python3 -m py_compile scripts/process-government-verification.py
-          python3 -m py_compile scripts/create-government-publication-pr.py
-          python3 -m py_compile scripts/publish-approved-government-update.py
+          for file in scripts/check-government-sources.py scripts/create-government-review-issues.py scripts/process-government-verification.py scripts/create-government-publication-pr.py scripts/publish-approved-government-update.py scripts/extract-government-job-draft.py; do
+            python3 -m py_compile "$file"
+          done
+
+      - name: Smoke-test government job extraction
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat > /tmp/onestop-job-sample.txt <<'EOF'
+          Recruitment Advertisement 2026. Total Vacancy: 125 posts. Application Start Date: 10/09/2026. Last Date: 25/10/2026. Application Fee: ₹500. Age Limit: 18 to 32 years. Diploma or Degree in Engineering. Selection Process: Computer Based Test and Interview.
+          EOF
+          python3 scripts/extract-government-job-draft.py https://example.gov.in/notice.pdf /tmp/onestop-job-sample.txt 'Example Government Junior Engineer Recruitment 2026' > /tmp/onestop-draft.json
+          python3 - <<'PY'
+          import json
+          with open('/tmp/onestop-draft.json', encoding='utf-8') as f:
+              d=json.load(f)
+          assert d['category']=='jobs'
+          assert d['vacancy']=='125'
+          assert d['lastDate']=='25/10/2026'
+          assert '500' in d['fee']
+          assert '18 to 32' in d['age']
+          assert d['verificationRequired'] is True
+          print('OK extractor smoke test')
+          PY
 
       - name: Validate government JSON files
         shell: bash
@@ -45,18 +64,11 @@ jobs:
           python3 - <<'PY'
           import json
           from pathlib import Path
-
-          paths = [
-              Path('data/government-source-snapshots.json'),
-              Path('data/government-update-review-queue.json'),
-              Path('data/government-verified-drafts/index.json'),
-          ]
+          paths = [Path('data/government-source-snapshots.json'), Path('data/government-update-review-queue.json'), Path('data/government-verified-drafts/index.json')]
           paths.extend(Path('data/government-verified-drafts').glob('*.json'))
           paths.extend(Path('data/government-publication-review').glob('*.json'))
-
           for path in sorted(set(paths)):
-              with path.open(encoding='utf-8') as f:
-                  json.load(f)
+              with path.open(encoding='utf-8') as f: json.load(f)
               print(f'OK JSON: {path}')
           PY
 
@@ -67,16 +79,12 @@ jobs:
           python3 - <<'PY'
           import re
           from pathlib import Path
-
           text = Path('onestop-updates-data.js').read_text(encoding='utf-8')
           required = ['var DATA=', 'jobs:', 'admit:', 'results:', 'answer:', 'admission:', 'scholarship:', 'syllabus:', 'important:']
           missing = [item for item in required if item not in text]
-          if missing:
-              raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
-
+          if missing: raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
           urls = re.findall(r'https?://[^\"\'\s)]+', text)
-          if any(url.lower().startswith(('javascript:', 'data:', 'vbscript:')) for url in urls):
-              raise SystemExit('Unsafe URL detected in public government data')
+          if any(url.lower().startswith(('javascript:', 'data:', 'vbscript:')) for url in urls): raise SystemExit('Unsafe URL detected in public government data')
           print(f'OK public data structure; found {len(urls)} URLs')
           PY
 
@@ -87,15 +95,11 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           import re
-
           paths = list(Path('.github/workflows').glob('*government*.yml'))
-          if not paths:
-              raise SystemExit('No government workflow files found')
+          if not paths: raise SystemExit('No government workflow files found')
           for path in paths:
               text = path.read_text(encoding='utf-8')
-              if not re.search(r'^name:\s*.+$', text, re.M):
-                  raise SystemExit(f'Missing workflow name: {path}')
-              if not re.search(r'^on:\s*$', text, re.M):
-                  raise SystemExit(f'Missing workflow trigger declaration: {path}')
+              if not re.search(r'^name:\s*.+$', text, re.M): raise SystemExit(f'Missing workflow name: {path}')
+              if not re.search(r'^on:\s*$', text, re.M): raise SystemExit(f'Missing workflow trigger declaration: {path}')
               print(f'OK workflow: {path}')
           PY
