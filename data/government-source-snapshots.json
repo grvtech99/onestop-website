@@ -1,0 +1,82 @@
+{
+  "checkedAt": "2026-09-12T07:55:27.660665+00:00",
+  "sources": {
+    "ssc": {
+      "url": "https://ssc.gov.in/",
+      "httpStatus": 200,
+      "sha256": "95f5adf7ecc110e56447abd547e975672f56a811ac20cd3810d41d1a7aa27971",
+      "bytes": 80649,
+      "state": "baseline"
+    },
+    "upsc_highlights": {
+      "url": "https://www.upsc.gov.in/highlight",
+      "state": "failed",
+      "error": "The read operation timed out"
+    },
+    "upsc_results": {
+      "url": "https://www.upsc.gov.in/recruitment/recruitment-test/results/final-result",
+      "state": "failed",
+      "error": "The read operation timed out"
+    },
+    "upsc_interviews": {
+      "url": "https://www.upsc.gov.in/exams-related-info/interview-schedule",
+      "httpStatus": 200,
+      "sha256": "155d7684fd581e55ca5f3edc62a59d878c93186743758bfc6b1a5cbf87dbba72",
+      "bytes": 28940,
+      "state": "baseline"
+    },
+    "upsc_cds2_2026": {
+      "url": "https://www.upsc.gov.in/examinations/Combined%20Defence%20Services%20Examination%20%28II%29%2C%202026",
+      "httpStatus": 200,
+      "sha256": "dde357ab5341abf7ac6af66fd972a71cef6a26320989685bfacb61a0d049cd86",
+      "bytes": 33448,
+      "state": "baseline"
+    },
+    "employment_news": {
+      "url": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
+      "httpStatus": 200,
+      "sha256": "06d9589d8c18de07c31cd903388ff0f2f43de277e752995a6ce18bb7aa292993",
+      "bytes": 63181,
+      "state": "baseline"
+    },
+    "nsp_students": {
+      "url": "https://scholarships.gov.in/Students",
+      "httpStatus": 200,
+      "sha256": "9c13a529eda4049fc8812205e33e022ebe7693829b9a7875794eb977a7222362",
+      "bytes": 107783,
+      "state": "baseline"
+    },
+    "nsp_schemes": {
+      "url": "https://scholarships.gov.in/All-Scholarships",
+      "httpStatus": 200,
+      "sha256": "1903b275e1a449d3c53dda3d8b53dd6839c34d5e54a8a3345c993ce2b694efdb",
+      "bytes": 205417,
+      "state": "baseline"
+    }
+  },
+  "changed": [],
+  "failed": [
+    "upsc_highlights",
+    "upsc_results"
+  ],
+  "history": [
+    {
+      "checkedAt": "2026-09-12T07:55:27.660665+00:00",
+      "changed": [],
+      "failed": [
+        "upsc_highlights",
+        "upsc_results"
+      ],
+      "states": {
+        "ssc": "baseline",
+        "upsc_highlights": "failed",
+        "upsc_results": "failed",
+        "upsc_interviews": "baseline",
+        "upsc_cds2_2026": "baseline",
+        "employment_news": "baseline",
+        "nsp_students": "baseline",
+        "nsp_schemes": "baseline"
+      }
+    }
+  ]
+}
