@@ -34,6 +34,58 @@ body:has(.template-grid) .btn{font-size:13px!important;padding:9px 12px!importan
 body:has(.template-grid) .tab{font-size:13px!important}
 @media(max-width:700px){body:has(.hero-quick) .hero-quick a{font-size:13px!important;padding:9px 12px!important}.tool-title,.game-title{font-size:13px!important}.tool-desc,.game-desc{font-size:11.5px!important}}
 
+/* FREE TOOLS — native ONESTOP blue/white surface. The legacy inline styles remain for tool internals, while this isolated layer owns the page shell. */
+body:has(.v3-filters){background:#eef5ff!important;color:var(--os-text)!important;font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;overflow-x:hidden!important;overflow-y:auto!important}
+body:has(.v3-filters) .top{height:68px!important;background:#fff!important;border-bottom:1px solid #dbe7f6!important;position:sticky!important;top:0!important;z-index:20!important;backdrop-filter:none!important}
+body:has(.v3-filters) .topin{max-width:1180px!important;padding:12px 20px!important}
+body:has(.v3-filters) .brand{font-size:17px!important;font-weight:700!important;color:var(--os-dark)!important}
+body:has(.v3-filters) .brand span{color:var(--os-blue)!important}
+body:has(.v3-filters) .back{font-size:13px!important;padding:9px 13px!important;border-radius:9px!important;background:#eef6ff!important;color:var(--os-blue)!important;border:1px solid #d5e5f8!important}
+body:has(.v3-filters) main{height:auto!important;max-width:none!important;padding:0 0 28px!important;display:block!important}
+body:has(.v3-filters) .hero{width:100%!important;margin:0!important;padding:34px 20px 28px!important;text-align:center!important;background:linear-gradient(135deg,#031d50 0%,#0757c9 58%,#1688e8 100%)!important;color:#fff!important}
+body:has(.v3-filters) .hero .tag{color:#e8f5ff!important;background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.30)!important;box-shadow:none!important}
+body:has(.v3-filters) .hero h1{color:#fff!important;background:none!important;-webkit-text-fill-color:#fff!important;font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-size:clamp(36px,5vw,58px)!important;font-weight:800!important;letter-spacing:-1.5px!important;margin:13px 0 8px!important}
+body:has(.v3-filters) .hero p{color:#e6f1ff!important;font-size:15px!important;line-height:1.55!important;max-width:700px!important;margin:0 auto 15px!important}
+body:has(.v3-filters) .stats{gap:9px!important;margin:0 auto 16px!important}
+body:has(.v3-filters) .stat{color:#eaf4ff!important;background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.25)!important;box-shadow:none!important;font-size:12px!important;padding:7px 12px!important;border-radius:999px!important}
+body:has(.v3-filters) .stat b,body:has(.v3-filters) .stat.live b{color:#fff!important}
+body:has(.v3-filters) .search{width:min(820px,100%)!important;margin:0 auto 14px!important}
+body:has(.v3-filters) .search input{width:100%!important;height:52px!important;padding:0 18px!important;border-radius:13px!important;background:#fff!important;border:1px solid rgba(255,255,255,.75)!important;color:var(--os-text)!important;font-size:15px!important;box-shadow:0 10px 26px rgba(3,29,80,.16)!important}
+body:has(.v3-filters) .search input::placeholder{color:#71819b!important}
+body:has(.v3-filters) .search input:focus{border-color:#9fc3ef!important;box-shadow:0 0 0 3px rgba(255,255,255,.18),0 10px 26px rgba(3,29,80,.16)!important}
+body:has(.v3-filters) .v3-filters{gap:8px!important;margin:0 auto!important}
+body:has(.v3-filters) .v3-filter{color:#eaf4ff!important;background:rgba(255,255,255,.09)!important;border:1px solid rgba(255,255,255,.30)!important;padding:8px 13px!important;border-radius:999px!important;font-size:12px!important;font-weight:600!important}
+body:has(.v3-filters) .v3-filter:hover,body:has(.v3-filters) .v3-filter.active{color:var(--os-blue)!important;background:#fff!important;border-color:#fff!important}
+body:has(.v3-filters) .v3-featured{max-width:1180px!important;margin:28px auto 24px!important;padding:0 20px!important}
+body:has(.v3-filters) .v3-section-title{color:var(--os-dark)!important;font-size:19px!important;font-weight:700!important}
+body:has(.v3-filters) .v3-section-sub{color:var(--os-muted)!important;font-size:12px!important;margin-top:3px!important}
+body:has(.v3-filters) .v3-feature-grid{gap:11px!important}
+body:has(.v3-filters) .v3-feature-card{background:#fff!important;border:1px solid #dbe7f6!important;border-left:3px solid #8bb9ed!important;color:var(--os-text)!important;box-shadow:0 6px 20px rgba(20,50,100,.06)!important;border-radius:13px!important;padding:13px!important}
+body:has(.v3-filters) .v3-feature-card:hover{background:#f7fbff!important;border-color:#b9d2ef!important;border-left-color:var(--os-blue)!important;transform:translateY(-2px)!important}
+body:has(.v3-filters) .v3-feature-icon{background:#eef6ff!important;border-radius:10px!important}
+body:has(.v3-filters) .v3-feature-title{color:var(--os-blue)!important}
+body:has(.v3-filters) .v3-feature-desc{color:#5b6f8d!important}
+body:has(.v3-filters) .v3-go{color:var(--os-blue)!important;background:#eaf3ff!important;border:1px solid #d4e5fb!important}
+body:has(.v3-filters) .tools-area{max-width:1180px!important;margin:0 auto!important;padding:0 20px 12px!important;overflow:visible!important}
+body:has(.v3-filters) .categories{gap:13px!important}
+body:has(.v3-filters) .category{background:#fff!important;border:1px solid #dbe7f6!important;border-radius:15px!important;box-shadow:0 5px 20px rgba(20,50,100,.05)!important}
+body:has(.v3-filters) .cat-head{color:var(--os-dark)!important;background:#fff!important;padding:15px 16px!important;min-height:60px!important;font-size:14px!important;font-weight:600!important}
+body:has(.v3-filters) .cat-head small{color:var(--os-muted)!important;background:#f1f6fc!important;padding:5px 8px!important;border-radius:999px!important;font-size:10px!important}
+body:has(.v3-filters) .arrow{color:var(--os-blue)!important}
+body:has(.v3-filters) .category.open .cat-head{background:#fafdff!important;border-bottom:1px solid #e1ebf8!important}
+body:has(.v3-filters) .tool-list{background:#f5f9ff!important;padding:0 11px 11px!important;gap:8px!important}
+body:has(.v3-filters) .tool{min-height:58px!important;padding:10px 11px!important;background:#fff!important;border:1px solid #dce8f7!important;border-left:3px solid #8bb9ed!important;color:var(--os-text)!important;border-radius:10px!important;box-shadow:0 2px 8px rgba(20,50,100,.035)!important}
+body:has(.v3-filters) .tool:hover{background:#eef6ff!important;border-left-color:var(--os-blue)!important;transform:translateY(-1px)!important}
+body:has(.v3-filters) .tool-icon{background:#eef6ff!important}
+body:has(.v3-filters) .tool-title{color:var(--os-blue)!important;font-size:14px!important;font-weight:600!important;line-height:1.35!important}
+body:has(.v3-filters) .tool-desc{color:#5b6f8d!important;font-size:12px!important;font-weight:400!important;line-height:1.45!important;margin-top:4px!important}
+body:has(.v3-filters) .tool .open{color:var(--os-blue)!important;background:#eaf3ff!important;border:1px solid #d4e5fb!important;font-size:11px!important;padding:5px 8px!important;border-radius:7px!important}
+body:has(.v3-filters) .credit{max-width:1180px!important;margin:0 auto!important;padding:22px 20px 8px!important;color:#71819b!important;font-size:11px!important}
+body:has(.v3-filters) .credit b{color:var(--os-blue)!important}
+@media(max-width:900px){body:has(.v3-filters) .v3-feature-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:700px){body:has(.v3-filters) .topin{padding:10px 14px!important}body:has(.v3-filters) .hero{padding:26px 14px 22px!important}body:has(.v3-filters) .hero h1{font-size:34px!important}body:has(.v3-filters) .hero p{font-size:13px!important}body:has(.v3-filters) .v3-featured{padding:0 14px!important;margin-top:22px!important}body:has(.v3-filters) .tools-area{padding:0 14px 10px!important}body:has(.v3-filters) .categories{grid-template-columns:1fr!important}body:has(.v3-filters) .v3-feature-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:480px){body:has(.v3-filters) .v3-feature-grid{grid-template-columns:1fr!important}body:has(.v3-filters) .hero h1{font-size:30px!important}body:has(.v3-filters) .search input{height:48px!important}body:has(.v3-filters) .cat-head{font-size:13px!important}body:has(.v3-filters) .tool-title{font-size:13px!important}body:has(.v3-filters) .tool-desc{font-size:11.5px!important}}
+
 /* RESUME MAKER — premium, fresh, spacious native ONESTOP application UI */
 body:has(.template-grid){background:#eef5ff!important;color:var(--os-text)!important}
 body:has(.template-grid) .app{grid-template-columns:360px minmax(0,1fr)!important;min-height:100vh;background:#eef5ff!important}
