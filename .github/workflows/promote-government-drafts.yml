@@ -20,14 +20,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/create-government-review-issues.py
-      - name: Commit queue state
+      - name: Build dashboard manifest
+        run: python scripts/build-government-ingestion-manifest.py
+      - name: Commit queue and dashboard state
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/government-update-review-queue.json data/government-ingestion-candidates
+          git add data/government-update-review-queue.json data/government-ingestion-candidates data/government-ingestion-manifest.json
           if git diff --cached --quiet; then
-            echo "No queue changes."
+            echo "No queue/dashboard changes."
           else
-            git commit -m "chore: promote government drafts to review queue"
+            git commit -m "chore: update government review dashboard"
             git push
           fi
