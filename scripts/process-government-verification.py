@@ -2,12 +2,54 @@
 import json, os, re, sys
 from datetime import datetime, timezone
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+QUEUE = os.path.join(ROOT, "data", "government-update-review-queue.json")
+OUT_DIR = os.path.join(ROOT, "data", "government-verified-drafts")
+
 comment = os.environ.get("VERIFICATION_COMMENT", "")
 issue_number = os.environ.get("ISSUE_NUMBER", "")
 issue_title = os.environ.get("ISSUE_TITLE", "Government update verification")
+comment_author = os.environ.get("COMMENT_AUTHOR", "grvtech99")
 
-if not re.search(r"\bVERIFIED\b", comment, re.IGNORECASE):
-    print("No VERIFIED marker found; nothing to process.")
+verified = bool(re.search(r"\bVERIFIED\b", comment, re.IGNORECASE))
+rejected = bool(re.search(r"\bREJECTED\b", comment, re.IGNORECASE))
+if verified and rejected:
+    print("ERROR: Comment cannot contain both VERIFIED and REJECTED.")
+    sys.exit(2)
+if not verified and not rejected:
+    print("No VERIFIED or REJECTED marker found; nothing to process.")
+    sys.exit(0)
+
+now = datetime.now(timezone.utc).isoformat()
+
+# Update the matching queue item so the review lifecycle is visible and auditable.
+queue_changed = False
+if os.path.exists(QUEUE):
+    try:
+        with open(QUEUE, encoding="utf-8") as f:
+            queue = json.load(f)
+    except (OSError, json.JSONDecodeError):
+        queue = {"version": 1, "updatedAt": None, "items": []}
+    for item in queue.get("items", []):
+        if str(item.get("reviewIssue", "")) == str(issue_number):
+            item["status"] = "verified" if verified else "rejected"
+            item["statusAt"] = now
+            item["statusBy"] = comment_author
+            if verified:
+                item.pop("rejectionReason", None)
+            else:
+                reason = re.sub(r"\bREJECTED\b", "", comment, flags=re.IGNORECASE).strip()
+                item["rejectionReason"] = reason[:500] if reason else "Rejected during official-source review."
+            queue_changed = True
+            break
+    if queue_changed:
+        queue["updatedAt"] = now
+        with open(QUEUE, "w", encoding="utf-8") as f:
+            json.dump(queue, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
+if rejected:
+    print(f"Review issue #{issue_number} marked rejected.")
     sys.exit(0)
 
 match = re.search(r"```json\s*(\{.*?\})\s*```", comment, re.IGNORECASE | re.DOTALL)
@@ -33,47 +75,25 @@ if category not in allowed:
     print("Invalid category:", category)
     sys.exit(2)
 
-now = datetime.now(timezone.utc).isoformat()
+for key in ("url", "noticeUrl", "applyUrl"):
+    if not re.match(r"^https?://", str(draft[key])):
+        print(f"Invalid URL in {key}.")
+        sys.exit(2)
+
 draft["reviewStatus"] = "verified"
 draft["verifiedAt"] = now
 draft["verificationIssue"] = int(issue_number) if issue_number.isdigit() else issue_number
 draft["verificationIssueTitle"] = issue_title
-draft["verificationNote"] = "Verified by authorized GitHub issue comment. This is a draft for final publication review; it is not auto-published."
+draft["verificationBy"] = comment_author
+draft["verificationNote"] = "Verified by repository owner against the official source. This is a draft for final publication review; it is not auto-published."
 
 slug = re.sub(r"[^a-z0-9]+", "-", str(draft["title"]).lower()).strip("-")[:60] or "government-update"
-out_dir = os.path.join("data", "government-verified-drafts")
-os.makedirs(out_dir, exist_ok=True)
-out = os.path.join(out_dir, f"{slug}-issue-{issue_number}.json")
+os.makedirs(OUT_DIR, exist_ok=True)
+out = os.path.join(OUT_DIR, f"{slug}-issue-{issue_number}.json")
 with open(out, "w", encoding="utf-8") as f:
     json.dump(draft, f, indent=2, ensure_ascii=False)
     f.write("\n")
 
-# Maintain a lightweight static index so GitHub Pages can render the draft center.
-index_path = os.path.join(out_dir, "index.json")
-entries = []
-for name in os.listdir(out_dir):
-    if not name.endswith(".json") or name == "index.json":
-        continue
-    path = os.path.join(out_dir, name)
-    try:
-        with open(path, encoding="utf-8") as f:
-            item = json.load(f)
-        entries.append({
-            "file": name,
-            "category": item.get("category", ""),
-            "title": item.get("title", ""),
-            "meta": item.get("meta", ""),
-            "dates": item.get("dates", ""),
-            "verifiedAt": item.get("verifiedAt", ""),
-            "verificationIssue": item.get("verificationIssue", ""),
-            "noticeUrl": item.get("noticeUrl", item.get("url", "")),
-            "applyUrl": item.get("applyUrl", item.get("url", ""))
-        })
-    except (OSError, json.JSONDecodeError):
-        continue
-entries.sort(key=lambda x: x.get("verifiedAt", ""), reverse=True)
-with open(index_path, "w", encoding="utf-8") as f:
-    json.dump({"updatedAt": now, "count": len(entries), "drafts": entries}, f, indent=2, ensure_ascii=False)
-    f.write("\n")
 print("Verified draft written to", out)
-print("Draft index updated:", index_path)
+if not queue_changed:
+    print(f"WARNING: no queue item matched review issue #{issue_number}; draft was still created.")
