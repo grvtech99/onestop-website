@@ -1,0 +1,59 @@
+name: One-time ONESTOP cleanup
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Remove obsolete homepage fallback CSS
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = '.hero-quick .jap{border-color:rgba(255,125,155,.7);background:rgba(225,29,72,.20)}'
+          if old in s:
+              s = s.replace(old, '')
+          p.write_text(s, encoding='utf-8')
+          p = Path('onestop-visual-polish-v2.css')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('/* Keep Hindi/Jap in the white header; hide it only from the hero quick-access row. */\nbody:has(.hero-quick) .hero-quick .jap{display:none!important}\n', '')
+          s = s.replace('/* Never show a duplicate Job Update quick-access button if an older cached page contains one. */\nbody:has(.hero-quick) .hero-quick a[href="onestop-updates.html"] ~ a[href="onestop-updates.html"]{display:none!important}\n', '')
+          p.write_text(s, encoding='utf-8')
+      - name: Validate cleanup targets
+        shell: python
+        run: |
+          from pathlib import Path
+          i = Path('index.html').read_text(encoding='utf-8')
+          c = Path('onestop-visual-polish-v2.css').read_text(encoding='utf-8')
+          assert i.count('href="onestop-updates.html"') == 1, 'Homepage Job Update button count changed unexpectedly'
+          assert '.hero-quick .jap{' not in i, 'Obsolete hero Jap CSS remains'
+          assert 'hero-quick .jap' not in c, 'Obsolete hero Jap fallback remains'
+          assert 'a[href="onestop-updates.html"] ~ a[href="onestop-updates.html"]' not in c, 'Duplicate-button fallback remains'
+      - name: Commit cleanup and remove this temporary workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html onestop-visual-polish-v2.css
+          git commit -m 'Clean obsolete homepage fallback code' || true
+          git rm .github/workflows/cleanup-site.yml
+          git commit -m 'Remove one-time cleanup workflow'
+          git push
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload cleaned site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: '.'
+      - name: Deploy cleaned site
+        id: deployment
+        uses: actions/deploy-pages@v4
