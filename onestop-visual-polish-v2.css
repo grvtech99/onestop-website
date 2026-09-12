@@ -8,6 +8,8 @@ body:has(.hero-quick) .hero-quick a{font-size:14px!important;font-weight:600!imp
 body:has(.hero-quick) .hero-quick a:hover{background:rgba(255,255,255,.18)!important}
 /* Keep Hindi/Jap in the white header; hide it only from the hero quick-access row. */
 body:has(.hero-quick) .hero-quick .jap{display:none!important}
+/* Never show a duplicate Job Update quick-access button if an older cached page contains one. */
+body:has(.hero-quick) .hero-quick a[href="onestop-updates.html"] ~ a[href="onestop-updates.html"]{display:none!important}
 body:has(.hero-quick) .btn{font-size:15px!important;font-weight:600!important;line-height:1.25!important;padding:13px 20px!important}
 body:has(.hero-quick) .badge{font-weight:600!important;letter-spacing:0!important}
 body:has(.hero-quick) .hero h1{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;font-weight:800!important;letter-spacing:-1.4px!important}
