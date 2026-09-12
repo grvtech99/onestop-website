@@ -1,0 +1,45 @@
+name: Create Government Publication PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      draft_path:
+        description: 'Verified draft JSON path (example: data/government-verified-drafts/example-issue-123.json)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Validate draft path
+        env:
+          DRAFT_PATH: ${{ inputs.draft_path }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          case "$DRAFT_PATH" in
+            data/government-verified-drafts/*.json) ;;
+            *) echo 'Rejected: draft must be inside data/government-verified-drafts/.'; exit 1;;
+          esac
+          test -f "$DRAFT_PATH"
+
+      - name: Create publication PR
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DRAFT_PATH: ${{ inputs.draft_path }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/create-government-publication-pr.py "$DRAFT_PATH"
