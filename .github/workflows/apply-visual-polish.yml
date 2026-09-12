@@ -1,0 +1,44 @@
+name: Apply ONESTOP visual polish
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  polish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply shared polish
+        shell: python
+        run: |
+          from pathlib import Path
+          files = [
+            'index.html',
+            'free-tools.html',
+            'free-online-games.html',
+            'resume-maker-30-templates.html',
+            'onestop-updates.html',
+          ]
+          link = '<link rel="stylesheet" href="onestop-visual-polish-v2.css">'
+          for name in files:
+              p = Path(name)
+              s = p.read_text(encoding='utf-8')
+              if link not in s:
+                  s = s.replace('</head>', link + '</head>', 1)
+              if name == 'index.html':
+                  s = s.replace('<a class="admin-nav jap-nav" href="non-stop-jap.html" title="नॉन स्टॉप जाप">🙏 नॉन स्टॉप जाप</a>', '')
+                  s = s.replace('<a class="jap" href="non-stop-jap.html"><span>🙏</span> नॉन-स्टॉप जाप</a>', '<a href="onestop-updates.html"><span>📢</span> Onestop Job Update</a>')
+                  s = s.replace('🧰 CSC Tools', '🧰 Free Tools')
+              p.write_text(s, encoding='utf-8')
+      - name: Commit changes and remove workflow
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html free-tools.html free-online-games.html resume-maker-30-templates.html onestop-updates.html onestop-visual-polish-v2.css .github/workflows/apply-visual-polish.yml
+          git commit -m 'Polish ONESTOP native typography and visual hierarchy' || exit 0
+          git rm .github/workflows/apply-visual-polish.yml
+          git commit -m 'Remove temporary visual polish workflow'
+          git push
