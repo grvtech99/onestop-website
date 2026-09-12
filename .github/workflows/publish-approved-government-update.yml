@@ -1,0 +1,76 @@
+name: Publish Approved Government Update
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  publish:
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && startsWith(github.event.pull_request.head.ref, 'publish/government-update-')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout merged main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Verify final approval and PR scope
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          files="$(gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/files?per_page=100" --jq '.[].filename')"
+          count="$(printf '%s\n' "$files" | sed '/^$/d' | wc -l | tr -d ' ')"
+          if [ "$count" -ne 1 ]; then
+            echo "Rejected: publication PR must change exactly one file; found $count."
+            exit 1
+          fi
+          payload="$files"
+          case "$payload" in
+            data/government-publication-review/*.json) ;;
+            *) echo "Rejected: unexpected changed file: $payload"; exit 1;;
+          esac
+          echo "PAYLOAD=$payload" >> "$GITHUB_ENV"
+
+          # The repository owner must have the latest review state APPROVED.
+          # This prevents a merged PR from publishing without explicit owner review.
+          latest="$(gh api --paginate "repos/$REPO/pulls/$PR_NUMBER/reviews?per_page=100" --jq '.[] | select(.user.login == env.OWNER) | [.submitted_at,.state] | @tsv' | sort | tail -n 1 || true)"
+          if [ -z "$latest" ]; then
+            echo "Rejected: no review by repository owner ($OWNER)."
+            exit 1
+          fi
+          state="$(printf '%s' "$latest" | awk '{print $2}')"
+          if [ "$state" != "APPROVED" ]; then
+            echo "Rejected: latest repository-owner review is $state, not APPROVED."
+            exit 1
+          fi
+
+      - name: Validate payload and publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/publish-approved-government-update.py "$PAYLOAD"
+
+      - name: Commit public update
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- onestop-updates-data.js; then
+            echo 'No public data change was produced.'
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add onestop-updates-data.js
+          git commit -m "Publish approved government update from PR #${{ github.event.pull_request.number }}"
+          git push origin main
