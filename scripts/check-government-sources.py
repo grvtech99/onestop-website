@@ -1,28 +1,17 @@
 #!/usr/bin/env python3
-import hashlib, json, os, sys, urllib.request
+import hashlib, json, os, sys, time, urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 
-SOURCES = {
-    "ssc": "https://ssc.gov.in/",
-    "upsc_highlights": "https://www.upsc.gov.in/highlight",
-    "upsc_results": "https://www.upsc.gov.in/recruitment/recruitment-test/results/final-result",
-    "upsc_interviews": "https://www.upsc.gov.in/exams-related-info/interview-schedule",
-    "upsc_cds2_2026": "https://www.upsc.gov.in/examinations/Combined%20Defence%20Services%20Examination%20%28II%29%2C%202026",
-    "employment_news": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
-    "nsp_students": "https://scholarships.gov.in/Students",
-    "nsp_schemes": "https://scholarships.gov.in/All-Scholarships",
-}
-
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+REGISTRY = os.path.join(ROOT, "data", "government-source-registry.json")
 OUT = os.path.join(ROOT, "data", "government-source-snapshots.json")
 QUEUE = os.path.join(ROOT, "data", "government-update-review-queue.json")
 MAX_HISTORY = 30
+MAX_WORKERS = 8
+TIMEOUT = 20
+RETRIES = 2
 
-def fetch(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "ONESTOP-Government-Source-Monitor/1.0"})
-    with urllib.request.urlopen(req, timeout=35) as r:
-        body = r.read()
-        return r.status, hashlib.sha256(body).hexdigest(), len(body)
 
 def load_json(path, default):
     if os.path.exists(path):
@@ -33,26 +22,91 @@ def load_json(path, default):
             pass
     return default
 
+
+def load_sources():
+    registry = load_json(REGISTRY, {})
+    sources = registry.get("sources", [])
+    enabled = {}
+    for item in sources:
+        if not item.get("enabled", True):
+            continue
+        source_id = str(item.get("id", "")).strip()
+        url = str(item.get("url", "")).strip()
+        if source_id and url.startswith(("http://", "https://")):
+            enabled[source_id] = item
+    if not enabled:
+        raise RuntimeError("No enabled official sources found in government-source-registry.json")
+    return enabled
+
+
+def fetch(source):
+    url = source["url"]
+    last_error = None
+    for attempt in range(1, RETRIES + 1):
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "ONESTOP-Government-Source-Monitor/2.0"})
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+                body = r.read()
+                return {
+                    "httpStatus": r.status,
+                    "sha256": hashlib.sha256(body).hexdigest(),
+                    "bytes": len(body),
+                    "attempts": attempt,
+                }
+        except Exception as exc:
+            last_error = exc
+            if attempt < RETRIES:
+                time.sleep(1.5 * attempt)
+    raise last_error
+
+
 def main():
+    sources = load_sources()
     old_data = load_json(OUT, {})
     old = old_data.get("sources", {})
     now = datetime.now(timezone.utc).isoformat()
-    result = {"checkedAt": now, "sources": {}, "changed": [], "failed": []}
-    for name, url in SOURCES.items():
-        try:
-            status, digest, size = fetch(url)
-            previous = old.get(name, {}).get("sha256")
-            state = "changed" if previous and previous != digest else ("baseline" if not previous else "unchanged")
-            result["sources"][name] = {"url": url, "httpStatus": status, "sha256": digest, "bytes": size, "state": state}
-            if state == "changed": result["changed"].append(name)
-            print(f"{name}: HTTP {status} {state}")
-        except Exception as e:
-            result["failed"].append(name)
-            result["sources"][name] = {"url": url, "state": "failed", "error": str(e)[:300]}
-            print(f"{name}: FAILED — {e}")
+    result = {"checkedAt": now, "registryVersion": load_json(REGISTRY, {}).get("version", 1), "sources": {}, "changed": [], "failed": []}
 
+    with ThreadPoolExecutor(max_workers=min(MAX_WORKERS, len(sources))) as pool:
+        futures = {pool.submit(fetch, source): (name, source) for name, source in sources.items()}
+        for future in as_completed(futures):
+            name, source = futures[future]
+            try:
+                fetched = future.result()
+                previous = old.get(name, {}).get("sha256")
+                state = "changed" if previous and previous != fetched["sha256"] else ("baseline" if not previous else "unchanged")
+                result["sources"][name] = {
+                    "name": source.get("name", name),
+                    "type": source.get("type", "Government"),
+                    "category": source.get("category", "Government Updates"),
+                    "url": source["url"],
+                    **fetched,
+                    "state": state,
+                }
+                if state == "changed":
+                    result["changed"].append(name)
+                print(f"{name}: HTTP {fetched['httpStatus']} {state}")
+            except Exception as exc:
+                result["failed"].append(name)
+                result["sources"][name] = {
+                    "name": source.get("name", name),
+                    "type": source.get("type", "Government"),
+                    "category": source.get("category", "Government Updates"),
+                    "url": source["url"],
+                    "state": "failed",
+                    "error": str(exc)[:300],
+                }
+                print(f"{name}: FAILED — {exc}")
+
+    result["changed"].sort()
+    result["failed"].sort()
     previous_history = old_data.get("history", [])
-    entry = {"checkedAt": now, "changed": result["changed"], "failed": result["failed"], "states": {k: v.get("state") for k, v in result["sources"].items()}}
+    entry = {
+        "checkedAt": now,
+        "changed": result["changed"],
+        "failed": result["failed"],
+        "states": {k: v.get("state") for k, v in sorted(result["sources"].items())},
+    }
     result["history"] = ([entry] + previous_history)[:MAX_HISTORY]
 
     queue = load_json(QUEUE, {"version": 1, "updatedAt": None, "items": []})
@@ -65,6 +119,9 @@ def main():
             items.insert(0, {
                 "key": key,
                 "source": name,
+                "sourceName": source.get("name"),
+                "sourceType": source.get("type"),
+                "category": source.get("category"),
                 "detectedAt": now,
                 "status": "pending",
                 "verificationUrl": source.get("url"),
@@ -89,8 +146,9 @@ def main():
     if result["changed"]:
         print("Official source content changed:", ", ".join(result["changed"]))
     else:
-        print("No official source content changes detected.")
+        print(f"No official source content changes detected across {len(sources)} enabled sources.")
     return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())
