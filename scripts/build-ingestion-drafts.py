@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-"""Turn discovered notice candidates into extractor-ready review drafts.
-
-Only candidates whose content can be extracted are enriched. Existing fields
-remain traceable to the official notice URL. Nothing is added to public data.
-"""
+"""Build draft-only records from discovered official notices."""
 from __future__ import annotations
 import json, subprocess, sys, tempfile
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 CAND=ROOT/'data/government-ingestion-candidates'
-DRAFT=ROOT/'data/government-verified-drafts'
+DRAFT=ROOT/'data/government-ingestion-drafts'
 EXTRACT=ROOT/'scripts/extract-government-job-draft.py'
 
-# This stage intentionally keeps candidates as drafts. The existing verification
-# processor remains the only route to a verified draft.
 def main():
     CAND.mkdir(parents=True,exist_ok=True); DRAFT.mkdir(parents=True,exist_ok=True)
     processed=0
@@ -28,7 +22,7 @@ def main():
             if r.returncode!=0:
                 item['extractionStatus']='failed'; item['extractionError']=r.stderr[-500:]
             else:
-                r2=subprocess.run([sys.executable,str(EXTRACT),str(text),url,'--output',str(out)],capture_output=True,text=True,timeout=30)
+                r2=subprocess.run([sys.executable,str(EXTRACT),url,str(text),'--output',str(out)],capture_output=True,text=True,timeout=30)
                 if r2.returncode==0 and out.exists():
                     draft=json.loads(out.read_text(encoding='utf-8'))
                     draft['sourceId']=item.get('sourceId'); draft['sourceName']=item.get('sourceName')
@@ -40,8 +34,6 @@ def main():
                     item['extractionStatus']='processed'; item['draftPath']=str(target.relative_to(ROOT))
                 else:
                     item['extractionStatus']='failed'; item['extractionError']=r2.stderr[-500:]
-        p.write_text(json.dumps(item,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-        processed+=1
+        p.write_text(json.dumps(item,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); processed+=1
     print(json.dumps({'processed':processed}))
-
 if __name__=='__main__': main()
