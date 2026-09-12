@@ -17,6 +17,9 @@ nav{display:flex;gap:25px;align-items:center}nav a{color:#223354;font-weight:700
 @media(max-width:850px){.menu{display:block}nav{display:none;position:absolute;top:78px;left:0;right:0;background:#fff;flex-direction:column;padding:20px;box-shadow:0 10px 25px rgba(0,0,0,.08)}nav.show{display:flex}.hero-inner,.about-grid,.contact-grid,.director-grid{grid-template-columns:1fr}.hero-quick{grid-column:auto;margin:0 0 10px;padding-top:16px}.stats-grid{grid-template-columns:repeat(2,1fr)}.course-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.director-card{flex-direction:column;text-align:center}.hero-card{padding:24px}.hero-quick a{font-size:12px;padding:8px 11px}.logo-text strong{font-size:22px}.logo-text small{font-size:8px}}
 @media(max-width:520px){.stats-grid{grid-template-columns:1fr}.hero-inner{padding-top:0}.hero-quick{gap:7px}.hero-quick a{padding:7px 9px;font-size:11px}.hero h1{font-size:42px;letter-spacing:-1px}.hero p{font-size:16px}section{padding:55px 0}.section-title h2{font-size:30px}.receipt-body{padding:18px}.logo-text strong{font-size:20px}.logo-text small{font-size:7px;letter-spacing:.6px}}
 @media print{body *{visibility:hidden!important}.receipt-overlay,.receipt-overlay *{visibility:visible!important}.receipt-overlay{display:block!important;position:static;background:#fff;padding:0}.receipt{width:100%;box-shadow:none}.receipt-actions{display:none!important}}
+
+/* Prevent accidental duplicate Job Update quick-access buttons. */
+.hero-quick a[href="onestop-updates.html"] ~ a[href="onestop-updates.html"]{display:none!important}
 </style>
 <meta name="google-site-verification" content="43g7QTVkBiYpQZ6HorNj6TK_HbbY0bpH4GwiZtm6k90" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1083654273012557" crossorigin="anonymous"></script>
