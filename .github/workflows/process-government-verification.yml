@@ -12,18 +12,19 @@ jobs:
   verify:
     if: >-
       github.event.issue.pull_request == null &&
-      contains(github.event.comment.body, 'VERIFIED') &&
+      (contains(github.event.comment.body, 'VERIFIED') || contains(github.event.comment.body, 'REJECTED')) &&
       github.event.comment.user.login == github.repository_owner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ONESTOP
         uses: actions/checkout@v4
 
-      - name: Build verified draft
+      - name: Process review decision
         env:
           VERIFICATION_COMMENT: ${{ github.event.comment.body }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_TITLE: ${{ github.event.issue.title }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
         run: python3 scripts/process-government-verification.py
 
       - name: Maintain verified draft index
@@ -59,26 +60,33 @@ jobs:
               json.dump(index,f,indent=2,ensure_ascii=False); f.write('\n')
           PY
 
-      - name: Commit verified draft and index
+      - name: Commit review status and drafts
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/government-verified-drafts; then
-            echo 'No verified draft changes.'
+          if git diff --quiet -- data/government-verified-drafts data/government-update-review-queue.json; then
+            echo 'No review state changes.'
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/government-verified-drafts
-          git commit -m 'Add verified government update draft'
+          git add data/government-verified-drafts data/government-update-review-queue.json
+          git commit -m 'Update government review status'
           git push
 
-      - name: Confirm verification
+      - name: Confirm review decision
         uses: actions/github-script@v7
+        env:
+          COMMENT_BODY: ${{ github.event.comment.body }}
         with:
           script: |
+            const body = process.env.COMMENT_BODY || '';
+            const isRejected = /\bREJECTED\b/i.test(body);
+            const message = isRejected
+              ? '❌ **Review marked REJECTED.** The queue status was updated and nothing was published to the public Job Update page.'
+              : '✅ **VERIFIED draft created.** The queue status and structured draft were saved for final publication review. Nothing was auto-published to the public Job Update page.';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: '✅ **VERIFIED draft created.** The structured update and Verified Draft index have been saved for final publication review. Nothing has been auto-published to the public Job Update page.'
+              body: message
             });
