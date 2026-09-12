@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="ONESTOP Job Update administration dashboard">
+<title>ONESTOP Job Update — Admin</title>
+<style>
+:root{--blue:#0757c9;--dark:#06265f;--sky:#1688e8;--text:#14213d;--muted:#60708d;--light:#f5f9ff;--white:#fff;--border:#dfe8f5;--green:#15803d;--amber:#b45309}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Segoe UI",sans-serif;background:var(--light);color:var(--text)}a{text-decoration:none;color:inherit}.wrap{max-width:1100px;margin:auto;padding:0 20px}header{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10}.nav{max-width:1100px;margin:auto;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px}.brand{font-weight:900;color:var(--blue);font-size:23px}.brand small{display:block;color:var(--text);font-size:8px;letter-spacing:1px;margin-top:3px}.back{padding:9px 14px;border-radius:10px;background:#eaf3ff;color:var(--blue);font-weight:800}.hero{background:linear-gradient(135deg,#031d50,#0757c9 60%,#1688e8);color:#fff;padding:48px 0}.badge{display:inline-block;padding:6px 11px;border:1px solid #ffffff55;border-radius:20px;background:#ffffff18;font-weight:800;font-size:12px}.hero h1{font-size:clamp(32px,5vw,52px);margin:14px 0 8px}.hero p{max-width:760px;color:#e3efff;line-height:1.6}.notice{margin:26px 0;padding:17px 18px;background:#fff;border-left:5px solid var(--amber);border-radius:10px;line-height:1.55;color:var(--muted)}h2{margin:32px 0 14px;color:var(--dark)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:21px;box-shadow:0 8px 25px #14213d0a}.card h3{margin:0 0 7px;color:var(--dark)}.card p{margin:0 0 16px;color:var(--muted);font-size:14px;line-height:1.5}.btn{display:inline-block;padding:11px 15px;border-radius:10px;background:var(--blue);color:#fff;font-weight:800;font-size:14px}.btn.green{background:var(--green)}.btn.light{background:#eaf3ff;color:var(--blue)}.steps{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px}.steps ol{margin:0;padding-left:23px;line-height:2}.steps strong{color:var(--dark)}footer{margin-top:40px;background:#031b4c;color:#d8e6ff;text-align:center;padding:28px}.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}@media(max-width:700px){.grid{grid-template-columns:1fr}.nav{padding:11px 14px}.brand{font-size:20px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="onestop-updates.html">ONESTOP<small>JOB UPDATE ADMIN</small></a><a class="back" href="onestop-updates.html">← Public Job Updates</a></div></header>
+<div class="hero"><div class="wrap"><span class="badge">🔐 ADMIN / AUDIT CONTROL PANEL</span><h1>Government Job Update Admin</h1><p>Use this dashboard to audit source health, review detected changes, verify drafts, create publication PRs and check GitHub Actions. Public updates are published only after verification and owner approval.</p></div></div>
+<main class="wrap">
+<div class="notice"><strong>Important:</strong> This page is a navigation dashboard, not an authentication system. GitHub Actions, pull requests and owner approvals still require your GitHub account permissions. Do not treat a visible “Verified Draft” as public until the publication workflow has completed.</div>
+<h2>1. Audit &amp; Verification</h2>
+<div class="grid">
+<div class="card"><h3>🔎 Source Review Center</h3><p>Check SSC, UPSC, Employment News and scholarship source health, changed sources, failures and history.</p><a class="btn" href="onestop-updates-review.html">Open Review Center</a></div>
+<div class="card"><h3>📋 Review Queue</h3><p>See Pending, In Review, Verified and Rejected government-update review items.</p><a class="btn" href="onestop-update-review-queue.html">Open Review Queue</a></div>
+<div class="card"><h3>✅ Verified Drafts</h3><p>Audit the details that have been verified and are waiting for publication approval.</p><a class="btn" href="onestop-updates-verified-drafts.html">Open Verified Drafts</a></div>
+<div class="card"><h3>🚀 Publication Center</h3><p>Review verified drafts and start the authenticated Create Publication PR workflow.</p><a class="btn green" href="onestop-updates-publish.html">Open Publication Center</a></div>
+</div>
+<h2>2. GitHub Actions</h2>
+<div class="grid">
+<div class="card"><h3>🧪 Validation Pipeline</h3><p>Run or inspect repository validation for the government update pipeline. GitHub login and write access may be required.</p><a class="btn light" href="https://github.com/grvtech99/onestop-website/actions/workflows/validate-government-pipeline.yml" target="_blank" rel="noopener">Open Validation Actions</a></div>
+<div class="card"><h3>🔄 Source Verification</h3><p>Inspect the daily official-source checker and review-issue workflow.</p><a class="btn light" href="https://github.com/grvtech99/onestop-website/actions/workflows/verify-government-updates.yml" target="_blank" rel="noopener">Open Verification Actions</a></div>
+<div class="card"><h3>📝 Create Publication PR</h3><p>Authenticated workflow for creating a publication pull request from a verified draft.</p><a class="btn light" href="https://github.com/grvtech99/onestop-website/actions/workflows/create-government-publication-pr.yml" target="_blank" rel="noopener">Open Publication Workflow</a></div>
+<div class="card"><h3>📦 Repository</h3><p>Open the ONESTOP website repository to inspect commits, issues, branches and pull requests.</p><a class="btn light" href="https://github.com/grvtech99/onestop-website" target="_blank" rel="noopener">Open GitHub Repository</a></div>
+</div>
+<h2>3. Recommended Audit Sequence</h2>
+<div class="steps"><ol><li><strong>Source Review Center</strong> — check changed/failed sources.</li><li><strong>Review Queue</strong> — identify items waiting for verification.</li><li><strong>Verify official notice</strong> — title, vacancy, dates, eligibility, fee, age, selection, notice PDF and application URL.</li><li><strong>Verified Drafts</strong> — confirm the verified record is correct.</li><li><strong>Publication Center</strong> — create the publication PR through GitHub Actions.</li><li><strong>GitHub Pull Request</strong> — review the generated publication file and approve/merge only when correct.</li><li><strong>Public Job Updates</strong> — confirm the final published entry appears correctly.</li></ol></div>
+<div class="links"><a class="btn" href="onestop-updates.html">📢 Public Job Updates</a><a class="btn light" href="onestop-updates-review.html">🔎 Review Center</a><a class="btn light" href="onestop-update-review-queue.html">📋 Queue</a><a class="btn light" href="onestop-updates-publish.html">🚀 Publish</a></div>
+</main>
+<footer><strong>ONESTOP Computer &amp; Skill Development Center</strong><br>Government Job Update Administration • Internal Control Dashboard</footer>
+</body>
+</html>
