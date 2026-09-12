@@ -1,0 +1,101 @@
+name: Validate ONESTOP Government Pipeline
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - 'data/government-*.json'
+      - 'data/government-verified-drafts/**'
+      - 'data/government-publication-review/**'
+      - '.github/workflows/**government**.yml'
+  pull_request:
+    paths:
+      - 'scripts/**'
+      - 'data/government-*.json'
+      - 'data/government-verified-drafts/**'
+      - 'data/government-publication-review/**'
+      - '.github/workflows/**government**.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ONESTOP
+        uses: actions/checkout@v4
+
+      - name: Validate Python syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m py_compile scripts/check-government-sources.py
+          python3 -m py_compile scripts/create-government-review-issues.py
+          python3 -m py_compile scripts/process-government-verification.py
+          python3 -m py_compile scripts/create-government-publication-pr.py
+          python3 -m py_compile scripts/publish-approved-government-update.py
+
+      - name: Validate government JSON files
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = [
+              Path('data/government-source-snapshots.json'),
+              Path('data/government-update-review-queue.json'),
+              Path('data/government-verified-drafts/index.json'),
+          ]
+          paths.extend(Path('data/government-verified-drafts').glob('*.json'))
+          paths.extend(Path('data/government-publication-review').glob('*.json'))
+
+          for path in sorted(set(paths)):
+              with path.open(encoding='utf-8') as f:
+                  json.load(f)
+              print(f'OK JSON: {path}')
+          PY
+
+      - name: Validate public government data
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          text = Path('onestop-updates-data.js').read_text(encoding='utf-8')
+          required = ['var DATA=', 'jobs:', 'admit:', 'results:', 'answer:', 'admission:', 'scholarship:', 'syllabus:', 'important:']
+          missing = [item for item in required if item not in text]
+          if missing:
+              raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
+
+          urls = re.findall(r'https?://[^\"\'\s)]+', text)
+          if any(url.startswith('javascript:') for url in urls):
+              raise SystemExit('Unsafe URL detected in public government data')
+          print(f'OK public data structure; found {len(urls)} URLs')
+          PY
+
+      - name: Validate workflow YAML basics
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          paths = list(Path('.github/workflows').glob('*government*.yml'))
+          if not paths:
+              raise SystemExit('No government workflow files found')
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              if not re.search(r'^name:\s*.+$', text, re.M):
+                  raise SystemExit(f'Missing workflow name: {path}')
+              if '\ton:\n' not in '\n' + text:
+                  raise SystemExit(f'Missing workflow trigger: {path}')
+              print(f'OK workflow: {path}')
+          PY
