@@ -75,7 +75,7 @@ jobs:
               raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
 
           urls = re.findall(r'https?://[^\"\'\s)]+', text)
-          if any(url.startswith('javascript:') for url in urls):
+          if any(url.lower().startswith(('javascript:', 'data:', 'vbscript:')) for url in urls):
               raise SystemExit('Unsafe URL detected in public government data')
           print(f'OK public data structure; found {len(urls)} URLs')
           PY
@@ -95,7 +95,7 @@ jobs:
               text = path.read_text(encoding='utf-8')
               if not re.search(r'^name:\s*.+$', text, re.M):
                   raise SystemExit(f'Missing workflow name: {path}')
-              if '\ton:\n' not in '\n' + text:
-                  raise SystemExit(f'Missing workflow trigger: {path}')
+              if not re.search(r'^on:\s*$', text, re.M):
+                  raise SystemExit(f'Missing workflow trigger declaration: {path}')
               print(f'OK workflow: {path}')
           PY
