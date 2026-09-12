@@ -22,33 +22,40 @@ if not verified and not rejected:
 
 now = datetime.now(timezone.utc).isoformat()
 
-# Update the matching queue item so the review lifecycle is visible and auditable.
-queue_changed = False
-if os.path.exists(QUEUE):
+def update_queue(status, reason=None):
+    if not os.path.exists(QUEUE):
+        print(f"WARNING: queue file not found; issue #{issue_number} was not synchronized.")
+        return
     try:
         with open(QUEUE, encoding="utf-8") as f:
             queue = json.load(f)
     except (OSError, json.JSONDecodeError):
-        queue = {"version": 1, "updatedAt": None, "items": []}
+        print("WARNING: queue file could not be read; issue status was not synchronized.")
+        return
+    matched = False
     for item in queue.get("items", []):
         if str(item.get("reviewIssue", "")) == str(issue_number):
-            item["status"] = "verified" if verified else "rejected"
+            item["status"] = status
             item["statusAt"] = now
             item["statusBy"] = comment_author
-            if verified:
-                item.pop("rejectionReason", None)
+            if status == "rejected":
+                item["rejectionReason"] = (reason or "Rejected during official-source review.")[:500]
             else:
-                reason = re.sub(r"\bREJECTED\b", "", comment, flags=re.IGNORECASE).strip()
-                item["rejectionReason"] = reason[:500] if reason else "Rejected during official-source review."
-            queue_changed = True
+                item.pop("rejectionReason", None)
+            matched = True
             break
-    if queue_changed:
+    if matched:
         queue["updatedAt"] = now
         with open(QUEUE, "w", encoding="utf-8") as f:
             json.dump(queue, f, indent=2, ensure_ascii=False)
             f.write("\n")
+        print(f"Review issue #{issue_number} queue status: {status}.")
+    else:
+        print(f"WARNING: no queue item matched review issue #{issue_number}; queue unchanged.")
 
 if rejected:
+    reason = re.sub(r"\bREJECTED\b", "", comment, flags=re.IGNORECASE).strip()
+    update_queue("rejected", reason)
     print(f"Review issue #{issue_number} marked rejected.")
     sys.exit(0)
 
@@ -94,6 +101,5 @@ with open(out, "w", encoding="utf-8") as f:
     json.dump(draft, f, indent=2, ensure_ascii=False)
     f.write("\n")
 
+update_queue("verified")
 print("Verified draft written to", out)
-if not queue_changed:
-    print(f"WARNING: no queue item matched review issue #{issue_number}; draft was still created.")
