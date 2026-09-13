@@ -16,16 +16,16 @@ def fetch(url):
 
 def links(source_id,base,body):
     text=body.decode('utf-8','ignore'); candidates=[]
-    # Preserve anchor text where available; fall back to raw href matching.
     for x in ns['discover'](source_id,base,text): candidates.append(x)
     for raw in re.findall(r'href\s*=\s*["\']([^"\']+)',text,re.I):
         url=urllib.parse.urljoin(base,raw)
         if urllib.parse.urlparse(url).scheme in ('http','https') and KEYWORDS.search(url):
-            candidates.append({'url':url,'label':raw,'priority':'high','sourceId':source_id})
+            candidates.append({'url':url,'label':raw,'priority':'high','sourceId':source_id,'sourceKind':ns.get('source_kind',lambda _: 'generic')(source_id)})
     out=[]; seen=set()
     for x in candidates:
-        if x['url'] not in seen:
-            seen.add(x['url']); out.append(x)
+        key=x['url'].split('#',1)[0]
+        if key in seen: continue
+        seen.add(key); out.append(x)
     return out[:MAX_LINKS_PER_SOURCE]
 
 def slug(v): return re.sub(r'[^a-z0-9]+','-',v.lower()).strip('-')[:80] or 'notice'
@@ -40,7 +40,7 @@ def main():
                 url=hit['url']; key=hashlib.sha256(url.encode()).hexdigest()[:16]; path=OUT/f"{slug(source['id'])}-{key}.json"
                 if path.exists(): continue
                 label=hit.get('label','').strip()
-                payload={'schemaVersion':2,'reviewStatus':'draft','sourceId':source['id'],'sourceName':source['name'],'sourceUrl':base,'noticeUrl':url,'applyUrl':url,'discoveredAt':now,'noticeTitleHint':label[:240] if label else '', 'discoveryPriority':hit.get('priority','high'),'verificationRequired':True,'verificationNote':'Candidate discovered from an official source. Verify every field against the official notice before review/approval/publication.','contentTypeHint':'pdf' if url.lower().split('?')[0].endswith('.pdf') else 'html'}
+                payload={'schemaVersion':2,'reviewStatus':'draft','sourceId':source['id'],'sourceName':source['name'],'sourceUrl':base,'noticeUrl':url,'applyUrl':url,'discoveredAt':now,'noticeTitleHint':label[:240] if label else '', 'discoveryPriority':hit.get('priority','high'),'sourceKind':hit.get('sourceKind',ns.get('source_kind',lambda _: 'generic')(source['id'])),'verificationRequired':True,'verificationNote':'Candidate discovered from an official source. Verify every field against the official notice before review/approval/publication.','contentTypeHint':'pdf' if url.lower().split('?')[0].endswith('.pdf') else 'html'}
                 path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); count+=1
         except Exception as exc:
             failures+=1; print(f'WARN {source.get("id")}: {exc}',file=sys.stderr)
