@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "purpose": "Optional secondary discovery only. Third-party job aggregators never establish government authenticity and never authorize automatic publication.",
+  "sources": [
+    {"name":"FreeJobAlert","enabled":true,"role":"discovery_only","autoVerify":false,"officialSourceRequired":true},
+    {"name":"SarkariResult","enabled":true,"role":"discovery_only","autoVerify":false,"officialSourceRequired":true}
+  ],
+  "rules": [
+    "Use third-party pages only to discover a possible additional notice.",
+    "Resolve the notice to the original government/PSU/commission source before publication.",
+    "Publish only the official notice URL and official application URL when available.",
+    "Do not copy third-party branding, page text, or claims into the ONESTOP public data layer.",
+    "If an official source cannot be resolved, send the candidate to manual review and do not auto-publish."
+  ]
+}
