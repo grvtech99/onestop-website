@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Discover official notice links and create review-only draft candidates."""
+"""Discover official notice links and create ingestion candidates.
+
+Source failures are recorded as warnings but do not abort the whole batch:
+one unavailable source must not prevent successful candidates from other official
+sources from reaching the next stage.
+"""
 from __future__ import annotations
 import hashlib, json, re, sys, urllib.parse, urllib.request
 from datetime import datetime, timezone
@@ -11,7 +16,7 @@ KEYWORDS=re.compile(r'(recruit|vacanc|career|job|advertisement|notification|admi
 ns={}; exec(ADAPTER.read_text(encoding='utf-8'),ns)
 
 def fetch(url):
-    req=urllib.request.Request(url,headers={'User-Agent':'ONESTOP-Government-Notice-Bot/1.0'})
+    req=urllib.request.Request(url,headers={'User-Agent':'ONESTOP-Government-Notice-Bot/1.1','Accept':'text/html,application/xhtml+xml,application/pdf;q=0.9,*/*;q=0.8'})
     with urllib.request.urlopen(req,timeout=TIMEOUT) as r: return r.read()
 
 def links(source_id,base,body):
@@ -40,9 +45,9 @@ def main():
                 url=hit['url']; key=hashlib.sha256(url.encode()).hexdigest()[:16]; path=OUT/f"{slug(source['id'])}-{key}.json"
                 if path.exists(): continue
                 label=hit.get('label','').strip()
-                payload={'schemaVersion':2,'reviewStatus':'draft','sourceId':source['id'],'sourceName':source['name'],'sourceUrl':base,'noticeUrl':url,'applyUrl':url,'discoveredAt':now,'noticeTitleHint':label[:240] if label else '', 'discoveryPriority':hit.get('priority','high'),'sourceKind':hit.get('sourceKind',ns.get('source_kind',lambda _: 'generic')(source['id'])),'verificationRequired':True,'verificationNote':'Candidate discovered from an official source. Verify every field against the official notice before review/approval/publication.','contentTypeHint':'pdf' if url.lower().split('?')[0].endswith('.pdf') else 'html'}
+                payload={'schemaVersion':2,'reviewStatus':'draft','sourceId':source['id'],'sourceName':source['name'],'sourceUrl':base,'noticeUrl':url,'applyUrl':url,'discoveredAt':now,'noticeTitleHint':label[:240] if label else '', 'discoveryPriority':hit.get('priority','high'),'sourceKind':hit.get('sourceKind',ns.get('source_kind',lambda _: 'generic')(source['id'])),'verificationRequired':True,'verificationNote':'Candidate discovered from an official source. Automatic publication is allowed only after trusted-source and data validation checks pass.','contentTypeHint':'pdf' if url.lower().split('?')[0].endswith('.pdf') else 'html'}
                 path.write_text(json.dumps(payload,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); count+=1
         except Exception as exc:
             failures+=1; print(f'WARN {source.get("id")}: {exc}',file=sys.stderr)
-    print(json.dumps({'createdCandidates':count,'sourceFailures':failures})); return 1 if failures else 0
+    print(json.dumps({'createdCandidates':count,'sourceFailures':failures})); return 0
 if __name__=='__main__': raise SystemExit(main())
