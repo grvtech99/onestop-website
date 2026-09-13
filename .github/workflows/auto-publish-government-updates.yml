@@ -1,0 +1,30 @@
+name: Auto Publish Trusted Government Jobs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  auto-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run trusted-source validation and auto publication
+        run: python scripts/auto-publish-government-updates.py
+      - name: Commit auto-published jobs and audit state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add onestop-updates-data.js data/government-ingestion-drafts data/government-auto-publication-log.json
+          if git diff --cached --quiet; then
+            echo "No auto-publication changes."
+          else
+            git commit -m "chore: auto-publish trusted government jobs"
+            git push origin main
+          fi
