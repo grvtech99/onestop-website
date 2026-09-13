@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract conservative, field-level government-update drafts from notice text.
+"""Extract conservative field-level government-update drafts from notice text.
 
 Draft-only: extraction never verifies or publishes information.
 """
@@ -8,25 +8,52 @@ import argparse, json, re
 from datetime import datetime, timezone
 
 NA = "VERIFY FROM OFFICIAL NOTICE"
+DATE = r"[0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{4}"
 PATTERNS = {
-    "vacancy": [r"(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([0-9,]+)", r"(?:no\.\s*of|number\s+of)\s*(?:posts|vacancies)\s*[:\-]?\s*([0-9,]+)"],
-    "fee": [r"(?:application|exam(?:ination)?)\s+fee\s*[:\-]?\s*(₹?\s*[0-9,]+(?:\s*/-)?|nil|no\s+fee)", r"fee\s*[:\-]?\s*(₹?\s*[0-9,]+(?:\s*/-)?|nil|no\s+fee)"],
-    "age": [r"(?:age\s+limit|upper\s+age\s+limit|age)\s*[:\-]?\s*([0-9]{1,2}\s*(?:to|-|–)\s*[0-9]{1,2}\s*(?:years?|yrs?)?)"],
-    "last_date": [r"(?:last\s+date|closing\s+date|apply\s+(?:online\s+)?by)\s*[:\-]?\s*([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{4})"],
-    "start_date": [r"(?:start(?:ing)?\s+date|opening\s+date|application\s+(?:start|from))\s*[:\-]?\s*([0-9]{1,2}[./-][0-9]{1,2}[./-][0-9]{4})"],
+    "vacancy": [
+        r"(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([0-9,]+)",
+        r"(?:no\.\s*of|number\s+of)\s*(?:posts|vacancies)\s*[:\-]?\s*([0-9,]+)",
+        r"(?:total\s+)?(?:number\s+of\s+)?posts\s*[:\-]?\s*([0-9,]+)",
+        r"(?:posts|vacancies)\s*[:\-]\s*([0-9,]+)",
+    ],
+    "fee": [
+        r"(?:application|exam(?:ination)?|online)\s+fee\s*[:\-]?\s*(₹?\s*[0-9,]+(?:\s*/-)?|nil|no\s+fee|not?\s+applicable)",
+        r"fee\s*[:\-]?\s*(₹?\s*[0-9,]+(?:\s*/-)?|nil|no\s+fee|not?\s+applicable)",
+        r"(?:ur|general|gen)\s*(?:category)?\s*(?:application\s+)?fee\s*[:\-]?\s*(₹?\s*[0-9,]+(?:\s*/-)?)",
+    ],
+    "age": [
+        r"(?:age\s+limit|upper\s+age\s+limit|maximum\s+age)\s*[:\-]?\s*([0-9]{1,2}\s*(?:to|-|–)\s*[0-9]{1,2}\s*(?:years?|yrs?)?)",
+        r"(?:age\s+limit|upper\s+age\s+limit)\s*[:\-]?\s*(?:up\s+to\s*)?([0-9]{1,2}\s*(?:years?|yrs?)?)",
+        r"born\s+(?:on\s+or\s+after|between)\s+([^.;]{5,50})",
+    ],
+    "last_date": [
+        rf"(?:last\s+date|closing\s+date|last\s+date\s+for\s+(?:submission|application)|apply\s+(?:online\s+)?by)\s*[:\-]?\s*({DATE})",
+        rf"(?:applications?\s+)?(?:close|closes|closed)\s+(?:on\s+)?({DATE})",
+    ],
+    "start_date": [
+        rf"(?:start(?:ing)?\s+date|opening\s+date|application\s+(?:start|from)|applications?\s+open)\s*[:\-]?\s*({DATE})",
+        rf"(?:applications?\s+)?(?:open|opens|opened)\s+(?:on\s+)?({DATE})",
+    ],
+    "eligibility": [
+        r"(?:educational\s+qualification|essential\s+qualification|minimum\s+qualification|eligibility)\s*[:\-]?\s*([^.;]{8,240})",
+        r"(?:qualification|eligible\s+candidate)\s*[:\-]?\s*([^.;]{8,240})",
+    ],
+    "selection": [
+        r"(?:mode\s+of\s+selection|selection\s+process|method\s+of\s+selection)\s*[:\-]?\s*([^.;]{8,240})",
+        r"(?:selection\s+will\s+be\s+based\s+on)\s*([^.;]{8,240})",
+    ],
 }
 
 def first_match(text, patterns):
     for pattern in patterns:
         m = re.search(pattern, text, re.I)
         if m:
-            return re.sub(r"\s+", " ", m.group(1)).strip()
+            return re.sub(r"\s+", " ", m.group(1)).strip(" .;:")
     return NA
 
 def confidence(value, field_name):
     if value == NA:
         return {"level":"low","verificationRequired":True,"reason":"Not confidently extracted"}
-    # A matched value is only a machine extraction, never proof.
     return {"level":"medium","verificationRequired":True,"reason":f"Pattern matched for {field_name}; confirm against official notice"}
 
 def classify(text):
@@ -47,19 +74,19 @@ def extract(text, source_url, title=None):
         "lastDate": first_match(clean, PATTERNS["last_date"]),
         "fee": first_match(clean, PATTERNS["fee"]),
         "age": first_match(clean, PATTERNS["age"]),
+        "eligibility": first_match(clean, PATTERNS["eligibility"]),
+        "selection": first_match(clean, PATTERNS["selection"]),
     }
     start = first_match(clean, PATTERNS["start_date"])
     values["dates"] = start if start != NA else ("Last date: " + values["lastDate"] if values["lastDate"] != NA else NA)
     field_conf = {k: {"value": v, **confidence(v, k)} for k, v in values.items()}
-    field_conf["eligibility"] = {"value": NA, **confidence(NA, "eligibility")}
-    field_conf["selection"] = {"value": NA, **confidence(NA, "selection")}
     return {
-        "schemaVersion": 3, "reviewStatus": "draft", "sourceUrl": source_url,
+        "schemaVersion": 4, "reviewStatus": "draft", "sourceUrl": source_url,
         "extractedAt": datetime.now(timezone.utc).isoformat(), "category": classify(clean),
         "title": title, "vacancy": values["vacancy"], "dates": values["dates"],
-        "lastDate": values["lastDate"], "eligibility": NA, "fee": values["fee"],
-        "age": values["age"], "selection": NA, "noticeUrl": source_url,
-        "applyUrl": source_url, "verificationRequired": True,
+        "lastDate": values["lastDate"], "eligibility": values["eligibility"],
+        "fee": values["fee"], "age": values["age"], "selection": values["selection"],
+        "noticeUrl": source_url, "applyUrl": source_url, "verificationRequired": True,
         "verificationNote": "Automatic extraction is draft-only. Verify every field against the official notice before publication.",
         "fieldConfidence": field_conf
     }
