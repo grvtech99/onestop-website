@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Promote unverified ingestion drafts into the review queue only."""
+"""Promote only unresolved ingestion drafts into the manual review queue."""
 from __future__ import annotations
 import hashlib,json
 from datetime import datetime,timezone
@@ -15,12 +15,13 @@ def main():
     for p in sorted(DRAFT.glob('*.json')):
         try: item=json.loads(p.read_text(encoding='utf-8'))
         except Exception: continue
+        if item.get('autoPublicationStatus')=='published': continue
         title=str(item.get('title','')).strip()
         if not title or title.lower() in ('unknown','verify from official notice'): continue
         k=key(item)
         if k in existing: continue
         duplicate=title in public
-        q['items'].append({'key':k,'source':item.get('sourceId'),'sourceName':item.get('sourceName'),'detectedAt':item.get('extractedAt') or now,'sourceSha256':item.get('contentSha256',''),'verificationUrl':item.get('noticeUrl'),'noticeUrl':item.get('noticeUrl'),'draftPath':str(p.relative_to(ROOT)),'title':title,'status':'rejected' if duplicate else 'pending','duplicateOfPublic':duplicate,'verificationRequired':True,'verificationNote':'Automatically extracted candidate. Verify every field against the official notice before publication.','fieldConfidence':item.get('fieldConfidence',{})})
+        q['items'].append({'key':k,'source':item.get('sourceId'),'sourceName':item.get('sourceName'),'detectedAt':item.get('extractedAt') or now,'sourceSha256':item.get('contentSha256',''),'verificationUrl':item.get('noticeUrl'),'noticeUrl':item.get('noticeUrl'),'draftPath':str(p.relative_to(ROOT)),'title':title,'status':'rejected' if duplicate else 'pending','duplicateOfPublic':duplicate,'verificationRequired':True,'verificationNote':'Automatic publication did not pass all trusted-source/data checks. Verify the official notice before publication.','fieldConfidence':item.get('fieldConfidence',{})})
         existing.add(k); added+=1
     q['items']=q.get('items',[])[-100:]; q['updatedAt']=now; QUEUE.write_text(json.dumps(q,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'); print(json.dumps({'added':added,'queueItems':len(q['items'])}))
 if __name__=='__main__': main()
