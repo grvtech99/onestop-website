@@ -56,23 +56,25 @@ jobs:
         run: |
           set -euo pipefail
           cat > /tmp/onestop-job-sample.txt <<'EOF'
-          Recruitment Advertisement 2026. Total Vacancy: 125 posts. Application Start Date: 10/09/2026. Last Date: 25/10/2026. Application Fee: ₹500. Age Limit: 18 to 32 years. Diploma or Degree in Engineering. Selection Process: Computer Based Test and Interview.
+          Recruitment Advertisement 2026. Total Vacancy: 125 posts. Application Start Date: 10/09/2026. Last Date: 25/10/2026. Application Fee: ₹500. Age Limit: 18 to 32 years. Educational Qualification: Diploma or Degree in Engineering. Selection Process: Computer Based Test and Interview.
           EOF
           python3 scripts/extract-government-job-draft.py https://example.gov.in/notice.pdf /tmp/onestop-job-sample.txt --title 'Example Government Junior Engineer Recruitment 2026' > /tmp/onestop-draft.json
           python3 - <<'PY'
           import json
           with open('/tmp/onestop-draft.json', encoding='utf-8') as f:
               d=json.load(f)
-          assert d['schemaVersion'] == 3
+          assert d['schemaVersion'] == 4
           assert d['category'] == 'jobs'
           assert d['title'] == 'Example Government Junior Engineer Recruitment 2026'
           assert d['vacancy'] == '125'
           assert d['lastDate'] == '25/10/2026'
           assert '500' in d['fee']
           assert '18 to 32' in d['age']
+          assert 'Diploma or Degree' in d['eligibility']
+          assert 'Computer Based Test' in d['selection']
           assert d['verificationRequired'] is True
           assert d['fieldConfidence']['vacancy']['level'] == 'medium'
-          assert d['fieldConfidence']['eligibility']['level'] == 'low'
+          assert d['fieldConfidence']['eligibility']['level'] == 'medium'
           print('OK extractor smoke test')
           PY
 
