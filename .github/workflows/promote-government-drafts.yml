@@ -3,7 +3,7 @@ name: Promote Government Drafts To Review Queue
 on:
   workflow_dispatch:
   schedule:
-    - cron: '7 4 * * *'
+    - cron: '27 4 * * *'
 
 permissions:
   contents: write
