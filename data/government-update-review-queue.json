@@ -1,5 +1,21 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-12T07:55:27.660665+00:00",
-  "items": []
+  "updatedAt": "2026-09-13T08:20:25.315336+00:00",
+  "items": [
+    {
+      "key": "employment_news:1b157685b8999d15a57e206250fdb836665de3c1fa8ff0e309163a02685608b5",
+      "source": "employment_news",
+      "sourceName": "Employment News",
+      "sourceType": "Government Publication",
+      "category": "Government Jobs",
+      "detectedAt": "2026-09-13T08:18:56.256087+00:00",
+      "status": "in-review",
+      "verificationUrl": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
+      "sourceSha256": "1b157685b8999d15a57e206250fdb836665de3c1fa8ff0e309163a02685608b5",
+      "note": "Official source changed; verify the specific notice before publishing any update.",
+      "reviewIssue": 9,
+      "reviewIssueUrl": "https://github.com/grvtech99/onestop-website/issues/9",
+      "statusAt": "2026-09-13T08:20:25.315336+00:00"
+    }
+  ]
 }

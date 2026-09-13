@@ -1,65 +1,454 @@
 {
-  "checkedAt": "2026-09-12T07:55:27.660665+00:00",
+  "checkedAt": "2026-09-13T08:18:56.256087+00:00",
+  "registryVersion": 1,
   "sources": {
+    "isro": {
+      "name": "Indian Space Research Organisation",
+      "type": "Central",
+      "category": "Space Jobs",
+      "url": "https://www.isro.gov.in/",
+      "httpStatus": 200,
+      "sha256": "b715b7128f012a6f067bfd93f8882e776ea2c25a9ccdf6371b2598f5a5e18aa8",
+      "bytes": 345793,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "nta": {
+      "name": "National Testing Agency",
+      "type": "Central",
+      "category": "Exams, Admissions, Results",
+      "url": "https://exams.nta.ac.in/",
+      "httpStatus": 200,
+      "sha256": "c9e336b582c9c1d7de7a4d427a337b9fa89263ba5976abe87c4f173e2c79d0c7",
+      "bytes": 27440,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "employment_news": {
+      "name": "Employment News",
+      "type": "Government Publication",
+      "category": "Government Jobs",
+      "url": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
+      "httpStatus": 200,
+      "sha256": "1b157685b8999d15a57e206250fdb836665de3c1fa8ff0e309163a02685608b5",
+      "bytes": 63181,
+      "attempts": 1,
+      "state": "changed"
+    },
     "ssc": {
+      "name": "Staff Selection Commission",
+      "type": "Central",
+      "category": "Jobs, Admit Card, Results, Answer Key",
       "url": "https://ssc.gov.in/",
       "httpStatus": 200,
       "sha256": "95f5adf7ecc110e56447abd547e975672f56a811ac20cd3810d41d1a7aa27971",
       "bytes": 80649,
+      "attempts": 1,
+      "state": "unchanged"
+    },
+    "upsc": {
+      "name": "Union Public Service Commission",
+      "type": "Central",
+      "category": "Jobs, Exams, Admit Card, Results",
+      "url": "https://www.upsc.gov.in/",
+      "httpStatus": 200,
+      "sha256": "d4fdfc59435e17a8fab0ef8b87351c816b81897cb045eb0b18875fefb1ebf49d",
+      "bytes": 98243,
+      "attempts": 1,
       "state": "baseline"
     },
-    "upsc_highlights": {
-      "url": "https://www.upsc.gov.in/highlight",
+    "nsp": {
+      "name": "National Scholarship Portal",
+      "type": "Central",
+      "category": "Scholarship",
+      "url": "https://scholarships.gov.in/",
+      "httpStatus": 200,
+      "sha256": "b89564a4bd448a6a2ee9125ab2f38e0eaff2db4f202f981449f45df0a0b63374",
+      "bytes": 109725,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "csir": {
+      "name": "Council of Scientific and Industrial Research",
+      "type": "Central",
+      "category": "Research Jobs",
+      "url": "https://www.csir.res.in/",
+      "httpStatus": 200,
+      "sha256": "c23a2f66628895fdd59ff4cecb4f75e5d3cb54f38a6693fe474f6b0ed9ad2b6c",
+      "bytes": 167652,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "rrb": {
+      "name": "Railway Recruitment Boards",
+      "type": "Central",
+      "category": "Railway Jobs, Exams, Results",
+      "url": "https://www.rrbapply.gov.in/",
       "state": "failed",
-      "error": "The read operation timed out"
+      "error": "HTTP Error 404: Not Found"
     },
-    "upsc_results": {
-      "url": "https://www.upsc.gov.in/recruitment/recruitment-test/results/final-result",
+    "drdo": {
+      "name": "Defence Research and Development Organisation",
+      "type": "Central",
+      "category": "Defence Jobs",
+      "url": "https://www.drdo.gov.in/",
+      "httpStatus": 200,
+      "sha256": "5d85e3bbfbbfe6ed3549732364b3eaeeac2de0befd60443012cdcf7a7afff113",
+      "bytes": 421147,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "ugc": {
+      "name": "University Grants Commission",
+      "type": "Central",
+      "category": "Education Updates",
+      "url": "https://www.ugc.gov.in/",
+      "httpStatus": 200,
+      "sha256": "98817a1ad26bceac0b60e4ed5e6ce67de20176ae04e0f91bc167b7267a06dbd9",
+      "bytes": 170890,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "rbi": {
+      "name": "Reserve Bank of India",
+      "type": "Banking",
+      "category": "Bank Jobs",
+      "url": "https://www.rbi.org.in/",
+      "httpStatus": 200,
+      "sha256": "bc84db57010c9ef5afcf3ff3efd8ad49664a84d999ce38ada0e7bdc819041bb5",
+      "bytes": 153131,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "icmr": {
+      "name": "Indian Council of Medical Research",
+      "type": "Central",
+      "category": "Medical and Research Jobs",
+      "url": "https://www.icmr.gov.in/",
+      "httpStatus": 200,
+      "sha256": "f7ad74db896a44a086fac9bca0a0ca22f02bd831f7236a82ebf1dfdff3ea3002",
+      "bytes": 177037,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "sbi": {
+      "name": "State Bank of India",
+      "type": "Banking",
+      "category": "Bank Jobs",
+      "url": "https://sbi.co.in/",
+      "httpStatus": 200,
+      "sha256": "928c1e2014d7940545b77e107665426eda2a6dce922311358bff9c1096ab35b2",
+      "bytes": 4297,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "ibps": {
+      "name": "Institute of Banking Personnel Selection",
+      "type": "Banking",
+      "category": "Bank Jobs, Exams, Results",
+      "url": "https://www.ibps.in/",
       "state": "failed",
-      "error": "The read operation timed out"
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)>"
     },
-    "upsc_interviews": {
-      "url": "https://www.upsc.gov.in/exams-related-info/interview-schedule",
+    "sebi": {
+      "name": "Securities and Exchange Board of India",
+      "type": "Regulator",
+      "category": "Regulatory Jobs",
+      "url": "https://www.sebi.gov.in/",
       "httpStatus": 200,
-      "sha256": "155d7684fd581e55ca5f3edc62a59d878c93186743758bfc6b1a5cbf87dbba72",
-      "bytes": 28940,
+      "sha256": "ccb9e3d1236e0299ae0226e56ff0909d504f232699d6d77c88e94676869983cb",
+      "bytes": 58330,
+      "attempts": 1,
       "state": "baseline"
     },
-    "upsc_cds2_2026": {
-      "url": "https://www.upsc.gov.in/examinations/Combined%20Defence%20Services%20Examination%20%28II%29%2C%202026",
+    "aiims": {
+      "name": "All India Institute of Medical Sciences",
+      "type": "Central",
+      "category": "Medical Jobs",
+      "url": "https://www.aiims.edu/",
       "httpStatus": 200,
-      "sha256": "dde357ab5341abf7ac6af66fd972a71cef6a26320989685bfacb61a0d049cd86",
-      "bytes": 33448,
+      "sha256": "24600b74a4750b373e241eb6dab6527e7cc61e17ba6bfab8996f4c0646766d88",
+      "bytes": 226117,
+      "attempts": 1,
       "state": "baseline"
     },
-    "employment_news": {
-      "url": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
+    "bhel": {
+      "name": "Bharat Heavy Electricals Limited",
+      "type": "PSU",
+      "category": "PSU Jobs",
+      "url": "https://www.bhel.com/",
       "httpStatus": 200,
-      "sha256": "06d9589d8c18de07c31cd903388ff0f2f43de277e752995a6ce18bb7aa292993",
-      "bytes": 63181,
+      "sha256": "87b337c6ec1bc3987963b78eb390510dc825e954cf39dfd4093da1a2cf40eed1",
+      "bytes": 145634,
+      "attempts": 1,
       "state": "baseline"
     },
-    "nsp_students": {
-      "url": "https://scholarships.gov.in/Students",
+    "bel": {
+      "name": "Bharat Electronics Limited",
+      "type": "PSU",
+      "category": "Defence PSU Jobs",
+      "url": "https://bel-india.in/",
+      "state": "failed",
+      "error": "<urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1000)>"
+    },
+    "epfo": {
+      "name": "Employees Provident Fund Organisation",
+      "type": "Central",
+      "category": "Government Jobs",
+      "url": "https://www.epfindia.gov.in/",
+      "state": "failed",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "iocl": {
+      "name": "Indian Oil Corporation Limited",
+      "type": "PSU",
+      "category": "PSU Jobs",
+      "url": "https://iocl.com/",
+      "state": "failed",
+      "error": "HTTP Error 307: Temporary Redirect"
+    },
+    "lic": {
+      "name": "Life Insurance Corporation of India",
+      "type": "Insurance",
+      "category": "Insurance Jobs",
+      "url": "https://licindia.in/",
       "httpStatus": 200,
-      "sha256": "9c13a529eda4049fc8812205e33e022ebe7693829b9a7875794eb977a7222362",
-      "bytes": 107783,
+      "sha256": "1b0a55190a070e276dc3a1e09ff1435795929e28d93824b8c343853ee826fead",
+      "bytes": 285556,
+      "attempts": 1,
       "state": "baseline"
     },
-    "nsp_schemes": {
-      "url": "https://scholarships.gov.in/All-Scholarships",
+    "ntpc": {
+      "name": "NTPC Limited",
+      "type": "PSU",
+      "category": "PSU Jobs",
+      "url": "https://www.ntpc.co.in/",
       "httpStatus": 200,
-      "sha256": "1903b275e1a449d3c53dda3d8b53dd6839c34d5e54a8a3345c993ce2b694efdb",
-      "bytes": 205417,
+      "sha256": "d1f3ed87b006ac97ad0c6fe913e2a1cd47724715a6a765b4262aa95e8e157c76",
+      "bytes": 56818,
+      "attempts": 1,
       "state": "baseline"
+    },
+    "gail": {
+      "name": "GAIL India Limited",
+      "type": "PSU",
+      "category": "PSU Jobs",
+      "url": "https://www.gailonline.com/",
+      "httpStatus": 200,
+      "sha256": "12fca69dd1e13c815521ce32b2aa9d6219398f6917cec12b6e2ac1d256bc30e5",
+      "bytes": 100064,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "uppsc": {
+      "name": "Uttar Pradesh Public Service Commission",
+      "type": "State",
+      "category": "UP Government Jobs",
+      "url": "https://uppsc.up.nic.in/",
+      "httpStatus": 200,
+      "sha256": "da780eaf7021f1551e8751d949a051d56f69548100c0ff9a7a5cb6182418d875",
+      "bytes": 179767,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "mppsc": {
+      "name": "Madhya Pradesh Public Service Commission",
+      "type": "State",
+      "category": "MP Government Jobs",
+      "url": "https://mppsc.mp.gov.in/",
+      "httpStatus": 200,
+      "sha256": "ec836215882a40437b7d1d668810df7b10826e2ed35ee6fbdcb151734c149359",
+      "bytes": 60079,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "hal": {
+      "name": "Hindustan Aeronautics Limited",
+      "type": "PSU",
+      "category": "Defence PSU Jobs",
+      "url": "https://hal-india.co.in/",
+      "httpStatus": 200,
+      "sha256": "62fdeb4986ec3da8c0134815460d92c04637eca8ddef556f355d02f1e1ebf4e7",
+      "bytes": 20027,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "esic": {
+      "name": "Employees State Insurance Corporation",
+      "type": "Central",
+      "category": "Government and Medical Jobs",
+      "url": "https://www.esic.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "mpsc_maha": {
+      "name": "Maharashtra Public Service Commission",
+      "type": "State",
+      "category": "Maharashtra Government Jobs",
+      "url": "https://mpsc.gov.in/",
+      "httpStatus": 200,
+      "sha256": "5c95f61d745055a42fc7a6e1245c1ff2623a4b88eb48c6f58b152504d99e6775",
+      "bytes": 4844,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "nabard": {
+      "name": "National Bank for Agriculture and Rural Development",
+      "type": "Banking",
+      "category": "Bank Jobs",
+      "url": "https://www.nabard.org/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "upsssc": {
+      "name": "Uttar Pradesh Subordinate Services Selection Commission",
+      "type": "State",
+      "category": "UP Government Jobs",
+      "url": "https://upsssc.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "bpsc": {
+      "name": "Bihar Public Service Commission",
+      "type": "State",
+      "category": "Bihar Government Jobs",
+      "url": "https://www.bpsc.bih.nic.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "rpsc": {
+      "name": "Rajasthan Public Service Commission",
+      "type": "State",
+      "category": "Rajasthan Government Jobs",
+      "url": "https://rpsc.rajasthan.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error [Errno 101] Network is unreachable>"
+    },
+    "kpsc": {
+      "name": "Karnataka Public Service Commission",
+      "type": "State",
+      "category": "Karnataka Government Jobs",
+      "url": "https://kpsc.kar.nic.in/",
+      "httpStatus": 200,
+      "sha256": "f2cc45aa7bb5a5ddefb8eee14a1c80b59ed2b39fa373676c9cd72b6d385e543c",
+      "bytes": 17846,
+      "attempts": 1,
+      "state": "baseline"
+    },
+    "hpsc": {
+      "name": "Haryana Public Service Commission",
+      "type": "State",
+      "category": "Haryana Government Jobs",
+      "url": "https://hpsc.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "ongc": {
+      "name": "Oil and Natural Gas Corporation",
+      "type": "PSU",
+      "category": "PSU Jobs",
+      "url": "https://ongcindia.com/",
+      "state": "failed",
+      "error": "<urlopen error _ssl.c:983: The handshake operation timed out>"
+    },
+    "psc_wb": {
+      "name": "West Bengal Public Service Commission",
+      "type": "State",
+      "category": "West Bengal Government Jobs",
+      "url": "https://psc.wb.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
+    },
+    "tnpsc": {
+      "name": "Tamil Nadu Public Service Commission",
+      "type": "State",
+      "category": "Tamil Nadu Government Jobs",
+      "url": "https://www.tnpsc.gov.in/",
+      "state": "failed",
+      "error": "<urlopen error timed out>"
     }
   },
-  "changed": [],
+  "changed": [
+    "employment_news"
+  ],
   "failed": [
-    "upsc_highlights",
-    "upsc_results"
+    "bel",
+    "bpsc",
+    "epfo",
+    "esic",
+    "hpsc",
+    "ibps",
+    "iocl",
+    "nabard",
+    "ongc",
+    "psc_wb",
+    "rpsc",
+    "rrb",
+    "tnpsc",
+    "upsssc"
   ],
   "history": [
+    {
+      "checkedAt": "2026-09-13T08:18:56.256087+00:00",
+      "changed": [
+        "employment_news"
+      ],
+      "failed": [
+        "bel",
+        "bpsc",
+        "epfo",
+        "esic",
+        "hpsc",
+        "ibps",
+        "iocl",
+        "nabard",
+        "ongc",
+        "psc_wb",
+        "rpsc",
+        "rrb",
+        "tnpsc",
+        "upsssc"
+      ],
+      "states": {
+        "aiims": "baseline",
+        "bel": "failed",
+        "bhel": "baseline",
+        "bpsc": "failed",
+        "csir": "baseline",
+        "drdo": "baseline",
+        "employment_news": "changed",
+        "epfo": "failed",
+        "esic": "failed",
+        "gail": "baseline",
+        "hal": "baseline",
+        "hpsc": "failed",
+        "ibps": "failed",
+        "icmr": "baseline",
+        "iocl": "failed",
+        "isro": "baseline",
+        "kpsc": "baseline",
+        "lic": "baseline",
+        "mppsc": "baseline",
+        "mpsc_maha": "baseline",
+        "nabard": "failed",
+        "nsp": "baseline",
+        "nta": "baseline",
+        "ntpc": "baseline",
+        "ongc": "failed",
+        "psc_wb": "failed",
+        "rbi": "baseline",
+        "rpsc": "failed",
+        "rrb": "failed",
+        "sbi": "baseline",
+        "sebi": "baseline",
+        "ssc": "unchanged",
+        "tnpsc": "failed",
+        "ugc": "baseline",
+        "uppsc": "baseline",
+        "upsc": "baseline",
+        "upsssc": "failed"
+      }
+    },
     {
       "checkedAt": "2026-09-12T07:55:27.660665+00:00",
       "changed": [],
