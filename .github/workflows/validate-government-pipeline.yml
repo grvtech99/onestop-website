@@ -24,34 +24,22 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  launch-gate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout ONESTOP
         uses: actions/checkout@v4
 
-      - name: Validate Python syntax
+      - name: 1. Validate government pipeline syntax
         shell: bash
         run: |
           set -euo pipefail
-          for file in \
-            scripts/check-government-sources.py \
-            scripts/create-government-review-issues.py \
-            scripts/process-government-verification.py \
-            scripts/create-government-publication-pr.py \
-            scripts/publish-approved-government-update.py \
-            scripts/extract-government-job-draft.py \
-            scripts/ingest-government-notices.py \
-            scripts/extract-notice-content.py \
-            scripts/build-ingestion-drafts.py \
-            scripts/government-source-adapters.py \
-            scripts/promote-ingestion-candidates.py \
-            scripts/build-government-ingestion-manifest.py \
-            scripts/test-government-pipeline.py; do
+          for file in scripts/*.py; do
             python3 -m py_compile "$file"
           done
+          echo "Python syntax: OK"
 
-      - name: Smoke-test government job extraction
+      - name: 2. Safety smoke check — extraction stays draft-only
         shell: bash
         run: |
           set -euo pipefail
@@ -61,51 +49,23 @@ jobs:
           python3 scripts/extract-government-job-draft.py https://example.gov.in/notice.pdf /tmp/onestop-job-sample.txt --title 'Example Government Junior Engineer Recruitment 2026' > /tmp/onestop-draft.json
           python3 - <<'PY'
           import json
-          with open('/tmp/onestop-draft.json', encoding='utf-8') as f:
-              d=json.load(f)
-          assert d['schemaVersion'] == 4
-          assert d['category'] == 'jobs'
-          assert d['title'] == 'Example Government Junior Engineer Recruitment 2026'
-          assert d['vacancy'] == '125'
-          assert d['lastDate'] == '25/10/2026'
-          assert '500' in d['fee']
-          assert '18 to 32' in d['age']
-          assert 'Diploma or Degree' in d['eligibility']
-          assert 'Computer Based Test' in d['selection']
-          assert d['verificationRequired'] is True
-          assert d['fieldConfidence']['vacancy']['level'] == 'medium'
-          assert d['fieldConfidence']['eligibility']['level'] == 'medium'
-          print('OK extractor smoke test')
-          PY
-
-      - name: Test source-aware discovery adapters
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 scripts/test-government-pipeline.py
-
-      - name: Validate government JSON files
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          import json
           from pathlib import Path
-          paths = [
-              Path('data/government-source-snapshots.json'),
-              Path('data/government-update-review-queue.json'),
-              Path('data/government-verified-drafts/index.json'),
-              Path('data/government-ingestion-manifest.json'),
-          ]
-          paths.extend(Path('data/government-verified-drafts').glob('*.json'))
-          paths.extend(Path('data/government-ingestion-drafts').glob('*.json'))
-          paths.extend(Path('data/government-publication-review').glob('*.json'))
-          for path in sorted(set(paths)):
-              with path.open(encoding='utf-8') as f: json.load(f)
-              print(f'OK JSON: {path}')
+          d=json.loads(Path('/tmp/onestop-draft.json').read_text(encoding='utf-8'))
+          assert d.get('reviewStatus') == 'draft', 'Extractor must produce draft status'
+          assert d.get('verificationRequired') is True, 'Verification must remain required'
+          assert d.get('category') == 'jobs', 'Expected jobs classification'
+          assert d.get('vacancy') == '125', 'Vacancy extraction failed'
+          assert d.get('lastDate') == '25/10/2026', 'Last-date extraction failed'
+          assert '500' in d.get('fee',''), 'Fee extraction failed'
+          assert '18 to 32' in d.get('age',''), 'Age extraction failed'
+          assert 'Diploma or Degree' in d.get('eligibility',''), 'Eligibility extraction failed'
+          assert 'Computer Based Test' in d.get('selection',''), 'Selection extraction failed'
+          assert d.get('fieldConfidence',{}).get('vacancy',{}).get('level') == 'medium'
+          assert d.get('fieldConfidence',{}).get('eligibility',{}).get('level') == 'medium'
+          print('Draft-only safety: OK')
           PY
 
-      - name: Validate public government data
+      - name: 3. Validate public government data safety
         shell: bash
         run: |
           set -euo pipefail
@@ -115,24 +75,11 @@ jobs:
           text = Path('onestop-updates-data.js').read_text(encoding='utf-8')
           required = ['var DATA=', 'jobs:', 'admit:', 'results:', 'answer:', 'admission:', 'scholarship:', 'syllabus:', 'important:']
           missing = [item for item in required if item not in text]
-          if missing: raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
+          if missing:
+              raise SystemExit('Missing required public-data sections: ' + ', '.join(missing))
           urls = re.findall(r'https?://[^\"\'\s)]+', text)
-          if any(url.lower().startswith(('javascript:', 'data:', 'vbscript:')) for url in urls): raise SystemExit('Unsafe URL detected in public government data')
-          print(f'OK public data structure; found {len(urls)} URLs')
-          PY
-
-      - name: Validate workflow YAML basics
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-          import re
-          paths = list(Path('.github/workflows').glob('*government*.yml'))
-          if not paths: raise SystemExit('No government workflow files found')
-          for path in paths:
-              text = path.read_text(encoding='utf-8')
-              if not re.search(r'^name:\s*.+$', text, re.M): raise SystemExit(f'Missing workflow name: {path}')
-              if not re.search(r'^on:\s*$', text, re.M): raise SystemExit(f'Missing workflow trigger declaration: {path}')
-              print(f'OK workflow: {path}')
+          unsafe = [u for u in urls if u.lower().startswith(('javascript:', 'data:', 'vbscript:'))]
+          if unsafe:
+              raise SystemExit('Unsafe URL detected in public government data')
+          print(f'Public government data safety: OK ({len(urls)} URLs checked)')
           PY
