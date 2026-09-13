@@ -2,12 +2,12 @@
 """Auto-publish high-confidence jobs from trusted official sources.
 
 Trusted official source + successful extraction + consistency checks can publish
-without manual review. Ambiguous records are held for review. Third-party
-aggregators can discover candidates but can never authorize publication.
+without manual review. Ambiguous or expired records are held for review.
+Third-party aggregators can discover candidates but can never authorize publication.
 """
 from __future__ import annotations
 import hashlib, json, re
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 ROOT=Path(__file__).resolve().parents[1]
@@ -24,11 +24,23 @@ def host_ok(a,b):
     x=urlparse(str(a)).hostname or ''; y=urlparse(str(b)).hostname or ''
     return bool(x and y and (x==y or y.endswith('.'+x) or x.endswith('.'+y)))
 def js(v):return json.dumps(str(v),ensure_ascii=False)
+def parse_last_date(value):
+    """Return a date for common Indian/ISO formats, or None when not parseable."""
+    text=str(value or '').strip()
+    for pattern in (r'^(\d{1,2})/(\d{1,2})/(\d{4})$',r'^(\d{1,2})-(\d{1,2})-(\d{4})$',r'^(\d{1,2})\.(\d{1,2})\.(\d{4})$',r'^(\d{4})-(\d{1,2})-(\d{1,2})$'):
+        m=re.match(pattern,text)
+        if not m: continue
+        a,b,c=map(int,m.groups())
+        try:
+            return date(c,a,b) if c>=1000 else date(a,b,c)
+        except ValueError:
+            return None
+    return None
 
 def main():
     policy=load(POLICY,{}); registry=load(REGISTRY,{})
     sources={x.get('id'):x for x in registry.get('sources',[])}; trusted=set(policy.get('trustedSourceIds',[])); allowed=set(policy.get('autoPublishCategories',['jobs']))
-    log=load(LOG,{'version':1,'updatedAt':None,'published':[],'held':[],'events':[]}); public=DATA.read_text(encoding='utf-8'); now=datetime.now(timezone.utc).isoformat(); changed=False; published=held=0
+    log=load(LOG,{'version':1,'updatedAt':None,'published':[],'held':[],'events':[]}); public=DATA.read_text(encoding='utf-8'); now=datetime.now(timezone.utc).isoformat(); today=date.today(); changed=False; published=held=0
     known={norm(x.get('title')) for x in log.get('published',[])}
     for p in sorted(DRAFT.glob('*.json')):
         try:d=json.loads(p.read_text(encoding='utf-8'))
@@ -43,8 +55,11 @@ def main():
         elif not safe_url(notice) or not host_ok(src.get('url',''),notice):reason='invalid_or_nonofficial_notice_url'
         elif int(d.get('extractedChars') or 0)<120:reason='notice_fetch_failed_or_empty'
         elif d.get('lastDate')==NA and d.get('dates')==NA:reason='missing_dates'
-        elif norm(title) in known:reason='duplicate'
-        elif any(k not in d for k in ('vacancy','dates','eligibility','fee','age','selection')):reason='ambiguous_extraction'
+        else:
+            expiry=parse_last_date(d.get('lastDate'))
+            if expiry and expiry<today: reason='expired_last_date'
+        if not reason and norm(title) in known:reason='duplicate'
+        if not reason and any(k not in d for k in ('vacancy','dates','eligibility','fee','age','selection')):reason='ambiguous_extraction'
         if reason:
             d['autoPublicationStatus']='held'; d['autoHoldReason']=reason; d['autoCheckedAt']=now
             p.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
