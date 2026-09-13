@@ -1,0 +1,28 @@
+name: Build Government Job Lifecycle
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 4 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  lifecycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build active and expiry status index
+        run: python scripts/build-government-job-lifecycle.py
+      - name: Commit lifecycle index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/government-job-lifecycle.json
+          if git diff --cached --quiet; then
+            echo "No lifecycle changes."
+          else
+            git commit -m "chore: update government job lifecycle"
+            git push origin main
+          fi
