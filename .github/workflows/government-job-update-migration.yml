@@ -1,0 +1,415 @@
+name: Government Job Update — One-Time Migration
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: ${{ !hashFiles('government-job-update/README.md') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Migrate government job project into one folder
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ROOT="government-job-update"
+          mkdir -p "$ROOT/scripts" "$ROOT/data" "$ROOT/docs"
+
+          # Move the complete current government data layer and all current project scripts.
+          if [ -d data ]; then
+            find data -mindepth 1 -maxdepth 1 -exec git mv {} "$ROOT/data/" \;
+            rmdir data || true
+          fi
+          if [ -d scripts ]; then
+            find scripts -mindepth 1 -maxdepth 1 -exec git mv {} "$ROOT/scripts/" \;
+            rmdir scripts || true
+          fi
+
+          # Move government/job-update public and admin pages and project documentation.
+          for f in \
+            GOVERNMENT-JOB-UPDATE-OPERATIONS.md \
+            onestop-government-admin.html \
+            onestop-government-draft-dashboard.html \
+            onestop-government-updates-v3.css \
+            onestop-update-review-queue.html \
+            onestop-updates-data.js \
+            onestop-updates-publish.html \
+            onestop-updates-review-queue.html \
+            onestop-updates-review.html \
+            onestop-updates-verified-drafts.html \
+            onestop-updates.html; do
+            if [ -f "$f" ]; then
+              git mv "$f" "$ROOT/$(basename "$f")"
+            fi
+          done
+
+          # Copy shared assets so the government project remains portable without
+          # taking shared website assets away from the main ONESTOP site.
+          for f in onestop-visual-polish-v2.css onestop-native-ui.css onestop_logo.png; do
+            if [ -f "$f" ]; then cp -f "$f" "$ROOT/$f"; fi
+          done
+
+          # Keep the existing home page working by changing only its Job Update link.
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('href="onestop-updates.html"', 'href="government-job-update/onestop-updates.html"')
+          p.write_text(s, encoding='utf-8')
+          PY
+
+          # Replace old government-specific workflow references with the new self-contained project path.
+          # The old workflows themselves are removed below; the new workflow is the only live job-update scheduler.
+          for f in .github/workflows/*government*.yml .github/workflows/*government*.yaml; do
+            [ -e "$f" ] || continue
+            case "$f" in
+              .github/workflows/government-job-update-migration.yml) continue ;;
+            esac
+            git rm -f "$f"
+          done
+
+          cat > "$ROOT/README.md" <<'EOF'
+          # ONESTOP Government Job Update
+
+          This folder is the portable home of the Government Job Update project.
+
+          ## Live workflow
+          - SarkariResult is the only discovery source.
+          - Official government/recruitment authority pages are the final verification source.
+          - FreeJobAlert and other aggregators are not used.
+          - New/changed items are processed incrementally.
+          - Missing, conflicting, inaccessible, or ambiguous official evidence is held; it is never auto-published.
+          - HTTP 402/403/429 and similar access-control responses are treated as source-unavailable. No bypass, CAPTCHA bypass, proxy rotation, fingerprint spoofing, hidden endpoint, or aggressive retry is used.
+
+          ## Portability
+          All Government Job Update code, data, UI, scripts and documentation live under this folder. The only repository-root exception is the small GitHub Actions entry workflow required by GitHub to discover scheduled workflows.
+          EOF
+
+          cat > "$ROOT/data/sarkariresult-monitor-state.json" <<'EOF'
+          {
+            "schemaVersion": 1,
+            "source": "sarkariresult",
+            "sourceUrl": "https://www.sarkariresult.com/",
+            "status": "not_run",
+            "lastCheckedAt": null,
+            "lastSuccessfulDiscoveryAt": null,
+            "lastError": null,
+            "items": {}
+          }
+          EOF
+
+          cat > "$ROOT/data/sarkariresult-policy.json" <<'EOF'
+          {
+            "schemaVersion": 1,
+            "discoverySource": {
+              "id": "sarkariresult",
+              "url": "https://www.sarkariresult.com/",
+              "mode": "discovery_only",
+              "officialSourceRequiredBeforePublication": true
+            },
+            "excludedSources": ["freejobalert", "other_aggregators"],
+            "accessPolicy": {
+              "respectRobotsTxt": true,
+              "no403Bypass": true,
+              "no402Bypass": true,
+              "noCaptchaBypass": true,
+              "noProxyRotation": true,
+              "noFingerprintSpoofing": true,
+              "noHiddenEndpoints": true,
+              "noAggressiveCrawling": true
+            },
+            "publication": {
+              "autoPublishOnlyAfterOfficialVerification": true,
+              "holdOnConflict": true,
+              "holdOnMissingOfficialSource": true,
+              "holdOnAmbiguousExtraction": true
+            }
+          }
+          EOF
+
+          cat > "$ROOT/scripts/sarkariresult-monitor.py" <<'PY'
+          #!/usr/bin/env python3
+          """Safe hourly SarkariResult discovery for ONESTOP Government Job Update.
+
+          Discovery only. SarkariResult is never treated as the final authority.
+          Access-control responses are recorded and stop the cycle. No bypassing,
+          proxy rotation, CAPTCHA handling, fingerprint spoofing or hidden endpoints.
+          """
+          from __future__ import annotations
+
+          import hashlib
+          import json
+          import re
+          import sys
+          import urllib.error
+          import urllib.request
+          import xml.etree.ElementTree as ET
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.parse import urljoin, urlparse
+
+          ROOT = Path(__file__).resolve().parents[1]
+          DATA = ROOT / "data"
+          STATE_FILE = DATA / "sarkariresult-monitor-state.json"
+          POLICY_FILE = DATA / "sarkariresult-policy.json"
+          LOG_FILE = DATA / "sarkariresult-monitor-log.json"
+
+          BASE = "https://www.sarkariresult.com/"
+          ROBOTS = urljoin(BASE, "robots.txt")
+          SITEMAP = urljoin(BASE, "sitemap.xml")
+          RSS = urljoin(BASE, "feed_rss.xml")
+          USER_AGENT = "ONESTOP-Government-Job-Update/1.0"
+          TIMEOUT = 20
+          MAX_SITEMAPS = 5
+          MAX_URLS = 500
+
+          def now():
+              return datetime.now(timezone.utc).isoformat()
+
+          def load_json(path, default):
+              try:
+                  return json.loads(path.read_text(encoding="utf-8"))
+              except Exception:
+                  return default
+
+          def save_json(path, value):
+              path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+          def fetch(url):
+              req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "text/html,application/xml,text/xml,text/plain;q=0.9,*/*;q=0.1"})
+              try:
+                  with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+                      body = r.read(2_000_000)
+                      return {"ok": True, "status": getattr(r, "status", 200), "url": r.geturl(), "body": body}
+              except urllib.error.HTTPError as e:
+                  return {"ok": False, "status": e.code, "url": url, "body": b"", "error": f"HTTP {e.code}"}
+              except Exception as e:
+                  return {"ok": False, "status": None, "url": url, "body": b"", "error": str(e)[:300]}
+
+          def parse_robots(text):
+              # We only enforce explicit Disallow rules that apply to our user-agent or '*'.
+              groups = []
+              current = []
+              agents = []
+              for raw in text.splitlines():
+                  line = raw.split("#", 1)[0].strip()
+                  if not line or ":" not in line:
+                      continue
+                  k, v = line.split(":", 1)
+                  k, v = k.strip().lower(), v.strip()
+                  if k == "user-agent":
+                      if current:
+                          groups.append((agents, current))
+                      agents = [v.lower()]
+                      current = []
+                  elif k in {"allow", "disallow"} and agents:
+                      current.append((k, v))
+              if current:
+                  groups.append((agents, current))
+              applicable = []
+              for agents, rules in groups:
+                  if "*" in agents or USER_AGENT.lower() in agents:
+                      applicable.extend(rules)
+              return applicable
+
+          def robots_allows(url, rules):
+              path = urlparse(url).path or "/"
+              matched = None
+              matched_len = -1
+              for action, rule in rules:
+                  if not rule:
+                      continue
+                  if path.startswith(rule) and len(rule) > matched_len:
+                      matched = action
+                      matched_len = len(rule)
+              return matched != "disallow"
+
+          def parse_sitemap(blob):
+              urls = []
+              try:
+                  root = ET.fromstring(blob)
+                  tag = root.tag.rsplit("}", 1)[-1]
+                  if tag == "urlset":
+                      for el in root:
+                          loc = next((c.text.strip() for c in el if c.tag.rsplit("}", 1)[-1] == "loc" and c.text), None)
+                          if loc and loc.startswith(BASE):
+                              urls.append(loc)
+                  elif tag == "sitemapindex":
+                      for el in root:
+                          loc = next((c.text.strip() for c in el if c.tag.rsplit("}", 1)[-1] == "loc" and c.text), None)
+                          if loc:
+                              urls.append(loc)
+              except ET.ParseError:
+                  pass
+              return urls
+
+          def parse_rss(blob):
+              items = []
+              try:
+                  root = ET.fromstring(blob)
+                  for item in root.iter():
+                      if item.tag.rsplit("}", 1)[-1] != "item":
+                          continue
+                      data = {}
+                      for child in item:
+                          key = child.tag.rsplit("}", 1)[-1]
+                          if child.text:
+                              data[key] = child.text.strip()
+                      if data.get("link"):
+                          items.append({"url": data["link"], "title": data.get("title", ""), "published": data.get("pubDate", "")})
+              except ET.ParseError:
+                  pass
+              return items
+
+          def main():
+              state = load_json(STATE_FILE, {"schemaVersion": 1, "source": "sarkariresult", "items": {}})
+              policy = load_json(POLICY_FILE, {})
+              checked = now()
+              log = {"checkedAt": checked, "source": BASE, "status": "unknown", "robots": None, "discovery": {"rss": 0, "sitemap": 0}, "new": 0, "changed": 0, "error": None}
+
+              robots = fetch(ROBOTS)
+              if not robots["ok"]:
+                  log["status"] = "source_unavailable"
+                  log["error"] = robots.get("error", "robots.txt unavailable")
+                  state.update({"status": log["status"], "lastCheckedAt": checked, "lastError": log["error"]})
+                  save_json(STATE_FILE, state)
+                  save_json(LOG_FILE, log)
+                  print(json.dumps(log, ensure_ascii=False))
+                  return 0
+
+              rules = parse_robots(robots["body"].decode("utf-8", "replace"))
+              if not robots_allows(BASE, rules):
+                  log["status"] = "robots_blocked"
+                  log["error"] = "robots.txt disallows the monitor user-agent"
+                  state.update({"status": log["status"], "lastCheckedAt": checked, "lastError": log["error"]})
+                  save_json(STATE_FILE, state)
+                  save_json(LOG_FILE, log)
+                  print(json.dumps(log, ensure_ascii=False))
+                  return 0
+
+              discovered = []
+              rss = fetch(RSS)
+              if rss["ok"]:
+                  discovered.extend(parse_rss(rss["body"]))
+                  log["discovery"]["rss"] = len(parse_rss(rss["body"]))
+              elif rss.get("status") in {402, 403, 429}:
+                  log["rssStatus"] = rss.get("status")
+
+              sitemap = fetch(SITEMAP)
+              if sitemap["ok"]:
+                  entries = parse_sitemap(sitemap["body"])
+                  child = [u for u in entries if u.rstrip("/") != SITEMAP.rstrip("/")]
+                  if child and len(child) <= MAX_SITEMAPS and b"<sitemapindex" in sitemap["body"][:5000].lower():
+                      for child_url in child[:MAX_SITEMAPS]:
+                          child_resp = fetch(child_url)
+                          if child_resp["ok"]:
+                              discovered.extend({"url": u, "title": "", "published": ""} for u in parse_sitemap(child_resp["body"]))
+                  else:
+                      discovered.extend({"url": u, "title": "", "published": ""} for u in entries)
+                  log["discovery"]["sitemap"] = len(discovered)
+              elif sitemap.get("status") in {402, 403, 429}:
+                  log["sitemapStatus"] = sitemap.get("status")
+
+              # Keep only SarkariResult URLs and deduplicate without aggressive crawling.
+              unique = {}
+              for item in discovered:
+                  url = item.get("url", "")
+                  if url.startswith(BASE):
+                      unique[url] = item
+              discovered = list(unique.values())[:MAX_URLS]
+
+              if not discovered:
+                  log["status"] = "source_unavailable"
+                  log["error"] = "No public RSS/sitemap discovery items were accessible in this cycle"
+                  state.update({"status": log["status"], "lastCheckedAt": checked, "lastError": log["error"]})
+                  save_json(STATE_FILE, state)
+                  save_json(LOG_FILE, log)
+                  print(json.dumps(log, ensure_ascii=False))
+                  return 0
+
+              old = state.get("items", {})
+              new_items = {}
+              for item in discovered:
+                  url = item["url"]
+                  key = hashlib.sha256(url.encode()).hexdigest()[:24]
+                  fingerprint = hashlib.sha256(json.dumps(item, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+                  previous = old.get(key)
+                  record = {**item, "id": key, "fingerprint": fingerprint, "discoveredAt": checked}
+                  if previous is None:
+                      log["new"] += 1
+                  elif previous.get("fingerprint") != fingerprint:
+                      log["changed"] += 1
+                  new_items[key] = record
+
+              state.update({"status": "ok", "lastCheckedAt": checked, "lastSuccessfulDiscoveryAt": checked, "lastError": None, "items": new_items})
+              save_json(STATE_FILE, state)
+              save_json(LOG_FILE, log)
+              print(json.dumps(log, ensure_ascii=False))
+              return 0
+
+          if __name__ == "__main__":
+              sys.exit(main())
+          PY
+          chmod +x "$ROOT/scripts/sarkariresult-monitor.py"
+
+          cat > .github/workflows/government-job-update.yml <<'EOF'
+          name: Government Job Update — SarkariResult Discovery
+
+          on:
+            schedule:
+              - cron: '17 * * * *'
+                timezone: 'Asia/Kolkata'
+            workflow_dispatch:
+
+          permissions:
+            contents: write
+
+          concurrency:
+            group: government-job-update
+            cancel-in-progress: false
+
+          jobs:
+            discover-and-verify:
+              runs-on: ubuntu-latest
+              steps:
+                - name: Checkout
+                  uses: actions/checkout@v6
+                  with:
+                    fetch-depth: 0
+
+                - name: Run safe SarkariResult discovery
+                  run: python government-job-update/scripts/sarkariresult-monitor.py
+
+                - name: Commit discovery state
+                  shell: bash
+                  run: |
+                    set -euo pipefail
+                    git config user.name "github-actions[bot]"
+                    git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                    git add government-job-update/data/sarkariresult-monitor-state.json government-job-update/data/sarkariresult-monitor-log.json
+                    if git diff --cached --quiet; then
+                      echo "No discovery state change."
+                      exit 0
+                    fi
+                    git commit -m "Update SarkariResult discovery state"
+                    git push
+          EOF
+
+          # The migration workflow must remove itself only after the new workflow exists.
+          git rm -f .github/workflows/government-job-update-migration.yml
+
+          git add -A
+          git status --short
+          git commit -m "Organize government job project and replace legacy workflows"
+          git push
