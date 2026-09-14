@@ -1,0 +1,79 @@
+name: Temp Fix CSC Real Thumbnails
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-fix-csc-real-thumbnails.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm install playwright
+          npx playwright install --with-deps chromium
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --directory . >/tmp/site.log 2>&1 &
+          sleep 3
+      - name: Capture every tool and rewrite thumbnails
+        run: |
+          cat > capture.cjs <<'NODE'
+          const fs=require('fs');
+          const path=require('path');
+          const { chromium }=require('playwright');
+          const htmlPath='free-csc-tools/index.html';
+          let html=fs.readFileSync(htmlPath,'utf8');
+          const hrefs=[...html.matchAll(/(?:href|src)=[\"']([^\"']+\.html)[\"']/gi)].map(m=>m[1]);
+          const local=[...new Set(hrefs.filter(h=>!/^https?:|^mailto:|^javascript:|^#/i.test(h)))];
+          const slug=u=>u.split('#')[0].replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase();
+          const shotRel=h=>'tool-thumbnails/'+slug(h)+'.png';
+          const shotAbs=h=>path.join('free-csc-tools',shotRel(h));
+          fs.mkdirSync('free-csc-tools/tool-thumbnails',{recursive:true});
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1280,height:760},deviceScaleFactor:1});
+            for(const h of local){
+              try{
+                const u=new URL(h,'http://127.0.0.1:4173/free-csc-tools/index.html');
+                if(u.origin!=='http://127.0.0.1:4173') continue;
+                await page.goto(u.href,{waitUntil:'domcontentloaded',timeout:20000});
+                await page.waitForTimeout(350);
+                await page.screenshot({path:shotAbs(h),fullPage:false});
+              }catch(e){console.log('skip',h,e.message)}
+            }
+            await browser.close();
+            const img=h=>`<img alt="Real tool preview" loading="lazy" src="${shotRel(h)}">`;
+            // Replace every trending card thumb with its real screenshot.
+            html=html.replace(/(<a class="tool-card searchable"[^>]*href="([^"]+\.html)"[^>]*>)(<div class="thumb[\\s\\S]*?<\/div>)(<div class="tool-body">)/g,(m,a,h,t,b)=>`${a}<div class="thumb real-thumb">${img(h)}</div>${b}`);
+            // Replace category tool thumbnail spans directly from their own href.
+            html=html.replace(/(<a class="category-tool searchable screenshot-tool"[^>]*href="([^"]+\.html)"[^>]*>)(<span class="category-thumb[\\s\\S]*?<\/span>)/g,(m,a,h,t)=>`${a}<span class="category-thumb real-category-thumb">${img(h)}</span>`);
+            html=html.replace(/(<a class="category-tool screenshot-tool"[^>]*href="([^"]+\.html)"[^>]*>)(<span class="category-thumb[\\s\\S]*?<\/span>)/g,(m,a,h,t)=>`${a}<span class="category-thumb real-category-thumb">${img(h)}</span>`);
+            // Give each collapsed category a real preview from its first tool.
+            html=html.replace(/(<div class="category accordion-category"[^>]*>\s*<div class="category-head">\s*)<div class="category-icon">[\\s\\S]*?<\/div>/g,(m,p)=>{
+              const rest=html.slice(html.indexOf(m)+m.length);
+              const mm=rest.match(/<a class="category-tool[^>]*href="([^"]+\.html)"/);
+              const h=mm?mm[1]:null;
+              return p+`<div class="category-icon">${h?img(h):'🧰'}</div>`;
+            });
+            // Remove the old JS thumbnail-replacement block; direct HTML is reliable and immediate.
+            html=html.replace(/<script>\(function\(\)\{const slug=u=>[\s\S]*?<\/script>/,'');
+            fs.writeFileSync(htmlPath,html);
+          })();
+          NODE
+          node capture.cjs
+      - name: Commit and remove temporary workflow
+        run: |
+          rm -f capture.cjs .github/workflows/temp-fix-csc-real-thumbnails.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add free-csc-tools/index.html free-csc-tools/tool-thumbnails .github/workflows/temp-fix-csc-real-thumbnails.yml
+          git commit -m 'Fix CSC tools real screenshot thumbnails' || echo 'No changes'
+          git push
