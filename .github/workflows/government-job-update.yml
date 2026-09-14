@@ -12,6 +12,8 @@ on:
       - '!government-job-update/data/official-verification-state.json'
       - '!government-job-update/data/official-verification-log.json'
       - '!government-job-update/data/publication-queue.json'
+      - '!government-job-update/data/canonical-job-records.json'
+      - '!government-job-update/data/admin-dashboard-state.json'
       - '!government-job-update/test-results/**'
   workflow_dispatch:
 
@@ -34,7 +36,7 @@ jobs:
       - name: Run safe SarkariResult discovery
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
-      - name: Run official-source verification
+      - name: Extract, normalize and verify official source
         run: python government-job-update/scripts/official-source-verifier.py
 
       - name: Run controlled live end-to-end test
@@ -43,8 +45,12 @@ jobs:
       - name: Run publication gate regression test
         run: python government-job-update/scripts/publication-gate-test.py
 
-      - name: Build verified-only publication queue
+      - name: Build structured verified-only publication queue
         run: python government-job-update/scripts/publication-gate.py
+
+      - name: Build admin monitoring status snapshot
+        if: always()
+        run: python government-job-update/scripts/build-admin-status.py
 
       - name: Upload E2E and publication gate reports
         if: always()
@@ -54,7 +60,8 @@ jobs:
           path: government-job-update/test-results/
           if-no-files-found: warn
 
-      - name: Save discovery, verification and publication state
+      - name: Save discovery, verification, canonical, publication and admin state
+        if: always()
         shell: bash
         run: |
           set -euo pipefail
@@ -64,10 +71,12 @@ jobs:
                   government-job-update/data/sarkariresult-monitor-log.json \
                   government-job-update/data/official-verification-state.json \
                   government-job-update/data/official-verification-log.json \
-                  government-job-update/data/publication-queue.json
+                  government-job-update/data/canonical-job-records.json \
+                  government-job-update/data/publication-queue.json \
+                  government-job-update/data/admin-dashboard-state.json
           if git diff --cached --quiet; then
-            echo "No discovery/verification/publication state change."
+            echo "No discovery/verification/canonical/publication/admin state change."
           else
-            git commit -m "Update verified government job publication queue"
+            git commit -m "Update government job pipeline monitoring state"
             git push
           fi
