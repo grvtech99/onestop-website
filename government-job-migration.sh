@@ -68,34 +68,10 @@ def main():
 if __name__=='__main__': sys.exit(main())
 PY
 chmod +x "$R/scripts/sarkariresult-monitor.py"
-cat > .github/workflows/government-job-update.yml <<'EOF'
-name: Government Job Update — SarkariResult Discovery
-on:
-  schedule:
-    - cron: '47 * * * *'
-  workflow_dispatch:
-permissions:
-  contents: write
-concurrency:
-  group: government-job-update
-  cancel-in-progress: false
-jobs:
-  discover:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: python government-job-update/scripts/sarkariresult-monitor.py
-      - name: Save state
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add government-job-update/data/sarkariresult-monitor-state.json government-job-update/data/sarkariresult-monitor-log.json
-          git diff --cached --quiet || (git commit -m "Update SarkariResult discovery state" && git push)
-EOF
 git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git rm -f .github/workflows/validate-government-pipeline.yml
 git rm -f government-job-migration.sh
 git add -A
-git commit -m "Organize government job project and replace legacy workflows"
+git commit -m "Organize government job project"
 git push
