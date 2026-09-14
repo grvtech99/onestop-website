@@ -1,0 +1,25 @@
+name: Merge latest main into reorg
+on:
+  push:
+    branches: [free-csc-tools-reorg]
+permissions:
+  contents: write
+jobs:
+  merge:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: free-csc-tools-reorg
+          fetch-depth: 0
+      - name: Merge latest main safely
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin main
+          git merge origin/main -X ours --no-edit || true
+          git checkout origin/main -- government-job-update
+          git add -A
+          git commit -m 'Merge latest main while preserving CSC reorganization [skip ci]' || true
+          git push origin HEAD:free-csc-tools-reorg
