@@ -12,259 +12,96 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 BASE = "https://www.sarkariresult.com/"
-UA = "ONESTOP-Government-Job-Update/1.2"
+UA = "ONESTOP-Government-Job-Update/2.0"
 STATE = DATA / "sarkariresult-monitor-state.json"
 LOG = DATA / "sarkariresult-monitor-log.json"
-
-INDEXED_QUERIES = (
-    "site:sarkariresult.com recruitment vacancy",
-    "site:sarkariresult.com government job notification",
-    "site:sarkariresult.com latest jobs",
-    "site:sarkariresult.com admit card result",
-)
-
+SOURCES = [
+ {"id":"sarkariresult","name":"SarkariResult","url":BASE,"rss":BASE+"feed_rss.xml"},
+ {"id":"employmentnews","name":"Employment News","url":"https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All"},
+ {"id":"ncs","name":"National Career Service","url":"https://ncs.gov.in/latest-update"},
+ {"id":"fresherslive","name":"FreshersLive","url":"https://www.fresherslive.com/state-government-jobs"},
+ {"id":"jagranjosh","name":"Jagran Josh","url":"https://www.jagranjosh.com/government-jobs"},
+ {"id":"testbook","name":"Testbook","url":"https://testbook.com/news/"},
+ {"id":"sarkarinaukriblog","name":"Sarkari Naukri Blog","url":"https://www.sarkarinaukriblog.com/","rss":"https://www.sarkarinaukriblog.com/feeds/posts/default"},
+ {"id":"careerpower","name":"Career Power","url":"https://www.careerpower.in/blog","rss":"https://www.careerpower.in/blog/feed/"},
+ {"id":"indgovtjobs","name":"IndGovtJobs","url":"https://indgovtjobs.net/","rss":"https://indgovtjobs.net/feed/"},
+ {"id":"sarkariupdates","name":"SarkariUpdates","url":"https://www.sarkariupdates.live/jobs","rss":"https://www.sarkariupdates.live/feed/"},
+ {"id":"exampix","name":"Exampix","url":"https://exampix.com/","rss":"https://exampix.com/feed/"},
+ {"id":"inrgovtjobs","name":"INR Govt Jobs","url":"https://www.inrgovtjobs.com/","rss":"https://www.inrgovtjobs.com/feed/"},
+ {"id":"sarkarinaukari","name":"Sarkari Naukari","url":"https://sarkarinaukari.it.com/jobs/"},
+ {"id":"sarkari247","name":"Sarkari247","url":"https://www.sarkari247.com/"},
+ {"id":"sarkarinaukarisetu","name":"Sarkari Naukri Setu","url":"https://www.sarkarinaukarisetu.com/jobs"},
+ {"id":"sarkarinaukri","name":"Sarkari-Naukri.in","url":"https://www.sarkari-naukri.in/"},
+ {"id":"naukriagent","name":"NaukriAgent","url":"https://naukriagent.com/"},
+ {"id":"naukripatrika","name":"Naukri Patrika","url":"https://naukripatrika.in/"},
+ {"id":"nayawork","name":"NayaWork","url":"https://nayawork.in/"},
+ {"id":"naukrichakri","name":"Naukri Chakri","url":"https://www.naukrichakri.in/"},
+ {"id":"sarkariscan","name":"Sarkari Scan","url":"https://sarkariscan.com/"},
+]
+JOB = re.compile(r"\b(recruit|vacan|job|online form|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group [abc]|technician|trainee|professor|nurse|steno|driver|advt|employment)\b", re.I)
 
 def save(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-
 def get(url):
     try:
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": UA,
-                "Accept": "application/xml,text/xml,text/html;q=0.9,*/*;q=0.1",
-            },
-        )
-        response = urllib.request.urlopen(req, timeout=20)
-        return response.status, response.read(2_000_000), response.geturl(), None
-    except urllib.error.HTTPError as exc:
-        return exc.code, b"", url, f"HTTP {exc.code}"
-    except Exception as exc:
-        return None, b"", url, str(exc)[:300]
-
+        req = urllib.request.Request(url, headers={"User-Agent":UA,"Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
+        r = urllib.request.urlopen(req, timeout=15)
+        return r.status, r.read(1200000), r.geturl(), None
+    except urllib.error.HTTPError as e: return e.code, b"", url, f"HTTP {e.code}"
+    except Exception as e: return None, b"", url, str(e)[:200]
 
 def rss_items(body):
-    rows = []
+    out=[]
     try:
-        root = ET.fromstring(body)
+        root=ET.fromstring(body)
         for item in root.iter():
-            if item.tag.rsplit("}", 1)[-1] != "item":
-                continue
-            row = {}
-            for child in item:
-                tag = child.tag.rsplit("}", 1)[-1]
-                if child.text and tag in {"link", "title", "description", "pubDate", "guid"}:
-                    row[tag] = child.text.strip()
-            if row.get("link"):
-                rows.append(row)
-    except Exception:
-        pass
-    return rows
+            if item.tag.rsplit("}",1)[-1] not in ("item","entry"): continue
+            row={}
+            for c in item:
+                tag=c.tag.rsplit("}",1)[-1]; val=(c.text or "").strip()
+                if tag in ("link","title","description","summary","pubDate","published","updated","guid") and val: row[tag]=val
+                if tag=="link" and not val and c.attrib.get("href"): row["link"]=c.attrib["href"]
+            if row.get("link") and JOB.search(row.get("title","")): out.append(row)
+    except Exception: pass
+    return out
 
-
-def sitemap_entries(body):
-    rows = []
-    try:
-        root = ET.fromstring(body)
-        kind = root.tag.rsplit("}", 1)[-1]
-        if kind == "sitemapindex":
-            for element in root.iter():
-                if element.tag.rsplit("}", 1)[-1] == "loc" and element.text:
-                    rows.append({"url": element.text.strip()})
-        elif kind == "urlset":
-            current = None
-            for element in root.iter():
-                tag = element.tag.rsplit("}", 1)[-1]
-                if tag == "url":
-                    current = {}
-                elif current is not None and tag in {"loc", "lastmod"} and element.text:
-                    current[tag] = element.text.strip()
-                if tag == "url" and current is not None and current.get("loc"):
-                    rows.append(current)
-                    current = None
-    except Exception:
-        pass
-    return rows
-
-
-def resolve_google_news_link(url):
-    try:
-        status, body, final, _ = get(url)
-        candidate = final
-        if candidate.startswith(BASE):
-            return candidate
-        text = body.decode("utf-8", "replace")
-        urls = re.findall(r'https?://[^"\'<>\\s]+', text)
-        for found in urls:
-            found = urllib.parse.unquote(found).rstrip(".,)")
-            if found.startswith(BASE):
-                return found
-        return None
-    except Exception:
-        return None
-
-
-def indexed_sarkariresult_items():
-    rows = []
-    channels = []
-    for query in INDEXED_QUERIES:
-        rss_url = "https://news.google.com/rss/search?" + urllib.parse.urlencode(
-            {"q": query, "hl": "en-IN", "gl": "IN", "ceid": "IN:en"}
-        )
-        status, body, _, _ = get(rss_url)
-        if status != 200 or not body:
-            continue
-        for item in rss_items(body):
-            original = item.get("link", "")
-            resolved = resolve_google_news_link(original)
-            if resolved and resolved.startswith(BASE):
-                item["link"] = resolved
-                item["discoveryMode"] = "public-indexed-signal"
-                rows.append(item)
-        if rows:
-            channels.append("public-indexed-signal-google-news-rss")
-    return rows, channels
-
-
-def write_state(status, checked_at, error, items):
-    save(
-        STATE,
-        {
-            "schemaVersion": 3,
-            "source": "sarkariresult",
-            "sourceUrl": BASE,
-            "status": status,
-            "lastCheckedAt": checked_at,
-            "lastSuccessfulDiscoveryAt": checked_at if status == "ok" else None,
-            "lastError": error,
-            "items": items,
-        },
-    )
-
+def html_items(body, base, limit=120):
+    text=body.decode("utf-8","replace"); out=[]
+    for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>', text, re.I|re.S):
+        u=urllib.parse.urljoin(base,m.group(1)).split("#",1)[0]; title=re.sub(r"<[^>]+>"," ",m.group(2)); title=re.sub(r"\s+"," ",title).strip()
+        if u.startswith(("http://","https://")) and JOB.search(title) and len(title)>=12: out.append({"link":u,"title":title})
+    return list({x["link"]:x for x in out}.values())[:limit]
 
 def main():
-    checked_at = datetime.now(timezone.utc).isoformat()
-    try:
-        old = json.loads(STATE.read_text(encoding="utf-8")).get("items", {})
-    except Exception:
-        old = {}
-
-    log = {
-        "checkedAt": checked_at,
-        "source": BASE,
-        "status": "unknown",
-        "new": 0,
-        "changed": 0,
-        "error": None,
-        "discoveryChannels": [],
-        "directAccess": "unknown",
-    }
-
-    status, body, final, error = get(urllib.parse.urljoin(BASE, "robots.txt"))
-    log["directAccess"] = "available" if status == 200 else "unavailable"
-    if status == 200:
-        rules = body.decode("utf-8", "replace").lower()
-        if "user-agent: *" in rules and re.search(r"user-agent:\s*\*.*?disallow:\s*/(?:\s|$)", rules, re.S):
-            log.update(status="robots_blocked", error="robots.txt disallows generic crawling")
-            write_state("robots_blocked", checked_at, log["error"], old)
-            save(LOG, log)
-            return 0
-
-    discovered = []
-
-    status, body, _, _ = get(urllib.parse.urljoin(BASE, "feed_rss.xml"))
-    if status == 200:
-        discovered.extend(
-            {
-                "url": row["link"],
-                "title": row.get("title", ""),
-                "description": row.get("description", ""),
-                "publishedAt": row.get("pubDate", ""),
-                "discoveryMode": "public-rss",
-            }
-            for row in rss_items(body)
-        )
-        if discovered:
-            log["discoveryChannels"].append("public-rss")
-
-    status, body, final, _ = get(urllib.parse.urljoin(BASE, "sitemap.xml"))
-    if status == 200:
-        entries = sitemap_entries(body)
-        if entries and entries[0].get("url", "").endswith("sitemap.xml"):
-            for sitemap in entries[:5]:
-                sitemap_status, sitemap_body, _, _ = get(sitemap["url"])
-                if sitemap_status == 200:
-                    entries = sitemap_entries(sitemap_body)
-                    break
-        if entries:
-            discovered.extend({**entry, "discoveryMode": "public-sitemap"} for entry in entries)
-            log["discoveryChannels"].append("public-sitemap")
-        elif final.rstrip("/") == BASE.rstrip("/"):
-            html = body.decode("utf-8", "replace")
-            urls = [urllib.parse.urljoin(BASE, u) for u in re.findall(r'href=["\']([^"\']+)["\']', html, re.I)]
-            urls = [u for u in urls if u.startswith(BASE)]
-            discovered.extend({"url": u, "discoveryMode": "public-sitemap-redirect-html"} for u in urls)
-            if urls:
-                log["discoveryChannels"].append("public-sitemap-redirect-html")
-
-    # If direct SarkariResult discovery is unavailable, use only a public indexed
-    # signal that resolves back to SarkariResult. This is discovery metadata,
-    # not a replacement source and does not bypass access controls.
-    if not discovered:
-        fallback, channels = indexed_sarkariresult_items()
-        discovered.extend(fallback)
-        log["discoveryChannels"].extend(channels)
-
-    if not discovered:
-        log.update(status="source_unavailable", error="No accessible SarkariResult discovery signal")
-        write_state("source_unavailable", checked_at, log["error"], old)
-        save(LOG, log)
-        return 0
-
-    output = {}
-    for row in discovered[:1000]:
-        url = row.get("url", "").split("#", 1)[0]
-        if not url.startswith(BASE):
-            continue
-        metadata = "|".join(
-            [
-                url,
-                row.get("title", ""),
-                row.get("description", ""),
-                row.get("publishedAt", ""),
-                row.get("lastmod", ""),
-                row.get("discoveryMode", ""),
-            ]
-        )
-        key = hashlib.sha256(url.encode()).hexdigest()[:24]
-        fingerprint = hashlib.sha256(metadata.encode()).hexdigest()
-        previous = old.get(key, {})
-        output[key] = {
-            "id": key,
-            "url": url,
-            "title": row.get("title", ""),
-            "description": row.get("description", ""),
-            "publishedAt": row.get("publishedAt", ""),
-            "lastmod": row.get("lastmod", ""),
-            "discoveryMode": row.get("discoveryMode", "public-rss"),
-            "fingerprint": fingerprint,
-            "discoveredAt": previous.get("discoveredAt", checked_at),
-            "lastSeenAt": checked_at,
-            "verificationStatus": "pending_official_source",
-            "publicationStatus": "hold",
-        }
-        if key not in old:
-            log["new"] += 1
-        elif previous.get("fingerprint") != fingerprint:
-            log["changed"] += 1
-
-    write_state("ok", checked_at, None, output)
-    log["status"] = "ok"
-    save(LOG, log)
+    t=datetime.now(timezone.utc).isoformat(); old={}
+    try: old=json.loads(STATE.read_text()).get("items",{})
+    except Exception: pass
+    discovered=[]; channels=[]; source_results={}
+    for src in SOURCES:
+        found=[]; mode=None
+        if src.get("rss"):
+            c,b,final,e=get(src["rss"])
+            if c==200: found=rss_items(b); mode="rss" if found else None
+        if not found:
+            c,b,final,e=get(src["url"])
+            if c==200: found=html_items(b,final); mode="html" if found else None
+        source_results[src["id"]]={"name":src["name"],"status":"ok" if found else "unavailable","mode":mode,"count":len(found)}
+        if found:
+            channels.append(src["id"])
+            for r in found:
+                discovered.append({"url":r.get("link",""),"title":r.get("title",""),"description":r.get("description",r.get("summary","")),"publishedAt":r.get("pubDate",r.get("published",r.get("updated",""))),"discoverySource":src["name"],"discoverySourceId":src["id"]})
+    out={}; new=changed=0
+    for row in discovered[:2000]:
+        u=row["url"].split("#",1)[0]
+        if not u.startswith(("http://","https://")): continue
+        meta="|".join([u,row.get("title",""),row.get("description",""),row.get("publishedAt",""),row.get("discoverySourceId","")])
+        k=hashlib.sha256((row.get("discoverySourceId","")+"|"+u).encode()).hexdigest()[:24]; fp=hashlib.sha256(meta.encode()).hexdigest(); prev=old.get(k,{})
+        out[k]={"id":k,"url":u,"title":row.get("title",""),"description":row.get("description",""),"publishedAt":row.get("publishedAt",""),"fingerprint":fp,"discoveredAt":prev.get("discoveredAt",t),"lastSeenAt":t,"discoverySource":row.get("discoverySource",""),"discoverySourceId":row.get("discoverySourceId",""),"verificationStatus":"pending_official_source","publicationStatus":"hold"}
+        if k not in old:new+=1
+        elif prev.get("fingerprint")!=fp:changed+=1
+    status="ok" if out else "source_unavailable"; err=None if out else "No usable job signals from monitored sources"
+    save(STATE,{"schemaVersion":4,"source":"multi-source-government-jobs","primarySource":"SarkariResult","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
+    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult primary; alternates are discovery-only; official government source remains final authority"})
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())
+if __name__=="__main__": sys.exit(main())
