@@ -1,0 +1,102 @@
+name: Temp Realistic CSC Thumbnails
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-realistic-csc-thumbnails.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+      - name: Build screenshots and update page
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, json, subprocess, os
+          p=Path('free-csc-tools/index.html')
+          s=p.read_text(encoding='utf-8')
+          # Add a dedicated screenshot asset folder; screenshots are of the real tool pages in this repository.
+          assets=Path('free-csc-tools/tool-thumbnails')
+          assets.mkdir(parents=True, exist_ok=True)
+          links=[]
+          for href in re.findall(r'href=[\"\']([^\"\']+\.html(?:#[^\"\']*)?)[\"\']', s, re.I):
+              clean=href.split('#')[0]
+              if clean.startswith('http') or clean in ('index.html','../index.html'):
+                  continue
+              if clean.startswith('../'):
+                  continue
+              if clean not in links:
+                  links.append(clean)
+          # Also include nested category files referenced by existing relative links.
+          manifest=[]
+          for href in links:
+              src=Path('free-csc-tools')/href
+              if not src.exists() or not src.is_file():
+                  continue
+              key=re.sub(r'[^a-z0-9]+','-',href.lower()).strip('-')
+              out=assets/(key+'.png')
+              manifest.append((href, str(out)))
+          Path('/tmp/manifest.json').write_text(json.dumps(manifest), encoding='utf-8')
+          PY
+          cat > /tmp/capture.js <<'JS'
+          const fs=require('fs'); const {chromium}=require('playwright');
+          (async()=>{
+            const m=JSON.parse(fs.readFileSync('/tmp/manifest.json','utf8'));
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:1280,height:800}, deviceScaleFactor:1});
+            const server=require('child_process').spawn('python3',['-m','http.server','8765','--directory','.'],{stdio:'ignore'});
+            await new Promise(r=>setTimeout(r,1200));
+            for(const [href,out] of m){
+              try{
+                await page.goto('http://127.0.0.1:8765/free-csc-tools/'+href,{waitUntil:'domcontentloaded',timeout:15000});
+                await page.waitForTimeout(700);
+                await page.screenshot({path:out,fullPage:false});
+              }catch(e){ console.log('skip',href,e.message); }
+            }
+            server.kill(); await browser.close();
+          })();
+          JS
+          node /tmp/capture.js
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('free-csc-tools/index.html')
+          s=p.read_text(encoding='utf-8')
+          # Replace category area with an accordion shell while retaining every existing category-tool item/link.
+          s=s.replace('<div class="category-grid">','<div class="category-grid category-accordion">',1)
+          # Make category tools collapsed by default; JS opens one category at a time.
+          css='''\n<style id="realistic-thumb-accordion">\n/* REALISTIC TOOL THUMBNAILS + COLLAPSIBLE CATEGORIES */\n.category-accordion{grid-template-columns:1fr;gap:14px;max-width:1050px;margin:auto}\n.category{border-radius:18px;transition:.25s;overflow:hidden}\n.category-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;cursor:pointer;padding:14px 18px}\n.category-icon{margin:0;width:58px;height:58px;border-radius:14px;overflow:hidden}\n.category-icon img{width:100%;height:100%;object-fit:cover;display:block}\n.category-head .chevron{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;transition:.25s}\n.category.open .chevron{transform:rotate(180deg);background:var(--blue);color:#fff}\n.category-tools{display:none;padding:12px;border-top:1px solid var(--border);background:#fbfdff}\n.category.open .category-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}\n.category-tool{background:#fff;border:1px solid var(--border);padding:9px;border-radius:13px;min-width:0}\n.category-thumb{width:70px;height:58px;flex-basis:70px;overflow:hidden;background:#eef5ff}\n.category-thumb img{width:100%;height:100%;object-fit:cover;display:block}\n.category-tool strong{font-size:12px}\n.category-tool small{font-size:9px}\n@media(max-width:760px){.category.open .category-tools{grid-template-columns:repeat(2,1fr)}.category-head{padding:12px}.category-icon{width:52px;height:52px}.category-tool{gap:8px}.category-thumb{width:62px;height:52px;flex-basis:62px}}\n@media(max-width:520px){.category.open .category-tools{grid-template-columns:1fr}.category-tool{padding:10px}}\n.realistic-preview{width:100%;height:100%;object-fit:cover;display:block}\n</style>\n'''
+          if 'id="realistic-thumb-accordion"' not in s:
+              s=s.replace('</head>',css+'</head>',1)
+          # Add realistic screenshot <img> into each existing .thumb visual container by mapping known tool links.
+          import html as htmllib
+          def repl(m):
+              tag=m.group(0)
+              if 'mock-' not in tag: return tag
+              return tag
+          # Inject data attributes and a JS enhancer rather than brittle HTML rewrites.
+          js='''\n<script>\n(function(){\n const slug=u=>u.split('#')[0].replace(/^.*?free-csc-tools\\//,'').replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase();\n const shot=u=>'tool-thumbnails/'+slug(u)+'.png';\n document.querySelectorAll('.tool-card a[href]').forEach(a=>{\n   const href=a.getAttribute('href'); if(!href||!href.endsWith('.html')||href==='index.html') return;\n   const t=a.closest('.tool-card')?.querySelector('.thumb'); if(!t) return;\n   const img=document.createElement('img'); img.className='realistic-preview'; img.alt='Tool preview'; img.loading='lazy'; img.src=shot(href);\n   img.onerror=()=>img.remove(); t.replaceChildren(img);\n });\n document.querySelectorAll('.category').forEach((card,i)=>{\n   const head=card.querySelector('.category-head'); if(!head) return;\n   const icon=card.querySelector('.category-icon');\n   const first=card.querySelector('.category-tool a[href]');\n   if(icon && first){ const img=document.createElement('img'); img.className='realistic-preview'; img.alt='Category preview'; img.src=shot(first.getAttribute('href')); img.onerror=()=>img.remove(); icon.replaceChildren(img); }\n   const chev=document.createElement('span'); chev.className='chevron'; chev.textContent='⌄'; head.appendChild(chev);\n   head.setAttribute('role','button'); head.setAttribute('tabindex','0');\n   const toggle=()=>{document.querySelectorAll('.category.open').forEach(x=>{if(x!==card)x.classList.remove('open')});card.classList.toggle('open');};\n   head.addEventListener('click',toggle); head.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});\n   card.querySelectorAll('.category-tool a[href]').forEach(a=>{const box=a.closest('.category-tool')?.querySelector('.category-thumb'); if(!box)return; const img=document.createElement('img');img.className='realistic-preview';img.alt='Tool preview';img.loading='lazy';img.src=shot(a.getAttribute('href'));img.onerror=()=>img.remove();box.replaceChildren(img);});\n   if(i===0) card.classList.add('open');\n });\n})();\n</script>\n'''
+          if 'REALISTIC TOOL THUMBNAILS + COLLAPSIBLE CATEGORIES' not in s:
+              s=s.replace('</body>',js+'</body>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add free-csc-tools/index.html free-csc-tools/tool-thumbnails
+          git commit -m 'Improve CSC tool thumbnails and collapse categories' || exit 0
+          git push origin main
