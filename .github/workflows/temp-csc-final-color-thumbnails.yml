@@ -1,0 +1,146 @@
+name: Temp CSC Final Color Thumbnails
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-csc-final-color-thumbnails.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Pillow and BeautifulSoup
+        run: pip install pillow beautifulsoup4
+      - name: Generate colorful category thumbnails
+        run: |
+          cat > make_thumbs.py <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          from PIL import Image, ImageDraw, ImageFont
+          import re, shutil
+
+          root=Path('free-csc-tools'); html_path=root/'index.html'
+          soup=BeautifulSoup(html_path.read_text(encoding='utf-8'),'html.parser')
+          out=root/'tool-thumbnails'; cats=root/'category-thumbnails'
+          out.mkdir(exist_ok=True); cats.mkdir(exist_ok=True)
+          palettes={
+            'Image & Photo Tools':((18,94,233),(6,182,212)),
+            'Documents & PDF':((220,38,38),(245,158,11)),
+            'Social Media & Design':((225,29,72),(124,58,237)),
+            'Finance & Calculators':((5,150,105),(16,185,129)),
+            'Audio Tools':((109,40,217),(236,72,153)),
+            'Video Tools':((234,88,12),(245,158,11)),
+            'Utilities & Productivity':((2,132,199),(14,165,233)),
+            'Games & Entertainment':((79,70,229),(219,39,119)),
+          }
+          map_href={
+            'passport/onestop-free-passport-photo-maker.html':'Image & Photo Tools',
+            '../free-one-click-resume/resume-maker-30-templates.html':'Documents & PDF',
+            '1click-id-card-print-maker.html':'Image & Photo Tools',
+            'social-media/ONESTOP_SOCIAL_MEDIA_POST_MAKER_FREE_V14_CLEAN.html':'Social Media & Design',
+            'pdf-tools/onestop-pdf-tools.html':'Documents & PDF',
+          }
+          def slug(s): return re.sub(r'[^a-z0-9]+','-',s.lower()).strip('-')
+          def category_for(a):
+            href=a.get('href','').split('#')[0]
+            if href in map_href:return map_href[href]
+            parent=a.find_parent(class_='accordion-category')
+            if parent:
+              title=parent.select_one('.category-title')
+              if title:return title.get_text(' ',strip=True)
+            if 'calculator' in href or '/calculators/' in href:return 'Finance & Calculators'
+            if 'audio' in href:return 'Audio Tools'
+            if 'video' in href:return 'Video Tools'
+            if 'social-media' in href:return 'Social Media & Design'
+            if 'pdf' in href:return 'Documents & PDF'
+            if 'resume' in href:return 'Documents & PDF'
+            if 'passport' in href or 'id-card' in href:return 'Image & Photo Tools'
+            if 'free-online-games' in href:return 'Games & Entertainment'
+            return 'Utilities & Productivity'
+          def font(path,size): return ImageFont.truetype(path,size)
+          FB='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'; FR='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
+          def make(path,title,cat,small=False):
+            c1,c2=palettes[cat]; W,H=(640,360)
+            im=Image.new('RGB',(W,H)); p=im.load()
+            for y in range(H):
+              for x in range(W):
+                t=(x/W)*.45+(y/H)*.55
+                p[x,y]=tuple(int(c1[i]*(1-t)+c2[i]*t) for i in range(3))
+            d=ImageDraw.Draw(im)
+            d.ellipse((470,-95,735,170),fill=tuple(min(255,v+35) for v in c2))
+            d.ellipse((-120,260,170,520),fill=tuple(min(255,v+20) for v in c1))
+            # soft glass panel
+            d.rounded_rectangle((34,30,606,330),28,fill=(255,255,255),outline=(255,255,255),width=2)
+            # category artwork
+            if cat=='Image & Photo Tools':
+              d.rounded_rectangle((88,78,300,250),18,fill=(219,234,254),outline=(18,94,233),width=4)
+              d.ellipse((137,105,205,173),fill=(248,205,173)); d.pieslice((133,96,209,171),180,360,fill=(30,41,59))
+              d.rounded_rectangle((126,168,216,237),25,fill=(18,94,233))
+              d.polygon([(232,237),(269,170),(322,237)],fill=(34,197,94)); d.ellipse((265,112,319,166),fill=(250,204,21))
+            elif cat=='Documents & PDF':
+              d.rounded_rectangle((90,65,275,275),16,fill=(248,250,252),outline=(220,38,38),width=4)
+              d.polygon([(225,65),(275,115),(225,115)],fill=(254,226,226))
+              d.rounded_rectangle((118,130,248,194),10,fill=(220,38,38)); d.text((135,144),'PDF',font=font(FB,30),fill='white')
+              for yy,ww in [(215,150),(238,115)]: d.rounded_rectangle((118,yy,118+ww,yy+9),4,fill=(245,158,11))
+            elif cat=='Social Media & Design':
+              boxes=[(78,78,(225,29,72)),(190,78,(37,99,235)),(78,190,(245,158,11)),(190,190,(124,58,237))]
+              for x,y,c in boxes:
+                d.rounded_rectangle((x,y,x+98,y+88),18,fill=c)
+                d.rounded_rectangle((x+16,y+15,x+82,y+73),10,outline='white',width=4)
+                d.ellipse((x+38,y+32,x+60,y+54),outline='white',width=4)
+            elif cat=='Finance & Calculators':
+              d.rounded_rectangle((95,62,270,280),22,fill=(15,23,42),outline=(16,185,129),width=5)
+              d.rounded_rectangle((120,85,245,125),10,fill=(167,243,208))
+              for r in range(3):
+                for c in range(3):
+                  x=139+c*42; y=157+r*40; d.ellipse((x-13,y-13,x+13,y+13),fill=(16,185,129))
+              d.text((300,120),'₹',font=font(FB,92),fill=(16,185,129))
+            elif cat=='Audio Tools':
+              bars=[35,72,118,58,95,132,78,45,105,68,88,52]
+              for i,b in enumerate(bars):
+                x=70+i*19; d.rounded_rectangle((x,160-b/2,x+10,160+b/2),5,fill=(109,40,217))
+              d.ellipse((300,105,410,215),fill=(236,72,153)); d.polygon([(345,132),(345,188),(386,160)],fill='white')
+            elif cat=='Video Tools':
+              d.rounded_rectangle((70,82,365,248),22,fill=(15,23,42),outline=(245,158,11),width=5)
+              d.polygon([(180,118),(180,212),(270,165)],fill=(251,146,60))
+              d.rounded_rectangle((395,110,515,135),10,fill=(245,158,11)); d.rounded_rectangle((395,153,485,178),10,fill=(234,88,12)); d.rounded_rectangle((395,196,445,221),10,fill=(245,191,36))
+            elif cat=='Games & Entertainment':
+              d.rounded_rectangle((72,105,350,225),55,fill=(30,41,59),outline=(219,39,119),width=5)
+              d.line((130,165,190,165),fill=(96,165,250),width=13); d.line((160,135,160,195),fill=(96,165,250),width=13)
+              d.ellipse((265,142,289,166),fill=(236,72,153)); d.ellipse((300,166,324,190),fill=(245,158,11))
+            else:
+              d.rounded_rectangle((78,85,330,250),18,fill=(240,249,255),outline=(14,165,233),width=4)
+              d.rounded_rectangle((105,112,175,222),10,fill=(14,165,233)); d.rounded_rectangle((195,112,300,135),8,fill=(7,89,133)); d.rounded_rectangle((195,153,275,176),8,fill=(56,189,248)); d.rounded_rectangle((195,194,250,217),8,fill=(125,211,252))
+            label=title if len(title)<=30 else title[:28]+'…'
+            d.text((385,235),label,font=font(FB,23),fill=(10,35,88))
+            d.text((385,268),cat,font=font(FR,15),fill=(71,85,105))
+            d.text((58,45),'ONESTOP FREE TOOL',font=font(FB,15),fill=(10,35,88))
+            im.save(path,'PNG',optimize=True)
+          # Category thumbnails
+          for cat in soup.select('.accordion-category'):
+            title=cat.select_one('.category-title')
+            img=cat.select_one('.category-icon img')
+            if title and img:
+              name=title.get_text(' ',strip=True); make(cats/f'{slug(name)}.png',name,name,True); img['src']=f'category-thumbnails/{slug(name)}.png'
+          # Every tool thumbnail, including trending.
+          count=0
+          for a in soup.select('a.tool-card, a.category-tool'):
+            img=a.select_one('img'); title=a.select_one('h3') or a.select_one('strong')
+            href=a.get('href','')
+            if not img or not title or not href: continue
+            name=title.get_text(' ',strip=True); cat=category_for(a); fn=f'tool-thumbnails/{slug(href.split("#")[0])}.png'
+            make(out/f'{slug(href.split("#")[0])}.png',name,cat)
+            img['src']=fn; img['alt']=name+' colourful category preview'; count+=1
+          html_path.write_text(str(soup),encoding='utf-8')
+          print('Generated',count,'colourful tool thumbnails')
+          PY
+          python make_thumbs.py
+      - name: Commit changes and remove temporary workflow
+        run: |
+          rm -f make_thumbs.py .github/workflows/temp-csc-final-color-thumbnails.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A free-csc-tools .github/workflows/temp-csc-final-color-thumbnails.yml
+          git commit -m 'Replace screenshot thumbnails with colorful category visuals'
+          git push
