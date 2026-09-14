@@ -1,0 +1,66 @@
+name: Temp Realistic CSC Thumbnails v2
+on:
+  push:
+    paths:
+      - '.github/workflows/temp-realistic-csc-thumbnails-v2.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install browser
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null 2>&1
+      - name: Capture real tool screenshots
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re,json
+          s=Path('free-csc-tools/index.html').read_text(encoding='utf-8')
+          links=[]
+          for h in re.findall(r'href=[\"\']([^\"\']+\.html(?:#[^\"\']*)?)[\"\']',s,re.I):
+            h=h.split('#')[0]
+            if h not in links and not h.startswith(('http','../')) and h!='index.html': links.append(h)
+          out=Path('free-csc-tools/tool-thumbnails'); out.mkdir(exist_ok=True)
+          m=[]
+          for h in links:
+            if (Path('free-csc-tools')/h).is_file():
+              slug=re.sub(r'[^a-z0-9]+','-',h.lower()).strip('-')
+              m.append([h,str(out/(slug+'.png'))])
+          Path('/tmp/manifest.json').write_text(json.dumps(m),encoding='utf-8')
+          print('screenshots:',len(m))
+          PY
+          cat >/tmp/capture.cjs <<'JS'
+          const fs=require('fs'),cp=require('child_process');
+          const {chromium}=require(process.cwd()+'/node_modules/playwright');
+          (async()=>{const m=JSON.parse(fs.readFileSync('/tmp/manifest.json'));const srv=cp.spawn('python3',['-m','http.server','8765','--directory','.']);await new Promise(r=>setTimeout(r,1500));const b=await chromium.launch({headless:true});const p=await b.newPage({viewport:{width:1280,height:800},deviceScaleFactor:1});for(const [h,o] of m){try{await p.goto('http://127.0.0.1:8765/free-csc-tools/'+h,{waitUntil:'domcontentloaded',timeout:20000});await p.waitForTimeout(800);await p.screenshot({path:o,fullPage:false});console.log('OK',h)}catch(e){console.log('SKIP',h,e.message)}}srv.kill();await b.close()})();
+          JS
+          node /tmp/capture.cjs
+      - name: Update CSC page for screenshot thumbnails and accordion
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('free-csc-tools/index.html'); s=p.read_text(encoding='utf-8')
+          css='''<style id="realistic-csc-v2">.category-accordion{grid-template-columns:1fr;max-width:1050px;margin:auto}.category-accordion .category{overflow:hidden}.category-accordion .category-head{display:grid;grid-template-columns:58px 1fr 34px;align-items:center;gap:14px;cursor:pointer;padding:14px 18px}.category-accordion .category-icon{width:58px;height:58px;margin:0;border-radius:14px;overflow:hidden}.category-accordion .category-icon img,.real-tool-shot{width:100%;height:100%;object-fit:cover;display:block}.category-accordion .category-tools{display:none}.category-accordion .category.open .category-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px}.category-accordion .category-tool{background:#fff;border:1px solid var(--border);border-radius:13px;padding:9px}.category-accordion .category-thumb{width:76px;height:60px;flex-basis:76px;overflow:hidden;border-radius:9px}.category-accordion .category-thumb img{width:100%;height:100%;object-fit:cover;display:block}.category-accordion .chevron{width:34px;height:34px;border-radius:50%;background:#fff;color:var(--blue);display:flex;align-items:center;justify-content:center;font-weight:900}.category-accordion .open .chevron{transform:rotate(180deg);background:var(--blue);color:#fff}@media(max-width:760px){.category-accordion .category.open .category-tools{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.category-accordion .category.open .category-tools{grid-template-columns:1fr}}</style>'''
+          js='''<script>(function(){const slug=u=>u.split('#')[0].replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'').toLowerCase();const shot=u=>'tool-thumbnails/'+slug(u)+'.png';document.querySelectorAll('.tool-card a[href]').forEach(a=>{const h=a.getAttribute('href');const t=a.closest('.tool-card')?.querySelector('.thumb');if(!t||!h||!h.endsWith('.html'))return;const i=document.createElement('img');i.className='real-tool-shot';i.alt='Real tool preview';i.loading='lazy';i.src=shot(h);i.onerror=()=>i.remove();t.replaceChildren(i)});document.querySelectorAll('.category').forEach(c=>{const h=c.querySelector('.category-head');if(!h)return;const ic=c.querySelector('.category-icon');const first=c.querySelector('.category-tool a[href]');if(ic&&first){const i=document.createElement('img');i.className='real-tool-shot';i.alt='Category preview';i.src=shot(first.getAttribute('href'));i.onerror=()=>i.remove();ic.replaceChildren(i)}const ch=document.createElement('span');ch.className='chevron';ch.textContent='⌄';h.appendChild(ch);h.setAttribute('role','button');h.setAttribute('tabindex','0');const toggle=()=>{document.querySelectorAll('.category.open').forEach(x=>x!==c&&x.classList.remove('open'));c.classList.toggle('open')};h.onclick=toggle;h.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}};c.querySelectorAll('.category-tool a[href]').forEach(a=>{const b=a.closest('.category-tool')?.querySelector('.category-thumb');if(!b)return;const i=document.createElement('img');i.className='real-tool-shot';i.alt='Real tool preview';i.loading='lazy';i.src=shot(a.getAttribute('href'));i.onerror=()=>i.remove();b.replaceChildren(i)})})})()</script>'''
+          if 'id="realistic-csc-v2"' not in s:s=s.replace('</head>',css+'</head>',1)
+          if 'const slug=u=>' not in s:s=s.replace('</body>',js+'</body>',1)
+          s=s.replace('<div class="category-grid">','<div class="category-grid category-accordion">',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit live changes and remove temporary workflow
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -f .github/workflows/temp-realistic-csc-thumbnails-v2.yml
+          git add free-csc-tools/index.html free-csc-tools/tool-thumbnails
+          git commit -m 'Add realistic CSC tool previews and collapsible categories'
+          git push origin main
