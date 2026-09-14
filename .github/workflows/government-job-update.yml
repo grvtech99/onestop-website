@@ -1,4 +1,4 @@
-name: Government Job Update — SarkariResult Discovery
+name: Government Job Update — Multi-Source Discovery
 
 on:
   schedule:
@@ -35,7 +35,7 @@ jobs:
           fetch-depth: 0
 
       - id: discovery
-        name: Run safe SarkariResult discovery
+        name: Run safe multi-source government job discovery
         if: always()
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
