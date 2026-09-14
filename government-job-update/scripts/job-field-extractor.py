@@ -49,9 +49,9 @@ def extract_dates(text):
     return found
 
 def extract_vacancies(text):
-    m=re.search(r'(?i)(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([\d,]*)',text)
-    if not m: m=re.search(r'(?i)([\d,]+)\s+(?:posts?|vacancies)',text)
-    value=m.group(1).replace(',','').strip() if m else ''
+    m=re.search(r'(?i)(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([\d,]*)',text or '')
+    if not m: m=re.search(r'(?i)([\d,]+)\s+(?:posts?|vacancies)',text or '')
+    value=(m.group(1) or '').replace(',','').strip() if m else ''
     return int(value) if value.isdigit() else None
 
 def normalize_record(raw):
@@ -76,7 +76,7 @@ def normalize_record(raw):
       'examDate':normalized_date(exam) if exam else None,
       'notificationUrl':clean(raw.get('notificationUrl')),
       'applyUrl':clean(raw.get('applyUrl')),
-      'source':clean(raw.get('source')) or 'SarkariResult',
+      'source':clean(raw.get('source')) or 'MultiSource',
     }
     if not record['applicationLastDate'] and dates:
         record['applicationLastDate']=dates[-1]['date']
