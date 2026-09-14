@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "scripts" / "publication-gate.py"
+REPORT = ROOT / "test-results" / "publication-gate-test-report.json"
 
 
 def run_gate(payload):
@@ -36,8 +37,10 @@ def main():
     rc2, q2 = run_gate(hold)
     rc3, q3 = run_gate(mixed)
     passed = rc1 == 0 and q1["readyCount"] == 1 and q1["blockedCount"] == 0 and rc2 == 0 and q2["readyCount"] == 0 and q2["blockedCount"] == 1 and rc3 == 0 and q3["readyCount"] == 1 and q3["blockedCount"] == 1
-    report = {"status": "PASS" if passed else "FAIL", "tests": {"verified_is_published": q1, "hold_is_blocked": q2, "mixed_only_verified_is_published": q3}}
-    print(json.dumps(report, indent=2))
+    report = {"schemaVersion": 1, "status": "PASS" if passed else "FAIL", "tests": {"verified_is_published": q1, "hold_is_blocked": q2, "mixed_only_verified_is_published": q3}}
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    REPORT.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0 if passed else 1
 
 
