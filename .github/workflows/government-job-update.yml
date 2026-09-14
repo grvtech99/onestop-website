@@ -35,6 +35,9 @@ jobs:
       - name: Run official-source verification
         run: python government-job-update/scripts/official-source-verifier.py
 
+      - name: Run controlled live end-to-end test
+        run: python government-job-update/scripts/end-to-end-test.py
+
       - name: Save discovery and verification state
         shell: bash
         run: |
