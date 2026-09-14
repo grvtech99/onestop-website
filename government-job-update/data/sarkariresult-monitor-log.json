@@ -1,10 +1,151 @@
 {
-  "checkedAt": "2026-09-14T11:37:30.801269+00:00",
-  "source": "https://www.sarkariresult.com/",
-  "status": "source_unavailable",
-  "new": 0,
+  "checkedAt": "2026-09-14T11:48:39.513797+00:00",
+  "status": "ok",
+  "new": 163,
   "changed": 0,
-  "error": "No accessible SarkariResult discovery signal",
-  "discoveryChannels": [],
-  "directAccess": "unavailable"
+  "items": 163,
+  "discoveryChannels": [
+    "employmentnews",
+    "ncs",
+    "fresherslive",
+    "jagranjosh",
+    "testbook",
+    "sarkarinaukriblog",
+    "indgovtjobs",
+    "sarkariupdates",
+    "exampix",
+    "sarkarinaukari",
+    "sarkari247",
+    "sarkarinaukarisetu",
+    "nayawork"
+  ],
+  "sources": {
+    "sarkariresult": {
+      "name": "SarkariResult",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "employmentnews": {
+      "name": "Employment News",
+      "status": "ok",
+      "mode": "html",
+      "count": 4
+    },
+    "ncs": {
+      "name": "National Career Service",
+      "status": "ok",
+      "mode": "html",
+      "count": 7
+    },
+    "fresherslive": {
+      "name": "FreshersLive",
+      "status": "ok",
+      "mode": "html",
+      "count": 17
+    },
+    "jagranjosh": {
+      "name": "Jagran Josh",
+      "status": "ok",
+      "mode": "html",
+      "count": 12
+    },
+    "testbook": {
+      "name": "Testbook",
+      "status": "ok",
+      "mode": "html",
+      "count": 32
+    },
+    "sarkarinaukriblog": {
+      "name": "Sarkari Naukri Blog",
+      "status": "ok",
+      "mode": "rss",
+      "count": 16
+    },
+    "careerpower": {
+      "name": "Career Power",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "indgovtjobs": {
+      "name": "IndGovtJobs",
+      "status": "ok",
+      "mode": "rss",
+      "count": 8
+    },
+    "sarkariupdates": {
+      "name": "SarkariUpdates",
+      "status": "ok",
+      "mode": "html",
+      "count": 14
+    },
+    "exampix": {
+      "name": "Exampix",
+      "status": "ok",
+      "mode": "html",
+      "count": 27
+    },
+    "inrgovtjobs": {
+      "name": "INR Govt Jobs",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "sarkarinaukari": {
+      "name": "Sarkari Naukari",
+      "status": "ok",
+      "mode": "html",
+      "count": 7
+    },
+    "sarkari247": {
+      "name": "Sarkari247",
+      "status": "ok",
+      "mode": "html",
+      "count": 4
+    },
+    "sarkarinaukarisetu": {
+      "name": "Sarkari Naukri Setu",
+      "status": "ok",
+      "mode": "html",
+      "count": 4
+    },
+    "sarkarinaukri": {
+      "name": "Sarkari-Naukri.in",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "naukriagent": {
+      "name": "NaukriAgent",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "naukripatrika": {
+      "name": "Naukri Patrika",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "nayawork": {
+      "name": "NayaWork",
+      "status": "ok",
+      "mode": "html",
+      "count": 11
+    },
+    "naukrichakri": {
+      "name": "Naukri Chakri",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    },
+    "sarkariscan": {
+      "name": "Sarkari Scan",
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
+    }
+  },
+  "policy": "SarkariResult primary; alternates are discovery-only; official government source remains final authority"
 }

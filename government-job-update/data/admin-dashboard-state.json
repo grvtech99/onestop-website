@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T11:38:30.320518+00:00",
+  "generatedAt": "2026-09-14T12:17:37.676110+00:00",
   "schedule": {
     "cronUtc": "47 * * * *",
     "description": "Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed."
@@ -8,24 +8,24 @@
   "production": {
     "source": "SarkariResult",
     "sourceUrl": "https://www.sarkariresult.com/",
-    "status": "source_unavailable",
-    "lastCheckedAt": "2026-09-14T11:37:30.801269+00:00",
-    "lastSuccessfulDiscoveryAt": null,
-    "lastError": "No accessible SarkariResult discovery signal",
-    "discoveredCount": 0,
-    "newCount": 0,
+    "status": "ok",
+    "lastCheckedAt": "2026-09-14T11:48:39.513797+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-14T11:48:39.513797+00:00",
+    "lastError": "",
+    "discoveredCount": 163,
+    "newCount": 163,
     "changedCount": 0
   },
   "recovery": {
-    "state": "RECOVERY_WATCH",
+    "state": "HEALTHY",
     "safeRetryEnabled": true,
     "bypassAttempted": false,
-    "lastHttpError": "No accessible SarkariResult discovery signal",
+    "lastHttpError": "",
     "recoveryRule": "Resume normal discovery automatically when the public SarkariResult endpoint returns a successful response; never bypass 403/429, CAPTCHA, access controls, or rate limits."
   },
   "pipeline": {
     "extraction": "READY",
-    "officialVerification": "WAITING_FOR_DISCOVERY",
+    "officialVerification": "READY",
     "canonical": "READY",
     "publicationGate": "READY",
     "websiteFeed": "READY",
@@ -43,18 +43,159 @@
   },
   "timing": {
     "lastRunAt": "2026-09-14T11:38:28.362787+00:00",
-    "nextExpectedRunAt": "2026-09-14T11:47:00+00:00"
+    "nextExpectedRunAt": "2026-09-14T12:47:00+00:00"
   },
   "recent": {
     "discovery": {
-      "checkedAt": "2026-09-14T11:37:30.801269+00:00",
-      "source": "https://www.sarkariresult.com/",
-      "status": "source_unavailable",
-      "new": 0,
+      "checkedAt": "2026-09-14T11:48:39.513797+00:00",
+      "status": "ok",
+      "new": 163,
       "changed": 0,
-      "error": "No accessible SarkariResult discovery signal",
-      "discoveryChannels": [],
-      "directAccess": "unavailable"
+      "items": 163,
+      "discoveryChannels": [
+        "employmentnews",
+        "ncs",
+        "fresherslive",
+        "jagranjosh",
+        "testbook",
+        "sarkarinaukriblog",
+        "indgovtjobs",
+        "sarkariupdates",
+        "exampix",
+        "sarkarinaukari",
+        "sarkari247",
+        "sarkarinaukarisetu",
+        "nayawork"
+      ],
+      "sources": {
+        "sarkariresult": {
+          "name": "SarkariResult",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "employmentnews": {
+          "name": "Employment News",
+          "status": "ok",
+          "mode": "html",
+          "count": 4
+        },
+        "ncs": {
+          "name": "National Career Service",
+          "status": "ok",
+          "mode": "html",
+          "count": 7
+        },
+        "fresherslive": {
+          "name": "FreshersLive",
+          "status": "ok",
+          "mode": "html",
+          "count": 17
+        },
+        "jagranjosh": {
+          "name": "Jagran Josh",
+          "status": "ok",
+          "mode": "html",
+          "count": 12
+        },
+        "testbook": {
+          "name": "Testbook",
+          "status": "ok",
+          "mode": "html",
+          "count": 32
+        },
+        "sarkarinaukriblog": {
+          "name": "Sarkari Naukri Blog",
+          "status": "ok",
+          "mode": "rss",
+          "count": 16
+        },
+        "careerpower": {
+          "name": "Career Power",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "indgovtjobs": {
+          "name": "IndGovtJobs",
+          "status": "ok",
+          "mode": "rss",
+          "count": 8
+        },
+        "sarkariupdates": {
+          "name": "SarkariUpdates",
+          "status": "ok",
+          "mode": "html",
+          "count": 14
+        },
+        "exampix": {
+          "name": "Exampix",
+          "status": "ok",
+          "mode": "html",
+          "count": 27
+        },
+        "inrgovtjobs": {
+          "name": "INR Govt Jobs",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "sarkarinaukari": {
+          "name": "Sarkari Naukari",
+          "status": "ok",
+          "mode": "html",
+          "count": 7
+        },
+        "sarkari247": {
+          "name": "Sarkari247",
+          "status": "ok",
+          "mode": "html",
+          "count": 4
+        },
+        "sarkarinaukarisetu": {
+          "name": "Sarkari Naukri Setu",
+          "status": "ok",
+          "mode": "html",
+          "count": 4
+        },
+        "sarkarinaukri": {
+          "name": "Sarkari-Naukri.in",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "naukriagent": {
+          "name": "NaukriAgent",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "naukripatrika": {
+          "name": "Naukri Patrika",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "nayawork": {
+          "name": "NayaWork",
+          "status": "ok",
+          "mode": "html",
+          "count": 11
+        },
+        "naukrichakri": {
+          "name": "Naukri Chakri",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        },
+        "sarkariscan": {
+          "name": "Sarkari Scan",
+          "status": "unavailable",
+          "mode": null,
+          "count": 0
+        }
+      },
+      "policy": "SarkariResult primary; alternates are discovery-only; official government source remains final authority"
     },
     "verification": {
       "checkedAt": "2026-09-14T11:38:28.362787+00:00",
