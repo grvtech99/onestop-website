@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-14T09:16:41.474350+00:00",
+  "workflow": "Government Job Update — SarkariResult Discovery",
+  "runId": "34827044702",
+  "runNumber": "27",
+  "runAttempt": "1",
+  "commitSha": "e5a9e95e37eed34636188e2ba8950311541ed3c2",
+  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34827044702",
+  "steps": {
+    "discovery": "SUCCESS",
+    "officialVerification": "SUCCESS",
+    "controlledE2E": "SUCCESS",
+    "publicationRegression": "FAILURE",
+    "publicationQueue": "SUCCESS",
+    "adminSnapshot": "SUCCESS"
+  },
+  "note": "Step outcomes are workflow execution status only. Production discovery remains dependent on live SarkariResult access; controlled E2E is not production discovery."
+}
