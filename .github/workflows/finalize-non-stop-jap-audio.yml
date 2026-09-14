@@ -1,0 +1,33 @@
+name: Finalize Non-Stop Jap Audio Folder
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  move-audio:
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Move Jap audio and repair direct paths
+        shell: bash
+        run: |
+          set -e
+          mkdir -p non-stop-jap/audio
+          git mv audio/jap non-stop-jap/audio/jap
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('non-stop-jap/non-stop-jap.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('../audio/jap/','audio/jap/')
+          p.write_text(s,encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Move Non-Stop Jap audio into feature folder [skip ci]'
+          git push origin HEAD:main
