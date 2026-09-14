@@ -1,12 +1,5 @@
 name: Validate ONESTOP Government Pipeline
-on:
-  push:
-    branches: [main]
-    paths:
-      - 'scripts/**'
-      - 'data/**'
-      - '.github/workflows/**government**.yml'
-  workflow_dispatch:
+on: push
 permissions:
   contents: write
 jobs:
@@ -66,7 +59,7 @@ jobs:
               try: return [e.text.strip() for e in ET.fromstring(b).iter() if e.tag.rsplit('}',1)[-1]=='loc' and e.text]
               except Exception: return []
           def main():
-              t=datetime.now(timezone.utc).isoformat(); old={};
+              t=datetime.now(timezone.utc).isoformat(); old={}
               try: old=json.loads(STATE.read_text(encoding='utf-8')).get('items',{})
               except Exception: pass
               log={'checkedAt':t,'source':BASE,'status':'unknown','new':0,'changed':0,'error':None}; c,b,e=get(urljoin(BASE,'robots.txt'))
@@ -75,7 +68,7 @@ jobs:
               if 'user-agent: *' in rules and 'disallow: /' in rules: log.update(status='robots_blocked',error='robots.txt disallows generic crawling'); save(LOG,log); return 0
               urls=[]
               for ep in ('feed_rss.xml','sitemap.xml'):
-                  c,x,e=get(urljoin(BASE,ep));
+                  c,x,e=get(urljoin(BASE,ep))
                   if c==200: urls += [u for u in locs(x) if u.startswith(BASE)]
               urls=list(dict.fromkeys(urls))[:500]
               if not urls: log.update(status='source_unavailable',error='No accessible public discovery index'); save(LOG,log); return 0
@@ -91,10 +84,6 @@ jobs:
           on:
             schedule:
               - cron: '47 * * * *'
-            push:
-              branches: [main]
-              paths:
-                - 'government-job-update/**'
             workflow_dispatch:
           permissions:
             contents: write
