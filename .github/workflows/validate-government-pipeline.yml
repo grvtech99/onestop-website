@@ -13,7 +13,7 @@ jobs:
         run: |
           set -euo pipefail
           R=government-job-update
-          mkdir -p "$R"
+          mkdir -p "$R/data" "$R/scripts"
           [ -d data ] && git mv data "$R/data" || true
           [ -d scripts ] && git rm -r scripts || true
           for f in GOVERNMENT-JOB-UPDATE-OPERATIONS.md onestop-government-admin.html onestop-government-draft-dashboard.html onestop-government-updates-v3.css onestop-update-review-queue.html onestop-updates-data.js onestop-updates-publish.html onestop-updates-review-queue.html onestop-updates-review.html onestop-updates-verified-drafts.html onestop-updates.html; do
@@ -104,7 +104,6 @@ jobs:
                     git diff --cached --quiet || (git commit -m "Update SarkariResult discovery state" && git push)
           EOF
           git rm -f .github/workflows/validate-government-pipeline.yml
-          git rm -f .github/workflows/government-job-update-migration.yml 2>/dev/null || true
           git add -A
           git commit -m "Organize government job project and replace legacy workflows"
           git push
