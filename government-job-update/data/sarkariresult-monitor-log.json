@@ -1,8 +1,9 @@
 {
-  "checkedAt": "2026-09-14T03:25:21.520031+00:00",
+  "checkedAt": "2026-09-14T03:40:39.222538+00:00",
   "source": "https://www.sarkariresult.com/",
   "status": "source_unavailable",
   "new": 0,
   "changed": 0,
-  "error": "HTTP 403"
+  "error": "HTTP 403",
+  "discoveryChannels": []
 }
