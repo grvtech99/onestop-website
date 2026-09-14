@@ -11,6 +11,7 @@ on:
       - '!government-job-update/data/sarkariresult-monitor-log.json'
       - '!government-job-update/data/official-verification-state.json'
       - '!government-job-update/data/official-verification-log.json'
+      - '!government-job-update/data/publication-queue.json'
   workflow_dispatch:
 
 permissions:
@@ -38,7 +39,13 @@ jobs:
       - name: Run controlled live end-to-end test
         run: python government-job-update/scripts/end-to-end-test.py
 
-      - name: Save discovery and verification state
+      - name: Run publication gate regression test
+        run: python government-job-update/scripts/publication-gate-test.py
+
+      - name: Build verified-only publication queue
+        run: python government-job-update/scripts/publication-gate.py
+
+      - name: Save discovery, verification and publication state
         shell: bash
         run: |
           set -euo pipefail
@@ -47,10 +54,11 @@ jobs:
           git add government-job-update/data/sarkariresult-monitor-state.json \
                   government-job-update/data/sarkariresult-monitor-log.json \
                   government-job-update/data/official-verification-state.json \
-                  government-job-update/data/official-verification-log.json
+                  government-job-update/data/official-verification-log.json \
+                  government-job-update/data/publication-queue.json
           if git diff --cached --quiet; then
-            echo "No discovery/verification state change."
+            echo "No discovery/verification/publication state change."
           else
-            git commit -m "Update SarkariResult verification state"
+            git commit -m "Update verified government job publication queue"
             git push
           fi
