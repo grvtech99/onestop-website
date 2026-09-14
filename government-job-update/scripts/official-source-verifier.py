@@ -9,6 +9,9 @@ STATE=D/"sarkariresult-monitor-state.json"
 REGISTRY=D/"data"/"government-source-registry.json"
 OUT=D/"official-verification-state.json"
 LOG=D/"official-verification-log.json"
+CANONICAL=D/"canonical-job-records.json"
+from importlib.util import spec_from_file_location, module_from_spec
+spec=spec_from_file_location("canonical_engine",ROOT/"scripts"/"canonical-record-engine.py"); engine=module_from_spec(spec); spec.loader.exec_module(engine)
 UA="ONESTOP-Government-Job-Update/1.0"
 KEYWORDS=("recruitment","vacancy","vacancies","notification","apply online","admit card","result","answer key","application")
 DATE_RE=re.compile(r"\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})\b",re.I)
@@ -34,7 +37,9 @@ def main():
     except Exception: state={"status":"source_unavailable","items":{}}
     try: registry=json.loads(REGISTRY.read_text(encoding="utf-8"))
     except Exception: registry={"sources":[]}
-    sources={s["id"]:s for s in registry.get("sources",[]) if s.get("enabled")}; results={}; counts={"verified":0,"hold":0,"checked":0}
+    try: canonical=json.loads(CANONICAL.read_text(encoding="utf-8"))
+    except Exception: canonical={"schemaVersion":1,"items":{}}
+    sources={s["id"]:s for s in registry.get("sources",[]) if s.get("enabled")}; results={}; counts={"verified":0,"hold":0,"checked":0,"new":0,"changed":0,"unchanged":0}
     for item_id,item in state.get("items",{}).items():
         counts["checked"]+=1; src_url=item.get("url",""); result={"id":item_id,"discoveryUrl":src_url,"status":"hold","publicationStatus":"hold","reason":"missing_official_source","checkedAt":now,"officialSource":None,"checks":{}}
         c,b,final,e=get(src_url)
@@ -56,6 +61,10 @@ def main():
         passed=all(result["checks"].values())
         if passed: result["status"]="verified"; result["publicationStatus"]="ready"; result["reason"]="all_required_checks_passed"; counts["verified"]+=1
         else: result["reason"]="failed_checks:"+",".join(k for k,v in result["checks"].items() if not v); counts["hold"]+=1
-        results[item_id]=result
-    save(OUT,{"schemaVersion":1,"checkedAt":now,"sourceStatus":state.get("status"),"counts":counts,"items":results}); save(LOG,{"checkedAt":now,"status":"ok","counts":counts}); return 0
+        incoming={"jobId":item_id,"title":src_title,"notificationUrl":src_url,"source":"SarkariResult","verificationStatus":result["status"],"publicationStatus":result["publicationStatus"],"officialSource":result["officialSource"],"lastSeenAt":now}
+        old=canonical.get("items",{}).get(item_id)
+        event=engine.classify(old,incoming); canonical,event_info=engine.upsert(incoming,canonical)
+        counts[event.lower()]+=1
+        result["canonicalRecordId"]=event_info["jobId"]; result["changeEvent"]=event; results[item_id]=result
+    save(CANONICAL,canonical); save(OUT,{"schemaVersion":1,"checkedAt":now,"sourceStatus":state.get("status"),"counts":counts,"items":results}); save(LOG,{"checkedAt":now,"status":"ok","counts":counts}); return 0
 if __name__=="__main__": sys.exit(main())
