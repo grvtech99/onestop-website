@@ -49,9 +49,10 @@ def extract_dates(text):
     return found
 
 def extract_vacancies(text):
-    m=re.search(r'(?i)(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([\d,]+)',text)
+    m=re.search(r'(?i)(?:total\s+)?vacanc(?:y|ies)\s*[:\-]?\s*([\d,]*)',text)
     if not m: m=re.search(r'(?i)([\d,]+)\s+(?:posts?|vacancies)',text)
-    return int(m.group(1).replace(',','')) if m else None
+    value=m.group(1).replace(',','').strip() if m else ''
+    return int(value) if value.isdigit() else None
 
 def normalize_record(raw):
     text=raw.get('text') or ''
