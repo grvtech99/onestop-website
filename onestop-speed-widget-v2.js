@@ -22,7 +22,7 @@
     if(!quick||document.getElementById('osGovernmentUpdatesQuick'))return;
     var link=document.createElement('a');
     link.id='osGovernmentUpdatesQuick';
-    link.href='onestop-updates.html';
+    link.href='/government-job-update/onestop-updates.html';
     link.innerHTML='<span>📢</span> Onestop Job Update';
     link.title='Onestop Job Update — Jobs, Results, Admit Cards & Exam Updates';
     var jap=quick.querySelector('.jap');
