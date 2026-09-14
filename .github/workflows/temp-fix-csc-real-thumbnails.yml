@@ -63,11 +63,11 @@ jobs:
           })();
           NODE
           node capture.cjs
-      - name: Commit and remove temporary workflow
+      - name: Commit live changes and remove workflow
         run: |
           rm -f capture.cjs .github/workflows/temp-fix-csc-real-thumbnails.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add free-csc-tools/index.html free-csc-tools/tool-thumbnails .github/workflows/temp-fix-csc-real-thumbnails.yml
-          git commit -m 'Fix CSC tools real screenshot thumbnails' || echo 'No changes'
+          git add -A free-csc-tools .github/workflows/temp-fix-csc-real-thumbnails.yml
+          git commit -m 'Fix CSC tools real screenshot thumbnails'
           git push
