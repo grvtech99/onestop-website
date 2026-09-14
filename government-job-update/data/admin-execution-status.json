@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T09:16:41.474350+00:00",
+  "generatedAt": "2026-09-14T10:51:35.265389+00:00",
   "workflow": "Government Job Update — SarkariResult Discovery",
-  "runId": "34827044702",
-  "runNumber": "27",
+  "runId": "34835240275",
+  "runNumber": "28",
   "runAttempt": "1",
-  "commitSha": "e5a9e95e37eed34636188e2ba8950311541ed3c2",
-  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34827044702",
+  "commitSha": "e686b72276a86fca441c63f36269032898413797",
+  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34835240275",
   "steps": {
     "discovery": "SUCCESS",
     "officialVerification": "SUCCESS",
     "controlledE2E": "SUCCESS",
-    "publicationRegression": "FAILURE",
+    "publicationRegression": "SUCCESS",
     "publicationQueue": "SUCCESS",
     "adminSnapshot": "SUCCESS"
   },
