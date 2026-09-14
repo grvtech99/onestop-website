@@ -30,7 +30,7 @@
 </section>
 <div class="tabs"><button class="tab naam" id="tabNaam">🙏 नाम जप</button><button class="tab mantra" id="tabMantra">🕉️ मंत्र जप</button></div>
 <section class="section"><div class="cards" id="naamCards"></div><div class="cards hidden" id="mantraCards"></div></section>
-<div class="notice">📌 <b>ऑडियो फाइल नाम:</b> चुनी गई जप संख्या के अनुसार MP3 फाइल <b>../audio/jap/naam-jap/</b> या <b>../audio/jap/mantra-jap/</b> में रखें। उदाहरण: <b>ram-naam-108.mp3</b></div>
+<div class="notice">📌 <b>ऑडियो फाइल नाम:</b> चुनी गई जप संख्या के अनुसार MP3 फाइल <b>audio/jap/naam-jap/</b> या <b>audio/jap/mantra-jap/</b> में रखें। उदाहरण: <b>ram-naam-108.mp3</b></div>
 <footer class="footer"><img src="../onestop_logo.png" alt="ONESTOP"><div>ONESTOP Computer &amp; Skill Development Center</div><div>Front of Village Mondha, Near Cyber Police Station, Firozabad • 9389063550 • oscomputer.sdc@gmail.com</div></footer>
 </main>
 <script>
@@ -53,7 +53,7 @@ const mantra=[
 let list=naam,currentIndex=0,currentCount=108,currentSrc='',audio=document.getElementById('audio'),japDone=0;
 const $=id=>document.getElementById(id);
 function fmt(sec){if(!isFinite(sec)||sec<0)sec=0;sec=Math.floor(sec);let h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s=sec%60;return h?String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'):String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
-function srcFor(item){return '../audio/jap/'+(list===naam?'naam-jap':'mantra-jap')+'/'+item.key+'-'+currentCount+'.mp3'}
+function srcFor(item){return 'audio/jap/'+(list===naam?'naam-jap':'mantra-jap')+'/'+item.key+'-'+currentCount+'.mp3'}
 function updateStats(){let d=audio.duration||0,t=audio.currentTime||0,totalSeconds=d*currentCount,elapsedSeconds=Math.min(totalSeconds,d*japDone+t),p=totalSeconds?Math.min(100,elapsedSeconds/totalSeconds*100):0;$('done').textContent=Math.min(currentCount,japDone).toLocaleString('en-IN');$('total').textContent=currentCount.toLocaleString('en-IN');$('remain').textContent=Math.max(0,currentCount-japDone).toLocaleString('en-IN');$('percent').textContent=p.toFixed(1)+'%';$('bar').style.width=p+'%';$('totalTime').textContent=fmt(totalSeconds);$('elapsed').textContent=fmt(elapsedSeconds);$('remainingTime').textContent=fmt(Math.max(0,totalSeconds-elapsedSeconds))}
 function renderCounts(){let box=$('countGrid');box.innerHTML='';counts.forEach(c=>{let b=document.createElement('button');b.className='count'+(c===currentCount?' selected':'');b.textContent=c.toLocaleString('en-IN');b.onclick=()=>{currentCount=c;stop(true);currentSrc='';japDone=0;renderCounts();updateStats();$('status').textContent='अब '+c.toLocaleString('en-IN')+' जप चुना गया है';};box.appendChild(b)})}
 function renderCards(){function build(arr,box){box.innerHTML='';arr.forEach((x,i)=>{let card=document.createElement('article');card.className='chant';card.innerHTML='<div class="chant-img"><img src="'+x.img+'" alt="'+x.alt+'" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="chant-body"><div class="chant-name">'+x.name+'</div><div class="chant-sub">'+x.sub+'</div><button class="mini">🙏 जप शुरू करें</button></div>';card.querySelector('.mini').onclick=()=>{list=arr;currentIndex=i;selectItem(x);loadAndPlay()};box.appendChild(card)})}build(naam,$('naamCards'));build(mantra,$('mantraCards'))}
