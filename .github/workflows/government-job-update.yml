@@ -12,6 +12,7 @@ on:
       - '!government-job-update/data/official-verification-state.json'
       - '!government-job-update/data/official-verification-log.json'
       - '!government-job-update/data/publication-queue.json'
+      - '!government-job-update/test-results/**'
   workflow_dispatch:
 
 permissions:
@@ -44,6 +45,14 @@ jobs:
 
       - name: Build verified-only publication queue
         run: python government-job-update/scripts/publication-gate.py
+
+      - name: Upload E2E and publication gate reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: government-job-update-test-reports
+          path: government-job-update/test-results/
+          if-no-files-found: warn
 
       - name: Save discovery, verification and publication state
         shell: bash
