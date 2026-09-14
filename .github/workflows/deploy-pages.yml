@@ -4,7 +4,7 @@ on:
     branches: [main]
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 jobs:
@@ -16,9 +16,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: One-time government project migration
-        if: hashFiles('government-job-migration.sh') != ''
-        run: bash government-job-migration.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload site
