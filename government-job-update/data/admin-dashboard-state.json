@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T04:39:33.981091+00:00",
+  "generatedAt": "2026-09-14T08:37:21.558846+00:00",
   "schedule": {
     "cronUtc": "47 * * * *",
     "description": "Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed."
@@ -9,7 +9,7 @@
     "source": "SarkariResult",
     "sourceUrl": "https://www.sarkariresult.com/",
     "status": "source_unavailable",
-    "lastCheckedAt": "2026-09-14T04:39:33.683608+00:00",
+    "lastCheckedAt": "2026-09-14T08:37:19.530486+00:00",
     "lastSuccessfulDiscoveryAt": null,
     "lastError": "HTTP 403",
     "discoveredCount": 0,
@@ -37,17 +37,17 @@
     "publicationBlockedCount": 0
   },
   "tests": {
-    "controlledE2E": "NOT_AVAILABLE",
-    "publicationGateRegression": "NOT_AVAILABLE",
+    "controlledE2E": "CHECK",
+    "publicationGateRegression": "CHECK",
     "controlledE2EIsProductionDiscovery": false
   },
   "timing": {
-    "lastRunAt": "2026-09-14T04:39:33.981091+00:00",
-    "nextExpectedRunAt": "2026-09-14T04:47:00+00:00"
+    "lastRunAt": "2026-09-14T08:37:19.752982+00:00",
+    "nextExpectedRunAt": "2026-09-14T08:47:00+00:00"
   },
   "recent": {
     "discovery": {
-      "checkedAt": "2026-09-14T04:39:33.683608+00:00",
+      "checkedAt": "2026-09-14T08:37:19.530486+00:00",
       "source": "https://www.sarkariresult.com/",
       "status": "source_unavailable",
       "new": 0,
@@ -56,9 +56,16 @@
       "discoveryChannels": []
     },
     "verification": {
-      "checkedAt": "2026-09-14T04:39:33.981091+00:00",
+      "checkedAt": "2026-09-14T08:37:19.752982+00:00",
       "status": "ok",
-      "counts": {"verified": 0,"hold": 0,"checked": 0,"new": 0,"changed": 0,"unchanged": 0}
+      "counts": {
+        "verified": 0,
+        "hold": 0,
+        "checked": 0,
+        "new": 0,
+        "changed": 0,
+        "unchanged": 0
+      }
     }
   },
   "policy": {
