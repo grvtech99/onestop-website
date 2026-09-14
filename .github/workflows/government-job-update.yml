@@ -14,6 +14,7 @@ on:
       - '!government-job-update/data/publication-queue.json'
       - '!government-job-update/data/canonical-job-records.json'
       - '!government-job-update/data/admin-dashboard-state.json'
+      - '!government-job-update/data/admin-execution-status.json'
       - '!government-job-update/test-results/**'
   workflow_dispatch:
 
@@ -33,24 +34,49 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run safe SarkariResult discovery
+      - id: discovery
+        name: Run safe SarkariResult discovery
+        if: always()
+        env:
+          STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
-      - name: Extract, normalize and verify official source
+      - id: verification
+        name: Extract, normalize and verify official source
+        if: always()
         run: python government-job-update/scripts/official-source-verifier.py
 
-      - name: Run controlled live end-to-end test
+      - id: e2e
+        name: Run controlled live end-to-end test
+        if: always()
         run: python government-job-update/scripts/end-to-end-test.py
 
-      - name: Run publication gate regression test
+      - id: publicationRegression
+        name: Run publication gate regression test
+        if: always()
         run: python government-job-update/scripts/publication-gate-test.py
 
-      - name: Build structured verified-only publication queue
+      - id: publicationQueue
+        name: Build structured verified-only publication queue
+        if: always()
         run: python government-job-update/scripts/publication-gate.py
 
-      - name: Build admin monitoring status snapshot
+      - id: adminSnapshot
+        name: Build admin monitoring status snapshot
         if: always()
         run: python government-job-update/scripts/build-admin-status.py
+
+      - name: Record workflow execution status
+        id: executionStatus
+        if: always()
+        env:
+          STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
+          STEP_VERIFICATION_OUTCOME: ${{ steps.verification.outcome }}
+          STEP_E2E_OUTCOME: ${{ steps.e2e.outcome }}
+          STEP_PUBLICATION_REGRESSION_OUTCOME: ${{ steps.publicationRegression.outcome }}
+          STEP_PUBLICATION_QUEUE_OUTCOME: ${{ steps.publicationQueue.outcome }}
+          STEP_ADMIN_SNAPSHOT_OUTCOME: ${{ steps.adminSnapshot.outcome }}
+        run: python government-job-update/scripts/build-admin-execution-status.py
 
       - name: Upload E2E and publication gate reports
         if: always()
@@ -60,7 +86,7 @@ jobs:
           path: government-job-update/test-results/
           if-no-files-found: warn
 
-      - name: Save discovery, verification, canonical, publication and admin state
+      - name: Save discovery, verification, canonical, publication, admin and execution state
         if: always()
         shell: bash
         run: |
@@ -73,9 +99,10 @@ jobs:
                   government-job-update/data/official-verification-log.json \
                   government-job-update/data/canonical-job-records.json \
                   government-job-update/data/publication-queue.json \
-                  government-job-update/data/admin-dashboard-state.json
+                  government-job-update/data/admin-dashboard-state.json \
+                  government-job-update/data/admin-execution-status.json
           if git diff --cached --quiet; then
-            echo "No discovery/verification/canonical/publication/admin state change."
+            echo "No discovery/verification/canonical/publication/admin/execution state change."
           else
             git commit -m "Update government job pipeline monitoring state"
             git push
