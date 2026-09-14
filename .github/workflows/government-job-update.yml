@@ -105,3 +105,5 @@ jobs:
             git commit -m "Update government job pipeline monitoring state"
             git push
           fi
+
+# Manual trigger marker: this commit intentionally starts a fresh validation run.
