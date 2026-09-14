@@ -9,18 +9,18 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 FIXTURE = ROOT / "tests" / "fixtures" / "e2e-candidates.json"
+REPORT = ROOT / "test-results" / "e2e-live-report.json"
 UA = "ONESTOP-Government-Job-Update-E2E/1.0"
+
+
+def write_report(report):
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    REPORT.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def fetch(url):
     try:
-        req = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": UA,
-                "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.8,*/*;q=0.1",
-            },
-        )
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.8,*/*;q=0.1"})
         with urllib.request.urlopen(req, timeout=20) as response:
             return response.status, response.read(1500000), response.geturl(), None
     except urllib.error.HTTPError as exc:
@@ -57,19 +57,15 @@ def verify(candidate, official_body, official_final_url):
     host = (urlparse(official_final_url).hostname or "").lower()
     trusted_host = host == "ntpc.co.in" or host.endswith(".ntpc.co.in")
     recruitment_signal = "recruitment" in text.lower() or "advt" in text.lower()
-    content_ok = len(text) >= 200
-    title_ok = bool(candidate["title"])
-    date_ok = bool(candidate.get("dateEvidence"))
-    match_ok = score >= 0.25
     checks = {
         "trusted_source": trusted_host,
         "official_notice_url": trusted_host,
-        "nonempty_title": title_ok,
+        "nonempty_title": bool(candidate["title"]),
         "recruitment_signal": recruitment_signal,
-        "extractable_notice_content": content_ok,
-        "last_date_or_valid_dates": date_ok,
+        "extractable_notice_content": len(text) >= 200,
+        "last_date_or_valid_dates": bool(candidate.get("dateEvidence")),
         "safe_http_urls": official_final_url.startswith(("http://", "https://")),
-        "candidate_official_match": match_ok,
+        "candidate_official_match": score >= 0.25,
     }
     passed = all(checks.values())
     return {
@@ -88,19 +84,16 @@ def verify(candidate, official_body, official_final_url):
 def main():
     started = datetime.now(timezone.utc).isoformat()
     fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
-    candidates = fixture["candidates"]
-    positive, negative = candidates
-
+    positive, negative = fixture["candidates"]
     status, body, final_url, error = fetch(positive["officialUrl"])
     if status != 200 or not body:
-        print(json.dumps({"status": "FAIL", "stage": "official_source_fetch", "error": error or f"HTTP {status}"}, indent=2))
+        report = {"schemaVersion": 1, "startedAt": started, "mode": "controlled-live-e2e", "discoverySource": fixture["discoverySource"], "discoveryFixtureOnly": True, "productionStateMutation": False, "officialSourceLiveFetch": positive["officialUrl"], "overall": "FAIL", "stage": "official_source_fetch", "error": error or f"HTTP {status}"}
+        write_report(report)
+        print(json.dumps(report, indent=2, ensure_ascii=False))
         return 1
 
     positive_result = verify(positive, body, final_url)
     negative_result = verify(negative, body, final_url)
-    negative_expected_hold = negative_result["status"] == "hold" and negative_result["publicationStatus"] == "hold"
-    positive_expected_ready = positive_result["status"] == "verified" and positive_result["publicationStatus"] == "ready"
-
     report = {
         "schemaVersion": 1,
         "startedAt": started,
@@ -111,8 +104,9 @@ def main():
         "officialSourceLiveFetch": positive["officialUrl"],
         "positiveCase": positive_result,
         "negativeCase": negative_result,
-        "overall": "PASS" if positive_expected_ready and negative_expected_hold else "FAIL",
+        "overall": "PASS" if positive_result["status"] == "verified" and positive_result["publicationStatus"] == "ready" and negative_result["status"] == "hold" and negative_result["publicationStatus"] == "hold" else "FAIL",
     }
+    write_report(report)
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0 if report["overall"] == "PASS" else 1
 
