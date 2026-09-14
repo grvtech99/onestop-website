@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-14T11:26:22.030072+00:00",
+  "checkedAt": "2026-09-14T11:38:28.362787+00:00",
   "status": "ok",
   "counts": {
     "verified": 0,
@@ -8,5 +8,6 @@
     "new": 0,
     "changed": 0,
     "unchanged": 0
-  }
+  },
+  "strategy": "SarkariResult metadata -> targeted official department verification"
 }

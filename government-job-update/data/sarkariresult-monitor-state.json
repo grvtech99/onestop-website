@@ -1,10 +1,10 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "source": "sarkariresult",
   "sourceUrl": "https://www.sarkariresult.com/",
   "status": "source_unavailable",
-  "lastCheckedAt": "2026-09-14T11:26:21.888613+00:00",
+  "lastCheckedAt": "2026-09-14T11:37:30.801269+00:00",
   "lastSuccessfulDiscoveryAt": null,
-  "lastError": "HTTP 403",
+  "lastError": "No accessible SarkariResult discovery signal",
   "items": {}
 }

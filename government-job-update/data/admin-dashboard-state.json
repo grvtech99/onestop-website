@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-14T11:26:23.822074+00:00",
+  "generatedAt": "2026-09-14T11:38:30.320518+00:00",
   "schedule": {
     "cronUtc": "47 * * * *",
     "description": "Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed."
@@ -9,9 +9,9 @@
     "source": "SarkariResult",
     "sourceUrl": "https://www.sarkariresult.com/",
     "status": "source_unavailable",
-    "lastCheckedAt": "2026-09-14T11:26:21.888613+00:00",
+    "lastCheckedAt": "2026-09-14T11:37:30.801269+00:00",
     "lastSuccessfulDiscoveryAt": null,
-    "lastError": "HTTP 403",
+    "lastError": "No accessible SarkariResult discovery signal",
     "discoveredCount": 0,
     "newCount": 0,
     "changedCount": 0
@@ -20,7 +20,7 @@
     "state": "RECOVERY_WATCH",
     "safeRetryEnabled": true,
     "bypassAttempted": false,
-    "lastHttpError": "HTTP 403",
+    "lastHttpError": "No accessible SarkariResult discovery signal",
     "recoveryRule": "Resume normal discovery automatically when the public SarkariResult endpoint returns a successful response; never bypass 403/429, CAPTCHA, access controls, or rate limits."
   },
   "pipeline": {
@@ -42,21 +42,22 @@
     "controlledE2EIsProductionDiscovery": false
   },
   "timing": {
-    "lastRunAt": "2026-09-14T11:26:22.030072+00:00",
+    "lastRunAt": "2026-09-14T11:38:28.362787+00:00",
     "nextExpectedRunAt": "2026-09-14T11:47:00+00:00"
   },
   "recent": {
     "discovery": {
-      "checkedAt": "2026-09-14T11:26:21.888613+00:00",
+      "checkedAt": "2026-09-14T11:37:30.801269+00:00",
       "source": "https://www.sarkariresult.com/",
       "status": "source_unavailable",
       "new": 0,
       "changed": 0,
-      "error": "HTTP 403",
-      "discoveryChannels": []
+      "error": "No accessible SarkariResult discovery signal",
+      "discoveryChannels": [],
+      "directAccess": "unavailable"
     },
     "verification": {
-      "checkedAt": "2026-09-14T11:26:22.030072+00:00",
+      "checkedAt": "2026-09-14T11:38:28.362787+00:00",
       "status": "ok",
       "counts": {
         "verified": 0,
@@ -65,7 +66,8 @@
         "new": 0,
         "changed": 0,
         "unchanged": 0
-      }
+      },
+      "strategy": "SarkariResult metadata -> targeted official department verification"
     }
   },
   "policy": {
