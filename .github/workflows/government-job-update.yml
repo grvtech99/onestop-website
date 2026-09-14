@@ -3,6 +3,13 @@ name: Government Job Update — SarkariResult Discovery
 on:
   schedule:
     - cron: '47 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'government-job-update/**'
+    paths-ignore:
+      - 'government-job-update/data/sarkariresult-monitor-state.json'
+      - 'government-job-update/data/sarkariresult-monitor-log.json'
   workflow_dispatch:
 
 permissions:
