@@ -44,7 +44,6 @@ now = datetime.now(timezone.utc)
 checked = parse_dt(monitor.get('lastCheckedAt'))
 next_run = None
 if checked:
-    # Scheduled at minute 47 of every UTC hour; calculate the next occurrence after last check.
     candidate = checked.replace(minute=47, second=0, microsecond=0)
     if candidate <= now:
         from datetime import timedelta
@@ -54,15 +53,16 @@ if checked:
 items = canonical.get('items') or {}
 verified_items = [x for x in items.values() if x.get('verificationStatus') == 'verified' and x.get('publicationStatus') == 'ready']
 held_items = [x for x in items.values() if x.get('publicationStatus') == 'hold' or x.get('verificationStatus') in ('hold','pending_official_source')]
-
 source_status = monitor.get('status', 'unknown')
 http_error = monitor.get('lastError') or ''
+source_results = monitor.get('sources') or monitor_log.get('sources') or {}
+active_source_names = [v.get('name') for v in source_results.values() if isinstance(v, dict) and v.get('status') == 'ok' and v.get('name')]
 recovery = {
     'state': 'RECOVERY_WATCH' if source_status == 'source_unavailable' else 'HEALTHY',
     'safeRetryEnabled': True,
     'bypassAttempted': False,
     'lastHttpError': http_error,
-    'recoveryRule': 'Resume normal discovery automatically when the public SarkariResult endpoint returns a successful response; never bypass 403/429, CAPTCHA, access controls, or rate limits.'
+    'recoveryRule': 'Resume multi-source discovery automatically on the next scheduled run when monitored public sources become available; never bypass 403/429, CAPTCHA, access controls, or rate limits.'
 }
 
 def test_status(report):
@@ -73,12 +73,12 @@ def test_status(report):
     return 'CHECK'
 
 out = {
-    'schemaVersion': 1,
+    'schemaVersion': 2,
     'generatedAt': now.isoformat(),
     'schedule': {'cronUtc': '47 * * * *', 'description': 'Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed.'},
     'production': {
-        'source': 'SarkariResult',
-        'sourceUrl': monitor.get('sourceUrl', 'https://www.sarkariresult.com/'),
+        'source': 'Multi-Source Government Jobs',
+        'sourceUrl': None,
         'status': source_status,
         'lastCheckedAt': monitor.get('lastCheckedAt'),
         'lastSuccessfulDiscoveryAt': monitor.get('lastSuccessfulDiscoveryAt'),
@@ -104,7 +104,15 @@ out = {
     'tests': {'controlledE2E': test_status(e2e), 'publicationGateRegression': test_status(gate), 'controlledE2EIsProductionDiscovery': False},
     'timing': {'lastRunAt': verify.get('checkedAt') or monitor.get('lastCheckedAt'), 'nextExpectedRunAt': iso(next_run)},
     'recent': {'discovery': monitor_log, 'verification': verify_log},
-    'policy': {'discoverySource': 'SarkariResult only', 'finalAuthority': 'Official government/recruitment authority', 'publication': 'verified-only', 'heldRecordsArePublished': False, 'freeJobAlertUsed': False},
+    'policy': {
+        'discoverySource': '20 alternate sources + FreeJobAlert',
+        'discoverySourceCount': len(source_results) or 21,
+        'activeDiscoverySources': active_source_names,
+        'finalAuthority': 'Official government/recruitment authority',
+        'publication': 'verified-only',
+        'heldRecordsArePublished': False,
+        'freeJobAlertUsed': 'freejobalert' in source_results,
+    },
 }
 OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
 print(f'Wrote {OUT}')
