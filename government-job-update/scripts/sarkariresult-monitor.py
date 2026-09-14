@@ -11,12 +11,13 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-BASE = "https://www.sarkariresult.com/"
-UA = "ONESTOP-Government-Job-Update/2.0"
 STATE = DATA / "sarkariresult-monitor-state.json"
 LOG = DATA / "sarkariresult-monitor-log.json"
+
+# SarkariResult was removed after repeated direct-access failures. Discovery now
+# uses the 20 remaining sources plus FreeJobAlert. Official government sources
+# remain the final verification authority.
 SOURCES = [
- {"id":"sarkariresult","name":"SarkariResult","url":BASE,"rss":BASE+"feed_rss.xml"},
  {"id":"employmentnews","name":"Employment News","url":"https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All"},
  {"id":"ncs","name":"National Career Service","url":"https://ncs.gov.in/latest-update"},
  {"id":"fresherslive","name":"FreshersLive","url":"https://www.fresherslive.com/state-government-jobs"},
@@ -37,6 +38,7 @@ SOURCES = [
  {"id":"nayawork","name":"NayaWork","url":"https://nayawork.in/"},
  {"id":"naukrichakri","name":"Naukri Chakri","url":"https://www.naukrichakri.in/"},
  {"id":"sarkariscan","name":"Sarkari Scan","url":"https://sarkariscan.com/"},
+ {"id":"freejobalert","name":"FreeJobAlert","url":"https://www.freejobalert.com/latest-notifications/","rss":"https://www.freejobalert.com/feed/"},
 ]
 JOB = re.compile(r"\b(recruit|vacan|job|online form|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group [abc]|technician|trainee|professor|nurse|steno|driver|advt|employment)\b", re.I)
 
@@ -45,7 +47,7 @@ def save(path, value):
 
 def get(url):
     try:
-        req = urllib.request.Request(url, headers={"User-Agent":UA,"Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
+        req = urllib.request.Request(url, headers={"User-Agent":"ONESTOP-Government-Job-Update/3.0","Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
         r = urllib.request.urlopen(req, timeout=15)
         return r.status, r.read(1200000), r.geturl(), None
     except urllib.error.HTTPError as e: return e.code, b"", url, f"HTTP {e.code}"
@@ -69,7 +71,8 @@ def rss_items(body):
 def html_items(body, base, limit=120):
     text=body.decode("utf-8","replace"); out=[]
     for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>', text, re.I|re.S):
-        u=urllib.parse.urljoin(base,m.group(1)).split("#",1)[0]; title=re.sub(r"<[^>]+>"," ",m.group(2)); title=re.sub(r"\s+"," ",title).strip()
+        u=urllib.parse.urljoin(base,m.group(1)).split("#",1)[0]
+        title=re.sub(r"<[^>]+>"," ",m.group(2)); title=re.sub(r"\s+"," ",title).strip()
         if u.startswith(("http://","https://")) and JOB.search(title) and len(title)>=12: out.append({"link":u,"title":title})
     return list({x["link"]:x for x in out}.values())[:limit]
 
@@ -96,12 +99,14 @@ def main():
         u=row["url"].split("#",1)[0]
         if not u.startswith(("http://","https://")): continue
         meta="|".join([u,row.get("title",""),row.get("description",""),row.get("publishedAt",""),row.get("discoverySourceId","")])
-        k=hashlib.sha256((row.get("discoverySourceId","")+"|"+u).encode()).hexdigest()[:24]; fp=hashlib.sha256(meta.encode()).hexdigest(); prev=old.get(k,{})
+        k=hashlib.sha256((row.get("discoverySourceId","")+"|"+u).encode()).hexdigest()[:24]
+        fp=hashlib.sha256(meta.encode()).hexdigest(); prev=old.get(k,{})
         out[k]={"id":k,"url":u,"title":row.get("title",""),"description":row.get("description",""),"publishedAt":row.get("publishedAt",""),"fingerprint":fp,"discoveredAt":prev.get("discoveredAt",t),"lastSeenAt":t,"discoverySource":row.get("discoverySource",""),"discoverySourceId":row.get("discoverySourceId",""),"verificationStatus":"pending_official_source","publicationStatus":"hold"}
         if k not in old:new+=1
         elif prev.get("fingerprint")!=fp:changed+=1
-    status="ok" if out else "source_unavailable"; err=None if out else "No usable job signals from monitored sources"
-    save(STATE,{"schemaVersion":4,"source":"multi-source-government-jobs","primarySource":"SarkariResult","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
-    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult primary; alternates are discovery-only; official government source remains final authority"})
+    status="ok" if out else "source_unavailable"
+    err=None if out else "No usable job signals from monitored sources"
+    save(STATE,{"schemaVersion":5,"source":"multi-source-government-jobs","primarySource":"multi-source","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
+    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority"})
     return 0
 if __name__=="__main__": sys.exit(main())
