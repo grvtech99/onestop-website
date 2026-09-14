@@ -9,6 +9,8 @@ on:
       - 'government-job-update/**'
       - '!government-job-update/data/sarkariresult-monitor-state.json'
       - '!government-job-update/data/sarkariresult-monitor-log.json'
+      - '!government-job-update/data/official-verification-state.json'
+      - '!government-job-update/data/official-verification-log.json'
   workflow_dispatch:
 
 permissions:
@@ -30,16 +32,22 @@ jobs:
       - name: Run safe SarkariResult discovery
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
-      - name: Save discovery state
+      - name: Run official-source verification
+        run: python government-job-update/scripts/official-source-verifier.py
+
+      - name: Save discovery and verification state
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add government-job-update/data/sarkariresult-monitor-state.json government-job-update/data/sarkariresult-monitor-log.json
+          git add government-job-update/data/sarkariresult-monitor-state.json \
+                  government-job-update/data/sarkariresult-monitor-log.json \
+                  government-job-update/data/official-verification-state.json \
+                  government-job-update/data/official-verification-log.json
           if git diff --cached --quiet; then
-            echo "No discovery-state change."
+            echo "No discovery/verification state change."
           else
-            git commit -m "Update SarkariResult discovery state"
+            git commit -m "Update SarkariResult verification state"
             git push
           fi
