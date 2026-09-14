@@ -1,0 +1,39 @@
+name: Government Job Update — SarkariResult Discovery
+
+on:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: government-job-update
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Run safe SarkariResult discovery
+        run: python government-job-update/scripts/sarkariresult-monitor.py
+
+      - name: Save discovery state
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add government-job-update/data/sarkariresult-monitor-state.json government-job-update/data/sarkariresult-monitor-log.json
+          if git diff --cached --quiet; then
+            echo "No discovery-state change."
+          else
+            git commit -m "Update SarkariResult discovery state"
+            git push
+          fi
