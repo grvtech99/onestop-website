@@ -51,19 +51,13 @@ jobs:
             }
             await browser.close();
             const img=h=>`<img alt="Real tool preview" loading="lazy" src="${shotRel(h)}">`;
-            // Replace every trending card thumb with its real screenshot.
-            html=html.replace(/(<a class="tool-card searchable"[^>]*href="([^"]+\.html)"[^>]*>)(<div class="thumb[\\s\\S]*?<\/div>)(<div class="tool-body">)/g,(m,a,h,t,b)=>`${a}<div class="thumb real-thumb">${img(h)}</div>${b}`);
-            // Replace category tool thumbnail spans directly from their own href.
-            html=html.replace(/(<a class="category-tool searchable screenshot-tool"[^>]*href="([^"]+\.html)"[^>]*>)(<span class="category-thumb[\\s\\S]*?<\/span>)/g,(m,a,h,t)=>`${a}<span class="category-thumb real-category-thumb">${img(h)}</span>`);
-            html=html.replace(/(<a class="category-tool screenshot-tool"[^>]*href="([^"]+\.html)"[^>]*>)(<span class="category-thumb[\\s\\S]*?<\/span>)/g,(m,a,h,t)=>`${a}<span class="category-thumb real-category-thumb">${img(h)}</span>`);
-            // Give each collapsed category a real preview from its first tool.
-            html=html.replace(/(<div class="category accordion-category"[^>]*>\s*<div class="category-head">\s*)<div class="category-icon">[\\s\\S]*?<\/div>/g,(m,p)=>{
-              const rest=html.slice(html.indexOf(m)+m.length);
-              const mm=rest.match(/<a class="category-tool[^>]*href="([^"]+\.html)"/);
-              const h=mm?mm[1]:null;
+            html=html.replace(/(<a class="tool-card searchable"[^>]*href="([^"]+\.html)"[^>]*>)(<div class="thumb[\s\S]*?<\/div>)(<div class="tool-body">)/g,(m,a,h,t,b)=>`${a}<div class="thumb real-thumb">${img(h)}</div>${b}`);
+            html=html.replace(/(<a class="category-tool(?: searchable)? screenshot-tool"[^>]*href="([^"]+\.html)"[^>]*>)(<span class="category-thumb[\s\S]*?<\/span>)/g,(m,a,h,t)=>`${a}<span class="category-thumb real-category-thumb">${img(h)}</span>`);
+            html=html.replace(/(<div class="category accordion-category"[^>]*>\s*<div class="category-head">\s*)<div class="category-icon">[\s\S]*?<\/div>/g,(m,p)=>{
+              const pos=html.indexOf(m)+m.length; const rest=html.slice(pos);
+              const mm=rest.match(/<a class="category-tool[^>]*href="([^"]+\.html)"/); const h=mm?mm[1]:null;
               return p+`<div class="category-icon">${h?img(h):'🧰'}</div>`;
             });
-            // Remove the old JS thumbnail-replacement block; direct HTML is reliable and immediate.
             html=html.replace(/<script>\(function\(\)\{const slug=u=>[\s\S]*?<\/script>/,'');
             fs.writeFileSync(htmlPath,html);
           })();
