@@ -37,14 +37,12 @@ jobs:
       - id: discovery
         name: Run safe SarkariResult discovery
         if: always()
-        env:
-          STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
       - id: verification
-        name: Extract, normalize and verify official source
+        name: Identify department and verify official source
         if: always()
-        run: python government-job-update/scripts/official-source-verifier.py
+        run: python government-job-update/scripts/official-department-verifier.py
 
       - id: e2e
         name: Run controlled live end-to-end test
