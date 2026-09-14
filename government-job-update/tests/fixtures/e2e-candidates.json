@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "discoverySource": "SarkariResult",
+  "sourceUrl": "https://www.sarkariresult.com/",
+  "notes": "Controlled test fixture representing a SarkariResult-discovered candidate. Production discovery remains SarkariResult-only; this fixture avoids injecting synthetic data into production state while the live source is HTTP 403 in the automation environment.",
+  "candidates": [
+    {
+      "id": "e2e-ntpc-assistant-executive-operation-2026",
+      "title": "NTPC Assistant Executive (Operation) Recruitment 2026",
+      "discoveryUrl": "https://www.sarkariresult.com/",
+      "officialSourceId": "ntpc",
+      "officialUrl": "https://ntpc.co.in/node/266",
+      "expectedSignals": ["recruitment", "assistant executive", "operation", "advt. no. 05/26"],
+      "dateEvidence": "23 April 2026 to 07 May 2026"
+    },
+    {
+      "id": "e2e-negative-mismatch",
+      "title": "UPSC Civil Services Examination 2026",
+      "discoveryUrl": "https://www.sarkariresult.com/",
+      "officialSourceId": "ntpc",
+      "officialUrl": "https://ntpc.co.in/node/266",
+      "expectedSignals": ["recruitment"],
+      "dateEvidence": ""
+    }
+  ]
+}
