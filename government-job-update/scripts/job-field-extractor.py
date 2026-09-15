@@ -12,6 +12,26 @@ FIELD_LABELS={
  'applicationLastDate':('last date','closing date','last date to apply','application last date'),
  'examDate':('exam date','examination date','date of examination'),
 }
+CATEGORY_RULES=(
+ ('admit_card',r'\b(admit card|e-admit|hall ticket|exam city|city intimation|call letter)\b'),
+ ('result',r'\b(result|final result|score card|scorecard|marks)\b'),
+ ('answer_key',r'\b(answer key|response sheet|provisional key|final key)\b'),
+ ('cut_off',r'\b(cut.?off|cut off)\b'),
+ ('merit_list',r'\b(merit list|selection list|shortlist|shortlisted)\b'),
+ ('exam_schedule',r'\b(exam date|exam schedule|examination schedule|time table|timetable)\b'),
+ ('document_verification',r'\b(document verification|certificate verification|dv schedule)\b'),
+ ('counselling',r'\b(counselling|counseling|seat allotment)\b'),
+ ('scholarship',r'\b(scholarship|fellowship|stipend)\b'),
+ ('admission',r'\b(admission|entrance|application form|college admission|university admission)\b'),
+ ('syllabus',r'\b(syllabus|exam pattern|exam resources)\b'),
+ ('notice',r'\b(corrigendum|addendum|important notice|advisory|notification|notice)\b'),
+)
+
+def classify_update_type(title, text=''):
+    hay=clean((title or '')+' '+(text or ''))
+    for category,pattern in CATEGORY_RULES:
+        if re.search(pattern,hay,re.I): return category
+    return 'jobs'
 
 def clean(value):
     return re.sub(r'\s+',' ',str(value or '')).strip(' :|-')
@@ -67,7 +87,8 @@ def normalize_record(raw):
       'organization':clean(raw.get('organization')),
       'state':clean(raw.get('state')),
       'jobType':clean(raw.get('jobType')) or 'Government Job',
-      'category':clean(raw.get('category')) or 'jobs',
+      'category':clean(raw.get('category')) or classify_update_type(title,text),
+      'updateType':classify_update_type(title,text),
       'vacancies':raw.get('vacancies') or extract_vacancies(text),
       'qualification':clean(raw.get('qualification')) or extract_after_label(text,FIELD_LABELS['qualification']),
       'ageLimit':clean(raw.get('ageLimit')) or extract_after_label(text,FIELD_LABELS['ageLimit']),
@@ -84,4 +105,4 @@ def normalize_record(raw):
     return record
 
 if __name__=='__main__':
-    print('Job Field Extraction & Normalization Engine: READY')
+    print('Government Update Field Extraction & Classification Engine: READY')
