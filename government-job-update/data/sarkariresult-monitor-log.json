@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-15T07:39:51.871516+00:00",
+  "checkedAt": "2026-09-15T07:55:21.638250+00:00",
   "status": "ok",
-  "new": 45,
-  "changed": 10,
-  "items": 401,
+  "new": 7,
+  "changed": 5,
+  "items": 399,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -40,13 +40,13 @@
       "name": "FreshersLive",
       "status": "ok",
       "mode": "html",
-      "count": 22
+      "count": 21
     },
     "jagranjosh": {
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 41
+      "count": 40
     },
     "testbook": {
       "name": "Testbook",
