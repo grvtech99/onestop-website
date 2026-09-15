@@ -1,63 +1,78 @@
 {
-  "schemaVersion": 4,
-  "generatedAt": "2026-09-15T13:51:43.830157+00:00",
-  "policy": "verified-only",
+  "schemaVersion": 5,
+  "generatedAt": "2026-09-15T13:58:27.425987+00:00",
+  "policy": "verified-only-plus-active-retention",
   "readyCount": 16,
   "blockedCount": 393,
+  "reusedActiveCount": 0,
   "categoryCounts": {
-    "jobs": 6,
-    "admit_card": 8,
     "result": 1,
+    "admit_card": 8,
+    "jobs": 6,
     "answer_key": 1
   },
   "items": [
     {
-      "title": "ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs",
+      "title": "ISRO Assistant, Junior Personal Assistant, UDC &amp; Stenographer Recruitment 2026",
       "department": "of Space - 2025 Achievements of Department of Space - 2025 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 International conference on Celebrating Ten years of AstroSat International conference on Celebrating Ten years of AstroSat Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Call for Registration: ISRO START 2026 ",
       "organization": "ISRO",
       "state": "",
       "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": 48,
-      "qualification": "can go through the notification completely and",
-      "ageLimit": "Age Relaxation is applicαble as per the rules. A pplication",
+      "category": "result",
+      "vacancies": 244,
+      "qualification": "Criteria",
+      "ageLimit": "Maximum Age: 28 years (as on 16/08/2026)",
       "applicationStartDate": null,
-      "applicationLastDate": "2026-09-11",
+      "applicationLastDate": "2026-08-16",
       "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/",
+      "notificationUrl": "https://sarkarinaukari.it.com/jobs/isro-assistant-junior-personal-assistant-udc-stenographer-recruitment-2026/",
       "applyUrl": "",
-      "source": "IndGovtJobs",
+      "source": "Sarkari Naukari",
       "dateEvidence": [
         {
-          "raw": "11/09/2026",
-          "date": "2026-09-11"
+          "raw": "16/08/2026",
+          "date": "2026-08-16"
         }
       ],
-      "jobId": "6bf65ae4d7f3e96886320f2b",
+      "jobId": "e76c73f3e50475aea5053eb5",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://www.isro.gov.in/SACRecruitment21.html",
-        "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
-        "matchScore": 1.0,
-        "titleOverlap": 7,
+        "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
+        "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
+        "matchScore": 0.921,
+        "titleOverlap": 4,
         "sourceType": "official_notification_or_recruitment_document"
       },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
       "recordStatus": "draft",
-      "fingerprint": "9026d08c4787975d270f914ce46a1cb0f2d3559b51e3eddbe8d3e98b93154f2e",
-      "updatedAt": "2026-09-15T13:51:44.948466+00:00",
-      "updateType": "jobs",
-      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Junior Research Fellow (JRF), Research Associate (RA), Project Scientist-I (PS-I) 48 Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Apply Online Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Central Government Jobs, Fresher Government jobs, ISRO SAC Junior Research Fellow, ISRO SAC Recruitment 2026, Latest ISRO SAC Jobs, Research Associate and More Jobs 2026, Research Associate and More Recruitment 2026, Space Applications Centre Junior Research Fellow, State Government Jobs CSB Recruitment 2026 – 14 Young Professional-Grade-3 Posts IndGovtjob",
-      "ageRelaxation": "is applicαble as per the rules. A pplication",
-      "fee": "No",
-      "howToApply": ". Space Applications Centre, Indian Space Research Organisation Nαme of the Post: ISRO SAC: Junior Research Fellow, Research Associate and More Posts Post Dαte: 10-Sep-2026 Totαl Vacancy 48 Applιcation Mode Online ISRO SAC Recruitment 2026 – Ahmedabad 48 vacancies Junior Research Fellow (JRF), Research Associate (RA), Project Scientist-I (PS-I) Post",
-      "documentsRequired": "before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals",
-      "jobLocation": "अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026) Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि /",
-      "documentText": "Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the post of Temporary Research Personnel Recruitment to the post of Temporary Research Personnel Home / Careers विज्ञापन संख्‍या / Advertisement Number NRSC-RMT-1-2026 विज्ञापन दिनांक / Advertisement Date August 01, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online: August 21, 2026 इसरो केंद्र / ISRO Centre राष्‍ट्रीय सुदूर संवेदन केंद्र (एन.आर.एस.सी.) / National Remote Sensing Centre (NRSC) कार्यक्षेत्र / Area of Work Temporary Research Personnel स्थिति / Status: Open / खुला स्‍थान / Location हैदराबाद / Hyderabad Remarks Bilingual Advertisement PDF - 572 KB Last date for submission of online application is 21.08.2026\nRecruitment to the posts of Research Scientist and Junior Research Fellow Recruitment to the posts of Research Scientist and Junior Research Fellow Home / Careers विज्ञापन संख्‍या / Advertisement Number NESAC/RMT-TEMP/WI-02/2026 विज्ञापन दिनांक / Advertisement Date July 17,2026 इसरो केंद्र / ISRO Centre उत्तर पूर्वी अंतरिक्ष उपयोग केंद्र/North Eastern Space Applications Centre (NESAC) कार्यक्षेत्र / Area of Work Research Scientists, Junior Research Fellows and Project Associate - I स्थिति / Status: Open / खुला स्‍थान / Location: मेघालय/Meghalaya Remarks Bilingual Advertisement PDF - 1.13 MB Bio-data format PDF - 664 KB\nRecruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the position of Research Associat (RA-I) Recruitment to the position of Research Associat (RA-I) Home / Careers विज्ञापन संख्‍या / Advertisement Number SDSC SHAR/RMT/02/2026 विज्ञापन दिनांक / Advertisement Date June 23, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online July 17,2026 इसरो केंद्र / ISRO Centre सतीश धवन अंतरिक्ष केंद्र (एस.डी.एस.सी.) शार / Satish Dhawan Space Centre (SDSC) SHAR कार्यक्षेत्र / Area of Work Research Associat (RA-I) स्थिति / Status: Open स्‍थान / Location श्रीहरिकोटा / Sriharikota Remarks Bilingual Advertisement PDF - 404 KB\nRecruitment to the posts of Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' Recruitment to the posts of Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' Home / Careers विज्ञापन संख्‍या / Advertisement Number URSC:01:2026 विज्ञापन दिनांक / Advertisement Date Mar 21, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Apr 12, 2026 इसरो केंद्र / ISRO Centre यू.आर. राव उपग्रह केंद्र, (यू.आर.एस.सी.) / U. R. Rao Satellite Centre (URSC) कार्यक्षेत्र / Area of Work Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' स्थिति / Status: Open / खुला स्‍थान / Location: बेंगलूर / Bengaluru Remarks The written test for the post of Scientist/Engineer - 'SC' (Industrial Engineering) has been scheduled on 27.09.2026. Call Letters to the screened-in candidates have been dispatched to their registered e-mail id. Selection Panel for the post of Medical Officer- 'SC' PDF - 302 KB Schedule of interviews PDF - 28 KB Forms Bio-data format PDF - 585 KB Declaration form PDF - 143 KB TA Form PDF - 116 KB Bilingual Advertisement PDF - 900 KB Direct link to the advertisement is: https://apps.ursc.gov.in/URSCBE-2026/advt.jsp (The online recruitment portal will be open from 23.03.2026 to 12.04.2026 )",
+      "fingerprint": "3a0759fdff69546e02411b8ba9b34a803c15d1874ed2e26fc784cff353edadb0",
+      "updatedAt": "2026-09-15T13:58:29.903786+00:00",
+      "updateType": "result",
+      "vacancyDetails": "A total of 244 positions are open for recruitment. Post-wise classification and corresponding qualifications are highlighted below: Post Name Vacancies Educational Criteria Assistant 113 Bachelor's degree in any discipline with at least 60% aggregate marks or a CGPA of 6.32 out of 10 from a recognized board or university. Upper Division Clerk 22 Assistant (Autonomous Institutions) 17 Junior Personal Assistant 81 Graduation in any stream with a minimum of 60% marks (or 6.32/10 CGPA), coupled with a required English shorthand speed of 60 WPM and proficiency in using computer systems. Stenographer 10 Junior Personal Assistant (Autonomous Institutions) 01 Category-Wise Vacancy Breakup Designation UR OBC EWS SC ST Total Assistant 47 16 15 19 16 113 Junior Personal Assistant 50 11 07 08 05 81 Upper Division Clerk 08 05 03 04 02 22 Stenographer 08 01 00 00 01 10 Assistant (Autonomous Institutions) 09 04 01 01 02 17 Junior Personal Assistant (Autonomous Institutions) 01 00 00 00 00 01 Application Fee Structure & Refund Policy Applications are categorized as follows with unique fee refund opportunities after attending the exam: Single Post Selection: ₹500 Double Post Selection: ₹1000 Refund Policy: Candidates belonging to SC, ST, PH, and Female categories will receive a complete refund after attending the Computer Based Test (CBT). Candidates of other categories will receive a refund of ₹400 per post after a processing fee of ₹100 is deducted. Please Note: No refund is issued if a candidate fails to appear for the CBT. Guideline to Fill Out the Application Form Ensure you read throu",
+      "ageRelaxation": "extra as per ISRO ICRB norms.",
+      "fee": "Payment Aug 16, 2026 Computer Based Test (CBT) Date Sep 21, 2026 Job Description About ISRO Various Posts Recruitment 2026 The Indian Space Research Organisation (ISRO) Centralised Recruitment Board (ICRB) has announced recruitment for several administrative positions. The vacancies are available for the roles of Assistant, Junior Personal Assistant, Upper Division Clerk, and Stenographer across different ISRO centres and autonomous institutions. Eligible and interested candidates can",
+      "selectionProcess": "Computer Based Test (CBT) Skill Test / Stenography Speed Test (if applicable) Document Verification Quick Info",
+      "selection": "Computer Based Test (CBT) Skill Test / Stenography Speed Test (if applicable) Document Verification Quick Info",
+      "howToApply": "Notification PDF",
+      "documentsRequired": "in advance, including educational certificates, ID proofs, and standard signature and photo files. Carefully evaluate the preview page of the application before initiating final checkout to avoid spelling mistakes or factual errors. Process the",
+      "jobLocation": "बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1",
+      "documentText": "Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the posts of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' Recruitment to the posts of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' Home / Careers विज्ञापन संख्‍या / Advertisement Number LPSC/02/2026 विज्ञापन दिनांक / Advertisement Date August 15, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online September 04, 2026 इसरो केंद्र / ISRO Centre द्रव नोदन प्रणाली केंद्र (एल.पी.एस.सी.) / Liquid Propulsion Systems Centre (LPSC) कार्यक्षेत्र / Area of Work Technical Assistant Technician ‘B’ Draughtsman 'B' Fireman 'A' स्थिति / Status: Open / खुला स्‍थान / Location बेंगलूर / Bengaluru तिरुवनंतपुरम / Thiruvananthapuram Remarks Bilingual Advertisement PDF - 413 KB Visit www.lpsc.gov.in for submission of online application\nRecruitment to the post of Temporary Research Personnel Recruitment to the post of Temporary Research Personnel Home / Careers विज्ञापन संख्‍या / Advertisement Number NRSC-RMT-1-2026 विज्ञापन दिनांक / Advertisement Date August 01, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online: August 21, 2026 इसरो केंद्र / ISRO Centre राष्‍ट्रीय सुदूर संवेदन केंद्र (एन.आर.एस.सी.) / National Remote Sensing Centre (NRSC) कार्यक्षेत्र / Area of Work Temporary Research Personnel स्थिति / Status: Open / खुला स्‍थान / Location हैदराबाद / Hyderabad Remarks Bilingual Advertisement PDF - 572 KB Last date for submission of online application is 21.08.2026\nRecruitment to the posts of Research Scientist and Junior Research Fellow Recruitment to the posts of Research Scientist and Junior Research Fellow Home / Careers विज्ञापन संख्‍या / Advertisement Number NESAC/RMT-TEMP/WI-02/2026 विज्ञापन दिनांक / Advertisement Date July 17,2026 इसरो केंद्र / ISRO Centre उत्तर पूर्वी अंतरिक्ष उपयोग केंद्र/North Eastern Space Applications Centre (NESAC) कार्यक्षेत्र / Area of Work Research Scientists, Junior Research Fellows and Project Associate - I स्थिति / Status: Open / खुला स्‍थान / Location: मेघालय/Meghalaya Remarks Bilingual Advertisement PDF - 1.13 MB Bio-data format PDF - 664 KB\nRecruitment to the posts of Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' Recruitment to the posts of Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' Home / Careers विज्ञापन संख्‍या / Advertisement Number ISTRAC:02:2026 विज्ञापन दिनांक / Advertisement Date June 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online July 20, 2026 इसरो केंद्र / ISRO Centre इसरो दूरमिति अनुवर्तन और आदेश नेटवर्क (इस्‍ट्रैक) / ISRO Telemetry, Tracking and Command Network (ISTRAC) कार्यक्षेत्र / Area of Work Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Date of Computer Based Test is 25 th September, 2026 Bilingual Advertisement PDF - 1.7 MB Direct link to the advertisement is: https://cdn.digialm.com/EForms/configuredHtml/1258/96897/Index.html (The online recruitment portal will be open from 27.06.2026 to 20.07.2026 )",
       "documentSources": [
+        {
+          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
+          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
+          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
+          "type": "html",
+          "extracted": true
+        },
         {
           "url": "https://www.isro.gov.in/SACRecruitment21.html",
           "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
@@ -65,8 +80,8 @@
           "extracted": true
         },
         {
-          "url": "https://www.isro.gov.in/SACRecruitment21.html",
-          "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
+          "url": "https://www.isro.gov.in/LPSCRecruitment13.html",
+          "title": "Advt No. LPSC/02/2026 dated 15.08.2026 Recruitment to the post of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' in LPSC. Read More",
           "type": "html",
           "extracted": true
         },
@@ -83,30 +98,17 @@
           "extracted": true
         },
         {
-          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
-          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/SDSCRecruitment25.html",
-          "title": "Advt. No. SDSC SHAR/RMT/02/2026 dated June 23, 2026 - Recruitment to the position of Research Associat (RA-I). Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/URSCRecruitment2026_1.html",
-          "title": "Selection Panel for the post of Medical Officer- 'SC' against Advertisement No. URSC:01:2026 dated 21.03.2026. Read More",
+          "url": "https://www.isro.gov.in/ISTRACRecruitment4.html",
+          "title": "Advt. No. ISTRAC:02:2026 dated 27.06.2026 - The Computer Based Test (CBT) is scheduled on 25.09.2026.",
           "type": "html",
           "extracted": true
         }
       ],
       "documentCount": 7,
-      "documentExtractedAt": "2026-09-15T13:52:57.254565+00:00",
+      "documentExtractedAt": "2026-09-15T13:59:39.468120+00:00",
       "documentTables": [],
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00",
-      "publishedAt": "Fri, 11 Sep 2026 06:22:40 +0000"
+      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     },
     {
       "title": "ISRO IPRC Recruitment 2026 Notification Out - Apply Online for 22 Fireman, Technician & More Posts",
@@ -153,11 +155,11 @@
         "titleOverlap": 4,
         "sourceType": "official_notification_or_recruitment_document"
       },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
       "recordStatus": "draft",
       "fingerprint": "2d1ddbbe5367bb6ca6c5f90898bb1895fc098febda694c72135dcaea90a60e08",
-      "updatedAt": "2026-09-15T13:51:45.013075+00:00",
+      "updatedAt": "2026-09-15T13:58:29.946153+00:00",
       "updateType": "admit_card",
       "vacancyDetails": "(Post & Code-wise) 9 Post Codes 3 Pay Levels 22 Total Posts Code Post / Discipline Vacancies Reservation 60 Technical Assistant – Automobile 1 OBC-01 61 Technical Assistant – Mechanical 3 UR-01, OBC-01, ST-01 62 Technical Assistant – Electronics & Communication 1 UR-01 63 Technician ‘B’ – Turner 2 UR-01, SC-01 64 Technician ‘B’ – Fitter 4 OBC-03, EWS-01 (1 of the 4 reserved for Ex-Servicemen) 65 Technician ‘B’ – Welder 2 UR-01, SC-01 66 Technician ‘B’ – Machinist 3 UR-02, SC-01 (1 of the 3 reserved for PwBD-OH) 67 Technician ‘B’ – Refrigeration & Air Conditioning 1 UR-01 68 Technician ‘B’ – Electrician 1 EWS-01 70 Cook ‘A’ 1 UR-01 71 Fireman ‘A’ 3 UR-02, OBC-01 (1 of the 3 reserved for Ex-Servicemen) Total 22 - Note: Post Code 69 does not appear in the notice as reviewed – the codes jump from 68 (Electrician) to 70 (Cook ‘A’). This gap is Not specified/explained in the source document. 🔔 Never Miss a Govt Job Again! ⚡ Get Custom Govt Job Alerts by Your Qualification (10TH | 12TH | Diploma | ITI | Graduate, Etc) Join Now ISRO IPRC Recruitment 2026 Eligibility Criteria Post Essential Qualification Technical Assistant – Automobile First Class Diploma in Automobile Engineering Technical Assistant – Mechanical First Class Diploma in Mechanical Engineering OR Production Engineering Technical Assistant – Electronics & Communication First Class Diploma in Electronics Engineering, OR Electronics & Communication Engineering, OR Electronics & Instrumentation Engineering, OR Electronics & Telecommunication Engineering Technician ‘B’ – Turner Pass in SSLC/SSC/Matric (10th Std.) AND ITI",
       "ageRelaxation": "of 5 years is available for SC/ST candidates and 3 years for OBC candidates, where the post is reserved for that category. Additional relaxation applies to serving government employees, Ex-servicemen, Persons with Benchmark Disabilities, widows, divorced women, judicially separated women, and meritorious sportspersons, as per Government of India orders. Before submitting the application, candidates are advised to verify that they meet the required age criteria. Use our Age Calculator to calculate your exact age as per the official cut-off date. ISRO IPRC Recruitment 2026",
@@ -216,11 +218,108 @@
         }
       ],
       "documentCount": 7,
-      "documentExtractedAt": "2026-09-15T13:52:57.723004+00:00",
+      "documentExtractedAt": "2026-09-15T13:59:41.468765+00:00",
       "documentTables": [],
       "discoveredAt": "2026-09-15T07:39:51.871516+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00",
       "publishedAt": "Tue, 15 Sep 2026 06:33:49 GMT"
+    },
+    {
+      "title": "ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs",
+      "department": "of Space - 2025 Achievements of Department of Space - 2025 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 International conference on Celebrating Ten years of AstroSat International conference on Celebrating Ten years of AstroSat Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Call for Registration: ISRO START 2026 ",
+      "organization": "ISRO",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": 48,
+      "qualification": "can go through the notification completely and",
+      "ageLimit": "Age Relaxation is applicαble as per the rules. A pplication",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-11",
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [
+        {
+          "raw": "11/09/2026",
+          "date": "2026-09-11"
+        }
+      ],
+      "jobId": "6bf65ae4d7f3e96886320f2b",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.isro.gov.in/SACRecruitment21.html",
+        "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
+        "matchScore": 1.0,
+        "titleOverlap": 7,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
+      "recordStatus": "draft",
+      "fingerprint": "9026d08c4787975d270f914ce46a1cb0f2d3559b51e3eddbe8d3e98b93154f2e",
+      "updatedAt": "2026-09-15T13:58:29.971000+00:00",
+      "updateType": "jobs",
+      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Junior Research Fellow (JRF), Research Associate (RA), Project Scientist-I (PS-I) 48 Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Apply Online Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Central Government Jobs, Fresher Government jobs, ISRO SAC Junior Research Fellow, ISRO SAC Recruitment 2026, Latest ISRO SAC Jobs, Research Associate and More Jobs 2026, Research Associate and More Recruitment 2026, Space Applications Centre Junior Research Fellow, State Government Jobs CSB Recruitment 2026 – 14 Young Professional-Grade-3 Posts IndGovtjob",
+      "ageRelaxation": "is applicαble as per the rules. A pplication",
+      "fee": "No",
+      "howToApply": ". Space Applications Centre, Indian Space Research Organisation Nαme of the Post: ISRO SAC: Junior Research Fellow, Research Associate and More Posts Post Dαte: 10-Sep-2026 Totαl Vacancy 48 Applιcation Mode Online ISRO SAC Recruitment 2026 – Ahmedabad 48 vacancies Junior Research Fellow (JRF), Research Associate (RA), Project Scientist-I (PS-I) Post",
+      "documentsRequired": "before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals",
+      "jobLocation": "अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026) Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि /",
+      "documentText": "Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the post of Temporary Research Personnel Recruitment to the post of Temporary Research Personnel Home / Careers विज्ञापन संख्‍या / Advertisement Number NRSC-RMT-1-2026 विज्ञापन दिनांक / Advertisement Date August 01, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online: August 21, 2026 इसरो केंद्र / ISRO Centre राष्‍ट्रीय सुदूर संवेदन केंद्र (एन.आर.एस.सी.) / National Remote Sensing Centre (NRSC) कार्यक्षेत्र / Area of Work Temporary Research Personnel स्थिति / Status: Open / खुला स्‍थान / Location हैदराबाद / Hyderabad Remarks Bilingual Advertisement PDF - 572 KB Last date for submission of online application is 21.08.2026\nRecruitment to the posts of Research Scientist and Junior Research Fellow Recruitment to the posts of Research Scientist and Junior Research Fellow Home / Careers विज्ञापन संख्‍या / Advertisement Number NESAC/RMT-TEMP/WI-02/2026 विज्ञापन दिनांक / Advertisement Date July 17,2026 इसरो केंद्र / ISRO Centre उत्तर पूर्वी अंतरिक्ष उपयोग केंद्र/North Eastern Space Applications Centre (NESAC) कार्यक्षेत्र / Area of Work Research Scientists, Junior Research Fellows and Project Associate - I स्थिति / Status: Open / खुला स्‍थान / Location: मेघालय/Meghalaya Remarks Bilingual Advertisement PDF - 1.13 MB Bio-data format PDF - 664 KB\nRecruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the position of Research Associat (RA-I) Recruitment to the position of Research Associat (RA-I) Home / Careers विज्ञापन संख्‍या / Advertisement Number SDSC SHAR/RMT/02/2026 विज्ञापन दिनांक / Advertisement Date June 23, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online July 17,2026 इसरो केंद्र / ISRO Centre सतीश धवन अंतरिक्ष केंद्र (एस.डी.एस.सी.) शार / Satish Dhawan Space Centre (SDSC) SHAR कार्यक्षेत्र / Area of Work Research Associat (RA-I) स्थिति / Status: Open स्‍थान / Location श्रीहरिकोटा / Sriharikota Remarks Bilingual Advertisement PDF - 404 KB\nRecruitment to the posts of Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' Recruitment to the posts of Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' Home / Careers विज्ञापन संख्‍या / Advertisement Number URSC:01:2026 विज्ञापन दिनांक / Advertisement Date Mar 21, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Apr 12, 2026 इसरो केंद्र / ISRO Centre यू.आर. राव उपग्रह केंद्र, (यू.आर.एस.सी.) / U. R. Rao Satellite Centre (URSC) कार्यक्षेत्र / Area of Work Scientist/Engineer - 'SC', Scientist/Engineer - 'SD' & Medical Officer - 'SC' स्थिति / Status: Open / खुला स्‍थान / Location: बेंगलूर / Bengaluru Remarks The written test for the post of Scientist/Engineer - 'SC' (Industrial Engineering) has been scheduled on 27.09.2026. Call Letters to the screened-in candidates have been dispatched to their registered e-mail id. Selection Panel for the post of Medical Officer- 'SC' PDF - 302 KB Schedule of interviews PDF - 28 KB Forms Bio-data format PDF - 585 KB Declaration form PDF - 143 KB TA Form PDF - 116 KB Bilingual Advertisement PDF - 900 KB Direct link to the advertisement is: https://apps.ursc.gov.in/URSCBE-2026/advt.jsp (The online recruitment portal will be open from 23.03.2026 to 12.04.2026 )",
+      "documentSources": [
+        {
+          "url": "https://www.isro.gov.in/SACRecruitment21.html",
+          "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/SACRecruitment21.html",
+          "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/NRSCRecruitment2026_1.html",
+          "title": "Advt. No. NRSC/RMT/1/2026 Dated.01.08.2026 Recruitment to the post of Temporary Research Personnel (Research Scientist,Project Associate-I,Project Associate-II,Project Scientist-I,Project Scientist-B,Junior Research Fellow ) Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/NESACRecruitment23.html",
+          "title": "ADVT. NO.NESAC/RMT-TEMP/WI-02/2026 dated 17.07.2026 - Recruitment for the positions of Research Scientists, Junior Research Fellows and Project Associate - I Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
+          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/SDSCRecruitment25.html",
+          "title": "Advt. No. SDSC SHAR/RMT/02/2026 dated June 23, 2026 - Recruitment to the position of Research Associat (RA-I). Read More",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.isro.gov.in/URSCRecruitment2026_1.html",
+          "title": "Selection Panel for the post of Medical Officer- 'SC' against Advertisement No. URSC:01:2026 dated 21.03.2026. Read More",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 7,
+      "documentExtractedAt": "2026-09-15T13:59:41.943708+00:00",
+      "documentTables": [],
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00",
+      "publishedAt": "Fri, 11 Sep 2026 06:22:40 +0000"
     },
     {
       "title": "ISRO IPRC Recruitment 2026 – 22 Fireman, Technician & More Posts IndGovtjobs",
@@ -255,11 +354,11 @@
         "titleOverlap": 4,
         "sourceType": "official_notification_or_recruitment_document"
       },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
       "recordStatus": "draft",
       "fingerprint": "ffce6f538ada2e8b1ec8b97acaa37a238c35a0e86bb0c27cdad835ac6075124a",
-      "updatedAt": "2026-09-15T13:51:45.038015+00:00",
+      "updatedAt": "2026-09-15T13:58:29.983477+00:00",
       "updateType": "jobs",
       "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Technical Assistant, Technician ‘B’, Cook ‘A’, Fireman ‘A’ 22 Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Fresher Government jobs, ISRO IPRC Fireman, ISRO IPRC Recruitment 2026, ISRO Propulsion Complex Fireman, Latest ISRO IPRC Jobs, State Government Jobs, Technician and More Jobs 2026, Technician and More Recruitment 2026 MECL Recruitment 2026 – 122 Technician, Assistant and More Posts IndGovtjobs ESIC Recruitment 2026 – 25 Networking Engineer, Application Engineer & More Posts IndGovtjobs Search Search 🏛️",
       "ageRelaxation": "is applicαble as per the rules. A pplication",
@@ -313,288 +412,11 @@
         }
       ],
       "documentCount": 7,
-      "documentExtractedAt": "2026-09-15T13:52:58.182232+00:00",
+      "documentExtractedAt": "2026-09-15T13:59:42.197559+00:00",
       "documentTables": [],
       "discoveredAt": "2026-09-15T05:02:31.293051+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00",
       "publishedAt": "Mon, 14 Sep 2026 12:13:02 +0000"
-    },
-    {
-      "title": "ISRO Assistant, Junior Personal Assistant, UDC &amp; Stenographer Recruitment 2026",
-      "department": "of Space - 2025 Achievements of Department of Space - 2025 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 Announcement of Opportunity: Indian Microgravity Experiments – IMEx-2026 International conference on Celebrating Ten years of AstroSat International conference on Celebrating Ten years of AstroSat Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Inauguration of Management Development Programme for ISRO's Junior level & Middle level Scientist/Engineers at Centre for Organisational Development (COD), Hyderabad Call for Registration: ISRO START 2026 ",
-      "organization": "ISRO",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "result",
-      "vacancies": 244,
-      "qualification": "Criteria",
-      "ageLimit": "Maximum Age: 28 years (as on 16/08/2026)",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-08-16",
-      "examDate": null,
-      "notificationUrl": "https://sarkarinaukari.it.com/jobs/isro-assistant-junior-personal-assistant-udc-stenographer-recruitment-2026/",
-      "applyUrl": "",
-      "source": "Sarkari Naukari",
-      "dateEvidence": [
-        {
-          "raw": "16/08/2026",
-          "date": "2026-08-16"
-        }
-      ],
-      "jobId": "e76c73f3e50475aea5053eb5",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
-        "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
-        "matchScore": 0.921,
-        "titleOverlap": 4,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
-      "recordStatus": "draft",
-      "fingerprint": "3a0759fdff69546e02411b8ba9b34a803c15d1874ed2e26fc784cff353edadb0",
-      "updatedAt": "2026-09-15T13:51:45.146048+00:00",
-      "updateType": "result",
-      "vacancyDetails": "A total of 244 positions are open for recruitment. Post-wise classification and corresponding qualifications are highlighted below: Post Name Vacancies Educational Criteria Assistant 113 Bachelor's degree in any discipline with at least 60% aggregate marks or a CGPA of 6.32 out of 10 from a recognized board or university. Upper Division Clerk 22 Assistant (Autonomous Institutions) 17 Junior Personal Assistant 81 Graduation in any stream with a minimum of 60% marks (or 6.32/10 CGPA), coupled with a required English shorthand speed of 60 WPM and proficiency in using computer systems. Stenographer 10 Junior Personal Assistant (Autonomous Institutions) 01 Category-Wise Vacancy Breakup Designation UR OBC EWS SC ST Total Assistant 47 16 15 19 16 113 Junior Personal Assistant 50 11 07 08 05 81 Upper Division Clerk 08 05 03 04 02 22 Stenographer 08 01 00 00 01 10 Assistant (Autonomous Institutions) 09 04 01 01 02 17 Junior Personal Assistant (Autonomous Institutions) 01 00 00 00 00 01 Application Fee Structure & Refund Policy Applications are categorized as follows with unique fee refund opportunities after attending the exam: Single Post Selection: ₹500 Double Post Selection: ₹1000 Refund Policy: Candidates belonging to SC, ST, PH, and Female categories will receive a complete refund after attending the Computer Based Test (CBT). Candidates of other categories will receive a refund of ₹400 per post after a processing fee of ₹100 is deducted. Please Note: No refund is issued if a candidate fails to appear for the CBT. Guideline to Fill Out the Application Form Ensure you read throu",
-      "ageRelaxation": "extra as per ISRO ICRB norms.",
-      "fee": "Payment Aug 16, 2026 Computer Based Test (CBT) Date Sep 21, 2026 Job Description About ISRO Various Posts Recruitment 2026 The Indian Space Research Organisation (ISRO) Centralised Recruitment Board (ICRB) has announced recruitment for several administrative positions. The vacancies are available for the roles of Assistant, Junior Personal Assistant, Upper Division Clerk, and Stenographer across different ISRO centres and autonomous institutions. Eligible and interested candidates can",
-      "selectionProcess": "Computer Based Test (CBT) Skill Test / Stenography Speed Test (if applicable) Document Verification Quick Info",
-      "selection": "Computer Based Test (CBT) Skill Test / Stenography Speed Test (if applicable) Document Verification Quick Info",
-      "howToApply": "Notification PDF",
-      "documentsRequired": "in advance, including educational certificates, ID proofs, and standard signature and photo files. Carefully evaluate the preview page of the application before initiating final checkout to avoid spelling mistakes or factual errors. Process the",
-      "jobLocation": "बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1",
-      "documentText": "Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Recruitment to the post of Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers Home / Careers विज्ञापन संख्‍या / Advertisement Number ISRO:ICRB:01(A-JPA):2026 विज्ञापन दिनांक / Advertisement Date July 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online August 20, 2026 इसरो केंद्र / ISRO Centre केंद्रीकृत भर्ती (आई.सी.आर.बी.) / Centralised Recruitment (ICRB) कार्यक्षेत्र / Area of Work Assistants, Junior Personal Assistants, Upper Division Clerk and Stenographers स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Online link for downloading the admit card https://cdn.digialm.com/EForms/configuredHtml/1258/101396/login.html Due to huge response and shortage of nodes in the notified CBT centres, few candidates are allotted CBT venue in different city/cities in near by state from their choice of preference(s) Date of conducting CBT - 21st September, 2026 Annexures to be submitted by candidates belonging to PwBD category PWBD Scribe Annexure 1 PDF - 822 KB PWBD Scribe Annexure 2 PDF - 632 KB Corrigendum 2 dated 17.08.2026 PDF - 371 KB Corrigendum dated 11.08.2026 PDF - 834 KB Tentative date of Writtten Test/CBT - 21.09.2026 Previous year question papers Assistant PDF - 19 MB Junior Personal Assistants PDF - 17 MB Bilingual Advertisement PDF - 1.8 MB Frequently asked questions PDF - 124 KB Direct link to the advertisement is: https://cdn.digialm.com//EForms/configuredHtml/1258/101396//Index.html (The online recruitment portal will be open from 27.07.2026 to 16.08.2026 )\nRecruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Recruitment to the posts of Junior Research Fellows, Research Associate and Project Scientist-I Home / Careers विज्ञापन संख्‍या / Advertisement Number SAC:02:2026 विज्ञापन दिनांक / Advertisement Date Sept 10,2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online Sept 30,2026 इसरो केंद्र / ISRO Centre अंतरिक्ष उपयोग केंद्र (सैक) / Space Applications Centre (SAC) कार्यक्षेत्र / Area of Work Junior Research Fellows, Research Associate and Project Scientist-I स्थिति / Status: Open / खुला स्‍थान / Location: अहमदाबाद /Ahmedabad Remarks Bilingual Advertisement PDF - 1.22 MB Direct link to the advertisement is: https://careers.sac.gov.in (Online recruitment portal will be open from 1000 Hours on 10.09.2026 to 1700 hours of 30.09.2026)\nRecruitment to the posts of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' Recruitment to the posts of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' Home / Careers विज्ञापन संख्‍या / Advertisement Number LPSC/02/2026 विज्ञापन दिनांक / Advertisement Date August 15, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online September 04, 2026 इसरो केंद्र / ISRO Centre द्रव नोदन प्रणाली केंद्र (एल.पी.एस.सी.) / Liquid Propulsion Systems Centre (LPSC) कार्यक्षेत्र / Area of Work Technical Assistant Technician ‘B’ Draughtsman 'B' Fireman 'A' स्थिति / Status: Open / खुला स्‍थान / Location बेंगलूर / Bengaluru तिरुवनंतपुरम / Thiruvananthapuram Remarks Bilingual Advertisement PDF - 413 KB Visit www.lpsc.gov.in for submission of online application\nRecruitment to the post of Temporary Research Personnel Recruitment to the post of Temporary Research Personnel Home / Careers विज्ञापन संख्‍या / Advertisement Number NRSC-RMT-1-2026 विज्ञापन दिनांक / Advertisement Date August 01, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online: August 21, 2026 इसरो केंद्र / ISRO Centre राष्‍ट्रीय सुदूर संवेदन केंद्र (एन.आर.एस.सी.) / National Remote Sensing Centre (NRSC) कार्यक्षेत्र / Area of Work Temporary Research Personnel स्थिति / Status: Open / खुला स्‍थान / Location हैदराबाद / Hyderabad Remarks Bilingual Advertisement PDF - 572 KB Last date for submission of online application is 21.08.2026\nRecruitment to the posts of Research Scientist and Junior Research Fellow Recruitment to the posts of Research Scientist and Junior Research Fellow Home / Careers विज्ञापन संख्‍या / Advertisement Number NESAC/RMT-TEMP/WI-02/2026 विज्ञापन दिनांक / Advertisement Date July 17,2026 इसरो केंद्र / ISRO Centre उत्तर पूर्वी अंतरिक्ष उपयोग केंद्र/North Eastern Space Applications Centre (NESAC) कार्यक्षेत्र / Area of Work Research Scientists, Junior Research Fellows and Project Associate - I स्थिति / Status: Open / खुला स्‍थान / Location: मेघालय/Meghalaya Remarks Bilingual Advertisement PDF - 1.13 MB Bio-data format PDF - 664 KB\nRecruitment to the posts of Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' Recruitment to the posts of Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' Home / Careers विज्ञापन संख्‍या / Advertisement Number ISTRAC:02:2026 विज्ञापन दिनांक / Advertisement Date June 27, 2026 ऑनलाइन आवेदन जमा करने की अंतिम तिथि / Last Date for Submission of Applications online July 20, 2026 इसरो केंद्र / ISRO Centre इसरो दूरमिति अनुवर्तन और आदेश नेटवर्क (इस्‍ट्रैक) / ISRO Telemetry, Tracking and Command Network (ISTRAC) कार्यक्षेत्र / Area of Work Technician 'B', Draughtsman 'B', Technical Assistant, Scientific Assistant, Library Assistant 'A' and Cook 'A' स्थिति / Status: Open स्‍थान / Location: बेंगलूर / Bengaluru Remarks Date of Computer Based Test is 25 th September, 2026 Bilingual Advertisement PDF - 1.7 MB Direct link to the advertisement is: https://cdn.digialm.com/EForms/configuredHtml/1258/96897/Index.html (The online recruitment portal will be open from 27.06.2026 to 20.07.2026 )",
-      "documentSources": [
-        {
-          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
-          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/ICRB_Recruitment11.html",
-          "title": "Admit Card Download Link – CBT For Recruitment Of Assistants, Junior Personal Assistants, Upper Division Clerks & Stenographers (Advertisement No.: ISRO:ICRB:01(A-JPA):2026 dated 27-07-2026 & Corrigendum dated 11-08-2026) Scheduled to be Held on 21-09-2026. Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/SACRecruitment21.html",
-          "title": "Advt No. SAC:02:2026 dated 10.09.2026 - Inviting online applications for the posts of Junior Research Fellows, Research Associate and Project Scientist-I. Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/LPSCRecruitment13.html",
-          "title": "Advt No. LPSC/02/2026 dated 15.08.2026 Recruitment to the post of Technical Assistant, Technician 'B', Draughtsman 'B' and Fireman 'A' in LPSC. Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/NRSCRecruitment2026_1.html",
-          "title": "Advt. No. NRSC/RMT/1/2026 Dated.01.08.2026 Recruitment to the post of Temporary Research Personnel (Research Scientist,Project Associate-I,Project Associate-II,Project Scientist-I,Project Scientist-B,Junior Research Fellow ) Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/NESACRecruitment23.html",
-          "title": "ADVT. NO.NESAC/RMT-TEMP/WI-02/2026 dated 17.07.2026 - Recruitment for the positions of Research Scientists, Junior Research Fellows and Project Associate - I Read More",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.isro.gov.in/ISTRACRecruitment4.html",
-          "title": "Advt. No. ISTRAC:02:2026 dated 27.06.2026 - The Computer Based Test (CBT) is scheduled on 25.09.2026.",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 7,
-      "documentExtractedAt": "2026-09-15T13:52:58.592281+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "NFSU Recruitment 2026 – Assistant Professor, Research Fellow and More Posts IndGovtjobs",
-      "department": null,
-      "organization": "NFSU",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": 2026,
-      "qualification": "can go through the notification completely and",
-      "ageLimit": "Age Relaxation is applicαble as per the rules. A pplication",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-14",
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/nfsu-recruitment-2026/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [
-        {
-          "raw": "14/09/2026",
-          "date": "2026-09-14"
-        }
-      ],
-      "jobId": "1bb17810ed52784b0266ab1d",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://beta.nfsu.ac.in/Uploads/NFSU%20Notification.pdf",
-        "title": "Notification",
-        "matchScore": 0.636,
-        "titleOverlap": 2,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-15T11:36:13.516327+00:00",
-      "recordVersion": 3,
-      "recordStatus": "draft",
-      "fingerprint": "1c7d182ffa7d6bcf1a35d9feaa77fcef9b09a795d36b57f44b2053b12d208fbd",
-      "updatedAt": "2026-09-15T11:36:21.394470+00:00",
-      "updateType": "jobs",
-      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Associate Professor (RCI), Assistant Professor (RCI), Assistant Professor (Non-RCI), Assistant Professor (Forensic Psychology), Associate Professor (Criminal Law / Procedure Law), Research Fellow (Law & Criminology), Assistant Professor (Cyber Security and Business Analytics), Assistant Professor (Cyber Security), Assistant Professor (Digital Forensics) Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Assistant Professor (RCI) & More Careers, Assistant Professor (RCI) & More Jobs 2026, Assistant Professor (RCI) & Mor",
-      "ageRelaxation": "is applicαble as per the rules. A pplication",
-      "fee": "– NFSU Recruitment 2026 For General Aspirαnt: Rs.500/- For OBC-A&B Aspirαnt: Rs. 500/- For SC/ ST & PH: NIL",
-      "howToApply": ". National Forensic Sciences University Nαme of the Post: NFSU: Assistant Professor, Research Fellow and More Posts Post Dαte: 10-Sep-2026 Totαl Vacancy – Applιcation Mode Online NFSU Recruitment 2026 – Delhi Central Government Jobs Associate Professor (RCI), Assistant Professor (RCI), Assistant Professor (Non-RCI), Assistant Professor (Forensic Psychology), Associate Professor (Criminal Law / Procedure Law), Research Fellow (Law & Criminology), Assistant Professor (Cyber Security and Business Analytics), Assistant Professor (Cyber Security), Assistant Professor (Digital Forensics) Post",
-      "documentsRequired": "before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals",
-      "discoveredAt": "2026-09-15T05:02:31.293051+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00",
-      "publishedAt": "Mon, 14 Sep 2026 11:39:16 +0000"
-    },
-    {
-      "title": "UGC NET June Response Sheet 2026 Date Out, Answer Key PDF Download Link",
-      "department": "of Education Published on : 17/01/2023 UGC Notice regarding Options under Central Civil Services (Implementation of National Pension System) Rules 2021.",
-      "organization": "UGC",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "answer_key",
-      "updateType": "answer_key",
-      "vacancies": null,
-      "qualification": ",",
-      "ageLimit": null,
-      "applicationStartDate": "2026-09-15",
-      "applicationLastDate": "2026-09-15",
-      "examDate": null,
-      "notificationUrl": "https://testbook.com/news/web-stories/ugc-net-june-response-sheet-2026-date-out-answer-key-pdf-download-link/",
-      "applyUrl": "",
-      "source": "Testbook",
-      "dateEvidence": [
-        {
-          "raw": "15-09-2026",
-          "date": "2026-09-15"
-        }
-      ],
-      "jobId": "0a71a040f5d046c05348a2cd",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.ugc.gov.in/Tenders/Jobs",
-        "title": "Welcome to UGC, New Delhi, India",
-        "matchScore": 0.333,
-        "titleOverlap": 4,
-        "sourceType": "official_notification_or_recruitment_page"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
-      "recordStatus": "draft",
-      "fingerprint": "e350d643149423d8849fc72de942cfcbf4280e9f6d81b9a618ad01ac69ac78d3",
-      "updatedAt": "2026-09-15T13:51:51.599021+00:00",
-      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437104 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437114 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
-      "documentSources": [
-        {
-          "url": "https://www.ugc.gov.in/Tenders/Jobs",
-          "title": "Welcome to UGC, New Delhi, India",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.ugc.gov.in/Circulars",
-          "title": "UGC Circulars",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 2,
-      "documentExtractedAt": "2026-09-15T13:53:08.804198+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "UGC NET Syllabus",
-      "department": "of Education Published on : 17/01/2023 UGC Notice regarding Options under Central Civil Services (Implementation of National Pension System) Rules 2021.",
-      "organization": "UGC",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": null,
-      "vacancyDetails": null,
-      "qualification": ", JRF, or PhD admission, and it splits cleanly into two: Paper 1 for teaching and research skills, Paper 2 for your subject. Here's what's in both, how the exam itself is structured, and which topics are worth your time. Download UGC NET Exact Questions Appearing in the Real Exam PDF Crack UGC NET, SET & JRF with India’s Top Educators Get UGC NET/SET SuperCoaching @ just ₹35999 ₹7999 Your Total Savings ₹28000 Explore SuperCoaching Want to know more about this Super Coaching ? Download Brochure People also like Prev Next UGC NET/SET & Assistant Professor/Lectureship (Combo) ₹38999 (70% OFF) ₹11899 (Valid for 6 Months) Explore this Supercoaching CUET PG ₹13999 (59% OFF) ₹5833 (Valid Till June 2025 Exam) Explore this Supercoaching UGC NET/JRF Dec 2026 (Guaranteed Selection Program) ₹35999 (73% OFF) ₹9999 (Valid for 7 months) Explore this Supercoaching Download as PDF Share UGC NET Syllabus ",
-      "ageLimit": null,
-      "ageRelaxation": null,
-      "fee": "UGC NET SUBJECT TOPIC WEIGHTAGE UGC NET IMPORTANT QUESTIONS UGC NET JRF UGC NET CERTIFICATE VALIDITY UGC NET COACHING UGC NET TEST SERIES UGC NET SYLLABUS UGC NET PREVIOUS YEAR PAPERS UGC NET BOOKS UGC NET PREPARATION TIPS Latest Update UGC NET June 2026 Result UGC NET Final Answer Key 2026 UGC NET Cut off 2026 UGC NET COACHING UGC NET PAPER 1 COACHING UGC NET COMMERCE COACHING UGC NET COMPUTER SCIENCE COACHING UGC NET EDUCATION COACHING UGC NET ELECTRONIC SCIENCE COACHING UGC NET HISTORY COACHING UGC NET GEOGRAPHY COACHING UGC NET ECONOMICS COACHING UGC NET LAW COACHING UGC NET MANAGEMENT COACHING UGC NET PSYCHOLOGY COACHING UGC NET SOCIAL WORK COACHING UGC NET SOCIOLOGY COACHING UGC NET PREVIOUS PAPERS UGC NET ADULT EDUCATION PREVIOUS YEAR PAPERS UGC NET PHYSICAL EDUCATION PREVIOUS YEAR PAPERS UGC NET RESEARCH APTITUDE PREVIOUS YEAR PAPERS UGC NET POLITICAL SCIENCE PREVIOUS YEAR PAPERS",
-      "selectionProcess": null,
-      "selection": null,
-      "salary": null,
-      "payScale": null,
-      "howToApply": null,
-      "documentsRequired": null,
-      "jobLocation": null,
-      "applicationMode": null,
-      "applicationStartDate": "2026-09-15",
-      "applicationLastDate": "2026-09-15",
-      "examDate": null,
-      "notificationUrl": "https://testbook.com/ugc-net/syllabus",
-      "applyUrl": "",
-      "source": "Testbook",
-      "dateEvidence": [
-        {
-          "raw": "15-09-2026",
-          "date": "2026-09-15"
-        }
-      ],
-      "jobId": "613d145d9fee4080eecd328c",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.ugc.gov.in/Tenders/Jobs",
-        "title": "Welcome to UGC, New Delhi, India",
-        "matchScore": 0.667,
-        "titleOverlap": 2,
-        "sourceType": "official_notification_or_recruitment_page"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 5,
-      "recordStatus": "draft",
-      "fingerprint": "a70bebe217678fede92ca56208c921eef1808f40bfcb203e447b7e2c5e4f0e2d",
-      "updatedAt": "2026-09-15T13:51:51.804649+00:00",
-      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437115 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437117 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
-      "documentSources": [
-        {
-          "url": "https://www.ugc.gov.in/Tenders/Jobs",
-          "title": "Welcome to UGC, New Delhi, India",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.ugc.gov.in/Circulars",
-          "title": "UGC Circulars",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 2,
-      "documentExtractedAt": "2026-09-15T13:53:11.981012+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
     },
     {
       "title": "UGC NET Exam Date",
@@ -641,12 +463,12 @@
         "titleOverlap": 3,
         "sourceType": "official_notification_or_recruitment_page"
       },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 5,
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 6,
       "recordStatus": "draft",
       "fingerprint": "d05a31021c5a3032bc1ca7b2320e3fa5ce4be605e473412f7820d33abff15f80",
-      "updatedAt": "2026-09-15T13:51:51.868578+00:00",
-      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437119 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437121 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
+      "updatedAt": "2026-09-15T13:58:33.222489+00:00",
+      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437943 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437951 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
       "documentSources": [
         {
           "url": "https://www.ugc.gov.in/Tenders/Jobs",
@@ -662,10 +484,431 @@
         }
       ],
       "documentCount": 2,
-      "documentExtractedAt": "2026-09-15T13:53:14.816686+00:00",
+      "documentExtractedAt": "2026-09-15T13:59:49.501736+00:00",
       "documentTables": [],
       "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "UGC NET Syllabus",
+      "department": "of Education Published on : 17/01/2023 UGC Notice regarding Options under Central Civil Services (Implementation of National Pension System) Rules 2021.",
+      "organization": "UGC",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": null,
+      "vacancyDetails": null,
+      "qualification": ", JRF, or PhD admission, and it splits cleanly into two: Paper 1 for teaching and research skills, Paper 2 for your subject. Here's what's in both, how the exam itself is structured, and which topics are worth your time. Download UGC NET Exact Questions Appearing in the Real Exam PDF Crack UGC NET, SET & JRF with India’s Top Educators Get UGC NET/SET SuperCoaching @ just ₹35999 ₹7999 Your Total Savings ₹28000 Explore SuperCoaching Want to know more about this Super Coaching ? Download Brochure People also like Prev Next UGC NET/SET & Assistant Professor/Lectureship (Combo) ₹38999 (70% OFF) ₹11899 (Valid for 6 Months) Explore this Supercoaching CUET PG ₹13999 (59% OFF) ₹5833 (Valid Till June 2025 Exam) Explore this Supercoaching UGC NET/JRF Dec 2026 (Guaranteed Selection Program) ₹35999 (73% OFF) ₹9999 (Valid for 7 months) Explore this Supercoaching Download as PDF Share UGC NET Syllabus ",
+      "ageLimit": null,
+      "ageRelaxation": null,
+      "fee": "UGC NET SUBJECT TOPIC WEIGHTAGE UGC NET IMPORTANT QUESTIONS UGC NET JRF UGC NET CERTIFICATE VALIDITY UGC NET COACHING UGC NET TEST SERIES UGC NET SYLLABUS UGC NET PREVIOUS YEAR PAPERS UGC NET BOOKS UGC NET PREPARATION TIPS Latest Update UGC NET June 2026 Result UGC NET Final Answer Key 2026 UGC NET Cut off 2026 UGC NET COACHING UGC NET PAPER 1 COACHING UGC NET COMMERCE COACHING UGC NET COMPUTER SCIENCE COACHING UGC NET EDUCATION COACHING UGC NET ELECTRONIC SCIENCE COACHING UGC NET HISTORY COACHING UGC NET GEOGRAPHY COACHING UGC NET ECONOMICS COACHING UGC NET LAW COACHING UGC NET MANAGEMENT COACHING UGC NET PSYCHOLOGY COACHING UGC NET SOCIAL WORK COACHING UGC NET SOCIOLOGY COACHING UGC NET PREVIOUS PAPERS UGC NET ADULT EDUCATION PREVIOUS YEAR PAPERS UGC NET PHYSICAL EDUCATION PREVIOUS YEAR PAPERS UGC NET RESEARCH APTITUDE PREVIOUS YEAR PAPERS UGC NET POLITICAL SCIENCE PREVIOUS YEAR PAPERS",
+      "selectionProcess": null,
+      "selection": null,
+      "salary": null,
+      "payScale": null,
+      "howToApply": null,
+      "documentsRequired": null,
+      "jobLocation": null,
+      "applicationMode": null,
+      "applicationStartDate": "2026-09-15",
+      "applicationLastDate": "2026-09-15",
+      "examDate": null,
+      "notificationUrl": "https://testbook.com/ugc-net/syllabus",
+      "applyUrl": "",
+      "source": "Testbook",
+      "dateEvidence": [
+        {
+          "raw": "15-09-2026",
+          "date": "2026-09-15"
+        }
+      ],
+      "jobId": "613d145d9fee4080eecd328c",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.ugc.gov.in/Tenders/Jobs",
+        "title": "Welcome to UGC, New Delhi, India",
+        "matchScore": 0.667,
+        "titleOverlap": 2,
+        "sourceType": "official_notification_or_recruitment_page"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 6,
+      "recordStatus": "draft",
+      "fingerprint": "a70bebe217678fede92ca56208c921eef1808f40bfcb203e447b7e2c5e4f0e2d",
+      "updatedAt": "2026-09-15T13:58:33.498260+00:00",
+      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437958 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437960 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
+      "documentSources": [
+        {
+          "url": "https://www.ugc.gov.in/Tenders/Jobs",
+          "title": "Welcome to UGC, New Delhi, India",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.ugc.gov.in/Circulars",
+          "title": "UGC Circulars",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 2,
+      "documentExtractedAt": "2026-09-15T13:59:51.622532+00:00",
+      "documentTables": [],
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "UGC NET June Response Sheet 2026 Date Out, Answer Key PDF Download Link",
+      "department": "of Education Published on : 17/01/2023 UGC Notice regarding Options under Central Civil Services (Implementation of National Pension System) Rules 2021.",
+      "organization": "UGC",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "answer_key",
+      "updateType": "answer_key",
+      "vacancies": null,
+      "qualification": ",",
+      "ageLimit": null,
+      "applicationStartDate": "2026-09-15",
+      "applicationLastDate": "2026-09-15",
+      "examDate": null,
+      "notificationUrl": "https://testbook.com/news/web-stories/ugc-net-june-response-sheet-2026-date-out-answer-key-pdf-download-link/",
+      "applyUrl": "",
+      "source": "Testbook",
+      "dateEvidence": [
+        {
+          "raw": "15-09-2026",
+          "date": "2026-09-15"
+        }
+      ],
+      "jobId": "0a71a040f5d046c05348a2cd",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.ugc.gov.in/Tenders/Jobs",
+        "title": "Welcome to UGC, New Delhi, India",
+        "matchScore": 0.333,
+        "titleOverlap": 4,
+        "sourceType": "official_notification_or_recruitment_page"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
+      "recordStatus": "draft",
+      "fingerprint": "e350d643149423d8849fc72de942cfcbf4280e9f6d81b9a618ad01ac69ac78d3",
+      "updatedAt": "2026-09-15T13:58:33.563564+00:00",
+      "documentText": "Welcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Jobs Jobs University Grants Commission Jobs Apply Now Sr No Jobs Code Jobs Title Start Date Last date For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437961 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us\nWelcome to UGC, New Delhi, India Follow Us on Twitter Like Us on Facebook Follow Us on LinkedIn Follow Us on Instagram Subscribe on YouYube Follow Us on WhatsApp group Skip to main content Skip to Navigation Screen Reader Text Size: A - A A + Hindi Contact Us FAQs e-Procurement Tenders Jobs Toggle search Toggle navigation Home About Us Genesis Mandate UGC Act Logo UGC Organisational Chart UGC Bureaus UGC Offices Inter University Centres National Facilities Website Security Audit Certificate Organization Commission Commission Members Commission Decisions Administration Chairman Vice Chairman Secretary Financial Advisor Additional Secretaries Joint Secretaries Deputy Secretaries Education Officers Under Secretaries Former Chairpersons | Former Vice - Chairpersons | Former Secrataries Key Initiatives Guidelines Regulations HEIs Universities Central Universities State Universities Deemed to be Universities State Private Universities Fake Universities Colleges Colleges (12(B)/2(f)) Autonomous Colleges Institution Institutions of National Importance Institutions of Eminence HEIs Violating Regulations List of Fake Universities List of HEIs not Following Ph.D Regulations List of HEIs not appointed Ombudsperson List of Defaulter State (Private) Universities FHEI List e-Publications e-Books Annual Reports/ Annual Accounts UGC Newsletter --> Press Release Archives Publications Search HEI Home / Circulars Circulars University Grants Commission Sr No Title created For UGC Officials e-Office NIC mail RTI online PG portal Professional Councils State Higher Education Councils MoE AICTE National Testing Agency (NTA) Quick links Web portal for Fellowship/Scholarship Legacy Cases Rashtriya Uchchatar Shiksha Abhiyan University Activity Monitoring Portal Deemed to be University Portal DEB UGC NET Online UGC Regulations UGC Circulars Contact Us University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002. Phone: 011-23604446, 011-23604200 Email: contact.ugc@nic.in Total Visitors 255437964 Copyright © 2023 University Grants Commission New Delhi, India Website last updated on: 15-09-2026 Feedback | Webmaster |--> Disclaimer | Privacy Policy | Contact Us",
+      "documentSources": [
+        {
+          "url": "https://www.ugc.gov.in/Tenders/Jobs",
+          "title": "Welcome to UGC, New Delhi, India",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.ugc.gov.in/Circulars",
+          "title": "UGC Circulars",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 2,
+      "documentExtractedAt": "2026-09-15T13:59:53.164761+00:00",
+      "documentTables": [],
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "NFSU Recruitment 2026 – Assistant Professor, Research Fellow and More Posts IndGovtjobs",
+      "department": null,
+      "organization": "NFSU",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": 2026,
+      "qualification": "can go through the notification completely and",
+      "ageLimit": "Age Relaxation is applicαble as per the rules. A pplication",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-14",
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/nfsu-recruitment-2026/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [
+        {
+          "raw": "14/09/2026",
+          "date": "2026-09-14"
+        }
+      ],
+      "jobId": "1bb17810ed52784b0266ab1d",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://beta.nfsu.ac.in/Uploads/NFSU%20Notification.pdf",
+        "title": "Notification",
+        "matchScore": 0.636,
+        "titleOverlap": 2,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-15T11:36:13.516327+00:00",
+      "recordVersion": 3,
+      "recordStatus": "draft",
+      "fingerprint": "1c7d182ffa7d6bcf1a35d9feaa77fcef9b09a795d36b57f44b2053b12d208fbd",
+      "updatedAt": "2026-09-15T11:36:21.394470+00:00",
+      "updateType": "jobs",
+      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Associate Professor (RCI), Assistant Professor (RCI), Assistant Professor (Non-RCI), Assistant Professor (Forensic Psychology), Associate Professor (Criminal Law / Procedure Law), Research Fellow (Law & Criminology), Assistant Professor (Cyber Security and Business Analytics), Assistant Professor (Cyber Security), Assistant Professor (Digital Forensics) Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Assistant Professor (RCI) & More Careers, Assistant Professor (RCI) & More Jobs 2026, Assistant Professor (RCI) & Mor",
+      "ageRelaxation": "is applicαble as per the rules. A pplication",
+      "fee": "– NFSU Recruitment 2026 For General Aspirαnt: Rs.500/- For OBC-A&B Aspirαnt: Rs. 500/- For SC/ ST & PH: NIL",
+      "howToApply": ". National Forensic Sciences University Nαme of the Post: NFSU: Assistant Professor, Research Fellow and More Posts Post Dαte: 10-Sep-2026 Totαl Vacancy – Applιcation Mode Online NFSU Recruitment 2026 – Delhi Central Government Jobs Associate Professor (RCI), Assistant Professor (RCI), Assistant Professor (Non-RCI), Assistant Professor (Forensic Psychology), Associate Professor (Criminal Law / Procedure Law), Research Fellow (Law & Criminology), Assistant Professor (Cyber Security and Business Analytics), Assistant Professor (Cyber Security), Assistant Professor (Digital Forensics) Post",
+      "documentsRequired": "before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals",
+      "discoveredAt": "2026-09-15T05:02:31.293051+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00",
+      "publishedAt": "Mon, 14 Sep 2026 11:39:16 +0000"
+    },
+    {
+      "title": "Bihar Police CSBC Constable Operator Recruitment 2026",
+      "department": "Bihar Police Radio Organization (Telecommunication & Technical Non-Gazetted Cadre) Advertisement Number: 02/2026 Pay Scale: Level-3 ($₹21,700 - 69,100$) 2. Important Dates Applicants must adhere to the following timeline to ensure their candidature: Notification Release Date: February 23, 2026 Online Application Start Date: March 1, 2026 Online Application End Date: March 31, 2026 Last Date for Payment of Fee: March 31, 2026 Exam Date: To be notified soon 3. Application Fee and Mode of Payment All candidates are required to pay a uniform application fee as per the latest government resolution. All Categories (General/EBC/BC/EWS/SC/ST/Female): ₹100/- Additional Charges: Applicable bank proces",
+      "organization": "Bihar Police CSBC Constable Operator",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": 993,
+      "qualification": "Candidates must meet the following technical educational criteria: Intermediate (10+2) Science: Must have passed with Physics, Chemistry, and Mathematics (PCM). Minimum Marks: General/BC/EBC/EWS: Minimum 50% aggregate marks. SC/ST: Minimum 45% aggregate marks. 7. Physical Standard Test (PST) This stage is qualifying in nature. Failure to meet these standards results in immediate disqualification. Category Height (Min) Chest (Male Only) - Unexpanded Chest (Male Only) - Expanded UR / BC Male 165 cm 81 cm 86 cm EBC Male 160 cm 81 cm 86 cm SC / ST Male 160 cm 79 cm 84 cm All Women 155 cm N/A N/A Weight: All female candidates must weigh at least 48 kg. Chest Expansion: A minimum expansion of 5 cm is mandatory for males. Transgender: Standards for transgender candidates are the same as female candidates. 8. Physical Efficiency Test (PET) PET is mandatory and qualifying. No marks are awarded fo",
+      "ageLimit": "(As of 01.08.2021/2026) The age calculation is based on the Matriculation certificate. Note that there is a special 5-year relaxation in the",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-03-31",
+      "examDate": "2025-07-29",
+      "notificationUrl": "https://exampix.com/post/bihar-police-csbc-constable-operator-recruitment-2026",
+      "applyUrl": "",
+      "source": "Exampix",
+      "dateEvidence": [
+        {
+          "raw": "01/03/2026",
+          "date": "2026-03-01"
+        },
+        {
+          "raw": "31/03/2026",
+          "date": "2026-03-31"
+        }
+      ],
+      "jobId": "7b404e4e86ddd87747d1fccf",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://csbc.bihar.gov.in/Orders/Notification-2170-16-03-2017.pdf",
+        "title": "Notification 2170: Bihar Police Constable Recruitment Rules, 2017.",
+        "matchScore": 0.9,
+        "titleOverlap": 4,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
+      "recordStatus": "draft",
+      "fingerprint": "5a4bf4d5855366db8c98bb400379762fc9fabecc02a265a2a7bbc5dfcd04f957",
+      "updatedAt": "2026-09-15T13:58:36.069836+00:00",
+      "vacancyDetails": "& Category-wise Breakdown A total of 993 vacancies have been announced. Below is the detailed breakdown: Category Category Code Total Posts Female (35% Horizontal) Freedom Fighter Dependents Unreserved (UR) 01 408 143 20 EWS 07 99 35 - Scheduled Caste (SC) 02 157 55 - Scheduled Tribe (ST) 03 10 04 - Extremely Backward Class (EBC) 04 175 61 - Backward Class (BC) 05 113 40 - BC Women (BCW) 06 31 0 - Total 993 338 20 6. Educational Qualification Candidates must meet the following technical educational criteria: Intermediate (10+2) Science: Must have passed with Physics, Chemistry, and Mathematics (PCM). Minimum Marks: General/BC/EBC/EWS: Minimum 50% aggregate marks. SC/ST: Minimum 45% aggregate marks. 7. Physical Standard Test (PST) This stage is qualifying in nature. Failure to meet these standards results in immediate disqualification. Category Height (Min) Chest (Male Only) - Unexpanded Chest (Male Only) - Expanded UR / BC Male 165 cm 81 cm 86 cm EBC Male 160 cm 81 cm 86 cm SC / ST Male 160 cm 79 cm 84 cm All Women 155 cm N/A N/A Weight: All female candidates must weigh at least 48 kg. Chest Expansion: A minimum expansion of 5 cm is mandatory for males. Transgender: Standards for transgender candidates are the same as female candidates. 8. Physical Efficiency Test (PET) PET is mandatory and qualifying. No marks are awarded for this stage. I. Running (Race) Males (All Categories): 1.6 km (1 Mile) in maximum 6 minutes. Females (All Categories): 1 km in maximum 6 minutes. II. High Jump & Shot Put (3 chances each) Event Male Requirement Female Requirement High Jump 3 Feet 6 I",
+      "ageRelaxation": "Summary BC/EBC Male: Up to 27 years (+ special relaxation). BC/EBC Female: Up to 28 years (+ special relaxation). SC/ST/Transgender: Up to 30 years (+ special relaxation). Note: All categories receive an additional 5-year extension as a one-time measure. 13.",
+      "fee": "March 31, 2026",
+      "selectionProcess": "(Detailed) The",
+      "selection": "(Detailed) The",
+      "salary": "Level-3 ($₹21,700 - 69,100$) 2.",
+      "payScale": "Level-3 ($₹21,700 - 69,100$) 2.",
+      "howToApply": "Step-by-Step Registration: Visit https://csbc.bihar.gov.in. Payment: Pay the ₹100",
+      "documentsRequired": "for Document Verification and Physical Presence for Some Candidates. (Advt. No. 01/2025) 08-05-2026 Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police (Advt. No. 01/2026) 28-04-2026 Results: List of Successful Candidates in the Physical Efficiency Test (PET) and those Qualified for the Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police. (Advt. No. 02/2025) 27-04-2026 Important Notice: Regarding the Correction Letter Related to the Notice Published on 25-04-2026 for Advt.No.-01/2025 for the Post of Constable in Bihar Police. (Advt. No. 01/2025) 25-04-2026 Imp",
+      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "Bihar Police CSBC Driver Constable PET Admit Card 2026",
+      "department": null,
+      "organization": "Bihar Police CSBC Driver Constable PET",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": 4361,
+      "qualification": "of Appendix 103 in the Bihar Police Manual, 1978. 06-01-2012 Notification 0377: Amendments in Appendix 103 in the Bihar Police Manual, 1978. 11-08-2008 Notification 6843: Amendments in the Bihar Police Manual, 1978. Hosted by State Data Centre, Bihar, Patna.",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2025-08-20",
+      "examDate": "2025-12-10",
+      "notificationUrl": "https://exampix.com/post/bihar-police-csbc-driver-constable-pet-admit-card-2026",
+      "applyUrl": "",
+      "source": "Exampix",
+      "dateEvidence": [
+        {
+          "raw": "21/07/2025",
+          "date": "2025-07-21"
+        },
+        {
+          "raw": "20/08/2025",
+          "date": "2025-08-20"
+        },
+        {
+          "raw": "12 March 2026",
+          "date": "2026-03-12"
+        },
+        {
+          "raw": "10 December 2025",
+          "date": "2025-12-10"
+        }
+      ],
+      "jobId": "5f88eb6a34e439e243804a90",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://csbc.bihar.gov.in/Advt/Syllabus-Mobile-Squad-Constable.pdf",
+        "title": "",
+        "matchScore": 0.625,
+        "titleOverlap": 5,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
+      "recordStatus": "draft",
+      "fingerprint": "f3debec1af624d73e5be2352334a4588ecd11356793dd4e90474c92b4bae2ccb",
+      "updatedAt": "2026-09-15T13:58:36.475609+00:00",
+      "fee": "for all Examinations of Bihar govt. 26-02-2019 अधिसूचना 2622: बिहार पदों एवं सेवाओं की रिक्तियों तथा शैक्षणिक संस्थानों में नामांकन में (आर्थिक रूप से कमजोर वर्गों के लिए) आरक्षण नियमावली, 2019. 23-02-2019 अधिसूचना 1520: बिहार पदों एवं सेवाओं की रिक्तियों तथा शैक्षणिक संस्थानों में नामांकन में (आर्थिक रूप से कमजोर वर्गों के लिए) आरक्षण अधिनियम, 2019. 16-06-2017 Notification 5010: Amendments in Appendix 103 of Rule-663(a) of the Bihar Police Manual, 1978. 16-03-2017 Notification 2170: Bihar Police Constable Recruitment Rules, 2017. 20-09-2017 Notification 7655: Bihar Police Driver Cadre Rules, 2017. 29-02-2016 Notification 1591: Substitution made in Appendix 72 of Bihar Police Manual, 1978. 15-02-2016 पत्रांक 2342: बिहार राज्य की सभी सरकारी सेवाओं/संवर्गों के सभी स्तर के एवं सभी प्रकार के पदों पर सीधी नियुक्तियों में आरक्षित एवं गैर आरक्षित कोटि में महिलाओं के लिए प्रावधानित 35 प्रतिशत क्",
+      "selectionProcess": "for Driver Constable Unlike regular constables, the final merit list for Driver Constables is based primarily on the Driving Test performance. Written Exam: Qualifying nature (Minimum 30% marks). Physical Efficiency Test (PET): Qualifying nature (Must pass all events). Driving Test: 100 Marks (Determines final merit). Medical & DV: Final verification stage. 3. Physical Standards & PET Requirements Physical Standards (PST) Category Height (Min) Chest (Min) General / BC (Male) 165 cm 81 - 86 cm EBC / SC / ST (Male) 160 cm 79 - 84 cm All Categories (Female) 155 cm N/A PET Tasks (Qualifying Only) Race (Male): 1.6 km in 7 minutes. Race (Female): 1 km in 7 minutes. High Jump (Male): Min 3 Feet 6 Inches. High Jump (Female): Min 2 Feet 6 Inches. Long Jump (Male): Min 10 Feet. Long Jump (Female): Min 7 Feet. Shot Put (Male): 16 Pound ball to 14 Feet. Shot Put (Female): 12 Pound ball to 8 Feet. 4.",
+      "selection": "for Driver Constable Unlike regular constables, the final merit list for Driver Constables is based primarily on the Driving Test performance. Written Exam: Qualifying nature (Minimum 30% marks). Physical Efficiency Test (PET): Qualifying nature (Must pass all events). Driving Test: 100 Marks (Determines final merit). Medical & DV: Final verification stage. 3. Physical Standards & PET Requirements Physical Standards (PST) Category Height (Min) Chest (Min) General / BC (Male) 165 cm 81 - 86 cm EBC / SC / ST (Male) 160 cm 79 - 84 cm All Categories (Female) 155 cm N/A PET Tasks (Qualifying Only) Race (Male): 1.6 km in 7 minutes. Race (Female): 1 km in 7 minutes. High Jump (Male): Min 3 Feet 6 Inches. High Jump (Female): Min 2 Feet 6 Inches. Long Jump (Male): Min 10 Feet. Long Jump (Female): Min 7 Feet. Shot Put (Male): 16 Pound ball to 14 Feet. Shot Put (Female): 12 Pound ball to 8 Feet. 4.",
+      "howToApply": "for the Post of Constable (Operator) in Bihar Police. (Advt. No. 02/2026) 23-02-2026 Advt. No. 02/2026: For Selection to the Post of Constable (Operator) in Bihar Police. (Advt. No. 02/2026 ) 14-02-2026 Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police. (Advt. No. 02/2025) 03-02-2026 Important Notice: Apply Online for the Post of Constables (General Duty Close Cadre) in Special Branch of Bihar Police. (Advt. No. 01/2026) 30-01-2026 Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results and Related to Physical Efficiency Test (PET) for the Post of Constable in Bihar ",
+      "documentsRequired": "for the Venue Candidates must bring the original and two sets of photocopies of: PET Admit Card. Valid Driving License (DL): Issued at least one year before the notification date. Photo ID: Aadhaar Card or Voter ID. Educational Certificates: 10th and 12th Marksheets. Caste/Domicile Certificate: Issued by competent Bihar authorities. Vehicle License Verification: Printout from the DTO/Sarathi portal. Official Helpdesk: 0612-2233711 Website: csbc.bih.nic.in USEFUL",
+      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "NTA JEE Main Session-I Paper-II Result 2026",
+      "department": "of Higher Education संयुक्त प्रवेश परीक्षा (मुख्य) Joint Entrance Examination (Main) JEE(Main) Menu Toggle More Home About Us About NTA About NIC Information Syllabus Information Bulletin FAQ Question Papers B Tech 2nd Apr 2026 Shift 1 B Tech 2nd Apr 2026 Shift 2 B Tech 4th Apr 2026 Shift 1 B Tech 4th Apr 2026 Shift 2 B Tech 5th Apr 2026 Shift 1 B Tech 5th Apr 2026 Shift 2 B Tech 6th Apr 2026 Shift 1 B Tech 6th Apr 2026 Shift 2 B Tech 8th Apr 2026 Shift 2 Candidates’ Corner e-Services 2025 JEE(Main)-2025 Results for [Paper-1(B.E./B.Tech)] JEE(Main)-2025 Results for [Paper-2(B.Arch. /B.Planning)] e-Services 2023 e-Services 2022 Score Card of JEE(Main) 2022 Session-1 Paper 1 Score Card of JEE(",
+      "organization": "NTA",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": null,
+      "vacancyDetails": null,
+      "qualification": null,
+      "ageLimit": null,
+      "ageRelaxation": null,
+      "fee": null,
+      "selectionProcess": null,
+      "selection": null,
+      "salary": null,
+      "payScale": null,
+      "howToApply": ". Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This digital platform has been developed by NIC as per the requirements, rules and regulations of the concerned Public Examination Authorities (PEA). The data and processes are owned and managed by the concerned PEA.",
+      "documentsRequired": "for Joint Entrance Examination (Main) 2026 Correction in Particulars of the Online Application Form of Joint Entrance Examination (Main)-2026 Session 1 – Reg. Clarification on Use of Virtual Calculator in JEE (Main) 2026- Reg. Inviting Online Application Form for Joint Entrance Examination (Main) – 2026 Session 1- Reg. Advisory for JEE(Main) – 2026 Aspirants Advisory and Instructions on Updation of Aadhaar Card/ UDID Card/ Category Certificate (EWS/SC/ST/OBC-NCL) before Filling of Online Application Form for Joint Entrance Examination (Main) – 2026 – Reg. View All News & Events No post to display INTRODUCTION The Ministry of Education (MoE), Government of India (GoI) has established the Nati",
+      "jobLocation": null,
+      "applicationMode": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-02-24",
+      "examDate": null,
+      "notificationUrl": "https://exampix.com/post/nta-jee-main-session-i-result-2026",
+      "applyUrl": "",
+      "source": "Exampix",
+      "dateEvidence": [
+        {
+          "raw": "31 October 2025",
+          "date": "2025-10-31"
+        },
+        {
+          "raw": "27 November 2025",
+          "date": "2025-11-27"
+        },
+        {
+          "raw": "30 January 2026",
+          "date": "2026-01-30"
+        },
+        {
+          "raw": "24 february 2026",
+          "date": "2026-02-24"
+        }
+      ],
+      "jobId": "0f5879aef8fb6ea49bf2d651",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://examinationservices.nic.in/ResultoService26/JE26S1P1/Login",
+        "title": "JEE(Main) 2026 Session 1 - Score Card",
+        "matchScore": 1.0,
+        "titleOverlap": 6,
+        "sourceType": "official_notification_or_recruitment_page"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 6,
+      "recordStatus": "draft",
+      "fingerprint": "957ca325fb0d62421f1ddbddb0d6bed50859811d79dea7e8608982c065a8cc78",
+      "updatedAt": "2026-09-15T13:58:38.037777+00:00",
+      "documentText": "JEE(Main) 2026 Session 1 - Score Card JOINT ENTRANCE EXAMINATION (Main) – 2026 SESSION 1 (JANUARY 2026) NTA SCORE: Paper 1 (B.E./B Tech.) View Result Application Number : Password : Enter CAPTCHA (case sensitive) : CAPTCHA : Forgot Password ? This site is designed and hosted by NIC PEP Division. The contents are provided by NTA. For any further information, please contact NTA.\nJEE(Main) 2026 Session 1 Home Only Registered Candidate Login कृपया अपने खाते तक पहुंचने और आवेदन प्रक्रिया को पूरा करने के लिए नीचे अपना आवेदन नंबर और पासवर्ड दर्ज करें Please Enter Your Application No and Password To Access Your Account and Complete The Application Process. Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This digital platform has been developed by NIC as per the requirements, rules and regulations of the concerned Public Examination Authorities (PEA). The data and processes are owned and managed by the concerned PEA.",
+      "documentSources": [
+        {
+          "url": "https://examinationservices.nic.in/ResultoService26/JE26S1P1/Login",
+          "title": "JEE(Main) 2026 Session 1 - Score Card",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://examinationservices.nic.in/jeeMainx2026/Root/CandidateLogin.aspx?enc=Ei4cajBkK1gZSfgr53ImFVj34FesvYg1WX45sPjGXBqfcvMYv/FHq/Da9QEnq781",
+          "title": "Forgot Password ?",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 2,
+      "documentExtractedAt": "2026-09-15T14:00:09.447846+00:00",
+      "documentTables": [],
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
+    },
+    {
+      "title": "BPSSC Bihar Police SI Prohibition Final Result Marks 2026",
+      "department": "or the Vigilance department. 3. How to Check Individual Marks (Scorecard) BPSSC usually releases the detailed marks for all candidates (including those not selected) a few days after the final result. Navigate to the BPSSC website and click on the \"Marks\" or \"Notice\" section.",
+      "organization": "BPSSC Bihar Police SI Prohibition Final",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": 28,
+      "qualification": "Test for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 27/03/2025 Important Notice: Download Admit Card of Eligibility Test for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 20/03/2025 Important Notice: Important Instructions regarding Eligibility Test, E-Admit Card & Document Verification of Advt. No. - 01/2024 11/03/2025 Result: Result of Written Examination for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 07/02/2025 Important Notice: Download Admit Card of Written Examination for the post of Steno Assistant Sub-Inspector in H",
+      "ageLimit": "can now submit their application online between 7th-11th January, 2020. (Advt. No. 02/2019) महत्वपूर्ण सूचना: प्रवर्तन अवर निरीक्षक के पद हेतु अधिकतम उम्र सीमा में किए गए संशोधन से लाभान्वित अभ्यर्थियों द्वारा ऑनलाइन आवेदन 7-11 जनवरी, 2020 तक प्राप्त किए जाने के संबंध में. 19-12-2019 Notice: Correction made in the Centre Name belonging to a school at Ghosh Colony, Chapra. (Advt. 01/2019) सूचना: दिनांक 22.12.2019 को होने वाली संयुक्त प्रारम्भिक (लिखित) प्रतियोगिता परीक्षा के सारण (छपरा) जिला अंतर्गत एक परीक्षा केन्द्र के नाम में प्रवेश-पत्र पर मौजूद टंकण भूल के सुधार से संबंधित. 03-12-2019 Notice: Download Admit Card for the post of Police Sub Inspector/Sergeant/Assistant Superintendent Jail ",
+      "applicationStartDate": null,
+      "applicationLastDate": "2025-12-22",
+      "examDate": null,
+      "notificationUrl": "https://exampix.com/post/bpssc-bihar-police-si-prohibition-final-result-marks-2026",
+      "applyUrl": "",
+      "source": "Exampix",
+      "dateEvidence": [
+        {
+          "raw": "22 December 2025",
+          "date": "2025-12-22"
+        }
+      ],
+      "jobId": "0ad47fb677172bc2b78f531b",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://bpssc.bihar.gov.in/Advts/Syllabus-SI-Eq-Posts.pdf",
+        "title": "",
+        "matchScore": 0.429,
+        "titleOverlap": 3,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 7,
+      "recordStatus": "draft",
+      "fingerprint": "3f9f0e52a3b1a1cdd8f037cec004c833f04caea9fc36ac2c4dd0eaea2bc146f5",
+      "updatedAt": "2026-09-15T13:58:38.170247+00:00",
+      "selectionProcess": "involving Prelims, Mains, and the Physical Efficiency Test (PET). 1.",
+      "selection": "involving Prelims, Mains, and the Physical Efficiency Test (PET). 1.",
+      "howToApply": "for the Post of Police Sub-Inspector (General Closed Cadre) in Special Branch under Home (Police) Dept., Govt. of Bihar 06/07/2026 Link-Ref.:Advt. No.-04/2026: Download E-Admit Card of Preliminary Written Examination for the Post of Assistant Sub-Inspector (Operation) in Bihar Police Radio (Wireless), Govt. of Bihar 06/07/2026 Important Notice-Ref.:Advt. No.-04/2026: Centre List of Candidates according to Roll No. of Preliminary Written Examination for the Post of Assistant Sub-Inspector (Operation) in Bihar Police Radio (Wireless), Govt. of Bihar 03/07/2026 Advt. No.-09/2026: For Selection of Police Sub-Inspector (General Closed Cadre) in Special Branch under Home (Police) Dept., Govt. of B",
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     },
     {
       "title": "Print Employment News Subscription",
@@ -912,107 +1155,84 @@
           ]
         ]
       ],
-      "documentExtractedAt": "2026-09-15T13:53:49.868838+00:00",
+      "documentExtractedAt": "2026-09-15T14:00:49.869043+00:00",
       "discoveredAt": "2026-09-15T11:35:50.265165+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     },
     {
-      "title": "Empanelment as Translators and Proof Readers in the Employment News Headquarters for Employment News (English), Rozgar samachar (Hindi) and Rozgar samachar (Urdu) on casual assignment basis. ||",
-      "department": "of Information and Broadcasting, Government of India. It was launched in 1976 with a view to provide information on employment opportunities to the unemployed and under employed youth of the country. The journal is published in English(Employment News), Hindi (Rozgar Samachar) and Urdu (Rozgar Samachar). Read More... Related Sites",
-      "organization": "",
+      "title": "NTA CMAT Result 2026",
+      "department": "of Higher Education सामान्य प्रबंधन प्रवेश परीक्षा Common Management Admission Test (CMAT) Menu Toggle More Home About Us About NTA About NIC About CMAT Information Information Bulletin Eligibility Criteria e Services Registration for CMAT 2022 CMAT 2021:Admit Card CMAT 2021 : Score/Rank Card Display question paper and Answer Key Challenge 2021 Archive FAQ Contact Us Close LATEST NEWS Score Card for CMAT – 2026 is LIVE! Final Answer Keys for CMAT – 2026 Public Notices News & Events Public Notices NTA Declares the result/NTA Scores for the Common Management Admission Test (CMAT) 2026-reg. Final Answer Keys for CMAT – 2026 Display of Provisional Answer Keys and Question Papers with Recorded Re",
+      "organization": "NTA",
       "state": "",
       "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
+      "category": "admit_card",
+      "updateType": "admit_card",
       "vacancies": null,
-      "qualification": null,
+      "vacancyDetails": null,
+      "qualification": "Criteria e Services Registration for CMAT 2022 CMAT 2021:Admit Card CMAT 2021 : Score/Rank Card Display question paper and Answer Key Challenge 2021 Archive FAQ Contact Us Close LATEST NEWS Score Card for CMAT – 2026 is LIVE! Final Answer Keys for CMAT – 2026 Public Notices News & Events Public Notices NTA Declares the result/NTA Scores for the Common Management Admission Test (CMAT) 2026-reg. Final Answer Keys for CMAT – 2026 Display of Provisional Answer Keys and Question Papers with Recorded Responses for Answer Key Challenge of Common Management Admission Test (CMAT)-2026 -reg. Release of Admit Cards for the Candidates of Common Management Admission Test (CMAT) 2026-reg. Advance Intimati",
       "ageLimit": null,
+      "ageRelaxation": null,
+      "fee": null,
+      "selectionProcess": null,
+      "selection": null,
+      "salary": null,
+      "payScale": null,
+      "howToApply": ". Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This site is designed, developed and hosted by Public Examination Projects (PEP) Division, NIC and the contents are provided by NTA. For any further information, please contact NTA.",
+      "documentsRequired": null,
+      "jobLocation": null,
+      "applicationMode": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-09-12",
+      "applicationLastDate": "2026-01-25",
       "examDate": null,
-      "notificationUrl": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
+      "notificationUrl": "https://exampix.com/post/nta-cmat-result-2026",
       "applyUrl": "",
-      "source": "Employment News",
+      "source": "Exampix",
       "dateEvidence": [
         {
-          "raw": "12/09/2026",
-          "date": "2026-09-12"
+          "raw": "17 October 2025",
+          "date": "2025-10-17"
         },
         {
-          "raw": "11/10/2026",
-          "date": "2026-10-11"
-        },
-        {
-          "raw": "27/09/2026",
-          "date": "2026-09-27"
-        },
-        {
-          "raw": "15/09/2026",
-          "date": "2026-09-15"
-        },
-        {
-          "raw": "07/09/2026",
-          "date": "2026-09-07"
-        },
-        {
-          "raw": "24/09/2026",
-          "date": "2026-09-24"
-        },
-        {
-          "raw": "17/09/2026",
-          "date": "2026-09-17"
-        },
-        {
-          "raw": "31/08/2026",
-          "date": "2026-08-31"
-        },
-        {
-          "raw": "18/10/2026",
-          "date": "2026-10-18"
-        },
-        {
-          "raw": "30/10/2026",
-          "date": "2026-10-30"
-        },
-        {
-          "raw": "24/08/2026",
-          "date": "2026-08-24"
-        },
-        {
-          "raw": "11/09/2026",
-          "date": "2026-09-11"
-        },
-        {
-          "raw": "20/07/2026",
-          "date": "2026-07-20"
-        },
-        {
-          "raw": "02/09/2026",
-          "date": "2026-09-02"
-        },
-        {
-          "raw": "13/07/2026",
-          "date": "2026-07-13"
+          "raw": "25 January 2026",
+          "date": "2026-01-25"
         }
       ],
-      "jobId": "055ebd2662ccd683000136fd",
+      "jobId": "6483ded94e67f0fadc87100b",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://www.publicationsdivision.nic.in/assets/documents/casualtypistpanel.pdf",
-        "title": "Apply for casual typist empanelment ||",
+        "url": "https://cnr.nic.in/Results26/Score/Login?enc=KOTAW5q/gGNKxaEZgJ4wIwzfz3du1PgUp7hDhUSyKAc=",
+        "title": "Examination Services- 2026-27",
         "matchScore": 1.0,
-        "titleOverlap": 15,
-        "sourceType": "official_notification_or_recruitment_document"
+        "titleOverlap": 3,
+        "sourceType": "official_notification_or_recruitment_page"
       },
-      "lastSeenAt": "2026-09-15T11:36:13.516327+00:00",
-      "recordVersion": 2,
+      "lastSeenAt": "2026-09-15T13:58:27.425987+00:00",
+      "recordVersion": 6,
       "recordStatus": "draft",
-      "fingerprint": "fe9e5222025a172de93a5cf45331f41ab0f44465b62ab3194b0752b9cc22cc05",
-      "updatedAt": "2026-09-15T11:36:53.979654+00:00",
-      "discoveredAt": "2026-09-15T11:35:50.265165+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
+      "fingerprint": "a48b8fb55180f721cddc9d016a87aaeffb140c5765c27c1cb9a0f79d84d1f6eb",
+      "updatedAt": "2026-09-15T13:58:40.387491+00:00",
+      "documentText": "Examination Services- 2026-27 Common Management Admission Test (CMAT)-2026 NTA Score Card View Result Select Examination : --Select-- CMAT-2026 NCHM JEE 2026 Joint CSIR-UGC NET Dec-2025 SHRESHTA 2026 NTET-2026 Application Number : Password : Enter Security Pin (case sensitive) : Security Pin : Forgot Password? }\nCommon Management Admission Test CMAT 2026 Home Only Registered Candidate Login कृपया अपने खाते तक पहुंचने और आवेदन प्रक्रिया को पूरा करने के लिए नीचे अपना आवेदन नंबर और पासवर्ड दर्ज करें Please Enter Your Application No and Password To Access Your Account and Complete The Application Process. Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This site is designed, developed and hosted by Public Examination Projects (PEP) Division, NIC and the contents are provided by NTA. For any further information, please contact NTA.",
+      "documentSources": [
+        {
+          "url": "https://cnr.nic.in/Results26/Score/Login?enc=KOTAW5q/gGNKxaEZgJ4wIwzfz3du1PgUp7hDhUSyKAc=",
+          "title": "Examination Services- 2026-27",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://examinationservices.nic.in/examSys2026/Root/CandidateLogin.aspx?enc=Ei4cajBkK1gZSfgr53ImFU3Rihn/LCw46teQC5bcj4p4xovgNlTakiqik+puV5Y3",
+          "title": "Forgot Password?",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 2,
+      "documentExtractedAt": "2026-09-15T14:00:52.965600+00:00",
+      "documentTables": [],
+      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     },
     {
       "title": "e-Employment News Subscription",
@@ -1259,326 +1479,107 @@
           ]
         ]
       ],
-      "documentExtractedAt": "2026-09-15T13:54:29.750839+00:00",
+      "documentExtractedAt": "2026-09-15T14:01:28.573023+00:00",
       "discoveredAt": "2026-09-15T11:35:50.265165+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     },
     {
-      "title": "BPSSC Bihar Police SI Prohibition Final Result Marks 2026",
-      "department": "or the Vigilance department. 3. How to Check Individual Marks (Scorecard) BPSSC usually releases the detailed marks for all candidates (including those not selected) a few days after the final result. Navigate to the BPSSC website and click on the \"Marks\" or \"Notice\" section.",
-      "organization": "BPSSC Bihar Police SI Prohibition Final",
+      "title": "Empanelment as Translators and Proof Readers in the Employment News Headquarters for Employment News (English), Rozgar samachar (Hindi) and Rozgar samachar (Urdu) on casual assignment basis. ||",
+      "department": "of Information and Broadcasting, Government of India. It was launched in 1976 with a view to provide information on employment opportunities to the unemployed and under employed youth of the country. The journal is published in English(Employment News), Hindi (Rozgar Samachar) and Urdu (Rozgar Samachar). Read More... Related Sites",
+      "organization": "",
       "state": "",
       "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": 28,
-      "qualification": "Test for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 27/03/2025 Important Notice: Download Admit Card of Eligibility Test for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 20/03/2025 Important Notice: Important Instructions regarding Eligibility Test, E-Admit Card & Document Verification of Advt. No. - 01/2024 11/03/2025 Result: Result of Written Examination for the post of Steno Assistant Sub-Inspector in Home (Police) Dept., Govt. of Bihar (Advt. No. 01/2024) 07/02/2025 Important Notice: Download Admit Card of Written Examination for the post of Steno Assistant Sub-Inspector in H",
-      "ageLimit": "can now submit their application online between 7th-11th January, 2020. (Advt. No. 02/2019) महत्वपूर्ण सूचना: प्रवर्तन अवर निरीक्षक के पद हेतु अधिकतम उम्र सीमा में किए गए संशोधन से लाभान्वित अभ्यर्थियों द्वारा ऑनलाइन आवेदन 7-11 जनवरी, 2020 तक प्राप्त किए जाने के संबंध में. 19-12-2019 Notice: Correction made in the Centre Name belonging to a school at Ghosh Colony, Chapra. (Advt. 01/2019) सूचना: दिनांक 22.12.2019 को होने वाली संयुक्त प्रारम्भिक (लिखित) प्रतियोगिता परीक्षा के सारण (छपरा) जिला अंतर्गत एक परीक्षा केन्द्र के नाम में प्रवेश-पत्र पर मौजूद टंकण भूल के सुधार से संबंधित. 03-12-2019 Notice: Download Admit Card for the post of Police Sub Inspector/Sergeant/Assistant Superintendent Jail ",
-      "applicationStartDate": null,
-      "applicationLastDate": "2025-12-22",
-      "examDate": null,
-      "notificationUrl": "https://exampix.com/post/bpssc-bihar-police-si-prohibition-final-result-marks-2026",
-      "applyUrl": "",
-      "source": "Exampix",
-      "dateEvidence": [
-        {
-          "raw": "22 December 2025",
-          "date": "2025-12-22"
-        }
-      ],
-      "jobId": "0ad47fb677172bc2b78f531b",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://bpssc.bihar.gov.in/Advts/Syllabus-SI-Eq-Posts.pdf",
-        "title": "",
-        "matchScore": 0.429,
-        "titleOverlap": 3,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
-      "recordStatus": "draft",
-      "fingerprint": "3f9f0e52a3b1a1cdd8f037cec004c833f04caea9fc36ac2c4dd0eaea2bc146f5",
-      "updatedAt": "2026-09-15T13:52:22.253199+00:00",
-      "selectionProcess": "involving Prelims, Mains, and the Physical Efficiency Test (PET). 1.",
-      "selection": "involving Prelims, Mains, and the Physical Efficiency Test (PET). 1.",
-      "howToApply": "for the Post of Police Sub-Inspector (General Closed Cadre) in Special Branch under Home (Police) Dept., Govt. of Bihar 06/07/2026 Link-Ref.:Advt. No.-04/2026: Download E-Admit Card of Preliminary Written Examination for the Post of Assistant Sub-Inspector (Operation) in Bihar Police Radio (Wireless), Govt. of Bihar 06/07/2026 Important Notice-Ref.:Advt. No.-04/2026: Centre List of Candidates according to Roll No. of Preliminary Written Examination for the Post of Assistant Sub-Inspector (Operation) in Bihar Police Radio (Wireless), Govt. of Bihar 03/07/2026 Advt. No.-09/2026: For Selection of Police Sub-Inspector (General Closed Cadre) in Special Branch under Home (Police) Dept., Govt. of B",
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "Bihar Police CSBC Driver Constable PET Admit Card 2026",
-      "department": null,
-      "organization": "Bihar Police CSBC Driver Constable PET",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": 4361,
-      "qualification": "of Appendix 103 in the Bihar Police Manual, 1978. 06-01-2012 Notification 0377: Amendments in Appendix 103 in the Bihar Police Manual, 1978. 11-08-2008 Notification 6843: Amendments in the Bihar Police Manual, 1978. Hosted by State Data Centre, Bihar, Patna.",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2025-08-20",
-      "examDate": "2025-12-10",
-      "notificationUrl": "https://exampix.com/post/bihar-police-csbc-driver-constable-pet-admit-card-2026",
-      "applyUrl": "",
-      "source": "Exampix",
-      "dateEvidence": [
-        {
-          "raw": "21/07/2025",
-          "date": "2025-07-21"
-        },
-        {
-          "raw": "20/08/2025",
-          "date": "2025-08-20"
-        },
-        {
-          "raw": "12 March 2026",
-          "date": "2026-03-12"
-        },
-        {
-          "raw": "10 December 2025",
-          "date": "2025-12-10"
-        }
-      ],
-      "jobId": "5f88eb6a34e439e243804a90",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://csbc.bihar.gov.in/Advt/Syllabus-Mobile-Squad-Constable.pdf",
-        "title": "",
-        "matchScore": 0.625,
-        "titleOverlap": 5,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
-      "recordStatus": "draft",
-      "fingerprint": "f3debec1af624d73e5be2352334a4588ecd11356793dd4e90474c92b4bae2ccb",
-      "updatedAt": "2026-09-15T13:52:24.740267+00:00",
-      "fee": "for all Examinations of Bihar govt. 26-02-2019 अधिसूचना 2622: बिहार पदों एवं सेवाओं की रिक्तियों तथा शैक्षणिक संस्थानों में नामांकन में (आर्थिक रूप से कमजोर वर्गों के लिए) आरक्षण नियमावली, 2019. 23-02-2019 अधिसूचना 1520: बिहार पदों एवं सेवाओं की रिक्तियों तथा शैक्षणिक संस्थानों में नामांकन में (आर्थिक रूप से कमजोर वर्गों के लिए) आरक्षण अधिनियम, 2019. 16-06-2017 Notification 5010: Amendments in Appendix 103 of Rule-663(a) of the Bihar Police Manual, 1978. 16-03-2017 Notification 2170: Bihar Police Constable Recruitment Rules, 2017. 20-09-2017 Notification 7655: Bihar Police Driver Cadre Rules, 2017. 29-02-2016 Notification 1591: Substitution made in Appendix 72 of Bihar Police Manual, 1978. 15-02-2016 पत्रांक 2342: बिहार राज्य की सभी सरकारी सेवाओं/संवर्गों के सभी स्तर के एवं सभी प्रकार के पदों पर सीधी नियुक्तियों में आरक्षित एवं गैर आरक्षित कोटि में महिलाओं के लिए प्रावधानित 35 प्रतिशत क्",
-      "selectionProcess": "for Driver Constable Unlike regular constables, the final merit list for Driver Constables is based primarily on the Driving Test performance. Written Exam: Qualifying nature (Minimum 30% marks). Physical Efficiency Test (PET): Qualifying nature (Must pass all events). Driving Test: 100 Marks (Determines final merit). Medical & DV: Final verification stage. 3. Physical Standards & PET Requirements Physical Standards (PST) Category Height (Min) Chest (Min) General / BC (Male) 165 cm 81 - 86 cm EBC / SC / ST (Male) 160 cm 79 - 84 cm All Categories (Female) 155 cm N/A PET Tasks (Qualifying Only) Race (Male): 1.6 km in 7 minutes. Race (Female): 1 km in 7 minutes. High Jump (Male): Min 3 Feet 6 Inches. High Jump (Female): Min 2 Feet 6 Inches. Long Jump (Male): Min 10 Feet. Long Jump (Female): Min 7 Feet. Shot Put (Male): 16 Pound ball to 14 Feet. Shot Put (Female): 12 Pound ball to 8 Feet. 4.",
-      "selection": "for Driver Constable Unlike regular constables, the final merit list for Driver Constables is based primarily on the Driving Test performance. Written Exam: Qualifying nature (Minimum 30% marks). Physical Efficiency Test (PET): Qualifying nature (Must pass all events). Driving Test: 100 Marks (Determines final merit). Medical & DV: Final verification stage. 3. Physical Standards & PET Requirements Physical Standards (PST) Category Height (Min) Chest (Min) General / BC (Male) 165 cm 81 - 86 cm EBC / SC / ST (Male) 160 cm 79 - 84 cm All Categories (Female) 155 cm N/A PET Tasks (Qualifying Only) Race (Male): 1.6 km in 7 minutes. Race (Female): 1 km in 7 minutes. High Jump (Male): Min 3 Feet 6 Inches. High Jump (Female): Min 2 Feet 6 Inches. Long Jump (Male): Min 10 Feet. Long Jump (Female): Min 7 Feet. Shot Put (Male): 16 Pound ball to 14 Feet. Shot Put (Female): 12 Pound ball to 8 Feet. 4.",
-      "howToApply": "for the Post of Constable (Operator) in Bihar Police. (Advt. No. 02/2026) 23-02-2026 Advt. No. 02/2026: For Selection to the Post of Constable (Operator) in Bihar Police. (Advt. No. 02/2026 ) 14-02-2026 Important Notice: Download e-Admit-Card of Physical Efficiency Test (PET) for the Post of Driver Constable in Bihar Police. (Advt. No. 02/2025) 03-02-2026 Important Notice: Apply Online for the Post of Constables (General Duty Close Cadre) in Special Branch of Bihar Police. (Advt. No. 01/2026) 30-01-2026 Important Notice: Regarding Application Submitted by the Candidates after Publication of Written Exam Results and Related to Physical Efficiency Test (PET) for the Post of Constable in Bihar ",
-      "documentsRequired": "for the Venue Candidates must bring the original and two sets of photocopies of: PET Admit Card. Valid Driving License (DL): Issued at least one year before the notification date. Photo ID: Aadhaar Card or Voter ID. Educational Certificates: 10th and 12th Marksheets. Caste/Domicile Certificate: Issued by competent Bihar authorities. Vehicle License Verification: Printout from the DTO/Sarathi portal. Official Helpdesk: 0612-2233711 Website: csbc.bih.nic.in USEFUL",
-      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "Bihar Police CSBC Constable Operator Recruitment 2026",
-      "department": "Bihar Police Radio Organization (Telecommunication & Technical Non-Gazetted Cadre) Advertisement Number: 02/2026 Pay Scale: Level-3 ($₹21,700 - 69,100$) 2. Important Dates Applicants must adhere to the following timeline to ensure their candidature: Notification Release Date: February 23, 2026 Online Application Start Date: March 1, 2026 Online Application End Date: March 31, 2026 Last Date for Payment of Fee: March 31, 2026 Exam Date: To be notified soon 3. Application Fee and Mode of Payment All candidates are required to pay a uniform application fee as per the latest government resolution. All Categories (General/EBC/BC/EWS/SC/ST/Female): ₹100/- Additional Charges: Applicable bank proces",
-      "organization": "Bihar Police CSBC Constable Operator",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": 993,
-      "qualification": "Candidates must meet the following technical educational criteria: Intermediate (10+2) Science: Must have passed with Physics, Chemistry, and Mathematics (PCM). Minimum Marks: General/BC/EBC/EWS: Minimum 50% aggregate marks. SC/ST: Minimum 45% aggregate marks. 7. Physical Standard Test (PST) This stage is qualifying in nature. Failure to meet these standards results in immediate disqualification. Category Height (Min) Chest (Male Only) - Unexpanded Chest (Male Only) - Expanded UR / BC Male 165 cm 81 cm 86 cm EBC Male 160 cm 81 cm 86 cm SC / ST Male 160 cm 79 cm 84 cm All Women 155 cm N/A N/A Weight: All female candidates must weigh at least 48 kg. Chest Expansion: A minimum expansion of 5 cm is mandatory for males. Transgender: Standards for transgender candidates are the same as female candidates. 8. Physical Efficiency Test (PET) PET is mandatory and qualifying. No marks are awarded fo",
-      "ageLimit": "(As of 01.08.2021/2026) The age calculation is based on the Matriculation certificate. Note that there is a special 5-year relaxation in the",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-03-31",
-      "examDate": "2025-07-29",
-      "notificationUrl": "https://exampix.com/post/bihar-police-csbc-constable-operator-recruitment-2026",
-      "applyUrl": "",
-      "source": "Exampix",
-      "dateEvidence": [
-        {
-          "raw": "01/03/2026",
-          "date": "2026-03-01"
-        },
-        {
-          "raw": "31/03/2026",
-          "date": "2026-03-31"
-        }
-      ],
-      "jobId": "7b404e4e86ddd87747d1fccf",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://csbc.bihar.gov.in/Orders/Notification-2170-16-03-2017.pdf",
-        "title": "Notification 2170: Bihar Police Constable Recruitment Rules, 2017.",
-        "matchScore": 0.9,
-        "titleOverlap": 4,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 6,
-      "recordStatus": "draft",
-      "fingerprint": "5a4bf4d5855366db8c98bb400379762fc9fabecc02a265a2a7bbc5dfcd04f957",
-      "updatedAt": "2026-09-15T13:52:24.968342+00:00",
-      "vacancyDetails": "& Category-wise Breakdown A total of 993 vacancies have been announced. Below is the detailed breakdown: Category Category Code Total Posts Female (35% Horizontal) Freedom Fighter Dependents Unreserved (UR) 01 408 143 20 EWS 07 99 35 - Scheduled Caste (SC) 02 157 55 - Scheduled Tribe (ST) 03 10 04 - Extremely Backward Class (EBC) 04 175 61 - Backward Class (BC) 05 113 40 - BC Women (BCW) 06 31 0 - Total 993 338 20 6. Educational Qualification Candidates must meet the following technical educational criteria: Intermediate (10+2) Science: Must have passed with Physics, Chemistry, and Mathematics (PCM). Minimum Marks: General/BC/EBC/EWS: Minimum 50% aggregate marks. SC/ST: Minimum 45% aggregate marks. 7. Physical Standard Test (PST) This stage is qualifying in nature. Failure to meet these standards results in immediate disqualification. Category Height (Min) Chest (Male Only) - Unexpanded Chest (Male Only) - Expanded UR / BC Male 165 cm 81 cm 86 cm EBC Male 160 cm 81 cm 86 cm SC / ST Male 160 cm 79 cm 84 cm All Women 155 cm N/A N/A Weight: All female candidates must weigh at least 48 kg. Chest Expansion: A minimum expansion of 5 cm is mandatory for males. Transgender: Standards for transgender candidates are the same as female candidates. 8. Physical Efficiency Test (PET) PET is mandatory and qualifying. No marks are awarded for this stage. I. Running (Race) Males (All Categories): 1.6 km (1 Mile) in maximum 6 minutes. Females (All Categories): 1 km in maximum 6 minutes. II. High Jump & Shot Put (3 chances each) Event Male Requirement Female Requirement High Jump 3 Feet 6 I",
-      "ageRelaxation": "Summary BC/EBC Male: Up to 27 years (+ special relaxation). BC/EBC Female: Up to 28 years (+ special relaxation). SC/ST/Transgender: Up to 30 years (+ special relaxation). Note: All categories receive an additional 5-year extension as a one-time measure. 13.",
-      "fee": "March 31, 2026",
-      "selectionProcess": "(Detailed) The",
-      "selection": "(Detailed) The",
-      "salary": "Level-3 ($₹21,700 - 69,100$) 2.",
-      "payScale": "Level-3 ($₹21,700 - 69,100$) 2.",
-      "howToApply": "Step-by-Step Registration: Visit https://csbc.bihar.gov.in. Payment: Pay the ₹100",
-      "documentsRequired": "for Document Verification and Physical Presence for Some Candidates. (Advt. No. 01/2025) 08-05-2026 Important Notice: List of Invalid Applications with Reason of Rejection for the Post of Constable (General Duty Close Cadre) in Special Branch of Bihar Police (Advt. No. 01/2026) 28-04-2026 Results: List of Successful Candidates in the Physical Efficiency Test (PET) and those Qualified for the Driving Efficiency Test (DET) for the Post of Driver Constable in Bihar Police. (Advt. No. 02/2025) 27-04-2026 Important Notice: Regarding the Correction Letter Related to the Notice Published on 25-04-2026 for Advt.No.-01/2025 for the Post of Constable in Bihar Police. (Advt. No. 01/2025) 25-04-2026 Imp",
-      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "NTA JEE Main Session-I Paper-II Result 2026",
-      "department": "of Higher Education संयुक्त प्रवेश परीक्षा (मुख्य) Joint Entrance Examination (Main) JEE(Main) Menu Toggle More Home About Us About NTA About NIC Information Syllabus Information Bulletin FAQ Question Papers B Tech 2nd Apr 2026 Shift 1 B Tech 2nd Apr 2026 Shift 2 B Tech 4th Apr 2026 Shift 1 B Tech 4th Apr 2026 Shift 2 B Tech 5th Apr 2026 Shift 1 B Tech 5th Apr 2026 Shift 2 B Tech 6th Apr 2026 Shift 1 B Tech 6th Apr 2026 Shift 2 B Tech 8th Apr 2026 Shift 2 Candidates’ Corner e-Services 2025 JEE(Main)-2025 Results for [Paper-1(B.E./B.Tech)] JEE(Main)-2025 Results for [Paper-2(B.Arch. /B.Planning)] e-Services 2023 e-Services 2022 Score Card of JEE(Main) 2022 Session-1 Paper 1 Score Card of JEE(",
-      "organization": "NTA",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
+      "category": "jobs",
+      "updateType": "jobs",
       "vacancies": null,
-      "vacancyDetails": null,
       "qualification": null,
       "ageLimit": null,
-      "ageRelaxation": null,
-      "fee": null,
-      "selectionProcess": null,
-      "selection": null,
-      "salary": null,
-      "payScale": null,
-      "howToApply": ". Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This digital platform has been developed by NIC as per the requirements, rules and regulations of the concerned Public Examination Authorities (PEA). The data and processes are owned and managed by the concerned PEA.",
-      "documentsRequired": "for Joint Entrance Examination (Main) 2026 Correction in Particulars of the Online Application Form of Joint Entrance Examination (Main)-2026 Session 1 – Reg. Clarification on Use of Virtual Calculator in JEE (Main) 2026- Reg. Inviting Online Application Form for Joint Entrance Examination (Main) – 2026 Session 1- Reg. Advisory for JEE(Main) – 2026 Aspirants Advisory and Instructions on Updation of Aadhaar Card/ UDID Card/ Category Certificate (EWS/SC/ST/OBC-NCL) before Filling of Online Application Form for Joint Entrance Examination (Main) – 2026 – Reg. View All News & Events No post to display INTRODUCTION The Ministry of Education (MoE), Government of India (GoI) has established the Nati",
-      "jobLocation": null,
-      "applicationMode": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-02-24",
+      "applicationLastDate": "2026-09-12",
       "examDate": null,
-      "notificationUrl": "https://exampix.com/post/nta-jee-main-session-i-result-2026",
+      "notificationUrl": "https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All",
       "applyUrl": "",
-      "source": "Exampix",
+      "source": "Employment News",
       "dateEvidence": [
         {
-          "raw": "31 October 2025",
-          "date": "2025-10-31"
+          "raw": "12/09/2026",
+          "date": "2026-09-12"
         },
         {
-          "raw": "27 November 2025",
-          "date": "2025-11-27"
+          "raw": "11/10/2026",
+          "date": "2026-10-11"
         },
         {
-          "raw": "30 January 2026",
-          "date": "2026-01-30"
+          "raw": "27/09/2026",
+          "date": "2026-09-27"
         },
         {
-          "raw": "24 february 2026",
-          "date": "2026-02-24"
+          "raw": "15/09/2026",
+          "date": "2026-09-15"
+        },
+        {
+          "raw": "07/09/2026",
+          "date": "2026-09-07"
+        },
+        {
+          "raw": "24/09/2026",
+          "date": "2026-09-24"
+        },
+        {
+          "raw": "17/09/2026",
+          "date": "2026-09-17"
+        },
+        {
+          "raw": "31/08/2026",
+          "date": "2026-08-31"
+        },
+        {
+          "raw": "18/10/2026",
+          "date": "2026-10-18"
+        },
+        {
+          "raw": "30/10/2026",
+          "date": "2026-10-30"
+        },
+        {
+          "raw": "24/08/2026",
+          "date": "2026-08-24"
+        },
+        {
+          "raw": "11/09/2026",
+          "date": "2026-09-11"
+        },
+        {
+          "raw": "20/07/2026",
+          "date": "2026-07-20"
+        },
+        {
+          "raw": "02/09/2026",
+          "date": "2026-09-02"
+        },
+        {
+          "raw": "13/07/2026",
+          "date": "2026-07-13"
         }
       ],
-      "jobId": "0f5879aef8fb6ea49bf2d651",
+      "jobId": "055ebd2662ccd683000136fd",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://examinationservices.nic.in/ResultoService26/JE26S1P1/Login",
-        "title": "JEE(Main) 2026 Session 1 - Score Card",
+        "url": "https://www.publicationsdivision.nic.in/assets/documents/casualtypistpanel.pdf",
+        "title": "Apply for casual typist empanelment ||",
         "matchScore": 1.0,
-        "titleOverlap": 6,
-        "sourceType": "official_notification_or_recruitment_page"
+        "titleOverlap": 15,
+        "sourceType": "official_notification_or_recruitment_document"
       },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 5,
+      "lastSeenAt": "2026-09-15T11:36:13.516327+00:00",
+      "recordVersion": 2,
       "recordStatus": "draft",
-      "fingerprint": "957ca325fb0d62421f1ddbddb0d6bed50859811d79dea7e8608982c065a8cc78",
-      "updatedAt": "2026-09-15T13:52:27.349213+00:00",
-      "documentText": "JEE(Main) 2026 Session 1 - Score Card JOINT ENTRANCE EXAMINATION (Main) – 2026 SESSION 1 (JANUARY 2026) NTA SCORE: Paper 1 (B.E./B Tech.) View Result Application Number : Password : Enter CAPTCHA (case sensitive) : CAPTCHA : Forgot Password ? This site is designed and hosted by NIC PEP Division. The contents are provided by NTA. For any further information, please contact NTA.\nJEE(Main) 2026 Session 1 Home Only Registered Candidate Login कृपया अपने खाते तक पहुंचने और आवेदन प्रक्रिया को पूरा करने के लिए नीचे अपना आवेदन नंबर और पासवर्ड दर्ज करें Please Enter Your Application No and Password To Access Your Account and Complete The Application Process. Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This digital platform has been developed by NIC as per the requirements, rules and regulations of the concerned Public Examination Authorities (PEA). The data and processes are owned and managed by the concerned PEA.",
-      "documentSources": [
-        {
-          "url": "https://examinationservices.nic.in/ResultoService26/JE26S1P1/Login",
-          "title": "JEE(Main) 2026 Session 1 - Score Card",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://examinationservices.nic.in/jeeMainx2026/Root/CandidateLogin.aspx?enc=Ei4cajBkK1gZSfgr53ImFVj34FesvYg1WX45sPjGXBqfcvMYv/FHq/Da9QEnq781",
-          "title": "Forgot Password ?",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 2,
-      "documentExtractedAt": "2026-09-15T13:54:41.906995+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
-    },
-    {
-      "title": "NTA CMAT Result 2026",
-      "department": "of Higher Education सामान्य प्रबंधन प्रवेश परीक्षा Common Management Admission Test (CMAT) Menu Toggle More Home About Us About NTA About NIC About CMAT Information Information Bulletin Eligibility Criteria e Services Registration for CMAT 2022 CMAT 2021:Admit Card CMAT 2021 : Score/Rank Card Display question paper and Answer Key Challenge 2021 Archive FAQ Contact Us Close LATEST NEWS Score Card for CMAT – 2026 is LIVE! Final Answer Keys for CMAT – 2026 Public Notices News & Events Public Notices NTA Declares the result/NTA Scores for the Common Management Admission Test (CMAT) 2026-reg. Final Answer Keys for CMAT – 2026 Display of Provisional Answer Keys and Question Papers with Recorded Re",
-      "organization": "NTA",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": null,
-      "vacancyDetails": null,
-      "qualification": "Criteria e Services Registration for CMAT 2022 CMAT 2021:Admit Card CMAT 2021 : Score/Rank Card Display question paper and Answer Key Challenge 2021 Archive FAQ Contact Us Close LATEST NEWS Score Card for CMAT – 2026 is LIVE! Final Answer Keys for CMAT – 2026 Public Notices News & Events Public Notices NTA Declares the result/NTA Scores for the Common Management Admission Test (CMAT) 2026-reg. Final Answer Keys for CMAT – 2026 Display of Provisional Answer Keys and Question Papers with Recorded Responses for Answer Key Challenge of Common Management Admission Test (CMAT)-2026 -reg. Release of Admit Cards for the Candidates of Common Management Admission Test (CMAT) 2026-reg. Advance Intimati",
-      "ageLimit": null,
-      "ageRelaxation": null,
-      "fee": null,
-      "selectionProcess": null,
-      "selection": null,
-      "salary": null,
-      "payScale": null,
-      "howToApply": ". Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This site is designed, developed and hosted by Public Examination Projects (PEP) Division, NIC and the contents are provided by NTA. For any further information, please contact NTA.",
-      "documentsRequired": null,
-      "jobLocation": null,
-      "applicationMode": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-01-25",
-      "examDate": null,
-      "notificationUrl": "https://exampix.com/post/nta-cmat-result-2026",
-      "applyUrl": "",
-      "source": "Exampix",
-      "dateEvidence": [
-        {
-          "raw": "17 October 2025",
-          "date": "2025-10-17"
-        },
-        {
-          "raw": "25 January 2026",
-          "date": "2026-01-25"
-        }
-      ],
-      "jobId": "6483ded94e67f0fadc87100b",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://cnr.nic.in/Results26/Score/Login?enc=KOTAW5q/gGNKxaEZgJ4wIwzfz3du1PgUp7hDhUSyKAc=",
-        "title": "Examination Services- 2026-27",
-        "matchScore": 1.0,
-        "titleOverlap": 3,
-        "sourceType": "official_notification_or_recruitment_page"
-      },
-      "lastSeenAt": "2026-09-15T13:51:43.830157+00:00",
-      "recordVersion": 5,
-      "recordStatus": "draft",
-      "fingerprint": "a48b8fb55180f721cddc9d016a87aaeffb140c5765c27c1cb9a0f79d84d1f6eb",
-      "updatedAt": "2026-09-15T13:52:56.562007+00:00",
-      "documentText": "Examination Services- 2026-27 Common Management Admission Test (CMAT)-2026 NTA Score Card View Result Select Examination : --Select-- CMAT-2026 NCHM JEE 2026 Joint CSIR-UGC NET Dec-2025 SHRESHTA 2026 NTET-2026 Application Number : Password : Enter Security Pin (case sensitive) : Security Pin : Forgot Password? }\nCommon Management Admission Test CMAT 2026 Home Only Registered Candidate Login कृपया अपने खाते तक पहुंचने और आवेदन प्रक्रिया को पूरा करने के लिए नीचे अपना आवेदन नंबर और पासवर्ड दर्ज करें Please Enter Your Application No and Password To Access Your Account and Complete The Application Process. Application No Forgot Application No ? Password Forgot Password ? CAPTCHA as shown below (Case Sensitive) CAPTCHA Audio CAPTCHA Don't have an account? Register Download Information Bulletin Duplicate Login Detected It looks like you're already logged in on another device or browser. Would you like to log out from the previous session and continue here? Disclaimer: This site is designed, developed and hosted by Public Examination Projects (PEP) Division, NIC and the contents are provided by NTA. For any further information, please contact NTA.",
-      "documentSources": [
-        {
-          "url": "https://cnr.nic.in/Results26/Score/Login?enc=KOTAW5q/gGNKxaEZgJ4wIwzfz3du1PgUp7hDhUSyKAc=",
-          "title": "Examination Services- 2026-27",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://examinationservices.nic.in/examSys2026/Root/CandidateLogin.aspx?enc=Ei4cajBkK1gZSfgr53ImFU3Rihn/LCw46teQC5bcj4p4xovgNlTakiqik+puV5Y3",
-          "title": "Forgot Password?",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 2,
-      "documentExtractedAt": "2026-09-15T13:54:44.927541+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
-      "lastDiscoveredAt": "2026-09-15T13:51:09.074108+00:00"
+      "fingerprint": "fe9e5222025a172de93a5cf45331f41ab0f44465b62ab3194b0752b9cc22cc05",
+      "updatedAt": "2026-09-15T11:36:53.979654+00:00",
+      "discoveredAt": "2026-09-15T11:35:50.265165+00:00",
+      "lastDiscoveredAt": "2026-09-15T13:58:06.939379+00:00"
     }
   ]
 }

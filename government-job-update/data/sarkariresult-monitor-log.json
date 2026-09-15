@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-15T13:51:09.074108+00:00",
+  "checkedAt": "2026-09-15T13:58:06.939379+00:00",
   "status": "ok",
-  "new": 3,
-  "changed": 9,
-  "retained": 9,
+  "new": 0,
+  "changed": 8,
+  "retained": 23,
   "items": 409,
   "discoveryChannels": [
     "employmentnews",
@@ -21,7 +21,6 @@
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
-    "sarkariscan",
     "freejobalert"
   ],
   "sources": {
@@ -141,9 +140,9 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "ok",
-      "mode": "html",
-      "count": 14
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "freejobalert": {
       "name": "FreeJobAlert",
