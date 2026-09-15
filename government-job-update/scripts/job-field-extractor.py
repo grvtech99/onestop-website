@@ -20,6 +20,7 @@ FIELD_LABELS={
  'jobLocation':('job location','place of posting','posting location','location'),
  'applicationMode':('application mode','mode of application'),
 }
+SECTION_HEADINGS=('important dates','eligibility','eligibility criteria','vacancy details','post details','important links','selection process','salary','pay scale','how to apply','documents required','documents to upload','age relaxation','application fee','exam date','job location','application mode','educational qualification')
 CATEGORY_RULES=(
  ('admit_card',r'\b(admit card|e-admit|hall ticket|exam city|city intimation|call letter)\b'),
  ('result',r'\b(result|final result|score card|scorecard|marks)\b'),
@@ -60,11 +61,9 @@ def normalized_date(value):
         except ValueError: pass
     return None
 
-def _label_regex(labels):
-    return '(?:'+'|'.join(re.escape(x) for x in sorted(labels,key=len,reverse=True))+')'
+def _label_regex(labels): return '(?:'+'|'.join(re.escape(x) for x in sorted(set(labels),key=len,reverse=True))+')'
 
 def extract_section(text,labels,stop_labels=(),max_len=900):
-    """Extract a labelled value from flattened web text, stopping at the next known field heading."""
     text=clean(text)
     if not text:return None
     start_re=_label_regex(labels)
@@ -78,10 +77,12 @@ def extract_section(text,labels,stop_labels=(),max_len=900):
     if not value:return None
     return value[:max_len]
 
-def extract_after_label(text,labels,max_len=700):
-    all_labels=[]
-    for vals in FIELD_LABELS.values(): all_labels.extend(vals)
-    return extract_section(text,labels,all_labels,max_len)
+def _all_stop_labels(extra=()):
+    out=list(SECTION_HEADINGS)+list(extra)
+    for vals in FIELD_LABELS.values():out.extend(vals)
+    return out
+
+def extract_after_label(text,labels,max_len=700): return extract_section(text,labels,_all_stop_labels(),max_len)
 
 def extract_dates(text):
     found=[]
@@ -110,23 +111,19 @@ def extract_table_like(text,patterns,max_len=1600):
     return None
 
 def normalize_record(raw):
-    text=raw.get('text') or ''; title=clean(raw.get('title')); dates=extract_dates(text)
-    all_labels=[]
-    for vals in FIELD_LABELS.values(): all_labels.extend(vals)
-    last=extract_section(text,FIELD_LABELS['applicationLastDate'],all_labels)
-    start=extract_section(text,FIELD_LABELS['applicationStartDate'],all_labels)
-    exam=extract_section(text,FIELD_LABELS['examDate'],all_labels)
-    fee=clean(raw.get('fee')) or extract_section(text,FIELD_LABELS['fee'],all_labels)
-    age_relax=clean(raw.get('ageRelaxation')) or extract_section(text,FIELD_LABELS['ageRelaxation'],all_labels)
-    age=clean(raw.get('ageLimit')) or extract_section(text,FIELD_LABELS['ageLimit'],all_labels)
-    selection=clean(raw.get('selectionProcess') or raw.get('selection')) or extract_section(text,FIELD_LABELS['selectionProcess'],all_labels)
-    salary=clean(raw.get('salary') or raw.get('payScale')) or extract_section(text,FIELD_LABELS['salary'],all_labels)
-    how=clean(raw.get('howToApply')) or extract_section(text,FIELD_LABELS['howToApply'],all_labels)
-    docs=clean(raw.get('documentsRequired')) or extract_section(text,FIELD_LABELS['documentsRequired'],all_labels)
-    location=clean(raw.get('jobLocation')) or extract_section(text,FIELD_LABELS['jobLocation'],all_labels)
-    mode=clean(raw.get('applicationMode')) or extract_section(text,FIELD_LABELS['applicationMode'],all_labels)
-    qualification=clean(raw.get('qualification')) or extract_section(text,FIELD_LABELS['qualification'],all_labels)
-    department=clean(raw.get('department')) or extract_section(text,FIELD_LABELS['department'],all_labels)
+    text=raw.get('text') or ''; title=clean(raw.get('title')); dates=extract_dates(text); stops=_all_stop_labels()
+    last=extract_section(text,FIELD_LABELS['applicationLastDate'],stops); start=extract_section(text,FIELD_LABELS['applicationStartDate'],stops); exam=extract_section(text,FIELD_LABELS['examDate'],stops)
+    fee=clean(raw.get('fee')) or extract_section(text,FIELD_LABELS['fee'],stops)
+    age_relax=clean(raw.get('ageRelaxation')) or extract_section(text,FIELD_LABELS['ageRelaxation'],stops)
+    age=clean(raw.get('ageLimit')) or extract_section(text,FIELD_LABELS['ageLimit'],stops)
+    selection=clean(raw.get('selectionProcess') or raw.get('selection')) or extract_section(text,FIELD_LABELS['selectionProcess'],stops)
+    salary=clean(raw.get('salary') or raw.get('payScale')) or extract_section(text,FIELD_LABELS['salary'],stops)
+    how=clean(raw.get('howToApply')) or extract_section(text,FIELD_LABELS['howToApply'],stops)
+    docs=clean(raw.get('documentsRequired')) or extract_section(text,FIELD_LABELS['documentsRequired'],stops)
+    location=clean(raw.get('jobLocation')) or extract_section(text,FIELD_LABELS['jobLocation'],stops)
+    mode=clean(raw.get('applicationMode')) or extract_section(text,FIELD_LABELS['applicationMode'],stops)
+    qualification=clean(raw.get('qualification')) or extract_section(text,FIELD_LABELS['qualification'],stops)
+    department=clean(raw.get('department')) or extract_section(text,FIELD_LABELS['department'],stops)
     category=clean(raw.get('category')) or classify_update_type(title,text)
     vacancy_details=clean(raw.get('vacancyDetails')) or extract_table_like(text,[r'(?i)(?:vacancy|post)\s+(?:details|details\s+and\s+vacancies)\s*[:\-]?\s*(.{20,1600})'])
     record={'title':title or clean(raw.get('jobTitle')),'department':department,'organization':clean(raw.get('organization')),'state':clean(raw.get('state')),'jobType':clean(raw.get('jobType')) or 'Government Job','category':category,'updateType':classify_update_type(title,text),'vacancies':raw.get('vacancies') or extract_vacancies(text),'vacancyDetails':vacancy_details,'qualification':qualification,'ageLimit':age,'ageRelaxation':age_relax,'fee':fee,'selectionProcess':selection,'selection':selection,'salary':salary,'payScale':salary,'howToApply':how,'documentsRequired':docs,'jobLocation':location,'applicationMode':mode,'applicationStartDate':normalized_date(start) if start else None,'applicationLastDate':normalized_date(last) if last else None,'examDate':normalized_date(exam) if exam else None,'notificationUrl':clean(raw.get('notificationUrl')),'applyUrl':clean(raw.get('applyUrl')),'source':clean(raw.get('source')) or 'MultiSource'}
