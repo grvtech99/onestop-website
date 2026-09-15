@@ -62,7 +62,6 @@ jobs:
             document.head.appendChild(style);
           })();
           EOF
-          # The original cards are CSS mockups, so explicitly replace their five trending visuals with the rendered PNGs.
           sed -i 's#</body>#<script src="pro-thumbnails.js?v=pro20260915-v2"></script></body>#' free-csc-tools/index.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
