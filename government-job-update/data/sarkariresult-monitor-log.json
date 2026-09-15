@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-15T13:21:07.027668+00:00",
+  "checkedAt": "2026-09-15T13:51:09.074108+00:00",
   "status": "ok",
-  "new": 5,
-  "changed": 8,
-  "retained": 70,
-  "items": 406,
+  "new": 3,
+  "changed": 9,
+  "retained": 9,
+  "items": 409,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -14,8 +14,10 @@
     "sarkarinaukriblog",
     "indgovtjobs",
     "sarkariupdates",
+    "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
+    "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
@@ -45,13 +47,13 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 45
+      "count": 46
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 66
+      "count": 65
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -79,9 +81,9 @@
     },
     "exampix": {
       "name": "Exampix",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 56
     },
     "inrgovtjobs": {
       "name": "INR Govt Jobs",
@@ -97,9 +99,9 @@
     },
     "sarkari247": {
       "name": "Sarkari247",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 8
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",
