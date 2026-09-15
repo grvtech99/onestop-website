@@ -1,57 +1,123 @@
 {
   "schemaVersion": 3,
-  "generatedAt": "2026-09-15T07:55:42.586685+00:00",
+  "generatedAt": "2026-09-15T08:40:20.803417+00:00",
   "policy": "verified-only",
   "readyCount": 120,
-  "blockedCount": 279,
+  "blockedCount": 287,
   "categoryCounts": {
-    "jobs": 88,
-    "result": 11,
-    "admit_card": 18,
+    "jobs": 89,
+    "result": 10,
+    "admit_card": 16,
     "counselling": 1,
-    "answer_key": 2
+    "answer_key": 4
   },
   "items": [
     {
-      "title": "KEA Kalyana Karnataka Group C Recruitment 2026 - Apply Online for 210 Electrician, Water Supply Operator and More Posts",
+      "title": "ESIC Recruitment 2026 – 25 Networking Engineer, Application Engineer & More Posts IndGovtjobs",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
       "category": "jobs",
       "vacancies": null,
-      "qualification": null,
+      "qualification": "can go through the ... <a title=\"ESIC Recruitment 2026 &#8211; 25 Networking Engineer, Application Engineer &#38; More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/esic-recruitment-2026-3/\" aria-label=\"Read more about ESIC Recruitment 2026 &#8211; 25 Networking Engineer, Application Engineer &#38; More Posts IndGovtjobs\">Read more</a></p>",
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-09-30",
+      "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/kea-kalyana-karnataka-recruitment-2026-apply-online-for-210-electrician-water-supply-operator-and-more-posts-3067512",
+      "notificationUrl": "https://www.indgovtjobs.net/esic-recruitment-2026-3/",
       "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "16-09-2026",
-          "date": "2026-09-16"
-        },
-        {
-          "raw": "30-09-2026",
-          "date": "2026-09-30"
-        }
-      ],
-      "jobId": "a4f4c61bd6b275d8a42a9a54",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "d3eeb3d45c516aa21bb2b177",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://irdai.gov.in/list-of-black-listed-agents",
         "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.355
+        "matchScore": 0.231
       },
       "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "ef5c3bdf0ee06fce1ebd03deeef59d42c9b9b815d539755ef6265110b53f91ae",
-      "updatedAt": "2026-09-15T05:02:59.360876+00:00",
+      "fingerprint": "1f91bcd139ec423251c1131b0ca9f36a4a6c6b81b13baa18ccee4618b1208bf3",
+      "updatedAt": "2026-09-15T05:02:59.412090+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "Delhi High Court SPA & PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant & Personal Assistant Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-05",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/delhi-high-court-recruitment-2026-apply-online-for-150-senior-personal-assistant-and-personal-assistant-posts-3066385",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "15 September 2026",
+          "date": "2026-09-15"
+        },
+        {
+          "raw": "05 October 2026",
+          "date": "2026-10-05"
+        }
+      ],
+      "jobId": "9a5cc75c7406b2e24f2a43c9",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.557
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "5c7ba902d4eb47a8a6b9b6ea314ef4e83008429ac67f195f73fb60c1f080d478",
+      "updatedAt": "2026-09-15T07:40:24.879701+00:00"
+    },
+    {
+      "title": "NCRTC Recruitment 2026 – 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": "can go through the notification completely and apply online. National Capital Region Transport Corporation Nαme of ... <a title=\"NCRTC Recruitment 2026 &#8211; 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/ncrtc-recruitment-2026/\" aria-label=\"Read more about NCRTC Recruitment 2026 &#8211; 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/ncrtc-recruitment-2026/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "f31db1f822aa650aad61d4b1",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://exams.nta.ac.in/",
+        "title": "NTA Exam | India",
+        "matchScore": 0.422
+      },
+      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "62cafe64d65d0f723894f904eb2b7f3fdb87937bd8a8a3ddda8de6e30195b7a6",
+      "updatedAt": "2026-09-15T05:51:10.539296+00:00",
       "updateType": "jobs"
     },
     {
@@ -94,6 +160,579 @@
       "recordStatus": "draft",
       "fingerprint": "faf6515eccb870e62335e9fe96b21849ebaaca3b6b5d9a09a5b1eac53f74b280",
       "updatedAt": "2026-09-15T05:02:59.774045+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "APPSC Recruitment 2026 - Apply Online for 90 Hostel Welfare Officer, Assistant Social Welfare Officer / Assistant Tribal Welfare Officer Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-29",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-90-hostel-welfare-officer-assistant-social-welfare-officer-assistant-tribal-welfare-officer-posts-3067672",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "09-10-2026",
+          "date": "2026-10-09"
+        },
+        {
+          "raw": "29-10-2026",
+          "date": "2026-10-29"
+        }
+      ],
+      "jobId": "59538f81a54e0a8f75776fd8",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.428
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "b78ecaa61eab0d7380cfb4d2da4d012bdbe3fa0a9b920d21280d26be12d4a7d1",
+      "updatedAt": "2026-09-15T07:40:26.025418+00:00"
+    },
+    {
+      "title": "ISRO IPRC Recruitment 2026 – 22 Fireman, Technician & More Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": "can go through the notification completely and apply online. ISRO Propulsion ... <a title=\"ISRO IPRC Recruitment 2026 &#8211; 22 Fireman, Technician &#38; More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/isro-iprc-recruitment-2026/\" aria-label=\"Read more about ISRO IPRC Recruitment 2026 &#8211; 22 Fireman, Technician &#38; More Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/isro-iprc-recruitment-2026/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "fa6ea4a5c60b3b93b80ce446",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.isro.gov.in/",
+        "title": "Indian Space Research Organisation",
+        "matchScore": 0.756
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "7f065c9ddb3fad9063ae58e6328969fdfeaabe82a60a16ed81897f4397a6ffbd",
+      "updatedAt": "2026-09-15T05:02:59.514247+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "NFSU Recruitment 2026 – Assistant Professor, Research Fellow and More Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/nfsu-recruitment-2026/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "1bb17810ed52784b0266ab1d",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://nfsu.ac.in/",
+        "title": "National Forensic Sciences University | NFSU",
+        "matchScore": 0.655
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "92a7b8155206a77d240ebc984230d68b6e5bbfe5a35a510d83d696aead93962e",
+      "updatedAt": "2026-09-15T05:02:58.858473+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "MECL Recruitment 2026 – 122 Technician, Assistant and More Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": "can go through the notification completely and apply online. Mineral Exploration &#38; ... <a title=\"MECL Recruitment 2026 &#8211; 122 Technician, Assistant and More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/mecl-recruitment-2026-3/\" aria-label=\"Read more about MECL Recruitment 2026 &#8211; 122 Technician, Assistant and More Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/mecl-recruitment-2026-3/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "75236e54c06a06f53bad4e4e",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://exams.nta.ac.in/",
+        "title": "NTA Exam | India",
+        "matchScore": 0.4
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "732b979f57c8e7dac74d24158daf769b921f3736429a9ec32e91fb9b852ea5eb",
+      "updatedAt": "2026-09-15T05:02:59.415481+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": "can go ... <a title=\"ISRO SAC Recruitment 2026 &#8211; 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/\" aria-label=\"Read more about ISRO SAC Recruitment 2026 &#8211; 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "6bf65ae4d7f3e96886320f2b",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.isro.gov.in/",
+        "title": "Indian Space Research Organisation",
+        "matchScore": 0.867
+      },
+      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "5ed9310c4f6e4cf91c87677d0adc5dae8e2e95eb18fbf6734191ebc10bb4cfea",
+      "updatedAt": "2026-09-15T05:51:10.478790+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "UPSC Recruitment 2026 – 212 Specialist, Assistant Professor and More Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/upsc-recruitment-2026-11/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "10e6f9465076a3e8aa83dc6b",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.upsc.gov.in/",
+        "title": "Welcome to UPSC | UPSC",
+        "matchScore": 0.836
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "c4239eed5761c77d95266b76b537195695cfcb38b127e7921592fd5f9307024a",
+      "updatedAt": "2026-09-15T05:02:59.597465+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "RUHS MO Recruitment 2026 Notification Out - Apply Online for 600 Medical Officer Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-13",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/ruhs-medical-officer-recruitment-2026-apply-online-for-600-posts-3062973",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "13 October 2026",
+          "date": "2026-10-13"
+        }
+      ],
+      "jobId": "0a8ad4813a74783ea895a966",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.617
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "65a0e9eb60c64c4465623466696b999392c14958c795af5742973fc00513bbe6",
+      "updatedAt": "2026-09-15T05:02:59.533108+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "APPSC Recruitment 2026 - Apply Online for 255 Inspector, Assistant Statistical Officer and More Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-11-02",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-255-inspector-assistant-statistical-officer-and-more-posts-3067666",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "13-10-2026",
+          "date": "2026-10-13"
+        },
+        {
+          "raw": "02-11-2026",
+          "date": "2026-11-02"
+        }
+      ],
+      "jobId": "3713ddd44c0924aaf0252048",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://scholarships.gov.in/",
+        "title": "NSP : National Scholarship Portal",
+        "matchScore": 0.7
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "0608d4117808db3503d05c0323b8512162c784cf20b0767b9e55a4b90fae36c9",
+      "updatedAt": "2026-09-15T07:40:32.477713+00:00"
+    },
+    {
+      "title": "GBPUAT Assistant Professor Recruitment 2026 - Apply Offline for 63 Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-16",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/gbpuat-assistant-professor-recruitment-2026-apply-offline-for-63-posts-3067673",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "16-09-2026",
+          "date": "2026-09-16"
+        }
+      ],
+      "jobId": "ffbc368e28eb969601e82ecd",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.342
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "fb15e57464b19e164c5e9ebe72863103a081a1b858b530aa135c48de459f593a",
+      "updatedAt": "2026-09-15T07:40:34.959619+00:00"
+    },
+    {
+      "title": "APPSC Recruitment 2026 - Apply Online for 85 Horticulture Officer, AEE and Assistant Director Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": 85,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-27",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-85-horticulture-officer-aee-and-assistant-director-posts-3067668",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "6 October 2026",
+          "date": "2026-10-06"
+        },
+        {
+          "raw": "27 October 2026",
+          "date": "2026-10-27"
+        }
+      ],
+      "jobId": "264455dc9702e14cbd799658",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.582
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "735ee319666471e1d013e5b69d201638463ab8407168c5378a366b612c3c25d0",
+      "updatedAt": "2026-09-15T07:40:34.281911+00:00"
+    },
+    {
+      "title": "APPSC Recruitment 2026 Notification Out - Apply Online for 299 Forest Range Officer, Supervisor and More Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-11-05",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-299-forest-range-officer-supervisor-and-more-posts-3067665",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "16 October 2026",
+          "date": "2026-10-16"
+        },
+        {
+          "raw": "05 November 2026",
+          "date": "2026-11-05"
+        }
+      ],
+      "jobId": "95d963527fe2ce21aa8feebe",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.575
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "c9bdb12ba5f6a9bec7f028ffb0a66ccee9ca7b4fbb809ef1ba2ff7a90b2aca63",
+      "updatedAt": "2026-09-15T07:40:24.951611+00:00"
+    },
+    {
+      "title": "AIIMS Nagpur Project Technical Support I Recruitment 2026 - Apply Online",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-27",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/aiims-nagpur-project-technical-support-i-recruitment-2026-apply-online-3067595",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "27 September 2026",
+          "date": "2026-09-27"
+        }
+      ],
+      "jobId": "2462be6b03a928b26357feeb",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.342
+      },
+      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "0e6f81029e5e81ce3d7f925f53e4a28eebaf9c62fe1f8fa9fd9893eff7731df2",
+      "updatedAt": "2026-09-15T05:51:11.149734+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "Sainik School Bijapur Recruitment 2026 Notification Out - Apply Offline for 17 PGT, TGT, Nursing Assistant and More Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-27",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/sainik-school-bijapur-recruitment-2026-apply-offline-for-17-pgt-tgt-nursing-assistant-and-more-posts-3067596",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "07-09-2026",
+          "date": "2026-09-07"
+        },
+        {
+          "raw": "27-09-2026",
+          "date": "2026-09-27"
+        }
+      ],
+      "jobId": "0b6458c3da96bc52780dd576",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.355
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "59764421635d121e2ec3fb43473e61eebb54e9a216723ab39488c680733a4b0e",
+      "updatedAt": "2026-09-15T05:02:59.552914+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "ISRO IPRC Recruitment 2026 Notification Out - Apply Online for 22 Fireman, Technician & More Posts",
+      "department": "of Space), has invited online applications for 22 posts of Technical Assistant, Technician ‘B’, Cook ‘A’ and Fireman ‘A’. Applications can be submitted at iprc.gov.in from 15 September 2026 to 5 October 2026.",
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": 22,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-05",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/isro-iprc-recruitment-2026-apply-online-for-22-technical-assistant-technician-and-skilled-posts-3067463",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "15 September 2026",
+          "date": "2026-09-15"
+        },
+        {
+          "raw": "5 October 2026",
+          "date": "2026-10-05"
+        }
+      ],
+      "jobId": "47711b108ed4ecde1c5e1076",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.isro.gov.in/",
+        "title": "Indian Space Research Organisation",
+        "matchScore": 0.662
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "519ab75868f05cb82c74fddd4969398e05809fc14bba5fa5a4672a80db80eb4b",
+      "updatedAt": "2026-09-15T05:02:59.847019+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "KEA Kalyana Karnataka Group C Recruitment 2026 - Apply Online for 210 Electrician, Water Supply Operator and More Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-30",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/kea-kalyana-karnataka-recruitment-2026-apply-online-for-210-electrician-water-supply-operator-and-more-posts-3067512",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "16-09-2026",
+          "date": "2026-09-16"
+        },
+        {
+          "raw": "30-09-2026",
+          "date": "2026-09-30"
+        }
+      ],
+      "jobId": "a4f4c61bd6b275d8a42a9a54",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.355
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "ef5c3bdf0ee06fce1ebd03deeef59d42c9b9b815d539755ef6265110b53f91ae",
+      "updatedAt": "2026-09-15T05:02:59.360876+00:00",
       "updateType": "jobs"
     },
     {
@@ -168,40 +807,7 @@
       "updateType": "jobs"
     },
     {
-      "title": "SSC Recruitment 2026 – 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely ... <a title=\"SSC Recruitment 2026 &#8211; 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/ssc-recruitment-2026-10/\" aria-label=\"Read more about SSC Recruitment 2026 &#8211; 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/ssc-recruitment-2026-10/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "9a6b5208286b680dbcd9635a",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://scholarships.gov.in/",
-        "title": "NSP : National Scholarship Portal",
-        "matchScore": 0.367
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "0e3a9b8e11e338193cea9b3ef32a5e8fdb8af3bc912dccfcdec9e1f9f76b1f21",
-      "updatedAt": "2026-09-15T05:51:10.393911+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "AIIMS Nagpur Project Technical Support I Recruitment 2026 - Apply Online",
+      "title": "UKSSSC PA and Steno Recruitment 2026 - Apply Online for 101 Personal Assistant & Stenographer Posts",
       "department": null,
       "organization": "",
       "state": "",
@@ -211,31 +817,35 @@
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-09-27",
+      "applicationLastDate": "2026-10-14",
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/aiims-nagpur-project-technical-support-i-recruitment-2026-apply-online-3067595",
+      "notificationUrl": "https://www.freejobalert.com/articles/uksssc-pa-and-steno-recruitment-2026-apply-online-for-101-personal-assistant-and-stenographer-posts-3066867",
       "applyUrl": "",
       "source": "FreeJobAlert",
       "dateEvidence": [
         {
-          "raw": "27 September 2026",
-          "date": "2026-09-27"
+          "raw": "14 September 2026",
+          "date": "2026-09-14"
+        },
+        {
+          "raw": "14 October 2026",
+          "date": "2026-10-14"
         }
       ],
-      "jobId": "2462be6b03a928b26357feeb",
+      "jobId": "7b4fbcbe8ee9bda8f0d05fd3",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://irdai.gov.in/list-of-black-listed-agents",
         "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.342
+        "matchScore": 0.585
       },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "0e6f81029e5e81ce3d7f925f53e4a28eebaf9c62fe1f8fa9fd9893eff7731df2",
-      "updatedAt": "2026-09-15T05:51:11.149734+00:00",
+      "fingerprint": "149cf53fdb814f2f676463224df4acb7a56a7b66335fe92599fe5ce37a68009a",
+      "updatedAt": "2026-09-15T05:02:59.777443+00:00",
       "updateType": "jobs"
     },
     {
@@ -281,83 +891,102 @@
       "updateType": "result"
     },
     {
-      "title": "VAMNICOM Recruitment 2026 - Apply Online for Professor, Assistant Professor And More Posts",
+      "title": "GAIL Recruitment 2026 – Executive Trainee Posts IndGovtjobs",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
       "category": "jobs",
       "vacancies": null,
-      "qualification": null,
-      "ageLimit": "ment (VAMNICOM) has released the Recruitment 2026 notification for 9 vacancies, including Professor, Associate Professor, and Assistant Professor posts. The online application process will be conducted up to 11 October 2026. Interested candidates can apply online through the official website.",
+      "qualification": "can go through the notification completely and apply online. GAIL (India) Limited Nαme of the Post: GAIL : ... <a title=\"GAIL Recruitment 2026 &#8211; Executive Trainee Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/gail-recruitment-2026-3/\" aria-label=\"Read more about GAIL Recruitment 2026 &#8211; Executive Trainee Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-10-11",
+      "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/vamnicom-recruitment-2026-apply-online-for-professor-assistant-professor-and-more-posts-3067565",
+      "notificationUrl": "https://www.indgovtjobs.net/gail-recruitment-2026-3/",
       "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "11 October 2026",
-          "date": "2026-10-11"
-        }
-      ],
-      "jobId": "f8e200143f9d45da10810635",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "9f64c6f5c4b93ae475eb080e",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.484
+        "url": "https://exams.nta.ac.in/",
+        "title": "NTA Exam | India",
+        "matchScore": 0.343
       },
       "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "bcfb6ff6b91e7290ea8a0d223ac8a290a81255d248b7dceb71763ce37d905a00",
-      "updatedAt": "2026-09-15T05:02:59.677107+00:00",
+      "fingerprint": "b47c0415e7a1aed83eba8143c99d611b0ea4a9b644d87947ee75678aceca9a24",
+      "updatedAt": "2026-09-15T05:02:58.946715+00:00",
       "updateType": "jobs"
     },
     {
-      "title": "Mysore City Corporation UGD Helper Recruitment 2026 Notification Out - Apply Offline for 116 Posts",
+      "title": "RCF Ltd Recruitment 2026 – 10 Assistant Officer (Secretarial) Posts IndGovtjobs",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
       "category": "jobs",
       "vacancies": null,
-      "qualification": null,
+      "qualification": "can go through the notification completely and apply online. Rashtriya Chemicals and Fertilizers Limited Nαme ... <a title=\"RCF Ltd Recruitment 2026 &#8211; 10 Assistant Officer (Secretarial) Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/rcf-ltd-recruitment-2026-2/\" aria-label=\"Read more about RCF Ltd Recruitment 2026 &#8211; 10 Assistant Officer (Secretarial) Posts IndGovtjobs\">Read more</a></p>",
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-10-09",
+      "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/mysore-city-corporation-ugd-helper-recruitment-2026-apply-offline-for-116-posts-3067616",
+      "notificationUrl": "https://www.indgovtjobs.net/rcf-ltd-recruitment-2026-2/",
       "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "10-09-2026",
-          "date": "2026-09-10"
-        },
-        {
-          "raw": "09-10-2026",
-          "date": "2026-10-09"
-        }
-      ],
-      "jobId": "6f3fbb1f39a1c0fa018d9c01",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "78565e5e50defec008b1ae48",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.334
+        "url": "https://eprocure.gov.in/eprocure/app?page=FrontEndLatestActiveTendersOrgwise&service=page&org=Rashtriya%20Chemicals%20and%20Fertilizers%20Ltd",
+        "title": "eProcurement System Government of India",
+        "matchScore": 0.111
       },
       "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "5a63120c9010a9a1ed593a40d0d2bc3ec61124b6cffb11decfaae8818fe7be34",
-      "updatedAt": "2026-09-15T05:02:59.964305+00:00",
+      "fingerprint": "624ce256afabf56a01020d7e08323a9a4b2de3252a575bd5ce6b06a9f676422b",
+      "updatedAt": "2026-09-15T05:02:59.510666+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "SSC Recruitment 2026 – 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": "can go through the notification completely ... <a title=\"SSC Recruitment 2026 &#8211; 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/ssc-recruitment-2026-10/\" aria-label=\"Read more about SSC Recruitment 2026 &#8211; 1,871 Sub-Inspector in Delhi Police and CAPFs Posts IndGovtjobs\">Read more</a></p>",
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.indgovtjobs.net/ssc-recruitment-2026-10/",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [],
+      "jobId": "9a6b5208286b680dbcd9635a",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://scholarships.gov.in/",
+        "title": "NSP : National Scholarship Portal",
+        "matchScore": 0.367
+      },
+      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "0e3a9b8e11e338193cea9b3ef32a5e8fdb8af3bc912dccfcdec9e1f9f76b1f21",
+      "updatedAt": "2026-09-15T05:51:10.393911+00:00",
       "updateType": "jobs"
     },
     {
@@ -403,199 +1032,6 @@
       "updateType": "jobs"
     },
     {
-      "title": "APS Lalgarh Jattan Recruitment 2026 - Apply Offline for TGT, PET, Health & Wellness Teacher Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-20",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/aps-lalgarh-jattan-recruitment-2026-apply-offline-for-tgt-pet-health-wellness-teacher-posts-3067588",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "20 Sep 2026",
-          "date": "2026-09-20"
-        }
-      ],
-      "jobId": "ac0fdb2d13504e5d76d4b11b",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.414
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "a67401c9c6a9c22357ad9a6271dc6cfb232b7ebba0c15b905262bd2cb19b89d7",
-      "updatedAt": "2026-09-15T05:02:59.984195+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "ISRO IPRC Recruitment 2026 Notification Out - Apply Online for 22 Fireman, Technician & More Posts",
-      "department": "of Space), has invited online applications for 22 posts of Technical Assistant, Technician ‘B’, Cook ‘A’ and Fireman ‘A’. Applications can be submitted at iprc.gov.in from 15 September 2026 to 5 October 2026.",
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": 22,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-05",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/isro-iprc-recruitment-2026-apply-online-for-22-technical-assistant-technician-and-skilled-posts-3067463",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "15 September 2026",
-          "date": "2026-09-15"
-        },
-        {
-          "raw": "5 October 2026",
-          "date": "2026-10-05"
-        }
-      ],
-      "jobId": "47711b108ed4ecde1c5e1076",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.isro.gov.in/",
-        "title": "Indian Space Research Organisation",
-        "matchScore": 0.662
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "519ab75868f05cb82c74fddd4969398e05809fc14bba5fa5a4672a80db80eb4b",
-      "updatedAt": "2026-09-15T05:02:59.847019+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "APPSC Recruitment 2026 - Apply Online for 255 Inspector, Assistant Statistical Officer and More Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-11-02",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-255-inspector-assistant-statistical-officer-and-more-posts-3067666",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "13-10-2026",
-          "date": "2026-10-13"
-        },
-        {
-          "raw": "02-11-2026",
-          "date": "2026-11-02"
-        }
-      ],
-      "jobId": "3713ddd44c0924aaf0252048",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://scholarships.gov.in/",
-        "title": "NSP : National Scholarship Portal",
-        "matchScore": 0.7
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "0608d4117808db3503d05c0323b8512162c784cf20b0767b9e55a4b90fae36c9",
-      "updatedAt": "2026-09-15T07:40:32.477713+00:00"
-    },
-    {
-      "title": "ISRO IPRC Recruitment 2026 – 22 Fireman, Technician & More Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely and apply online. ISRO Propulsion ... <a title=\"ISRO IPRC Recruitment 2026 &#8211; 22 Fireman, Technician &#38; More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/isro-iprc-recruitment-2026/\" aria-label=\"Read more about ISRO IPRC Recruitment 2026 &#8211; 22 Fireman, Technician &#38; More Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/isro-iprc-recruitment-2026/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "fa6ea4a5c60b3b93b80ce446",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.isro.gov.in/",
-        "title": "Indian Space Research Organisation",
-        "matchScore": 0.756
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "7f065c9ddb3fad9063ae58e6328969fdfeaabe82a60a16ed81897f4397a6ffbd",
-      "updatedAt": "2026-09-15T05:02:59.514247+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "DHS Thanjavur Recruitment 2026 - Apply Offline for 18 Dental Surgeon, Health Inspector Grade II Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-30",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/dhs-thanjavur-recruitment-2026-apply-offline-for-18-dental-surgeon-health-inspector-grade-iiposts-3067568",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "30 September 2026",
-          "date": "2026-09-30"
-        }
-      ],
-      "jobId": "5f708d839b646e9eb433e616",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://exams.nta.ac.in/",
-        "title": "NTA Exam | India",
-        "matchScore": 0.354
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "3551d2e96b0da7f44aa506acec67fe2e7c8388cc4c686f0dec2b8c9d9b80e4e0",
-      "updatedAt": "2026-09-15T05:51:10.787668+00:00",
-      "updateType": "jobs"
-    },
-    {
       "title": "ESIC Recruitment 2026 – 25 Networking Engineer, Application Engineer & More Posts IndGovtjobs",
       "department": null,
       "organization": "",
@@ -627,321 +1063,6 @@
       "fingerprint": "97d8f39187247cc8a74c71a5ca6502fa2d69345a19d5d3f023584203359402d1",
       "updatedAt": "2026-09-15T05:02:59.517631+00:00",
       "updateType": "jobs"
-    },
-    {
-      "title": "NIT Rourkela Research Assistant Recruitment 2026 - Apply Online",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-25",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/nit-rourkela-research-assistant-recruitment-2026-apply-online-3067653",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "25 September 2026",
-          "date": "2026-09-25"
-        }
-      ],
-      "jobId": "ab7a4d51ee51e006594bfefb",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.575
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "df1f9e4136776a36f6765eab3df6bd8358438dee94e03f63c74cde5f0444d8c4",
-      "updatedAt": "2026-09-15T07:40:35.465531+00:00"
-    },
-    {
-      "title": "Sainik School Bijapur Recruitment 2026 Notification Out - Apply Offline for 17 PGT, TGT, Nursing Assistant and More Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-27",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/sainik-school-bijapur-recruitment-2026-apply-offline-for-17-pgt-tgt-nursing-assistant-and-more-posts-3067596",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "07-09-2026",
-          "date": "2026-09-07"
-        },
-        {
-          "raw": "27-09-2026",
-          "date": "2026-09-27"
-        }
-      ],
-      "jobId": "0b6458c3da96bc52780dd576",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.355
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "59764421635d121e2ec3fb43473e61eebb54e9a216723ab39488c680733a4b0e",
-      "updatedAt": "2026-09-15T05:02:59.552914+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "ESIC Recruitment 2026 – 25 Networking Engineer, Application Engineer & More Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the ... <a title=\"ESIC Recruitment 2026 &#8211; 25 Networking Engineer, Application Engineer &#38; More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/esic-recruitment-2026-3/\" aria-label=\"Read more about ESIC Recruitment 2026 &#8211; 25 Networking Engineer, Application Engineer &#38; More Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/esic-recruitment-2026-3/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "d3eeb3d45c516aa21bb2b177",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.231
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "1f91bcd139ec423251c1131b0ca9f36a4a6c6b81b13baa18ccee4618b1208bf3",
-      "updatedAt": "2026-09-15T05:02:59.412090+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "CGPSC Microbiologist Recruitment 2026 - Apply Online",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": "2026-10-09",
-      "applicationLastDate": "2026-10-09",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/cgpsc-microbiologist-recruitment-2026-apply-online-3067561",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "09 October 2026",
-          "date": "2026-10-09"
-        }
-      ],
-      "jobId": "5f89755d6e39c3134a63cca8",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.453
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "be6fd01395a7935aba55ede391fe172b1244d38ceabea5badc1b3576b610b4d9",
-      "updatedAt": "2026-09-15T05:51:11.506685+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "APPSC Recruitment 2026 Notification Out - Apply Online for 299 Forest Range Officer, Supervisor and More Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-11-05",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-299-forest-range-officer-supervisor-and-more-posts-3067665",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "16 October 2026",
-          "date": "2026-10-16"
-        },
-        {
-          "raw": "05 November 2026",
-          "date": "2026-11-05"
-        }
-      ],
-      "jobId": "95d963527fe2ce21aa8feebe",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.575
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "c9bdb12ba5f6a9bec7f028ffb0a66ccee9ca7b4fbb809ef1ba2ff7a90b2aca63",
-      "updatedAt": "2026-09-15T07:40:24.951611+00:00"
-    },
-    {
-      "title": "NHM Assam Medical Officer Recruitment 2026 - Apply Online",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-14",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/nhm-assam-medical-officer-recruitment-2026-apply-online-3066466",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "14 September 2026",
-          "date": "2026-09-14"
-        }
-      ],
-      "jobId": "1056c5f1fdc494aa21c05a33",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.495
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "276d70d9f70b9df5c809f4b33a8f66c31af7b4377554c39bffdb35c4d611b9af",
-      "updatedAt": "2026-09-15T05:02:59.991043+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "UKSSSC PA and Steno Recruitment 2026 - Apply Online for 101 Personal Assistant & Stenographer Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-14",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/uksssc-pa-and-steno-recruitment-2026-apply-online-for-101-personal-assistant-and-stenographer-posts-3066867",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "14 September 2026",
-          "date": "2026-09-14"
-        },
-        {
-          "raw": "14 October 2026",
-          "date": "2026-10-14"
-        }
-      ],
-      "jobId": "7b4fbcbe8ee9bda8f0d05fd3",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.585
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "149cf53fdb814f2f676463224df4acb7a56a7b66335fe92599fe5ce37a68009a",
-      "updatedAt": "2026-09-15T05:02:59.777443+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "MP High Court Assistant Grade-III Recruitment 2026 Date Extended - Apply Online for 1174 Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-30",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/mp-high-court-assistant-recruitment-2026-apply-online-for-1174-posts-3063205",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "17 August 2026",
-          "date": "2026-08-17"
-        },
-        {
-          "raw": "30 September 2026",
-          "date": "2026-09-30"
-        }
-      ],
-      "jobId": "494591226e0e74833ffaf579",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.557
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "26240509015f530c63b7836d6547b448917270f8cfc41a95428ca84032b0c230",
-      "updatedAt": "2026-09-15T07:40:37.584835+00:00"
     },
     {
       "title": "KBCNMU Assistant Professor Recruitment 2026 - Apply Online for 138 Posts",
@@ -990,40 +1111,45 @@
       "updatedAt": "2026-09-15T07:40:36.304074+00:00"
     },
     {
-      "title": "NFSU Recruitment 2026 – Assistant Professor, Research Fellow and More Posts IndGovtjobs",
+      "title": "NIT Rourkela Research Assistant Recruitment 2026 - Apply Online",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
       "category": "jobs",
+      "updateType": "jobs",
       "vacancies": null,
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": null,
+      "applicationLastDate": "2026-09-25",
       "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/nfsu-recruitment-2026/",
+      "notificationUrl": "https://www.freejobalert.com/articles/nit-rourkela-research-assistant-recruitment-2026-apply-online-3067653",
       "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "1bb17810ed52784b0266ab1d",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "25 September 2026",
+          "date": "2026-09-25"
+        }
+      ],
+      "jobId": "ab7a4d51ee51e006594bfefb",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://nfsu.ac.in/",
-        "title": "National Forensic Sciences University | NFSU",
-        "matchScore": 0.655
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.575
       },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "92a7b8155206a77d240ebc984230d68b6e5bbfe5a35a510d83d696aead93962e",
-      "updatedAt": "2026-09-15T05:02:58.858473+00:00",
-      "updateType": "jobs"
+      "fingerprint": "df1f9e4136776a36f6765eab3df6bd8358438dee94e03f63c74cde5f0444d8c4",
+      "updatedAt": "2026-09-15T07:40:35.465531+00:00"
     },
     {
-      "title": "Delhi High Court SPA & PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant & Personal Assistant Posts",
+      "title": "ANIIMS Recruitment 2026 - Apply Online for 56 Senior Resident/ Demonstrator Posts",
       "department": null,
       "organization": "",
       "state": "",
@@ -1036,36 +1162,32 @@
       "applicationStartDate": null,
       "applicationLastDate": "2026-10-05",
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/delhi-high-court-recruitment-2026-apply-online-for-150-senior-personal-assistant-and-personal-assistant-posts-3066385",
+      "notificationUrl": "https://www.freejobalert.com/articles/aniims-recruitment-2026-apply-online-for-56-senior-resident-demonstrator-posts-3067678",
       "applyUrl": "",
       "source": "FreeJobAlert",
       "dateEvidence": [
         {
-          "raw": "15 September 2026",
-          "date": "2026-09-15"
-        },
-        {
-          "raw": "05 October 2026",
+          "raw": "05-10-2026",
           "date": "2026-10-05"
         }
       ],
-      "jobId": "9a5cc75c7406b2e24f2a43c9",
+      "jobId": "8597b5a32c0655398dd68aa6",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://irdai.gov.in/list-of-black-listed-agents",
         "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.557
+        "matchScore": 0.42
       },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "5c7ba902d4eb47a8a6b9b6ea314ef4e83008429ac67f195f73fb60c1f080d478",
-      "updatedAt": "2026-09-15T07:40:24.879701+00:00"
+      "fingerprint": "01a79518551437be3ca7afd7fc4274c7fdde16f558e13e941e18b75e7d04cf6e",
+      "updatedAt": "2026-09-15T07:55:50.448746+00:00"
     },
     {
-      "title": "UPSC Recruitment 2026 – 212 Specialist, Assistant Professor and More Posts IndGovtjobs",
+      "title": "Mysore City Corporation UGD Helper Recruitment 2026 Notification Out - Apply Offline for 116 Posts",
       "department": null,
       "organization": "",
       "state": "",
@@ -1075,102 +1197,74 @@
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": null,
+      "applicationLastDate": "2026-10-09",
       "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/upsc-recruitment-2026-11/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "10e6f9465076a3e8aa83dc6b",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.upsc.gov.in/",
-        "title": "Welcome to UPSC | UPSC",
-        "matchScore": 0.836
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "c4239eed5761c77d95266b76b537195695cfcb38b127e7921592fd5f9307024a",
-      "updatedAt": "2026-09-15T05:02:59.597465+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "MECL Recruitment 2026 – 122 Technician, Assistant and More Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely and apply online. Mineral Exploration &#38; ... <a title=\"MECL Recruitment 2026 &#8211; 122 Technician, Assistant and More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/mecl-recruitment-2026-3/\" aria-label=\"Read more about MECL Recruitment 2026 &#8211; 122 Technician, Assistant and More Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/mecl-recruitment-2026-3/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "75236e54c06a06f53bad4e4e",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://exams.nta.ac.in/",
-        "title": "NTA Exam | India",
-        "matchScore": 0.4
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "732b979f57c8e7dac74d24158daf769b921f3736429a9ec32e91fb9b852ea5eb",
-      "updatedAt": "2026-09-15T05:02:59.415481+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "APPSC Recruitment 2026 - Apply Online for 90 Hostel Welfare Officer, Assistant Social Welfare Officer / Assistant Tribal Welfare Officer Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-29",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-90-hostel-welfare-officer-assistant-social-welfare-officer-assistant-tribal-welfare-officer-posts-3067672",
+      "notificationUrl": "https://www.freejobalert.com/articles/mysore-city-corporation-ugd-helper-recruitment-2026-apply-offline-for-116-posts-3067616",
       "applyUrl": "",
       "source": "FreeJobAlert",
       "dateEvidence": [
         {
-          "raw": "09-10-2026",
-          "date": "2026-10-09"
+          "raw": "10-09-2026",
+          "date": "2026-09-10"
         },
         {
-          "raw": "29-10-2026",
-          "date": "2026-10-29"
+          "raw": "09-10-2026",
+          "date": "2026-10-09"
         }
       ],
-      "jobId": "59538f81a54e0a8f75776fd8",
+      "jobId": "6f3fbb1f39a1c0fa018d9c01",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://irdai.gov.in/list-of-black-listed-agents",
         "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.428
+        "matchScore": 0.334
       },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "b78ecaa61eab0d7380cfb4d2da4d012bdbe3fa0a9b920d21280d26be12d4a7d1",
-      "updatedAt": "2026-09-15T07:40:26.025418+00:00"
+      "fingerprint": "5a63120c9010a9a1ed593a40d0d2bc3ec61124b6cffb11decfaae8818fe7be34",
+      "updatedAt": "2026-09-15T05:02:59.964305+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "APS Lalgarh Jattan Recruitment 2026 - Apply Offline for TGT, PET, Health & Wellness Teacher Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-20",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/aps-lalgarh-jattan-recruitment-2026-apply-offline-for-tgt-pet-health-wellness-teacher-posts-3067588",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "20 Sep 2026",
+          "date": "2026-09-20"
+        }
+      ],
+      "jobId": "ac0fdb2d13504e5d76d4b11b",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.414
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "a67401c9c6a9c22357ad9a6271dc6cfb232b7ebba0c15b905262bd2cb19b89d7",
+      "updatedAt": "2026-09-15T05:02:59.984195+00:00",
+      "updateType": "jobs"
     },
     {
       "title": "CSIR NIO Project Associate I Recruitment 2026 - Apply Online",
@@ -1211,7 +1305,7 @@
       "updateType": "jobs"
     },
     {
-      "title": "GBPUAT Assistant Professor Recruitment 2026 - Apply Offline for 63 Posts",
+      "title": "MP High Court Assistant Grade-III Recruitment 2026 Date Extended - Apply Online for 1174 Posts",
       "department": null,
       "organization": "",
       "state": "",
@@ -1222,243 +1316,115 @@
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-09-16",
+      "applicationLastDate": "2026-09-30",
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/gbpuat-assistant-professor-recruitment-2026-apply-offline-for-63-posts-3067673",
+      "notificationUrl": "https://www.freejobalert.com/articles/mp-high-court-assistant-recruitment-2026-apply-online-for-1174-posts-3063205",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "17 August 2026",
+          "date": "2026-08-17"
+        },
+        {
+          "raw": "30 September 2026",
+          "date": "2026-09-30"
+        }
+      ],
+      "jobId": "494591226e0e74833ffaf579",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.557
+      },
+      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "26240509015f530c63b7836d6547b448917270f8cfc41a95428ca84032b0c230",
+      "updatedAt": "2026-09-15T07:40:37.584835+00:00"
+    },
+    {
+      "title": "NHM Assam Medical Officer Recruitment 2026 - Apply Online",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-14",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/nhm-assam-medical-officer-recruitment-2026-apply-online-3066466",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "14 September 2026",
+          "date": "2026-09-14"
+        }
+      ],
+      "jobId": "1056c5f1fdc494aa21c05a33",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.495
+      },
+      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "276d70d9f70b9df5c809f4b33a8f66c31af7b4377554c39bffdb35c4d611b9af",
+      "updatedAt": "2026-09-15T05:02:59.991043+00:00",
+      "updateType": "jobs"
+    },
+    {
+      "title": "GADVASU Non Teaching Recruitment 2026 - Apply Online for 45 Storekeeper, Clerk, Steno-Typist Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-08",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/gadvasu-non-teaching-recruitment-2026-apply-online-for-45-storekeeper-clerk-steno-typist-posts-3067679",
       "applyUrl": "",
       "source": "FreeJobAlert",
       "dateEvidence": [
         {
           "raw": "16-09-2026",
           "date": "2026-09-16"
-        }
-      ],
-      "jobId": "ffbc368e28eb969601e82ecd",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.342
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "fb15e57464b19e164c5e9ebe72863103a081a1b858b530aa135c48de459f593a",
-      "updatedAt": "2026-09-15T07:40:34.959619+00:00"
-    },
-    {
-      "title": "RCF Ltd Recruitment 2026 – 10 Assistant Officer (Secretarial) Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely and apply online. Rashtriya Chemicals and Fertilizers Limited Nαme ... <a title=\"RCF Ltd Recruitment 2026 &#8211; 10 Assistant Officer (Secretarial) Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/rcf-ltd-recruitment-2026-2/\" aria-label=\"Read more about RCF Ltd Recruitment 2026 &#8211; 10 Assistant Officer (Secretarial) Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/rcf-ltd-recruitment-2026-2/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "78565e5e50defec008b1ae48",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://eprocure.gov.in/eprocure/app?page=FrontEndLatestActiveTendersOrgwise&service=page&org=Rashtriya%20Chemicals%20and%20Fertilizers%20Ltd",
-        "title": "eProcurement System Government of India",
-        "matchScore": 0.111
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "624ce256afabf56a01020d7e08323a9a4b2de3252a575bd5ce6b06a9f676422b",
-      "updatedAt": "2026-09-15T05:02:59.510666+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "RUHS MO Recruitment 2026 Notification Out - Apply Online for 600 Medical Officer Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-13",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/ruhs-medical-officer-recruitment-2026-apply-online-for-600-posts-3062973",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "13 October 2026",
-          "date": "2026-10-13"
-        }
-      ],
-      "jobId": "0a8ad4813a74783ea895a966",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.617
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "65a0e9eb60c64c4465623466696b999392c14958c795af5742973fc00513bbe6",
-      "updatedAt": "2026-09-15T05:02:59.533108+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "NCRTC Recruitment 2026 – 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely and apply online. National Capital Region Transport Corporation Nαme of ... <a title=\"NCRTC Recruitment 2026 &#8211; 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/ncrtc-recruitment-2026/\" aria-label=\"Read more about NCRTC Recruitment 2026 &#8211; 90 Supervisor-I and Junior Maintainer Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/ncrtc-recruitment-2026/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "f31db1f822aa650aad61d4b1",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://exams.nta.ac.in/",
-        "title": "NTA Exam | India",
-        "matchScore": 0.422
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "62cafe64d65d0f723894f904eb2b7f3fdb87937bd8a8a3ddda8de6e30195b7a6",
-      "updatedAt": "2026-09-15T05:51:10.539296+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go ... <a title=\"ISRO SAC Recruitment 2026 &#8211; 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/\" aria-label=\"Read more about ISRO SAC Recruitment 2026 &#8211; 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/isro-sac-recruitment-2026-2/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "6bf65ae4d7f3e96886320f2b",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.isro.gov.in/",
-        "title": "Indian Space Research Organisation",
-        "matchScore": 0.867
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "5ed9310c4f6e4cf91c87677d0adc5dae8e2e95eb18fbf6734191ebc10bb4cfea",
-      "updatedAt": "2026-09-15T05:51:10.478790+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "GAIL Recruitment 2026 – Executive Trainee Posts IndGovtjobs",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": "can go through the notification completely and apply online. GAIL (India) Limited Nαme of the Post: GAIL : ... <a title=\"GAIL Recruitment 2026 &#8211; Executive Trainee Posts IndGovtjobs\" class=\"read-more\" href=\"https://www.indgovtjobs.net/gail-recruitment-2026-3/\" aria-label=\"Read more about GAIL Recruitment 2026 &#8211; Executive Trainee Posts IndGovtjobs\">Read more</a></p>",
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.indgovtjobs.net/gail-recruitment-2026-3/",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [],
-      "jobId": "9f64c6f5c4b93ae475eb080e",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://exams.nta.ac.in/",
-        "title": "NTA Exam | India",
-        "matchScore": 0.343
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "b47c0415e7a1aed83eba8143c99d611b0ea4a9b644d87947ee75678aceca9a24",
-      "updatedAt": "2026-09-15T05:02:58.946715+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "APPSC Recruitment 2026 - Apply Online for 85 Horticulture Officer, AEE and Assistant Director Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": 85,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-27",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/appsc-recruitment-2026-apply-online-for-85-horticulture-officer-aee-and-assistant-director-posts-3067668",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "6 October 2026",
-          "date": "2026-10-06"
         },
         {
-          "raw": "27 October 2026",
-          "date": "2026-10-27"
+          "raw": "08-10-2026",
+          "date": "2026-10-08"
         }
       ],
-      "jobId": "264455dc9702e14cbd799658",
+      "jobId": "50cc1b37a045935ffdaa930d",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://irdai.gov.in/list-of-black-listed-agents",
         "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.582
+        "matchScore": 0.508
       },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "735ee319666471e1d013e5b69d201638463ab8407168c5378a366b612c3c25d0",
-      "updatedAt": "2026-09-15T07:40:34.281911+00:00"
+      "fingerprint": "180bb335b9b9cd5c06efa12a1873330881d5a6c7417494061b5798341ea13047",
+      "updatedAt": "2026-09-15T07:55:51.990263+00:00"
     },
     {
       "title": "APPSC Group I Recruitment 2026 - Apply Online for 163 DSP, Assistant Audit Officer and More Posts",
@@ -1581,44 +1547,6 @@
       "recordStatus": "draft",
       "fingerprint": "71ed1ce606bf9238492d5ed70334e1724800457130cbf570735a0f1627e7b309",
       "updatedAt": "2026-09-15T07:40:44.386783+00:00"
-    },
-    {
-      "title": "IISER Tirupati Research Associate 1 Recruitment 2026 - Apply Online",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": 1,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-18",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/iiser-tirupati-research-associate-1-recruitment-2026-apply-online-3067559",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "18 September 2026",
-          "date": "2026-09-18"
-        }
-      ],
-      "jobId": "7147af004f65f24318bf29de",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.575
-      },
-      "lastSeenAt": "2026-09-15T05:51:09.581031+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "b02493c792938a56c73d9f1f33e2136c63cfe6f60a02317160827cd87cde0cd6",
-      "updatedAt": "2026-09-15T05:51:11.805162+00:00",
-      "updateType": "jobs"
     },
     {
       "title": "MRSPTU Assistant Professor Recruitment 2026 - Apply Online",
@@ -1897,6 +1825,44 @@
       "fingerprint": "a3bab4cfc8f762fa0d50ebcbda72d01f0b25e3d01ee53e5bd7065530b194c97b",
       "updatedAt": "2026-09-15T05:51:12.325951+00:00",
       "updateType": "jobs"
+    },
+    {
+      "title": "ANIIMS Medical Superintendent Recruitment 2026 - Apply Online",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-03",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/aniims-medical-superintendent-recruitment-2026-apply-online-3067677",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "03 October 2026",
+          "date": "2026-10-03"
+        }
+      ],
+      "jobId": "0032fb553b594dab924c7d41",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.406
+      },
+      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "e39e89ab239d6a06a93100759af82d9634578c63e1848eec48613b7ce3c94506",
+      "updatedAt": "2026-09-15T07:55:50.348331+00:00"
     },
     {
       "title": "Jalaun UP Anganwadi Recruitment 2026 - Apply Online for 110 Anganwadi Worker and Helper Posts",
@@ -2339,115 +2305,6 @@
       "updateType": "result"
     },
     {
-      "title": "UPSSSC Excise Constable Exam City Slip 2026 - Download Link, Mains Exam Date & Fee Details",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-11",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/upsssc-excise-constable-exam-city-slip-2026-3067566",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "11 September 2026",
-          "date": "2026-09-11"
-        }
-      ],
-      "jobId": "fb0bde0dfc081b5ea1b8b5d6",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
-        "title": "",
-        "matchScore": 0.231
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 2,
-      "recordStatus": "draft",
-      "fingerprint": "5ef73ba3a4ee33789be4dd6de0dfc57a76c7fd719284a0db0f90c094c9c422d0",
-      "updatedAt": "2026-09-15T07:40:54.437094+00:00",
-      "updateType": "admit_card"
-    },
-    {
-      "title": "RPSC SI Re-Exam 2026 - Check Exam City and Admit Card Date",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/rpsc-si-re-exam-2026-3067306",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [],
-      "jobId": "ab9aa0bce360eeea97e429e1",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.333
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 2,
-      "recordStatus": "draft",
-      "fingerprint": "763d82d7bf17c3710944030d8c1a1d1bc4d52771edee18e7f7ca116f9f012c5a",
-      "updatedAt": "2026-09-15T07:40:57.114893+00:00",
-      "updateType": "admit_card"
-    },
-    {
-      "title": "NFR Sports Quota Result 2026 - Check Sports Persons Eligible and Not Eligible List",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "result",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-11",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/nfr-sports-quota-result-2026-3067563",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "11 September 2026",
-          "date": "2026-09-11"
-        }
-      ],
-      "jobId": "8491985bb5fc5621c88bbab0",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://exams.nta.ac.in/css/bootstrap.min.css",
-        "title": "",
-        "matchScore": 0.182
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 2,
-      "recordStatus": "draft",
-      "fingerprint": "f556e7fe4dde83e7efaff7bcf05a33ad84dfe1241908299c2a87618fb6b81d71",
-      "updatedAt": "2026-09-15T07:40:44.694684+00:00",
-      "updateType": "result"
-    },
-    {
       "title": "Empanelment as Translators and Proof Readers in the Employment News Headquarters for Employment News (English), Rozgar samachar (Hindi) and Rozgar samachar (Urdu) on casual assignment basis.",
       "department": null,
       "organization": "",
@@ -2580,39 +2437,6 @@
       "updatedAt": "2026-09-15T07:40:45.739973+00:00"
     },
     {
-      "title": "UKSSSC PA and Steno Recruitment 2026 - Apply Online for 101 Personal Assistant &amp; Stenographer Posts UKSSSC Active Vacancies: 101 14 Oct 2026 View Details",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.fresherslive.com/articles/uksssc-pa-and-steno-recruitment-2026-apply-online-for-101-personal-assistant-and-stenographer-posts-3066867",
-      "applyUrl": "",
-      "source": "FreshersLive",
-      "dateEvidence": [],
-      "jobId": "95917d2ef139301c9b2784dd",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
-        "title": "",
-        "matchScore": 0.185
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "cf820dec0b0f24001440ec14a2e5c5d442b16ae139f376344e478f1ccdfe7b78",
-      "updatedAt": "2026-09-15T05:03:00.407453+00:00",
-      "updateType": "jobs"
-    },
-    {
       "title": "APPSC Recruitment 2026 - Apply Online for 255 Inspector, Assistant Statistical Officer and More Posts APPSC Active Vacancies: 255 02 Nov 2026 View Details",
       "department": null,
       "organization": "",
@@ -2712,37 +2536,70 @@
       "updateType": "jobs"
     },
     {
-      "title": "UPSSSC Veterinary Pharmacist Recruitment 2026 Notification Out - Apply Online for 1308 Posts UPSSSC Active Vacancies: 1308 05 Oct 2026 View Details",
+      "title": "Others Today New Horticulture Officer, Assistant Environmental Engineer and Assistant Director APPSC 85 Posts B.Sc B.Tech B.E + 1 Last date: 27 Oct 2026 43 days left",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
       "category": "jobs",
+      "updateType": "jobs",
       "vacancies": null,
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
       "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.fresherslive.com/articles/upsssc-veterinary-pharmacist-recruitment-2026-notification-out-apply-online-for-1308-posts-3063100",
+      "notificationUrl": "https://sarkariscan.com/jobs/appsc-horticulture-officer-assistant-environmental-engineer-and-assistant-director-recruitment-2026",
       "applyUrl": "",
-      "source": "FreshersLive",
+      "source": "Sarkari Scan",
       "dateEvidence": [],
-      "jobId": "e8a166312a36f41c7ac818e9",
+      "jobId": "f4081dc4c5f579e26234a6a7",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
-        "title": "",
-        "matchScore": 0.176
+        "url": "https://exams.nta.ac.in/",
+        "title": "NTA Exam | India",
+        "matchScore": 0.411
       },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "5b9f6e7179108db8412196de147a51c21e648dbc48d477305bc8c9caaedca117",
-      "updatedAt": "2026-09-15T05:03:00.532387+00:00",
-      "updateType": "jobs"
+      "fingerprint": "fbaa2fa09998f324af649b075be683d17ecc4fbadb06202eb8f03fe6a099802c",
+      "updatedAt": "2026-09-15T08:40:23.938686+00:00"
+    },
+    {
+      "title": "Medical Today New Short Service Commissioned Officer Army Dental Corps 37 Posts BDS Master of Dental Surgery Last date: 22 Oct 2026 38 days left",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://sarkariscan.com/jobs/army-dental-corps-short-service-commissioned-officer-recruitment-2026",
+      "applyUrl": "",
+      "source": "Sarkari Scan",
+      "dateEvidence": [],
+      "jobId": "544f65f69954189f1a6468c1",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://exams.nta.ac.in/",
+        "title": "NTA Exam | India",
+        "matchScore": 0.35
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "e939b4c80f5b89f2bfaf49674e1ac8d44415f64c8dbd9d32a4607c02fa0997c9",
+      "updatedAt": "2026-09-15T08:40:24.144542+00:00"
     },
     {
       "title": "MP Police Constable Vacancy 2026 Notification Out, एमपी पुलिस कांस्टेबल के 7500 पदों के लिए आवेदन करें, Apply Online Link @esb.mp.gov.in",
@@ -2811,6 +2668,44 @@
       "updateType": "jobs"
     },
     {
+      "title": "BHAVINI Trade Apprentice Recruitment 2026 Notification Out - Apply Online for 50 Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-01",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/bhavini-trade-apprentice-recruitment-2026-apply-online-for-50-posts-3067692",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "01/10/2026",
+          "date": "2026-10-01"
+        }
+      ],
+      "jobId": "c243efd1fc56e26e1606ef7d",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.484
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "375275a4c82c565c0322ffe277e23820b3ab405288d22b1fb8bc9121d14c8ca8",
+      "updatedAt": "2026-09-15T08:40:27.143524+00:00"
+    },
+    {
       "title": "New recruitment: IIFCL Projects Limited Consultant Recruitment 2026 – Notification, Application Form · Last date 16 Jul 2027",
       "department": null,
       "organization": "",
@@ -2844,103 +2739,88 @@
       "updateType": "jobs"
     },
     {
-      "title": "KSRP Hall Ticket 2026: Direct Link to Download Karnataka Police Constable Admit Card PDF Soon at cetonline.karnataka.gov.in",
+      "title": "Haryana Court Clerk Answer Key 2026 Out - Download Link, Objection Dates & Steps",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
+      "category": "answer_key",
+      "updateType": "answer_key",
       "vacancies": null,
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": null,
+      "applicationLastDate": "2026-09-16",
       "examDate": null,
-      "notificationUrl": "https://www.jagranjosh.com/articles/ksrp-hall-ticket-2026-at-cetonline-karnataka-gov-in-download-admit-card-pdf-here-1800016574-1",
+      "notificationUrl": "https://www.freejobalert.com/articles/haryana-court-clerk-answer-key-2026-3067218",
       "applyUrl": "",
-      "source": "Jagran Josh",
-      "dateEvidence": [],
-      "jobId": "32c92650a4d38e726d085bb1",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.33
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "8bbc88ba8ecdd8c20ca26ace94a1c8b11bf6376705f960604e5b056d09eeabab",
-      "updatedAt": "2026-09-15T07:40:57.969967+00:00"
-    },
-    {
-      "title": "Defence 3 days ago Constable, General Cadre Ladakh Police 331 Posts 10TH 8TH Last date: 15 Sept 2026 1 day left",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://sarkariscan.com/jobs/ladakh-police-constable-general-cadre-recruitment-2026",
-      "applyUrl": "",
-      "source": "Sarkari Scan",
-      "dateEvidence": [],
-      "jobId": "323bd11f51671acd2a9e48e6",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.422
-      },
-      "lastSeenAt": "2026-09-15T05:02:58.627677+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "5bed100e3045e80648e26c4204cd7c9635d55fbc53e44f4b2f322a61e523dffb",
-      "updatedAt": "2026-09-15T05:03:02.783773+00:00",
-      "updateType": "jobs"
-    },
-    {
-      "title": "[OUT] SSC Phase 14 Admit Card 2026: एसएससी सिलेक्शन पोस्ट फेज 14 एडमिट कार्ड जारी, ये रहा Direct Link",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://www.jagranjosh.com/articles/ssc-phase-14-admit-card-2026-where-and-how-to-download-hall-ticket-pdf-at-ssc-gov-in-1800016524-2",
-      "applyUrl": "",
-      "source": "Jagran Josh",
-      "dateEvidence": [],
-      "jobId": "14d76a936fe0fba07f3c3461",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "7 September 2026",
+          "date": "2026-09-07"
+        },
+        {
+          "raw": "16 September 2026",
+          "date": "2026-09-16"
+        }
+      ],
+      "jobId": "e898e422d7a488c7887511eb",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
         "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
         "title": "",
-        "matchScore": 0.455
+        "matchScore": 0.25
       },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "e07cf5d5b11715d36b2e5155e4a11eca74908e440cdd0012076e27adb2c4aec7",
-      "updatedAt": "2026-09-15T07:41:01.702947+00:00"
+      "fingerprint": "cd0813bd6615961cdc7239930f9b76d9e0330509161d29c6974ffe7516a9b095",
+      "updatedAt": "2026-09-15T08:40:28.570920+00:00"
+    },
+    {
+      "title": "Government Engineering College Daman Assistant Professor Recruitment 2026 - Apply Offline",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": 1,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-09",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/government-engineering-college-daman-assistant-professor-recruitment-2026-apply-offline-3067684",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "10-09-2026",
+          "date": "2026-09-10"
+        },
+        {
+          "raw": "09-10-2026",
+          "date": "2026-10-09"
+        }
+      ],
+      "jobId": "0cfd6dc70e0ddb292edde9bb",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.22
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "dde407274f522e0186e7b19026f1bb3d1491466bffa98ead0abcd964a3118ae4",
+      "updatedAt": "2026-09-15T08:40:29.036622+00:00"
     },
     {
       "title": "Punjab and Haryana High Court Clerk Answer Key 2026 OUT @sssc.gov.in, Download Response Sheet PDF",
@@ -3108,6 +2988,39 @@
       "updateType": "jobs"
     },
     {
+      "title": "UPSC Today New Hostel Welfare Officer, Assistant Social Welfare Officer / Assistant Tribal Welfare Officer APPSC 90 Posts Any Bachelors Degree Last date: 29 Oct 2026 45 days left",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://sarkariscan.com/jobs/appsc-hostel-welfare-officer-assistant-social-welfare-officer-assistant-tribal-welfare-officer-recruitment-2026",
+      "applyUrl": "",
+      "source": "Sarkari Scan",
+      "dateEvidence": [],
+      "jobId": "5ec6e5cbf1a3d2d509a6b671",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.upsc.gov.in/",
+        "title": "Welcome to UPSC | UPSC",
+        "matchScore": 0.6
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "19dee8ed84939e96d80a1578a61ccb3cea805997eadbd1e89c5e7341ab034179",
+      "updatedAt": "2026-09-15T08:40:30.555394+00:00"
+    },
+    {
       "title": "SSC IMD Scientific Assistant Recruitment 2026 Notification Out, 100+ Vacancy, Online Form",
       "department": null,
       "organization": "",
@@ -3240,80 +3153,37 @@
       "updateType": "jobs"
     },
     {
-      "title": "ANIIMS Medical Superintendent Recruitment 2026 - Apply Online",
+      "title": "Jharkhand JSSC Assistant Teacher Admit Card 2026 Out at jssc.jharkhand.gov.in, Download JIGTSEATCCE Hall Ticket PDF Link Here",
       "department": null,
       "organization": "",
       "state": "",
       "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
+      "category": "admit_card",
+      "updateType": "admit_card",
       "vacancies": null,
       "qualification": null,
       "ageLimit": null,
       "applicationStartDate": null,
-      "applicationLastDate": "2026-10-03",
+      "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/aniims-medical-superintendent-recruitment-2026-apply-online-3067677",
+      "notificationUrl": "https://www.jagranjosh.com/articles/jssc-assistant-teacher-admit-card-2026-out-at-jssc-jharkhand-gov-in-download-jigtseatcce-hall-ticket-pdf-link-here-1800013100-1",
       "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "03 October 2026",
-          "date": "2026-10-03"
-        }
-      ],
-      "jobId": "0032fb553b594dab924c7d41",
+      "source": "Jagran Josh",
+      "dateEvidence": [],
+      "jobId": "9a3face383892f91d61fba16",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.406
+        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
+        "title": "",
+        "matchScore": 0.25
       },
-      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "e39e89ab239d6a06a93100759af82d9634578c63e1848eec48613b7ce3c94506",
-      "updatedAt": "2026-09-15T07:55:50.348331+00:00"
-    },
-    {
-      "title": "ANIIMS Recruitment 2026 - Apply Online for 56 Senior Resident/ Demonstrator Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-05",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/aniims-recruitment-2026-apply-online-for-56-senior-resident-demonstrator-posts-3067678",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "05-10-2026",
-          "date": "2026-10-05"
-        }
-      ],
-      "jobId": "8597b5a32c0655398dd68aa6",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.42
-      },
-      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "01a79518551437be3ca7afd7fc4274c7fdde16f558e13e941e18b75e7d04cf6e",
-      "updatedAt": "2026-09-15T07:55:50.448746+00:00"
+      "fingerprint": "0fcc8fb31b7e66c5889e4365258c13912e55f0ff90030460c6a862b96caa09b8",
+      "updatedAt": "2026-09-15T08:40:33.101331+00:00"
     },
     {
       "title": "SSC CGL Exam Date 2026 Out, Tier 1 Schedule, Shift Timings and Admit Card Date",
@@ -3413,6 +3283,48 @@
       "recordStatus": "draft",
       "fingerprint": "c2fd993f5414b390864facfb291ed22f190b753a33728cfea3892933f99a8472",
       "updatedAt": "2026-09-15T07:41:13.694719+00:00"
+    },
+    {
+      "title": "DCPU Tirupathur Recruitment 2026 - Apply Offline for Junior Assistant Cum Bench Clerk and Office Assistant Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": 2,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-25",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/dcpu-tirupathur-recruitment-2026-apply-offline-for-junior-assistant-cum-bench-clerk-and-office-assistant-posts-3067682",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "15-09-2026",
+          "date": "2026-09-15"
+        },
+        {
+          "raw": "25-09-2026",
+          "date": "2026-09-25"
+        }
+      ],
+      "jobId": "87005ea14c62159afe779815",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.387
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "9ae5e135441184f298c507c52ded3da94d24c77800a05a60f6dae86e1b6b98b1",
+      "updatedAt": "2026-09-15T08:40:34.617439+00:00"
     },
     {
       "title": "SSC Stenographer Admit Card 2026 Out - Download Hall Ticket at ssc.gov.in",
@@ -3547,6 +3459,39 @@
       "updateType": "jobs"
     },
     {
+      "title": "UKSSSC Group C Recruitment 2026: Apply Online For PA and Steno Posts at sssc.uk.gov.in, Check Details Here",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.jagranjosh.com/articles/uksssc-group-c-recruitment-2026-apply-online-for-pa-and-steno-posts-at-sssc-uk-gov-in-check-details-here-1800016585-1",
+      "applyUrl": "",
+      "source": "Jagran Josh",
+      "dateEvidence": [],
+      "jobId": "f3611186e181e7d0fbd92139",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
+        "title": "",
+        "matchScore": 0.28
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "abce94e714bcdebc9f5516c0454673dd851f98be9cb2c29e92790850caa4c37e",
+      "updatedAt": "2026-09-15T08:40:35.245029+00:00"
+    },
+    {
       "title": "UPPSC Architectural Cum Planning Assistant Mains Admit Card 2026",
       "department": null,
       "organization": "",
@@ -3611,48 +3556,6 @@
       "recordStatus": "draft",
       "fingerprint": "ae90fff3d4e9b86e1954192188ab2829dfc61b860cde8ec8ce89f8df31c67e12",
       "updatedAt": "2026-09-15T07:41:11.981720+00:00"
-    },
-    {
-      "title": "GADVASU Non Teaching Recruitment 2026 - Apply Online for 45 Storekeeper, Clerk, Steno-Typist Posts",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "jobs",
-      "updateType": "jobs",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-08",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/gadvasu-non-teaching-recruitment-2026-apply-online-for-45-storekeeper-clerk-steno-typist-posts-3067679",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "16-09-2026",
-          "date": "2026-09-16"
-        },
-        {
-          "raw": "08-10-2026",
-          "date": "2026-10-08"
-        }
-      ],
-      "jobId": "50cc1b37a045935ffdaa930d",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://irdai.gov.in/list-of-black-listed-agents",
-        "title": "List of Black Listed agents - IRDAI",
-        "matchScore": 0.508
-      },
-      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "180bb335b9b9cd5c06efa12a1873330881d5a6c7417494061b5798341ea13047",
-      "updatedAt": "2026-09-15T07:55:51.990263+00:00"
     },
     {
       "title": "Admit card released: UPSSSC Junior Assistant Admit Card 2026",
@@ -3752,6 +3655,39 @@
       "fingerprint": "86a683584fc977df0b992a53c9e508620007c3adcd18774f8e648e21e1aae033",
       "updatedAt": "2026-09-15T07:41:14.926577+00:00",
       "updateType": "result"
+    },
+    {
+      "title": "SSC Phase 14 Exam City Intimation Slip 2026 Out @ssc.gov.in, Check Selection Post Exam City Details",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://testbook.com/news/ssc-selection-post-phase-14-city-intimation-slip-2026-out/",
+      "applyUrl": "",
+      "source": "Testbook",
+      "dateEvidence": [],
+      "jobId": "9714c0612afd7ec2bdfee0f9",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
+        "title": "",
+        "matchScore": 0.231
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "85233c4db6139cf147e9279b0db1fdb7aa3311e3e25b2c76a235284d67cd436d",
+      "updatedAt": "2026-09-15T08:40:36.425286+00:00"
     },
     {
       "title": "UPSC Delhi Schools Principal Recruitment Advt. No. 51/2026",
@@ -4018,6 +3954,44 @@
       "updatedAt": "2026-09-15T07:41:20.287300+00:00"
     },
     {
+      "title": "CSIR IHBT Recruitment 2026 - Apply Online for 7 Project Assistant I, Project Associate Posts",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "jobs",
+      "updateType": "jobs",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-09-30",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/csir-ihbt-recruitment-2026-apply-online-for-7-project-assistant-i-project-associate-posts-3067693",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "30-09-2026",
+          "date": "2026-09-30"
+        }
+      ],
+      "jobId": "8f4e1872b30967ec7842e233",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.393
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "08915025b78ec8b8c90051deec7ea0b216067d70ad55edc73df41d4b498d2762",
+      "updatedAt": "2026-09-15T08:40:37.717042+00:00"
+    },
+    {
       "title": "Result declared: Punjab Police Constable Result 2026",
       "department": null,
       "organization": "",
@@ -4051,6 +4025,39 @@
       "updatedAt": "2026-09-15T07:41:21.439072+00:00"
     },
     {
+      "title": "Punjab Police Admit Card 2026 OUT: Download Constable Exam Hall Ticket PDF at punjabpolice.gov.in",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.jagranjosh.com/articles/punjab-police-admit-card-2026-released-at-punjabpolice-gov-in-download-constable-exam-hall-ticket-pdf-link-here-1800013199-1",
+      "applyUrl": "",
+      "source": "Jagran Josh",
+      "dateEvidence": [],
+      "jobId": "7717501a58284f05b965572d",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://irdai.gov.in/list-of-black-listed-agents",
+        "title": "List of Black Listed agents - IRDAI",
+        "matchScore": 0.214
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "a0bd83546a95be5b0dd73b69fa8ad86533bab9971e25003aa1b9e70f77f5ca60",
+      "updatedAt": "2026-09-15T08:40:38.074055+00:00"
+    },
+    {
       "title": "DSSSB Legal Assistant, AE, JE, ASO Recruitment 2026",
       "department": null,
       "organization": "",
@@ -4082,6 +4089,39 @@
       "recordStatus": "draft",
       "fingerprint": "e286293040c746ad6fe55a8dec13c021aae101dd17b5b2bd2eed63c0d43fa8ed",
       "updatedAt": "2026-09-15T07:41:32.908777+00:00"
+    },
+    {
+      "title": "UPSC ISS Answer Key 2026 OUT: Download Official Response Sheet PDF at upsc.gov.in",
+      "department": null,
+      "organization": "",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "answer_key",
+      "updateType": "answer_key",
+      "vacancies": null,
+      "qualification": null,
+      "ageLimit": null,
+      "applicationStartDate": null,
+      "applicationLastDate": null,
+      "examDate": null,
+      "notificationUrl": "https://www.jagranjosh.com/articles/upsc-iss-answer-key-2026-out-download-official-response-sheet-pdf-at-upsc-gov-in-1800013234-1",
+      "applyUrl": "",
+      "source": "Jagran Josh",
+      "dateEvidence": [],
+      "jobId": "011b04c01d78d471d856823c",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.upsc.gov.in/",
+        "title": "Welcome to UPSC | UPSC",
+        "matchScore": 0.533
+      },
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
+      "recordVersion": 1,
+      "recordStatus": "draft",
+      "fingerprint": "d6921411150a4554927ed5f42136e3560b1717db49a6968e85ad02f2f5b7e3ca",
+      "updatedAt": "2026-09-15T08:40:38.132767+00:00"
     },
     {
       "title": "IB Security Assistant (MT) Tier-II Admit Card 2026",
@@ -4216,40 +4256,7 @@
       "updatedAt": "2026-09-15T07:41:19.012729+00:00"
     },
     {
-      "title": "ASRB NET, ARS, SMS & STO Mains Admit Card 2026",
-      "department": null,
-      "organization": "",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": null,
-      "qualification": null,
-      "ageLimit": null,
-      "applicationStartDate": null,
-      "applicationLastDate": null,
-      "examDate": null,
-      "notificationUrl": "https://exampix.com/post/asrb-net-ars-sms-amp-sto-mains-admit-card-2026",
-      "applyUrl": "",
-      "source": "Exampix",
-      "dateEvidence": [],
-      "jobId": "e6a1815bd6a3c0662a2ad133",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://asrb.gov.in/",
-        "title": "ASRB - Agricultural Scientists Recruitment Board",
-        "matchScore": 0.969
-      },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
-      "recordVersion": 1,
-      "recordStatus": "draft",
-      "fingerprint": "d6f1ffeeddd9dec7659bdb3f882836bf0040baab7cbac8988a822d0380f4cd4b",
-      "updatedAt": "2026-09-15T07:41:27.910027+00:00"
-    },
-    {
-      "title": "CBSE KVS / NVS Teaching & Non Teaching Result",
+      "title": "SSC GD Result 2026 Date, Merit List, Scorecard PDF Download Link at ssc.gov.in",
       "department": null,
       "organization": "",
       "state": "",
@@ -4262,27 +4269,27 @@
       "applicationStartDate": null,
       "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://exampix.com/post/cbse-kvs-nvs-teaching-non-teaching-2025",
+      "notificationUrl": "https://testbook.com/news/ssc-gd-constable-result-2026/",
       "applyUrl": "",
-      "source": "Exampix",
+      "source": "Testbook",
       "dateEvidence": [],
-      "jobId": "29f81d9f590dc8fda564f699",
+      "jobId": "6520909502cad1e7eed5671b",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://www.cbse.gov.in/",
-        "title": "CBSE - Central Board of Secondary Education",
-        "matchScore": 0.367
+        "url": "https://ssc.gov.in/assets/library/bootstrap/css/bootstrap.min.css",
+        "title": "",
+        "matchScore": 0.273
       },
-      "lastSeenAt": "2026-09-15T07:40:14.705675+00:00",
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "7f1a3c63c0dc286107364db57e8c1d52b501ee59c2ffd3194b110ffdf79b134b",
-      "updatedAt": "2026-09-15T07:41:41.330965+00:00"
+      "fingerprint": "6c9762dc6d002d9b1371cb6c9ac0db340826107f444eefc5362b82f7d0784860",
+      "updatedAt": "2026-09-15T08:40:40.326507+00:00"
     },
     {
-      "title": "UPSC Government Job Vacancy Recruitment 2026",
+      "title": "CSIR IHBT Recruitment 2026 - Apply Online for 7 Project Assistant I, Project Associate Posts CSIR IHBT Active Vacancies: 7 30 Sep 2026 View Details",
       "department": null,
       "organization": "",
       "state": "",
@@ -4295,24 +4302,24 @@
       "applicationStartDate": null,
       "applicationLastDate": null,
       "examDate": null,
-      "notificationUrl": "https://www.sarkarinaukriblog.com/2026/04/upsc-government-job-vacancy-recruitment.html",
+      "notificationUrl": "https://www.fresherslive.com/articles/csir-ihbt-recruitment-2026-apply-online-for-7-project-assistant-i-project-associate-posts-3067693",
       "applyUrl": "",
-      "source": "Sarkari Naukri Blog",
+      "source": "FreshersLive",
       "dateEvidence": [],
-      "jobId": "201663da1db177e936c4201c",
+      "jobId": "9382a8a3da02c642e00f931b",
       "verificationStatus": "verified",
       "publicationStatus": "ready",
       "officialSource": {
         "sourceId": "official-government-domain",
-        "url": "https://www.upsc.gov.in/",
-        "title": "Welcome to UPSC | UPSC",
-        "matchScore": 0.867
+        "url": "https://prabhass.gov.in/",
+        "title": "Home | PRABHASS",
+        "matchScore": 0.455
       },
-      "lastSeenAt": "2026-09-15T07:55:42.586685+00:00",
+      "lastSeenAt": "2026-09-15T08:40:20.803417+00:00",
       "recordVersion": 1,
       "recordStatus": "draft",
-      "fingerprint": "814b784d4a2f2a697abbfd9f39f8f86b4d1d70ab4e2df66976329af3a0605ec1",
-      "updatedAt": "2026-09-15T07:56:00.591114+00:00"
+      "fingerprint": "e3c3d47315449617351ab526e204b88ebf736db1de5e3e3bd892a1b4a3bdd03d",
+      "updatedAt": "2026-09-15T08:40:43.898111+00:00"
     }
   ]
 }
