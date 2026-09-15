@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "generatedAt": "2026-09-15T18:05:19.923154+00:00",
+  "generatedAt": "2026-09-15T18:38:20.260088+00:00",
   "schedule": {
     "cronUtc": "3/10 * * * *",
     "description": "Every 10 minutes at minutes 03, 13, 23, 33, 43 and 53 UTC (~:33, :43, :53, :03, :13 and :23 IST). GitHub Actions schedules may be delayed."
@@ -9,12 +9,12 @@
     "source": "Multi-Source Government Jobs",
     "sourceUrl": null,
     "status": "ok",
-    "lastCheckedAt": "2026-09-15T17:58:27.141263+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-15T17:58:27.141263+00:00",
+    "lastCheckedAt": "2026-09-15T18:32:17.489360+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-15T18:32:17.489360+00:00",
     "lastError": "",
-    "discoveredCount": 429,
-    "newCount": 0,
-    "changedCount": 7
+    "discoveredCount": 437,
+    "newCount": 8,
+    "changedCount": 8
   },
   "recovery": {
     "state": "HEALTHY",
@@ -30,11 +30,11 @@
     "publicationGate": "READY",
     "websiteFeed": "READY",
     "verifiedCount": 14,
-    "holdCount": 584,
+    "holdCount": 592,
     "publishedCount": 25,
-    "canonicalCount": 598,
+    "canonicalCount": 606,
     "publicationReadyCount": 25,
-    "publicationBlockedCount": 404
+    "publicationBlockedCount": 412
   },
   "tests": {
     "controlledE2E": "CHECK",
@@ -42,17 +42,17 @@
     "controlledE2EIsProductionDiscovery": false
   },
   "timing": {
-    "lastRunAt": "2026-09-15T18:00:06.561467+00:00",
-    "nextExpectedRunAt": "2026-09-15T18:03:00+00:00"
+    "lastRunAt": "2026-09-15T18:33:51.957086+00:00",
+    "nextExpectedRunAt": "2026-09-15T18:33:00+00:00"
   },
   "recent": {
     "discovery": {
-      "checkedAt": "2026-09-15T17:58:27.141263+00:00",
+      "checkedAt": "2026-09-15T18:32:17.489360+00:00",
       "status": "ok",
-      "new": 0,
-      "changed": 7,
-      "retained": 43,
-      "items": 429,
+      "new": 8,
+      "changed": 8,
+      "retained": 36,
+      "items": 437,
       "discoveryChannels": [
         "employmentnews",
         "ncs",
@@ -68,6 +68,7 @@
         "sarkarinaukarisetu",
         "nayawork",
         "naukrichakri",
+        "sarkariscan",
         "freejobalert"
       ],
       "sources": {
@@ -187,9 +188,9 @@
         },
         "sarkariscan": {
           "name": "Sarkari Scan",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
+          "status": "ok",
+          "mode": "html",
+          "count": 15
         },
         "freejobalert": {
           "name": "FreeJobAlert",
@@ -201,15 +202,15 @@
       "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"
     },
     "verification": {
-      "checkedAt": "2026-09-15T17:58:49.903202+00:00",
+      "checkedAt": "2026-09-15T18:32:38.696132+00:00",
       "status": "ok",
       "counts": {
         "verified": 16,
-        "hold": 413,
-        "checked": 429,
-        "new": 0,
-        "changed": 151,
-        "unchanged": 278,
+        "hold": 421,
+        "checked": 437,
+        "new": 8,
+        "changed": 162,
+        "unchanged": 267,
         "reused": 0,
         "skipped": 0
       },
@@ -234,6 +235,7 @@
       "Sarkari Naukri Setu",
       "NayaWork",
       "Naukri Chakri",
+      "Sarkari Scan",
       "FreeJobAlert"
     ],
     "finalAuthority": "Official government/recruitment authority",
