@@ -19,7 +19,7 @@
   async function run(){var btn=document.getElementById('osSpeedTest'),status=document.getElementById('osStatus');if(!btn)return;btn.classList.add('os-speed-testing');status.textContent='Testing connection…';set('osNet',network());try{var p=await ping();set('osPing',p);status.textContent='Measuring download…';var d=await download();set('osDown',d.toFixed(1));status.textContent='Measuring upload…';var u=await upload();set('osUp',u.toFixed(1));status.textContent='Speed test complete';}catch(e){console.error('ONESTOP speed test',e);status.textContent='Test could not complete. Try again.';}finally{btn.classList.remove('os-speed-testing');}}
   function mount(){var hero=document.querySelector('.hero');var quick=document.querySelector('.hero-quick');if(!hero||document.getElementById(root.id))return;hero.style.position='relative';hero.style.overflow='visible';if(window.matchMedia('(max-width:850px)').matches&&quick){quick.insertAdjacentElement('afterend',root);}else{hero.appendChild(root);}set('osNet',network());isp().then(function(v){set('osIsp',v);});document.getElementById('osSpeedTest').addEventListener('click',run);}
   function replacePassportPhoto(){
-    var url='https://raw.githubusercontent.com/grvtech99/onestop-website/main/PASSPORT%20PHOTO.png?photo=20260916';
+    var url='https://raw.githubusercontent.com/grvtech99/onestop-website/main/PASSPORT_PHOTO.webp?photo=20260916';
     document.querySelectorAll('img[src*="PASSPORT_PHOTO.webp"],img[src*="PASSPORT%20PHOTO.png"],img[src*="PASSPORT PHOTO.png"]').forEach(function(img){img.src=url;img.removeAttribute('srcset');});
   }
   if(document.readyState==='loading'){
