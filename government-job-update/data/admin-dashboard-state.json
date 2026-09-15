@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-15T05:51:21.516576+00:00",
+  "generatedAt": "2026-09-15T07:41:43.094924+00:00",
   "schedule": {
     "cronUtc": "47 * * * *",
     "description": "Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed."
@@ -9,12 +9,12 @@
     "source": "Multi-Source Government Jobs",
     "sourceUrl": null,
     "status": "ok",
-    "lastCheckedAt": "2026-09-15T05:50:44.506620+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-15T05:50:44.506620+00:00",
+    "lastCheckedAt": "2026-09-15T07:39:51.871516+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-15T07:39:51.871516+00:00",
     "lastError": "",
-    "discoveredCount": 399,
-    "newCount": 173,
-    "changedCount": 6
+    "discoveredCount": 401,
+    "newCount": 45,
+    "changedCount": 10
   },
   "recovery": {
     "state": "HEALTHY",
@@ -29,12 +29,12 @@
     "canonical": "READY",
     "publicationGate": "READY",
     "websiteFeed": "READY",
-    "verifiedCount": 5,
-    "holdCount": 226,
-    "publishedCount": 1,
-    "canonicalCount": 231,
-    "publicationReadyCount": 1,
-    "publicationBlockedCount": 398
+    "verifiedCount": 47,
+    "holdCount": 301,
+    "publishedCount": 119,
+    "canonicalCount": 348,
+    "publicationReadyCount": 119,
+    "publicationBlockedCount": 282
   },
   "tests": {
     "controlledE2E": "CHECK",
@@ -42,16 +42,16 @@
     "controlledE2EIsProductionDiscovery": false
   },
   "timing": {
-    "lastRunAt": "2026-09-15T05:51:09.581031+00:00",
-    "nextExpectedRunAt": "2026-09-15T06:47:00+00:00"
+    "lastRunAt": "2026-09-15T07:40:14.705675+00:00",
+    "nextExpectedRunAt": "2026-09-15T07:47:00+00:00"
   },
   "recent": {
     "discovery": {
-      "checkedAt": "2026-09-15T05:50:44.506620+00:00",
+      "checkedAt": "2026-09-15T07:39:51.871516+00:00",
       "status": "ok",
-      "new": 173,
-      "changed": 6,
-      "items": 399,
+      "new": 45,
+      "changed": 10,
+      "items": 401,
       "discoveryChannels": [
         "employmentnews",
         "ncs",
@@ -88,7 +88,7 @@
           "name": "FreshersLive",
           "status": "ok",
           "mode": "html",
-          "count": 19
+          "count": 22
         },
         "jagranjosh": {
           "name": "Jagran Josh",
@@ -100,7 +100,7 @@
           "name": "Testbook",
           "status": "ok",
           "mode": "html",
-          "count": 58
+          "count": 60
         },
         "sarkarinaukriblog": {
           "name": "Sarkari Naukri Blog",
@@ -124,7 +124,7 @@
           "name": "SarkariUpdates",
           "status": "ok",
           "mode": "html",
-          "count": 22
+          "count": 21
         },
         "exampix": {
           "name": "Exampix",
@@ -196,25 +196,25 @@
           "name": "FreeJobAlert",
           "status": "ok",
           "mode": "rss",
-          "count": 97
+          "count": 95
         }
       },
       "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
     },
     "verification": {
-      "checkedAt": "2026-09-15T05:51:09.581031+00:00",
+      "checkedAt": "2026-09-15T07:40:14.705675+00:00",
       "status": "ok",
       "counts": {
-        "verified": 1,
-        "hold": 159,
-        "checked": 160,
-        "new": 58,
-        "changed": 5,
-        "unchanged": 97,
+        "verified": 119,
+        "hold": 181,
+        "checked": 300,
+        "new": 117,
+        "changed": 50,
+        "unchanged": 133,
         "reused": 1,
-        "skipped": 239
+        "skipped": 101
       },
-      "strategy": "Parallel verification with embedded official-link extraction, bounded discovery fallback and verified-record reuse"
+      "strategy": "Parallel authority-aware verification across jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
     }
   },
   "policy": {

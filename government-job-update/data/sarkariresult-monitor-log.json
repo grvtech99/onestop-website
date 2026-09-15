@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-15T05:50:44.506620+00:00",
+  "checkedAt": "2026-09-15T07:39:51.871516+00:00",
   "status": "ok",
-  "new": 173,
-  "changed": 6,
-  "items": 399,
+  "new": 45,
+  "changed": 10,
+  "items": 401,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -40,7 +40,7 @@
       "name": "FreshersLive",
       "status": "ok",
       "mode": "html",
-      "count": 19
+      "count": 22
     },
     "jagranjosh": {
       "name": "Jagran Josh",
@@ -52,7 +52,7 @@
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 58
+      "count": 60
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -76,7 +76,7 @@
       "name": "SarkariUpdates",
       "status": "ok",
       "mode": "html",
-      "count": 22
+      "count": 21
     },
     "exampix": {
       "name": "Exampix",
@@ -148,7 +148,7 @@
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 97
+      "count": 95
     }
   },
   "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
