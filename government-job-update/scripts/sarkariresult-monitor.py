@@ -40,14 +40,16 @@ SOURCES = [
  {"id":"sarkariscan","name":"Sarkari Scan","url":"https://sarkariscan.com/"},
  {"id":"freejobalert","name":"FreeJobAlert","url":"https://www.freejobalert.com/latest-notifications/","rss":"https://www.freejobalert.com/feed/"},
 ]
-JOB = re.compile(r"\b(recruit|vacan|job|online form|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group [abc]|technician|trainee|professor|nurse|steno|driver|advt|employment)\b", re.I)
+
+# Broad discovery signal: jobs + admit cards + results + answer keys + admissions + scholarships + syllabus + notices.
+UPDATE = re.compile(r"\b(recruit|vacan|job|online form|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group [abc]|technician|trainee|professor|nurse|steno|driver|advt|employment|admit card|e-admit|exam city|result|final result|answer key|cut.?off|merit list|selection list|admission|entrance|scholarship|fellowship|syllabus|exam date|exam schedule|counselling|counseling|corrigendum|addendum|notice|response sheet|document verification)\b", re.I)
 
 def save(path, value):
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 def get(url):
     try:
-        req = urllib.request.Request(url, headers={"User-Agent":"ONESTOP-Government-Job-Update/3.0","Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
+        req = urllib.request.Request(url, headers={"User-Agent":"ONESTOP-Government-Job-Update/3.1","Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
         r = urllib.request.urlopen(req, timeout=15)
         return r.status, r.read(1200000), r.geturl(), None
     except urllib.error.HTTPError as e: return e.code, b"", url, f"HTTP {e.code}"
@@ -64,16 +66,16 @@ def rss_items(body):
                 tag=c.tag.rsplit("}",1)[-1]; val=(c.text or "").strip()
                 if tag in ("link","title","description","summary","pubDate","published","updated","guid") and val: row[tag]=val
                 if tag=="link" and not val and c.attrib.get("href"): row["link"]=c.attrib["href"]
-            if row.get("link") and JOB.search(row.get("title","")): out.append(row)
+            if row.get("link") and UPDATE.search(row.get("title","") + " " + row.get("description","") ): out.append(row)
     except Exception: pass
     return out
 
-def html_items(body, base, limit=120):
+def html_items(body, base, limit=160):
     text=body.decode("utf-8","replace"); out=[]
     for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>', text, re.I|re.S):
         u=urllib.parse.urljoin(base,m.group(1)).split("#",1)[0]
         title=re.sub(r"<[^>]+>"," ",m.group(2)); title=re.sub(r"\s+"," ",title).strip()
-        if u.startswith(("http://","https://")) and JOB.search(title) and len(title)>=12: out.append({"link":u,"title":title})
+        if u.startswith(("http://","https://")) and UPDATE.search(title) and len(title)>=10: out.append({"link":u,"title":title})
     return list({x["link"]:x for x in out}.values())[:limit]
 
 def main():
@@ -93,9 +95,9 @@ def main():
         if found:
             channels.append(src["id"])
             for r in found:
-                discovered.append({"url":r.get("link",""),"title":r.get("title",""),"description":r.get("description",r.get("summary","")),"publishedAt":r.get("pubDate",r.get("published",r.get("updated",""))),"discoverySource":src["name"],"discoverySourceId":src["id"]})
+                discovered.append({"url":r.get("link",""),"title":r.get("title","").strip(),"description":r.get("description",r.get("summary","")),"publishedAt":r.get("pubDate",r.get("published",r.get("updated",""))),"discoverySource":src["name"],"discoverySourceId":src["id"]})
     out={}; new=changed=0
-    for row in discovered[:2000]:
+    for row in discovered[:3000]:
         u=row["url"].split("#",1)[0]
         if not u.startswith(("http://","https://")): continue
         meta="|".join([u,row.get("title",""),row.get("description",""),row.get("publishedAt",""),row.get("discoverySourceId","")])
@@ -105,8 +107,8 @@ def main():
         if k not in old:new+=1
         elif prev.get("fingerprint")!=fp:changed+=1
     status="ok" if out else "source_unavailable"
-    err=None if out else "No usable job signals from monitored sources"
-    save(STATE,{"schemaVersion":5,"source":"multi-source-government-jobs","primarySource":"multi-source","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
-    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority"})
+    err=None if out else "No usable government update signals from monitored sources"
+    save(STATE,{"schemaVersion":6,"source":"multi-source-government-updates","primarySource":"multi-source","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
+    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"})
     return 0
 if __name__=="__main__": sys.exit(main())
