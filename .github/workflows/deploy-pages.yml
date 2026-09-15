@@ -25,18 +25,24 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Render refreshed PNG thumbnails
+      - name: Render clean pro PNG thumbnails
         shell: bash
         run: |
           set -e
           sudo apt-get update -qq
-          sudo apt-get install -y -qq imagemagick
+          sudo apt-get install -y -qq librsvg2-bin
           mkdir -p free-csc-tools/tool-thumbnails
-          convert -background none free-csc-tools/tool-thumbnails/.generated/passport.svg free-csc-tools/tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png
-          convert -background none free-csc-tools/tool-thumbnails/.generated/resume.svg free-csc-tools/tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png
-          convert -background none free-csc-tools/tool-thumbnails/.generated/id-card.svg free-csc-tools/tool-thumbnails/1click-id-card-print-maker-html.png
-          convert -background none free-csc-tools/tool-thumbnails/.generated/social.svg free-csc-tools/tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png
-          convert -background none free-csc-tools/tool-thumbnails/.generated/pdf.svg free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/passport.svg -o free-csc-tools/tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/resume.svg -o free-csc-tools/tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/id-card.svg -o free-csc-tools/tool-thumbnails/1click-id-card-print-maker-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/social.svg -o free-csc-tools/tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/pdf.svg -o free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png
+          # Bust browser/CDN cache so the newly rendered PNGs are actually requested.
+          sed -i 's/passport-onestop-free-passport-photo-maker-html\.png/passport-onestop-free-passport-photo-maker-html.png?v=pro20260915/g' free-csc-tools/index.html
+          sed -i 's/free-one-click-resume-resume-maker-30-templates-html\.png/free-one-click-resume-resume-maker-30-templates-html.png?v=pro20260915/g' free-csc-tools/index.html
+          sed -i 's/1click-id-card-print-maker-html\.png/1click-id-card-print-maker-html.png?v=pro20260915/g' free-csc-tools/index.html
+          sed -i 's/social-media-onestop-social-media-post-maker-free-v14-clean-html\.png/social-media-onestop-social-media-post-maker-free-v14-clean-html.png?v=pro20260915/g' free-csc-tools/index.html
+          sed -i 's/pdf-tools-onestop-pdf-tools-html\.png/pdf-tools-onestop-pdf-tools-html.png?v=pro20260915/g' free-csc-tools/index.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
