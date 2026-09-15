@@ -1,10 +1,11 @@
 {
-  "checkedAt": "2026-09-15T05:45:08.172893+00:00",
+  "checkedAt": "2026-09-15T05:50:44.506620+00:00",
   "status": "ok",
-  "new": 12,
+  "new": 173,
   "changed": 6,
-  "items": 226,
+  "items": 399,
   "discoveryChannels": [
+    "employmentnews",
     "ncs",
     "fresherslive",
     "jagranjosh",
@@ -13,19 +14,21 @@
     "indgovtjobs",
     "sarkariupdates",
     "exampix",
+    "inrgovtjobs",
     "sarkarinaukari",
     "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
+    "naukrichakri",
     "sarkariscan",
     "freejobalert"
   ],
   "sources": {
     "employmentnews": {
       "name": "Employment News",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 4
     },
     "ncs": {
       "name": "National Career Service",
@@ -37,19 +40,19 @@
       "name": "FreshersLive",
       "status": "ok",
       "mode": "html",
-      "count": 17
+      "count": 19
     },
     "jagranjosh": {
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 13
+      "count": 41
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 33
+      "count": 58
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -67,25 +70,25 @@
       "name": "IndGovtJobs",
       "status": "ok",
       "mode": "rss",
-      "count": 13
+      "count": 20
     },
     "sarkariupdates": {
       "name": "SarkariUpdates",
       "status": "ok",
       "mode": "html",
-      "count": 11
+      "count": 22
     },
     "exampix": {
       "name": "Exampix",
       "status": "ok",
       "mode": "html",
-      "count": 27
+      "count": 56
     },
     "inrgovtjobs": {
       "name": "INR Govt Jobs",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 2
     },
     "sarkarinaukari": {
       "name": "Sarkari Naukari",
@@ -97,13 +100,13 @@
       "name": "Sarkari247",
       "status": "ok",
       "mode": "html",
-      "count": 4
+      "count": 8
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",
       "status": "ok",
       "mode": "html",
-      "count": 6
+      "count": 7
     },
     "sarkarinaukri": {
       "name": "Sarkari-Naukri.in",
@@ -127,13 +130,13 @@
       "name": "NayaWork",
       "status": "ok",
       "mode": "html",
-      "count": 11
+      "count": 18
     },
     "naukrichakri": {
       "name": "Naukri Chakri",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 2
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
@@ -145,8 +148,8 @@
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 46
+      "count": 97
     }
   },
-  "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority"
+  "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
 }

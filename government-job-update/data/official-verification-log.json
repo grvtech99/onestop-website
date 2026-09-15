@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-15T05:45:46.930410+00:00",
+  "checkedAt": "2026-09-15T05:51:09.581031+00:00",
   "status": "ok",
   "counts": {
-    "verified": 5,
-    "hold": 155,
+    "verified": 1,
+    "hold": 159,
     "checked": 160,
-    "new": 53,
-    "changed": 4,
-    "unchanged": 103,
-    "reused": 0,
-    "skipped": 66
+    "new": 58,
+    "changed": 5,
+    "unchanged": 97,
+    "reused": 1,
+    "skipped": 239
   },
   "strategy": "Parallel verification with embedded official-link extraction, bounded discovery fallback and verified-record reuse"
 }
