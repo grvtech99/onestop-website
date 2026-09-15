@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-15T10:00:49.786112+00:00",
+  "checkedAt": "2026-09-15T11:36:13.516327+00:00",
   "status": "ok",
   "counts": {
-    "verified": 39,
-    "hold": 342,
-    "checked": 381,
-    "new": 101,
-    "changed": 268,
-    "unchanged": 12,
+    "verified": 17,
+    "hold": 384,
+    "checked": 401,
+    "new": 42,
+    "changed": 333,
+    "unchanged": 26,
     "reused": 0,
     "skipped": 0
   },
-  "strategy": "Parallel official verification with strict title/source matching and rich source-page field extraction; no blind verification reuse"
+  "strategy": "Parallel official verification with bounded second-hop official link discovery, strict title/source matching, and rich source-page field extraction; generic authority homepages are not published as notification links"
 }

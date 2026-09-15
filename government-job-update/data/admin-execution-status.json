@@ -1,12 +1,12 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-15T10:02:02.550742+00:00",
+  "generatedAt": "2026-09-15T11:37:28.512070+00:00",
   "workflow": "Government Job Update — Multi-Source Discovery",
-  "runId": "34955523544",
-  "runNumber": "68",
+  "runId": "34964105287",
+  "runNumber": "72",
   "runAttempt": "1",
-  "commitSha": "34e5ee5ab8475052df14e6d2b9bde27247e5c0b6",
-  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34955523544",
+  "commitSha": "92daf4f64075ee6785e809ef76d265caeb000d84",
+  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34964105287",
   "steps": {
     "discovery": "SUCCESS",
     "officialVerification": "SUCCESS",
