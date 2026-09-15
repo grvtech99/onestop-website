@@ -4,8 +4,7 @@ from datetime import datetime
 MONTHS={m:i for i,m in enumerate(('jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'),1)}
 DATE_PATTERNS=[re.compile(r'\b(\d{1,2})[/-](\d{1,2})[/-](\d{4})\b'),re.compile(r'\b(\d{1,2})\s+(Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s+(\d{4})\b',re.I),re.compile(r'\b(\d{4})[/-](\d{1,2})[/-](\d{1,2})\b')]
 FIELD_LABELS={
- 'department':('department','ministry','organization/department','department name'),
- 'vacancies':('total vacancies','number of vacancies','vacancy','vacancies','total posts','posts'),
+ 'department':('ministry','organization/department','department name'),
  'qualification':('educational qualification','qualification','eligibility','educational eligibility'),
  'ageLimit':('age limit','maximum age','upper age','minimum age','age limit as on'),
  'applicationStartDate':('application start date','starting date','start date','online application starts','online application start'),
@@ -20,7 +19,7 @@ FIELD_LABELS={
  'jobLocation':('job location','place of posting','posting location','location'),
  'applicationMode':('application mode','mode of application'),
 }
-SECTION_HEADINGS=('important dates','eligibility','eligibility criteria','vacancy details','post details','important links','selection process','salary','pay scale','how to apply','documents required','documents to upload','age relaxation','application fee','exam date','job location','application mode','educational qualification')
+SECTION_HEADINGS=('important dates','eligibility','eligibility criteria','vacancy details','post details','important links','selection process','salary','pay scale','how to apply','documents required','documents to upload','age relaxation','application fee','exam date','job location','application mode','educational qualification','important links description')
 CATEGORY_RULES=(
  ('admit_card',r'\b(admit card|e-admit|hall ticket|exam city|city intimation|call letter)\b'),
  ('result',r'\b(result|final result|score card|scorecard|marks)\b'),
@@ -35,11 +34,19 @@ CATEGORY_RULES=(
  ('syllabus',r'\b(syllabus|exam pattern|exam resources)\b'),
  ('notice',r'\b(corrigendum|addendum|important notice|public notice|advisory)\b'),
 )
+ORG_ALIASES=('ISRO','CSIR','DRDO','NFSU','UPSC','SSC','RRB','NTA','ICMR','AIIMS','UGC','IBPS','RBI','SBI','NABARD','SEBI','EPFO','ESIC','BHEL','BEL','HAL','ONGC','NTPC','IOCL','GAIL','LIC','UPPSC','UPSSSC','BPSC','RPSC','MPPSC','HPSC','WBPSC','MPSC','TNPSC','KPSC','KEA')
 
 def clean(value):
     value=re.sub(r'\s+',' ',str(value or '')).strip(' :|-')
     value=re.sub(r'\s+([,.;:])',r'\1',value)
     return value
+
+def infer_organization(title):
+    t=clean(title)
+    for alias in ORG_ALIASES:
+        if re.search(r'(?<![A-Z])'+re.escape(alias)+r'(?![A-Z])',t,re.I): return alias
+    m=re.match(r'^([A-Z][A-Za-z&. -]{2,45}?)\s+(?:Recruitment|Result|Admit|Answer|Admission|Scholarship)\b',t,re.I)
+    return clean(m.group(1)) if m else ''
 
 def classify_update_type(title,text=''):
     hay=clean((title or '')+' '+(text or ''))
@@ -62,25 +69,21 @@ def normalized_date(value):
     return None
 
 def _label_regex(labels): return '(?:'+'|'.join(re.escape(x) for x in sorted(set(labels),key=len,reverse=True))+')'
-
-def extract_section(text,labels,stop_labels=(),max_len=900):
-    text=clean(text)
-    if not text:return None
-    start_re=_label_regex(labels)
-    stop_re=_label_regex(stop_labels) if stop_labels else ''
-    pattern=r'(?is)(?<![A-Za-z])'+start_re+r'(?![A-Za-z])\s*[:\-]?\s*(.*?)'
-    if stop_re: pattern+=r'(?=\s+(?:'+stop_re+r')\b|$)'
-    else: pattern+=r'(?=$)'
-    m=re.search(pattern,text)
-    if not m:return None
-    value=clean(m.group(1))
-    if not value:return None
-    return value[:max_len]
-
 def _all_stop_labels(extra=()):
     out=list(SECTION_HEADINGS)+list(extra)
     for vals in FIELD_LABELS.values():out.extend(vals)
     return out
+
+def extract_section(text,labels,stop_labels=(),max_len=900):
+    text=clean(text)
+    if not text:return None
+    pattern=r'(?is)(?<![A-Za-z])'+_label_regex(labels)+r'(?![A-Za-z])\s*[:\-]?\s*(.*?)'
+    if stop_labels: pattern+=r'(?=\s+(?:'+_label_regex(stop_labels)+r')\b|$)'
+    else: pattern+=r'(?=$)'
+    m=re.search(pattern,text)
+    if not m:return None
+    value=clean(m.group(1))
+    return value[:max_len] if value else None
 
 def extract_after_label(text,labels,max_len=700): return extract_section(text,labels,_all_stop_labels(),max_len)
 
@@ -124,9 +127,10 @@ def normalize_record(raw):
     mode=clean(raw.get('applicationMode')) or extract_section(text,FIELD_LABELS['applicationMode'],stops)
     qualification=clean(raw.get('qualification')) or extract_section(text,FIELD_LABELS['qualification'],stops)
     department=clean(raw.get('department')) or extract_section(text,FIELD_LABELS['department'],stops)
+    organization=clean(raw.get('organization')) or infer_organization(title)
     category=clean(raw.get('category')) or classify_update_type(title,text)
     vacancy_details=clean(raw.get('vacancyDetails')) or extract_table_like(text,[r'(?i)(?:vacancy|post)\s+(?:details|details\s+and\s+vacancies)\s*[:\-]?\s*(.{20,1600})'])
-    record={'title':title or clean(raw.get('jobTitle')),'department':department,'organization':clean(raw.get('organization')),'state':clean(raw.get('state')),'jobType':clean(raw.get('jobType')) or 'Government Job','category':category,'updateType':classify_update_type(title,text),'vacancies':raw.get('vacancies') or extract_vacancies(text),'vacancyDetails':vacancy_details,'qualification':qualification,'ageLimit':age,'ageRelaxation':age_relax,'fee':fee,'selectionProcess':selection,'selection':selection,'salary':salary,'payScale':salary,'howToApply':how,'documentsRequired':docs,'jobLocation':location,'applicationMode':mode,'applicationStartDate':normalized_date(start) if start else None,'applicationLastDate':normalized_date(last) if last else None,'examDate':normalized_date(exam) if exam else None,'notificationUrl':clean(raw.get('notificationUrl')),'applyUrl':clean(raw.get('applyUrl')),'source':clean(raw.get('source')) or 'MultiSource'}
+    record={'title':title or clean(raw.get('jobTitle')),'department':department,'organization':organization,'state':clean(raw.get('state')),'jobType':clean(raw.get('jobType')) or 'Government Job','category':category,'updateType':classify_update_type(title,text),'vacancies':raw.get('vacancies') or extract_vacancies(text),'vacancyDetails':vacancy_details,'qualification':qualification,'ageLimit':age,'ageRelaxation':age_relax,'fee':fee,'selectionProcess':selection,'selection':selection,'salary':salary,'payScale':salary,'howToApply':how,'documentsRequired':docs,'jobLocation':location,'applicationMode':mode,'applicationStartDate':normalized_date(start) if start else None,'applicationLastDate':normalized_date(last) if last else None,'examDate':normalized_date(exam) if exam else None,'notificationUrl':clean(raw.get('notificationUrl')),'applyUrl':clean(raw.get('applyUrl')),'source':clean(raw.get('source')) or 'MultiSource'}
     if not record['applicationLastDate'] and dates: record['applicationLastDate']=dates[-1]['date']
     record['dateEvidence']=dates
     return record
