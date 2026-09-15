@@ -1,9 +1,10 @@
 {
-  "checkedAt": "2026-09-15T12:53:09.651758+00:00",
+  "checkedAt": "2026-09-15T13:21:07.027668+00:00",
   "status": "ok",
-  "new": 28,
-  "changed": 7,
-  "items": 401,
+  "new": 5,
+  "changed": 8,
+  "retained": 70,
+  "items": 406,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -13,10 +14,8 @@
     "sarkarinaukriblog",
     "indgovtjobs",
     "sarkariupdates",
-    "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
-    "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
@@ -46,7 +45,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 46
+      "count": 45
     },
     "testbook": {
       "name": "Testbook",
@@ -80,9 +79,9 @@
     },
     "exampix": {
       "name": "Exampix",
-      "status": "ok",
-      "mode": "html",
-      "count": 56
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "inrgovtjobs": {
       "name": "INR Govt Jobs",
@@ -98,9 +97,9 @@
     },
     "sarkari247": {
       "name": "Sarkari247",
-      "status": "ok",
-      "mode": "html",
-      "count": 8
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",
@@ -151,5 +150,5 @@
       "count": 87
     }
   },
-  "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
+  "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"
 }
