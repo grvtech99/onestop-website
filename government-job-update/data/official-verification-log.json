@@ -1,13 +1,15 @@
 {
-  "checkedAt": "2026-09-14T11:38:28.362787+00:00",
+  "checkedAt": "2026-09-15T05:02:58.627677+00:00",
   "status": "ok",
   "counts": {
     "verified": 0,
-    "hold": 0,
-    "checked": 0,
-    "new": 0,
+    "hold": 120,
+    "checked": 120,
+    "new": 120,
     "changed": 0,
-    "unchanged": 0
+    "unchanged": 0,
+    "reused": 0,
+    "skipped": 111
   },
-  "strategy": "SarkariResult metadata -> targeted official department verification"
+  "strategy": "Fast bounded verification: 12-way parallel discovery-page checks, explicit official-domain links only, no blind government crawling, verified-record reuse"
 }

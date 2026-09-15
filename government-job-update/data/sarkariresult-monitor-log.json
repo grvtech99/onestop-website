@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-14T11:48:39.513797+00:00",
+  "checkedAt": "2026-09-15T05:02:31.293051+00:00",
   "status": "ok",
-  "new": 163,
-  "changed": 0,
-  "items": 163,
+  "new": 90,
+  "changed": 6,
+  "items": 231,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -17,15 +17,11 @@
     "sarkarinaukari",
     "sarkari247",
     "sarkarinaukarisetu",
-    "nayawork"
+    "nayawork",
+    "sarkariscan",
+    "freejobalert"
   ],
   "sources": {
-    "sarkariresult": {
-      "name": "SarkariResult",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
     "employmentnews": {
       "name": "Employment News",
       "status": "ok",
@@ -54,7 +50,7 @@
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 32
+      "count": 35
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -72,13 +68,13 @@
       "name": "IndGovtJobs",
       "status": "ok",
       "mode": "rss",
-      "count": 8
+      "count": 13
     },
     "sarkariupdates": {
       "name": "SarkariUpdates",
       "status": "ok",
       "mode": "html",
-      "count": 14
+      "count": 11
     },
     "exampix": {
       "name": "Exampix",
@@ -108,7 +104,7 @@
       "name": "Sarkari Naukri Setu",
       "status": "ok",
       "mode": "html",
-      "count": 4
+      "count": 5
     },
     "sarkarinaukri": {
       "name": "Sarkari-Naukri.in",
@@ -142,10 +138,16 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 15
+    },
+    "freejobalert": {
+      "name": "FreeJobAlert",
+      "status": "ok",
+      "mode": "rss",
+      "count": 47
     }
   },
-  "policy": "SarkariResult primary; alternates are discovery-only; official government source remains final authority"
+  "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority"
 }

@@ -1,19 +1,19 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-09-14T12:17:37.721246+00:00",
-  "workflow": "Government Job Update — SarkariResult Discovery",
-  "runId": "34840080721",
-  "runNumber": "35",
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-15T05:03:11.074948+00:00",
+  "workflow": "Government Job Update — Multi-Source Discovery",
+  "runId": "34931145994",
+  "runNumber": "54",
   "runAttempt": "1",
-  "commitSha": "e87f22727c601e138ecffc57020c929f8118ebfc",
-  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34840080721",
+  "commitSha": "bcde8745433d2e62cb66b209045b35ab833a77bc",
+  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/34931145994",
   "steps": {
     "discovery": "SUCCESS",
-    "officialVerification": "FAILURE",
+    "officialVerification": "SUCCESS",
     "controlledE2E": "SUCCESS",
     "publicationRegression": "SUCCESS",
     "publicationQueue": "SUCCESS",
     "adminSnapshot": "SUCCESS"
   },
-  "note": "Step outcomes are workflow execution status only. Production discovery remains dependent on live SarkariResult access; controlled E2E is not production discovery."
+  "note": "Step outcomes are workflow execution status only. Discovery uses 20 alternate sources plus FreeJobAlert; official government/recruitment sources remain the final authority. Controlled E2E is not production discovery."
 }
