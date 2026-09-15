@@ -19,4 +19,11 @@
   async function run(){var btn=document.getElementById('osSpeedTest'),status=document.getElementById('osStatus');if(!btn)return;btn.classList.add('os-speed-testing');status.textContent='Testing connection…';set('osNet',network());try{var p=await ping();set('osPing',p);status.textContent='Measuring download…';var d=await download();set('osDown',d.toFixed(1));status.textContent='Measuring upload…';var u=await upload();set('osUp',u.toFixed(1));status.textContent='Speed test complete';}catch(e){console.error('ONESTOP speed test',e);status.textContent='Test could not complete. Try again.';}finally{btn.classList.remove('os-speed-testing');}}
   function mount(){var hero=document.querySelector('.hero');var quick=document.querySelector('.hero-quick');if(!hero||document.getElementById(root.id))return;hero.style.position='relative';hero.style.overflow='visible';if(window.matchMedia('(max-width:850px)').matches&&quick){quick.insertAdjacentElement('afterend',root);}else{hero.appendChild(root);}set('osNet',network());isp().then(function(v){set('osIsp',v);});document.getElementById('osSpeedTest').addEventListener('click',run);}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+  /* Use the newly uploaded ONESTOP passport photo everywhere the old WebP photo is referenced. */
+  function replacePassportPhoto(){
+    document.querySelectorAll('img[src*="PASSPORT_PHOTO.webp"]').forEach(function(img){
+      img.src='/PASSPORT%20PHOTO.png';
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',replacePassportPhoto);else replacePassportPhoto();
 })();
