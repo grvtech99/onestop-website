@@ -1,11 +1,10 @@
 {
-  "checkedAt": "2026-09-15T05:02:31.293051+00:00",
+  "checkedAt": "2026-09-15T05:45:08.172893+00:00",
   "status": "ok",
-  "new": 90,
+  "new": 12,
   "changed": 6,
-  "items": 231,
+  "items": 226,
   "discoveryChannels": [
-    "employmentnews",
     "ncs",
     "fresherslive",
     "jagranjosh",
@@ -24,9 +23,9 @@
   "sources": {
     "employmentnews": {
       "name": "Employment News",
-      "status": "ok",
-      "mode": "html",
-      "count": 4
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "ncs": {
       "name": "National Career Service",
@@ -44,13 +43,13 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 12
+      "count": 13
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 35
+      "count": 33
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -104,7 +103,7 @@
       "name": "Sarkari Naukri Setu",
       "status": "ok",
       "mode": "html",
-      "count": 5
+      "count": 6
     },
     "sarkarinaukri": {
       "name": "Sarkari-Naukri.in",
@@ -146,7 +145,7 @@
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 47
+      "count": 46
     }
   },
   "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority"

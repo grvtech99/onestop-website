@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-15T05:02:58.627677+00:00",
+  "checkedAt": "2026-09-15T05:45:46.930410+00:00",
   "status": "ok",
   "counts": {
-    "verified": 0,
-    "hold": 120,
-    "checked": 120,
-    "new": 120,
-    "changed": 0,
-    "unchanged": 0,
+    "verified": 5,
+    "hold": 155,
+    "checked": 160,
+    "new": 53,
+    "changed": 4,
+    "unchanged": 103,
     "reused": 0,
-    "skipped": 111
+    "skipped": 66
   },
-  "strategy": "Fast bounded verification: 12-way parallel discovery-page checks, explicit official-domain links only, no blind government crawling, verified-record reuse"
+  "strategy": "Parallel verification with embedded official-link extraction, bounded discovery fallback and verified-record reuse"
 }
