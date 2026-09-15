@@ -2,7 +2,7 @@
 """Build one public, read-only status document for the Government Job Update dashboard."""
 from __future__ import annotations
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parents[1]
@@ -12,17 +12,13 @@ OUT = DATA / 'admin-dashboard-state.json'
 
 def read(name, default):
     p = DATA / name
-    try:
-        return json.loads(p.read_text(encoding='utf-8'))
-    except Exception:
-        return default
+    try: return json.loads(p.read_text(encoding='utf-8'))
+    except Exception: return default
 
 def read_test(name):
     p = TEST / name
-    try:
-        return json.loads(p.read_text(encoding='utf-8'))
-    except Exception:
-        return {}
+    try: return json.loads(p.read_text(encoding='utf-8'))
+    except Exception: return {}
 
 def parse_dt(value):
     if not value: return None
@@ -44,11 +40,12 @@ now = datetime.now(timezone.utc)
 checked = parse_dt(monitor.get('lastCheckedAt'))
 next_run = None
 if checked:
-    candidate = checked.replace(minute=47, second=0, microsecond=0)
-    if candidate <= now:
-        from datetime import timedelta
-        candidate += timedelta(hours=1)
-    next_run = candidate
+    base = checked.replace(second=0, microsecond=0)
+    for _ in range(12):
+        base += timedelta(minutes=1)
+        if base.minute % 10 == 3:
+            next_run = base
+            break
 
 items = canonical.get('items') or {}
 verified_items = [x for x in items.values() if x.get('verificationStatus') == 'verified' and x.get('publicationStatus') == 'ready']
@@ -73,45 +70,31 @@ def test_status(report):
     return 'CHECK'
 
 out = {
-    'schemaVersion': 2,
+    'schemaVersion': 3,
     'generatedAt': now.isoformat(),
-    'schedule': {'cronUtc': '47 * * * *', 'description': 'Every hour at minute 47 UTC (~:17 IST). GitHub Actions schedules may be delayed.'},
+    'schedule': {'cronUtc': '3/10 * * * *', 'description': 'Every 10 minutes at minutes 03, 13, 23, 33, 43 and 53 UTC (~:33, :43, :53, :03, :13 and :23 IST). GitHub Actions schedules may be delayed.'},
     'production': {
-        'source': 'Multi-Source Government Jobs',
-        'sourceUrl': None,
-        'status': source_status,
-        'lastCheckedAt': monitor.get('lastCheckedAt'),
-        'lastSuccessfulDiscoveryAt': monitor.get('lastSuccessfulDiscoveryAt'),
-        'lastError': http_error,
-        'discoveredCount': len(monitor.get('items') or {}),
+        'source': 'Multi-Source Government Jobs', 'sourceUrl': None, 'status': source_status,
+        'lastCheckedAt': monitor.get('lastCheckedAt'), 'lastSuccessfulDiscoveryAt': monitor.get('lastSuccessfulDiscoveryAt'),
+        'lastError': http_error, 'discoveredCount': len(monitor.get('items') or {}),
         'newCount': monitor_log.get('new', verify.get('counts', {}).get('new', 0)),
         'changedCount': monitor_log.get('changed', verify.get('counts', {}).get('changed', 0)),
     },
     'recovery': recovery,
     'pipeline': {
-        'extraction': 'READY',
-        'officialVerification': 'READY' if source_status != 'source_unavailable' else 'WAITING_FOR_DISCOVERY',
-        'canonical': 'READY',
-        'publicationGate': 'READY',
-        'websiteFeed': 'READY',
-        'verifiedCount': len(verified_items),
-        'holdCount': len(held_items),
-        'publishedCount': len(queue.get('items') or []),
-        'canonicalCount': len(items),
-        'publicationReadyCount': queue.get('readyCount', len(queue.get('items') or [])),
+        'extraction': 'READY', 'officialVerification': 'READY' if source_status != 'source_unavailable' else 'WAITING_FOR_DISCOVERY',
+        'canonical': 'READY', 'publicationGate': 'READY', 'websiteFeed': 'READY',
+        'verifiedCount': len(verified_items), 'holdCount': len(held_items), 'publishedCount': len(queue.get('items') or []),
+        'canonicalCount': len(items), 'publicationReadyCount': queue.get('readyCount', len(queue.get('items') or [])),
         'publicationBlockedCount': queue.get('blockedCount', 0),
     },
     'tests': {'controlledE2E': test_status(e2e), 'publicationGateRegression': test_status(gate), 'controlledE2EIsProductionDiscovery': False},
     'timing': {'lastRunAt': verify.get('checkedAt') or monitor.get('lastCheckedAt'), 'nextExpectedRunAt': iso(next_run)},
     'recent': {'discovery': monitor_log, 'verification': verify_log},
     'policy': {
-        'discoverySource': '20 alternate sources + FreeJobAlert',
-        'discoverySourceCount': len(source_results) or 21,
-        'activeDiscoverySources': active_source_names,
-        'finalAuthority': 'Official government/recruitment authority',
-        'publication': 'verified-only',
-        'heldRecordsArePublished': False,
-        'freeJobAlertUsed': 'freejobalert' in source_results,
+        'discoverySource': '20 alternate sources + FreeJobAlert', 'discoverySourceCount': len(source_results) or 21,
+        'activeDiscoverySources': active_source_names, 'finalAuthority': 'Official government/recruitment authority',
+        'publication': 'verified-only', 'heldRecordsArePublished': False, 'freeJobAlertUsed': 'freejobalert' in source_results,
     },
 }
 OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
