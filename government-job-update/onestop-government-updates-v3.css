@@ -21,9 +21,9 @@ body:has(.grid) .fresh-new{background:#e8f7ee;color:#15803d;border:1px solid #c7
 body:has(.grid) .fresh-updated{background:#fff7df;color:#a16207;border:1px solid #f0d99d}
 body:has(.grid) .fresh-closing-soon{background:#fff0f0;color:#b91c1c;border:1px solid #f2c7c7}
 body:has(.grid) .notice{margin-top:11px;padding:8px 11px;border-left-width:3px;border-radius:7px;font-size:10px;line-height:1.35}
-body:has(.grid) .hero{padding:34px 0 27px}
-body:has(.grid) .hero h1{font-size:clamp(31px,5vw,48px)}
-body:has(.grid) .hero p{font-size:14px;line-height:1.4}
+body:has(.grid) .hero{padding:34px 0 27px;background:#1688e8!important;color:#fff}
+body:has(.grid) .hero h1{font-size:clamp(31px,5vw,48px);color:#fff}
+body:has(.grid) .hero p{font-size:14px;line-height:1.4;color:#fff}
 body:has(.grid) .quick{gap:6px;margin-top:16px}
 body:has(.grid) .quick a{padding:9px 10px;border-radius:8px;font-size:12px}
 @media(max-width:760px){body:has(.grid) section:not(.hero){padding:20px 0 28px}body:has(.grid) .grid{grid-template-columns:1fr;gap:8px}body:has(.grid) .panel h3{padding:8px 10px;font-size:14px}body:has(.grid) .list li{padding:5px 7px 5px 12px}body:has(.grid) .item{font-size:11.5px}body:has(.grid) .fresh-badge{font-size:7.5px;padding:2px 4px}body:has(.grid) .hero{padding:27px 0 22px}body:has(.grid) .quick{grid-template-columns:repeat(2,1fr);gap:6px;margin-top:15px}body:has(.grid) .quick a{padding:9px 8px;font-size:11px}}
