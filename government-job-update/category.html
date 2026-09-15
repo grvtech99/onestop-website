@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="ONESTOP Government Job Updates by category">
+<title>ONESTOP Category Update</title>
+<style>
+:root{--blue:#0757c9;--dark:#06265f;--sky:#1688e8;--text:#14213d;--muted:#60708d;--light:#f5f9ff;--white:#fff;--border:#dce7f7;--green:#16a34a;--green-dark:#15803d}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,"Segoe UI",sans-serif;background:var(--light);color:var(--text);line-height:1.5}a{text-decoration:none;color:inherit}.container{max-width:1180px;margin:auto;padding:0 18px}
+header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.98);border-bottom:1px solid var(--border);backdrop-filter:blur(8px)}.nav{max-width:1180px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:900;color:var(--blue);font-size:24px}.brand small{display:block;font-size:8px;letter-spacing:1px;color:var(--text);margin-top:2px}.back{background:#eaf3ff;color:var(--blue);padding:8px 12px;border-radius:9px;font-weight:800;font-size:13px}
+.hero{background:linear-gradient(135deg,#031d50,#0757c9 60%,#1688e8);color:#fff;padding:38px 0}.hero h1{font-size:clamp(30px,5vw,52px);line-height:1.05}.hero p{margin-top:9px;color:#e3efff;font-size:16px}.active-note{display:inline-block;margin-bottom:12px;background:#16a34a;color:#fff;border-radius:8px;padding:5px 10px;font-size:11px;font-weight:900;letter-spacing:.3px}
+section{padding:35px 0}.category-nav{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}.category-nav a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:52px;padding:10px 8px;border-radius:10px;background:#eaf3ff;border:1px solid #c9ddfb;color:var(--blue);font-weight:900;font-size:13px;transition:.18s}.category-nav a:hover{transform:translateY(-1px);background:#dcecff}.category-nav a.active{background:var(--green);border-color:var(--green-dark);color:#fff;box-shadow:0 6px 16px rgba(22,163,74,.2)}
+.panel{background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden;box-shadow:0 6px 22px rgba(20,33,61,.05)}.panel-head{background:var(--green);color:#fff;padding:14px 16px;font-size:21px;font-weight:900}.panel-head small{display:block;font-size:11px;font-weight:700;opacity:.9;margin-top:2px}.list{list-style:none}.list li{border-bottom:1px solid #edf1f7;padding:10px 13px}.list li:last-child{border-bottom:0}.job-link{display:flex;align-items:center;gap:9px;color:#18325d;font-weight:800;font-size:14px}.job-link:hover{color:var(--blue)}.job-title{flex:1}.badge{flex:0 0 auto;padding:2px 5px;border-radius:5px;font-size:8px;font-weight:900;letter-spacing:.25px}.new{background:#dcfce7;color:#166534}.updated{background:#fef3c7;color:#92400e}.closing{background:#fee2e2;color:#991b1b}.empty{padding:22px;color:var(--muted);font-weight:700}.notice{margin-top:16px;background:#fff;border-left:5px solid var(--green);padding:13px 16px;border-radius:9px;color:var(--muted);font-size:13px}.notice strong{color:var(--green-dark)}
+footer{background:#031b4c;color:#d8e6ff;text-align:center;padding:28px 0;margin-top:20px}footer strong{color:#fff}footer p{margin-top:5px;font-size:12px}
+@media(max-width:800px){.category-nav{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.nav{padding:9px 12px}.brand{font-size:20px}.brand small{font-size:7px}.back{font-size:11px;padding:7px 9px}.hero{padding:30px 0}.hero h1{font-size:36px}.category-nav{grid-template-columns:1fr 1fr;gap:7px}.category-nav a{min-height:48px;font-size:11px}.job-link{font-size:12px;gap:6px}.panel-head{font-size:18px}}
+</style>
+<link rel="stylesheet" href="onestop-visual-polish-v2.css">
+</head>
+<body>
+<header><div class="nav"><a class="brand" href="onestop-updates.html">ONESTOP<small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="back" href="onestop-updates.html">← All Updates</a></div></header>
+<section class="hero"><div class="container"><span class="active-note" id="activeNote">CATEGORY UPDATE</span><h1 id="pageTitle">Government Updates</h1><p id="pageIntro">Category-wise verified government updates. Click a vacancy to open its ONESTOP details page.</p></div></section>
+<section><div class="container"><nav class="category-nav" id="categoryNav" aria-label="Government update categories"></nav><div class="panel"><div class="panel-head" id="panelHead">Government Updates</div><ul class="list" id="jobList"><li class="empty">Updates loading…</li></ul></div><div class="notice"><strong>Direct ONESTOP link:</strong> Every vacancy below opens its complete ONESTOP details page first. The official government notice/apply link is provided inside that details page.</div></div></section>
+<footer><div class="container"><strong>ONESTOP Computer &amp; Skill Development Center</strong><p>Onestop Job Update — verified government and career information.</p></div></footer>
+<script>
+(function(){'use strict';
+var API='data/publication-queue.json';
+var CATS={
+ jobs:{label:'💼 Latest Jobs',title:'Latest Jobs',intro:'Latest verified government recruitment and job updates.'},
+ admit:{label:'🎫 Admit Card',title:'Admit Card',intro:'Verified admit cards, hall tickets and exam-entry updates.'},
+ results:{label:'🏆 Results',title:'Results',intro:'Verified exam results, score cards and result updates.'},
+ answer:{label:'🔑 Answer Key',title:'Answer Key',intro:'Verified provisional/final answer keys and response-sheet updates.'},
+ admission:{label:'🎓 Admission',title:'Admission',intro:'Verified admission, entrance and student admission updates.'},
+ scholarship:{label:'💰 Scholarship & Student',title:'Scholarship & Student',intro:'Verified scholarship, fellowship and student-support updates.'},
+ syllabus:{label:'📘 Syllabus',title:'Syllabus',intro:'Verified syllabus, exam-pattern and exam-resource updates.'},
+ important:{label:'⭐ Important Updates',title:'Important Updates',intro:'Verified important notices, schedules, counselling and related updates.'}
+};
+var ALIASES={admit_card:'admit',answer_key:'answer',counselling:'important',cut_off:'important',merit_list:'important',exam_schedule:'important',document_verification:'important',notice:'important',important_notice:'important'};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function category(x){var c=String(x.category||'').toLowerCase().replace(/\s+/g,'_');if(ALIASES[c])return ALIASES[c];if(CATS[c])return c;var t=String(x.title||'').toLowerCase();if(/admit|e-admit|hall ticket|interview schedule|exam city|city intimation|call letter/.test(t))return'admit';if(/answer key|response sheet|provisional key|final key/.test(t))return'answer';if(/result|final result|score card|scorecard|marks/.test(t))return'results';if(/scholarship|fellowship|stipend|national scholarship|pm-usp|pragati|saksham|swanath/.test(t))return'scholarship';if(/syllabus|exam pattern|exam resources/.test(t))return'syllabus';if(/admission|entrance|college admission|university admission/.test(t))return'admission';if(/counselling|counseling|seat allotment|cut[- ]off|merit list|selection list|document verification|dv schedule|exam schedule|exam date|important notice|advisory|addendum|corrigendum/.test(t))return'important';return'jobs';}
+function dateOnly(v){if(!v)return null;var s=String(v),m=s.match(/^(\d{4})-(\d{2})-(\d{2})/);if(m)return new Date(Number(m[1]),Number(m[2])-1,Number(m[3]));var d=new Date(s);return isNaN(d.getTime())?null:d;}
+function ageDays(v){if(!v)return 9999;var d=new Date(v);return isNaN(d.getTime())?9999:Math.floor((Date.now()-d.getTime())/86400000);}
+function badge(x){var last=dateOnly(x.applicationLastDate||x.lastDate);if(last){var days=Math.ceil((last-new Date())/86400000);if(days>=0&&days<=3)return'<span class="badge closing">CLOSING SOON</span>';}if(ageDays(x.discoveredAt)<=3)return'<span class="badge new">NEW</span>';if(ageDays(x.updatedAt)<=3)return'<span class="badge updated">UPDATED</span>';return'';}
+function getType(){var p=new URLSearchParams(location.search).get('type');return CATS[p]?p:'jobs';}
+function renderNav(active){var nav=document.getElementById('categoryNav');nav.innerHTML=Object.keys(CATS).map(function(k){return'<a href="category.html?type='+k+'" class="'+(k===active?'active':'')+'">'+CATS[k].label+'</a>';}).join('');}
+function render(active,items){var meta=CATS[active],title=meta.title;document.title='ONESTOP '+title+' Updates';document.getElementById('pageTitle').textContent=title;document.getElementById('panelHead').innerHTML=meta.label+'<small>Verified updates in this category</small>';document.getElementById('pageIntro').textContent=meta.intro+' Click a vacancy to open its ONESTOP details page.';document.getElementById('activeNote').textContent=title.toUpperCase()+' CATEGORY';var list=document.getElementById('jobList');if(!items.length){list.innerHTML='<li class="empty">No verified updates available right now.</li>';return;}items.sort(function(a,b){return new Date(b.updatedAt||b.discoveredAt||b.publishedAt||0)-new Date(a.updatedAt||a.discoveredAt||a.publishedAt||0);});list.innerHTML=items.slice(0,100).map(function(x){return'<li><a class="job-link" href="job-details.html?id='+encodeURIComponent(x.id)+'"><span class="job-title">'+esc(x.title||'Untitled update')+'</span>'+badge(x)+'</a></li>';}).join('');}
+renderNav(getType());
+fetch(API,{cache:'no-store',headers:{Accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(function(payload){var active=getType();var items=(Array.isArray(payload.items)?payload.items:[]).filter(function(x){return x&&x.verificationStatus==='verified'&&x.publicationStatus==='ready'&&category(x)===active;});render(active,items);}).catch(function(){document.getElementById('jobList').innerHTML='<li class="empty">Verified update feed temporarily unavailable. Please check again shortly.</li>';});
+})();
+</script>
+</body>
+</html>
