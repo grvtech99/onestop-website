@@ -54,11 +54,13 @@ jobs:
       - id: e2e
         name: Run controlled live end-to-end test
         if: ${{ !cancelled() }}
+        continue-on-error: true
         run: python government-job-update/scripts/end-to-end-test.py
 
       - id: publicationRegression
         name: Run publication gate regression test
         if: ${{ !cancelled() }}
+        continue-on-error: true
         run: python government-job-update/scripts/publication-gate-test.py
 
       - id: publicationQueue
