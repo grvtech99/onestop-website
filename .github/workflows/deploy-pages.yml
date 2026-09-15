@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -23,64 +23,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Clean duplicate CSC tools CSS
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-
-          path = Path("free-csc-tools/index.html")
-          html = path.read_text(encoding="utf-8")
-
-          html = html.replace("?v=pro20260915", "")
-
-          styles = re.findall(r'<style([^>]*)>(.*?)</style>', html, re.S)
-          if len(styles) == 3 and "/* VISUAL TOOL THUMBNAILS */" in styles[0][1]:
-              base = styles[0][1].split("\n/* VISUAL TOOL THUMBNAILS */", 1)[0] + "\n"
-
-              legacy_thumb = '.thumb{height:132px;background:linear-gradient(135deg,#eaf3ff,#fff);display:flex;align-items:center;justify-content:center;padding:14px;position:relative;overflow:hidden}.thumb:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:rgba(22,136,232,.08);right:-25px;top:-30px}.thumb-icon{width:72px;height:72px;border-radius:18px;background:#fff;box-shadow:0 8px 22px rgba(7,87,201,.12);display:flex;align-items:center;justify-content:center;font-size:38px;z-index:1;border:1px solid #e4edfb}.thumb.mock-photo{gap:5px}.thumb.mock-photo .photo{width:38px;height:52px;border-radius:5px;background:#dbeafe;border:2px solid #fff;box-shadow:0 3px 8px #b7cbea;z-index:1}.thumb.mock-doc{gap:5px}.thumb.mock-doc .sheet{width:54px;height:68px;background:#fff;border:1px solid #cbd8ed;border-radius:5px;box-shadow:0 4px 10px #cbd8ed;z-index:1;padding:8px}.thumb.mock-doc .sheet i{display:block;height:4px;background:#bcd4f7;margin:4px 0;border-radius:3px}.thumb.mock-social{gap:7px}.thumb.mock-social b{width:30px;height:30px;border-radius:9px;background:#eaf3ff;display:flex;align-items:center;justify-content:center;font-size:16px;z-index:1}'
-              if legacy_thumb not in base:
-                  raise SystemExit("Legacy thumbnail CSS pattern not found; refusing automatic rewrite")
-              base = base.replace(legacy_thumb, '.thumb{position:relative;overflow:hidden}')
-              base = base.replace('.thumb{height:150px}.feature-grid', '.feature-grid')
-
-              style2 = '.category-accordion{grid-template-columns:1fr;max-width:1050px;margin:auto}'
-              style3 = styles[2][1].replace(
-                  '.category-accordion .category-icon img,.real-tool-shot{width:100%;height:100%;object-fit:cover;display:block}',
-                  '.accordion-category .category-icon img{width:100%;height:100%;object-fit:cover;display:block}'
-              )
-              combined = '<style>\n' + base.strip() + '\n' + style2 + '\n' + style3.strip() + '\n</style>'
-              html, changed = re.subn(
-                  r'<style[^>]*>.*?</style>\s*<style[^>]*>.*?</style>\s*<style[^>]*>.*?</style>',
-                  combined,
-                  html,
-                  count=1,
-                  flags=re.S,
-              )
-              if changed != 1:
-                  raise SystemExit("Could not consolidate CSC tool styles safely")
-
-          if any(x in html for x in ("mock-photo", "mock-doc", "mock-social", "thumb-icon")):
-              raise SystemExit("Legacy thumbnail CSS still present; refusing to deploy")
-
-          named_functions = re.findall(r'function\s+([\w$]+)\s*\(', html)
-          if sorted(named_functions) != ["filterTools", "toggleMenu"]:
-              raise SystemExit(f"Unexpected duplicate/extra named functions: {named_functions}")
-
-          path.write_text(html, encoding="utf-8")
-      - name: Commit cleaned CSC tools page
-        shell: bash
-        run: |
-          set -e
-          if git diff --quiet -- free-csc-tools/index.html; then
-            echo "No source cleanup needed."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add free-csc-tools/index.html
-          git commit -m "Clean duplicate CSC tools CSS"
-          git push
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Render clean pro PNG thumbnails
@@ -120,6 +62,7 @@ jobs:
             document.head.appendChild(style);
           })();
           EOF
+          # The original cards are CSS mockups, so explicitly replace their five trending visuals with the rendered PNGs.
           sed -i 's#</body>#<script src="pro-thumbnails.js?v=pro20260915-v2"></script></body>#' free-csc-tools/index.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
