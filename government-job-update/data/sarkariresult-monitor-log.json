@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-15T14:16:38.837391+00:00",
+  "checkedAt": "2026-09-15T17:22:31.609224+00:00",
   "status": "ok",
-  "new": 5,
+  "new": 13,
   "changed": 8,
-  "retained": 26,
-  "items": 414,
+  "retained": 34,
+  "items": 427,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -46,13 +46,13 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 47
+      "count": 51
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 66
+      "count": 67
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
