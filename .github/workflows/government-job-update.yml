@@ -2,7 +2,7 @@ name: Government Job Update — Multi-Source Discovery
 
 on:
   schedule:
-    - cron: '47 * * * *'
+    - cron: '*/10 * * * *'
   push:
     branches: [main]
     paths:
