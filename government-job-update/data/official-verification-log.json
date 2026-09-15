@@ -1,13 +1,13 @@
 {
-  "checkedAt": "2026-09-15T18:32:38.696132+00:00",
+  "checkedAt": "2026-09-15T19:04:42.332436+00:00",
   "status": "ok",
   "counts": {
-    "verified": 16,
-    "hold": 421,
-    "checked": 437,
-    "new": 8,
-    "changed": 162,
-    "unchanged": 267,
+    "verified": 17,
+    "hold": 423,
+    "checked": 440,
+    "new": 3,
+    "changed": 137,
+    "unchanged": 300,
     "reused": 0,
     "skipped": 0
   },
