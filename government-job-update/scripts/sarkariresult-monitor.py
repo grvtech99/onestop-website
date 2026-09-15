@@ -14,9 +14,8 @@ DATA = ROOT / "data"
 STATE = DATA / "sarkariresult-monitor-state.json"
 LOG = DATA / "sarkariresult-monitor-log.json"
 
-# SarkariResult was removed after repeated direct-access failures. Discovery now
-# uses the 20 remaining sources plus FreeJobAlert. Official government sources
-# remain the final verification authority.
+# SarkariResult was removed. Discovery uses the 20 retained sources plus FreeJobAlert.
+# Official government sources remain the final verification authority.
 SOURCES = [
  {"id":"employmentnews","name":"Employment News","url":"https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All"},
  {"id":"ncs","name":"National Career Service","url":"https://ncs.gov.in/latest-update"},
@@ -41,19 +40,16 @@ SOURCES = [
  {"id":"freejobalert","name":"FreeJobAlert","url":"https://www.freejobalert.com/latest-notifications/","rss":"https://www.freejobalert.com/feed/"},
 ]
 
-# Broad discovery signal: jobs + admit cards + results + answer keys + admissions + scholarships + syllabus + notices.
 UPDATE = re.compile(r"\b(recruit|vacan|job|online form|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group [abc]|technician|trainee|professor|nurse|steno|driver|advt|employment|admit card|e-admit|exam city|result|final result|answer key|cut.?off|merit list|selection list|admission|entrance|scholarship|fellowship|syllabus|exam date|exam schedule|counselling|counseling|corrigendum|addendum|notice|response sheet|document verification)\b", re.I)
 
-def save(path, value):
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+def save(path, value): path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 def get(url):
     try:
-        req = urllib.request.Request(url, headers={"User-Agent":"ONESTOP-Government-Job-Update/3.1","Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
-        r = urllib.request.urlopen(req, timeout=15)
-        return r.status, r.read(1200000), r.geturl(), None
-    except urllib.error.HTTPError as e: return e.code, b"", url, f"HTTP {e.code}"
-    except Exception as e: return None, b"", url, str(e)[:200]
+        req=urllib.request.Request(url,headers={"User-Agent":"ONESTOP-Government-Job-Update/3.1","Accept":"application/rss+xml,application/atom+xml,application/xml,text/html;q=0.9,*/*;q=0.1"})
+        r=urllib.request.urlopen(req,timeout=15); return r.status,r.read(1200000),r.geturl(),None
+    except urllib.error.HTTPError as e: return e.code,b"",url,f"HTTP {e.code}"
+    except Exception as e: return None,b"",url,str(e)[:200]
 
 def rss_items(body):
     out=[]
@@ -66,13 +62,13 @@ def rss_items(body):
                 tag=c.tag.rsplit("}",1)[-1]; val=(c.text or "").strip()
                 if tag in ("link","title","description","summary","pubDate","published","updated","guid") and val: row[tag]=val
                 if tag=="link" and not val and c.attrib.get("href"): row["link"]=c.attrib["href"]
-            if row.get("link") and UPDATE.search(row.get("title","") + " " + row.get("description","") ): out.append(row)
+            if row.get("link") and UPDATE.search(row.get("title","")+" "+row.get("description",""): out.append(row)
     except Exception: pass
     return out
 
 def html_items(body, base, limit=160):
     text=body.decode("utf-8","replace"); out=[]
-    for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>', text, re.I|re.S):
+    for m in re.finditer(r'<a\b[^>]*href=[\'\"]([^\'\"]+)[\'\"][^>]*>(.*?)</a>',text,re.I|re.S):
         u=urllib.parse.urljoin(base,m.group(1)).split("#",1)[0]
         title=re.sub(r"<[^>]+>"," ",m.group(2)); title=re.sub(r"\s+"," ",title).strip()
         if u.startswith(("http://","https://")) and UPDATE.search(title) and len(title)>=10: out.append({"link":u,"title":title})
@@ -82,7 +78,8 @@ def main():
     t=datetime.now(timezone.utc).isoformat(); old={}
     try: old=json.loads(STATE.read_text()).get("items",{})
     except Exception: pass
-    discovered=[]; channels=[]; source_results={}
+    # RETAIN old records. A source disappearing/rotating its list must not erase existing vacancies.
+    out=dict(old); discovered=[]; channels=[]; source_results={}
     for src in SOURCES:
         found=[]; mode=None
         if src.get("rss"):
@@ -96,19 +93,19 @@ def main():
             channels.append(src["id"])
             for r in found:
                 discovered.append({"url":r.get("link",""),"title":r.get("title","").strip(),"description":r.get("description",r.get("summary","")),"publishedAt":r.get("pubDate",r.get("published",r.get("updated",""))),"discoverySource":src["name"],"discoverySourceId":src["id"]})
-    out={}; new=changed=0
+    new=changed=0
     for row in discovered[:3000]:
         u=row["url"].split("#",1)[0]
         if not u.startswith(("http://","https://")): continue
         meta="|".join([u,row.get("title",""),row.get("description",""),row.get("publishedAt",""),row.get("discoverySourceId","")])
         k=hashlib.sha256((row.get("discoverySourceId","")+"|"+u).encode()).hexdigest()[:24]
         fp=hashlib.sha256(meta.encode()).hexdigest(); prev=old.get(k,{})
-        out[k]={"id":k,"url":u,"title":row.get("title",""),"description":row.get("description",""),"publishedAt":row.get("publishedAt",""),"fingerprint":fp,"discoveredAt":prev.get("discoveredAt",t),"lastSeenAt":t,"discoverySource":row.get("discoverySource",""),"discoverySourceId":row.get("discoverySourceId",""),"verificationStatus":"pending_official_source","publicationStatus":"hold"}
+        out[k]={"id":k,"url":u,"title":row.get("title",""),"description":row.get("description",""),"publishedAt":row.get("publishedAt",""),"fingerprint":fp,"discoveredAt":prev.get("discoveredAt",t),"lastSeenAt":t,"lastDiscoveredAt":t,"discoverySource":row.get("discoverySource",""),"discoverySourceId":row.get("discoverySourceId",""),"verificationStatus":"pending_official_source","publicationStatus":"hold"}
         if k not in old:new+=1
         elif prev.get("fingerprint")!=fp:changed+=1
     status="ok" if out else "source_unavailable"
     err=None if out else "No usable government update signals from monitored sources"
-    save(STATE,{"schemaVersion":6,"source":"multi-source-government-updates","primarySource":"multi-source","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if out else None,"status":status,"lastError":err,"items":out,"sources":source_results})
-    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"})
+    save(STATE,{"schemaVersion":7,"source":"multi-source-government-updates","primarySource":"multi-source","lastCheckedAt":t,"lastSuccessfulDiscoveryAt":t if discovered else None,"status":status,"lastError":err,"items":out,"sources":source_results})
+    save(LOG,{"checkedAt":t,"status":status,"new":new,"changed":changed,"retained":len(out)-len(discovered),"items":len(out),"discoveryChannels":channels,"sources":source_results,"policy":"SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"})
     return 0
 if __name__=="__main__": sys.exit(main())
