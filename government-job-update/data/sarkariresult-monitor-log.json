@@ -1,11 +1,10 @@
 {
-  "checkedAt": "2026-09-15T08:39:58.212998+00:00",
+  "checkedAt": "2026-09-15T10:00:14.946067+00:00",
   "status": "ok",
-  "new": 42,
-  "changed": 6,
-  "items": 407,
+  "new": 9,
+  "changed": 15,
+  "items": 381,
   "discoveryChannels": [
-    "employmentnews",
     "ncs",
     "fresherslive",
     "jagranjosh",
@@ -20,15 +19,14 @@
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
-    "sarkariscan",
     "freejobalert"
   ],
   "sources": {
     "employmentnews": {
       "name": "Employment News",
-      "status": "ok",
-      "mode": "html",
-      "count": 4
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "ncs": {
       "name": "National Career Service",
@@ -46,13 +44,13 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 48
+      "count": 40
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 62
+      "count": 63
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -140,15 +138,15 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "ok",
-      "mode": "html",
-      "count": 14
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "freejobalert": {
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 94
+      "count": 93
     }
   },
   "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; discovery covers jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"

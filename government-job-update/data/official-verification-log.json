@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-15T08:40:20.803417+00:00",
+  "checkedAt": "2026-09-15T10:00:49.786112+00:00",
   "status": "ok",
   "counts": {
-    "verified": 120,
-    "hold": 180,
-    "checked": 300,
-    "new": 42,
-    "changed": 5,
-    "unchanged": 253,
-    "reused": 105,
-    "skipped": 107
+    "verified": 39,
+    "hold": 342,
+    "checked": 381,
+    "new": 101,
+    "changed": 268,
+    "unchanged": 12,
+    "reused": 0,
+    "skipped": 0
   },
-  "strategy": "Parallel authority-aware verification across jobs, admit cards, results, answer keys, admissions, scholarships, syllabus and notices"
+  "strategy": "Parallel official verification with strict title/source matching and rich source-page field extraction; no blind verification reuse"
 }
