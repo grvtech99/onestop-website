@@ -2,12 +2,11 @@ import json,re,subprocess,tempfile,urllib.parse,urllib.request
 from datetime import datetime,timezone
 from html import unescape
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1];DATA=ROOT/'data';VERIFY=DATA/'official-verification-state.json';CAN=DATA/'canonical-job-records.json';UA='ONESTOP-Government-Job-Update/4.1';TIMEOUT=12;MAX_PDF=6;MAX_PDF_BYTES=8_000_000;MAX_TEXT=120_000
+ROOT=Path(__file__).resolve().parents[1];DATA=ROOT/'data';VERIFY=DATA/'official-verification-state.json';CAN=DATA/'canonical-job-records.json';UA='ONESTOP-Government-Job-Update/4.2';TIMEOUT=12;MAX_PDF=6;MAX_PDF_BYTES=8_000_000;MAX_TEXT=120_000
 from importlib.util import spec_from_file_location,module_from_spec
 sp=spec_from_file_location('job_fields',ROOT/'scripts'/'job-field-extractor.py');fields=module_from_spec(sp);sp.loader.exec_module(fields)
 def get(url,accept='text/html,application/pdf,*/*;q=0.1'):
- try:
-  r=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':UA,'Accept':accept}),timeout=TIMEOUT);return r.status,r.read(MAX_PDF_BYTES+1),r.geturl(),r.headers.get('content-type','')
+ try:r=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':UA,'Accept':accept}),timeout=TIMEOUT);return r.status,r.read(MAX_PDF_BYTES+1),r.geturl(),r.headers.get('content-type','')
  except Exception:return None,b'',url,''
 def html_text(body):
  s=unescape(body.decode('utf-8','replace'));s=re.sub(r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>|<noscript[^>]*>.*?</noscript>',' ',s,flags=re.I|re.S);return re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',s)).strip()
@@ -60,8 +59,7 @@ def main():
   if not official_url:continue
   status,body,resolved,ctype=get(official_url)
   if status!=200 or not body:continue
-  tables=html_tables(body) if not is_pdf(resolved,ctype) else []
-  doc_candidates=[]
+  tables=html_tables(body) if not is_pdf(resolved,ctype) else [];doc_candidates=[]
   if is_pdf(resolved,ctype):doc_candidates=[(resolved,'Official Notification PDF')]
   else:
    for u,label in links(body,resolved):
@@ -91,7 +89,6 @@ def main():
   combined='\n'.join(texts)[:MAX_TEXT];rich=extract(title,combined);f=item.setdefault('fields',{})
   for key,value in rich.items():
    if key not in {'title','source','category','updateType'} and good_value(value):f[key]=value
-  # Keep structured HTML tables so the details page can show vacancy/eligibility rows line-by-line.
   useful_tables=[t for t in tables if any(any(k in c.lower() for k in ('post','vacancy','eligibility','qualification','category','reservation','salary','pay')) for r in t[:3] for c in r)]
   f['documentText']=combined;f['documentSources']=documents;f['documentCount']=len(documents);f['documentTables']=useful_tables[:12];f['documentExtractedAt']=datetime.now(timezone.utc).isoformat();item['officialSource']=official
   cid=item.get('canonicalRecordId') or item_id
@@ -99,7 +96,7 @@ def main():
    c=canonical['items'][cid]
    for key,value in f.items():
     if value not in (None,'',[]):c[key]=value
-   c['officialSource']=official;c['documentSources']=documents;c['documentCount']=len(documents);c['documentTables']=useful_tables[:12];c['documentExtractedAt']=f['documentExtractedAt'];c['updatedAt']=f['documentExtractedAt']
+   c['officialSource']=official;c['documentSources']=documents;c['documentCount']=len(documents);c['documentTables']=useful_tables[:12];c['documentExtractedAt']=f['documentExtractedAt']
   updated+=1;docs_total+=len(documents)
  VERIFY.write_text(json.dumps(verification,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');CAN.write_text(json.dumps(canonical,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps({'status':'PASS','recordsEnriched':updated,'documentsExtracted':docs_total},indent=2));return 0
