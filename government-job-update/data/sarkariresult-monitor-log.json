@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-15T17:22:31.609224+00:00",
+  "checkedAt": "2026-09-15T17:33:45.794686+00:00",
   "status": "ok",
-  "new": 13,
-  "changed": 8,
-  "retained": 34,
-  "items": 427,
+  "new": 2,
+  "changed": 7,
+  "retained": 43,
+  "items": 429,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -17,7 +17,6 @@
     "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
-    "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
@@ -46,7 +45,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 51
+      "count": 52
     },
     "testbook": {
       "name": "Testbook",
@@ -98,9 +97,9 @@
     },
     "sarkari247": {
       "name": "Sarkari247",
-      "status": "ok",
-      "mode": "html",
-      "count": 8
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",
