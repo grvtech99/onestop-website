@@ -1,13 +1,13 @@
 /* ONESTOP Government Updates V3 — ultra compact vacancy rows */
-:root{--ogu-blue:#0757c9;--ogu-dark:#06265f;--ogu-border:#d9e6f5;--ogu-bg:#f4f8fd;--ogu-muted:#60708d}
+:root{--ogu-blue:#0757c9;--ogu-dark:#06265f;--ogu-sky:#1688e8;--ogu-border:#d9e6f5;--ogu-bg:#f4f8fd;--ogu-muted:#60708d}
 body:has(.grid){background:var(--ogu-bg)}
 body:has(.grid) section:not(.hero){padding:24px 0 32px}
 body:has(.grid) .title{margin-bottom:13px}
 body:has(.grid) .title h2{font-size:25px;font-weight:800;color:var(--ogu-dark)}
 body:has(.grid) .title p{font-size:11px;margin-top:2px}
 body:has(.grid) .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;align-items:start}
-body:has(.grid) .panel{border:1px solid var(--ogu-border);border-radius:10px;box-shadow:0 3px 12px rgba(20,50,100,.04);background:#fff}
-body:has(.grid) .panel h3{padding:8px 11px;background:linear-gradient(90deg,#eaf3ff,#f7fbff);border-bottom:1px solid #cfe1f7;color:var(--ogu-dark);font-size:15px;font-weight:800;line-height:1.2}
+body:has(.grid) .panel{border:1px solid var(--ogu-blue);border-radius:10px;box-shadow:0 3px 12px rgba(20,50,100,.08);background:#fff;overflow:hidden}
+body:has(.grid) .panel h3{padding:8px 11px;background:linear-gradient(135deg,#031d50,#0757c9 60%,#1688e8);color:#fff;font-size:15px;font-weight:800;line-height:1.2;border-bottom:1px solid rgba(255,255,255,.22);text-shadow:0 1px 2px rgba(0,0,0,.18)}
 body:has(.grid) .list{padding:0}
 body:has(.grid) .list li{position:relative;padding:5px 7px 5px 13px;border-bottom:1px solid #edf1f6;min-height:0;line-height:1.2}
 body:has(.grid) .list li:last-child{border-bottom:0}
