@@ -2,7 +2,8 @@ name: Government Job Update — Multi-Source Discovery
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    # Every 10 minutes, offset from the top of the hour to reduce GitHub Actions peak-load delays.
+    - cron: '3/10 * * * *'
   push:
     branches: [main]
     paths:
@@ -28,7 +29,8 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    # Keep each cycle below the 10-minute cadence so runs do not stack up.
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -37,37 +39,37 @@ jobs:
 
       - id: discovery
         name: Run safe multi-source government job discovery
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
       - id: verification
         name: Identify department and verify official source
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/official-department-verifier.py
 
       - id: e2e
         name: Run controlled live end-to-end test
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/end-to-end-test.py
 
       - id: publicationRegression
         name: Run publication gate regression test
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/publication-gate-test.py
 
       - id: publicationQueue
         name: Build structured verified-only publication queue
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/publication-gate.py
 
       - id: adminSnapshot
         name: Build admin monitoring status snapshot
-        if: always()
+        if: ${{ !cancelled() }}
         run: python government-job-update/scripts/build-admin-status.py
 
       - name: Record workflow execution status
         id: executionStatus
-        if: always()
+        if: ${{ !cancelled() }}
         env:
           STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
           STEP_VERIFICATION_OUTCOME: ${{ steps.verification.outcome }}
@@ -78,7 +80,7 @@ jobs:
         run: python government-job-update/scripts/build-admin-execution-status.py
 
       - name: Upload E2E and publication gate reports
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
           name: government-job-update-test-reports
@@ -86,7 +88,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Save discovery, verification, canonical, publication, admin and execution state
-        if: always()
+        if: ${{ !cancelled() }}
         shell: bash
         run: |
           set -euo pipefail
