@@ -1,13 +1,12 @@
 import json
 import re
 import sys
-import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from html import unescape
-from pathlib import Path
-from urllib.parse import urljoin
 from importlib.util import spec_from_file_location, module_from_spec
+from pathlib import Path
+from urllib.parse import urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -16,6 +15,9 @@ REGISTRY = DATA / "data" / "government-source-registry.json"
 OUT = DATA / "official-verification-state.json"
 LOG = DATA / "official-verification-log.json"
 CAN = DATA / "canonical-job-records.json"
+UA = "ONESTOP-Government-Job-Update/1.3"
+TIMEOUT = 6
+MAX_LINKS = 6
 
 
 def load_module(name, path):
@@ -28,15 +30,19 @@ def load_module(name, path):
 engine = load_module("canonical_engine", ROOT / "scripts" / "canonical-record-engine.py")
 fields = load_module("job_fields", ROOT / "scripts" / "job-field-extractor.py")
 
-UA = "ONESTOP-Government-Job-Update/1.2"
-KEYS = (
-    "recruitment", "vacancy", "notification", "apply online", "career",
-    "jobs", "application", "admit card", "result", "answer key",
-)
-DATE = re.compile(
-    r"\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{2,4}|\d{1,2}\s+(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}|\d{4}[/-]\d{1,2}[/-]\d{1,2})\b",
-    re.I,
-)
+ALIASES = {
+    "ssc": ("ssc", "staff selection commission"), "upsc": ("upsc", "union public service commission"),
+    "rrb": ("rrb", "railway recruitment board"), "nta": ("nta", "national testing agency"),
+    "drdo": ("drdo",), "isro": ("isro",), "csir": ("csir",), "icmr": ("icmr",),
+    "aiims": ("aiims",), "ugc": ("ugc",), "ibps": ("ibps",), "rbi": ("rbi",),
+    "sbi": ("sbi",), "nabard": ("nabard",), "sebi": ("sebi",), "epfo": ("epfo",),
+    "esic": ("esic",), "bhel": ("bhel",), "bel": ("bel",), "hal": ("hal",),
+    "ongc": ("ongc",), "ntpc": ("ntpc",), "iocl": ("iocl",), "gail": ("gail",),
+    "lic": ("lic",), "uppsc": ("uppsc",), "upsssc": ("upsssc",), "bpsc": ("bpsc",),
+    "rpsc": ("rpsc",), "mppsc": ("mppsc",), "hpsc": ("hpsc",), "psc_wb": ("wbpsc",),
+    "mpsc_maha": ("mpsc",), "tnpsc": ("tnpsc",), "kpsc": ("kpsc",),
+    "employment_news": ("employment news",),
+}
 
 
 def save(path, value):
@@ -45,216 +51,143 @@ def save(path, value):
 
 def get(url):
     try:
-        request = urllib.request.Request(
-            url,
-            headers={
-                "User-Agent": UA,
-                "Accept": "text/html,application/xhtml+xml,application/pdf;q=0.8,*/*;q=0.1",
-            },
-        )
-        response = urllib.request.urlopen(request, timeout=20)
-        return response.status, response.read(1_500_000), response.geturl()
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "text/html,*/*;q=0.1"})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            return r.status, r.read(900_000), r.geturl()
     except Exception as exc:
         return getattr(exc, "code", None), b"", url
 
 
-def clean(body):
-    text = unescape(body.decode("utf-8", "replace"))
-    text = re.sub(r"<script[^>]*>.*?</script>|<style[^>]*>.*?</style>", "\n", text, flags=re.I | re.S)
-    text = re.sub(r"<(?:br|p|div|li|tr|td|th|h[1-6])[^>]*>", "\n", text, flags=re.I)
-    text = re.sub(r"<[^>]+>", " ", text)
-    return "\n".join(re.sub(r"[ \t]+", " ", line).strip() for line in text.splitlines() if line.strip())
+def text(body):
+    s = unescape(body.decode("utf-8", "replace"))
+    s = re.sub(r"<script[^>]*>.*?</script>|<style[^>]*>.*?</style>", "\n", s, flags=re.I | re.S)
+    s = re.sub(r"<[^>]+>", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
 
 
-def title(body):
-    match = re.search(r"<title[^>]*>(.*?)</title>", body.decode("utf-8", "replace"), re.I | re.S)
-    if not match:
-        return ""
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", match.group(1))).strip()[:300]
+def page_title(body):
+    m = re.search(r"<title[^>]*>(.*?)</title>", body.decode("utf-8", "replace"), re.I | re.S)
+    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", m.group(1))).strip()[:300] if m else ""
 
 
-def links(body, base):
+def page_links(body, base):
     html = body.decode("utf-8", "replace")
-    return list(
-        dict.fromkeys(
-            urljoin(base, href).split("#", 1)[0]
-            for href in re.findall(r'href=["\']([^"\']+)["\']', html, re.I)
-            if urljoin(base, href).startswith(("http://", "https://"))
-        )
-    )
+    urls = []
+    for href in re.findall(r'href=["\']([^"\']+)["\']', html, re.I):
+        u = urljoin(base, href).split("#", 1)[0]
+        if u.startswith(("http://", "https://")) and any(k in u.lower() for k in ("recruit", "career", "vacan", "job", "notice", "notification", "advert", "latest")):
+            if u not in urls:
+                urls.append(u)
+        if len(urls) >= MAX_LINKS:
+            break
+    return urls
 
 
-def score(a, b):
+def token_score(a, b):
     left = set(re.findall(r"[a-z0-9]{4,}", a.lower()))
     right = set(re.findall(r"[a-z0-9]{4,}", b.lower()))
     return len(left & right) / len(left) if left else 0
 
 
+def candidates(title, description, sources, discovery_url):
+    low = (title + " " + description).lower()
+    host = urlparse(discovery_url).netloc.lower()
+    direct = []
+    for sid, src in sources.items():
+        if urlparse(src.get("url", "")).netloc.lower() == host and host:
+            direct.append(src)
+    if direct:
+        return direct[:2]
+    found = []
+    for sid, src in sources.items():
+        aliases = ALIASES.get(sid, (src.get("name", ""),))
+        hits = [a for a in aliases if a and a in low]
+        if hits:
+            found.append((max(map(len, hits)), src))
+    return [src for _, src in sorted(found, reverse=True, key=lambda x: x[0])[:2]]
+
+
+def verify(item, sources, old_items):
+    item_id = item["id"]
+    old = old_items.get(item_id, {})
+    if old.get("status") == "verified" and old.get("officialSource"):
+        old = dict(old)
+        old["checkedAt"] = datetime.now(timezone.utc).isoformat()
+        old["verificationReused"] = True
+        return old
+
+    title = item.get("title", "").strip()
+    desc = item.get("description", "").strip()
+    result = {
+        "id": item_id, "discoveryUrl": item.get("url", ""), "status": "hold",
+        "publicationStatus": "hold", "checkedAt": datetime.now(timezone.utc).isoformat(),
+        "officialSource": None, "checks": {}, "discoveryAccess": "metadata_only",
+        "discoveryMode": item.get("discoveryMode", "unknown"),
+    }
+    result["fields"] = fields.normalize_record({"title": title, "text": desc, "notificationUrl": item.get("url", ""), "source": item.get("discoverySource", "MultiSource")})
+    result["checks"]["nonempty_title"] = bool(title)
+    result["checks"]["discovery_signal"] = bool(title or desc)
+
+    found = []
+    for src in candidates(title, desc, sources, item.get("url", "")):
+        status, body, final = get(src["url"])
+        if status != 200 or not body:
+            continue
+        pages = [(src["url"], body, final)] + [(u, None, u) for u in page_links(body, final)]
+        for url, page, base in pages[:MAX_LINKS + 1]:
+            if page is None:
+                ps, page, base = get(url)
+                if ps != 200 or not page:
+                    continue
+            official_title = page_title(page)
+            official_text = text(page)
+            low = official_text.lower()
+            score = token_score(title, official_title + " " + official_text[:12000])
+            if len(official_text) >= 120 and score >= 0.20 and any(k in low for k in ("recruitment", "vacancy", "notification", "apply online", "career", "jobs", "application", "admit card", "result", "answer key")) and re.search(r"\b(?:20\d{2}|\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b", low):
+                found.append((score, src, url, official_title))
+
+    if found:
+        score, src, url, official_title = max(found, key=lambda x: x[0])
+        result["officialSource"] = {"sourceId": src["id"], "url": url, "title": official_title, "matchScore": round(score, 3)}
+    result["checks"]["official_notice_url"] = bool(result["officialSource"])
+    result["checks"]["trusted_source"] = bool(result["officialSource"])
+    result["checks"]["safe_http_urls"] = bool(result["officialSource"] and result["officialSource"]["url"].startswith(("http://", "https://")))
+    result["checks"]["official_content_match"] = bool(result["officialSource"] and result["officialSource"]["matchScore"] >= 0.20)
+    if all(result["checks"].values()):
+        result["status"], result["publicationStatus"] = "verified", "ready"
+        result["reason"] = "official_department_match_and_required_checks_passed"
+    else:
+        result["reason"] = "failed_checks:" + ",".join(k for k, v in result["checks"].items() if not v)
+    return result
+
+
 def main():
     now = datetime.now(timezone.utc).isoformat()
-    try:
-        state = json.loads(STATE.read_text(encoding="utf-8"))
-    except Exception:
-        state = {"status": "source_unavailable", "items": {}}
-    try:
-        registry = json.loads(REGISTRY.read_text(encoding="utf-8"))
-    except Exception:
-        registry = {"sources": []}
-    try:
-        canonical = json.loads(CAN.read_text(encoding="utf-8"))
-    except Exception:
-        canonical = {"schemaVersion": 1, "items": {}}
-
-    sources = {item["id"]: item for item in registry.get("sources", []) if item.get("enabled")}
+    state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {"status": "source_unavailable", "items": {}}
+    registry = json.loads(REGISTRY.read_text(encoding="utf-8")) if REGISTRY.exists() else {"sources": []}
+    canonical = json.loads(CAN.read_text(encoding="utf-8")) if CAN.exists() else {"schemaVersion": 1, "items": {}}
+    previous = json.loads(OUT.read_text(encoding="utf-8")) if OUT.exists() else {"items": {}}
+    sources = {x["id"]: x for x in registry.get("sources", []) if x.get("enabled")}
     results = {}
-    counts = {"verified": 0, "hold": 0, "checked": 0, "new": 0, "changed": 0, "unchanged": 0}
+    counts = {"verified": 0, "hold": 0, "checked": 0, "new": 0, "changed": 0, "unchanged": 0, "reused": 0}
 
     for item_id, item in state.get("items", {}).items():
         counts["checked"] += 1
-        discovery_url = item.get("url", "")
-        discovered_title = item.get("title", "").strip()
-        description = item.get("description", "").strip()
-        status, body, final_url = get(discovery_url)
-        discovery_text = clean(body) if status == 200 and body else description
-        discovered_title = title(body) or discovered_title if status == 200 and body else discovered_title
-
-        extracted = fields.normalize_record(
-            {
-                "title": discovered_title,
-                "text": discovery_text,
-                "notificationUrl": discovery_url,
-                "source": "SarkariResult",
-            }
-        )
-        result = {
-            "id": item_id,
-            "discoveryUrl": discovery_url,
-            "status": "hold",
-            "publicationStatus": "hold",
-            "checkedAt": now,
-            "officialSource": None,
-            "checks": {},
-            "discoveryAccess": "ok" if status == 200 else "metadata_only",
-            "discoveryMode": item.get("discoveryMode", "unknown"),
-        }
-        result["fields"] = extracted
-        result["checks"]["nonempty_title"] = bool(discovered_title)
-        result["checks"]["discovery_signal"] = bool(discovered_title or description)
-        haystack = (discovered_title + " " + discovery_text).lower()
-
-        candidates = []
-        for source_id, source in sources.items():
-            source_name = source.get("name", "").lower()
-            source_tokens = set(re.findall(r"[a-z0-9]{4,}", source_name))
-            haystack_tokens = set(re.findall(r"[a-z0-9]{4,}", haystack))
-            overlap = len(source_tokens & haystack_tokens)
-            exact = bool(source_name) and source_name in haystack
-            if exact or overlap >= 1:
-                candidates.append((100 if exact else overlap * 10, source))
-
-        found = []
-        for _, source in sorted(candidates, reverse=True, key=lambda pair: pair[0])[:4]:
-            source_status, source_body, source_final = get(source["url"])
-            if source_status != 200 or not source_body:
-                continue
-            pages = [(source["url"], source_body, source_final)]
-            for page_url in links(source_body, source_final):
-                if any(key in page_url.lower() for key in ("recruit", "career", "vacan", "job", "notice", "notification", "advert", "latest")):
-                    pages.append((page_url, None, page_url))
-            for page_url, page_body, page_base in pages[:18]:
-                if page_body is None:
-                    page_status, page_body, page_base = get(page_url)
-                    if page_status != 200 or not page_body:
-                        continue
-                official_title = title(page_body)
-                official_text = clean(page_body)
-                low = official_text.lower()
-                match_score = score(discovered_title, official_title + " " + official_text[:20_000])
-                if (
-                    len(official_text) >= 200
-                    and match_score >= 0.25
-                    and any(key in low for key in KEYS)
-                    and DATE.search(low)
-                ):
-                    found.append((match_score, source, page_url, official_title))
-
-        if found:
-            match_score, source, official_url, official_title = max(found, key=lambda value: value[0])
-            result["officialSource"] = {
-                "sourceId": source["id"],
-                "url": official_url,
-                "title": official_title,
-                "matchScore": round(match_score, 3),
-            }
-
-        result["checks"]["official_notice_url"] = bool(result["officialSource"])
-        result["checks"]["trusted_source"] = bool(result["officialSource"])
-        result["checks"]["safe_http_urls"] = bool(
-            result["officialSource"] and result["officialSource"]["url"].startswith(("http://", "https://"))
-        )
-        result["checks"]["official_content_match"] = bool(
-            result["officialSource"] and result["officialSource"]["matchScore"] >= 0.25
-        )
-
-        if all(result["checks"].values()):
-            result["status"] = "verified"
-            result["publicationStatus"] = "ready"
-            result["reason"] = "official_department_match_and_required_checks_passed"
-            counts["verified"] += 1
-        else:
-            failed = [key for key, value in result["checks"].items() if not value]
-            result["reason"] = "failed_checks:" + ",".join(failed)
-            counts["hold"] += 1
-
-        incoming = dict(extracted)
-        incoming.update(
-            {
-                "jobId": item_id,
-                "notificationUrl": extracted.get("notificationUrl") or discovery_url,
-                "source": "SarkariResult",
-                "verificationStatus": result["status"],
-                "publicationStatus": result["publicationStatus"],
-                "officialSource": result["officialSource"],
-                "lastSeenAt": now,
-            }
-        )
-        canonical, event = engine.upsert(incoming, canonical)
-        event_name = str(event.get("event", "unchanged")).lower()
-        if event_name in {"created", "new"}:
-            counts["new"] += 1
-        elif event_name in {"updated", "changed"}:
-            counts["changed"] += 1
-        else:
-            counts["unchanged"] += 1
-        result.update(
-            {
-                "canonicalRecordId": event.get("jobId", item_id),
-                "changeEvent": event.get("event", "unchanged"),
-                "recordVersion": event.get("recordVersion"),
-            }
-        )
+        result = verify(item, sources, previous.get("items", {}))
         results[item_id] = result
+        if result.get("verificationReused"): counts["reused"] += 1
+        if result.get("status") == "verified": counts["verified"] += 1
+        else: counts["hold"] += 1
+        incoming = dict(result.get("fields", {}))
+        incoming.update({"jobId": item_id, "notificationUrl": incoming.get("notificationUrl") or item.get("url", ""), "source": item.get("discoverySource", "MultiSource"), "verificationStatus": result.get("status", "hold"), "publicationStatus": result.get("publicationStatus", "hold"), "officialSource": result.get("officialSource"), "lastSeenAt": now})
+        canonical, event = engine.upsert(incoming, canonical)
+        ev = str(event.get("event", "unchanged")).lower()
+        counts["new" if ev in ("created", "new") else "changed" if ev in ("updated", "changed") else "unchanged"] += 1
+        result.update({"canonicalRecordId": event.get("jobId", item_id), "changeEvent": event.get("event", "unchanged"), "recordVersion": event.get("recordVersion")})
 
     save(CAN, canonical)
-    save(
-        OUT,
-        {
-            "schemaVersion": 2,
-            "checkedAt": now,
-            "sourceStatus": state.get("status"),
-            "counts": counts,
-            "items": results,
-        },
-    )
-    save(
-        LOG,
-        {
-            "checkedAt": now,
-            "status": "ok",
-            "counts": counts,
-            "strategy": "SarkariResult metadata -> targeted official department verification",
-        },
-    )
+    save(OUT, {"schemaVersion": 3, "checkedAt": now, "sourceStatus": state.get("status"), "counts": counts, "items": results})
+    save(LOG, {"checkedAt": now, "status": "ok", "counts": counts, "strategy": "Targeted official verification with 6-second request timeout and verified-record reuse"})
     return 0
 
 
