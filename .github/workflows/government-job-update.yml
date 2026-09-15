@@ -29,7 +29,6 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    # Keep each cycle below the 10-minute cadence so runs do not stack up.
     timeout-minutes: 8
     steps:
       - name: Checkout
@@ -46,6 +45,11 @@ jobs:
         name: Identify department and verify official source
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/official-department-verifier.py
+
+      - id: enrichment
+        name: Extract official notification PDFs and complete job fields
+        if: ${{ !cancelled() }}
+        run: python government-job-update/scripts/document-enrichment.py
 
       - id: e2e
         name: Run controlled live end-to-end test
@@ -73,6 +77,7 @@ jobs:
         env:
           STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
           STEP_VERIFICATION_OUTCOME: ${{ steps.verification.outcome }}
+          STEP_ENRICHMENT_OUTCOME: ${{ steps.enrichment.outcome }}
           STEP_E2E_OUTCOME: ${{ steps.e2e.outcome }}
           STEP_PUBLICATION_REGRESSION_OUTCOME: ${{ steps.publicationRegression.outcome }}
           STEP_PUBLICATION_QUEUE_OUTCOME: ${{ steps.publicationQueue.outcome }}
