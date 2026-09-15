@@ -24,7 +24,7 @@ permissions:
 
 concurrency:
   group: government-job-update
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   discover:
@@ -45,6 +45,11 @@ jobs:
         name: Identify department and verify official source
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/official-department-verifier.py
+
+      - id: verificationRecovery
+        name: Recover valid official recruitment links missed by strict verification
+        if: ${{ !cancelled() }}
+        run: python government-job-update/scripts/verification-recovery.py
 
       - id: enrichment
         name: Extract official notification PDFs and complete job fields
@@ -79,6 +84,7 @@ jobs:
         env:
           STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
           STEP_VERIFICATION_OUTCOME: ${{ steps.verification.outcome }}
+          STEP_VERIFICATION_RECOVERY_OUTCOME: ${{ steps.verificationRecovery.outcome }}
           STEP_ENRICHMENT_OUTCOME: ${{ steps.enrichment.outcome }}
           STEP_E2E_OUTCOME: ${{ steps.e2e.outcome }}
           STEP_PUBLICATION_REGRESSION_OUTCOME: ${{ steps.publicationRegression.outcome }}
