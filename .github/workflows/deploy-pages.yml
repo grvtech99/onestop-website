@@ -25,6 +25,18 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Render refreshed PNG thumbnails
+        shell: bash
+        run: |
+          set -e
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq imagemagick
+          mkdir -p free-csc-tools/tool-thumbnails
+          convert -background none free-csc-tools/tool-thumbnails/.generated/passport.svg free-csc-tools/tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png
+          convert -background none free-csc-tools/tool-thumbnails/.generated/resume.svg free-csc-tools/tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png
+          convert -background none free-csc-tools/tool-thumbnails/.generated/id-card.svg free-csc-tools/tool-thumbnails/1click-id-card-print-maker-html.png
+          convert -background none free-csc-tools/tool-thumbnails/.generated/social.svg free-csc-tools/tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png
+          convert -background none free-csc-tools/tool-thumbnails/.generated/pdf.svg free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
