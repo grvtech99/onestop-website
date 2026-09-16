@@ -1,6 +1,6 @@
 {
   "schemaVersion": 7,
-  "checkedAt": "2026-09-16T09:47:55.834671+00:00",
+  "checkedAt": "2026-09-16T09:51:14.138290+00:00",
   "sourceStatus": "ok",
   "counts": {
     "verified": 3,
@@ -9840,7 +9840,7 @@
         ],
         "documentCount": 2,
         "documentTables": [],
-        "documentExtractedAt": "2026-09-16T09:48:33.497618+00:00"
+        "documentExtractedAt": "2026-09-16T09:51:53.439958+00:00"
       },
       "reason": "official_government_source_verified_with_source_details",
       "canonicalRecordId": "0f5879aef8fb6ea49bf2d651",
@@ -9985,7 +9985,7 @@
         ],
         "documentCount": 2,
         "documentTables": [],
-        "documentExtractedAt": "2026-09-16T09:48:37.143305+00:00"
+        "documentExtractedAt": "2026-09-16T09:51:56.778869+00:00"
       },
       "reason": "official_government_source_verified_with_source_details",
       "canonicalRecordId": "6483ded94e67f0fadc87100b",
@@ -11703,7 +11703,7 @@
         ],
         "documentCount": 7,
         "documentTables": [],
-        "documentExtractedAt": "2026-09-16T09:48:51.255921+00:00"
+        "documentExtractedAt": "2026-09-16T09:52:15.356378+00:00"
       },
       "recoveredAt": "2026-09-16T08:47:43.774313+00:00"
     },
@@ -16701,7 +16701,7 @@
         ],
         "documentCount": 7,
         "documentTables": [],
-        "documentExtractedAt": "2026-09-16T09:49:14.687744+00:00"
+        "documentExtractedAt": "2026-09-16T09:52:40.610833+00:00"
       },
       "recoveredAt": "2026-09-16T08:48:06.854510+00:00"
     },
@@ -26515,7 +26515,7 @@
     }
   },
   "recovery": {
-    "checkedAt": "2026-09-16T09:47:55.834671+00:00",
+    "checkedAt": "2026-09-16T09:51:14.138290+00:00",
     "recoveredCount": 0,
     "selectedCount": 80,
     "selectionLimit": 80,

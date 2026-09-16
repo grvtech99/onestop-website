@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-16T09:47:30.370044+00:00",
+  "checkedAt": "2026-09-16T09:50:47.849664+00:00",
   "status": "ok",
-  "new": 9,
-  "changed": 7,
-  "retained": 143,
-  "items": 539,
+  "new": 3,
+  "changed": 8,
+  "retained": 146,
+  "items": 542,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -20,6 +20,7 @@
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
+    "sarkariscan",
     "freejobalert"
   ],
   "sources": {
@@ -45,7 +46,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 52
+      "count": 51
     },
     "testbook": {
       "name": "Testbook",
@@ -139,15 +140,15 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 19
     },
     "freejobalert": {
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 84
+      "count": 85
     }
   },
   "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"
