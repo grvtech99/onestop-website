@@ -62,5 +62,6 @@ function go(n){current=Math.max(0,Math.min(steps.length-1,n));var s=steps[curren
 document.querySelectorAll('.step').forEach(function(x){x.addEventListener('click',function(){go(Number(x.dataset.step))})});prev.addEventListener('click',function(){go(current-1)});next.addEventListener('click',function(){if(current<steps.length-1)go(current+1)});go(0);
 })();
 </script>
+<script src="admin-live-monitor.js?v=govpipe20260916-v3"></script>
 </body>
 </html>
