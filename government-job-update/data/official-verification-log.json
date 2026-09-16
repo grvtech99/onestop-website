@@ -1,14 +1,14 @@
 {
-  "checkedAt": "2026-09-16T09:59:20.058535+00:00",
+  "checkedAt": "2026-09-16T10:03:23.418079+00:00",
   "status": "ok",
   "engine": "official-verification-v4.1",
   "counts": {
-    "verified": 3,
-    "hold": 37,
+    "verified": 0,
+    "hold": 40,
     "checked": 40,
     "new": 0,
-    "changed": 40,
-    "unchanged": 0,
+    "changed": 36,
+    "unchanged": 4,
     "skipped": 503,
     "selectionLimit": 40
   },

@@ -1,23 +1,22 @@
 {
   "schemaVersion": 5,
-  "generatedAt": "2026-09-16T10:01:29.842191+00:00",
+  "generatedAt": "2026-09-16T10:04:22.186671+00:00",
   "pipelineStatus": "PROBLEM",
   "problemStep": {
-    "id": "controlledE2E",
-    "label": "Controlled E2E",
+    "id": "publicationRegression",
+    "label": "Publication regression",
     "status": "FAILURE"
   },
   "currentStep": null,
   "workflow": {
     "name": "Government Job Update — Multi-Source Discovery",
-    "runId": "35082402682",
-    "runNumber": "133",
+    "runId": "35082794298",
+    "runNumber": "134",
     "runAttempt": "1",
-    "commitSha": "bf16814c1ad600b6fb117502c55fcae50564329d",
-    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35082402682",
+    "commitSha": "eaec9c1c6e5c18276eb62968bcb73b433e6adc8f",
+    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35082794298",
     "overall": "FAILURE",
     "failedSteps": [
-      "controlledE2E",
       "publicationRegression"
     ],
     "blockedSteps": []
@@ -51,7 +50,7 @@
     {
       "id": "controlledE2E",
       "label": "Controlled E2E",
-      "status": "FAILURE"
+      "status": "SUCCESS"
     },
     {
       "id": "publicationRegression",
@@ -82,25 +81,25 @@
   "production": {
     "source": "Multi-Source Government Jobs",
     "status": "ok",
-    "lastCheckedAt": "2026-09-16T09:58:36.521233+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-16T09:58:36.521233+00:00",
+    "lastCheckedAt": "2026-09-16T10:02:42.304552+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-16T10:02:42.304552+00:00",
     "lastError": null,
     "discoveredCount": 543,
-    "newCount": 1,
-    "changedCount": 8
+    "newCount": 0,
+    "changedCount": 0
   },
   "bufferFlow": {
     "status": "ACTIVE",
     "bufferedCount": 543,
-    "bufferedAt": "2026-09-16T09:59:12.677764+00:00",
-    "sourceCheckedAt": "2026-09-16T09:58:36.521233+00:00",
+    "bufferedAt": "2026-09-16T10:03:20.229831+00:00",
+    "sourceCheckedAt": "2026-09-16T10:02:42.304552+00:00",
     "sourceStatus": "ok",
     "intermediatePush": false
   },
   "publication": {
-    "readyCount": 13,
-    "blockedCount": 539,
-    "reusedActiveCount": 9,
+    "readyCount": 12,
+    "blockedCount": 543,
+    "reusedActiveCount": 12,
     "historyCount": 28,
     "policy": "verified-only-plus-durable-active-retention"
   },
@@ -108,7 +107,7 @@
     "canonicalCount": 610,
     "verifiedReadyCount": 16,
     "holdCount": 594,
-    "publishedQueueCount": 13
+    "publishedQueueCount": 12
   },
   "tests": {
     "controlledE2E": "NOT_AVAILABLE",

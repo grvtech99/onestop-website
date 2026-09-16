@@ -1,19 +1,87 @@
 {
   "schemaVersion": 6,
-  "generatedAt": "2026-09-16T09:59:58.999183+00:00",
+  "generatedAt": "2026-09-16T10:03:57.923794+00:00",
   "policy": "verified-only-plus-durable-active-retention",
-  "readyCount": 13,
-  "blockedCount": 539,
-  "reusedActiveCount": 9,
+  "readyCount": 12,
+  "blockedCount": 543,
+  "reusedActiveCount": 12,
   "historyCount": 28,
   "categoryCounts": {
-    "result": 4,
     "admit_card": 5,
+    "result": 3,
     "answer_key": 1,
     "document_verification": 1,
     "jobs": 2
   },
   "items": [
+    {
+      "title": "Delhi High Court SPA & PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant & Personal Assistant Posts",
+      "department": "/Office and produce a No Objection Certificate at the stage of Document Verification/Interview if successful. Check Delhi High Court Personal Assistant Syllabus 2026 Delhi High Court SPA & PA Qualification Post Educational Qualification (as on 05.10.2026) Senior Personal Assistant Graduate from a recognised University with speed of not less than 110 w.p.m. in Shorthand (English) and 40 w.p.m. in Typewriting (English) on Computer, with good working knowledge of Computer Personal Assistant Graduate from a recognised University with speed of not less than 100 w.p.m. in Shorthand (English) and 40 w.p.m. in Typewriting (English) on Computer, with good working knowledge of Computer All educational",
+      "organization": "Delhi High Court SPA & PA",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "admit_card",
+      "updateType": "admit_card",
+      "vacancies": 150,
+      "qualification": "Syllabus Exam Pattern",
+      "ageLimit": "01.01.2026, a candidate's age should not be below 18 years and not over 32 years (born not earlier than 02.01.1994 and not later than 01.01.2008). Date of birth as recorded in the Matriculation/Secondary Examination Certificate or an equivalent certificate alone will be accepted; no subsequent request for change will be entertained. Category",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-14",
+      "examDate": null,
+      "notificationUrl": "https://www.freejobalert.com/articles/delhi-high-court-recruitment-2026-apply-online-for-150-senior-personal-assistant-and-personal-assistant-posts-3066385",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "15 September 2026",
+          "date": "2026-09-15"
+        },
+        {
+          "raw": "05 October 2026",
+          "date": "2026-10-05"
+        },
+        {
+          "raw": "12 October 2026",
+          "date": "2026-10-12"
+        },
+        {
+          "raw": "14 October 2026",
+          "date": "2026-10-14"
+        }
+      ],
+      "jobId": "9a5cc75c7406b2e24f2a43c9",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain-recovery",
+        "url": "https://www.delhihighcourt.nic.in/files/2026-09/recuritment/vacancy_circular_for_spa.pdf",
+        "title": "",
+        "matchScore": 0.57,
+        "titleOverlap": 1,
+        "sourceType": "official_notification_or_recruitment_page",
+        "verificationMethod": "discovery-page-official-link-recovery"
+      },
+      "lastSeenAt": "2026-09-16T01:23:43.467335+00:00",
+      "recordVersion": 18,
+      "recordStatus": "draft",
+      "fingerprint": "37a0ce9f10f137dc72b46f93783ea5eee205caf616b91da610b888298fed7150",
+      "updatedAt": "2026-09-16T01:23:43.852372+00:00",
+      "vacancyDetails": "A total of 150 posts are being filled – 117 Senior Personal Assistant and 33 Personal Assistant, both Group 'B' posts. Category-wise vacancy breakups are given below. Post GEN Total Senior Personal Assistant GEN 43, EWS 14, OBC-NCL 32, SC 16, ST 12 117 Personal Assistant EWS 07,OBC-NCL 16, SC 05, ST 12 33 Since there is no vacancy under the General category for the post of Personal Assistant, all clauses in the notice pertaining to the General category apply only to the Senior Personal Assistant post. Within the total vacancies, posts are also reserved horizontally for Persons with Benchmark Disability (PwBD) – 7 posts out of 117 SPA vacancies, and 3 posts out of 33 PA vacancies. The disability-wise breakup is given below. Post OL/BL/LC/Dw/AAV ASD/SLD/Mental Illness Multiple Disabilities Total PwBD Senior Personal Assistant 03 02 02 07 Personal Assistant 02 01 – 03 🔔 Never Miss a Govt Job Again! ⚡ Get Custom Govt Job Alerts by Your Qualification (10TH | 12TH | Diploma | ITI | Graduate, Etc) Join Now Delhi High Court SPA & PA Eligibility Criteria Applicants must be citizens of India or subjects of Nepal, as per instructions issued by the Government of India from time to time. Nepal subjects must hold a certificate of eligibility issued by the Government of India; an offer of appointment will be given only after this certificate is produced. Candidates already in Government service must intimate their Department/Office and produce a No Objection Certificate at the stage of Document Verification/Interview if successful. Check Delhi High Court Personal Assistant Syllabus 2026 D",
+      "ageRelaxation": "Beyond Upper Limit SC/ST 5 years OBC-NCL 3 years PwBD – General/EWS 10 years PwBD – OBC 13 years PwBD – SC/ST 15 years Ex-Servicemen (ESM) 3 years (after deducting military service rendered); Disabled Defence Services personnel get relaxation up to 45 years, or 50 years for SC/ST PwBD relaxation applies only to candidates with benchmark disability of 40% or more, in the specific disability categories for which vacancies have been reserved. Widows, divorcees, and certain other categories of married women get relaxation up to 40 years, as per Government of Delhi instructions dated 23.04.1984. There is no",
+      "fee": "payment 05.10.2026 (2300 hours) Correction window for application form 12.10.2026 (1100 hours) to 14.10.2026 (2300 hours) Admit card download To be announced later via public notice on the official website Date, time & venue of examination To be announced later via public notice on the official website Also Read: UPSC CGSE 2027 Notification Out - Combined Geo-Scientist Preliminary Exam for 127 Posts Delhi High Court SPA & PA Vacancy 2026 –",
+      "selectionProcess": "Previous Papers Tools Image Resizer PDF to Word Converter Image to PDF Converter Word to PDF Converter Free AI Interview Tool Latest Notifications Education Login Advertisement Download Mobile APP Join Whatsapp --> --> --> --> Sarkari Result --> --> --> --> Play Fun Games --> --> --> --> --> Sarkari Result --> --> --> --> --> --> Play Games --> --> --> --> Delhi High Court SPA & PA Recruitment 2026",
+      "selection": "Previous Papers Tools Image Resizer PDF to Word Converter Image to PDF Converter Word to PDF Converter Free AI Interview Tool Latest Notifications Education Login Advertisement Download Mobile APP Join Whatsapp --> --> --> --> Sarkari Result --> --> --> --> Play Fun Games --> --> --> --> --> Sarkari Result --> --> --> --> --> --> Play Games --> --> --> --> Delhi High Court SPA & PA Recruitment 2026",
+      "salary": ", 7th CPC Who Can Apply Citizens of India or subjects of Nepal (as per GOI instructions), graduates with required shorthand/typing speed",
+      "payScale": ", 7th CPC Who Can Apply Citizens of India or subjects of Nepal (as per GOI instructions), graduates with required shorthand/typing speed",
+      "howToApply": "for 150 Posts FreeJobAlert.Com Government Jobs | Results | Admit Cards Home All India Govt Jobs State Govt Jobs Bank Jobs Teaching Jobs Engineering Jobs Railway Jobs Police/Defence Jobs Download Mobile App AP AS BR CG DL GJ HP HR JH KA KL MH MP OD PB RJ TN TS UK UP WB EDUCATION Tools Login Notifications Latest Notifications Register for Job Alerts Employment News Search Jobs Sarkari Job Sarkari Naukri Anganwadi Recruitment Forest Jobs Govt Jobs without Exams Female Govt Jobs Legal Govt Jobs EDUCATION Free Mock Test Latest Announcements Sarkari Result Admit Card Exam Dates Exam Results Answer Key Cutoff Marks Written Marks Interview Results",
+      "jobLocation": "High Court of Delhi, New Delhi Official Website www.delhihighcourt.nic.in Register for Job Alerts Delhi High Court SPA & PA",
+      "applicationMode": "Online only",
+      "discoveredAt": "2026-09-15T07:39:51.871516+00:00",
+      "lastDiscoveredAt": "2026-09-16T01:23:09.750681+00:00",
+      "publishedAt": "Tue, 15 Sep 2026 06:42:09 GMT",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
+    },
     {
       "title": "India Post Recruitment 2026 – 23757 BPM, ABPM & Dak Sevak Posts (Schedule-II, July) Posts IndGovtjobs",
       "department": "of Communications, Government of India has released a notification for Branch Postmaster (BPM), Assistant Branch Postmaster (ABPM), Dak Sevak. Those Interested in this notification and have all the required",
@@ -94,426 +162,7 @@
       "jobLocation": "and job category. The app also has filters that allow users to set job alerts based on their preferences, ensuring that they only receive alerts for jobs that match their qualifications and interests. The app also includes a calendar feature that allows users to schedule reminders for",
       "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
       "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Wed, 09 Sep 2026 12:53:37 +0000"
-    },
-    {
-      "title": "GAIL Recruitment 2026 – Executive Trainee Posts IndGovtjobs",
-      "department": null,
-      "organization": "GAIL",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "result",
-      "vacancies": 3,
-      "qualification": "can go through the notification completely and",
-      "ageLimit": "Age Relaxation is applicαble as per the rules. A pplication",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-09-14",
-      "examDate": null,
-      "notificationUrl": "https://www.gailonline.com/vacancies.html",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [
-        {
-          "raw": "14/09/2026",
-          "date": "2026-09-14"
-        }
-      ],
-      "jobId": "9f64c6f5c4b93ae475eb080e",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-source-v4.1",
-        "url": "https://www.gailonline.com/vacancies.html",
-        "title": "GAIL India Limited",
-        "sourceType": "official_html",
-        "matchScore": 81
-      },
-      "lastSeenAt": "2026-09-16T09:59:20.058535+00:00",
-      "recordVersion": 20,
-      "recordStatus": "draft",
-      "fingerprint": "7e4a72d04456b5ba85024f78738165621c719e0dc976375ef20e136261e1ffd2",
-      "updatedAt": "2026-09-16T09:59:27.260743+00:00",
-      "updateType": "result",
-      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Executive Trainee (Chemical, Electrical, Instrumentation, Mechanical) Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Website Click Here Official Notification PDF Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Central Government Jobs, Fresher Government jobs, GAIL Executive Trainee Careers, GAIL Executive Trainee Jobs 2026, GAIL Recruitment 2026, Gas Authority of India Executive Trainee Recruitment 2026, Latest GAIL Jobs, Women Careers, Women Jobs 2026, Women Recruitment 2026, Womens govt Jobs NTH Recruitment 2026 – Senior Young Professional, Junior Young Professional Posts IndGovtjobs MECL Rec",
-      "ageRelaxation": "is applicαble as per the rules. A pplication",
-      "fee": "No",
-      "howToApply": ". GAIL (India) Limited Nαme of the Post: GAIL: Executive Trainee Posts Post Dαte: 17-Feb-2027 Totαl Vacancy – Applιcation Mode Online GAIL Recruitment 2026 – All India Central Government Jobs Executive Trainee (Chemical, Electrical, Instrumentation, Mechanical) Post",
-      "documentsRequired": "before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals",
-      "documentText": "GAIL India Limited Careers करियर Home > Careers होम पृष्‍ठ > करियर Careers Current Opening Shortlisted Candidate Final Result करियर वर्तमान रिक्तियां शार्टलिस्टेड अभ्यर्थी अंतिम परिणाम",
-      "documentSources": [
-        {
-          "url": "https://www.gailonline.com/vacancies.html",
-          "title": "GAIL India Limited",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 1,
-      "documentExtractedAt": "2026-09-16T10:00:27.725224+00:00",
-      "documentTables": [],
-      "discoveredAt": "2026-09-15T05:02:31.293051+00:00",
-      "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Mon, 14 Sep 2026 11:59:43 +0000"
-    },
-    {
-      "title": "CASDIC DRDO Paid Intern Recruitment 2026 - Apply Online for 30 Posts",
-      "department": "of Defence रक्षा अनुसंधान एवं ववकास संगठन Defence Research and Development Organisation युद्धक ववमान प्रणावलयााँ ववकास एवं एकीकरण क ें द्र COMBAT AIRCRAFT SYSTEMS DEVELOPMENT AND INTEGRATION CENTRE पुराना डेयर पररसर, पोस् ट बॉक् स सं. 9366, सी.वी. रामन नगर, बेंगलूरु – 560093 Old DARE Complex, P.B. No. 9366, C V Raman Nagar, Bengaluru – 560093 Advertisement No. CASDIC/HRG/PDINTERN/2026/01 Date: 11/09/2026 1. MINIMUM EDUCATIONAL QUALIFICATIONS: / न्यूनतम शैसक्षक योग्यता: Pursuing Graduation in Engineering with minimum CGPA of 7.5 in all previous semesters and pursuing post-graduation in science should have minimum 70% marks in 1st year exam. Student must be enrolled for full time course in the respective discipline from a AICTE / UGC approved Collage/University / इंजीसनयररंग में ग्रेजुएशन कर रहे छात्रों का सपछले िभी िेमेस्टरों में न्यूनतम CGPA 7.5 होना चासहए, और सवज्ञान में पोस्ट-ग्रेजुएशन",
-      "organization": "DRDO",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "result",
-      "updateType": "result",
-      "vacancies": 2026,
-      "vacancyDetails": "A total of 30 vacancies are available - 12 for Electrical / Electronics & Communication / Electronics & Telecommunication, 13 for Computer Science / Information Technology, and 5 for Mechanical Engineering. Post Name Total Posts Electrical / Electronics & Communication / Electronics & Telecommunication 12 Computer Science / Information Technology 13 Mechanical Engineering 5 Total 30 🔔 Never Miss a Govt Job Again! ⚡ Get Custom Govt Job Alerts by Your Qualification (10TH | 12TH | Diploma | ITI | Graduate, Etc) Join Now CASDIC DRDO Recruitment 2026 - Eligibility Criteria Electrical / Electronics & Communication / Electronics & Telecommunication: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. Computer Science / Information Technology: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. Mechanical Engineering: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. CASDIC DRDO Recruitment 2026 - Age Limit Maximum Age Limit: 25 years. Age relaxation rules are not specified in the provided data. Candidates are advised to check whether they satisfy the prescribed age limit before applying. Use our online Age Calculator to calculate your exact age instantly. CASDIC DRDO Recruitment 2026 - Salary / Stipend Rs. 5000 Per Month CASDIC DRDO Recruitment 2026 - Important Dates Event Date Last date for receipt of application 11 October 2026 Intimation to Selected Students 13 Novem",
-      "qualification": "Syllabus Exam Pattern",
-      "ageLimit": "Below 25 Years / आयु िीमा: 25 वर्न िे कम। c. Selected students will only be notified about the joining procedures through the mail ID mentioned in the application form / चयसनत छात्रों को जॉइसनंग प्रसक्रयाओं के बारे में क े वल आवेदन पत्र में उखल्लखखत ईमेल आईडी के माध्यम िे िूसचत सकया जाएगा। d. Incomplete/erroneous application received or received after the due date will be rejected. No further communication in this regard will be entertained / अपूर्न/त्रुसटपूर्न आवेदन या सनयत सतसि के बाद प्राप्त आवेदनों को अस्वीकार कर सदया जाएगा। इि िंबंध में सकिी भी आगे के पत्राचार पर सवचार नहीं सकया जाएगा। e. Selection will be based entirely on merit basis. No communication will be entertained for rejected students / चयन पूरी तरह िे मेररट के आधार पर होगा। अस्वीक ृ त छात्रों के सलए सकिी भी पत्राचार पर सवचार नहीं सकया जाएगा। 6. BOARDING / LODGING / बोसडिंग / लॉसजंग a. Boarding or lodging expenses to be bo",
-      "ageRelaxation": "rules are not specified in the provided data. Candidates are advised to check whether they satisfy the prescribed",
-      "fee": "for this recruitment? No, there is no",
-      "selectionProcess": "/ चयर् प्रलिया: a. Selection will be made from the applied candidates based on the mark scored in previous exams and online interview / interaction as required / आवेदन करने वाले उम्मीदवारों का चयन उनक े सपछली परीक्षाओं में प्राप्त अंकों और ऑनलाइन इंटरव्यू / इंटरेक्शन के आधार पर सकया जाएगा। b.",
-      "selection": "/ चयर् प्रलिया: a. Selection will be made from the applied candidates based on the mark scored in previous exams and online interview / interaction as required / आवेदन करने वाले उम्मीदवारों का चयन उनक े सपछली परीक्षाओं में प्राप्त अंकों और ऑनलाइन इंटरव्यू / इंटरेक्शन के आधार पर सकया जाएगा। b.",
-      "salary": "(in Rs.) / मालसक स्टाइपेंड (रुपये में) Duration of Internship / इोंटर्नलशप की अिलि",
-      "payScale": "(in Rs.) / मालसक स्टाइपेंड (रुपये में) Duration of Internship / इोंटर्नलशप की अिलि",
-      "howToApply": "/ आिेदर् क ै से कर ें: a. Scanned copy of application duly filled in all respect along with Reference / Request letter from college for Paid Internship (as per attached format) are to be forwarded to the Centre Head, CASDIC through email only. No hard copy will be accepted as application for the internship / िशुल्क इंटननसशप के सलए कॉलेज िे रेफरेंि / ररक्व े स्ट लेटर के िाि पूर्न रूप िे भरे हुए आवेदन की स्क ै न की गई कॉपी क े वल ईमेल के माध्यम िे िेंटर हेड, CASDIC को अग्रेसर्त की जानी चासहए। कोई हाडन कॉपी स्वीकार नहीं की जाएगी। b. Email for forwarding the Application: hrd.casdic@gov.in / आवेदन अग्रेसर्त करने के सलए ईमेल: hrd.casdic@gov.in c. Email subject should be mentioned as “Application for paid internship for the year 2026 with Branch code” for which the candidate is applying / ईमेल का सवर्य (िब्जेक्ट्) “Application for paid internship for the year 2026 with Branch code” के रूप में उ",
-      "documentsRequired": "TO BE SUBMITTED: / जमा लकए जार्े िािे दस्तािेज़: a. Duly filled application form as per format attached / िंलग्न प्रारूप के अनुिार सवसधवत भरा हुआ आवेदन पत्र। b. Self-attested Copy of the marksheet of all previous semesters / सपछले िभी िेमेस्टरों के माक न शीट की स्व- प्रमासर्त (Self-attested) कॉपी। c. Self-attested Copy of Aadhaar card / आधार काडन (Aadhaar card) की स्व-प्रमासर्त कॉपी। d. Reference / Request letter from coll ege (on College Letter Head) for Paid Internship ( as per attached format) / िशुल्क इंटननसशप के सलए कॉलेज िे रेफरेंि / ररक्व े स्ट लेटर (कॉलेज के लेटर हेड पर) (िंलग्न प्रारूप के अनुिार)। e. Brief biodata in less than 300 words highlighting achievements / 300 शब्ों िे कम में िंसक्षप्त बायोडाटा सजिमें उपलखियों पर प्रकाश डाला गया हो। 5.",
-      "jobLocation": "of Internship / इोंटर्नलशप का स्थार् EC Electrical / Electronics & Communication/ Electronics & Telecommunication / इलेखक्ट् र कल / इलेक्ट् र ॉसनक्स ए ं ड कम्युसनक े शन 12 5,000/- (per Month) / 5,000/- (प्रसत माह) 06 Months / 06 महीने CASDIC, Bengaluru - 560093 CS Computer Science / Information Technology / क ं प्यूटर िाइंि / इनफामेशन टेक्नोलॉजी 13 ME Mechanical Engineering / मैक े सनकल इंजीसनयररंग 5 Total / क ु ि 30 भारत सरकार, रक्षा मंत्रालय Government of India,",
-      "applicationMode": "for the CASDIC DRDO Paid Intern posts? Applications are to be submitted via email. Candidates need to send their complete application to the official email address provided in the notification. Q9. In which city is the CASDIC DRDO located? The Combat Aircraft System Development and Integration Centre (CASDIC DRDO) is located in Bengaluru, Karnataka, with the pincode 560093. Q10. When will the internship start for the selected candidates? The internship is scheduled to commence on 01st December 2026 for the candidates who are successfully selected. About the Author Abisha Muthukumar - Senior Content Writer As a senior content editor and lead writer, I am responsible for creating credible, reader-focused content backed by verified official sources. My role includes researching, interpreting, and presenting complex educational and career information in a clear and accessible format. I bring",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-11",
-      "examDate": null,
-      "notificationUrl": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtCASDIC14092026.pdf",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "11/09/2026",
-          "date": "2026-09-11"
-        },
-        {
-          "raw": "11/10/2026",
-          "date": "2026-10-11"
-        },
-        {
-          "raw": "18/09/2026",
-          "date": "2026-09-18"
-        },
-        {
-          "raw": "13/11/2026",
-          "date": "2026-11-13"
-        },
-        {
-          "raw": "01/12/2026",
-          "date": "2026-12-01"
-        }
-      ],
-      "jobId": "53a0f024db273368ab9a31b2",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-source-v4.1",
-        "url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtCASDIC14092026.pdf",
-        "title": "",
-        "sourceType": "official_pdf",
-        "matchScore": 120
-      },
-      "lastSeenAt": "2026-09-16T09:59:20.058535+00:00",
-      "recordVersion": 4,
-      "recordStatus": "draft",
-      "fingerprint": "771533b3d4784f13d70518620cb6ffef5e1e1c9006baa7218c4f26546fc6c765",
-      "updatedAt": "2026-09-16T09:59:30.990745+00:00",
-      "discoveredAt": "2026-09-15T12:53:09.651758+00:00",
-      "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Tue, 15 Sep 2026 12:35:06 GMT"
-    },
-    {
-      "title": "RCF Ltd Recruitment 2026 – 10 Assistant Officer (Secretarial) Posts IndGovtjobs",
-      "department": null,
-      "organization": "RCF Ltd",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "result",
-      "vacancies": 188,
-      "qualification": "criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- List of Candidates Provisionally Shortlisted for Personal Interview Based on Document Scrutiny conducted for the Position of Officer (Medical) E1 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates APP. NO. 309003 309008 309025 309026 309030 309032 309035 309039 309040 309042 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their",
-      "ageLimit": "criteria has been relaxed for PwBD candidates for 10 years for identified posts. The",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-01",
-      "examDate": null,
-      "notificationUrl": "https://www.rcfltd.com/investerrelations/Advertisement-Published-in-Newspapers",
-      "applyUrl": "",
-      "source": "IndGovtJobs",
-      "dateEvidence": [
-        {
-          "raw": "01-10-2026",
-          "date": "2026-10-01"
-        },
-        {
-          "raw": "27/07/2025",
-          "date": "2025-07-27"
-        },
-        {
-          "raw": "24-08-2026",
-          "date": "2026-08-24"
-        },
-        {
-          "raw": "19 September 2026",
-          "date": "2026-09-19"
-        },
-        {
-          "raw": "22 September 2026",
-          "date": "2026-09-22"
-        }
-      ],
-      "jobId": "78565e5e50defec008b1ae48",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain",
-        "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
-        "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
-        "matchScore": 102,
-        "titleOverlap": 0,
-        "sourceType": "official_notification_or_recruitment_document"
-      },
-      "lastSeenAt": "2026-09-16T09:59:20.058535+00:00",
-      "recordVersion": 4,
-      "recordStatus": "draft",
-      "fingerprint": "a499824ebf92cb7285c27f0817ee9fe107aca7532e69df9e6f7915a5625c1960",
-      "updatedAt": "2026-09-16T09:59:36.057913+00:00",
-      "updateType": "result",
-      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Assistant Officer (Secretarial) 10 Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Apply Online Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Fresher Government jobs, Latest RCFL Jobs, Rashtriya Chemicals and Fertilizers Assistant Officer Recruitment 2026, RCFL Assistant Officer Jobs 2026, RCFL Recruitment 2026, State Government Jobs, Women Careers, Women Jobs 2026, Women Recruitment 2026, Womens govt Jobs ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs SSC Recruitment 2026 – 1,871 Sub-Inspe",
-      "ageRelaxation": "is applicαble as per the rules. A pplication",
-      "fee": "For General Aspirαnt: Rs.1000/- For OBC-A&B Aspirαnt: Rs. 1000/- For SC/ ST & PH: NIL",
-      "howToApply": "Click Here Download Advertisement Click Here Annexure – I - OBC Certificate Click Here Annexure – II - SC/ST Certificate Click Here Annexure – III – List of",
-      "documentsRequired": "to be uploaded by the Candidates Click Here Annexure – IV - Undertaking By Candidate for experience Click Here Annexure – V – PwBD Certificate Click Here Annexure VI – Income & Asset Certificate Format for Central Government Job Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Date: 17, 18 & 19 September 2026 Time: 7:00 a.m. onwards Venue: RCF Sports Club, RCF Colony, Chembur, Mumbai - 400 074 Download Advertisement (Detailed Informatio",
-      "salary": "to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Ca",
-      "payScale": "to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Ca",
-      "documentText": "Rashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Audited Financial Results as on 31.03.2026 in newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Audited Financial Results as on 30.06.2026 in newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Recruitment Home HR Recruitment Recruitment Director (Marketing)- Rashtriya Chemicals And Fertilizers Ltd Selection for the Post of Director (Marketing), Rashtriya Chemicals and Fertilizers Ltd. (RCF), a schedule “A” CPSE Download Advertisement Click Here Last Date for Submission of Applications 01-10-2026 03:00 PM CORRIGENDUM-Amendment to revise the Age for PwBD candidates for RCF Recruitment Advertisement No. 16022026 CORRIGENDUM RASHTRIYA CHEMICALS AND FERTILIZERS LIMITED (A Government of India Undertaking) Administrative Building, Chembur, Mumbai – 400 074 CIN: L24110MH1978GOI020185 Amendment to revise the Age for PwBD candidates for RCF Recruitment Advertisement No. 16022026 With reference to our notification dated 08.08.2026, Advt. No.- 16022026 for inviting applications for the position of Management Trainee in various disciplines, amendments in the advertisement are as given below: The age limit criteria has been relaxed for PwBD candidates for 10 years for identified posts. The Last date for receipt of online application is extended up to 20.09.2026, till 5:00 pm. The system will be updated shortly. Interested candidates are advised to visit the RCF website https://www.rcfltd.com , recruitment section for the position of Management Trainee in various disciplines for Advertisement No.- 16022026. All other terms and conditions as mentioned in Advertisement No. 16022026, available on the RCF website, remain unchanged. The applicants who have already submitted their applications need not apply again. Date: 10.09.2026 Executive Director – Human Resources Advertisement for the post of Assistant Officer (Secretarial) E0 Grade for Trombay/Thal/ Area Offices Pan India Activity Date Commencement of On-Line registration of application by candidates for the Post of Assistant Officer (Secretarial) E0 Grade 10.09.2026 at 8:00 am Last date for on-line registration of application by candidates 26.09.2026 at 5:00 pm Apply Online Click Here Download Advertisement Click Here Annexure – I - OBC Certificate Click Here Annexure – II - SC/ST Certificate Click Here Annexure – III – List of Documents to be uploaded by the Candidates Click Here Annexure – IV - Undertaking By Candidate for experience Click Here Annexure – V – PwBD Certificate Click Here Annexure VI – Income & Asset Certificate Format for Central Government Job Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Date: 17 , 18 & 19 September 2026 Time: 7:00 a.m. onwards Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Selection Trials for its Professional Kabaddi Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Kabaddi Team on Contractual Basis for the year 2026-27. Date: 21 & 22 September 2026 Time: 9:00 a.m. Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Selection Trials for its Professional Hockey Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Hockey Team on Contractual Basis for the year 2026-27. Date: 17 , 18 & 19 September 2026 Time: 9:00 a.m. Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Advertisement for Special Recruitment Drive for Backlog Vacancies and Recruitment for Other Vacancies for various posts For Trombay/Thal/ Area Offices Pan India Download Advertisement Click Here List of Candidates Provisionally Shortlisted for Skill Test Based on Document Scrutiny conducted for the Position of Assistant Engineer (Electrical) E0 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates Application No. 312036 312052 312063 312138 312150 Candidates will be intimated about the Skill Test details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- List of Candidates Provisionally Shortlisted for Personal Interview Based on Document Scrutiny conducted for the Position of Officer (Medical) E1 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates APP. NO. 309003 309008 309025 309026 309030 309032 309035 309039 309040 309042 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- Cancellation of Recruitment Process for the post of Officer (Finance) E1 Grade (Post code – E1FIN/022025) against advertisement No. 05022025 Notification Click Here ADVERTISEMENT FOR THE ENGAGEMENT OF ACT APPRENTICES TRAINEES IN VARIOUS DISCIPLINES AT TROMBAY (MUMBAI) AND THAL (RAIGAD). Activity Date Commencement of On-Line Registration of Application by candidates for ACT Apprentices Trainees (Graduate Apprentice, Technical Apprentice and Trade Apprentices) 04.09.2026 at 8:00 AM Last date for on-line registration of application by the candidates 20.09.2026 at 5:00 PM Apply Online Click Here Download Advertisement (Detailed Advertisement) Click Here Annexure – I - Medical Format Click Here Annexure – II,III & IV - OBC Certificate, SC/ST Certificate and PwBD Certificate Click Here List of Candidates Provisionally Shortlisted for Personal Interview Based on On-line test conducted on 27/07/2025 and Document Scrutiny for the Position of Management Trainee (Electrical) Advertisement No.: 05022025 List is in Ascending order of registration numbers of candidates REGT. NO. REGT. NO. 649001040 649008127 649001083 649008521 649001135 649009145 649001715 649009305 649001896 649009476 649002132 649009983 649003566 649010121 649005421 649010306 649006550 649010968 649006954 649011037 649006981 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- Provisionally Shortlisted Candidates for the Pre-Employment Medical Check-up with reference to the Position of Operator (Chemical) Trainee Advertisement No.: 04022025 - R List is in Ascending order of registration numbers of candidates Registration no. 681000027 681000808 681001626 681003109 681004344 681005011 681000052 681000873 681001701 681003317 681004418 681005075 681000114 681000900 681001796 681003517 681004425 681005403 681000210 681000907 681001896 681003644 681004730 681005516 681000348 681001032 681002058 681003811 681004757 681005964 681000438 681001039 681002209 681003866 681004800 681005988 681000674 681001157 681002609 681004135 681004825 681006132 681000739 681001540 681002814 681004145 681004989 681006196 681000757 681001543 681002956 681004341 681005005 681006252 The details of pre-employment medical check-up will be communicated shortly. Please note that this medical fitness is compulsory as per Company’s rules. Candidates are required to bring Photocopies of Photo Identity proof along with originals (Government issued) example Aadhar Card, PAN card, Driving license, Disability Certificate (in-case of PWbD Candidates) along with 2 (two) Passport size recent photographs etc. while coming for Pre-Employment Medical check-up. In case if the candidate fails to clear the Medical Test or Scrutiny of documents, their candidature shall stand cancelled. -x-x-x- CORRIGENDUM CORRIGENDUM RASHTRIYA CHEMICALS AND FERTILIZERS LIMITED (A Government of India Undertaking) Administrative Building, Chembur, Mumbai – 400 074 CIN: L24110MH1978GOI020185 Amendment to revise the reckoning date for Educational Qualification for RCF Recruitment Advertisement No. 16022026 With reference to our notification dated 08.08.2026, Advt. No.- 16022026 for inviting applications for the position of Management Trainee in various disciplines, amendments in the advertisement are as given below: The cut-off date for determining eligibility criteria in respect of minimum educational qualification is revised from 01.02.2026 to 01.08.2026 and the cut-off date for determining age will remain unchanged. The Last date for receipt of online application is extended up to 10.09.2026, till 5:00 pm. Interested candidates are advised to visit the RCF website https://www.rcfltd.com , recruitment section for the position of Management Trainee in various disciplines for Advertisement No.- 16022026. All other terms and conditions as mentioned in Advertisement No. 16022026, available on the RCF website, remain unchanged. The applicants who have already submitted their applications need not apply again. Date: 24-08-2026 Executive Director – Human Resources Advertisement for the post of Management Trainee in various disciplines for Trombay/Thal/ Area Offices Pan India Activity Date Commencement of On-Line registration of application by candidates for the Post of Management Trainee (Chemical, Boiler, Mechanical, Electrical, Instrumentation, Materials, Civil, Fire, CC Lab, Industrial Engineering, Information Technology, Rajbhasha, Finance and Marketing) 08.08.2026 at 8:00 am Last date for on-line registration of application by candidates 24.08.2026 at 5:00 pm Apply Online Click Here Download Advertisement Click Here Annexure – I - PwBD Certificate Click Here Annexure – II - OBC Certificate Click Here Annexure – III – SC/ST Certificate Click Here Annexure – IV – Income & Asset Certificate Click Here Annexure – V – List Of Documents To Be Uploaded By Candidates Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Syllabus for the Post of Operator (Chemical) Trainee UNDER ADVERTISEMENT NO: 17022026 FOR RECRUITMENT OF OPERATOR (CHEMICAL) TRAINEE – 188 POSTS Particular Link Syllabus for the Post of Operator (Chemical) Trainee Click Here Note: Please note that the syllabus is only indicative in nature and should not be construed as exhaustive. Pre-Recruitment Awareness General Instructions Sr No Language Video Link 1 Hindi View 2 Marathi View 3 English View Aptitude Test Sr No Language Video Link 1 Hindi View 2 Marathi View 3 English View Professional Knowledge Test English Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Professional Knowledge Test Hindi Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Professional Knowledge Test Marathi Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Advertisement No: 17022026 for Recruitment of Operator (Chemical) Trainee – 188 posts CORRIGENDUM Ref: Advertisement No: 17022026 for Recruitment of Operator (Chemical) Trainee – 188 posts With reference to the above advertisement published on the RCF website and in leading newspapers, the following modification is hereby issued regarding submission of Caste Validity Certificate: As per Clause (I)(d) of the detailed advertisement, candidates belonging to reserved categories are required to submit the Caste Validity Certificate (as applicable). In this regard, it is hereby clarified that candidates belonging to reserved categories from the State of Maharashtra who do not possess a Caste Validity Certificate at the time of submission of online application may upload a self-declaration in the prescribed format in lieu of the Caste Validity Certificate which is available on RCF Website. The candidature of such candidates if selected shall remain purely provisional till submission and verification of the Caste Validity Certificate, failing which their candidature/employment is liable to be cancelled. Note that, candidates who have already successfully submitted the online application form for the post of Operator (Chemical) Trainee need not apply again . Further, the last date for submission of online applications under Advertisement No. 17022026 has been extended from 27.04.2026 to 12.05.2026 . All other terms and conditions of the Advertisement No: 17022026 shall remain unchanged. Activity Date Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” 11.04.2026 at 8:00 am Extended last date of on-line registration of application for candidates by one day due to Technical Issue. 13.05.2026 at 5:00 pm Self-declaration for non-availability of caste validity certificate Click Here Apply Online Click Here Download Detailed Advertisement Click Here Annexure I – SC/ST Certificate Format Click Here Annexure II – OBC NCL Certificate Format for Central Government Job Click Here Annexure III – Income & Asset Certificate Format for Central Government Job Click Here Annexure IV – List of Documents to be uploaded along with Application. Click Here Grievance Link Click Here TA & BANK DETAILS FORM Click Here Zero Tolerance Policy on Corruption - Recruitment Zero Tolerance Policy on Corruption - Recruitment Commencement of On-Line registration of application by candidates for “OPERATOR (CHEMICAL) TRAINEE- 188 POSTS” Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” Activity Date Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” 11.04.2026 at 8:00 am Last date for on-line registration of application by candidates 27.04.2026 at 5:00 pm Apply Online Click Here Download Detailed Advertisement Click Here Annexure I – SC/ST Certificate Format Click Here Annexure II – OBC NCL Certificate Format for Central Government Job Click Here Annexure III – Income & Asset Certificate Format for Central Government Job Click Here Annexure IV – List of Documents to be uploaded along with Application. Click Here Grievance Link Click Here TA & BANK DETAILS FORM Click Here CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Financial Results Home Invester Relations Financial Results Financial Results Unaudited Financial Result 30062026 Publication of Audited Financial Results as on 31.03.2026 in newspapers Audited Financial Results (Standalone and Consolidated) as on 31032026 Publication of Unaudited Financial Results as on 31122025 in newspapers Unaudited Financial Results as on 31122025 Publication of Unaudited Financial Results as on 30092025 in newspapers Unaudited Financial Results for quarter and half year ended 30092025 Publication of Unaudited Financial Results as on 30062025 in newspapers Unaudited Financial Results for quarter ended 30th June 2025 Publication of Audited Financial Results as on 31.03.2025 in newspapers ‹ 1 2 3 4 › CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.",
-      "documentSources": [
-        {
-          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
-          "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
-          "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-audited-financial-results-as-on-31032026-in-newspapers-1",
-          "title": "Publication of Audited Financial Results as on 31.03.2026 in newspapers",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-audited-financial-results-as-on-30062026-in-newspapers",
-          "title": "Publication of Audited Financial Results as on 30.06.2026 in newspapers",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/products/advertisement-for-appointment-of-actual-users-of-ipd-products",
-          "title": "Advertisement for Appointment of Actual Users of IPD Products",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/hrrecruitment/recruitment-1",
-          "title": "Recruitment",
-          "type": "html",
-          "extracted": true
-        },
-        {
-          "url": "https://www.rcfltd.com/investerrelations/financial-results-1",
-          "title": "Financial Result",
-          "type": "html",
-          "extracted": true
-        }
-      ],
-      "documentCount": 7,
-      "documentTables": [
-        [
-          [
-            "Activity",
-            "Date"
-          ],
-          [
-            "Commencement of On-Line registration of application by candidates for the Post of Assistant Officer (Secretarial) E0 Grade",
-            "10.09.2026 at 8:00 am"
-          ],
-          [
-            "Last date for on-line registration of application by candidates",
-            "26.09.2026 at 5:00 pm"
-          ],
-          [
-            "Apply Online",
-            "Click Here"
-          ]
-        ],
-        [
-          [
-            "Activity",
-            "Date"
-          ],
-          [
-            "Commencement of On-Line registration of application by candidates for the Post of Management Trainee (Chemical, Boiler, Mechanical, Electrical, Instrumentation, Materials, Civil, Fire, CC Lab, Industrial Engineering, Information Technology, Rajbhasha, Finance and Marketing)",
-            "08.08.2026 at 8:00 am"
-          ],
-          [
-            "Last date for on-line registration of application by candidates",
-            "24.08.2026 at 5:00 pm"
-          ],
-          [
-            "Apply Online",
-            "Click Here"
-          ]
-        ],
-        [
-          [
-            "Particular",
-            "Link"
-          ],
-          [
-            "Syllabus for the Post of Operator (Chemical) Trainee",
-            "Click Here"
-          ]
-        ],
-        [
-          [
-            "Sr No",
-            "NAME OF THE POST & DISCIPLINE",
-            "Video Link"
-          ],
-          [
-            "1",
-            "Operator Trainee Chemical",
-            "View"
-          ]
-        ],
-        [
-          [
-            "Sr No",
-            "NAME OF THE POST & DISCIPLINE",
-            "Video Link"
-          ],
-          [
-            "1",
-            "Operator Trainee Chemical",
-            "View"
-          ]
-        ],
-        [
-          [
-            "Sr No",
-            "NAME OF THE POST & DISCIPLINE",
-            "Video Link"
-          ],
-          [
-            "1",
-            "Operator Trainee Chemical",
-            "View"
-          ]
-        ],
-        [
-          [
-            "Activity",
-            "Date"
-          ],
-          [
-            "Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ”",
-            "11.04.2026 at 8:00 am"
-          ],
-          [
-            "Extended last date of on-line registration of application for candidates by one day due to Technical Issue.",
-            "13.05.2026 at 5:00 pm"
-          ]
-        ],
-        [
-          [
-            "Activity",
-            "Date"
-          ],
-          [
-            "Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ”",
-            "11.04.2026 at 8:00 am"
-          ],
-          [
-            "Last date for on-line registration of application by candidates",
-            "27.04.2026 at 5:00 pm"
-          ]
-        ]
-      ],
-      "documentExtractedAt": "2026-09-16T10:01:17.537239+00:00",
-      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
-      "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Fri, 11 Sep 2026 06:45:39 +0000"
-    },
-    {
-      "title": "Delhi High Court SPA & PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant & Personal Assistant Posts",
-      "department": "/Office and produce a No Objection Certificate at the stage of Document Verification/Interview if successful. Check Delhi High Court Personal Assistant Syllabus 2026 Delhi High Court SPA & PA Qualification Post Educational Qualification (as on 05.10.2026) Senior Personal Assistant Graduate from a recognised University with speed of not less than 110 w.p.m. in Shorthand (English) and 40 w.p.m. in Typewriting (English) on Computer, with good working knowledge of Computer Personal Assistant Graduate from a recognised University with speed of not less than 100 w.p.m. in Shorthand (English) and 40 w.p.m. in Typewriting (English) on Computer, with good working knowledge of Computer All educational",
-      "organization": "Delhi High Court SPA & PA",
-      "state": "",
-      "jobType": "Government Job",
-      "category": "admit_card",
-      "updateType": "admit_card",
-      "vacancies": 150,
-      "qualification": "Syllabus Exam Pattern",
-      "ageLimit": "01.01.2026, a candidate's age should not be below 18 years and not over 32 years (born not earlier than 02.01.1994 and not later than 01.01.2008). Date of birth as recorded in the Matriculation/Secondary Examination Certificate or an equivalent certificate alone will be accepted; no subsequent request for change will be entertained. Category",
-      "applicationStartDate": null,
-      "applicationLastDate": "2026-10-14",
-      "examDate": null,
-      "notificationUrl": "https://www.freejobalert.com/articles/delhi-high-court-recruitment-2026-apply-online-for-150-senior-personal-assistant-and-personal-assistant-posts-3066385",
-      "applyUrl": "",
-      "source": "FreeJobAlert",
-      "dateEvidence": [
-        {
-          "raw": "15 September 2026",
-          "date": "2026-09-15"
-        },
-        {
-          "raw": "05 October 2026",
-          "date": "2026-10-05"
-        },
-        {
-          "raw": "12 October 2026",
-          "date": "2026-10-12"
-        },
-        {
-          "raw": "14 October 2026",
-          "date": "2026-10-14"
-        }
-      ],
-      "jobId": "9a5cc75c7406b2e24f2a43c9",
-      "verificationStatus": "verified",
-      "publicationStatus": "ready",
-      "officialSource": {
-        "sourceId": "official-government-domain-recovery",
-        "url": "https://www.delhihighcourt.nic.in/files/2026-09/recuritment/vacancy_circular_for_spa.pdf",
-        "title": "",
-        "matchScore": 0.57,
-        "titleOverlap": 1,
-        "sourceType": "official_notification_or_recruitment_page",
-        "verificationMethod": "discovery-page-official-link-recovery"
-      },
-      "lastSeenAt": "2026-09-16T01:23:43.467335+00:00",
-      "recordVersion": 18,
-      "recordStatus": "draft",
-      "fingerprint": "37a0ce9f10f137dc72b46f93783ea5eee205caf616b91da610b888298fed7150",
-      "updatedAt": "2026-09-16T01:23:43.852372+00:00",
-      "vacancyDetails": "A total of 150 posts are being filled – 117 Senior Personal Assistant and 33 Personal Assistant, both Group 'B' posts. Category-wise vacancy breakups are given below. Post GEN Total Senior Personal Assistant GEN 43, EWS 14, OBC-NCL 32, SC 16, ST 12 117 Personal Assistant EWS 07,OBC-NCL 16, SC 05, ST 12 33 Since there is no vacancy under the General category for the post of Personal Assistant, all clauses in the notice pertaining to the General category apply only to the Senior Personal Assistant post. Within the total vacancies, posts are also reserved horizontally for Persons with Benchmark Disability (PwBD) – 7 posts out of 117 SPA vacancies, and 3 posts out of 33 PA vacancies. The disability-wise breakup is given below. Post OL/BL/LC/Dw/AAV ASD/SLD/Mental Illness Multiple Disabilities Total PwBD Senior Personal Assistant 03 02 02 07 Personal Assistant 02 01 – 03 🔔 Never Miss a Govt Job Again! ⚡ Get Custom Govt Job Alerts by Your Qualification (10TH | 12TH | Diploma | ITI | Graduate, Etc) Join Now Delhi High Court SPA & PA Eligibility Criteria Applicants must be citizens of India or subjects of Nepal, as per instructions issued by the Government of India from time to time. Nepal subjects must hold a certificate of eligibility issued by the Government of India; an offer of appointment will be given only after this certificate is produced. Candidates already in Government service must intimate their Department/Office and produce a No Objection Certificate at the stage of Document Verification/Interview if successful. Check Delhi High Court Personal Assistant Syllabus 2026 D",
-      "ageRelaxation": "Beyond Upper Limit SC/ST 5 years OBC-NCL 3 years PwBD – General/EWS 10 years PwBD – OBC 13 years PwBD – SC/ST 15 years Ex-Servicemen (ESM) 3 years (after deducting military service rendered); Disabled Defence Services personnel get relaxation up to 45 years, or 50 years for SC/ST PwBD relaxation applies only to candidates with benchmark disability of 40% or more, in the specific disability categories for which vacancies have been reserved. Widows, divorcees, and certain other categories of married women get relaxation up to 40 years, as per Government of Delhi instructions dated 23.04.1984. There is no",
-      "fee": "payment 05.10.2026 (2300 hours) Correction window for application form 12.10.2026 (1100 hours) to 14.10.2026 (2300 hours) Admit card download To be announced later via public notice on the official website Date, time & venue of examination To be announced later via public notice on the official website Also Read: UPSC CGSE 2027 Notification Out - Combined Geo-Scientist Preliminary Exam for 127 Posts Delhi High Court SPA & PA Vacancy 2026 –",
-      "selectionProcess": "Previous Papers Tools Image Resizer PDF to Word Converter Image to PDF Converter Word to PDF Converter Free AI Interview Tool Latest Notifications Education Login Advertisement Download Mobile APP Join Whatsapp --> --> --> --> Sarkari Result --> --> --> --> Play Fun Games --> --> --> --> --> Sarkari Result --> --> --> --> --> --> Play Games --> --> --> --> Delhi High Court SPA & PA Recruitment 2026",
-      "selection": "Previous Papers Tools Image Resizer PDF to Word Converter Image to PDF Converter Word to PDF Converter Free AI Interview Tool Latest Notifications Education Login Advertisement Download Mobile APP Join Whatsapp --> --> --> --> Sarkari Result --> --> --> --> Play Fun Games --> --> --> --> --> Sarkari Result --> --> --> --> --> --> Play Games --> --> --> --> Delhi High Court SPA & PA Recruitment 2026",
-      "salary": ", 7th CPC Who Can Apply Citizens of India or subjects of Nepal (as per GOI instructions), graduates with required shorthand/typing speed",
-      "payScale": ", 7th CPC Who Can Apply Citizens of India or subjects of Nepal (as per GOI instructions), graduates with required shorthand/typing speed",
-      "howToApply": "for 150 Posts FreeJobAlert.Com Government Jobs | Results | Admit Cards Home All India Govt Jobs State Govt Jobs Bank Jobs Teaching Jobs Engineering Jobs Railway Jobs Police/Defence Jobs Download Mobile App AP AS BR CG DL GJ HP HR JH KA KL MH MP OD PB RJ TN TS UK UP WB EDUCATION Tools Login Notifications Latest Notifications Register for Job Alerts Employment News Search Jobs Sarkari Job Sarkari Naukri Anganwadi Recruitment Forest Jobs Govt Jobs without Exams Female Govt Jobs Legal Govt Jobs EDUCATION Free Mock Test Latest Announcements Sarkari Result Admit Card Exam Dates Exam Results Answer Key Cutoff Marks Written Marks Interview Results",
-      "jobLocation": "High Court of Delhi, New Delhi Official Website www.delhihighcourt.nic.in Register for Job Alerts Delhi High Court SPA & PA",
-      "applicationMode": "Online only",
-      "discoveredAt": "2026-09-15T07:39:51.871516+00:00",
-      "lastDiscoveredAt": "2026-09-16T01:23:09.750681+00:00",
-      "publishedAt": "Tue, 15 Sep 2026 06:42:09 GMT",
+      "publishedAt": "Wed, 09 Sep 2026 12:53:37 +0000",
       "retainedWhileDeadlineActive": true,
       "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
     },
@@ -1200,6 +849,304 @@
       "documentTables": [],
       "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
       "lastDiscoveredAt": "2026-09-16T09:55:17.334749+00:00",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
+    },
+    {
+      "title": "CASDIC DRDO Paid Intern Recruitment 2026 - Apply Online for 30 Posts",
+      "department": "of Defence रक्षा अनुसंधान एवं ववकास संगठन Defence Research and Development Organisation युद्धक ववमान प्रणावलयााँ ववकास एवं एकीकरण क ें द्र COMBAT AIRCRAFT SYSTEMS DEVELOPMENT AND INTEGRATION CENTRE पुराना डेयर पररसर, पोस् ट बॉक् स सं. 9366, सी.वी. रामन नगर, बेंगलूरु – 560093 Old DARE Complex, P.B. No. 9366, C V Raman Nagar, Bengaluru – 560093 Advertisement No. CASDIC/HRG/PDINTERN/2026/01 Date: 11/09/2026 1. MINIMUM EDUCATIONAL QUALIFICATIONS: / न्यूनतम शैसक्षक योग्यता: Pursuing Graduation in Engineering with minimum CGPA of 7.5 in all previous semesters and pursuing post-graduation in science should have minimum 70% marks in 1st year exam. Student must be enrolled for full time course in the respective discipline from a AICTE / UGC approved Collage/University / इंजीसनयररंग में ग्रेजुएशन कर रहे छात्रों का सपछले िभी िेमेस्टरों में न्यूनतम CGPA 7.5 होना चासहए, और सवज्ञान में पोस्ट-ग्रेजुएशन",
+      "organization": "DRDO",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "result",
+      "updateType": "result",
+      "vacancies": 2026,
+      "vacancyDetails": "A total of 30 vacancies are available - 12 for Electrical / Electronics & Communication / Electronics & Telecommunication, 13 for Computer Science / Information Technology, and 5 for Mechanical Engineering. Post Name Total Posts Electrical / Electronics & Communication / Electronics & Telecommunication 12 Computer Science / Information Technology 13 Mechanical Engineering 5 Total 30 🔔 Never Miss a Govt Job Again! ⚡ Get Custom Govt Job Alerts by Your Qualification (10TH | 12TH | Diploma | ITI | Graduate, Etc) Join Now CASDIC DRDO Recruitment 2026 - Eligibility Criteria Electrical / Electronics & Communication / Electronics & Telecommunication: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. Computer Science / Information Technology: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. Mechanical Engineering: Pursuing final year B.E/B.Tech with minimum CGPA 7.5 in all previous semesters from AICTE/UGC approved college/university. CASDIC DRDO Recruitment 2026 - Age Limit Maximum Age Limit: 25 years. Age relaxation rules are not specified in the provided data. Candidates are advised to check whether they satisfy the prescribed age limit before applying. Use our online Age Calculator to calculate your exact age instantly. CASDIC DRDO Recruitment 2026 - Salary / Stipend Rs. 5000 Per Month CASDIC DRDO Recruitment 2026 - Important Dates Event Date Last date for receipt of application 11 October 2026 Intimation to Selected Students 13 Novem",
+      "qualification": "Syllabus Exam Pattern",
+      "ageLimit": "Below 25 Years / आयु िीमा: 25 वर्न िे कम। c. Selected students will only be notified about the joining procedures through the mail ID mentioned in the application form / चयसनत छात्रों को जॉइसनंग प्रसक्रयाओं के बारे में क े वल आवेदन पत्र में उखल्लखखत ईमेल आईडी के माध्यम िे िूसचत सकया जाएगा। d. Incomplete/erroneous application received or received after the due date will be rejected. No further communication in this regard will be entertained / अपूर्न/त्रुसटपूर्न आवेदन या सनयत सतसि के बाद प्राप्त आवेदनों को अस्वीकार कर सदया जाएगा। इि िंबंध में सकिी भी आगे के पत्राचार पर सवचार नहीं सकया जाएगा। e. Selection will be based entirely on merit basis. No communication will be entertained for rejected students / चयन पूरी तरह िे मेररट के आधार पर होगा। अस्वीक ृ त छात्रों के सलए सकिी भी पत्राचार पर सवचार नहीं सकया जाएगा। 6. BOARDING / LODGING / बोसडिंग / लॉसजंग a. Boarding or lodging expenses to be bo",
+      "ageRelaxation": "rules are not specified in the provided data. Candidates are advised to check whether they satisfy the prescribed",
+      "fee": "for this recruitment? No, there is no",
+      "selectionProcess": "/ चयर् प्रलिया: a. Selection will be made from the applied candidates based on the mark scored in previous exams and online interview / interaction as required / आवेदन करने वाले उम्मीदवारों का चयन उनक े सपछली परीक्षाओं में प्राप्त अंकों और ऑनलाइन इंटरव्यू / इंटरेक्शन के आधार पर सकया जाएगा। b.",
+      "selection": "/ चयर् प्रलिया: a. Selection will be made from the applied candidates based on the mark scored in previous exams and online interview / interaction as required / आवेदन करने वाले उम्मीदवारों का चयन उनक े सपछली परीक्षाओं में प्राप्त अंकों और ऑनलाइन इंटरव्यू / इंटरेक्शन के आधार पर सकया जाएगा। b.",
+      "salary": "(in Rs.) / मालसक स्टाइपेंड (रुपये में) Duration of Internship / इोंटर्नलशप की अिलि",
+      "payScale": "(in Rs.) / मालसक स्टाइपेंड (रुपये में) Duration of Internship / इोंटर्नलशप की अिलि",
+      "howToApply": "/ आिेदर् क ै से कर ें: a. Scanned copy of application duly filled in all respect along with Reference / Request letter from college for Paid Internship (as per attached format) are to be forwarded to the Centre Head, CASDIC through email only. No hard copy will be accepted as application for the internship / िशुल्क इंटननसशप के सलए कॉलेज िे रेफरेंि / ररक्व े स्ट लेटर के िाि पूर्न रूप िे भरे हुए आवेदन की स्क ै न की गई कॉपी क े वल ईमेल के माध्यम िे िेंटर हेड, CASDIC को अग्रेसर्त की जानी चासहए। कोई हाडन कॉपी स्वीकार नहीं की जाएगी। b. Email for forwarding the Application: hrd.casdic@gov.in / आवेदन अग्रेसर्त करने के सलए ईमेल: hrd.casdic@gov.in c. Email subject should be mentioned as “Application for paid internship for the year 2026 with Branch code” for which the candidate is applying / ईमेल का सवर्य (िब्जेक्ट्) “Application for paid internship for the year 2026 with Branch code” के रूप में उ",
+      "documentsRequired": "TO BE SUBMITTED: / जमा लकए जार्े िािे दस्तािेज़: a. Duly filled application form as per format attached / िंलग्न प्रारूप के अनुिार सवसधवत भरा हुआ आवेदन पत्र। b. Self-attested Copy of the marksheet of all previous semesters / सपछले िभी िेमेस्टरों के माक न शीट की स्व- प्रमासर्त (Self-attested) कॉपी। c. Self-attested Copy of Aadhaar card / आधार काडन (Aadhaar card) की स्व-प्रमासर्त कॉपी। d. Reference / Request letter from coll ege (on College Letter Head) for Paid Internship ( as per attached format) / िशुल्क इंटननसशप के सलए कॉलेज िे रेफरेंि / ररक्व े स्ट लेटर (कॉलेज के लेटर हेड पर) (िंलग्न प्रारूप के अनुिार)। e. Brief biodata in less than 300 words highlighting achievements / 300 शब्ों िे कम में िंसक्षप्त बायोडाटा सजिमें उपलखियों पर प्रकाश डाला गया हो। 5.",
+      "jobLocation": "of Internship / इोंटर्नलशप का स्थार् EC Electrical / Electronics & Communication/ Electronics & Telecommunication / इलेखक्ट् र कल / इलेक्ट् र ॉसनक्स ए ं ड कम्युसनक े शन 12 5,000/- (per Month) / 5,000/- (प्रसत माह) 06 Months / 06 महीने CASDIC, Bengaluru - 560093 CS Computer Science / Information Technology / क ं प्यूटर िाइंि / इनफामेशन टेक्नोलॉजी 13 ME Mechanical Engineering / मैक े सनकल इंजीसनयररंग 5 Total / क ु ि 30 भारत सरकार, रक्षा मंत्रालय Government of India,",
+      "applicationMode": "for the CASDIC DRDO Paid Intern posts? Applications are to be submitted via email. Candidates need to send their complete application to the official email address provided in the notification. Q9. In which city is the CASDIC DRDO located? The Combat Aircraft System Development and Integration Centre (CASDIC DRDO) is located in Bengaluru, Karnataka, with the pincode 560093. Q10. When will the internship start for the selected candidates? The internship is scheduled to commence on 01st December 2026 for the candidates who are successfully selected. About the Author Abisha Muthukumar - Senior Content Writer As a senior content editor and lead writer, I am responsible for creating credible, reader-focused content backed by verified official sources. My role includes researching, interpreting, and presenting complex educational and career information in a clear and accessible format. I bring",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-11",
+      "examDate": null,
+      "notificationUrl": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtCASDIC14092026.pdf",
+      "applyUrl": "",
+      "source": "FreeJobAlert",
+      "dateEvidence": [
+        {
+          "raw": "11/09/2026",
+          "date": "2026-09-11"
+        },
+        {
+          "raw": "11/10/2026",
+          "date": "2026-10-11"
+        },
+        {
+          "raw": "18/09/2026",
+          "date": "2026-09-18"
+        },
+        {
+          "raw": "13/11/2026",
+          "date": "2026-11-13"
+        },
+        {
+          "raw": "01/12/2026",
+          "date": "2026-12-01"
+        }
+      ],
+      "jobId": "53a0f024db273368ab9a31b2",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-source-v4.1",
+        "url": "https://drdo.gov.in/drdo/sites/default/files/vacancy/advtCASDIC14092026.pdf",
+        "title": "",
+        "sourceType": "official_pdf",
+        "matchScore": 120
+      },
+      "lastSeenAt": "2026-09-16T09:59:20.058535+00:00",
+      "recordVersion": 4,
+      "recordStatus": "draft",
+      "fingerprint": "771533b3d4784f13d70518620cb6ffef5e1e1c9006baa7218c4f26546fc6c765",
+      "updatedAt": "2026-09-16T09:59:30.990745+00:00",
+      "discoveredAt": "2026-09-15T12:53:09.651758+00:00",
+      "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
+      "publishedAt": "Tue, 15 Sep 2026 12:35:06 GMT",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
+    },
+    {
+      "title": "RCF Ltd Recruitment 2026 – 10 Assistant Officer (Secretarial) Posts IndGovtjobs",
+      "department": null,
+      "organization": "RCF Ltd",
+      "state": "",
+      "jobType": "Government Job",
+      "category": "result",
+      "vacancies": 188,
+      "qualification": "criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- List of Candidates Provisionally Shortlisted for Personal Interview Based on Document Scrutiny conducted for the Position of Officer (Medical) E1 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates APP. NO. 309003 309008 309025 309026 309030 309032 309035 309039 309040 309042 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their",
+      "ageLimit": "criteria has been relaxed for PwBD candidates for 10 years for identified posts. The",
+      "applicationStartDate": null,
+      "applicationLastDate": "2026-10-01",
+      "examDate": null,
+      "notificationUrl": "https://www.rcfltd.com/investerrelations/Advertisement-Published-in-Newspapers",
+      "applyUrl": "",
+      "source": "IndGovtJobs",
+      "dateEvidence": [
+        {
+          "raw": "01-10-2026",
+          "date": "2026-10-01"
+        },
+        {
+          "raw": "27/07/2025",
+          "date": "2025-07-27"
+        },
+        {
+          "raw": "24-08-2026",
+          "date": "2026-08-24"
+        },
+        {
+          "raw": "19 September 2026",
+          "date": "2026-09-19"
+        },
+        {
+          "raw": "22 September 2026",
+          "date": "2026-09-22"
+        }
+      ],
+      "jobId": "78565e5e50defec008b1ae48",
+      "verificationStatus": "verified",
+      "publicationStatus": "ready",
+      "officialSource": {
+        "sourceId": "official-government-domain",
+        "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
+        "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
+        "matchScore": 102,
+        "titleOverlap": 0,
+        "sourceType": "official_notification_or_recruitment_document"
+      },
+      "lastSeenAt": "2026-09-16T09:59:20.058535+00:00",
+      "recordVersion": 4,
+      "recordStatus": "draft",
+      "fingerprint": "a499824ebf92cb7285c27f0817ee9fe107aca7532e69df9e6f7915a5625c1960",
+      "updatedAt": "2026-09-16T09:59:36.057913+00:00",
+      "updateType": "result",
+      "vacancyDetails": "No Nαme of the Post No of Vacαncy 1 Assistant Officer (Secretarial) 10 Free Tools for Government Job Application Prepare your documents before filling the application form. These free browser-based tools require no signup and process everything locally — no files are uploaded to any server. Tool Purpose Passport Photo Resize Resize to exact pixel dimensions and file size (20KB–100KB) as required by the application portal Signature Crop & Resize Crop your scanned signature to the portal’s exact width × height in pixels without distortion PDF Compress Shrink your PDF to fit the 1MB or 2MB upload limit enforced by government portals Important Links Description Link Join Our Telegram – IndGovtJobs @indgovtjobs_net Daily Current Affairs & Free GK Free GK & CA Official Notification Click Here Apply Online Click Here Official Website Click Here Share this: Share on WhatsApp (Opens in new window) WhatsApp Share on Telegram (Opens in new window) Telegram Share on Facebook (Opens in new window) Facebook Share on X (Opens in new window) X Share on LinkedIn (Opens in new window) LinkedIn Share on Pinterest (Opens in new window) Pinterest Categories Central Government Jobs Tags Fresher Government jobs, Latest RCFL Jobs, Rashtriya Chemicals and Fertilizers Assistant Officer Recruitment 2026, RCFL Assistant Officer Jobs 2026, RCFL Recruitment 2026, State Government Jobs, Women Careers, Women Jobs 2026, Women Recruitment 2026, Womens govt Jobs ISRO SAC Recruitment 2026 – 48 Junior Research Fellow, Research Associate and More Posts IndGovtjobs SSC Recruitment 2026 – 1,871 Sub-Inspe",
+      "ageRelaxation": "is applicαble as per the rules. A pplication",
+      "fee": "For General Aspirαnt: Rs.1000/- For OBC-A&B Aspirαnt: Rs. 1000/- For SC/ ST & PH: NIL",
+      "howToApply": "Click Here Download Advertisement Click Here Annexure – I - OBC Certificate Click Here Annexure – II - SC/ST Certificate Click Here Annexure – III – List of",
+      "documentsRequired": "to be uploaded by the Candidates Click Here Annexure – IV - Undertaking By Candidate for experience Click Here Annexure – V – PwBD Certificate Click Here Annexure VI – Income & Asset Certificate Format for Central Government Job Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Date: 17, 18 & 19 September 2026 Time: 7:00 a.m. onwards Venue: RCF Sports Club, RCF Colony, Chembur, Mumbai - 400 074 Download Advertisement (Detailed Informatio",
+      "salary": "to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Ca",
+      "payScale": "to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Ca",
+      "documentText": "Rashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Audited Financial Results as on 31.03.2026 in newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Advertisement Published in Newspapers Home Invester Relations Advertisement Published in Newspapers Advertisement Published in Newspapers 1. Publication of Audited Financial Results as on 30.06.2026 in newspapers Download CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Recruitment Home HR Recruitment Recruitment Director (Marketing)- Rashtriya Chemicals And Fertilizers Ltd Selection for the Post of Director (Marketing), Rashtriya Chemicals and Fertilizers Ltd. (RCF), a schedule “A” CPSE Download Advertisement Click Here Last Date for Submission of Applications 01-10-2026 03:00 PM CORRIGENDUM-Amendment to revise the Age for PwBD candidates for RCF Recruitment Advertisement No. 16022026 CORRIGENDUM RASHTRIYA CHEMICALS AND FERTILIZERS LIMITED (A Government of India Undertaking) Administrative Building, Chembur, Mumbai – 400 074 CIN: L24110MH1978GOI020185 Amendment to revise the Age for PwBD candidates for RCF Recruitment Advertisement No. 16022026 With reference to our notification dated 08.08.2026, Advt. No.- 16022026 for inviting applications for the position of Management Trainee in various disciplines, amendments in the advertisement are as given below: The age limit criteria has been relaxed for PwBD candidates for 10 years for identified posts. The Last date for receipt of online application is extended up to 20.09.2026, till 5:00 pm. The system will be updated shortly. Interested candidates are advised to visit the RCF website https://www.rcfltd.com , recruitment section for the position of Management Trainee in various disciplines for Advertisement No.- 16022026. All other terms and conditions as mentioned in Advertisement No. 16022026, available on the RCF website, remain unchanged. The applicants who have already submitted their applications need not apply again. Date: 10.09.2026 Executive Director – Human Resources Advertisement for the post of Assistant Officer (Secretarial) E0 Grade for Trombay/Thal/ Area Offices Pan India Activity Date Commencement of On-Line registration of application by candidates for the Post of Assistant Officer (Secretarial) E0 Grade 10.09.2026 at 8:00 am Last date for on-line registration of application by candidates 26.09.2026 at 5:00 pm Apply Online Click Here Download Advertisement Click Here Annexure – I - OBC Certificate Click Here Annexure – II - SC/ST Certificate Click Here Annexure – III – List of Documents to be uploaded by the Candidates Click Here Annexure – IV - Undertaking By Candidate for experience Click Here Annexure – V – PwBD Certificate Click Here Annexure VI – Income & Asset Certificate Format for Central Government Job Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Football Team on Contractual Basis for the year 2026-27. Date: 17 , 18 & 19 September 2026 Time: 7:00 a.m. onwards Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Selection Trials for its Professional Kabaddi Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Kabaddi Team on Contractual Basis for the year 2026-27. Date: 21 & 22 September 2026 Time: 9:00 a.m. Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Selection Trials for its Professional Hockey Team on Contractual Basis for the year 2026-27. Activity Date, Time & Venue Selection Trials for its Professional Hockey Team on Contractual Basis for the year 2026-27. Date: 17 , 18 & 19 September 2026 Time: 9:00 a.m. Venue: RCF Sports Club, RCF Colony, Chembur , Mumbai - 400 074 Download Advertisement (Detailed Information) Click Here Annexure – I - Selection Trial Form Click Here Advertisement for Special Recruitment Drive for Backlog Vacancies and Recruitment for Other Vacancies for various posts For Trombay/Thal/ Area Offices Pan India Download Advertisement Click Here List of Candidates Provisionally Shortlisted for Skill Test Based on Document Scrutiny conducted for the Position of Assistant Engineer (Electrical) E0 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates Application No. 312036 312052 312063 312138 312150 Candidates will be intimated about the Skill Test details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- List of Candidates Provisionally Shortlisted for Personal Interview Based on Document Scrutiny conducted for the Position of Officer (Medical) E1 Grade Advertisement No.: 18032026 List is in ascending order of application numbers of candidates APP. NO. 309003 309008 309025 309026 309030 309032 309035 309039 309040 309042 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- Cancellation of Recruitment Process for the post of Officer (Finance) E1 Grade (Post code – E1FIN/022025) against advertisement No. 05022025 Notification Click Here ADVERTISEMENT FOR THE ENGAGEMENT OF ACT APPRENTICES TRAINEES IN VARIOUS DISCIPLINES AT TROMBAY (MUMBAI) AND THAL (RAIGAD). Activity Date Commencement of On-Line Registration of Application by candidates for ACT Apprentices Trainees (Graduate Apprentice, Technical Apprentice and Trade Apprentices) 04.09.2026 at 8:00 AM Last date for on-line registration of application by the candidates 20.09.2026 at 5:00 PM Apply Online Click Here Download Advertisement (Detailed Advertisement) Click Here Annexure – I - Medical Format Click Here Annexure – II,III & IV - OBC Certificate, SC/ST Certificate and PwBD Certificate Click Here List of Candidates Provisionally Shortlisted for Personal Interview Based on On-line test conducted on 27/07/2025 and Document Scrutiny for the Position of Management Trainee (Electrical) Advertisement No.: 05022025 List is in Ascending order of registration numbers of candidates REGT. NO. REGT. NO. 649001040 649008127 649001083 649008521 649001135 649009145 649001715 649009305 649001896 649009476 649002132 649009983 649003566 649010121 649005421 649010306 649006550 649010968 649006954 649011037 649006981 Candidates will be intimated about the Personal Interview details through emails shortly. Candidates are once again advised to check their eligibility criteria as mentioned in detailed advertisement published on RCF website and follow the instructions given in the call letter. Receiving the call letter does not automatically qualify the candidate for further process. -x-x-x- Provisionally Shortlisted Candidates for the Pre-Employment Medical Check-up with reference to the Position of Operator (Chemical) Trainee Advertisement No.: 04022025 - R List is in Ascending order of registration numbers of candidates Registration no. 681000027 681000808 681001626 681003109 681004344 681005011 681000052 681000873 681001701 681003317 681004418 681005075 681000114 681000900 681001796 681003517 681004425 681005403 681000210 681000907 681001896 681003644 681004730 681005516 681000348 681001032 681002058 681003811 681004757 681005964 681000438 681001039 681002209 681003866 681004800 681005988 681000674 681001157 681002609 681004135 681004825 681006132 681000739 681001540 681002814 681004145 681004989 681006196 681000757 681001543 681002956 681004341 681005005 681006252 The details of pre-employment medical check-up will be communicated shortly. Please note that this medical fitness is compulsory as per Company’s rules. Candidates are required to bring Photocopies of Photo Identity proof along with originals (Government issued) example Aadhar Card, PAN card, Driving license, Disability Certificate (in-case of PWbD Candidates) along with 2 (two) Passport size recent photographs etc. while coming for Pre-Employment Medical check-up. In case if the candidate fails to clear the Medical Test or Scrutiny of documents, their candidature shall stand cancelled. -x-x-x- CORRIGENDUM CORRIGENDUM RASHTRIYA CHEMICALS AND FERTILIZERS LIMITED (A Government of India Undertaking) Administrative Building, Chembur, Mumbai – 400 074 CIN: L24110MH1978GOI020185 Amendment to revise the reckoning date for Educational Qualification for RCF Recruitment Advertisement No. 16022026 With reference to our notification dated 08.08.2026, Advt. No.- 16022026 for inviting applications for the position of Management Trainee in various disciplines, amendments in the advertisement are as given below: The cut-off date for determining eligibility criteria in respect of minimum educational qualification is revised from 01.02.2026 to 01.08.2026 and the cut-off date for determining age will remain unchanged. The Last date for receipt of online application is extended up to 10.09.2026, till 5:00 pm. Interested candidates are advised to visit the RCF website https://www.rcfltd.com , recruitment section for the position of Management Trainee in various disciplines for Advertisement No.- 16022026. All other terms and conditions as mentioned in Advertisement No. 16022026, available on the RCF website, remain unchanged. The applicants who have already submitted their applications need not apply again. Date: 24-08-2026 Executive Director – Human Resources Advertisement for the post of Management Trainee in various disciplines for Trombay/Thal/ Area Offices Pan India Activity Date Commencement of On-Line registration of application by candidates for the Post of Management Trainee (Chemical, Boiler, Mechanical, Electrical, Instrumentation, Materials, Civil, Fire, CC Lab, Industrial Engineering, Information Technology, Rajbhasha, Finance and Marketing) 08.08.2026 at 8:00 am Last date for on-line registration of application by candidates 24.08.2026 at 5:00 pm Apply Online Click Here Download Advertisement Click Here Annexure – I - PwBD Certificate Click Here Annexure – II - OBC Certificate Click Here Annexure – III – SC/ST Certificate Click Here Annexure – IV – Income & Asset Certificate Click Here Annexure – V – List Of Documents To Be Uploaded By Candidates Click Here Appendix – I – Certificate for Persons with Specified Disabilities Click Here Appendix – II – Letter of Undertaking for Persons with Specified Disabilities Click Here Sr. No. Description Link 1 Grievance Link https://cgrs.ibps.in/ 2 Helpdesk Phone Nos. 1800 222 366 1800 103 4566 Syllabus for the Post of Operator (Chemical) Trainee UNDER ADVERTISEMENT NO: 17022026 FOR RECRUITMENT OF OPERATOR (CHEMICAL) TRAINEE – 188 POSTS Particular Link Syllabus for the Post of Operator (Chemical) Trainee Click Here Note: Please note that the syllabus is only indicative in nature and should not be construed as exhaustive. Pre-Recruitment Awareness General Instructions Sr No Language Video Link 1 Hindi View 2 Marathi View 3 English View Aptitude Test Sr No Language Video Link 1 Hindi View 2 Marathi View 3 English View Professional Knowledge Test English Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Professional Knowledge Test Hindi Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Professional Knowledge Test Marathi Sr No NAME OF THE POST & DISCIPLINE Video Link 1 Operator Trainee Chemical View Advertisement No: 17022026 for Recruitment of Operator (Chemical) Trainee – 188 posts CORRIGENDUM Ref: Advertisement No: 17022026 for Recruitment of Operator (Chemical) Trainee – 188 posts With reference to the above advertisement published on the RCF website and in leading newspapers, the following modification is hereby issued regarding submission of Caste Validity Certificate: As per Clause (I)(d) of the detailed advertisement, candidates belonging to reserved categories are required to submit the Caste Validity Certificate (as applicable). In this regard, it is hereby clarified that candidates belonging to reserved categories from the State of Maharashtra who do not possess a Caste Validity Certificate at the time of submission of online application may upload a self-declaration in the prescribed format in lieu of the Caste Validity Certificate which is available on RCF Website. The candidature of such candidates if selected shall remain purely provisional till submission and verification of the Caste Validity Certificate, failing which their candidature/employment is liable to be cancelled. Note that, candidates who have already successfully submitted the online application form for the post of Operator (Chemical) Trainee need not apply again . Further, the last date for submission of online applications under Advertisement No. 17022026 has been extended from 27.04.2026 to 12.05.2026 . All other terms and conditions of the Advertisement No: 17022026 shall remain unchanged. Activity Date Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” 11.04.2026 at 8:00 am Extended last date of on-line registration of application for candidates by one day due to Technical Issue. 13.05.2026 at 5:00 pm Self-declaration for non-availability of caste validity certificate Click Here Apply Online Click Here Download Detailed Advertisement Click Here Annexure I – SC/ST Certificate Format Click Here Annexure II – OBC NCL Certificate Format for Central Government Job Click Here Annexure III – Income & Asset Certificate Format for Central Government Job Click Here Annexure IV – List of Documents to be uploaded along with Application. Click Here Grievance Link Click Here TA & BANK DETAILS FORM Click Here Zero Tolerance Policy on Corruption - Recruitment Zero Tolerance Policy on Corruption - Recruitment Commencement of On-Line registration of application by candidates for “OPERATOR (CHEMICAL) TRAINEE- 188 POSTS” Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” Activity Date Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ” 11.04.2026 at 8:00 am Last date for on-line registration of application by candidates 27.04.2026 at 5:00 pm Apply Online Click Here Download Detailed Advertisement Click Here Annexure I – SC/ST Certificate Format Click Here Annexure II – OBC NCL Certificate Format for Central Government Job Click Here Annexure III – Income & Asset Certificate Format for Central Government Job Click Here Annexure IV – List of Documents to be uploaded along with Application. Click Here Grievance Link Click Here TA & BANK DETAILS FORM Click Here CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.\nRashtriya Chemicals and Fertilizers Limited Rashtriya Chemicals & Fertilizers --> Screen Reader Access Skip to Main Content Green Blue Orange English Hindi Login Search --> Home (current) About Us (current) RCF at Glance Vision, Mission & Value Board of Directors Chairman's Message Policies Corporate Film Citizen Charter MoU Media Center Sustainability at RCF RCF Darpan RCF State Wise GSTN Number Promotion of digital payments Certificate New Projects Products (current) Fertilizer Products For Industrial chemicals : Industrial product division (IPD) MSDS for Fertilizers Products MSDS for IPD Products Appointment of Actual Users and Dealers for Sale of Industrial Grade Water Advertisement for Appointment of Actual Users of IPD Products Hr (current) Human Resource HRD CDA Rules Standing Order HR Policy RTI Recruitment RCF INTERNAL COMMITTEE (IC) (POSH) Vigilance (current) Vigilance Measures in RCF Chief Vigilance Officer Systemic Improvement Measures Vigilance Complaint Lodging Systems Vigilance Awards Vigilance Gallery VAW VAW-2024 VAW-2025 Tender (current) Trombay Tenders Thal Tender Marketing Tenders Marketing Tenders For marketing office Registration of contractor Corporate/Projects Help For E-Tenders(NIC) RCF e-Tenders RCF GEM Tenders Details of Awards of Tenders/Contracts Prequalification Brokers Prequalification of Vendors Information for MSE Compliance Information for Vendors Challans DoE Manuals Integrity Pact and Independent External Monitors Debarred Firms Blacklisted Parties On-Holiday Parties Make in India 5 Year requirement Projection NIT Common Annexure Investor Relation (current) Annual General Meeting Annual Reports Annual Return Board Committees Corporate Governance Corporate Governance Code of Conduct Details of agreement with media Disinvestment Disclosure on Related Party Transactions Draft Letter of Appointment of Independent Director Familiarization Programme of Independent Directors Financial Result Disclosures under Regulation 46 & 62 of SEBI (LODR) Regulations, 2015 Advertisement Published in Newspapers Intimation for Board Meetings Credit Ratings Schedule of analysts or institutional investors meet and Investors Presentations Annual Secretarial Compliances Memorandum and Articles of Association General Disclosure Investor Education and Protection Fund Investor Contact Remuneration to Independent Directors Criteria of Making Payments to Non-Executive Directors Shareholding Pattern Unclaimed and Unpaid Dividend TDS on Dividend Debt Compliance Archive Saksham Niveshak– 100 Days Campaign KYC Updation For Shareholders Business Responsibility & Sustainability Report Corporate Social Responsibility (current) Social Responsibility Swachh Bharat Abhiyan Sustainability Reports ITEC Annual Report on CSR Activities CSR Impact Assessment Reports Kisan Manch (current) Shetipatrika RCF Kisan Manch Kisan Suvidha Kendra Kisan Care Portals (current) Vendor Invoice Management System (VIMS) Receipt Management System Fertilizer Information Dealer Parivar GST HSN Code for RCF Products RCF State Wise GSTN Number R&D Testing Services Testing Charges Payment Details EPS95 Webmail (outlook) EMD Payments RCF’s Insider Trading Software Medical (Employees & Ex-Employees) Download RCF Kisan Care Andorid App Guest House & Conference Facility Grievance Redress And Monitoring System Contact (current) Contact Financial Results Home Invester Relations Financial Results Financial Results Unaudited Financial Result 30062026 Publication of Audited Financial Results as on 31.03.2026 in newspapers Audited Financial Results (Standalone and Consolidated) as on 31032026 Publication of Unaudited Financial Results as on 31122025 in newspapers Unaudited Financial Results as on 31122025 Publication of Unaudited Financial Results as on 30092025 in newspapers Unaudited Financial Results for quarter and half year ended 30092025 Publication of Unaudited Financial Results as on 30062025 in newspapers Unaudited Financial Results for quarter ended 30th June 2025 Publication of Audited Financial Results as on 31.03.2025 in newspapers ‹ 1 2 3 4 › CIN: L24110MH1978GOI020185 Rashtriya Chemicals and Fertilizers Limited © 2019 Visitor Counter: 1 --> 210872 Login User Name Password Forget password? Remember Me Login Don't have an account Sign Up Now. Reset Password Email Reset Password Back To Login Now.",
+      "documentSources": [
+        {
+          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
+          "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-notice-for-re-lodgement-of-transfer-in-physical-securities-in-newspapers-1",
+          "title": "Publication of Notice for Re-lodgement of transfer in physical securities in Newspapers",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-audited-financial-results-as-on-31032026-in-newspapers-1",
+          "title": "Publication of Audited Financial Results as on 31.03.2026 in newspapers",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/invester/advance/advertisement-published-in-newspapers/publication-of-audited-financial-results-as-on-30062026-in-newspapers",
+          "title": "Publication of Audited Financial Results as on 30.06.2026 in newspapers",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/products/advertisement-for-appointment-of-actual-users-of-ipd-products",
+          "title": "Advertisement for Appointment of Actual Users of IPD Products",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/hrrecruitment/recruitment-1",
+          "title": "Recruitment",
+          "type": "html",
+          "extracted": true
+        },
+        {
+          "url": "https://www.rcfltd.com/investerrelations/financial-results-1",
+          "title": "Financial Result",
+          "type": "html",
+          "extracted": true
+        }
+      ],
+      "documentCount": 7,
+      "documentTables": [
+        [
+          [
+            "Activity",
+            "Date"
+          ],
+          [
+            "Commencement of On-Line registration of application by candidates for the Post of Assistant Officer (Secretarial) E0 Grade",
+            "10.09.2026 at 8:00 am"
+          ],
+          [
+            "Last date for on-line registration of application by candidates",
+            "26.09.2026 at 5:00 pm"
+          ],
+          [
+            "Apply Online",
+            "Click Here"
+          ]
+        ],
+        [
+          [
+            "Activity",
+            "Date"
+          ],
+          [
+            "Commencement of On-Line registration of application by candidates for the Post of Management Trainee (Chemical, Boiler, Mechanical, Electrical, Instrumentation, Materials, Civil, Fire, CC Lab, Industrial Engineering, Information Technology, Rajbhasha, Finance and Marketing)",
+            "08.08.2026 at 8:00 am"
+          ],
+          [
+            "Last date for on-line registration of application by candidates",
+            "24.08.2026 at 5:00 pm"
+          ],
+          [
+            "Apply Online",
+            "Click Here"
+          ]
+        ],
+        [
+          [
+            "Particular",
+            "Link"
+          ],
+          [
+            "Syllabus for the Post of Operator (Chemical) Trainee",
+            "Click Here"
+          ]
+        ],
+        [
+          [
+            "Sr No",
+            "NAME OF THE POST & DISCIPLINE",
+            "Video Link"
+          ],
+          [
+            "1",
+            "Operator Trainee Chemical",
+            "View"
+          ]
+        ],
+        [
+          [
+            "Sr No",
+            "NAME OF THE POST & DISCIPLINE",
+            "Video Link"
+          ],
+          [
+            "1",
+            "Operator Trainee Chemical",
+            "View"
+          ]
+        ],
+        [
+          [
+            "Sr No",
+            "NAME OF THE POST & DISCIPLINE",
+            "Video Link"
+          ],
+          [
+            "1",
+            "Operator Trainee Chemical",
+            "View"
+          ]
+        ],
+        [
+          [
+            "Activity",
+            "Date"
+          ],
+          [
+            "Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ”",
+            "11.04.2026 at 8:00 am"
+          ],
+          [
+            "Extended last date of on-line registration of application for candidates by one day due to Technical Issue.",
+            "13.05.2026 at 5:00 pm"
+          ]
+        ],
+        [
+          [
+            "Activity",
+            "Date"
+          ],
+          [
+            "Commencement of On-Line registration of application by candidates for “ OPERATOR (CHEMICAL) TRAINEE- 188 POSTS ”",
+            "11.04.2026 at 8:00 am"
+          ],
+          [
+            "Last date for on-line registration of application by candidates",
+            "27.04.2026 at 5:00 pm"
+          ]
+        ]
+      ],
+      "documentExtractedAt": "2026-09-16T10:01:17.537239+00:00",
+      "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
+      "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
+      "publishedAt": "Fri, 11 Sep 2026 06:45:39 +0000",
       "retainedWhileDeadlineActive": true,
       "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
     }

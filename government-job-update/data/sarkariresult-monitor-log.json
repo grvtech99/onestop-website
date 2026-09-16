@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-09-16T09:58:36.521233+00:00",
+  "checkedAt": "2026-09-16T10:02:42.304552+00:00",
   "status": "ok",
-  "new": 1,
-  "changed": 8,
-  "retained": 157,
+  "new": 0,
+  "changed": 0,
+  "retained": 165,
   "items": 543,
   "discoveryChannels": [
     "employmentnews",
@@ -17,7 +17,6 @@
     "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
-    "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
@@ -98,9 +97,9 @@
     },
     "sarkari247": {
       "name": "Sarkari247",
-      "status": "ok",
-      "mode": "html",
-      "count": 8
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",

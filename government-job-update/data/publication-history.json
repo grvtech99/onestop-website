@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-09-16T10:01:29.757263+00:00",
+  "updatedAt": "2026-09-16T10:04:22.096810+00:00",
   "items": [
     {
       "title": "Delhi High Court SPA & PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant & Personal Assistant Posts",
@@ -150,7 +150,9 @@
       "jobLocation": "and job category. The app also has filters that allow users to set job alerts based on their preferences, ensuring that they only receive alerts for jobs that match their qualifications and interests. The app also includes a calendar feature that allows users to schedule reminders for",
       "discoveredAt": "2026-09-15T05:50:44.506620+00:00",
       "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Wed, 09 Sep 2026 12:53:37 +0000"
+      "publishedAt": "Wed, 09 Sep 2026 12:53:37 +0000",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
     },
     {
       "title": "Delhi High Court SPA &amp; PA Recruitment 2026 - Apply Online for 150 Senior Personal Assistant &amp; Personal Assistant Posts Delhi High Court Active Vacancies: 150 05 Oct 2026 View Details",
@@ -2560,7 +2562,9 @@
       "updatedAt": "2026-09-16T09:59:30.990745+00:00",
       "discoveredAt": "2026-09-15T12:53:09.651758+00:00",
       "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Tue, 15 Sep 2026 12:35:06 GMT"
+      "publishedAt": "Tue, 15 Sep 2026 12:35:06 GMT",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
     },
     {
       "title": "RCF Ltd Recruitment 2026 – 10 Assistant Officer (Secretarial) Posts IndGovtjobs",
@@ -2785,7 +2789,9 @@
       "documentExtractedAt": "2026-09-16T10:01:17.537239+00:00",
       "discoveredAt": "2026-09-14T11:48:39.513797+00:00",
       "lastDiscoveredAt": "2026-09-16T09:58:36.521233+00:00",
-      "publishedAt": "Fri, 11 Sep 2026 06:45:39 +0000"
+      "publishedAt": "Fri, 11 Sep 2026 06:45:39 +0000",
+      "retainedWhileDeadlineActive": true,
+      "retentionReason": "previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed"
     }
   ]
 }
