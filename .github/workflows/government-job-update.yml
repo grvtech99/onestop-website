@@ -2,7 +2,6 @@ name: Government Job Update — Multi-Source Discovery
 
 on:
   schedule:
-    # Every 10 minutes, offset from the top of the hour to reduce GitHub Actions peak-load delays.
     - cron: '3/10 * * * *'
   push:
     branches: [main]
@@ -17,6 +16,7 @@ on:
       - '!government-job-update/data/canonical-job-records.json'
       - '!government-job-update/data/admin-dashboard-state.json'
       - '!government-job-update/data/admin-execution-status.json'
+      - '!government-job-update/data/discovery-buffer.json'
       - '!government-job-update/test-results/**'
   workflow_dispatch:
 
@@ -41,6 +41,27 @@ jobs:
         name: Run safe multi-source government job discovery
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/sarkariresult-monitor.py
+
+      - name: Persist discovery buffer before verification
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          data=Path('government-job-update/data')
+          state=json.loads((data/'sarkariresult-monitor-state.json').read_text(encoding='utf-8'))
+          items=state.get('items',{}) if isinstance(state.get('items',{}),dict) else {}
+          buffer={'schemaVersion':1,'bufferedAt':datetime.now(timezone.utc).isoformat(),'sourceCheckedAt':state.get('lastCheckedAt'),'sourceStatus':state.get('status'),'itemCount':len(items),'items':items}
+          (data/'discovery-buffer.json').write_text(json.dumps(buffer,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          print(f'Buffered {len(items)} discovered items.')
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add government-job-update/data/discovery-buffer.json
+          if git diff --cached --quiet; then echo "Discovery buffer unchanged."; else git commit -m "Persist government job discovery buffer"; git push; fi
 
       - id: verification
         name: Identify department and verify official source
@@ -117,11 +138,4 @@ jobs:
                   government-job-update/data/publication-history.json \
                   government-job-update/data/admin-dashboard-state.json \
                   government-job-update/data/admin-execution-status.json
-          if git diff --cached --quiet; then
-            echo "No discovery/verification/canonical/publication/history/admin/execution state change."
-          else
-            git commit -m "Update government job pipeline monitoring state"
-            git push
-          fi
-
-# Manual trigger marker: this commit intentionally starts a fresh validation run.
+          if git diff --cached --quiet; then echo "No discovery/verification/canonical/publication/history/admin/execution state change."; else git commit -m "Update government job pipeline monitoring state"; git push; fi
