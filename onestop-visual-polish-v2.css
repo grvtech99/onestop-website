@@ -2,7 +2,7 @@
 :root{--os-blue:#0757c9;--os-dark:#06265f;--os-sky:#1688e8;--os-text:#14213d;--os-muted:#60708d;--os-light:#f5f9ff;--os-border:#dbe7f6}
 html,body{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 button,.btn,.back,.action,.tab,.quick a,.hero-quick a,.v3-filter,.open,.play{font-family:Arial,"Segoe UI",Helvetica,sans-serif!important;letter-spacing:0!important;font-weight:600!important}
-body:has(.hero-quick) .hero{width:100%!important;background:linear-gradient(135deg,#031d50 0%,#0757c9 58%,#1688e8 100%)!important}
+body:has(.hero-quick) .hero{width:100%!important;background:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)!important}
 body:has(.hero-quick) .hero-quick{gap:10px!important}
 body:has(.hero-quick) .hero-quick a{font-size:14px!important;font-weight:600!important;line-height:1.2!important;padding:10px 16px!important;border-radius:11px!important;background:rgba(255,255,255,.10)!important;border:1px solid rgba(255,255,255,.38)!important;box-shadow:0 5px 16px rgba(0,0,0,.08)!important}
 body:has(.hero-quick) .hero-quick a:hover{background:rgba(255,255,255,.18)!important}
