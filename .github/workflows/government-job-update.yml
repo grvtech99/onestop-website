@@ -151,7 +151,25 @@ jobs:
             echo "No pipeline state change."
           else
             git commit -m "Update government job pipeline monitoring state"
-            git push
+            pushed=false
+            for attempt in 1 2 3 4 5; do
+              if git push origin HEAD:main; then
+                pushed=true
+                break
+              fi
+              echo "State push race detected; refreshing main and rebasing generated state (attempt $attempt)."
+              git fetch origin main
+              git rebase -X theirs origin/main || {
+                git status --short
+                echo "Rebase conflict could not be resolved automatically."
+                exit 1
+              }
+              sleep 2
+            done
+            if [ "$pushed" != true ]; then
+              echo "Unable to save pipeline state after 5 push attempts."
+              exit 1
+            fi
             echo "state_changed=true" >> "$GITHUB_OUTPUT"
           fi
 
