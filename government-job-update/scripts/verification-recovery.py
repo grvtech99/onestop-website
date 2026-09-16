@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -14,7 +15,7 @@ VERIFICATION = DATA / 'official-verification-state.json'
 CANONICAL = DATA / 'canonical-job-records.json'
 TIMEOUT = 10
 WORKERS = 16
-MAX_ITEMS = 600
+MAX_ITEMS = int(os.environ.get('ONESTOP_RECOVERY_MAX_ITEMS','160'))
 MAX_LINKS = 24
 GOV_HINTS = ('gov.in', 'nic.in', 'ac.in', 'edu.in', 'govt.in')
 
@@ -124,7 +125,9 @@ def main():
     except Exception:
         canonical = {'schemaVersion': 1, 'items': {}}
     items = verification.get('items', {})
-    selected = [(k, v) for k, v in items.items() if v.get('status') != 'verified'][:MAX_ITEMS]
+    selected = [(k, v) for k, v in items.items() if v.get('status') != 'verified']
+    selected.sort(key=lambda p: p[1].get('checkedAt') or p[1].get('discoveredAt') or p[1].get('lastSeenAt') or '', reverse=True)
+    selected = selected[:MAX_ITEMS]
     recovered = 0
     now = datetime.now(timezone.utc).isoformat()
     with ThreadPoolExecutor(max_workers=WORKERS) as pool:
@@ -145,11 +148,11 @@ def main():
                 canonical.setdefault('items', {})[cid] = record
                 recovered += 1
     verification['items'] = items
-    verification['recovery'] = {'checkedAt': now, 'recoveredCount': recovered, 'method': 'official-government-link-recovery', 'policy': 'official government domain remains mandatory; recovery only promotes records with a matching official recruitment/result/exam page'}
+    verification['recovery'] = {'checkedAt': now, 'recoveredCount': recovered, 'selectedCount': len(selected), 'selectionLimit': MAX_ITEMS, 'method': 'official-government-link-recovery', 'policy': 'official government domain remains mandatory; recovery only promotes records with a matching official recruitment/result/exam page'}
     verification['checkedAt'] = now
     VERIFICATION.write_text(json.dumps(verification, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     CANONICAL.write_text(json.dumps(canonical, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
-    print(json.dumps({'status': 'PASS', 'recoveredCount': recovered}, indent=2))
+    print(json.dumps({'status': 'PASS', 'recoveredCount': recovered, 'selectedCount': len(selected)}, indent=2))
 
 if __name__ == '__main__':
     sys.exit(main())
