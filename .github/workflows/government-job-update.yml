@@ -13,6 +13,7 @@ on:
       - '!government-job-update/data/official-verification-state.json'
       - '!government-job-update/data/official-verification-log.json'
       - '!government-job-update/data/publication-queue.json'
+      - '!government-job-update/data/publication-history.json'
       - '!government-job-update/data/canonical-job-records.json'
       - '!government-job-update/data/admin-dashboard-state.json'
       - '!government-job-update/data/admin-execution-status.json'
@@ -113,10 +114,11 @@ jobs:
                   government-job-update/data/official-verification-log.json \
                   government-job-update/data/canonical-job-records.json \
                   government-job-update/data/publication-queue.json \
+                  government-job-update/data/publication-history.json \
                   government-job-update/data/admin-dashboard-state.json \
                   government-job-update/data/admin-execution-status.json
           if git diff --cached --quiet; then
-            echo "No discovery/verification/canonical/publication/admin/execution state change."
+            echo "No discovery/verification/canonical/publication/history/admin/execution state change."
           else
             git commit -m "Update government job pipeline monitoring state"
             git push
