@@ -1,6 +1,5 @@
 import importlib.util
 import re
-import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -11,41 +10,51 @@ spec = importlib.util.spec_from_file_location("manual_review", BASE)
 mod = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mod)
 
+# Preserve the original implementation before replacing mod.fetch.
+ORIGINAL_FETCH = mod.fetch
+ORIGINAL_PARSE_PAGE = mod.parse_page
+
 
 def reader_fetch(url):
-    """Use the normal direct fetch first; use Jina Reader only when the source rejects it."""
-    direct = mod.fetch(url)
+    """Try the supplied URL directly, then a public reader endpoint if blocked."""
+    direct = ORIGINAL_FETCH(url)
     if direct.get("ok"):
+        direct["fetchMethod"] = "direct"
         return direct
 
     status = direct.get("status")
     if status not in (403, 429, 451, 500, 502, 503, 504):
+        direct["fetchMethod"] = "direct-failed"
         return direct
 
-    reader_url = "https://r.jina.ai/" + url
+    reader_url = "https://r.jina.ai/http://" + url.split("://", 1)[-1]
     try:
         req = urllib.request.Request(
             reader_url,
             headers={
-                "User-Agent": "ONESTOP-Manual-Job-Review/3.0",
+                "User-Agent": "ONESTOP-Manual-Job-Review/3.1",
                 "Accept": "text/plain,text/markdown,*/*;q=0.1",
             },
         )
-        with urllib.request.urlopen(req, timeout=40) as r:
+        with urllib.request.urlopen(req, timeout=45) as r:
             body = r.read(mod.MAX_BYTES)
-            return {
-                "ok": r.status == 200 and bool(body),
-                "status": r.status,
-                "body": body,
-                "final_url": url,
-                "content_type": "text/markdown; reader-fallback=1",
-                "error": None if r.status == 200 else f"Reader HTTP {r.status}",
-                "fetchMethod": "jina-reader-fallback",
-                "directStatus": status,
-            }
+            if r.status == 200 and body:
+                return {
+                    "ok": True,
+                    "status": r.status,
+                    "body": body,
+                    "final_url": url,
+                    "content_type": "text/markdown; reader-fallback=1",
+                    "error": None,
+                    "fetchMethod": "jina-reader-fallback",
+                    "directStatus": status,
+                }
+            direct["readerStatus"] = r.status
     except Exception as e:
         direct["readerFallbackError"] = f"{type(e).__name__}: {e}"
-        return direct
+
+    direct["fetchMethod"] = "direct-failed-reader-failed"
+    return direct
 
 
 def parse_markdown(result):
@@ -77,15 +86,13 @@ def parse_markdown(result):
             if cells and not all(re.fullmatch(r"[-: ]+", x or "-") for x in cells):
                 rows.append(cells)
 
-    # Remove markdown table separators and formatting while preserving the original page text.
     clean = re.sub(r"^\s*\|?\s*:?-{2,}:?\s*(?:\|\s*:?-{2,}:?\s*)+\|?\s*$", " ", text, flags=re.M)
     clean = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r"\1 \2", clean)
     clean = re.sub(r"[`*_>#]", " ", clean)
     clean = re.sub(r"\s+", " ", clean).strip()
-    title = headings[0] if headings else ""
     return {
         "text": clean,
-        "title": title,
+        "title": headings[0] if headings else "",
         "headings": headings,
         "links": links,
         "rows": rows,
@@ -96,7 +103,7 @@ def parse_markdown(result):
 def parse_with_reader(result):
     if result.get("fetchMethod") == "jina-reader-fallback":
         return parse_markdown(result)
-    return mod.parse_page(result)
+    return ORIGINAL_PARSE_PAGE(result)
 
 
 mod.fetch = reader_fetch
