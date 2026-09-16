@@ -1,19 +1,19 @@
 {
   "schemaVersion": 2,
-  "reviewId": "2026-09-16T110239834735+0000",
-  "checkedAt": "2026-09-16T11:02:39.834735+00:00",
+  "reviewId": "2026-09-16T111409063169+0000",
+  "checkedAt": "2026-09-16T11:14:09.063169+00:00",
   "inputUrl": "https://www.sarkariresult.com/2026/ruhs-medical-officer-sep26/",
   "finalUrl": "https://www.sarkariresult.com/2026/ruhs-medical-officer-sep26/",
   "sourceHost": "sarkariresult.com",
   "fetch": {
-    "ok": false,
-    "status": 403,
-    "contentType": "",
-    "mode": "html",
-    "error": "HTTPError: HTTP Error 403: Forbidden"
+    "ok": true,
+    "status": 200,
+    "contentType": "text/markdown; reader-fallback=1",
+    "mode": "reader-markdown",
+    "error": null
   },
   "record": {
-    "title": "https://www.sarkariresult.com/2026/ruhs-medical-officer-sep26/",
+    "title": "403 ERROR",
     "department": null,
     "organization": "",
     "state": "",
@@ -79,7 +79,7 @@
     "notificationUrl",
     "applyUrl"
   ],
-  "status": "FETCH_FAILED",
+  "status": "NEEDS_ADMIN_INPUT",
   "actionRequired": true,
   "sourceLinks": [],
   "sourceTableRows": [],
