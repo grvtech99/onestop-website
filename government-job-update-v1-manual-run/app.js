@@ -1,4 +1,4 @@
-const CONFIG={BACKEND_URL:''};
+const CONFIG={BACKEND_URL:'https://script.google.com/macros/s/AKfycbxwkkvwywqlUCoKm5e2mn6_bWnVetplul5GujQ2DOF4gnFlHmBMzcIqj1lOGlgLgBxf9g/exec'};
 const CORE_FIELDS=[['Organization / Authority',''],['Recruitment Name',''],['Advertisement No.',''],['Total Vacancy',''],['Application Start Date',''],['Last Date to Apply',''],['Exam Date',''],['Application Fee',''],['Minimum Age',''],['Maximum Age',''],['Age Relaxation',''],['Qualification / Eligibility',''],['Salary / Pay Scale',''],['Selection Process',''],['Job Location',''],['Application Mode',''],['How to Apply',''],['Documents Required','']];
 const state={fields:CORE_FIELDS.map(x=>[...x]),custom:[],tables:[],links:[],source:{pdf:'',url:''},rawText:'',status:'TEST'};
 const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); const clean=s=>String(s||'').replace(/\u00a0/g,' ').replace(/[ \t]+/g,' ').replace(/\n\s*\n+/g,'\n').trim();
