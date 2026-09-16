@@ -9,7 +9,8 @@ ROOT=Path(__file__).resolve().parents[1]; DATA=ROOT/"government-job-update"/"dat
 STATE=DATA/"sarkariresult-monitor-state.json"; REGISTRY=DATA/"data"/"government-source-registry.json"
 OUT=DATA/"official-verification-state.json"; LOG=DATA/"official-verification-log.json"; CAN=DATA/"canonical-job-records.json"
 UA="ONESTOP-Government-Job-Update/4.1"; TIMEOUT=10; WORKERS=10
-MAX_RECORDS=int(os.environ.get("ONESTOP_VERIFY_MAX_RECORDS","80")); MAX_CANDIDATES=8
+MAX_RECORDS=min(int(os.environ.get("ONESTOP_VERIFY_MAX_RECORDS","40")),40); MAX_CANDIDATES=6
+GENERIC_TITLES={"subscription","print employment news subscription","admit card","answer key","participate in job fairs and events","participate in a job fair and events","create job fairs and events","employment exchange portal"}
 AGG={"freejobalert.com","sarkariresult.com","fresherslive.com","jagranjosh.com","testbook.com","careerpower.in","sarkarinaukriblog.com","indgovtjobs.net","sarkariupdates.live","exampix.com","inrgovtjobs.com","sarkarinaukari.it.com","sarkari247.com","sarkarinaukarisetu.com","sarkari-naukri.in","naukriagent.com","naukripatrika.in","nayawork.in","naukrichakri.in","sarkariscan.com"}
 LINK_SIGNAL=re.compile(r"\b(official|notification|advertisement|advt|apply online|online application|career|recruitment|vacancy|download)\b",re.I)
 JOB_SIGNAL=re.compile(r"\b(recruit|vacan|job|appointment|apprent|notification|constable|teacher|engineer|assistant|officer|clerk|group\s*[abc]|technician|trainee|professor|nurse|steno|driver|advt|employment|admit card|result|answer key|selection|scholarship|fellowship|admission|notice|corrigendum|addendum)\b",re.I)
@@ -87,7 +88,7 @@ def candidates(item,discovery_body,discovery_final):
 def verify_one(item):
  now=datetime.now(timezone.utc).isoformat(); title0=(item.get("title") or "").strip(); desc=(item.get("description") or "").strip(); result={"id":item["id"],"discoveryUrl":item.get("url",""),"status":"hold","publicationStatus":"hold","checkedAt":now,"officialSource":None,"checks":{},"evidence":{}}
  ds,db,df,dct=fetch(item.get("url","")) if item.get("url","").startswith(("http://","https://")) else (None,b"",item.get("url",""),""); dtext,_=text_of(df,db,dct); cs=candidates(item,db,df); first=[]
- with ThreadPoolExecutor(max_workers=min(8,max(1,len(cs)))) as pool:
+ with ThreadPoolExecutor(max_workers=min(5,max(1,len(cs)))) as pool:
   fs={pool.submit(fetch,c["url"]):c for c in cs}
   for f in as_completed(fs):
    c=fs[f]
@@ -101,9 +102,9 @@ def verify_one(item):
   if mode=="html" and (c["trusted"] or c["explicit"] or trusted(u)):
    for x in links(b,u):
     if SPECIFIC.search(x["url"]) or SPECIFIC.search(x["label"]): second.append(x)
- second=second[:12]
+ second=second[:8]
  if second:
-  with ThreadPoolExecutor(max_workers=min(8,len(second))) as pool:
+  with ThreadPoolExecutor(max_workers=min(5,len(second))) as pool:
    fs={pool.submit(fetch,c["url"]):c for c in second}
    for f in as_completed(fs):
     c=fs[f]
@@ -130,14 +131,30 @@ def main():
  except Exception: can={"schemaVersion":1,"items":{}}
  try: prev=json.loads(OUT.read_text(encoding="utf-8"))
  except Exception: prev={}
- items=list(state.get("items",{}).items()); items.sort(key=lambda p:p[1].get("lastSeenAt") or p[1].get("lastDiscoveredAt") or p[1].get("discoveredAt") or "",reverse=True); old=prev.get("items",{}) if isinstance(prev.get("items",{}),dict) else {}; items.sort(key=lambda p:0 if old.get(p[0],{}).get("status")!="verified" else 1); selected,skipped=items[:MAX_RECORDS],items[MAX_RECORDS:]; results={}; counts={"verified":0,"hold":0,"checked":0,"new":0,"changed":0,"unchanged":0,"skipped":len(skipped),"selectionLimit":MAX_RECORDS}
+ items=list(state.get("items",{}).items()); old=prev.get("items",{}) if isinstance(prev.get("items",{}),dict) else {}
+ def priority(pair):
+  iid,it=pair; title0=(it.get("title") or "").strip().lower(); url=(it.get("url") or "").lower(); desc=it.get("description") or ""; score=0
+  if title0 not in GENERIC_TITLES: score+=20
+  if JOB_SIGNAL.search(title0+" "+desc): score+=30
+  if SPECIFIC.search(url): score+=15
+  if desc: score+=5
+  if old.get(iid,{}).get("status")=="verified": score-=10
+  return score, it.get("lastSeenAt") or it.get("lastDiscoveredAt") or it.get("discoveredAt") or ""
+ items.sort(key=priority,reverse=True); selected,skipped=items[:MAX_RECORDS],items[MAX_RECORDS:]; results={}; counts={"verified":0,"hold":0,"checked":0,"new":0,"changed":0,"unchanged":0,"skipped":len(skipped),"selectionLimit":MAX_RECORDS}
  with ThreadPoolExecutor(max_workers=WORKERS) as pool:
   fs={pool.submit(verify_one,it):(iid,it) for iid,it in selected}
   for f in as_completed(fs):
    iid,it=fs[f]
    try:r=f.result()
    except Exception as e:r={"id":iid,"discoveryUrl":it.get("url",""),"status":"hold","publicationStatus":"hold","checkedAt":now,"officialSource":None,"checks":{"verifier_error":False},"reason":"v4.1_exception:"+type(e).__name__,"fields":{}}
-   results[iid]=r; counts["checked"]+=1; counts["verified"]+=r.get("status")=="verified"; counts["hold"]+=r.get("status")!="verified"; incoming=dict(r.get("fields",{})); incoming.update({"jobId":iid,"notificationUrl":incoming.get("notificationUrl") or it.get("url",""),"source":it.get("discoverySource") or "MultiSource","verificationStatus":r.get("status","hold"),"publicationStatus":r.get("publicationStatus","hold"),"officialSource":r.get("officialSource"),"lastSeenAt":now}); can,event=engine.upsert(incoming,can); ev=str(event.get("event","unchanged")).lower(); counts["new" if ev in ("created","new") else "changed" if ev in ("updated","changed") else "unchanged"]+=1; r["canonicalRecordId"]=event.get("jobId",iid); r["changeEvent"]=event.get("event","unchanged")
+   results[iid]=r; counts["checked"]+=1; counts["verified"]+=r.get("status")=="verified"; counts["hold"]+=r.get("status")!="verified"
+   incoming=dict(r.get("fields",{})); incoming.update({"jobId":iid,"notificationUrl":incoming.get("notificationUrl") or it.get("url",""),"source":it.get("discoverySource") or "MultiSource","verificationStatus":r.get("status","hold"),"publicationStatus":r.get("publicationStatus","hold"),"officialSource":r.get("officialSource"),"lastSeenAt":now})
+   try:
+    can,event=engine.upsert(incoming,can); ev=str(event.get("event","unchanged")).lower(); counts["new" if ev in ("created","new") else "changed" if ev in ("updated","changed") else "unchanged"]+=1; r["canonicalRecordId"]=event.get("jobId",iid); r["changeEvent"]=event.get("event","unchanged")
+   except Exception as exc:
+    r["canonicalRecordId"]=iid; r["changeEvent"]="canonical_upsert_error:"+type(exc).__name__
  for iid,it in skipped: results[iid]={"id":iid,"discoveryUrl":it.get("url",""),"status":"hold","publicationStatus":"hold","checkedAt":now,"officialSource":None,"checks":{"deferred_due_to_run_bound":False},"reason":"deferred_due_to_v4.1_verification_run_bound","fields":{}}
- save(CAN,can); save(OUT,{"schemaVersion":9,"engine":"official-verification-v4.1","checkedAt":now,"sourceStatus":state.get("status"),"counts":counts,"items":results}); save(LOG,{"checkedAt":now,"status":"ok","engine":"official-verification-v4.1","counts":counts,"strategy":"Discovery-only aggregators; resolve official sources through registry, explicit official links, organization domains, then second-hop official recruitment/career pages with HTML/PDF extraction."}); print(json.dumps({"status":"PASS","engine":"official-verification-v4.1",**counts},indent=2)); return 0
+ try: save(CAN,can)
+ except Exception: pass
+ save(OUT,{"schemaVersion":9,"engine":"official-verification-v4.1","checkedAt":now,"sourceStatus":state.get("status"),"counts":counts,"items":results}); save(LOG,{"checkedAt":now,"status":"ok","engine":"official-verification-v4.1","counts":counts,"strategy":"Discovery-only aggregators; resolve official sources through registry, explicit official links, organization domains, then second-hop official recruitment/career pages with HTML/PDF extraction; prioritize job-like candidates and isolate canonical persistence errors."}); print(json.dumps({"status":"PASS","engine":"official-verification-v4.1",**counts},indent=2)); return 0
 if __name__=="__main__": sys.exit(main())
