@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion != 'cancelled' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -44,29 +44,17 @@ jobs:
           cat > free-csc-tools/pro-thumbnails.js <<'EOF'
           (function(){
             const thumbs=document.querySelectorAll('.trending .tool-card .thumb');
-            const imgs=[
-              'tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png?v=pro20260915-v2',
-              'tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png?v=pro20260915-v2',
-              'tool-thumbnails/1click-id-card-print-maker-html.png?v=pro20260915-v2',
-              'tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png?v=pro20260915-v2',
-              'tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png?v=pro20260915-v2'
-            ];
-            thumbs.forEach((el,i)=>{
-              if(!imgs[i]) return;
-              el.innerHTML='';
-              el.style.padding='0';
-              const img=document.createElement('img');
-              img.className='pro-tool-thumb';
-              img.src=imgs[i];
-              img.alt='ONESTOP professional tool thumbnail';
-              el.appendChild(img);
-            });
-            const style=document.createElement('style');
-            style.textContent='.thumb{padding:0!important}.thumb:before,.thumb:after{display:none!important}.pro-tool-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}';
-            document.head.appendChild(style);
+            const imgs=['tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png?v=pro20260915-v2','tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png?v=pro20260915-v2','tool-thumbnails/1click-id-card-print-maker-html.png?v=pro20260915-v2','tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png?v=pro20260915-v2','tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png?v=pro20260915-v2'];
+            thumbs.forEach((el,i)=>{if(!imgs[i])return;el.innerHTML='';el.style.padding='0';const img=document.createElement('img');img.className='pro-tool-thumb';img.src=imgs[i];img.alt='ONESTOP professional tool thumbnail';el.appendChild(img);});
+            const style=document.createElement('style');style.textContent='.thumb{padding:0!important}.thumb:before,.thumb:after{display:none!important}.pro-tool-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}';document.head.appendChild(style);
           })();
           EOF
           sed -i 's#</body>#<script src="pro-thumbnails.js?v=pro20260915-v2"></script></body>#' free-csc-tools/index.html
+      - name: Inject live Government Job pipeline monitor into admin
+        shell: bash
+        run: |
+          set -e
+          sed -i 's#</body>#<script src="admin-live-monitor.js?v=govpipe20260916-v1"></script></body>#' government-job-update/onestop-government-admin.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
