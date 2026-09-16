@@ -1,4 +1,4 @@
-import json, re, sys
+import json, re, sys, subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
@@ -9,6 +9,7 @@ MONITOR=DATA/'sarkariresult-monitor-state.json'
 OUT=DATA/'publication-queue.json'
 HISTORY=DATA/'publication-history.json'
 REQUIRED_FIELDS=('title','notificationUrl','source','verificationStatus','publicationStatus')
+
 
 def parse_date(value):
     s=str(value or '').strip()
@@ -26,13 +27,37 @@ def parse_date(value):
         except (ValueError,KeyError):pass
     return None
 
+
 def deadline_active(item):
     last=item.get('applicationLastDate') or item.get('lastDate') or item.get('application_last_date')
     d=parse_date(last)
     return bool(d and d>=datetime.now(timezone.utc).date())
 
+
 def item_key(item):
     return str(item.get('jobId') or item.get('id') or item.get('notificationUrl') or '').strip()
+
+
+def bootstrap_history_from_git(limit=120):
+    """Recover recent publication snapshots once, before durable history exists."""
+    rel=str(OUT.relative_to(ROOT))
+    try:
+        commits=subprocess.check_output(['git','log','--format=%H','-n',str(limit),'--',rel],cwd=ROOT,text=True,stderr=subprocess.DEVNULL).splitlines()
+    except Exception:
+        return []
+    recovered=[]; seen=set()
+    for sha in commits:
+        try:
+            raw=subprocess.check_output(['git','show',f'{sha}:{rel}'],cwd=ROOT,text=True,stderr=subprocess.DEVNULL)
+            snap=json.loads(raw)
+        except Exception:
+            continue
+        for item in snap.get('items',[]) if isinstance(snap,dict) else []:
+            oid=item_key(item)
+            if oid and oid not in seen and item.get('verificationStatus')=='verified' and item.get('publicationStatus')=='ready':
+                recovered.append(dict(item)); seen.add(oid)
+    return recovered
+
 
 def main():
     verification=json.loads(VERIFICATION.read_text(encoding='utf-8'))
@@ -45,10 +70,11 @@ def main():
     try:history=json.loads(HISTORY.read_text(encoding='utf-8'))
     except Exception:history={'items':[]}
 
-    # The history is the durable publication memory. It prevents a source rotating
-    # an older vacancy off its listing from deleting that vacancy from our public feed.
     history_items=history.get('items',[]) if isinstance(history.get('items',[]),list) else []
     previous_items=previous.get('items',[]) if isinstance(previous.get('items',[]),list) else []
+    if not history_items:
+        history_items=bootstrap_history_from_git()
+
     memory=[]; memory_ids=set()
     for old in history_items + previous_items:
         oid=item_key(old)
@@ -76,9 +102,6 @@ def main():
         queue.append(merged); queue_ids.add(cid)
         c=merged.get('category','jobs'); category_counts[c]=category_counts.get(c,0)+1
 
-    # Retain every previously published, still-active vacancy unless the current
-    # verification explicitly knows the record and has moved it out of ready state.
-    # This handles source-list rotation and temporary discovery gaps across runs.
     for old in memory:
         oid=item_key(old)
         if not oid or oid in queue_ids or not deadline_active(old): continue
@@ -90,14 +113,12 @@ def main():
         queue.append(old); queue_ids.add(oid); reused+=1
         c=old.get('category','jobs'); category_counts[c]=category_counts.get(c,0)+1
 
-    # Update durable history with everything currently public. Expired records remain
-    # in history for audit, but are never re-published by the active-retention rule.
     history_by_id={}
     for old in memory: history_by_id[item_key(old)]=old
     for current in queue: history_by_id[item_key(current)]=current
     HISTORY.write_text(json.dumps({'schemaVersion':1,'updatedAt':datetime.now(timezone.utc).isoformat(),'items':list(history_by_id.values())},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
-    result={'schemaVersion':6,'generatedAt':verification.get('checkedAt'),'policy':'verified-only-plus-durable-active-retention','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'categoryCounts':category_counts,'items':queue}
+    result={'schemaVersion':6,'generatedAt':verification.get('checkedAt'),'policy':'verified-only-plus-durable-active-retention','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'historyCount':len(history_by_id),'categoryCounts':category_counts,'items':queue}
     OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'status':'PASS','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'historyCount':len(history_by_id),'categoryCounts':category_counts},indent=2))
     return 0

@@ -31,6 +31,7 @@ monitor = read('sarkariresult-monitor-state.json', {})
 verify = read('official-verification-state.json', {})
 canonical = read('canonical-job-records.json', {'items': {}})
 queue = read('publication-queue.json', {'items': []})
+history = read('publication-history.json', {'items': []})
 monitor_log = read('sarkariresult-monitor-log.json', {})
 verify_log = read('official-verification-log.json', {})
 e2e = read_test('e2e-live-report.json')
@@ -54,12 +55,21 @@ source_status = monitor.get('status', 'unknown')
 http_error = monitor.get('lastError') or ''
 source_results = monitor.get('sources') or monitor_log.get('sources') or {}
 active_source_names = [v.get('name') for v in source_results.values() if isinstance(v, dict) and v.get('status') == 'ok' and v.get('name')]
+queue_items = queue.get('items') or []
+history_items = history.get('items') or []
+reused_active = int(queue.get('reusedActiveCount') or 0)
+base_recovery_state = 'RECOVERY_WATCH' if source_status == 'source_unavailable' else 'HEALTHY'
+recovery_state = f'{base_recovery_state} • BUFFER RETAINED {reused_active} • HISTORY {len(history_items)}'
 recovery = {
-    'state': 'RECOVERY_WATCH' if source_status == 'source_unavailable' else 'HEALTHY',
+    'state': recovery_state,
     'safeRetryEnabled': True,
     'bypassAttempted': False,
     'lastHttpError': http_error,
-    'recoveryRule': 'Resume multi-source discovery automatically on the next scheduled run when monitored public sources become available; never bypass 403/429, CAPTCHA, access controls, or rate limits.'
+    'activeRetentionEnabled': True,
+    'activeRetainedCount': reused_active,
+    'publicationHistoryCount': len(history_items),
+    'recoveryRule': 'Resume multi-source discovery automatically on the next scheduled run when monitored public sources become available; never bypass 403/429, CAPTCHA, access controls, or rate limits.',
+    'publicationRetentionRule': 'Previously published verified records remain in the public queue while their application deadline is still active when a source temporarily rotates or omits the listing.'
 }
 
 def test_status(report):
@@ -69,8 +79,9 @@ def test_status(report):
     if report.get('passed') is False: return 'FAIL'
     return 'CHECK'
 
+publication_gate_state = f"READY • BUFFER RETAINED {reused_active}"
 out = {
-    'schemaVersion': 3,
+    'schemaVersion': 4,
     'generatedAt': now.isoformat(),
     'schedule': {'cronUtc': '3/10 * * * *', 'description': 'Every 10 minutes at minutes 03, 13, 23, 33, 43 and 53 UTC (~:33, :43, :53, :03, :13 and :23 IST). GitHub Actions schedules may be delayed.'},
     'production': {
@@ -83,10 +94,19 @@ out = {
     'recovery': recovery,
     'pipeline': {
         'extraction': 'READY', 'officialVerification': 'READY' if source_status != 'source_unavailable' else 'WAITING_FOR_DISCOVERY',
-        'canonical': 'READY', 'publicationGate': 'READY', 'websiteFeed': 'READY',
-        'verifiedCount': len(verified_items), 'holdCount': len(held_items), 'publishedCount': len(queue.get('items') or []),
-        'canonicalCount': len(items), 'publicationReadyCount': queue.get('readyCount', len(queue.get('items') or [])),
-        'publicationBlockedCount': queue.get('blockedCount', 0),
+        'canonical': 'READY', 'publicationGate': publication_gate_state, 'websiteFeed': 'READY',
+        'verifiedCount': len(verified_items), 'holdCount': len(held_items), 'publishedCount': len(queue_items),
+        'canonicalCount': len(items), 'publicationReadyCount': queue.get('readyCount', len(queue_items)),
+        'publicationBlockedCount': queue.get('blockedCount', 0), 'reusedActiveCount': reused_active,
+        'publicationHistoryCount': len(history_items),
+    },
+    'bufferFlow': {
+        'status': 'ACTIVE' if queue_items else 'EMPTY',
+        'readyCount': queue.get('readyCount', len(queue_items)),
+        'retainedActiveCount': reused_active,
+        'historyCount': len(history_items),
+        'blockedCount': queue.get('blockedCount', 0),
+        'policy': queue.get('policy', 'verified-only-plus-durable-active-retention'),
     },
     'tests': {'controlledE2E': test_status(e2e), 'publicationGateRegression': test_status(gate), 'controlledE2EIsProductionDiscovery': False},
     'timing': {'lastRunAt': verify.get('checkedAt') or monitor.get('lastCheckedAt'), 'nextExpectedRunAt': iso(next_run)},
@@ -95,6 +115,7 @@ out = {
         'discoverySource': '20 alternate sources + FreeJobAlert', 'discoverySourceCount': len(source_results) or 21,
         'activeDiscoverySources': active_source_names, 'finalAuthority': 'Official government/recruitment authority',
         'publication': 'verified-only', 'heldRecordsArePublished': False, 'freeJobAlertUsed': 'freejobalert' in source_results,
+        'durablePublicationHistory': True,
     },
 }
 OUT.write_text(json.dumps(out, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
