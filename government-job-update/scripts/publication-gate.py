@@ -7,6 +7,7 @@ VERIFICATION=DATA/'official-verification-state.json'
 CANONICAL=DATA/'canonical-job-records.json'
 MONITOR=DATA/'sarkariresult-monitor-state.json'
 OUT=DATA/'publication-queue.json'
+HISTORY=DATA/'publication-history.json'
 REQUIRED_FIELDS=('title','notificationUrl','source','verificationStatus','publicationStatus')
 
 def parse_date(value):
@@ -30,6 +31,9 @@ def deadline_active(item):
     d=parse_date(last)
     return bool(d and d>=datetime.now(timezone.utc).date())
 
+def item_key(item):
+    return str(item.get('jobId') or item.get('id') or item.get('notificationUrl') or '').strip()
+
 def main():
     verification=json.loads(VERIFICATION.read_text(encoding='utf-8'))
     try:canonical=json.loads(CANONICAL.read_text(encoding='utf-8'))
@@ -38,12 +42,28 @@ def main():
     except Exception:monitor={}
     try:previous=json.loads(OUT.read_text(encoding='utf-8'))
     except Exception:previous={'items':[]}
+    try:history=json.loads(HISTORY.read_text(encoding='utf-8'))
+    except Exception:history={'items':[]}
+
+    # The history is the durable publication memory. It prevents a source rotating
+    # an older vacancy off its listing from deleting that vacancy from our public feed.
+    history_items=history.get('items',[]) if isinstance(history.get('items',[]),list) else []
+    previous_items=previous.get('items',[]) if isinstance(previous.get('items',[]),list) else []
+    memory=[]; memory_ids=set()
+    for old in history_items + previous_items:
+        oid=item_key(old)
+        if oid and oid not in memory_ids:
+            memory.append(dict(old)); memory_ids.add(oid)
+
     by_url={str(v.get('url','')):v for v in monitor.values() if v.get('url')}
     queue=[]; queue_ids=set(); blocked=0; reused=0; category_counts={}
-    for item_id,item in verification.get('items',{}).items():
+    current_ids=set()
+    verification_items=verification.get('items',{})
+    for item_id,item in verification_items.items():
         if item.get('status')!='verified' or item.get('publicationStatus')!='ready':
             blocked+=1; continue
         cid=item.get('canonicalRecordId') or item_id
+        current_ids.add(str(cid))
         record=canonical.get('items',{}).get(cid,{})
         merged=dict(record)
         merged.update({k:v for k,v in item.get('fields',{}).items() if v not in (None,'',[],{})})
@@ -56,20 +76,29 @@ def main():
         queue.append(merged); queue_ids.add(cid)
         c=merged.get('category','jobs'); category_counts[c]=category_counts.get(c,0)+1
 
-    # Keep an already-published vacancy visible when its source site rotates it out,
-    # provided its official application deadline has not passed yet.
-    for old in previous.get('items',[]) if isinstance(previous.get('items',[]),list) else []:
-        oid=old.get('jobId') or old.get('id') or old.get('notificationUrl')
+    # Retain every previously published, still-active vacancy unless the current
+    # verification explicitly knows the record and has moved it out of ready state.
+    # This handles source-list rotation and temporary discovery gaps across runs.
+    for old in memory:
+        oid=item_key(old)
         if not oid or oid in queue_ids or not deadline_active(old): continue
         if old.get('verificationStatus')!='verified' or old.get('publicationStatus')!='ready': continue
+        if oid in current_ids: continue
         old=dict(old)
         old['retainedWhileDeadlineActive']=True
-        old['retentionReason']='discovery_source_listing_rotated_but_official_application_deadline_not_passed'
+        old['retentionReason']='previously_published_source_listing_rotated_or_temporarily_missing_but_official_application_deadline_not_passed'
         queue.append(old); queue_ids.add(oid); reused+=1
         c=old.get('category','jobs'); category_counts[c]=category_counts.get(c,0)+1
 
-    result={'schemaVersion':5,'generatedAt':verification.get('checkedAt'),'policy':'verified-only-plus-active-retention','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'categoryCounts':category_counts,'items':queue}
+    # Update durable history with everything currently public. Expired records remain
+    # in history for audit, but are never re-published by the active-retention rule.
+    history_by_id={}
+    for old in memory: history_by_id[item_key(old)]=old
+    for current in queue: history_by_id[item_key(current)]=current
+    HISTORY.write_text(json.dumps({'schemaVersion':1,'updatedAt':datetime.now(timezone.utc).isoformat(),'items':list(history_by_id.values())},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+
+    result={'schemaVersion':6,'generatedAt':verification.get('checkedAt'),'policy':'verified-only-plus-durable-active-retention','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'categoryCounts':category_counts,'items':queue}
     OUT.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({'status':'PASS','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'categoryCounts':category_counts},indent=2))
+    print(json.dumps({'status':'PASS','readyCount':len(queue),'blockedCount':blocked,'reusedActiveCount':reused,'historyCount':len(history_by_id),'categoryCounts':category_counts},indent=2))
     return 0
 if __name__=='__main__':sys.exit(main())
