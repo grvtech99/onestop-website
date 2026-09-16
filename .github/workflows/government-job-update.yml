@@ -8,6 +8,7 @@ on:
     paths:
       - 'government-job-update/**'
       - 'scripts/government-job-verifier-v4.py'
+      - 'scripts/government-job-verifier-v4.1.py'
       - '.github/workflows/government-job-update.yml'
       - '!government-job-update/data/sarkariresult-monitor-state.json'
       - '!government-job-update/data/sarkariresult-monitor-log.json'
@@ -34,8 +35,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 18
     env:
-      ONESTOP_VERIFY_MAX_RECORDS: 100
-      ONESTOP_RECOVERY_MAX_ITEMS: 100
+      ONESTOP_VERIFY_MAX_RECORDS: 80
+      ONESTOP_RECOVERY_MAX_ITEMS: 80
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -70,9 +71,9 @@ jobs:
         run: python -m pip install --disable-pip-version-check --no-input pypdf==6.18.1
 
       - id: verification
-        name: 3. Official-source verification V4 — registry + official links + HTML/PDF
+        name: 3. Official-source verification V4.1 — registry + official links + second-hop HTML/PDF
         if: ${{ !cancelled() }}
-        run: python scripts/government-job-verifier-v4.py
+        run: python scripts/government-job-verifier-v4.1.py
 
       - id: verificationRecovery
         name: 4. Official-link recovery
