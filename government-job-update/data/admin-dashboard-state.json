@@ -1,244 +1,128 @@
 {
-  "schemaVersion": 3,
-  "generatedAt": "2026-09-16T01:28:08.677762+00:00",
-  "schedule": {
-    "cronUtc": "3/10 * * * *",
-    "description": "Every 10 minutes at minutes 03, 13, 23, 33, 43 and 53 UTC (~:33, :43, :53, :03, :13 and :23 IST). GitHub Actions schedules may be delayed."
+  "schemaVersion": 5,
+  "generatedAt": "2026-09-16T08:49:20.392887+00:00",
+  "pipelineStatus": "PROBLEM",
+  "problemStep": {
+    "id": "controlledE2E",
+    "label": "Controlled E2E",
+    "status": "FAILURE"
   },
+  "currentStep": null,
+  "workflow": {
+    "name": "Government Job Update — Multi-Source Discovery",
+    "runId": "35075572516",
+    "runNumber": "127",
+    "runAttempt": "1",
+    "commitSha": "9dece53f1e84f9be7f455ce1f2d9dde7fa954c31",
+    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35075572516",
+    "overall": "FAILURE",
+    "failedSteps": [
+      "controlledE2E",
+      "publicationRegression"
+    ],
+    "blockedSteps": []
+  },
+  "steps": [
+    {
+      "id": "discovery",
+      "label": "Multi-source discovery",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "buffer",
+      "label": "Discovery buffer",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "officialVerification",
+      "label": "Official-source verification",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "verificationRecovery",
+      "label": "Official-link recovery",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "enrichment",
+      "label": "Notification enrichment",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "controlledE2E",
+      "label": "Controlled E2E",
+      "status": "FAILURE"
+    },
+    {
+      "id": "publicationRegression",
+      "label": "Publication regression",
+      "status": "FAILURE"
+    },
+    {
+      "id": "publicationQueue",
+      "label": "Publication queue/history",
+      "status": "SUCCESS"
+    },
+    {
+      "id": "executionStatus",
+      "label": "Execution telemetry",
+      "status": "PASS"
+    },
+    {
+      "id": "adminSnapshot",
+      "label": "Admin snapshot",
+      "status": "PENDING"
+    },
+    {
+      "id": "stateSave",
+      "label": "State commit",
+      "status": "PENDING"
+    }
+  ],
   "production": {
     "source": "Multi-Source Government Jobs",
-    "sourceUrl": null,
     "status": "ok",
-    "lastCheckedAt": "2026-09-16T01:23:09.750681+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-16T01:23:09.750681+00:00",
-    "lastError": "",
-    "discoveredCount": 440,
-    "newCount": 0,
-    "changedCount": 7
+    "lastCheckedAt": "2026-09-16T08:45:56.180471+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-16T08:45:56.180471+00:00",
+    "lastError": null,
+    "discoveredCount": 530,
+    "newCount": 90,
+    "changedCount": 8
   },
-  "recovery": {
-    "state": "HEALTHY",
-    "safeRetryEnabled": true,
-    "bypassAttempted": false,
-    "lastHttpError": "",
-    "recoveryRule": "Resume multi-source discovery automatically on the next scheduled run when monitored public sources become available; never bypass 403/429, CAPTCHA, access controls, or rate limits."
+  "bufferFlow": {
+    "status": "ACTIVE",
+    "bufferedCount": 530,
+    "bufferedAt": "2026-09-16T08:46:28.798339+00:00",
+    "sourceCheckedAt": "2026-09-16T08:45:56.180471+00:00",
+    "sourceStatus": "ok",
+    "intermediatePush": false
   },
-  "pipeline": {
-    "extraction": "READY",
-    "officialVerification": "READY",
-    "canonical": "READY",
-    "publicationGate": "READY",
-    "websiteFeed": "READY",
-    "verifiedCount": 13,
-    "holdCount": 596,
-    "publishedCount": 20,
-    "canonicalCount": 609,
-    "publicationReadyCount": 20,
-    "publicationBlockedCount": 421
+  "publication": {
+    "readyCount": 15,
+    "blockedCount": 524,
+    "reusedActiveCount": 9,
+    "historyCount": 25,
+    "policy": "verified-only-plus-durable-active-retention"
+  },
+  "pipelineCounts": {
+    "canonicalCount": 610,
+    "verifiedReadyCount": 16,
+    "holdCount": 594,
+    "publishedQueueCount": 15
   },
   "tests": {
-    "controlledE2E": "CHECK",
-    "publicationGateRegression": "CHECK",
-    "controlledE2EIsProductionDiscovery": false
+    "controlledE2E": "NOT_AVAILABLE",
+    "publicationGateRegression": "NOT_AVAILABLE"
   },
-  "timing": {
-    "lastRunAt": "2026-09-16T01:24:50.556567+00:00",
-    "nextExpectedRunAt": "2026-09-16T01:33:00+00:00"
-  },
-  "recent": {
-    "discovery": {
-      "checkedAt": "2026-09-16T01:23:09.750681+00:00",
-      "status": "ok",
-      "new": 0,
-      "changed": 7,
-      "retained": 93,
-      "items": 440,
-      "discoveryChannels": [
-        "employmentnews",
-        "ncs",
-        "fresherslive",
-        "jagranjosh",
-        "testbook",
-        "sarkarinaukriblog",
-        "indgovtjobs",
-        "sarkariupdates",
-        "inrgovtjobs",
-        "sarkarinaukari",
-        "sarkarinaukarisetu",
-        "nayawork",
-        "naukrichakri",
-        "sarkariscan",
-        "freejobalert"
-      ],
-      "sources": {
-        "employmentnews": {
-          "name": "Employment News",
-          "status": "ok",
-          "mode": "html",
-          "count": 4
-        },
-        "ncs": {
-          "name": "National Career Service",
-          "status": "ok",
-          "mode": "html",
-          "count": 7
-        },
-        "fresherslive": {
-          "name": "FreshersLive",
-          "status": "ok",
-          "mode": "html",
-          "count": 20
-        },
-        "jagranjosh": {
-          "name": "Jagran Josh",
-          "status": "ok",
-          "mode": "html",
-          "count": 54
-        },
-        "testbook": {
-          "name": "Testbook",
-          "status": "ok",
-          "mode": "html",
-          "count": 67
-        },
-        "sarkarinaukriblog": {
-          "name": "Sarkari Naukri Blog",
-          "status": "ok",
-          "mode": "rss",
-          "count": 16
-        },
-        "careerpower": {
-          "name": "Career Power",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "indgovtjobs": {
-          "name": "IndGovtJobs",
-          "status": "ok",
-          "mode": "rss",
-          "count": 20
-        },
-        "sarkariupdates": {
-          "name": "SarkariUpdates",
-          "status": "ok",
-          "mode": "html",
-          "count": 21
-        },
-        "exampix": {
-          "name": "Exampix",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "inrgovtjobs": {
-          "name": "INR Govt Jobs",
-          "status": "ok",
-          "mode": "html",
-          "count": 2
-        },
-        "sarkarinaukari": {
-          "name": "Sarkari Naukari",
-          "status": "ok",
-          "mode": "html",
-          "count": 7
-        },
-        "sarkari247": {
-          "name": "Sarkari247",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "sarkarinaukarisetu": {
-          "name": "Sarkari Naukri Setu",
-          "status": "ok",
-          "mode": "html",
-          "count": 7
-        },
-        "sarkarinaukri": {
-          "name": "Sarkari-Naukri.in",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "naukriagent": {
-          "name": "NaukriAgent",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "naukripatrika": {
-          "name": "Naukri Patrika",
-          "status": "unavailable",
-          "mode": null,
-          "count": 0
-        },
-        "nayawork": {
-          "name": "NayaWork",
-          "status": "ok",
-          "mode": "html",
-          "count": 18
-        },
-        "naukrichakri": {
-          "name": "Naukri Chakri",
-          "status": "ok",
-          "mode": "html",
-          "count": 2
-        },
-        "sarkariscan": {
-          "name": "Sarkari Scan",
-          "status": "ok",
-          "mode": "html",
-          "count": 15
-        },
-        "freejobalert": {
-          "name": "FreeJobAlert",
-          "status": "ok",
-          "mode": "rss",
-          "count": 87
-        }
-      },
-      "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"
-    },
-    "verification": {
-      "checkedAt": "2026-09-16T01:23:43.467335+00:00",
-      "status": "ok",
-      "counts": {
-        "verified": 12,
-        "hold": 428,
-        "checked": 440,
-        "new": 0,
-        "changed": 160,
-        "unchanged": 280,
-        "reused": 0,
-        "skipped": 0
-      },
-      "strategy": "Parallel official verification with bounded second-hop official link discovery, strict title/source matching, and rich source-page field extraction; generic authority homepages are not published as notification links"
-    }
-  },
-  "policy": {
-    "discoverySource": "20 alternate sources + FreeJobAlert",
-    "discoverySourceCount": 21,
-    "activeDiscoverySources": [
-      "Employment News",
-      "National Career Service",
-      "FreshersLive",
-      "Jagran Josh",
-      "Testbook",
-      "Sarkari Naukri Blog",
-      "IndGovtJobs",
-      "SarkariUpdates",
-      "INR Govt Jobs",
-      "Sarkari Naukari",
-      "Sarkari Naukri Setu",
-      "NayaWork",
-      "Naukri Chakri",
-      "Sarkari Scan",
-      "FreeJobAlert"
+  "diagnostics": {
+    "rootCauseControls": [
+      "Verification workset is bounded and prioritizes non-verified/recent discoveries.",
+      "Recovery workset is bounded and prioritizes deferred/recent records.",
+      "No intermediate git push is performed by the buffer step.",
+      "Workflow runs are serialized with queue:max so pending scheduled runs are not silently replaced.",
+      "Admin reads the persisted snapshot and live GitHub Actions telemetry."
     ],
-    "finalAuthority": "Official government/recruitment authority",
-    "publication": "verified-only",
-    "heldRecordsArePublished": false,
-    "freeJobAlertUsed": true
+    "finalAuthority": "Official government/recruitment source",
+    "heldRecordsArePublished": false
   }
 }

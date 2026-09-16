@@ -1,19 +1,31 @@
 {
-  "schemaVersion": 2,
-  "generatedAt": "2026-09-16T01:28:08.724901+00:00",
+  "schemaVersion": 3,
+  "generatedAt": "2026-09-16T08:49:20.318170+00:00",
   "workflow": "Government Job Update — Multi-Source Discovery",
-  "runId": "35043860918",
-  "runNumber": "113",
+  "runId": "35075572516",
+  "runNumber": "127",
   "runAttempt": "1",
-  "commitSha": "59600cc5d72d963c2a1bb2a35059a23188f6b095",
-  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35043860918",
+  "commitSha": "9dece53f1e84f9be7f455ce1f2d9dde7fa954c31",
+  "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35075572516",
+  "overall": "FAILURE",
+  "currentStep": null,
+  "failedSteps": [
+    "controlledE2E",
+    "publicationRegression"
+  ],
+  "blockedSteps": [],
   "steps": {
     "discovery": "SUCCESS",
+    "buffer": "SUCCESS",
     "officialVerification": "SUCCESS",
+    "verificationRecovery": "SUCCESS",
+    "enrichment": "SUCCESS",
     "controlledE2E": "FAILURE",
-    "publicationRegression": "SUCCESS",
+    "publicationRegression": "FAILURE",
     "publicationQueue": "SUCCESS",
-    "adminSnapshot": "SUCCESS"
+    "executionStatus": "PASS",
+    "adminSnapshot": "PENDING",
+    "stateSave": "PENDING"
   },
-  "note": "Step outcomes are workflow execution status only. Discovery uses 20 alternate sources plus FreeJobAlert; official government/recruitment sources remain the final authority. Controlled E2E is not production discovery."
+  "note": "Execution status is workflow telemetry only. Discovery uses alternate sources for signals; official government/recruitment sources remain the final authority. Controlled E2E is not production discovery."
 }

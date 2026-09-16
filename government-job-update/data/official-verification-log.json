@@ -1,15 +1,16 @@
 {
-  "checkedAt": "2026-09-16T01:23:43.467335+00:00",
+  "checkedAt": "2026-09-16T08:46:28.893198+00:00",
   "status": "ok",
   "counts": {
-    "verified": 12,
-    "hold": 428,
-    "checked": 440,
+    "verified": 3,
+    "hold": 157,
+    "checked": 160,
     "new": 0,
-    "changed": 160,
-    "unchanged": 280,
+    "changed": 102,
+    "unchanged": 58,
     "reused": 0,
-    "skipped": 0
+    "skipped": 370,
+    "selectionLimit": 160
   },
-  "strategy": "Parallel official verification with bounded second-hop official link discovery, strict title/source matching, and rich source-page field extraction; generic authority homepages are not published as notification links"
+  "strategy": "Prioritize new/pending and most recently discovered records within a bounded verification workset; previously verified records are refreshed only after pending work. Parallel official verification with bounded second-hop official link discovery remains strict."
 }

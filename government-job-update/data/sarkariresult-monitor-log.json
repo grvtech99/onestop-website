@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-16T01:23:09.750681+00:00",
+  "checkedAt": "2026-09-16T08:45:56.180471+00:00",
   "status": "ok",
-  "new": 0,
-  "changed": 7,
-  "retained": 93,
-  "items": 440,
+  "new": 90,
+  "changed": 8,
+  "retained": 132,
+  "items": 530,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -14,6 +14,7 @@
     "sarkarinaukriblog",
     "indgovtjobs",
     "sarkariupdates",
+    "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
     "sarkarinaukarisetu",
@@ -39,19 +40,19 @@
       "name": "FreshersLive",
       "status": "ok",
       "mode": "html",
-      "count": 20
+      "count": 19
     },
     "jagranjosh": {
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 54
+      "count": 53
     },
     "testbook": {
       "name": "Testbook",
       "status": "ok",
       "mode": "html",
-      "count": 67
+      "count": 63
     },
     "sarkarinaukriblog": {
       "name": "Sarkari Naukri Blog",
@@ -79,9 +80,9 @@
     },
     "exampix": {
       "name": "Exampix",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 56
     },
     "inrgovtjobs": {
       "name": "INR Govt Jobs",
@@ -141,13 +142,13 @@
       "name": "Sarkari Scan",
       "status": "ok",
       "mode": "html",
-      "count": 15
+      "count": 19
     },
     "freejobalert": {
       "name": "FreeJobAlert",
       "status": "ok",
       "mode": "rss",
-      "count": 87
+      "count": 84
     }
   },
   "policy": "SarkariResult removed; 20 alternate sources plus FreeJobAlert are discovery-only; official government source remains final authority; old discovered records are retained instead of being deleted when a source rotates its listing"

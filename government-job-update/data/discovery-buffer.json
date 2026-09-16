@@ -1,11 +1,9 @@
 {
-  "schemaVersion": 7,
-  "source": "multi-source-government-updates",
-  "primarySource": "multi-source",
-  "lastCheckedAt": "2026-09-16T08:45:56.180471+00:00",
-  "lastSuccessfulDiscoveryAt": "2026-09-16T08:45:56.180471+00:00",
-  "status": "ok",
-  "lastError": null,
+  "schemaVersion": 1,
+  "bufferedAt": "2026-09-16T08:46:28.798339+00:00",
+  "sourceCheckedAt": "2026-09-16T08:45:56.180471+00:00",
+  "sourceStatus": "ok",
+  "itemCount": 530,
   "items": {
     "2de05f6fff564fba5f12cecd": {
       "id": "2de05f6fff564fba5f12cecd",
@@ -7950,134 +7948,6 @@
       "discoverySourceId": "freejobalert",
       "verificationStatus": "pending_official_source",
       "publicationStatus": "hold"
-    }
-  },
-  "sources": {
-    "employmentnews": {
-      "name": "Employment News",
-      "status": "ok",
-      "mode": "html",
-      "count": 4
-    },
-    "ncs": {
-      "name": "National Career Service",
-      "status": "ok",
-      "mode": "html",
-      "count": 7
-    },
-    "fresherslive": {
-      "name": "FreshersLive",
-      "status": "ok",
-      "mode": "html",
-      "count": 19
-    },
-    "jagranjosh": {
-      "name": "Jagran Josh",
-      "status": "ok",
-      "mode": "html",
-      "count": 53
-    },
-    "testbook": {
-      "name": "Testbook",
-      "status": "ok",
-      "mode": "html",
-      "count": 63
-    },
-    "sarkarinaukriblog": {
-      "name": "Sarkari Naukri Blog",
-      "status": "ok",
-      "mode": "rss",
-      "count": 16
-    },
-    "careerpower": {
-      "name": "Career Power",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
-    "indgovtjobs": {
-      "name": "IndGovtJobs",
-      "status": "ok",
-      "mode": "rss",
-      "count": 20
-    },
-    "sarkariupdates": {
-      "name": "SarkariUpdates",
-      "status": "ok",
-      "mode": "html",
-      "count": 21
-    },
-    "exampix": {
-      "name": "Exampix",
-      "status": "ok",
-      "mode": "html",
-      "count": 56
-    },
-    "inrgovtjobs": {
-      "name": "INR Govt Jobs",
-      "status": "ok",
-      "mode": "html",
-      "count": 2
-    },
-    "sarkarinaukari": {
-      "name": "Sarkari Naukari",
-      "status": "ok",
-      "mode": "html",
-      "count": 7
-    },
-    "sarkari247": {
-      "name": "Sarkari247",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
-    "sarkarinaukarisetu": {
-      "name": "Sarkari Naukri Setu",
-      "status": "ok",
-      "mode": "html",
-      "count": 7
-    },
-    "sarkarinaukri": {
-      "name": "Sarkari-Naukri.in",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
-    "naukriagent": {
-      "name": "NaukriAgent",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
-    "naukripatrika": {
-      "name": "Naukri Patrika",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
-    },
-    "nayawork": {
-      "name": "NayaWork",
-      "status": "ok",
-      "mode": "html",
-      "count": 18
-    },
-    "naukrichakri": {
-      "name": "Naukri Chakri",
-      "status": "ok",
-      "mode": "html",
-      "count": 2
-    },
-    "sarkariscan": {
-      "name": "Sarkari Scan",
-      "status": "ok",
-      "mode": "html",
-      "count": 19
-    },
-    "freejobalert": {
-      "name": "FreeJobAlert",
-      "status": "ok",
-      "mode": "rss",
-      "count": 84
     }
   }
 }
