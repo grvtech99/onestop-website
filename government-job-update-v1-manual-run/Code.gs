@@ -72,25 +72,123 @@ function auth_(body) {
   return {ok:true};
 }
 
-function crawlUrl_(body) {
-  if (!body.url || !/^https?:\\/\\//i.test(body.url)) return {ok:false,error:'Valid http/https URL required.'};
-  const r = UrlFetchApp.fetch(body.url, {muteHttpExceptions:true,followRedirects:true,headers:{'User-Agent':'ONESTOP Job Update V1'}});
-  const code = r.getResponseCode();
-  if (code < 200 || code >= 400) return {ok:false,error:'Source returned HTTP '+code};
-  const html = r.getContentText();
-  const text = html
-    .replace(/<script[\\s\\S]*?<\\/script>/gi,' ')
-    .replace(/<style[\\s\\S]*?<\\/style>/gi,' ')
-    .replace(/<[^>]+>/g,'\\n')
+function decodeHtml_(s) {
+  return String(s || '')
     .replace(/&nbsp;/gi,' ')
     .replace(/&amp;/gi,'&')
     .replace(/&lt;/gi,'<')
     .replace(/&gt;/gi,'>')
-    .replace(/\\r/g,'')
-    .replace(/[ \\t]+/g,' ')
-    .replace(/\\n\\s*\\n+/g,'\\n')
+    .replace(/&quot;/gi,'"')
+    .replace(/&#39;|&#x27;/gi,"'")
+    .replace(/&#(\d+);/g,function(_,n){return String.fromCharCode(Number(n));})
+    .replace(/&#x([0-9a-f]+);/gi,function(_,n){return String.fromCharCode(parseInt(n,16));});
+}
+
+function cellText_(html) {
+  return decodeHtml_(String(html || '')
+    .replace(/<br\s*\/?>/gi,'\n')
+    .replace(/<li[^>]*>/gi,'\n• ')
+    .replace(/<\/li>/gi,'\n')
+    .replace(/<[^>]+>/g,' ')
+    .replace(/\s+\n/g,'\n')
+    .replace(/\n\s+/g,'\n')
+    .replace(/[ \t]+/g,' ')
+    .trim());
+}
+
+function extractTables_(html) {
+  const source = String(html || '')
+    .replace(/<script[\s\S]*?<\/script>/gi,' ')
+    .replace(/<style[\s\S]*?<\/style>/gi,' ');
+  const matches = source.match(/<table\b[\s\S]*?<\/table>/gi) || [];
+  const parsed = [];
+
+  matches.forEach(function(tableHtml, tableIndex){
+    const rowMatches = tableHtml.match(/<tr\b[\s\S]*?<\/tr>/gi) || [];
+    const rows = [];
+    rowMatches.forEach(function(rowHtml){
+      const cells = [];
+      const cellMatches = rowHtml.match(/<(?:td|th)\b[\s\S]*?<\/(?:td|th)>/gi) || [];
+      cellMatches.forEach(function(cellHtml){
+        const text = cellText_(cellHtml);
+        cells.push(text);
+      });
+      if (cells.length) rows.push(cells);
+    });
+
+    if (rows.length < 2) return;
+    const maxCols = Math.max.apply(null, rows.map(function(r){return r.length;}));
+    if (maxCols < 2) return;
+
+    const normalized = rows.map(function(r){
+      const out = r.slice();
+      while(out.length < maxCols) out.push('');
+      return out;
+    });
+
+    const nonEmpty = normalized.reduce(function(n,r){
+      return n + r.filter(function(c){return String(c).trim();}).length;
+    },0);
+    if (nonEmpty < 4) return;
+
+    parsed.push({
+      sourceIndex: tableIndex + 1,
+      name: 'Imported Table ' + (tableIndex + 1),
+      columns: normalized[0].map(function(c,i){return c || ('Column ' + (i+1));}),
+      rows: normalized.slice(1),
+      rowCount: normalized.length,
+      columnCount: maxCols,
+      cellCount: nonEmpty
+    });
+  });
+
+  // Largest useful table first. This makes the page's main information table the first imported table.
+  parsed.sort(function(a,b){
+    return (b.cellCount - a.cellCount) || (b.rowCount - a.rowCount) || (a.sourceIndex - b.sourceIndex);
+  });
+
+  return parsed.slice(0,20).map(function(t,i){
+    t.name = i === 0 ? 'MAIN INFORMATION TABLE' : 'Imported Table ' + i;
+    delete t.sourceIndex;
+    delete t.rowCount;
+    delete t.columnCount;
+    delete t.cellCount;
+    return t;
+  });
+}
+
+function pageTitle_(html) {
+  const m = String(html || '').match(/<title[^>]*>([\s\S]*?)<\/title>/i);
+  return m ? cellText_(m[1]) : '';
+}
+
+function crawlUrl_(body) {
+  if (!body.url || !/^https?:\/\//i.test(body.url)) return {ok:false,error:'Valid http/https URL required.'};
+  const r = UrlFetchApp.fetch(body.url, {muteHttpExceptions:true,followRedirects:true,headers:{'User-Agent':'Mozilla/5.0 (compatible; ONESTOP Job Update V1)'}});
+  const code = r.getResponseCode();
+  if (code < 200 || code >= 400) return {ok:false,error:'Source returned HTTP '+code};
+  const html = r.getContentText();
+  const text = html
+    .replace(/<script[\s\S]*?<\/script>/gi,' ')
+    .replace(/<style[\s\S]*?<\/style>/gi,' ')
+    .replace(/<[^>]+>/g,'\n')
+    .replace(/&nbsp;/gi,' ')
+    .replace(/&amp;/gi,'&')
+    .replace(/&lt;/gi,'<')
+    .replace(/&gt;/gi,'>')
+    .replace(/\r/g,'')
+    .replace(/[ \t]+/g,' ')
+    .replace(/\n\s*\n+/g,'\n')
     .trim();
-  return {ok:true,url:body.url,status:code,text:text.slice(0,150000)};
+  return {
+    ok:true,
+    url:body.url,
+    status:code,
+    title:pageTitle_(html),
+    tables:extractTables_(html),
+    tableCount:extractTables_(html).length,
+    text:text.slice(0,150000)
+  };
 }
 
 function saveDraft_(body) {
