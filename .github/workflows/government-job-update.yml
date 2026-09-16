@@ -2,7 +2,7 @@ name: Government Job Update — Multi-Source Discovery
 
 on:
   schedule:
-    - cron: '3/10 * * * *'
+    - cron: '3/15 * * * *'
   push:
     branches: [main]
     paths:
@@ -26,11 +26,15 @@ permissions:
 concurrency:
   group: government-job-update
   cancel-in-progress: false
+  queue: max
 
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 12
+    env:
+      ONESTOP_VERIFY_MAX_RECORDS: 160
+      ONESTOP_RECOVERY_MAX_ITEMS: 160
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -38,11 +42,12 @@ jobs:
           fetch-depth: 0
 
       - id: discovery
-        name: Run safe multi-source government job discovery
+        name: 1. Multi-source discovery
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/sarkariresult-monitor.py
 
-      - name: Persist discovery buffer before verification
+      - id: buffer
+        name: 2. Persist discovery buffer in run workspace
         if: ${{ !cancelled() }}
         shell: bash
         run: |
@@ -56,73 +61,74 @@ jobs:
           items=state.get('items',{}) if isinstance(state.get('items',{}),dict) else {}
           buffer={'schemaVersion':1,'bufferedAt':datetime.now(timezone.utc).isoformat(),'sourceCheckedAt':state.get('lastCheckedAt'),'sourceStatus':state.get('status'),'itemCount':len(items),'items':items}
           (data/'discovery-buffer.json').write_text(json.dumps(buffer,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          print(f'Buffered {len(items)} discovered items.')
+          print(f'Buffered {len(items)} discovered items for this run; no intermediate git push is performed.')
           PY
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add government-job-update/data/discovery-buffer.json
-          if git diff --cached --quiet; then echo "Discovery buffer unchanged."; else git commit -m "Persist government job discovery buffer"; git push; fi
 
       - id: verification
-        name: Identify department and verify official source
+        name: 3. Official-source verification
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/official-department-verifier.py
 
       - id: verificationRecovery
-        name: Recover valid official recruitment links missed by strict verification
+        name: 4. Official-link recovery
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/verification-recovery.py
 
       - id: enrichment
-        name: Extract official notification PDFs and complete job fields
+        name: 5. Official notification enrichment
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/document-enrichment.py
 
       - id: e2e
-        name: Run controlled live end-to-end test
+        name: 6. Controlled live E2E validation
         if: ${{ !cancelled() }}
         continue-on-error: true
         run: python government-job-update/scripts/end-to-end-test.py
 
       - id: publicationRegression
-        name: Run publication gate regression test
+        name: 7. Publication-gate regression test
         if: ${{ !cancelled() }}
         continue-on-error: true
         run: python government-job-update/scripts/publication-gate-test.py
 
       - id: publicationQueue
-        name: Build structured verified-only publication queue
+        name: 8. Build verified publication queue and durable history
         if: ${{ !cancelled() }}
         run: python government-job-update/scripts/publication-gate.py
 
-      - id: adminSnapshot
-        name: Build admin monitoring status snapshot
-        if: ${{ !cancelled() }}
-        run: python government-job-update/scripts/build-admin-status.py
-
-      - name: Record workflow execution status
-        id: executionStatus
+      - id: executionStatus
+        name: 9. Record workflow execution telemetry
         if: ${{ !cancelled() }}
         env:
           STEP_DISCOVERY_OUTCOME: ${{ steps.discovery.outcome }}
+          STEP_BUFFER_OUTCOME: ${{ steps.buffer.outcome }}
           STEP_VERIFICATION_OUTCOME: ${{ steps.verification.outcome }}
           STEP_VERIFICATION_RECOVERY_OUTCOME: ${{ steps.verificationRecovery.outcome }}
           STEP_ENRICHMENT_OUTCOME: ${{ steps.enrichment.outcome }}
           STEP_E2E_OUTCOME: ${{ steps.e2e.outcome }}
           STEP_PUBLICATION_REGRESSION_OUTCOME: ${{ steps.publicationRegression.outcome }}
           STEP_PUBLICATION_QUEUE_OUTCOME: ${{ steps.publicationQueue.outcome }}
-          STEP_ADMIN_SNAPSHOT_OUTCOME: ${{ steps.adminSnapshot.outcome }}
+          STEP_ADMIN_SNAPSHOT_OUTCOME: PENDING
         run: python government-job-update/scripts/build-admin-execution-status.py
 
-      - name: Upload E2E and publication gate reports
+      - id: adminSnapshot
+        name: 10. Build admin dashboard snapshot
+        if: ${{ !cancelled() }}
+        run: python government-job-update/scripts/build-admin-status.py
+
+      - name: Upload diagnostic and buffer artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
         with:
-          name: government-job-update-test-reports
-          path: government-job-update/test-results/
+          name: government-job-update-run-state
+          path: |
+            government-job-update/data/discovery-buffer.json
+            government-job-update/data/admin-dashboard-state.json
+            government-job-update/data/admin-execution-status.json
+            government-job-update/test-results/
           if-no-files-found: warn
 
-      - name: Save discovery, verification, canonical, publication, admin and execution state
+      - name: Save discovery, verification, canonical, publication, buffer, admin and execution state
         if: ${{ !cancelled() }}
         shell: bash
         run: |
@@ -136,6 +142,7 @@ jobs:
                   government-job-update/data/canonical-job-records.json \
                   government-job-update/data/publication-queue.json \
                   government-job-update/data/publication-history.json \
+                  government-job-update/data/discovery-buffer.json \
                   government-job-update/data/admin-dashboard-state.json \
                   government-job-update/data/admin-execution-status.json
-          if git diff --cached --quiet; then echo "No discovery/verification/canonical/publication/history/admin/execution state change."; else git commit -m "Update government job pipeline monitoring state"; git push; fi
+          if git diff --cached --quiet; then echo "No pipeline state change."; else git commit -m "Update government job pipeline monitoring state"; git push; fi
