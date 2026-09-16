@@ -1,4 +1,5 @@
 import json
+import os
 import re
 import sys
 import urllib.request
@@ -19,7 +20,7 @@ CAN=DATA/'canonical-job-records.json'
 UA='ONESTOP-Government-Job-Update/3.3'
 TIMEOUT=7
 WORKERS=20
-MAX_RECORDS=600
+MAX_RECORDS=int(os.environ.get('ONESTOP_VERIFY_MAX_RECORDS','160'))
 MAX_LINKS=16
 GOV_HINTS=('gov.in','nic.in','ac.in','edu.in','govt.in')
 AUTHORITY_ALIASES={'ssc':'https://ssc.gov.in/','staff selection commission':'https://ssc.gov.in/','upsc':'https://www.upsc.gov.in/','rrb':'https://www.rrbapply.gov.in/','railway recruitment':'https://www.rrbapply.gov.in/','nta':'https://exams.nta.ac.in/','national testing agency':'https://exams.nta.ac.in/','drdo':'https://www.drdo.gov.in/','isro':'https://www.isro.gov.in/','csir':'https://www.csir.res.in/','icmr':'https://www.icmr.gov.in/','aiims':'https://www.aiims.edu/','ugc':'https://www.ugc.gov.in/','ibps':'https://www.ibps.in/','rbi':'https://www.rbi.org.in/','sbi':'https://sbi.co.in/','nabard':'https://www.nabard.org/','sebi':'https://www.sebi.gov.in/','epfo':'https://www.epfindia.gov.in/','esic':'https://www.esic.gov.in/','bhel':'https://www.bhel.com/','bel':'https://bel-india.in/','hal':'https://hal-india.co.in/','ongc':'https://ongcindia.com/','ntpc':'https://www.ntpc.co.in/','iocl':'https://iocl.com/','gail':'https://www.gailonline.com/','lic':'https://licindia.in/','uppsc':'https://uppsc.up.nic.in/','upsssc':'https://upsssc.gov.in/','bpsc':'https://www.bpsc.bih.nic.in/','rpsc':'https://rpsc.rajasthan.gov.in/','mppsc':'https://mppsc.mp.gov.in/','hpsc':'https://hpsc.gov.in/','wbpsc':'https://psc.wb.gov.in/','mpsc':'https://mpsc.gov.in/','tnpsc':'https://www.tnpsc.gov.in/','kpsc':'https://kpsc.kar.nic.in/','employment news':'https://employmentnews.gov.in/newemp/AllJobs.aspx?k=All','national scholarship portal':'https://scholarships.gov.in/','nsp':'https://scholarships.gov.in/','mecl':'https://mecl.co.in/','nfsu':'https://nfsu.ac.in/','balmer lawrie':'https://www.balmerlawrie.com/','rcf':'https://www.rcfltd.com/','hpcl':'https://www.hindustanpetroleum.com/','bpcl':'https://www.bharatpetroleum.in/','coal india':'https://www.coalindia.in/','powergrid':'https://www.powergrid.in/','pfc':'https://www.pfcindia.com/','rec limited':'https://recindia.nic.in/','nfdb':'https://nfdb.gov.in/','fci':'https://fci.gov.in/','nabcons':'https://www.nabcons.com/','kea':'https://cetonline.karnataka.gov.in/kea/','karnataka examination authority':'https://cetonline.karnataka.gov.in/kea/'}
@@ -95,7 +96,6 @@ def candidate_pages(title,desc,discovery_body,discovery_url):
    try:ps,page,resolved=future.result()
    except Exception:continue
    if ps==200 and page:first.append((resolved,page,title_of(page),html_text(page)))
- # One bounded second hop: official authority home pages often link to the actual recruitment/notification page.
  second=[]
  for resolved,page,ot,txt in first:
   if not official(resolved):continue
@@ -129,7 +129,6 @@ def verify_one(item):
   sc,overlap=score(title,ot,txt,category,resolved,desc)
   low=(title+' '+ot+' '+txt[:22000]).lower(); year=bool(re.search(r'\b20\d{2}\b',txt[:30000])); signal=any(x in low for x in TYPE_WORDS.get(category,('recruitment','vacancy','notification')))
   path=urlparse(resolved).path.lower(); specific=any(k in path for k in ('recruit','career','vacan','notice','notification','advert','apply','job','result','admit','answer','syllabus','admission'))
-  # Do not publish a generic authority homepage as the "official notice". A specific official page is required.
   if year and signal and specific and ((overlap>=2 and sc>=0.30) or (authority_hit(title,desc,resolved) and overlap>=1 and sc>=0.30)):
    found.append((sc,overlap,resolved,ot,txt))
  if found:
@@ -144,8 +143,11 @@ def verify_one(item):
 
 def main():
  now=datetime.now(timezone.utc).isoformat(); state=json.loads(STATE.read_text(encoding='utf-8')) if STATE.exists() else {'status':'source_unavailable','items':{}}; canonical=json.loads(CAN.read_text(encoding='utf-8')) if CAN.exists() else {'schemaVersion':1,'items':{}}; previous=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {'items':{}}
- all_items=list(state.get('items',{}).items()); all_items.sort(key=lambda p:(0 if previous.get('items',{}).get(p[0],{}).get('status')=='verified' else 1,-len(p[1].get('title','')+' '+p[1].get('description','')))); selected=all_items[:MAX_RECORDS]; skipped=all_items[MAX_RECORDS:]
- results={}; counts={'verified':0,'hold':0,'checked':0,'new':0,'changed':0,'unchanged':0,'reused':0,'skipped':len(skipped)}
+ all_items=list(state.get('items',{}).items())
+ all_items.sort(key=lambda p:p[1].get('lastSeenAt') or p[1].get('lastDiscoveredAt') or p[1].get('discoveredAt') or '',reverse=True)
+ all_items.sort(key=lambda p:0 if previous.get('items',{}).get(p[0],{}).get('status')!='verified' else 1)
+ selected=all_items[:MAX_RECORDS]; skipped=all_items[MAX_RECORDS:]
+ results={}; counts={'verified':0,'hold':0,'checked':0,'new':0,'changed':0,'unchanged':0,'reused':0,'skipped':len(skipped),'selectionLimit':MAX_RECORDS}
  with ThreadPoolExecutor(max_workers=WORKERS) as pool:
   futures={pool.submit(verify_one,item):(item_id,item) for item_id,item in selected}
   for future in as_completed(futures):
@@ -155,5 +157,5 @@ def main():
    results[item_id]=result; counts['checked']+=1; counts['verified']+=int(result.get('status')=='verified'); counts['hold']+=int(result.get('status')!='verified')
    incoming=dict(result.get('fields',{})); incoming.update({'jobId':item_id,'notificationUrl':incoming.get('notificationUrl') or item.get('url',''),'source':item.get('discoverySource','MultiSource'),'verificationStatus':result.get('status','hold'),'publicationStatus':result.get('publicationStatus','hold'),'officialSource':result.get('officialSource'),'lastSeenAt':now}); canonical,event=engine.upsert(incoming,canonical); ev=str(event.get('event','unchanged')).lower(); counts['new' if ev in ('created','new') else 'changed' if ev in ('updated','changed') else 'unchanged']+=1; result.update({'canonicalRecordId':event.get('jobId',item_id),'changeEvent':event.get('event','unchanged'),'recordVersion':event.get('recordVersion')})
  for item_id,item in skipped: results[item_id]={'id':item_id,'discoveryUrl':item.get('url',''),'status':'hold','publicationStatus':'hold','checkedAt':now,'officialSource':None,'checks':{'deferred_due_to_run_bound':False},'reason':'deferred_due_to_verification_run_bound','fields':rich_fields(item,item.get('description',''))}
- save(CAN,canonical); save(OUT,{'schemaVersion':7,'checkedAt':now,'sourceStatus':state.get('status'),'counts':counts,'items':results}); save(LOG,{'checkedAt':now,'status':'ok','counts':counts,'strategy':'Parallel official verification with bounded second-hop official link discovery, strict title/source matching, and rich source-page field extraction; generic authority homepages are not published as notification links'}); return 0
-if __name__=='__main__': sys.exit(main())
+ save(CAN,canonical); save(OUT,{'schemaVersion':7,'checkedAt':now,'sourceStatus':state.get('status'),'counts':counts,'items':results}); save(LOG,{'checkedAt':now,'status':'ok','counts':counts,'strategy':'Prioritize new/pending and most recently discovered records within a bounded verification workset; previously verified records are refreshed only after pending work. Parallel official verification with bounded second-hop official link discovery remains strict.'}); return 0
+if __name__=='__main__':sys.exit(main())
