@@ -38,7 +38,7 @@ jobs:
         id: review
         env:
           JOB_URL: ${{ inputs.job_url }}
-        run: python government-job-update/scripts/manual-job-review.py | tee manual-job-review-output.json
+        run: python government-job-update/scripts/manual-job-review-v3.py | tee manual-job-review-output.json
 
       - name: Build GitHub Actions review summary
         env:
