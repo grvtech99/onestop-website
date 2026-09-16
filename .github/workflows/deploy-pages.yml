@@ -54,7 +54,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          sed -i 's#</body>#<script src="admin-live-monitor.js?v=govpipe20260916-v1"></script></body>#' government-job-update/onestop-government-admin.html
+          sed -i 's#</body>#<script src="admin-live-monitor.js?v=govpipe20260916-v2"></script></body>#' government-job-update/onestop-government-admin.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
