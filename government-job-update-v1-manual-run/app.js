@@ -1,19 +1,1554 @@
-const CONFIG={BACKEND_URL:'https://script.google.com/macros/s/AKfycbxwkkvwywqlUCoKm5e2mn6_bWnVetplul5GujQ2DOF4gnFlHmBMzcIqj1lOGlgLgBxf9g/exec'};
-const CORE_FIELDS=[['Organization / Authority',''],['Recruitment Name',''],['Advertisement No.',''],['Total Vacancy',''],['Application Start Date',''],['Last Date to Apply',''],['Exam Date',''],['Application Fee',''],['Minimum Age',''],['Maximum Age',''],['Age Relaxation',''],['Qualification / Eligibility',''],['Salary / Pay Scale',''],['Selection Process',''],['Job Location',''],['Application Mode',''],['How to Apply',''],['Documents Required','']];
-const state={fields:CORE_FIELDS.map(x=>[...x]),custom:[],tables:[],links:[],source:{pdf:'',url:''},rawText:'',status:'TEST'};
-const $=id=>document.getElementById(id); const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); const clean=s=>String(s||'').replace(/\u00a0/g,' ').replace(/[ \t]+/g,' ').replace(/\n\s*\n+/g,'\n').trim();
-function renderFields(){const box=$('fields');box.innerHTML=state.fields.map((f,i)=>`<div class="field-row"><label>${esc(f[0])}</label><textarea data-i="${i}" class="core-value">${esc(f[1])}</textarea><button class="btn danger remove" title="Remove field" onclick="removeField(${i})">×</button></div>`).join('');$('customFields').innerHTML=state.custom.map((f,i)=>`<div class="custom-row"><input value="${esc(f[0])}" placeholder="Field name" onchange="state.custom[${i}][0]=this.value"><textarea placeholder="Value">${esc(f[1])}</textarea><button class="btn danger" onclick="state.custom.splice(${i},1);renderFields()">×</button></div>`).join('');document.querySelectorAll('.custom-row textarea').forEach((e,i)=>e.oninput=()=>state.custom[i][1]=e.value)}
-function syncFields(){document.querySelectorAll('#fields .core-value').forEach(e=>state.fields[+e.dataset.i][1]=e.value)} function addCustom(){state.custom.push(['New Field','']);renderFields()} function removeField(i){state.fields.splice(i,1);renderFields();checkData();preview()}
-function addTable(){state.tables.push({name:'New Table',columns:['Column 1','Column 2'],rows:[['','']]});renderTables()} function renderTables(){$('tables').innerHTML=state.tables.map((t,ti)=>`<div class="card table-card"><label>Table Name</label><input value="${esc(t.name)}" onchange="state.tables[${ti}].name=this.value"><div class="table-wrap"><table class="data-table"><thead><tr>${t.columns.map((c,ci)=>`<th><input value="${esc(c)}" onchange="state.tables[${ti}].columns[${ci}]=this.value"></th>`).join('')}<th>Action</th></tr></thead><tbody>${t.rows.map((r,ri)=>`<tr>${r.map((c,ci)=>`<td><textarea onchange="state.tables[${ti}].rows[${ri}][${ci}]=this.value">${esc(c)}</textarea></td>`).join('')}<td><button class="btn danger" onclick="state.tables[${ti}].rows.splice(${ri},1);renderTables()">×</button></td></tr>`).join('')}</tbody></table></div><div class="row-actions"><button class="btn secondary" onclick="state.tables[${ti}].rows.push(Array(state.tables[${ti}].columns.length).fill(''));renderTables()">+ Row</button><button class="btn secondary" onclick="state.tables[${ti}].columns.push('New Column');state.tables[${ti}].rows.forEach(r=>r.push(''));renderTables()">+ Column</button><button class="btn danger" onclick="state.tables.splice(${ti},1);renderTables()">Delete Table</button></div></div>`).join('')}
-function addLink(){state.links.push(['New Link','']);renderLinks()} function renderLinks(){$('links').innerHTML=state.links.map((l,i)=>`<div class="field-row"><input value="${esc(l[0])}" placeholder="Label" onchange="state.links[${i}][0]=this.value"><input value="${esc(l[1])}" placeholder="https://..." onchange="state.links[${i}][1]=this.value"><button class="btn danger" onclick="state.links.splice(${i},1);renderLinks()">×</button></div>`).join('')}
-function extractRegex(text,patterns){for(const p of patterns){const m=text.match(p);if(m&&m[1])return clean(m[1])}return ''}
-function extractText(text){state.rawText=clean(text);const rules={'Organization / Authority':[/\b(?:organization|organisation|authority|department|commission|ministry|board|university)\s*[:\-]\s*([^\n]+)/i],'Recruitment Name':[/\b((?:direct|regular|online|special)?\s*recruitment[^\n]{0,120})/i,/\b((?:combined|graduate|technical|teacher|police|railway)[^\n]{0,100}recruitment[^\n]{0,60})/i],'Advertisement No.':[/\b(?:advertisement|notification|advt\.?|adv\.?)\s*(?:no|number|num)?\.?\s*[:\-]?\s*([^\n|]{2,80})/i],'Total Vacancy':[/\b(?:total\s+(?:vacancies|posts?)|vacancies\s*[:\-])\s*[:\-]?\s*([\d,]+)/i,/(\d[\d,]+)\s+(?:vacancies|posts)\b/i],'Application Start Date':[/\b(?:application|online application)\s+(?:start|starts|begin|begins|from)\s*[:\-]?\s*([^\n]+)/i],'Last Date to Apply':[/\b(?:last date(?:\s+to\s+apply)?|closing date|apply online upto)\s*[:\-]?\s*([^\n]+)/i,/(?:apply|application)\s+(?:up to|upto|till)\s*[:\-]?\s*([^\n]+)/i],'Exam Date':[/\b(?:exam|examination|test)\s+date\s*[:\-]?\s*([^\n]+)/i],'Application Fee':[/\b(?:application|exam)\s+fee\s*[:\-]?\s*([\s\S]{1,300}?)(?=\n(?:age|eligibility|qualification|vacancy|important|selection)\b|$)/i],'Minimum Age':[/\bminimum\s+age\s*[:\-]?\s*([^\n]+)/i],'Maximum Age':[/\bmaximum\s+age\s*[:\-]?\s*([^\n]+)/i,/\bage\s+limit\s*[:\-]?\s*([^\n]+)/i],'Age Relaxation':[/\bage\s+relaxation\s*[:\-]?\s*([\s\S]{1,500}?)(?=\n(?:qualification|eligibility|vacancy|salary|selection|how to)\b|$)/i],'Qualification / Eligibility':[/\b(?:educational\s+)?qualification\s*[:\-]?\s*([\s\S]{1,1000}?)(?=\n(?:age|salary|pay|selection|vacancy|important|how to)\b|$)/i,/\beligibility\s*[:\-]?\s*([\s\S]{1,1000}?)(?=\n(?:age|salary|pay|selection|vacancy|important|how to)\b|$)/i],'Salary / Pay Scale':[/\bpay\s*(?:scale|level)\s*[:\-]?\s*([^\n]+)/i,/\b(?:salary|stipend|remuneration)\s*[:\-]?\s*([^\n]+)/i],'Selection Process':[/\bselection\s+(?:process|procedure)\s*[:\-]?\s*([^\n]+)/i],'Job Location':[/\bjob\s+location\s*[:\-]?\s*([^\n]+)/i],'Application Mode':[/\bapplication\s+mode\s*[:\-]?\s*([^\n]+)/i],'How to Apply':[/\bhow\s+to\s+apply\s*[:\-]?\s*([\s\S]{1,1200}?)(?=\n(?:important\s+links|documents|selection|salary|contact)\b|$)/i],'Documents Required':[/\b(?:documents|document)\s+required\s*[:\-]?\s*([\s\S]{1,800}?)(?=\n(?:important\s+links|how to|selection|contact)\b|$)/i]};state.fields.forEach(f=>{if(!f[1]&&rules[f[0]])f[1]=extractRegex(state.rawText,rules[f[0]])});renderFields();checkData();preview()}
-async function readPdf(file){$('extractStatus').innerHTML='<span class="pill">Reading PDF…</span>';state.source.pdf=file.name;try{if(!window.pdfjsLib)throw Error('PDF engine is not loaded. Refresh and retry.');const buf=await file.arrayBuffer(),pdf=await window.pdfjsLib.getDocument({data:buf}).promise;let out='';for(let p=1;p<=pdf.numPages;p++){const page=await pdf.getPage(p),c=await page.getTextContent();out+=c.items.map(x=>x.str).join(' ')+'\n'}if(out.replace(/\s/g,'').length<80){$('extractStatus').innerHTML='<span class="warn">⚠ This PDF is scanned/image-only or has little selectable text. V1 will not pretend OCR succeeded.</span>';return}$('extractStatus').innerHTML='<span class="ok">✓ Extracted text from '+pdf.numPages+' page(s).</span>';extractText(out)}catch(e){$('extractStatus').innerHTML='<span class="bad">PDF read error: '+esc(e.message)+'</span>'}}
-async function extractFromUrl(){const url=$('url').value.trim();if(!url)return setUrlStatus('Enter the official URL first.','bad');if(!/^https?:\/\//i.test(url))return setUrlStatus('URL must start with http:// or https://','bad');state.source.url=url;setUrlStatus('Reading official URL…','pill');if(!CONFIG.BACKEND_URL){setUrlStatus('URL extraction backend is not configured yet. PDF extraction is available in this test build.','warn');return}try{const r=await fetch(CONFIG.BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'crawlUrl',url})}),data=await r.json();if(!data.ok)throw Error(data.error||'URL extraction failed');setUrlStatus('✓ Official page text extracted.','ok');extractText(data.text)}catch(e){setUrlStatus('URL extraction failed: '+e.message,'bad')}} function setUrlStatus(msg,cls){$('urlStatus').innerHTML='<span class="'+cls+'">'+esc(msg)+'</span>'}
-function checkData(){syncFields();const required=['Organization / Authority','Recruitment Name','Total Vacancy','Last Date to Apply'],missing=required.filter(n=>!clean((state.fields.find(f=>f[0]===n)||[])[1])),found=state.fields.filter(f=>clean(f[1])).length+state.custom.filter(f=>clean(f[1])).length,total=state.fields.length+state.custom.length,score=total?Math.round(found/total*100):0;$('check').innerHTML=`<div class="check"><b>DATA CHECK</b><br>Fields populated: ${found}/${total} (${score}%)<br>${missing.length?'<span class="bad">❌ Core fields missing: '+missing.map(esc).join(', ')+'</span>':'<span class="ok">✓ Core fields populated.</span>'}<br><span class="muted">Presence/structure check only; admin verification is required.</span></div>`;return !missing.length}
-function section(title,arr){return !arr.length?'':`<div class="section"><h3>${esc(title)}</h3><div class="kv">${arr.filter(f=>clean(f[1])).map(f=>`<div><b>${esc(f[0])}</b><span>${esc(f[1])}</span></div>`).join('')}</div></div>`}
-function preview(){syncFields();const v=state.fields,non=names=>v.filter(f=>names.includes(f[0]));$('preview').innerHTML=`<div class="preview-head"><span class="pill">TEST PREVIEW • NOT LIVE</span><h1>${esc((v.find(f=>f[0]=='Recruitment Name')||[])[1]||'Untitled Vacancy')}</h1><div>${esc((v.find(f=>f[0]=='Organization / Authority')||[])[1]||'')}</div></div>${section('Important Dates',non(['Application Start Date','Last Date to Apply','Exam Date']))}${section('Application Fee',non(['Application Fee']))}${section('Age Limit & Relaxation',non(['Minimum Age','Maximum Age','Age Relaxation']))}${section('Vacancy / Recruitment Information',non(['Advertisement No.','Total Vacancy']))}${section('Eligibility / Qualification',non(['Qualification / Eligibility']))}${section('Salary / Pay Scale',non(['Salary / Pay Scale']))}${section('Selection Process',non(['Selection Process']))}${section('Job Location & Application Mode',non(['Job Location','Application Mode']))}${section('How to Apply',non(['How to Apply','Documents Required']))}${state.custom.filter(f=>clean(f[1])).map(f=>section(f[0],[f])).join('')}${state.tables.map(t=>`<div class="section"><h3>${esc(t.name)}</h3><div class="table-wrap"><table class="data-table"><thead><tr>${t.columns.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`).join('')}${state.links.length?`<div class="section"><h3>Important Links</h3>${state.links.map(l=>`<p><a href="${esc(l[1])}" target="_blank" rel="noopener">${esc(l[0])}</a></p>`).join('')}</div>`:''}`}
-function record(){syncFields();return JSON.parse(JSON.stringify({...state,executedAt:new Date().toISOString()}))}
-function execute(){if(!checkData()){alert('Required core data is missing. Correct it before Execute Test.');return}const rec=record();rec.status='EXECUTED_TEST';localStorage.setItem('onestopJobV1TestRecord',JSON.stringify(rec));const blob=new Blob([JSON.stringify(rec,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='onestop-job-v1-test-record.json';a.click();$('executeStatus').innerHTML='<span class="ok">✓ Local test record created. JSON snapshot downloaded. Nothing live was published.</span>'}
-async function publishTest(){if(!checkData()){alert('Fix required fields before Test Publish.');return}const rec=record();rec.status='PUBLISHED_TEST';if(!CONFIG.BACKEND_URL){localStorage.setItem('onestopJobV1TestRecord',JSON.stringify(rec));$('executeStatus').innerHTML='<span class="warn">✓ Saved as browser Test Publish. Configure Apps Script backend for a shared public test page.</span>';return}const key=prompt('Enter TEST admin key:');if(key===null)return;$('executeStatus').innerHTML='<span class="pill">Publishing to test backend…</span>';try{const r=await fetch(CONFIG.BACKEND_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'publishTest',key,record:rec})}),data=await r.json();if(!data.ok)throw Error(data.error||'Publish failed');localStorage.setItem('onestopJobV1TestRecord',JSON.stringify({...rec,id:data.id,publishedAt:data.publishedAt}));$('executeStatus').innerHTML='<span class="ok">✓ Test publication complete. ID: '+esc(data.id)+'</span>'}catch(e){$('executeStatus').innerHTML='<span class="bad">Test publish failed: '+esc(e.message)+'</span>'}}
-$('pdf').addEventListener('change',e=>e.target.files[0]&&readPdf(e.target.files[0]));$('urlExtractBtn').onclick=extractFromUrl;$('url').addEventListener('input',e=>state.source.url=e.target.value);$('checkBtn').onclick=checkData;$('previewBtn').onclick=preview;$('executeBtn').onclick=execute;$('publishBtn').onclick=publishTest;renderFields();renderTables();renderLinks();checkData();
+const CONFIG = {
+  BACKEND_URL: 'https://script.google.com/macros/s/AKfycbxwkkvwywqlUCoKm5e2mn6_bWnVetplul5GujQ2DOF4gnFlHmBMzcIqj1lOGlgLgBxf9g/exec'
+};
+
+const CORE_FIELDS = [
+  ['Organization / Authority',''],
+  ['Recruitment Name',''],
+  ['Advertisement No.',''],
+  ['Total Vacancy',''],
+  ['Application Start Date',''],
+  ['Last Date to Apply',''],
+  ['Exam Date',''],
+  ['Application Fee',''],
+  ['Minimum Age',''],
+  ['Maximum Age',''],
+  ['Age Relaxation',''],
+  ['Qualification / Eligibility',''],
+  ['Salary / Pay Scale',''],
+  ['Selection Process',''],
+  ['Job Location',''],
+  ['Application Mode',''],
+  ['How to Apply',''],
+  ['Documents Required','']
+];
+
+const state = {
+  fields: CORE_FIELDS.map(x => [...x]),
+  custom: [],
+  tables: [],
+  links: [],
+  source: { pdf:'', url:'' },
+  rawText: '',
+  status: 'TEST'
+};
+
+const $ = id => document.getElementById(id);
+
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+}[c]));
+
+const clean = s => String(s || '')
+  .replace(/\u00a0/g,' ')
+  .replace(/[ \t]+/g,' ')
+  .replace(/\n\s*\n+/g,'\n')
+  .trim();
+
+function setStatus(message, type='muted') {
+  const el = $('executeStatus');
+  if (el) {
+    el.innerHTML =
+      `<span class="${type}">${esc(message)}</span>`;
+  }
+}
+
+function renderFields() {
+
+  const box = $('fields');
+
+  box.innerHTML = state.fields.map((f,i) => `
+    <div class="field-row">
+
+      <label>${esc(f[0])}</label>
+
+      <textarea
+        data-i="${i}"
+        class="core-value"
+      >${esc(f[1])}</textarea>
+
+      <button
+        class="btn danger remove"
+        title="Remove field"
+        onclick="removeField(${i})"
+      >×</button>
+
+    </div>
+  `).join('');
+
+  $('customFields').innerHTML =
+    state.custom.map((f,i) => `
+
+      <div class="custom-row">
+
+        <input
+          value="${esc(f[0])}"
+          placeholder="Field name"
+          onchange="state.custom[${i}][0]=this.value"
+        >
+
+        <textarea
+          placeholder="Value"
+        >${esc(f[1])}</textarea>
+
+        <button
+          class="btn danger"
+          onclick="state.custom.splice(${i},1);renderFields()"
+        >×</button>
+
+      </div>
+
+    `).join('');
+
+  document
+    .querySelectorAll('.custom-row textarea')
+    .forEach((e,i) => {
+
+      e.oninput = () => {
+        state.custom[i][1] = e.value;
+      };
+
+    });
+}
+
+function syncFields() {
+
+  document
+    .querySelectorAll('#fields .core-value')
+    .forEach(e => {
+
+      if (state.fields[+e.dataset.i]) {
+        state.fields[+e.dataset.i][1] =
+          e.value;
+      }
+
+    });
+}
+
+function addCustom() {
+
+  state.custom.push([
+    'New Field',
+    ''
+  ]);
+
+  renderFields();
+}
+
+function removeField(i) {
+
+  state.fields.splice(i,1);
+
+  renderFields();
+  checkData();
+  preview();
+}
+
+function addTable() {
+
+  state.tables.push({
+
+    name: 'New Table',
+
+    columns: [
+      'Column 1',
+      'Column 2'
+    ],
+
+    rows: [
+      ['', '']
+    ]
+
+  });
+
+  renderTables();
+}
+
+function renderTables() {
+
+  $('tables').innerHTML =
+    state.tables.map((t,ti) => `
+
+      <div class="card table-card">
+
+        <label>Table Name</label>
+
+        <input
+          value="${esc(t.name)}"
+          onchange="
+            state.tables[${ti}].name=this.value
+          "
+        >
+
+        <div class="table-wrap">
+
+          <table class="data-table">
+
+            <thead>
+
+              <tr>
+
+                ${
+                  t.columns.map((c,ci) => `
+
+                    <th>
+
+                      <input
+                        value="${esc(c)}"
+                        onchange="
+                          state.tables[${ti}]
+                            .columns[${ci}]
+                            =this.value
+                        "
+                      >
+
+                    </th>
+
+                  `).join('')
+                }
+
+                <th>Action</th>
+
+              </tr>
+
+            </thead>
+
+            <tbody>
+
+              ${
+                t.rows.map((r,ri) => `
+
+                  <tr>
+
+                    ${
+                      r.map((c,ci) => `
+
+                        <td>
+
+                          <textarea
+                            onchange="
+                              state.tables[${ti}]
+                                .rows[${ri}]
+                                [${ci}]
+                                =this.value
+                            "
+                          >${esc(c)}</textarea>
+
+                        </td>
+
+                      `).join('')
+                    }
+
+                    <td>
+
+                      <button
+                        class="btn danger"
+                        onclick="
+                          state.tables[${ti}]
+                            .rows.splice(${ri},1);
+                          renderTables()
+                        "
+                      >×</button>
+
+                    </td>
+
+                  </tr>
+
+                `).join('')
+              }
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <div class="row-actions">
+
+          <button
+            class="btn secondary"
+            onclick="
+              state.tables[${ti}]
+                .rows.push(
+                  Array(
+                    state.tables[${ti}]
+                      .columns.length
+                  ).fill('')
+                );
+              renderTables()
+            "
+          >
+            + Row
+          </button>
+
+          <button
+            class="btn secondary"
+            onclick="
+              state.tables[${ti}]
+                .columns.push('New Column');
+
+              state.tables[${ti}]
+                .rows
+                .forEach(r => r.push(''));
+
+              renderTables()
+            "
+          >
+            + Column
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="
+              state.tables.splice(${ti},1);
+              renderTables()
+            "
+          >
+            Delete Table
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join('');
+}
+
+function addLink() {
+
+  state.links.push([
+    'New Link',
+    ''
+  ]);
+
+  renderLinks();
+}
+
+function renderLinks() {
+
+  $('links').innerHTML =
+    state.links.map((l,i) => `
+
+      <div class="field-row">
+
+        <input
+          value="${esc(l[0])}"
+          placeholder="Label"
+          onchange="
+            state.links[${i}][0]=this.value
+          "
+        >
+
+        <input
+          value="${esc(l[1])}"
+          placeholder="https://..."
+          onchange="
+            state.links[${i}][1]=this.value
+          "
+        >
+
+        <button
+          class="btn danger"
+          onclick="
+            state.links.splice(${i},1);
+            renderLinks()
+          "
+        >×</button>
+
+      </div>
+
+    `).join('');
+}
+
+function extractRegex(text,patterns) {
+
+  for (const p of patterns) {
+
+    const m = text.match(p);
+
+    if (m && m[1]) {
+      return clean(m[1]);
+    }
+
+  }
+
+  return '';
+}
+
+function extractText(text) {
+
+  state.rawText = clean(text);
+
+  const rules = {
+
+    'Organization / Authority': [
+
+      /\b(?:organization|organisation|authority|department|commission|ministry|board|university)\s*[:\-]\s*([^\n]+)/i
+
+    ],
+
+    'Recruitment Name': [
+
+      /\b((?:direct|regular|online|special)?\s*recruitment[^\n]{0,120})/i,
+
+      /\b((?:combined|graduate|technical|teacher|police|railway)[^\n]{0,100}recruitment[^\n]{0,60})/i
+
+    ],
+
+    'Advertisement No.': [
+
+      /\b(?:advertisement|notification|advt\.?|adv\.?)\s*(?:no|number|num)?\.?\s*[:\-]?\s*([^\n|]{2,80})/i
+
+    ],
+
+    'Total Vacancy': [
+
+      /\b(?:total\s+(?:vacancies|posts?)|vacancies\s*[:\-])\s*[:\-]?\s*([\d,]+)/i,
+
+      /(\d[\d,]+)\s+(?:vacancies|posts)\b/i
+
+    ],
+
+    'Application Start Date': [
+
+      /\b(?:application|online application)\s+(?:start|starts|begin|begins|from)\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Last Date to Apply': [
+
+      /\b(?:last date(?:\s+to\s+apply)?|closing date|apply online upto)\s*[:\-]?\s*([^\n]+)/i,
+
+      /(?:apply|application)\s+(?:up to|upto|till)\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Exam Date': [
+
+      /\b(?:exam|examination|test)\s+date\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Application Fee': [
+
+      /\b(?:application|exam)\s+fee\s*[:\-]?\s*([\s\S]{1,300}?)(?=\n(?:age|eligibility|qualification|vacancy|important|selection)\b|$)/i
+
+    ],
+
+    'Minimum Age': [
+
+      /\bminimum\s+age\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Maximum Age': [
+
+      /\bmaximum\s+age\s*[:\-]?\s*([^\n]+)/i,
+
+      /\bage\s+limit\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Age Relaxation': [
+
+      /\bage\s+relaxation\s*[:\-]?\s*([\s\S]{1,500}?)(?=\n(?:qualification|eligibility|vacancy|salary|selection|how to)\b|$)/i
+
+    ],
+
+    'Qualification / Eligibility': [
+
+      /\b(?:educational\s+)?qualification\s*[:\-]?\s*([\s\S]{1,1000}?)(?=\n(?:age|salary|pay|selection|vacancy|important|how to)\b|$)/i,
+
+      /\beligibility\s*[:\-]?\s*([\s\S]{1,1000}?)(?=\n(?:age|salary|pay|selection|vacancy|important|how to)\b|$)/i
+
+    ],
+
+    'Salary / Pay Scale': [
+
+      /\bpay\s*(?:scale|level)\s*[:\-]?\s*([^\n]+)/i,
+
+      /\b(?:salary|stipend|remuneration)\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Selection Process': [
+
+      /\bselection\s+(?:process|procedure)\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Job Location': [
+
+      /\bjob\s+location\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'Application Mode': [
+
+      /\bapplication\s+mode\s*[:\-]?\s*([^\n]+)/i
+
+    ],
+
+    'How to Apply': [
+
+      /\bhow\s+to\s+apply\s*[:\-]?\s*([\s\S]{1,1200}?)(?=\n(?:important\s+links|documents|selection|salary|contact)\b|$)/i
+
+    ],
+
+    'Documents Required': [
+
+      /\b(?:documents|document)\s+required\s*[:\-]?\s*([\s\S]{1,800}?)(?=\n(?:important\s+links|how to|selection|contact)\b|$)/i
+
+    ]
+
+  };
+
+  state.fields.forEach(f => {
+
+    if (
+      !f[1] &&
+      rules[f[0]]
+    ) {
+
+      f[1] =
+        extractRegex(
+          state.rawText,
+          rules[f[0]]
+        );
+
+    }
+
+  });
+
+  renderFields();
+  checkData();
+  preview();
+}
+
+async function readPdf(file) {
+
+  $('extractStatus').innerHTML =
+    '<span class="pill">Reading PDF…</span>';
+
+  state.source.pdf =
+    file.name;
+
+  try {
+
+    if (!window.pdfjsLib) {
+
+      throw Error(
+        'PDF engine is not loaded. Refresh and retry.'
+      );
+
+    }
+
+    const buf =
+      await file.arrayBuffer();
+
+    const pdf =
+      await window.pdfjsLib
+        .getDocument({
+          data:buf
+        })
+        .promise;
+
+    let out = '';
+
+    for (
+      let p = 1;
+      p <= pdf.numPages;
+      p++
+    ) {
+
+      const page =
+        await pdf.getPage(p);
+
+      const c =
+        await page.getTextContent();
+
+      out +=
+        c.items
+          .map(x => x.str)
+          .join(' ') +
+        '\n';
+
+    }
+
+    if (
+      out.replace(/\s/g,'').length <
+      80
+    ) {
+
+      $('extractStatus').innerHTML =
+        '<span class="warn">⚠ This PDF is scanned/image-only or has little selectable text. V1 will not pretend OCR succeeded.</span>';
+
+      return;
+    }
+
+    $('extractStatus').innerHTML =
+      '<span class="ok">✓ Extracted text from ' +
+      pdf.numPages +
+      ' page(s).</span>';
+
+    extractText(out);
+
+  } catch (e) {
+
+    $('extractStatus').innerHTML =
+      '<span class="bad">PDF read error: ' +
+      esc(e.message) +
+      '</span>';
+
+  }
+}
+
+async function extractFromUrl() {
+
+  const url =
+    $('url').value.trim();
+
+  if (!url) {
+
+    return setUrlStatus(
+      'Enter the official URL first.',
+      'bad'
+    );
+
+  }
+
+  if (
+    !/^https?:\/\//i.test(url)
+  ) {
+
+    return setUrlStatus(
+      'URL must start with http:// or https://',
+      'bad'
+    );
+
+  }
+
+  state.source.url =
+    url;
+
+  setUrlStatus(
+    'Reading official URL…',
+    'pill'
+  );
+
+  try {
+
+    const r =
+      await fetch(
+        CONFIG.BACKEND_URL,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'application/json'
+          },
+
+          body:JSON.stringify({
+            action:'crawlUrl',
+            url:url
+          })
+        }
+      );
+
+    const data =
+      await r.json();
+
+    if (!data.ok) {
+
+      throw Error(
+        data.error ||
+        'URL extraction failed'
+      );
+
+    }
+
+    setUrlStatus(
+      '✓ Official page text extracted.',
+      'ok'
+    );
+
+    extractText(
+      data.text
+    );
+
+  } catch (e) {
+
+    setUrlStatus(
+      'URL extraction failed: ' +
+      e.message,
+      'bad'
+    );
+
+  }
+}
+
+function setUrlStatus(msg,cls) {
+
+  $('urlStatus').innerHTML =
+    '<span class="' +
+    cls +
+    '">' +
+    esc(msg) +
+    '</span>';
+}
+
+function checkData() {
+
+  syncFields();
+
+  const required = [
+
+    'Organization / Authority',
+
+    'Recruitment Name',
+
+    'Total Vacancy',
+
+    'Last Date to Apply'
+
+  ];
+
+  const missing =
+    required.filter(n =>
+      !clean(
+        (
+          state.fields.find(
+            f => f[0] === n
+          ) || []
+        )[1]
+      )
+    );
+
+  const found =
+    state.fields.filter(
+      f => clean(f[1])
+    ).length +
+
+    state.custom.filter(
+      f => clean(f[1])
+    ).length;
+
+  const total =
+    state.fields.length +
+    state.custom.length;
+
+  const score =
+    total
+      ? Math.round(
+          found /
+          total *
+          100
+        )
+      : 0;
+
+  $('check').innerHTML = `
+
+    <div class="check">
+
+      <b>DATA CHECK</b>
+
+      <br>
+
+      Fields populated:
+      ${found}/${total}
+      (${score}%)
+
+      <br>
+
+      ${
+        missing.length
+
+          ? '<span class="bad">❌ Core fields missing: ' +
+            missing.map(esc).join(', ') +
+            '</span>'
+
+          : '<span class="ok">✓ Core fields populated.</span>'
+      }
+
+      <br>
+
+      <span class="muted">
+        Presence/structure check only;
+        admin verification is required.
+      </span>
+
+    </div>
+
+  `;
+
+  return !missing.length;
+}
+
+function section(title,arr) {
+
+  return !arr.length
+    ? ''
+    : `
+
+      <div class="section">
+
+        <h3>
+          ${esc(title)}
+        </h3>
+
+        <div class="kv">
+
+          ${
+            arr
+              .filter(
+                f => clean(f[1])
+              )
+              .map(f => `
+
+                <div>
+
+                  <b>
+                    ${esc(f[0])}
+                  </b>
+
+                  <span>
+                    ${esc(f[1])}
+                  </span>
+
+                </div>
+
+              `)
+              .join('')
+          }
+
+        </div>
+
+      </div>
+
+    `;
+}
+
+function preview() {
+
+  syncFields();
+
+  const v =
+    state.fields;
+
+  const non =
+    names =>
+      v.filter(
+        f =>
+          names.includes(f[0])
+      );
+
+  $('preview').innerHTML = `
+
+    <div class="preview-head">
+
+      <span class="pill">
+        TEST PREVIEW • NOT LIVE
+      </span>
+
+      <h1>
+        ${esc(
+          (
+            v.find(
+              f =>
+                f[0] ===
+                'Recruitment Name'
+            ) || []
+          )[1] ||
+          'Untitled Vacancy'
+        )}
+      </h1>
+
+      <div>
+        ${esc(
+          (
+            v.find(
+              f =>
+                f[0] ===
+                'Organization / Authority'
+            ) || []
+          )[1] || ''
+        )}
+      </div>
+
+    </div>
+
+    ${section(
+      'Important Dates',
+      non([
+        'Application Start Date',
+        'Last Date to Apply',
+        'Exam Date'
+      ])
+    )}
+
+    ${section(
+      'Application Fee',
+      non([
+        'Application Fee'
+      ])
+    )}
+
+    ${section(
+      'Age Limit & Relaxation',
+      non([
+        'Minimum Age',
+        'Maximum Age',
+        'Age Relaxation'
+      ])
+    )}
+
+    ${section(
+      'Vacancy / Recruitment Information',
+      non([
+        'Advertisement No.',
+        'Total Vacancy'
+      ])
+    )}
+
+    ${section(
+      'Eligibility / Qualification',
+      non([
+        'Qualification / Eligibility'
+      ])
+    )}
+
+    ${section(
+      'Salary / Pay Scale',
+      non([
+        'Salary / Pay Scale'
+      ])
+    )}
+
+    ${section(
+      'Selection Process',
+      non([
+        'Selection Process'
+      ])
+    )}
+
+    ${section(
+      'Job Location & Application Mode',
+      non([
+        'Job Location',
+        'Application Mode'
+      ])
+    )}
+
+    ${section(
+      'How to Apply',
+      non([
+        'How to Apply',
+        'Documents Required'
+      ])
+    )}
+
+    ${
+      state.custom
+        .filter(
+          f => clean(f[1])
+        )
+        .map(
+          f =>
+            section(
+              f[0],
+              [f]
+            )
+        )
+        .join('')
+    }
+
+    ${
+      state.tables
+        .map(t => `
+
+          <div class="section">
+
+            <h3>
+              ${esc(t.name)}
+            </h3>
+
+            <div class="table-wrap">
+
+              <table class="data-table">
+
+                <thead>
+
+                  <tr>
+
+                    ${
+                      t.columns
+                        .map(
+                          c =>
+                            `<th>${esc(c)}</th>`
+                        )
+                        .join('')
+                    }
+
+                  </tr>
+
+                </thead>
+
+                <tbody>
+
+                  ${
+                    t.rows
+                      .map(r => `
+
+                        <tr>
+
+                          ${
+                            r
+                              .map(
+                                c =>
+                                  `<td>${esc(c)}</td>`
+                              )
+                              .join('')
+                          }
+
+                        </tr>
+
+                      `)
+                      .join('')
+                  }
+
+                </tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        `)
+        .join('')
+    }
+
+    ${
+      state.links.length
+
+        ? `
+
+          <div class="section">
+
+            <h3>
+              Important Links
+            </h3>
+
+            ${
+              state.links
+                .map(l => `
+
+                  <p>
+
+                    <a
+                      href="${esc(l[1])}"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      ${esc(l[0])}
+                    </a>
+
+                  </p>
+
+                `)
+                .join('')
+            }
+
+          </div>
+
+        `
+
+        : ''
+    }
+
+  `;
+}
+
+function record() {
+
+  syncFields();
+
+  return JSON.parse(
+    JSON.stringify({
+      ...state,
+      executedAt:
+        new Date().toISOString()
+    })
+  );
+}
+
+function execute() {
+
+  if (!checkData()) {
+
+    alert(
+      'Required core data is missing. Correct it before Execute Test.'
+    );
+
+    return;
+  }
+
+  const rec =
+    record();
+
+  rec.status =
+    'EXECUTED_TEST';
+
+  localStorage.setItem(
+    'onestopJobV1TestRecord',
+    JSON.stringify(rec)
+  );
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          rec,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          'application/json'
+      }
+    );
+
+  const a =
+    document.createElement('a');
+
+  a.href =
+    URL.createObjectURL(
+      blob
+    );
+
+  a.download =
+    'onestop-job-v1-test-record.json';
+
+  a.click();
+
+  setStatus(
+    '✓ Local test record created. JSON snapshot downloaded. Nothing live was published.',
+    'ok'
+  );
+}
+
+async function saveDraft() {
+
+  if (!checkData()) {
+
+    alert(
+      'Required core data is missing. Correct it before Save Draft.'
+    );
+
+    return;
+  }
+
+  const rec =
+    record();
+
+  rec.status =
+    'DRAFT';
+
+  const key =
+    prompt(
+      'Enter TEST admin key:'
+    );
+
+  if (key === null)
+    return;
+
+  setStatus(
+    'Saving draft to V1 backend…',
+    'pill'
+  );
+
+  try {
+
+    const r =
+      await fetch(
+        CONFIG.BACKEND_URL,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'application/json'
+          },
+
+          body:JSON.stringify({
+
+            action:
+              'saveDraft',
+
+            key:
+              key,
+
+            record:
+              rec
+
+          })
+        }
+      );
+
+    const data =
+      await r.json();
+
+    if (!data.ok) {
+
+      throw Error(
+        data.error ||
+        'Save Draft failed'
+      );
+
+    }
+
+    rec.id =
+      data.id;
+
+    rec.updatedAt =
+      data.updatedAt;
+
+    localStorage.setItem(
+      'onestopJobV1Draft',
+      JSON.stringify(rec)
+    );
+
+    setStatus(
+      '✓ Draft saved successfully. ID: ' +
+      data.id,
+      'ok'
+    );
+
+  } catch (e) {
+
+    setStatus(
+      'Save Draft failed: ' +
+      e.message,
+      'bad'
+    );
+
+  }
+}
+
+async function publishTest() {
+
+  if (!checkData()) {
+
+    alert(
+      'Fix required fields before Test Publish.'
+    );
+
+    return;
+  }
+
+  const rec =
+    record();
+
+  rec.status =
+    'PUBLISHED_TEST';
+
+  const key =
+    prompt(
+      'Enter TEST admin key:'
+    );
+
+  if (key === null)
+    return;
+
+  setStatus(
+    'Publishing to V1 test backend…',
+    'pill'
+  );
+
+  try {
+
+    const r =
+      await fetch(
+        CONFIG.BACKEND_URL,
+        {
+          method:'POST',
+
+          headers:{
+            'Content-Type':
+              'application/json'
+          },
+
+          body:JSON.stringify({
+
+            action:
+              'publishTest',
+
+            key:
+              key,
+
+            record:
+              rec
+
+          })
+        }
+      );
+
+    const data =
+      await r.json();
+
+    if (!data.ok) {
+
+      throw Error(
+        data.error ||
+        'Publish failed'
+      );
+
+    }
+
+    localStorage.setItem(
+      'onestopJobV1TestRecord',
+      JSON.stringify({
+
+        ...rec,
+
+        id:
+          data.id,
+
+        publishedAt:
+          data.publishedAt
+
+      })
+    );
+
+    setStatus(
+      '✓ Test publication complete. ID: ' +
+      data.id,
+      'ok'
+    );
+
+  } catch (e) {
+
+    setStatus(
+      'Test publish failed: ' +
+      e.message,
+      'bad'
+    );
+
+  }
+}
+
+function loadDraft() {
+
+  const raw =
+    localStorage.getItem(
+      'onestopJobV1Draft'
+    );
+
+  if (!raw) {
+
+    setStatus(
+      'No browser draft found.',
+      'warn'
+    );
+
+    return;
+  }
+
+  try {
+
+    const rec =
+      JSON.parse(raw);
+
+    if (
+      Array.isArray(
+        rec.fields
+      )
+    )
+      state.fields =
+        rec.fields;
+
+    if (
+      Array.isArray(
+        rec.custom
+      )
+    )
+      state.custom =
+        rec.custom;
+
+    if (
+      Array.isArray(
+        rec.tables
+      )
+    )
+      state.tables =
+        rec.tables;
+
+    if (
+      Array.isArray(
+        rec.links
+      )
+    )
+      state.links =
+        rec.links;
+
+    if (rec.source)
+      state.source =
+        rec.source;
+
+    renderFields();
+    renderTables();
+    renderLinks();
+    checkData();
+    preview();
+
+    setStatus(
+      '✓ Browser draft loaded.',
+      'ok'
+    );
+
+  } catch (e) {
+
+    setStatus(
+      'Draft load failed: ' +
+      e.message,
+      'bad'
+    );
+
+  }
+}
+
+function resetForm() {
+
+  if (
+    !confirm(
+      'Reset the current vacancy form? Unsaved browser data will be cleared.'
+    )
+  )
+    return;
+
+  state.fields =
+    CORE_FIELDS.map(
+      x => [...x]
+    );
+
+  state.custom =
+    [];
+
+  state.tables =
+    [];
+
+  state.links =
+    [];
+
+  state.source =
+    {
+      pdf:'',
+      url:''
+    };
+
+  state.rawText =
+    '';
+
+  state.status =
+    'TEST';
+
+  renderFields();
+  renderTables();
+  renderLinks();
+  checkData();
+  preview();
+
+  $('extractStatus').textContent =
+    'Choose a text-based vacancy PDF.';
+
+  setUrlStatus(
+    'Official URL extraction uses the V1 backend.',
+    'muted'
+  );
+
+  setStatus(
+    'Form reset.',
+    'ok'
+  );
+}
+
+document.addEventListener(
+  'DOMContentLoaded',
+  () => {
+
+    const pdf =
+      $('pdf');
+
+    if (pdf) {
+
+      pdf.addEventListener(
+        'change',
+        e => {
+
+          if (
+            e.target.files[0]
+          ) {
+
+            readPdf(
+              e.target.files[0]
+            );
+
+          }
+
+        }
+      );
+
+    }
+
+    if ($('urlExtractBtn')) {
+
+      $('urlExtractBtn').onclick =
+        extractFromUrl;
+
+    }
+
+    if ($('url')) {
+
+      $('url').addEventListener(
+        'input',
+        e =>
+          state.source.url =
+            e.target.value
+      );
+
+    }
+
+    if ($('checkBtn'))
+      $('checkBtn').onclick =
+        checkData;
+
+    if ($('previewBtn'))
+      $('previewBtn').onclick =
+        preview;
+
+    if ($('executeBtn'))
+      $('executeBtn').onclick =
+        execute;
+
+    if ($('publishBtn'))
+      $('publishBtn').onclick =
+        publishTest;
+
+    if ($('saveDraftBtn'))
+      $('saveDraftBtn').onclick =
+        saveDraft;
+
+    renderFields();
+    renderTables();
+    renderLinks();
+    checkData();
+    preview();
+
+  }
+);
