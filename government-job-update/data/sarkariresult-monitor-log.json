@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-16T08:45:56.180471+00:00",
+  "checkedAt": "2026-09-16T09:44:58.978519+00:00",
   "status": "ok",
-  "new": 90,
-  "changed": 8,
-  "retained": 132,
-  "items": 530,
+  "new": 8,
+  "changed": 7,
+  "retained": 162,
+  "items": 538,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -20,7 +20,6 @@
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
-    "sarkariscan",
     "freejobalert"
   ],
   "sources": {
@@ -46,7 +45,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 53
+      "count": 51
     },
     "testbook": {
       "name": "Testbook",
@@ -106,7 +105,7 @@
       "name": "Sarkari Naukri Setu",
       "status": "ok",
       "mode": "html",
-      "count": 7
+      "count": 6
     },
     "sarkarinaukri": {
       "name": "Sarkari-Naukri.in",
@@ -140,9 +139,9 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "ok",
-      "mode": "html",
-      "count": 19
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "freejobalert": {
       "name": "FreeJobAlert",

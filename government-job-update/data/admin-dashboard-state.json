@@ -1,22 +1,23 @@
 {
   "schemaVersion": 5,
-  "generatedAt": "2026-09-16T08:49:20.392887+00:00",
+  "generatedAt": "2026-09-16T09:47:15.591383+00:00",
   "pipelineStatus": "PROBLEM",
   "problemStep": {
-    "id": "controlledE2E",
-    "label": "Controlled E2E",
+    "id": "officialVerification",
+    "label": "Official-source verification",
     "status": "FAILURE"
   },
   "currentStep": null,
   "workflow": {
     "name": "Government Job Update — Multi-Source Discovery",
-    "runId": "35075572516",
-    "runNumber": "127",
+    "runId": "35081147574",
+    "runNumber": "128",
     "runAttempt": "1",
-    "commitSha": "9dece53f1e84f9be7f455ce1f2d9dde7fa954c31",
-    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35075572516",
+    "commitSha": "c2ee25e68dab11e5025e38e59e33de25a329ac25",
+    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35081147574",
     "overall": "FAILURE",
     "failedSteps": [
+      "officialVerification",
       "controlledE2E",
       "publicationRegression"
     ],
@@ -36,7 +37,7 @@
     {
       "id": "officialVerification",
       "label": "Official-source verification",
-      "status": "SUCCESS"
+      "status": "FAILURE"
     },
     {
       "id": "verificationRecovery",
@@ -82,18 +83,18 @@
   "production": {
     "source": "Multi-Source Government Jobs",
     "status": "ok",
-    "lastCheckedAt": "2026-09-16T08:45:56.180471+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-16T08:45:56.180471+00:00",
+    "lastCheckedAt": "2026-09-16T09:44:58.978519+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-16T09:44:58.978519+00:00",
     "lastError": null,
-    "discoveredCount": 530,
-    "newCount": 90,
-    "changedCount": 8
+    "discoveredCount": 538,
+    "newCount": 8,
+    "changedCount": 7
   },
   "bufferFlow": {
     "status": "ACTIVE",
-    "bufferedCount": 530,
-    "bufferedAt": "2026-09-16T08:46:28.798339+00:00",
-    "sourceCheckedAt": "2026-09-16T08:45:56.180471+00:00",
+    "bufferedCount": 538,
+    "bufferedAt": "2026-09-16T09:45:36.933328+00:00",
+    "sourceCheckedAt": "2026-09-16T09:44:58.978519+00:00",
     "sourceStatus": "ok",
     "intermediatePush": false
   },
