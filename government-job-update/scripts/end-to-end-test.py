@@ -1,39 +1,71 @@
-import json,re,sys,urllib.error,urllib.request,ssl,os
-from datetime import datetime,timezone
+import importlib.util
+import json
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlparse
-ROOT=Path(__file__).resolve().parents[1];FIXTURE=ROOT/'tests'/'fixtures'/'e2e-candidates.json';REPORT=ROOT/'test-results'/'e2e-live-report.json';UA='ONESTOP-Government-Job-Update-E2E/2.1'
-def write_report(report):REPORT.parent.mkdir(parents=True,exist_ok=True);REPORT.write_text(json.dumps(report,indent=2,ensure_ascii=False),encoding='utf-8')
-def fetch(url):
- try:
-  req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,application/pdf;q=0.8,*/*;q=0.1'})
-  cafiles=[]
-  try:
-   import certifi
-   cafiles.append(certifi.where())
-  except Exception:pass
-  cafiles.extend(['/etc/ssl/certs/ca-certificates.crt','/etc/ssl/cert.pem'])
-  context=None
-  for cafile in cafiles:
-   if cafile and os.path.exists(cafile):
-    try: context=ssl.create_default_context(cafile=cafile);break
-    except Exception:pass
-  if context is None:context=ssl.create_default_context()
-  with urllib.request.urlopen(req,timeout=20,context=context) as r:return r.status,r.read(1500000),r.geturl(),None
- except urllib.error.HTTPError as e:return e.code,b'',url,f'HTTP {e.code}'
- except Exception as e:return None,b'',url,str(e)[:300]
-def clean_html(body):
- raw=body.decode('utf-8','replace');raw=re.sub(r'<script[^>]*>.*?</script>|<style[^>]*>.*?</style>',' ',raw,flags=re.I|re.S);return re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',raw)).strip()
-def page_title(body):
- raw=body.decode('utf-8','replace');m=re.search(r'<title[^>]*>(.*?)</title>',raw,re.I|re.S);return re.sub(r'\s+',' ',re.sub(r'<[^>]+>',' ',m.group(1))).strip() if m else ''
-def token_set(value):return set(re.findall(r'[a-z0-9]{4,}',value.lower()))
-def verify(candidate,official_body,official_final_url):
- text=clean_html(official_body);official_title=page_title(official_body);ct=token_set(candidate['title']);tt=token_set(official_title+' '+text[:12000]);score=len(ct&tt)/len(ct) if ct else 0;host=(urlparse(official_final_url).hostname or '').lower();trusted_host=host.endswith('indiapostgdsonline.gov.in');low=(official_title+' '+text).lower();signal=any(x in low for x in ('recruitment','notification','online engagement','gramin dak sevak','gds'))
- checks={'trusted_source':trusted_host,'official_notice_url':trusted_host,'nonempty_title':bool(candidate['title']),'recruitment_signal':signal,'extractable_notice_content':len(text)>=200,'last_date_or_valid_dates':bool(candidate.get('dateEvidence')),'safe_http_urls':official_final_url.startswith(('http://','https://')),'candidate_official_match':score>=0.25}
- passed=all(checks.values());return {'id':candidate['id'],'discoverySource':candidate['discoveryUrl'],'officialSource':official_final_url,'officialTitle':official_title,'matchScore':round(score,3),'status':'verified' if passed else 'hold','publicationStatus':'ready' if passed else 'hold','checks':checks,'reason':'all_required_checks_passed' if passed else 'failed_checks:'+','.join(k for k,v in checks.items() if not v)}
+
+ROOT = Path(__file__).resolve().parents[1]
+FIXTURE = ROOT / "tests" / "fixtures" / "e2e-candidates.json"
+REPORT = ROOT / "test-results" / "e2e-live-report.json"
+V4 = ROOT.parent / "scripts" / "government-job-verifier-v4.1.py"
+
+
+def load_v4():
+    spec = importlib.util.spec_from_file_location("government_job_verifier_v41", V4)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def write_report(report):
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    REPORT.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
 def main():
- started=datetime.now(timezone.utc).isoformat();fixture=json.loads(FIXTURE.read_text(encoding='utf-8'));positive,negative=fixture['candidates'];status,body,final_url,error=fetch(positive['officialUrl'])
- if status!=200 or not body:
-  report={'schemaVersion':2,'startedAt':started,'mode':'controlled-live-e2e','discoverySource':fixture['discoverySource'],'discoveryFixtureOnly':True,'productionStateMutation':False,'officialSourceLiveFetch':positive['officialUrl'],'overall':'FAIL','stage':'official_source_fetch','error':error or f'HTTP {status}'};write_report(report);print(json.dumps(report,indent=2,ensure_ascii=False));return 1
- positive_result=verify(positive,body,final_url);negative_result=verify(negative,body,final_url);report={'schemaVersion':2,'startedAt':started,'mode':'controlled-live-e2e','discoverySource':fixture['discoverySource'],'discoveryFixtureOnly':True,'productionStateMutation':False,'officialSourceLiveFetch':positive['officialUrl'],'positiveCase':positive_result,'negativeCase':negative_result,'overall':'PASS' if positive_result['status']=='verified' and positive_result['publicationStatus']=='ready' and negative_result['status']=='hold' and negative_result['publicationStatus']=='hold' else 'FAIL'};write_report(report);print(json.dumps(report,indent=2,ensure_ascii=False));return 0 if report['overall']=='PASS' else 1
-if __name__=='__main__':sys.exit(main())
+    started = datetime.now(timezone.utc).isoformat()
+    fixture = json.loads(FIXTURE.read_text(encoding="utf-8"))
+    v4 = load_v4()
+
+    # Current controlled live positive case: FreeJobAlert's RITES listing published
+    # on 15 Sep 2026, with official RITES links in the article.
+    positive = {
+        "id": "e2e-rites-2026-v41",
+        "url": "https://www.freejobalert.com/articles/rites-individual-consultant-recruitment-2026-apply-online-for-11-posts-3067773",
+        "title": "RITES Individual Consultant Recruitment 2026 - Apply Online for 11 Posts",
+        "description": "RITES Recruitment 2026 for 11 Individual Consultant posts; applications up to 11 October 2026 through the official RITES website.",
+        "discoverySource": "FreeJobAlert",
+    }
+    negative = {
+        "id": "e2e-negative-mismatch-v41",
+        "url": positive["url"],
+        "title": "UPSC Civil Services Examination 2026",
+        "description": "Intentional mismatch: the discovery article is a RITES recruitment, not UPSC Civil Services.",
+        "discoverySource": "FreeJobAlert",
+    }
+
+    positive_result = v4.verify_one(positive)
+    negative_result = v4.verify_one(negative)
+    passed = (
+        positive_result.get("status") == "verified"
+        and positive_result.get("publicationStatus") == "ready"
+        and negative_result.get("status") == "hold"
+        and negative_result.get("publicationStatus") == "hold"
+    )
+    report = {
+        "schemaVersion": 3,
+        "startedAt": started,
+        "mode": "controlled-live-e2e-v4.1",
+        "fixtureSource": fixture.get("sourceUrl"),
+        "productionStateMutation": False,
+        "positiveCase": positive_result,
+        "negativeCase": negative_result,
+        "overall": "PASS" if passed else "FAIL",
+    }
+    write_report(report)
+    print(json.dumps(report, indent=2, ensure_ascii=False))
+    return 0 if passed else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
