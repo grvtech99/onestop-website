@@ -66,7 +66,7 @@ def links(b,base):
   if not hm: continue
   u=urllib.parse.urljoin(base,unescape(hm.group(1))).split("#",1)[0]
   if not u.startswith(("http://","https://")) or u in seen or agg(u): continue
-  seen.add(u); label=html_text(m.group(2))[:300]; explicit=bool(LINK_SIGNAL.search(label)); tr=trusted(u)
+  seen.add(u); label=html_text(m.group(2).encode("utf-8","replace"))[:300]; explicit=bool(LINK_SIGNAL.search(label)); tr=trusted(u)
   if explicit or tr: out.append({"url":u,"label":label,"explicit":explicit,"trusted":tr})
  return out
 def tok(s): return {x for x in re.findall(r"[a-z0-9]{3,}",(s or "").lower()) if x not in {"the","and","for","online","apply","2024","2025","2026","recruitment","notification","government","govt","posts","post","jobs","job"}}
