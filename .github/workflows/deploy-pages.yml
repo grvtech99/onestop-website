@@ -40,7 +40,7 @@ jobs:
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/resume.svg -o free-csc-tools/tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/id-card.svg -o free-csc-tools/tool-thumbnails/1click-id-card-print-maker-html.png
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/social.svg -o free-csc-tools/tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png
-          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/pdf.svg -o free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/pdf.svg -o free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools.html
           cat > free-csc-tools/pro-thumbnails.js <<'EOF'
           (function(){
             const thumbs=document.querySelectorAll('.trending .tool-card .thumb');
@@ -50,11 +50,6 @@ jobs:
           })();
           EOF
           sed -i 's#</body>#<script src="pro-thumbnails.js?v=pro20260915-v2"></script></body>#' free-csc-tools/index.html
-      - name: Inject live Government Job pipeline monitor into admin
-        shell: bash
-        run: |
-          set -e
-          sed -i 's#</body>#<script src="admin-live-monitor.js?v=govpipe20260916-v2"></script></body>#' government-job-update/onestop-government-admin.html
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
