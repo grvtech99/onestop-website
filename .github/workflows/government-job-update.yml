@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - 'government-job-update/**'
+      - 'scripts/government-job-verifier-v4.py'
       - '.github/workflows/government-job-update.yml'
       - '!government-job-update/data/sarkariresult-monitor-state.json'
       - '!government-job-update/data/sarkariresult-monitor-log.json'
@@ -31,10 +32,10 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 18
     env:
-      ONESTOP_VERIFY_MAX_RECORDS: 160
-      ONESTOP_RECOVERY_MAX_ITEMS: 160
+      ONESTOP_VERIFY_MAX_RECORDS: 100
+      ONESTOP_RECOVERY_MAX_ITEMS: 100
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -64,10 +65,14 @@ jobs:
           print(f'Buffered {len(items)} discovered items for this run; no intermediate git push is performed.')
           PY
 
-      - id: verification
-        name: 3. Official-source verification
+      - name: Install PDF verification dependency
         if: ${{ !cancelled() }}
-        run: python government-job-update/scripts/official-department-verifier.py
+        run: python -m pip install --disable-pip-version-check --no-input pypdf==6.18.1
+
+      - id: verification
+        name: 3. Official-source verification V4 — registry + official links + HTML/PDF
+        if: ${{ !cancelled() }}
+        run: python scripts/government-job-verifier-v4.py
 
       - id: verificationRecovery
         name: 4. Official-link recovery
