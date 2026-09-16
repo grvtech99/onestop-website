@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-16T09:55:17.334749+00:00",
+  "checkedAt": "2026-09-16T09:58:36.521233+00:00",
   "status": "ok",
-  "new": 0,
-  "changed": 6,
-  "retained": 146,
-  "items": 542,
+  "new": 1,
+  "changed": 8,
+  "retained": 157,
+  "items": 543,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -14,12 +14,13 @@
     "sarkarinaukriblog",
     "indgovtjobs",
     "sarkariupdates",
+    "exampix",
     "inrgovtjobs",
     "sarkarinaukari",
+    "sarkari247",
     "sarkarinaukarisetu",
     "nayawork",
     "naukrichakri",
-    "sarkariscan",
     "freejobalert"
   ],
   "sources": {
@@ -45,7 +46,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 51
+      "count": 52
     },
     "testbook": {
       "name": "Testbook",
@@ -79,9 +80,9 @@
     },
     "exampix": {
       "name": "Exampix",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 56
     },
     "inrgovtjobs": {
       "name": "INR Govt Jobs",
@@ -97,9 +98,9 @@
     },
     "sarkari247": {
       "name": "Sarkari247",
-      "status": "unavailable",
-      "mode": null,
-      "count": 0
+      "status": "ok",
+      "mode": "html",
+      "count": 8
     },
     "sarkarinaukarisetu": {
       "name": "Sarkari Naukri Setu",
@@ -139,9 +140,9 @@
     },
     "sarkariscan": {
       "name": "Sarkari Scan",
-      "status": "ok",
-      "mode": "html",
-      "count": 19
+      "status": "unavailable",
+      "mode": null,
+      "count": 0
     },
     "freejobalert": {
       "name": "FreeJobAlert",

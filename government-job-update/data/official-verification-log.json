@@ -1,16 +1,16 @@
 {
-  "checkedAt": "2026-09-16T08:46:28.893198+00:00",
+  "checkedAt": "2026-09-16T09:59:20.058535+00:00",
   "status": "ok",
+  "engine": "official-verification-v4.1",
   "counts": {
     "verified": 3,
-    "hold": 157,
-    "checked": 160,
+    "hold": 37,
+    "checked": 40,
     "new": 0,
-    "changed": 102,
-    "unchanged": 58,
-    "reused": 0,
-    "skipped": 370,
-    "selectionLimit": 160
+    "changed": 40,
+    "unchanged": 0,
+    "skipped": 503,
+    "selectionLimit": 40
   },
-  "strategy": "Prioritize new/pending and most recently discovered records within a bounded verification workset; previously verified records are refreshed only after pending work. Parallel official verification with bounded second-hop official link discovery remains strict."
+  "strategy": "Discovery-only aggregators; resolve official sources through registry, explicit official links, organization domains, then second-hop official recruitment/career pages with HTML/PDF extraction; prioritize job-like candidates and isolate canonical persistence errors."
 }
