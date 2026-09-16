@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP — Manual Single Job Review</title>
+<style>
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#f3f7fc;color:#12233f}.wrap{max-width:1100px;margin:auto;padding:28px}.top{background:#092b66;color:#fff;border-radius:18px;padding:24px}.top h1{margin:0 0 8px;font-size:26px}.top p{margin:0;color:#dbe9ff}.card{background:#fff;border:1px solid #dce6f2;border-radius:16px;padding:20px;margin-top:18px;box-shadow:0 8px 25px rgba(10,45,90,.06)}label{font-weight:700;display:block;margin-bottom:8px}input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #b9c9dc;border-radius:10px;font-size:15px}button,a.btn{display:inline-block;margin-top:12px;border:0;border-radius:10px;padding:12px 16px;font-weight:700;text-decoration:none;cursor:pointer}.primary{background:#1769e0;color:#fff}.secondary{background:#eaf2ff;color:#0c4fa8}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}.stat{padding:14px;border-radius:12px;background:#f6f9fd;border:1px solid #e2eaf3}.stat b{display:block;margin-top:5px;word-break:break-word}.ok{color:#16823b}.warn{color:#b35a00}.bad{color:#b3261e}.small{font-size:13px;color:#60718a}.table{width:100%;border-collapse:collapse;margin-top:10px}.table th,.table td{text-align:left;padding:10px;border-bottom:1px solid #e6edf5;vertical-align:top}.missing{background:#fff7e6}.found{background:#f1fbf4}.notice{padding:13px;border-radius:10px;background:#eef6ff}.copy{margin-left:6px}@media(max-width:600px){.wrap{padding:14px}.table{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>ONESTOP Government — Single Job Review</h1>
+    <p>Manual/semi-automatic mode: one URL → official-source verification → structured extraction → missing-field review.</p>
+  </div>
+
+  <div class="card">
+    <label for="jobUrl">1. Job URL</label>
+    <input id="jobUrl" placeholder="https://example.gov.in/recruitment/notification..." autocomplete="off">
+    <button class="primary" onclick="copyUrl()">Copy URL</button>
+    <a class="btn secondary" target="_blank" rel="noopener" href="https://github.com/grvtech99/onestop-website/actions/workflows/onestop-manual-job-review.yml">2. Open Manual Review Workflow</a>
+    <p class="small">Paste the URL in the GitHub Actions <b>job_url</b> field and run it. The workflow does not publish the job automatically. It creates a review record first.</p>
+  </div>
+
+  <div class="card" id="result"><b>Loading latest review…</b></div>
+</div>
+<script>
+const DATA='data/manual-job-review.json?v='+Date.now();
+const labels={title:'Title',organization:'Organization',department:'Department',state:'State',jobType:'Job Type',category:'Category',updateType:'Update Type',vacancies:'Vacancies',vacancyDetails:'Vacancy Details',qualification:'Qualification',ageLimit:'Age Limit',ageRelaxation:'Age Relaxation',fee:'Application Fee',selectionProcess:'Selection Process',salary:'Salary / Pay Scale',jobLocation:'Job Location',applicationStartDate:'Application Start Date',applicationLastDate:'Application Last Date',examDate:'Exam Date',applicationMode:'Application Mode',documentsRequired:'Documents Required',notificationUrl:'Notification URL',applyUrl:'Apply URL'};
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function copyUrl(){const v=document.getElementById('jobUrl').value.trim();if(!v)return; navigator.clipboard?.writeText(v);}
+async function load(){
+ try{
+  const d=await fetch(DATA).then(r=>{if(!r.ok)throw Error('not found');return r.json()});
+  const r=d.record||{}; const s=d.fieldStatus||{}; const miss=d.missingRequiredFields||[];
+  let html=`<h2>Latest Review</h2><div class="grid">
+  <div class="stat">Status<b class="${d.status==='VERIFIED_READY'?'ok':d.status==='VERIFIED_NEEDS_INPUT'?'warn':'bad'}">${esc(d.status)}</b></div>
+  <div class="stat">Checked At<b>${esc(d.checkedAt)}</b></div>
+  <div class="stat">Official Evidence Score<b>${esc(d.officialResolution?.score||0)}</b></div>
+  <div class="stat">Official Source<b>${esc(d.officialResolution?.officialUrl||'Not resolved')}</b></div></div>`;
+  html+=`<div class="notice" style="margin-top:14px"><b>${d.actionRequired?'ACTION REQUIRED':'Review complete'}</b><br>${esc(d.verificationNotes||'')}</div>`;
+  if(miss.length) html+=`<div class="card missing"><b>Missing required fields:</b><ul>${miss.map(x=>`<li><code>${esc(x)}</code></li>`).join('')}</ul></div>`;
+  html+=`<h3>Structured Record</h3><table class="table"><tr><th>Field</th><th>Value</th><th>Status</th></tr>`;
+  Object.keys(labels).forEach(k=>{let v=r[k];if(Array.isArray(v)||typeof v==='object')v=JSON.stringify(v);let st=s[k]||'';html+=`<tr class="${st==='FOUND'?'found':st.startsWith('MISSING')?'missing':''}"><td>${esc(labels[k])}</td><td>${v?esc(v):'—'}</td><td>${esc(st)}</td></tr>`});
+  html+='</table>'; document.getElementById('result').innerHTML=html;
+ }catch(e){document.getElementById('result').innerHTML='<b>No manual review record is available yet.</b><p class="small">Run the Manual Review workflow once with one job URL.</p>';}
+}
+load();
+</script>
+</body>
+</html>
