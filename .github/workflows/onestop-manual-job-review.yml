@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       job_url:
-        description: 'Paste the single job/recruitment URL to verify and extract'
+        description: 'Paste the single job/recruitment URL to extract'
         required: true
         type: string
       commit_review:
@@ -22,7 +22,7 @@ concurrency:
 
 jobs:
   review:
-    name: Verify and extract one job
+    name: Extract one job page
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -34,7 +34,7 @@ jobs:
       - name: Install PDF extraction dependency
         run: python -m pip install --disable-pip-version-check --no-input pypdf==6.18.1
 
-      - name: Review supplied job URL
+      - name: Extract supplied job URL
         id: review
         env:
           JOB_URL: ${{ inputs.job_url }}
@@ -55,8 +55,7 @@ jobs:
           lines.append('')
           lines.append(f"**Status:** `{d.get('status')}`")
           lines.append(f"**Input URL:** {d.get('inputUrl')}")
-          lines.append(f"**Official URL:** {d.get('officialResolution',{}).get('officialUrl') or 'Not resolved'}")
-          lines.append(f"**Official evidence score:** {d.get('officialResolution',{}).get('score',0)}")
+          lines.append(f"**Final URL:** {d.get('finalUrl')}")
           lines.append('')
           lines.append('## Extracted fields')
           lines.append('')
@@ -75,9 +74,9 @@ jobs:
               lines.append('The following required fields are missing and must be supplied/reviewed by Admin before publication:')
               for x in missing: lines.append(f'- `{x}`')
           else:
-              lines.append('## ACTION REQUIRED')
+              lines.append('## ADMIN REVIEW')
               lines.append('')
-              lines.append('No required fields are missing. Publication is still subject to the Admin review status shown above.')
+              lines.append('All required fields were extracted from the supplied page. Admin should review the values and use the notification/source links for cross-checking before publication.')
           Path('/tmp/summary.md').write_text('\n'.join(lines)+'\n',encoding='utf-8')
           print('\n'.join(lines))
           PY
@@ -114,7 +113,7 @@ jobs:
           echo 'Unable to save review state after 5 attempts.'
           exit 1
 
-      - name: Require Admin action when fields or verification are unresolved
+      - name: Require Admin action when extraction is incomplete
         if: ${{ always() && steps.review.outcome == 'success' }}
         run: |
           python - <<'PY'
@@ -123,7 +122,6 @@ jobs:
           if d.get('actionRequired'):
               print('ACTION REQUIRED:', d.get('status'))
               print('Missing required fields:', ', '.join(d.get('missingRequiredFields',[])) or 'none')
-              print('Verification notes:', d.get('verificationNotes',''))
               sys.exit(1)
-          print('Manual job review has no unresolved required fields.')
+          print('Manual job extraction has all required fields.')
           PY
