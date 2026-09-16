@@ -20,7 +20,7 @@ ADVT_RE=re.compile(r"\b(?:advt?\.?|advertisement|notification|cen|ref(?:erence)?
 
 def mod(name,path):
  s=spec_from_file_location(name,path); m=module_from_spec(s); s.loader.exec_module(m); return m
-engine=mod("canonical_engine",ROOT/"scripts"/"canonical-record-engine.py"); fields=mod("job_fields",ROOT/"scripts"/"job-field-extractor.py")
+engine=mod("canonical_engine",ROOT/"government-job-update"/"scripts"/"canonical-record-engine.py"); fields=mod("job_fields",ROOT/"government-job-update"/"scripts"/"job-field-extractor.py")
 def save(p,v): p.write_text(json.dumps(v,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 def host(u): return urllib.parse.urlparse(u).netloc.lower().split(":")[0].removeprefix("www.")
 def same_domain(h,d): return h==d or h.endswith("."+d)
