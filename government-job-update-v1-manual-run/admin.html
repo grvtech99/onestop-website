@@ -1,1 +1,182 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ONESTOP Job Update V1 — Manual Run</title><link rel="stylesheet" href="styles.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script><script type="module">import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs';pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';window.pdfjsLib=pdfjsLib;</script></head><body><header><div class="nav"><div class="brand">ONESTOP JOB UPDATE <small>V1 • MANUAL RUN / TEST MODE</small></div><a class="btn secondary" href="public-preview.html">Open Public Test Page</a></div></header><main class="wrap"><div class="notice"><b>TEST PROJECT ONLY</b> — No legacy job-update flow is used. Nothing here publishes to the production website.</div><div class="grid"><aside><div class="card"><h2>1. Source</h2><label>Vacancy PDF</label><input id="pdf" type="file" accept="application/pdf"><div id="extractStatus" class="muted" style="margin-top:8px">Choose a text-based vacancy PDF.</div><label>Official Website URL</label><input id="url" type="url" placeholder="https://official-site.gov.in/..."> <button id="urlExtractBtn" class="btn primary" style="margin-top:8px">🌐 Extract From Official URL</button><div id="urlStatus" class="muted" style="margin-top:8px">URL extraction uses the optional standalone test backend.</div></div><div class="card"><h2>2. Data Check</h2><div id="check"><div class="check">No extraction checked yet.</div></div><div class="row-actions"><button id="checkBtn" class="btn secondary">🔍 Check Data</button><button id="previewBtn" class="btn secondary">👁 Preview</button></div></div><div class="card"><h2>3. Custom Fields</h2><div class="muted">Add, rename, remove and edit fields without changing the core schema.</div><div id="customFields" style="margin-top:8px"></div><button class="btn secondary" onclick="addCustom()">+ Add Custom Field</button></div><div class="card"><h2>4. Dynamic Tables</h2><div class="muted">Create vacancy/category/subject tables with any columns and rows.</div><div id="tables" style="margin-top:8px"></div><button class="btn secondary" onclick="addTable()">+ Add Table</button></div><div class="card"><h2>5. Important Links</h2><div class="muted">Label + URL pairs.</div><div id="links" style="margin-top:8px"></div><button class="btn secondary" onclick="addLink()">+ Add Link</button></div><div class="card"><h2>6. Execute / Test Publish</h2><p class="muted">Execute creates a local JSON record. Test Publish sends the verified record only to the standalone test backend when configured.</p><div class="row-actions"><button id="executeBtn" class="btn success">🚀 Execute Test</button><button id="publishBtn" class="btn primary">📤 Publish to Test Page</button></div><div id="executeStatus" style="margin-top:8px"></div></div></aside><section><div class="card"><h2>Vacancy Information Editor</h2><p class="muted">Extraction only pre-fills fields. Verify and correct every value before Test Publish.</p><div id="fields"></div></div><div class="card"><h2>Live Preview</h2><div id="preview" class="preview"><div class="section muted">Preview will appear here.</div></div></div></section></div></main><script>window.addEventListener('DOMContentLoaded',()=>{const s=document.createElement('script');s.src='app.js';document.body.appendChild(s)})</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP Job Update V1 — Admin</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs" type="module"></script>
+<script type="module">
+import * as pdfjsLib from 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs';
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs';
+window.pdfjsLib = pdfjsLib;
+</script>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <div class="brand">
+      ONESTOP JOB UPDATE
+      <small>V1 • ADMIN • TEST MODE</small>
+    </div>
+    <span class="pill">NOT LIVE</span>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="notice">
+    <b>ONESTOP Job Update V1</b> — Standalone admin/test system.
+    Always verify extracted information against the official notification before publishing.
+    This version does not modify the legacy Government Job Update system.
+  </div>
+
+  <div class="grid">
+
+    <aside>
+
+      <div class="card">
+        <h2>1. Source</h2>
+
+        <label>Vacancy PDF</label>
+        <input id="pdf" type="file" accept="application/pdf">
+
+        <div id="extractStatus" class="muted">
+          Choose a text-based vacancy PDF.
+        </div>
+
+        <label>Official Website URL</label>
+        <input id="url" type="url"
+               placeholder="https://official-site.gov.in/...">
+
+        <button id="urlExtractBtn" class="btn primary">
+          🌐 Extract From Official URL
+        </button>
+
+        <div id="urlStatus" class="muted">
+          Official URL extraction uses the V1 backend.
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2. Data Check</h2>
+        <div id="check">
+          <div class="check">No extraction checked yet.</div>
+        </div>
+
+        <div class="row-actions">
+          <button id="checkBtn" class="btn secondary">
+            🔍 Check Data
+          </button>
+          <button id="previewBtn" class="btn secondary">
+            👁 Preview
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>3. Custom Fields</h2>
+        <div class="muted">
+          Add fields required for a particular recruitment.
+        </div>
+
+        <div id="customFields"></div>
+
+        <button class="btn secondary" onclick="addCustom()">
+          + Add Custom Field
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>4. Dynamic Tables</h2>
+        <div class="muted">
+          Create vacancy, category, post, subject or other tables.
+        </div>
+
+        <div id="tables"></div>
+
+        <button class="btn secondary" onclick="addTable()">
+          + Add Table
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>5. Important Links</h2>
+        <div class="muted">
+          Add official notification, apply online, admit card, result, etc.
+        </div>
+
+        <div id="links"></div>
+
+        <button class="btn secondary" onclick="addLink()">
+          + Add Link
+        </button>
+      </div>
+
+      <div class="card">
+        <h2>6. Save / Publish Test</h2>
+
+        <p class="muted">
+          Save Draft stores the current record in the V1 backend.
+          Test Publish marks it as a test publication only.
+        </p>
+
+        <div class="row-actions">
+          <button id="saveDraftBtn" class="btn secondary">
+            💾 Save Draft
+          </button>
+
+          <button id="executeBtn" class="btn success">
+            🚀 Execute Test
+          </button>
+
+          <button id="publishBtn" class="btn primary">
+            📤 Test Publish
+          </button>
+        </div>
+
+        <div id="executeStatus"></div>
+      </div>
+
+    </aside>
+
+    <section>
+
+      <div class="card">
+        <h2>Vacancy Information Editor</h2>
+
+        <p class="muted">
+          Extracted values are suggestions only. Check every field manually
+          against the official recruitment notification.
+        </p>
+
+        <div id="fields"></div>
+      </div>
+
+      <div class="card">
+        <h2>Live Preview</h2>
+
+        <div id="preview" class="preview">
+          <div class="section muted">
+            Preview will appear here.
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const s = document.createElement('script');
+  s.src = 'app.js';
+  document.body.appendChild(s);
+});
+</script>
+
+</body>
+</html>
