@@ -1,277 +1,34 @@
-/**
- * ONESTOP Job Update V1 — STANDALONE TEST BACKEND
- *
- * IMPORTANT:
- * - This project is intentionally separate from the legacy Government Job Update system.
- * - V1 is MANUAL RUN / TEST MODE only.
- * - There is NO live website publishing in this version.
- * - Public production integration will be added only after the manual workflow is validated.
- */
-
-const CONFIG = {
-  SHEET_ID: '', // <-- add your Google Sheet ID after creating the V1 database sheet
-  JOBS_SHEET: 'Jobs',
-  FIELDS_SHEET: 'Fields',
-  LINKS_SHEET: 'Links',
-  TABLES_SHEET: 'Tables',
-  ADMIN_KEY: 'CHANGE_THIS_TEST_KEY'
-};
-
-const DEFAULT_FIELDS = [
-  ['Organization / Authority','Short Text','Job Information',true,true,1],
-  ['Recruitment Name','Short Text','Job Information',true,true,2],
-  ['Advertisement No.','Short Text','Job Information',false,true,3],
-  ['Total Vacancy','Number','Job Information',true,true,4],
-  ['Application Start Date','Date','Important Dates',false,true,10],
-  ['Last Date to Apply','Date','Important Dates',true,true,11],
-  ['Fee Payment Last Date','Date','Important Dates',false,true,12],
-  ['Correction Last Date','Date','Important Dates',false,true,13],
-  ['Exam Date','Short Text','Important Dates',false,true,14],
-  ['Admit Card Date','Short Text','Important Dates',false,true,15],
-  ['Result Date','Short Text','Important Dates',false,true,16],
-  ['Application Fee','Long Text','Application Fee',false,true,20],
-  ['Minimum Age','Short Text','Age Limit',false,true,30],
-  ['Maximum Age','Short Text','Age Limit',false,true,31],
-  ['Age Calculate As On','Date','Age Limit',false,true,32],
-  ['Age Relaxation','Long Text','Age Limit',false,true,33],
-  ['Qualification / Eligibility','Long Text','Eligibility',false,true,40],
-  ['Salary / Pay Scale','Long Text','Job Information',false,true,41],
-  ['Selection Process','Long Text','Selection',false,true,42],
-  ['Job Location','Short Text','Job Information',false,true,43],
-  ['Application Mode','Short Text','Job Information',false,true,44],
-  ['How to Apply','Long Text','How to Apply',false,true,50],
-  ['Documents Required','Long Text','How to Apply',false,true,51]
-];
-
-function doGet(e) {
-  const action = (e && e.parameter && e.parameter.action) || 'health';
-  if (action === 'health') return json_({ok:true, mode:'TEST', service:'ONESTOP Job Update V1'});
-  if (action === 'latest') return json_(latest_());
-  if (action === 'fields') return json_(getFields_());
-  if (action === 'bootstrap') return json_(bootstrap_());
-  return json_({ok:false,error:'Unknown action'});
+/** ONESTOP Job Update V1 — standalone TEST backend */
+const CONFIG={SHEET_ID:'',JOBS_SHEET:'Jobs',FIELDS_SHEET:'Fields',LINKS_SHEET:'Links',TABLES_SHEET:'Tables',ADMIN_KEY:'CHANGE_THIS_TEST_KEY'};
+const DEFAULT_FIELDS=[['Organization / Authority','Short Text','Job Information',true,true,1],['Recruitment Name','Short Text','Job Information',true,true,2],['Advertisement No.','Short Text','Job Information',false,true,3],['Total Vacancy','Number','Job Information',true,true,4],['Application Start Date','Date','Important Dates',false,true,10],['Last Date to Apply','Date','Important Dates',true,true,11],['Fee Payment Last Date','Date','Important Dates',false,true,12],['Correction Last Date','Date','Important Dates',false,true,13],['Exam Date','Short Text','Important Dates',false,true,14],['Admit Card Date','Short Text','Important Dates',false,true,15],['Result Date','Short Text','Important Dates',false,true,16],['Application Fee','Long Text','Application Fee',false,true,20],['Minimum Age','Short Text','Age Limit',false,true,30],['Maximum Age','Short Text','Age Limit',false,true,31],['Age Calculate As On','Date','Age Limit',false,true,32],['Age Relaxation','Long Text','Age Limit',false,true,33],['Qualification / Eligibility','Long Text','Eligibility',false,true,40],['Salary / Pay Scale','Long Text','Job Information',false,true,41],['Selection Process','Long Text','Selection',false,true,42],['Job Location','Short Text','Job Information',false,true,43],['Application Mode','Short Text','Job Information',false,true,44],['How to Apply','Long Text','How to Apply',false,true,50],['Documents Required','Long Text','How to Apply',false,true,51]];
+function json_(o){return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON)}
+function doGet(e){const a=e&&e.parameter&&e.parameter.action||'health';if(a==='health')return json_({ok:true,mode:'TEST',service:'ONESTOP Job Update V1'});if(a==='latest')return json_(latest_());if(a==='fields')return json_(getFields_());if(a==='bootstrap')return json_(bootstrap_());return json_({ok:false,error:'Unknown action'})}
+function doPost(e){try{const b=JSON.parse(e&&e.postData&&e.postData.contents||'{}');if(b.action==='crawlUrl')return json_(crawlUrl_(b));if(b.action==='saveDraft')return json_(saveDraft_(b));if(b.action==='publishTest')return json_(publishTest_(b));if(b.action==='saveFields')return json_(saveFields_(b));return json_({ok:false,error:'Unknown action'})}catch(err){return json_({ok:false,error:String(err&&err.message||err)})}}
+function auth_(b){return CONFIG.ADMIN_KEY&&b.key!==CONFIG.ADMIN_KEY?{ok:false,error:'Invalid test admin key.'}:{ok:true}}
+function decodeHtml_(s){return String(s||'').replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/&quot;/gi,'"').replace(/&#39;|&#x27;/gi,"'").replace(/&#(\d+);/g,(_,n)=>String.fromCharCode(+n)).replace(/&#x([0-9a-f]+);/gi,(_,n)=>String.fromCharCode(parseInt(n,16)))}
+function cellText_(h){return decodeHtml_(String(h||'').replace(/<br\s*\/?>/gi,'\n').replace(/<li[^>]*>/gi,'\n• ').replace(/<\/li>/gi,'\n').replace(/<[^>]+>/g,' ').replace(/[ \t]+/g,' ').replace(/\n[ \t]+/g,'\n').trim())}
+function attrs_(tag){const o={};String(tag||'').replace(/([\w:-]+)\s*=\s*["']([^"']*)["']/gi,(_,k,v)=>o[k.toLowerCase()]=v);return o}
+function expandTable_(tableHtml){
+  const rowMatches=tableHtml.match(/<tr\b[\s\S]*?<\/tr>/gi)||[],grid=[],pending=[];
+  rowMatches.forEach((rh,ri)=>{const row=[];let ci=0;const cells=rh.match(/<(td|th)\b[\s\S]*?<\/\1>/gi)||[];cells.forEach(ch=>{while(row[ci]!==undefined)ci++;const open=(ch.match(/^<(td|th)\b[^>]*>/i)||[])[0]||'';const at=attrs_(open);const cs=Math.max(1,parseInt(at.colspan||'1',10)||1),rs=Math.max(1,parseInt(at.rowspan||'1',10)||1),v=cellText_(ch);while(row[ci]!==undefined)ci++;for(let x=0;x<cs;x++)row[ci+x]=v;for(let rr=1;rr<rs;rr++){pending[ri+rr]=pending[ri+rr]||[];for(let x=0;x<cs;x++)pending[ri+rr][ci+x]=v}ci+=cs});const carry=pending[ri]||[];const max=Math.max(row.length,carry.length);const out=[];for(let i=0;i<max;i++)out[i]=row[i]!==undefined?row[i]:(carry[i]||'');grid.push(out)});return grid}
+function scoreTable_(rows,html,index){let cells=0,non=0,labels=0;rows.forEach(r=>r.forEach(c=>{cells++;if(String(c).trim())non++}));rows.forEach(r=>{if(r.length===2&&r[0]&&r[1])labels++});const text=rows.map(r=>r.join(' ')).join(' ').toLowerCase();let score=non+rows.length*2+labels*8;if(/important dates|application fee|age limit|eligibility|vacancy|qualification|selection process|how to apply/.test(text))score+=80;if(/menu|home|login|follow us|social|advertisement/.test(text))score-=60;if(index<3)score+=5;return score}
+function extractTables_(html){
+  const src=String(html||'').replace(/<!--[\s\S]*?-->/g,' ');const matches=src.match(/<table\b[\s\S]*?<\/table>/gi)||[];const out=[];
+  matches.forEach((th,i)=>{const rows=expandTable_(th).filter(r=>r.some(c=>String(c).trim()));if(rows.length<2)return;const max=Math.max.apply(null,rows.map(r=>r.length));if(max<2)return;const norm=rows.map(r=>{const x=r.slice();while(x.length<max)x.push('');return x});const non=norm.flat().filter(x=>String(x).trim()).length;if(non<4)return;out.push({score:scoreTable_(norm,th,i),sourceIndex:i+1,columns:norm[0].map((x,j)=>x||'Column '+(j+1)),rows:norm.slice(1)})});
+  out.sort((a,b)=>b.score-a.score);return out.slice(0,20).map((t,i)=>({name:i===0?'MAIN INFORMATION TABLE':'Imported Table '+i,columns:t.columns,rows:t.rows,sourceIndex:t.sourceIndex,score:t.score}));
 }
-
-function doPost(e) {
-  try {
-    const body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
-    if (body.action === 'crawlUrl') return json_(crawlUrl_(body));
-    if (body.action === 'saveDraft') return json_(saveDraft_(body));
-    if (body.action === 'publishTest') return json_(publishTest_(body));
-    if (body.action === 'saveFields') return json_(saveFields_(body));
-    return json_({ok:false,error:'Unknown action'});
-  } catch (err) {
-    return json_({ok:false,error:String(err && err.message || err)});
-  }
+function extractStructuredRows_(html){
+  const blocks=String(html||'').match(/<(?:div|section|article|dl)[^>]*>[\s\S]*?<\/(?:div|section|article|dl)>/gi)||[];const rows=[];
+  blocks.forEach(b=>{const ts=cellText_(b);const m=ts.match(/^\s*([^\n:]{2,100})\s*:\s*([\s\S]{2,500})$/);if(m)rows.push([m[1].trim(),m[2].trim()])});
+  const uniq=[];const seen={};rows.forEach(r=>{const k=r[0]+'\u0000'+r[1];if(!seen[k]){seen[k]=1;uniq.push(r)}});return uniq.length>=3?[{name:'MAIN INFORMATION TABLE',columns:['Information','Details'],rows:uniq,sourceIndex:0,score:uniq.length*10}]:[]
 }
-
-function auth_(body) {
-  if (CONFIG.ADMIN_KEY && body.key !== CONFIG.ADMIN_KEY) {
-    return {ok:false,error:'Invalid test admin key.'};
-  }
-  return {ok:true};
-}
-
-function decodeHtml_(s) {
-  return String(s || '')
-    .replace(/&nbsp;/gi,' ')
-    .replace(/&amp;/gi,'&')
-    .replace(/&lt;/gi,'<')
-    .replace(/&gt;/gi,'>')
-    .replace(/&quot;/gi,'"')
-    .replace(/&#39;|&#x27;/gi,"'")
-    .replace(/&#(\d+);/g,function(_,n){return String.fromCharCode(Number(n));})
-    .replace(/&#x([0-9a-f]+);/gi,function(_,n){return String.fromCharCode(parseInt(n,16));});
-}
-
-function cellText_(html) {
-  return decodeHtml_(String(html || '')
-    .replace(/<br\s*\/?>/gi,'\n')
-    .replace(/<li[^>]*>/gi,'\n• ')
-    .replace(/<\/li>/gi,'\n')
-    .replace(/<[^>]+>/g,' ')
-    .replace(/\s+\n/g,'\n')
-    .replace(/\n\s+/g,'\n')
-    .replace(/[ \t]+/g,' ')
-    .trim());
-}
-
-function extractTables_(html) {
-  const source = String(html || '')
-    .replace(/<script[\s\S]*?<\/script>/gi,' ')
-    .replace(/<style[\s\S]*?<\/style>/gi,' ');
-  const matches = source.match(/<table\b[\s\S]*?<\/table>/gi) || [];
-  const parsed = [];
-
-  matches.forEach(function(tableHtml, tableIndex){
-    const rowMatches = tableHtml.match(/<tr\b[\s\S]*?<\/tr>/gi) || [];
-    const rows = [];
-    rowMatches.forEach(function(rowHtml){
-      const cells = [];
-      const cellMatches = rowHtml.match(/<(?:td|th)\b[\s\S]*?<\/(?:td|th)>/gi) || [];
-      cellMatches.forEach(function(cellHtml){
-        const text = cellText_(cellHtml);
-        cells.push(text);
-      });
-      if (cells.length) rows.push(cells);
-    });
-
-    if (rows.length < 2) return;
-    const maxCols = Math.max.apply(null, rows.map(function(r){return r.length;}));
-    if (maxCols < 2) return;
-
-    const normalized = rows.map(function(r){
-      const out = r.slice();
-      while(out.length < maxCols) out.push('');
-      return out;
-    });
-
-    const nonEmpty = normalized.reduce(function(n,r){
-      return n + r.filter(function(c){return String(c).trim();}).length;
-    },0);
-    if (nonEmpty < 4) return;
-
-    parsed.push({
-      sourceIndex: tableIndex + 1,
-      name: 'Imported Table ' + (tableIndex + 1),
-      columns: normalized[0].map(function(c,i){return c || ('Column ' + (i+1));}),
-      rows: normalized.slice(1),
-      rowCount: normalized.length,
-      columnCount: maxCols,
-      cellCount: nonEmpty
-    });
-  });
-
-  // Largest useful table first. This makes the page's main information table the first imported table.
-  parsed.sort(function(a,b){
-    return (b.cellCount - a.cellCount) || (b.rowCount - a.rowCount) || (a.sourceIndex - b.sourceIndex);
-  });
-
-  return parsed.slice(0,20).map(function(t,i){
-    t.name = i === 0 ? 'MAIN INFORMATION TABLE' : 'Imported Table ' + i;
-    delete t.sourceIndex;
-    delete t.rowCount;
-    delete t.columnCount;
-    delete t.cellCount;
-    return t;
-  });
-}
-
-function pageTitle_(html) {
-  const m = String(html || '').match(/<title[^>]*>([\s\S]*?)<\/title>/i);
-  return m ? cellText_(m[1]) : '';
-}
-
-function crawlUrl_(body) {
-  if (!body.url || !/^https?:\/\//i.test(body.url)) return {ok:false,error:'Valid http/https URL required.'};
-  const r = UrlFetchApp.fetch(body.url, {muteHttpExceptions:true,followRedirects:true,headers:{'User-Agent':'Mozilla/5.0 (compatible; ONESTOP Job Update V1)'}});
-  const code = r.getResponseCode();
-  if (code < 200 || code >= 400) return {ok:false,error:'Source returned HTTP '+code};
-  const html = r.getContentText();
-  const text = html
-    .replace(/<script[\s\S]*?<\/script>/gi,' ')
-    .replace(/<style[\s\S]*?<\/style>/gi,' ')
-    .replace(/<[^>]+>/g,'\n')
-    .replace(/&nbsp;/gi,' ')
-    .replace(/&amp;/gi,'&')
-    .replace(/&lt;/gi,'<')
-    .replace(/&gt;/gi,'>')
-    .replace(/\r/g,'')
-    .replace(/[ \t]+/g,' ')
-    .replace(/\n\s*\n+/g,'\n')
-    .trim();
-  return {
-    ok:true,
-    url:body.url,
-    status:code,
-    title:pageTitle_(html),
-    tables:extractTables_(html),
-    tableCount:extractTables_(html).length,
-    text:text.slice(0,150000)
-  };
-}
-
-function saveDraft_(body) {
-  const auth = auth_(body);
-  if (!auth.ok) return auth;
-  if (!body.record || !body.record.fields) return {ok:false,error:'Vacancy record missing.'};
-  const record = normalizeRecord_(body.record,'DRAFT');
-  writeJob_(record);
-  return {ok:true,id:record.id,status:record.status,updatedAt:record.updatedAt};
-}
-
-function publishTest_(body) {
-  const auth = auth_(body);
-  if (!auth.ok) return auth;
-  if (!body.record || !body.record.fields) return {ok:false,error:'Vacancy record missing.'};
-  const record = normalizeRecord_(body.record,'PUBLISHED_TEST');
-  PropertiesService.getScriptProperties().setProperty('LATEST_TEST_RECORD',JSON.stringify(record));
-  writeJob_(record);
-  return {ok:true,id:record.id,status:record.status,publishedAt:record.publishedAt};
-}
-
-function normalizeRecord_(input,status) {
-  const record = JSON.parse(JSON.stringify(input));
-  record.id = record.id || Utilities.getUuid();
-  record.status = status;
-  record.createdAt = record.createdAt || new Date().toISOString();
-  record.updatedAt = new Date().toISOString();
-  if (status === 'PUBLISHED_TEST') record.publishedAt = new Date().toISOString();
-  return record;
-}
-
-function latest_() {
-  const raw = PropertiesService.getScriptProperties().getProperty('LATEST_TEST_RECORD');
-  return raw ? JSON.parse(raw) : {ok:true,record:null};
-}
-
-function bootstrap_() {
-  const fields = getFields_();
-  return {ok:true,mode:'TEST',fields:fields.fields,defaultsLoaded:fields.defaultsLoaded};
-}
-
-function getFields_() {
-  if (!CONFIG.SHEET_ID) return {ok:true,fields:DEFAULT_FIELDS,defaultsLoaded:true};
-  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-  const sh = ss.getSheetByName(CONFIG.FIELDS_SHEET);
-  if (!sh || sh.getLastRow() < 2) return {ok:true,fields:DEFAULT_FIELDS,defaultsLoaded:true};
-  const values = sh.getDataRange().getValues();
-  const fields = values.slice(1).filter(r=>r[0]).map(r=>[String(r[0]),String(r[1]||'Short Text'),String(r[2]||'Job Information'),Boolean(r[3]),r[4] !== false,Number(r[5]||999)]);
-  return {ok:true,fields:fields.length?fields:DEFAULT_FIELDS,defaultsLoaded:false};
-}
-
-function saveFields_(body) {
-  const auth = auth_(body);
-  if (!auth.ok) return auth;
-  if (!Array.isArray(body.fields)) return {ok:false,error:'fields must be an array'};
-  if (!CONFIG.SHEET_ID) {
-    PropertiesService.getScriptProperties().setProperty('CUSTOM_FIELDS',JSON.stringify(body.fields));
-    return {ok:true,count:body.fields.length,storage:'script-properties'};
-  }
-  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-  const sh = ss.getSheetByName(CONFIG.FIELDS_SHEET) || ss.insertSheet(CONFIG.FIELDS_SHEET);
-  sh.clearContents();
-  sh.getRange(1,1,1,6).setValues([['field_name','field_type','section','required','public_visible','display_order']]);
-  const rows = body.fields.map(f=>[f[0]||'',f[1]||'Short Text',f[2]||'Job Information',!!f[3],f[4] !== false,Number(f[5]||999)]);
-  if (rows.length) sh.getRange(2,1,rows.length,6).setValues(rows);
-  return {ok:true,count:rows.length,storage:'sheet'};
-}
-
-function writeJob_(record) {
-  if (!CONFIG.SHEET_ID) return;
-  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
-  const sh = ss.getSheetByName(CONFIG.JOBS_SHEET) || ss.insertSheet(CONFIG.JOBS_SHEET);
-  if (sh.getLastRow() === 0) {
-    sh.appendRow(['id','status','createdAt','updatedAt','publishedAt','title','organization','lastDate','recordJson']);
-  }
-  const f = record.fields || [];
-  const value = function(name){ const hit=f.find(x=>x[0]===name); return hit ? hit[1] : ''; };
-  sh.appendRow([
-    record.id,record.status,record.createdAt,record.updatedAt,record.publishedAt||'',
-    value('Recruitment Name'),value('Organization / Authority'),value('Last Date to Apply'),JSON.stringify(record)
-  ]);
-}
-
-function json_(obj) {
-  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
-}
+function pageTitle_(h){const m=String(h||'').match(/<title[^>]*>([\s\S]*?)<\/title>/i);return m?cellText_(m[1]):''}
+function crawlUrl_(b){if(!b.url||!/^https?:\/\//i.test(b.url))return{ok:false,error:'Valid http/https URL required.'};const r=UrlFetchApp.fetch(b.url,{muteHttpExceptions:true,followRedirects:true,headers:{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/150 Safari/537.36','Accept':'text/html,application/xhtml+xml'}});const code=r.getResponseCode();if(code<200||code>=400)return{ok:false,error:'Source returned HTTP '+code};const html=r.getContentText();let tables=extractTables_(html);if(!tables.length)tables=extractStructuredRows_(html);const text=html.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,'\n').replace(/&nbsp;/gi,' ').replace(/&amp;/gi,'&').replace(/&lt;/gi,'<').replace(/&gt;/gi,'>').replace(/[ \t]+/g,' ').replace(/\n\s*\n+/g,'\n').trim();return{ok:true,url:b.url,status:code,title:pageTitle_(html),tables:tables,tableCount:tables.length,text:text.slice(0,150000)}}
+function saveDraft_(b){const a=auth_(b);if(!a.ok)return a;if(!b.record||!b.record.fields)return{ok:false,error:'Vacancy record missing.'};const r=normalizeRecord_(b.record,'DRAFT');writeJob_(r);return{ok:true,id:r.id,status:r.status,updatedAt:r.updatedAt}}
+function publishTest_(b){const a=auth_(b);if(!a.ok)return a;if(!b.record||!b.record.fields)return{ok:false,error:'Vacancy record missing.'};const r=normalizeRecord_(b.record,'PUBLISHED_TEST');PropertiesService.getScriptProperties().setProperty('LATEST_TEST_RECORD',JSON.stringify(r));writeJob_(r);return{ok:true,id:r.id,status:r.status,publishedAt:r.publishedAt}}
+function normalizeRecord_(x,status){const r=JSON.parse(JSON.stringify(x));r.id=r.id||Utilities.getUuid();r.status=status;r.createdAt=r.createdAt||new Date().toISOString();r.updatedAt=new Date().toISOString();if(status==='PUBLISHED_TEST')r.publishedAt=new Date().toISOString();return r}
+function latest_(){const x=PropertiesService.getScriptProperties().getProperty('LATEST_TEST_RECORD');return x?JSON.parse(x):{ok:true,record:null}}
+function bootstrap_(){const f=getFields_();return{ok:true,mode:'TEST',fields:f.fields,defaultsLoaded:f.defaultsLoaded}}
+function getFields_(){if(!CONFIG.SHEET_ID)return{ok:true,fields:DEFAULT_FIELDS,defaultsLoaded:true};const ss=SpreadsheetApp.openById(CONFIG.SHEET_ID),sh=ss.getSheetByName(CONFIG.FIELDS_SHEET);if(!sh||sh.getLastRow()<2)return{ok:true,fields:DEFAULT_FIELDS,defaultsLoaded:true};const v=sh.getDataRange().getValues(),f=v.slice(1).filter(r=>r[0]).map(r=>[String(r[0]),String(r[1]||'Short Text'),String(r[2]||'Job Information'),Boolean(r[3]),r[4]!==false,Number(r[5]||999)]);return{ok:true,fields:f.length?f:DEFAULT_FIELDS,defaultsLoaded:false}}
+function saveFields_(b){const a=auth_(b);if(!a.ok)return a;if(!Array.isArray(b.fields))return{ok:false,error:'fields must be an array'};if(!CONFIG.SHEET_ID){PropertiesService.getScriptProperties().setProperty('CUSTOM_FIELDS',JSON.stringify(b.fields));return{ok:true,count:b.fields.length,storage:'script-properties'}}const ss=SpreadsheetApp.openById(CONFIG.SHEET_ID),sh=ss.getSheetByName(CONFIG.FIELDS_SHEET)||ss.insertSheet(CONFIG.FIELDS_SHEET);sh.clearContents();sh.getRange(1,1,1,6).setValues([['field_name','field_type','section','required','public_visible','display_order']]);const rows=b.fields.map(f=>[f[0]||'',f[1]||'Short Text',f[2]||'Job Information',!!f[3],f[4]!==false,Number(f[5]||999)]);if(rows.length)sh.getRange(2,1,rows.length,6).setValues(rows);return{ok:true,count:rows.length,storage:'sheet'}}
+function writeJob_(r){if(!CONFIG.SHEET_ID)return;const ss=SpreadsheetApp.openById(CONFIG.SHEET_ID),sh=ss.getSheetByName(CONFIG.JOBS_SHEET)||ss.insertSheet(CONFIG.JOBS_SHEET);if(sh.getLastRow()===0)sh.appendRow(['id','status','createdAt','updatedAt','publishedAt','title','organization','lastDate','recordJson']);const f=r.fields||[],v=n=>{const x=f.find(z=>z[0]===n);return x?x[1]:''};sh.appendRow([r.id,r.status,r.createdAt,r.updatedAt,r.publishedAt||'',v('Recruitment Name'),v('Organization / Authority'),v('Last Date to Apply'),JSON.stringify(r)])}
