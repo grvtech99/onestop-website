@@ -40,11 +40,11 @@ jobs:
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/resume.svg -o free-csc-tools/tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/id-card.svg -o free-csc-tools/tool-thumbnails/1click-id-card-print-maker-html.png
           rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/social.svg -o free-csc-tools/tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png
-          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/pdf.svg -o free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools.html
+          rsvg-convert -w 600 -h 480 free-csc-tools/tool-thumbnails/.generated/pdf.svg -o free-csc-tools/tool-thumbnails/pdf-tools-onestop-pdf-tools.html.png
           cat > free-csc-tools/pro-thumbnails.js <<'EOF'
           (function(){
             const thumbs=document.querySelectorAll('.trending .tool-card .thumb');
-            const imgs=['tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png?v=pro20260915-v2','tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png?v=pro20260915-v2','tool-thumbnails/1click-id-card-print-maker-html.png?v=pro20260915-v2','tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png?v=pro20260915-v2','tool-thumbnails/pdf-tools-onestop-pdf-tools-html.png?v=pro20260915-v2'];
+            const imgs=['tool-thumbnails/passport-onestop-free-passport-photo-maker-html.png?v=pro20260915-v2','tool-thumbnails/free-one-click-resume-resume-maker-30-templates-html.png?v=pro20260915-v2','tool-thumbnails/1click-id-card-print-maker-html.png?v=pro20260915-v2','tool-thumbnails/social-media-onestop-social-media-post-maker-free-v14-clean-html.png?v=pro20260915-v2','tool-thumbnails/pdf-tools-onestop-pdf-tools.html.png?v=pro20260915-v2'];
             thumbs.forEach((el,i)=>{if(!imgs[i])return;el.innerHTML='';el.style.padding='0';const img=document.createElement('img');img.className='pro-tool-thumb';img.src=imgs[i];img.alt='ONESTOP professional tool thumbnail';el.appendChild(img);});
             const style=document.createElement('style');style.textContent='.thumb{padding:0!important}.thumb:before,.thumb:after{display:none!important}.pro-tool-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}';document.head.appendChild(style);
           })();
