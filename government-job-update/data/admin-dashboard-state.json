@@ -1,6 +1,6 @@
 {
   "schemaVersion": 5,
-  "generatedAt": "2026-09-16T09:47:15.591383+00:00",
+  "generatedAt": "2026-09-16T09:49:16.031120+00:00",
   "pipelineStatus": "PROBLEM",
   "problemStep": {
     "id": "officialVerification",
@@ -10,11 +10,11 @@
   "currentStep": null,
   "workflow": {
     "name": "Government Job Update — Multi-Source Discovery",
-    "runId": "35081147574",
-    "runNumber": "128",
+    "runId": "35081365739",
+    "runNumber": "129",
     "runAttempt": "1",
-    "commitSha": "c2ee25e68dab11e5025e38e59e33de25a329ac25",
-    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35081147574",
+    "commitSha": "ffc5054efdb86f97360cb3d5b104792d51e4d30f",
+    "runUrl": "https://github.com/grvtech99/onestop-website/actions/runs/35081365739",
     "overall": "FAILURE",
     "failedSteps": [
       "officialVerification",
@@ -83,18 +83,18 @@
   "production": {
     "source": "Multi-Source Government Jobs",
     "status": "ok",
-    "lastCheckedAt": "2026-09-16T09:44:58.978519+00:00",
-    "lastSuccessfulDiscoveryAt": "2026-09-16T09:44:58.978519+00:00",
+    "lastCheckedAt": "2026-09-16T09:47:30.370044+00:00",
+    "lastSuccessfulDiscoveryAt": "2026-09-16T09:47:30.370044+00:00",
     "lastError": null,
-    "discoveredCount": 538,
-    "newCount": 8,
+    "discoveredCount": 539,
+    "newCount": 9,
     "changedCount": 7
   },
   "bufferFlow": {
     "status": "ACTIVE",
-    "bufferedCount": 538,
-    "bufferedAt": "2026-09-16T09:45:36.933328+00:00",
-    "sourceCheckedAt": "2026-09-16T09:44:58.978519+00:00",
+    "bufferedCount": 539,
+    "bufferedAt": "2026-09-16T09:47:52.228937+00:00",
+    "sourceCheckedAt": "2026-09-16T09:47:30.370044+00:00",
     "sourceStatus": "ok",
     "intermediatePush": false
   },

@@ -1,10 +1,10 @@
 {
-  "checkedAt": "2026-09-16T09:44:58.978519+00:00",
+  "checkedAt": "2026-09-16T09:47:30.370044+00:00",
   "status": "ok",
-  "new": 8,
+  "new": 9,
   "changed": 7,
-  "retained": 162,
-  "items": 538,
+  "retained": 143,
+  "items": 539,
   "discoveryChannels": [
     "employmentnews",
     "ncs",
@@ -45,7 +45,7 @@
       "name": "Jagran Josh",
       "status": "ok",
       "mode": "html",
-      "count": 51
+      "count": 52
     },
     "testbook": {
       "name": "Testbook",
