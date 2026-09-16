@@ -1,4 +1,4 @@
-import json,re,sys,urllib.error,urllib.request
+import json,re,sys,urllib.error,urllib.request,ssl
 from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -7,7 +7,12 @@ def write_report(report):REPORT.parent.mkdir(parents=True,exist_ok=True);REPORT.
 def fetch(url):
  try:
   req=urllib.request.Request(url,headers={'User-Agent':UA,'Accept':'text/html,application/xhtml+xml,application/pdf;q=0.8,*/*;q=0.1'})
-  with urllib.request.urlopen(req,timeout=20) as r:return r.status,r.read(1500000),r.geturl(),None
+  context=ssl.create_default_context()
+  try:
+   import certifi
+   context=ssl.create_default_context(cafile=certifi.where())
+  except Exception: pass
+  with urllib.request.urlopen(req,timeout=20,context=context) as r:return r.status,r.read(1500000),r.geturl(),None
  except urllib.error.HTTPError as e:return e.code,b'',url,f'HTTP {e.code}'
  except Exception as e:return None,b'',url,str(e)[:300]
 def clean_html(body):

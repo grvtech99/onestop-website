@@ -1,7 +1,6 @@
 import json
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -22,28 +21,32 @@ def ready_item():
     }
 
 
-def run_gate(payload):
+def run_gate(payload, previous_payload=None):
     verification = ROOT / "data" / "official-verification-state.json"
-    original = verification.read_text(encoding="utf-8") if verification.exists() else None
+    output = ROOT / "data" / "publication-queue.json"
+    original_verification = verification.read_text(encoding="utf-8") if verification.exists() else None
+    original_output = output.read_text(encoding="utf-8") if output.exists() else None
     try:
         verification.parent.mkdir(parents=True, exist_ok=True)
         verification.write_text(json.dumps(payload), encoding="utf-8")
+        if previous_payload is None:
+            output.unlink(missing_ok=True)
+        else:
+            output.write_text(json.dumps(previous_payload), encoding="utf-8")
         completed = subprocess.run([sys.executable, str(GATE)], capture_output=True, text=True)
-        queue = json.loads((ROOT / "data" / "publication-queue.json").read_text(encoding="utf-8"))
+        queue = json.loads(output.read_text(encoding="utf-8"))
         return completed.returncode, queue
     finally:
-        if original is None:
-            verification.unlink(missing_ok=True)
-        else:
-            verification.write_text(original, encoding="utf-8")
-        (ROOT / "data" / "publication-queue.json").unlink(missing_ok=True)
+        if original_verification is None: verification.unlink(missing_ok=True)
+        else: verification.write_text(original_verification, encoding="utf-8")
+        if original_output is None: output.unlink(missing_ok=True)
+        else: output.write_text(original_output, encoding="utf-8")
 
 
 def main():
     ready = {"schemaVersion": 1, "checkedAt": "test", "items": {"pass": ready_item()}}
     hold = {"schemaVersion": 1, "checkedAt": "test", "items": {"hold": {"status": "hold", "publicationStatus": "hold", "officialSource": None}}}
     mixed = {"schemaVersion": 1, "checkedAt": "test", "items": {"pass": ready_item(), "hold": {"status": "hold", "publicationStatus": "hold", "officialSource": None}}}
-
     rc1, q1 = run_gate(ready)
     rc2, q2 = run_gate(hold)
     rc3, q3 = run_gate(mixed)
@@ -52,20 +55,15 @@ def main():
         and rc2 == 0 and q2["readyCount"] == 0 and q2["blockedCount"] == 1
         and rc3 == 0 and q3["readyCount"] == 1 and q3["blockedCount"] == 1
     )
-    report = {
-        "schemaVersion": 1,
-        "status": "PASS" if passed else "FAIL",
-        "tests": {
-            "verified_is_published": q1,
-            "hold_is_blocked": q2,
-            "mixed_only_verified_is_published": q3,
-        },
-    }
+    report = {"schemaVersion": 1, "status": "PASS" if passed else "FAIL", "tests": {
+        "verified_is_published": q1,
+        "hold_is_blocked": q2,
+        "mixed_only_verified_is_published": q3,
+    }}
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     REPORT.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(report, indent=2, ensure_ascii=False))
     return 0 if passed else 1
 
 
-if __name__ == "__main__":
-    sys.exit(main())
+if __name__ == "__main__": sys.exit(main())
