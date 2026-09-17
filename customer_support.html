@@ -7,9 +7,14 @@
 <title>ONESTOP Customer Portal</title>
 <style>
 :root {
-  --brand:#0875d1; --ink:#173b57; --muted:#617487;
-  --line:#d8eaf7; --wa:#12ad5b;
-  --upi:#7b22b9; --shadow:0 2px 10px rgba(16,88,145,.07);
+  --brand: #0875d1;
+  --ink: #173b57;
+  --muted: #617487;
+  --line: #d8eaf7;
+  --wa: #12ad5b;
+  --upi: #7b22b9;
+  --shadow: 0 2px 10px rgba(16, 88, 145, .07);
+  --action-radius: 4px;
 }
 *{box-sizing:border-box}
 html{min-height:100%;background:#f4faff}
@@ -72,63 +77,8 @@ main{width:min(100%,760px);margin:0 auto;padding:12px clamp(10px,3vw,20px) 14px;
 .support-btn svg{width:20px;height:20px}
 footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.55);padding-top:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 14px;font-size:clamp(10px,2.3vw,13px);line-height:1.25}
-@media(max-width:480px){
-  html,body{width:100%;min-height:100%}
-  body{min-height:100svh;display:flex;flex-direction:column;overflow-x:hidden}
-  .site-header{flex:0 0 auto;height:54px;padding:6px 12px;border-bottom-width:2px}
-  .brand-name{font-size:27px}.brand-sub{font-size:7px;letter-spacing:0;margin-top:2px}
-  .menu{font-size:24px}
-  .hero{flex:0 0 auto;padding:9px 14px 10px}
-  .eyebrow{font-size:8px;letter-spacing:1.7px;margin-bottom:3px}
-  .hero h1{font-size:clamp(23px,6.3vw,29px);line-height:1}
-  .hero p{font-size:10px;line-height:1.18;margin-top:5px}
-  main{width:100%;flex:1 0 auto;padding:6px 8px;gap:6px}
-  .panel{border-radius:13px}
-  .whatsapp,.payment{padding:7px;grid-template-columns:42px minmax(0,1fr) 10px;gap:6px}
-  .icon-tile{width:42px;height:42px;border-radius:9px}
-  .wa-tile svg,.pay-tile svg{width:30px;height:30px}
-  .copy h2{font-size:clamp(13px,3.7vw,16px);line-height:1.08;overflow-wrap:normal}
-  .copy p{font-size:9px;line-height:1.15;margin-top:3px}
-  .pay-tags{gap:3px;margin-top:4px}
-  .pay-tag{font-size:8px;padding:3px 4px;line-height:1.05}
-  .arrow{font-size:23px}
-  .action{min-height:34px;padding:5px 6px;font-size:10px;line-height:1.1;gap:4px}
-  .action svg{width:15px;height:15px}
-  .docs{padding:7px}.section-title{margin-bottom:5px}
-  .section-title h2{font-size:clamp(17px,4.8vw,21px);line-height:1.02}
-  .section-title p{font-size:8.5px;line-height:1.12;margin-top:3px}
-  .doc-grid{gap:4px}.doc-card{padding:5px 3px;gap:4px;border-radius:9px}
-  .doc-art,.doc-art svg{height:31px}.doc-art svg{width:min(100%,48px)}
-  .doc-card h3{font-size:clamp(9px,2.75vw,11px);line-height:1.08;overflow-wrap:normal}
-  .doc-card p{font-size:7.5px;line-height:1.12}
-  .outline-btn{min-height:28px;padding:4px 2px;font-size:7.5px;line-height:1.05;gap:2px}
-  .outline-btn svg{width:10px;height:10px}
-  .benefits{padding:5px 2px;gap:1px}
-  .benefit{flex-direction:column;gap:2px;text-align:center;font-size:7px;line-height:1.05;padding:0 1px}
-  .benefit svg{width:17px;height:17px}
-  .support{padding:6px;gap:5px}.support-left{gap:5px}
-  .headset{width:29px;height:29px}.headset svg{width:20px;height:20px}
-  .support h2{font-size:clamp(11px,3.3vw,14px);line-height:1.08}
-  .support p{font-size:8px;line-height:1.1;margin-top:2px}
-  .support-btn{min-height:29px;max-width:39%;padding:4px;font-size:8px;gap:2px;white-space:normal}
-  .support-btn svg{width:12px;height:12px}
-  footer{flex:0 0 auto;padding:6px 10px 5px}
-  .footer-bottom{padding-top:4px;gap:3px 6px;font-size:6.5px;line-height:1.1}
-}
-@media(max-width:360px){
-  .whatsapp,.payment{grid-template-columns:38px minmax(0,1fr) 10px;gap:5px}
-  .icon-tile{width:38px;height:38px}.wa-tile svg,.pay-tile svg{width:28px;height:28px}
-  .pay-tag{font-size:7px;padding:3px}.doc-card p{font-size:7px}
-  .doc-card h3{font-size:9px}.outline-btn{font-size:7px}
-  .support-btn{max-width:36%}
-}
-@media(max-width:480px) and (max-height:760px){
-  .benefits{padding:4px 2px}
-  main{gap:4px;padding-top:4px;padding-bottom:4px}
-}
 
-/* Accessible, high-visibility five-action redesign */
-:root{--action-radius:4px}
+/* Accessible, high-visibility five-action layout */
 .menu{border-radius:4px}
 .portal-nav a{border-radius:4px;font-size:16px;padding:11px 14px}
 .action,.outline-btn,.support-btn{border-radius:4px!important;font-size:clamp(15px,2.2vw,19px)!important;font-weight:800}
@@ -184,8 +134,6 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
 </section>
 <main>
 <section class="panel docs" id="documents" aria-labelledby="docs-title">
-    <div class="section-title">
-    </div>
     <div class="doc-grid">
       <article class="doc-card">
         <div class="doc-art" aria-hidden="true">
@@ -205,12 +153,12 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
         </div>
         <a class="outline-btn" href="https://script.google.com/macros/s/AKfycbwDtiaEqI4FpX9_leagcTtTog78_Uaqx8M94xCb1NAT7Phet7usGAYsGJTyZ4CORn3NRQ/exec?page=customer" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3h10l4 4v14H5zM15 3v5h4M8 12h8M8 16h6" stroke="currentColor" stroke-width="1.8"/><path d="m15 17 2 2 4-5" stroke="currentColor" stroke-width="1.8"/></svg>Send Documents →</a>
       </article>
-    
+  
       <article class="doc-card">
         <div class="doc-art" aria-hidden="true">
           <svg viewBox="0 0 100 70"><rect x="20" y="8" width="60" height="54" rx="8" fill="#e7f8ee" stroke="#12ad5b" stroke-width="2"/><path d="M31 23h38M31 34h38M31 45h25" stroke="#12ad5b" stroke-width="4" stroke-linecap="round"/></svg>
         </div>
-  
+
         <a class="outline-btn" href="https://wa.me/919389063550" target="_blank" rel="noopener">Send message on WhatsApp →</a>
       </article>
       <article class="doc-card">
