@@ -19,11 +19,11 @@ a{color:inherit;text-decoration:none}
 .brand{min-width:0}
 .brand-name{font-size:clamp(25px,6vw,36px);font-weight:900;letter-spacing:-1.3px;line-height:.98;color:var(--brand)}
 .brand-sub{font-size:clamp(8px,1.8vw,11px);font-weight:700;letter-spacing:.55px;margin-top:5px;white-space:nowrap}
-.menu{font:inherit;font-size:30px;line-height:1;color:#111;flex:none;margin-left:12px;padding:4px 7px;border:0;background:transparent;border-radius:8px;cursor:pointer}
+.menu{font:inherit;font-size:30px;line-height:1;color:#111;flex:none;margin-left:12px;padding:4px 7px;border:0;background:transparent;border-radius:5px;cursor:pointer}
 .menu:focus-visible,.portal-nav a:focus-visible{outline:3px solid #ffbf47;outline-offset:3px}
 .portal-nav{background:#fff;border-bottom:1px solid var(--line);padding:10px clamp(16px,4vw,30px);display:flex;flex-wrap:wrap;gap:8px}
 .portal-nav[hidden]{display:none}
-.portal-nav a{padding:9px 12px;border-radius:9px;background:#eaf5ff;color:#174f9b;font-weight:700;font-size:14px}
+.portal-nav a{padding:9px 12px;border-radius:5px;background:#eaf5ff;color:#174f9b;font-weight:700;font-size:14px}
 .hero{background:var(--brand);color:#fff;padding:20px clamp(18px,4vw,32px) 22px}
 .eyebrow{font-size:clamp(10px,2.3vw,14px);letter-spacing:4px;margin-bottom:5px}
 .hero h1{font-size:clamp(29px,7.6vw,48px);line-height:1.04;letter-spacing:-.8px;margin:0;font-weight:850}
@@ -39,7 +39,7 @@ main{width:min(100%,760px);margin:0 auto;padding:12px clamp(10px,3vw,20px) 14px;
 .copy p{font-size:clamp(12px,2.9vw,16px);line-height:1.3;color:var(--muted);margin:5px 0 0}
 .pay-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
 .arrow{font-size:34px;color:#159a57;justify-self:center;line-height:1}
-.action{grid-column:1/-1;min-height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 12px;text-align:center;font-size:clamp(13px,3.3vw,17px);font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.action{grid-column:1/-1;min-height:52px;border-radius:5px;display:flex;align-items:center;justify-content:center;gap:9px;padding:10px 12px;text-align:center;font-size:clamp(13px,3.3vw,17px);font-weight:800;line-height:1.25;overflow-wrap:anywhere}
 .wa-action{background:var(--wa);color:#fff}
 .action svg{width:23px;height:23px;flex:none}
 .docs{padding:15px}
@@ -52,7 +52,7 @@ main{width:min(100%,760px);margin:0 auto;padding:12px clamp(10px,3vw,20px) 14px;
 .doc-art svg{width:min(100%,90px);height:70px;display:block}
 .doc-card h3{font-size:clamp(13px,3.3vw,19px);line-height:1.17;margin:0;color:#174f9b;font-weight:800;overflow-wrap:anywhere}
 .doc-card p{font-size:clamp(11px,2.6vw,14px);line-height:1.3;color:var(--muted);margin:0;flex:1}
-.outline-btn{width:100%;min-height:42px;border:1.5px solid var(--brand);border-radius:9px;color:var(--brand);display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 5px;font-size:clamp(10px,2.5vw,14px);font-weight:800;line-height:1.15;text-align:center;overflow-wrap:anywhere}
+.outline-btn{width:100%;min-height:42px;border:1.5px solid var(--brand);border-radius:5px;color:var(--brand);display:flex;align-items:center;justify-content:center;gap:5px;padding:8px 5px;font-size:clamp(10px,2.5vw,14px);font-weight:800;line-height:1.15;text-align:center;overflow-wrap:anywhere}
 .outline-btn svg{width:17px;height:17px;flex:none}
 .pay-tile{background:#f4eaff;color:var(--upi)}
 .pay-tile svg{width:53px;height:53px}
@@ -68,7 +68,7 @@ main{width:min(100%,760px);margin:0 auto;padding:12px clamp(10px,3vw,20px) 14px;
 .headset svg{width:34px;height:34px;color:var(--brand)}
 .support h2{font-size:clamp(17px,4vw,25px);line-height:1.15;margin:0;color:#174f9b}
 .support p{font-size:clamp(11px,2.7vw,15px);line-height:1.3;margin:5px 0 0;color:var(--muted)}
-.support-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:45px;border:1.5px solid var(--brand);border-radius:12px;background:#fff;color:var(--brand);padding:9px 12px;font-size:clamp(11px,2.7vw,15px);font-weight:800;white-space:nowrap;flex:none}
+.support-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:45px;border:1.5px solid var(--brand);border-radius:5px;background:#fff;color:var(--brand);padding:9px 12px;font-size:clamp(11px,2.7vw,15px);font-weight:800;white-space:nowrap;flex:none}
 .support-btn svg{width:20px;height:20px}
 footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.55);padding-top:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px 14px;font-size:clamp(10px,2.3vw,13px);line-height:1.25}
@@ -126,6 +126,49 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
   .benefits{padding:4px 2px}
   main{gap:4px;padding-top:4px;padding-bottom:4px}
 }
+
+/* Accessible, high-visibility five-action redesign */
+:root{--action-radius:4px}
+.menu{border-radius:4px}
+.portal-nav a{border-radius:4px;font-size:16px;padding:11px 14px}
+.action,.outline-btn,.support-btn{border-radius:4px!important;font-size:clamp(15px,2.2vw,19px)!important;font-weight:800}
+.whatsapp,.payment{grid-template-columns:76px minmax(0,1fr);gap:14px}
+.whatsapp .arrow,.payment .arrow{display:none}
+.whatsapp .action,.payment .action{grid-column:1/-1;min-height:58px;padding:14px;font-size:clamp(16px,2.5vw,20px)!important}
+.doc-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.doc-card{border-radius:4px;padding:14px 10px;gap:10px;border-width:2px}
+.doc-card h3{font-size:clamp(15px,2vw,20px);line-height:1.2}
+.doc-card p{font-size:clamp(13px,1.5vw,16px);line-height:1.35}
+.outline-btn{min-height:54px;padding:12px 8px;font-size:clamp(14px,1.8vw,18px)!important}
+.support-btn{border-radius:4px!important}
+@media(max-width:600px){
+  main{padding:8px;gap:9px}
+  .whatsapp,.payment{grid-template-columns:52px minmax(0,1fr);padding:10px;gap:9px}
+  .icon-tile{width:52px;height:52px}
+  .wa-tile svg,.pay-tile svg{width:36px;height:36px}
+  .copy h2{font-size:clamp(17px,4.5vw,22px);line-height:1.15}
+  .whatsapp .action,.payment .action{min-height:54px;font-size:clamp(15px,4vw,19px)!important}
+  .docs{padding:10px}
+  .doc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .doc-card{padding:10px 7px;gap:8px}
+  .doc-card:last-child{grid-column:1/-1}
+  .doc-art,.doc-art svg{height:54px}
+  .doc-art svg{width:min(100%,70px)}
+  .doc-card h3{font-size:clamp(15px,4vw,19px)}
+  .doc-card p{font-size:13px}
+  .outline-btn{min-height:50px;font-size:clamp(14px,3.5vw,17px)!important}
+  .support{flex-wrap:wrap}
+  .support-btn{min-height:46px;font-size:15px!important}
+}
+@media(max-width:360px){
+  .doc-grid{grid-template-columns:1fr}
+  .doc-card:last-child{grid-column:auto}
+  .doc-card{display:grid;grid-template-columns:56px minmax(0,1fr);text-align:left;align-items:center}
+  .doc-art{grid-row:span 2;height:50px}
+  .doc-card h3,.doc-card p,.doc-card .outline-btn{grid-column:2}
+  .doc-card .outline-btn{width:100%}
+}
+
 </style>
 </head>
 <body>
