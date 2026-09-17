@@ -151,7 +151,6 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
   .docs{padding:10px}
   .doc-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .doc-card{padding:10px 7px;gap:8px}
-  .doc-card:last-child{grid-column:1/-1}
   .doc-art,.doc-art svg{height:54px}
   .doc-art svg{width:min(100%,70px)}
   .doc-card h3{font-size:clamp(15px,4vw,19px)}
@@ -162,7 +161,6 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
 }
 @media(max-width:360px){
   .doc-grid{grid-template-columns:1fr}
-  .doc-card:last-child{grid-column:auto}
   .doc-card{display:grid;grid-template-columns:56px minmax(0,1fr);text-align:left;align-items:center}
   .doc-art{grid-row:span 2;height:50px}
   .doc-card h3,.doc-card p,.doc-card .outline-btn{grid-column:2}
@@ -177,9 +175,7 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
   <button class="menu" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="portal-nav" id="menu-toggle">☰</button>
 </header>
 <nav class="portal-nav" id="portal-nav" hidden aria-label="Customer portal navigation">
-  <a href="#whatsapp">WhatsApp</a>
   <a href="#documents">Send Documents</a>
-  <a href="#payment">Payment</a>
   <a href="#support">Contact Support</a>
 </nav>
 <section class="hero">
@@ -187,20 +183,7 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
   <h1>We’re Here<br>To Help You.</h1>
 </section>
 <main>
-  <section class="panel whatsapp" id="whatsapp" aria-labelledby="wa-title">
-    <div class="icon-tile wa-tile" aria-hidden="true">
-      <svg viewBox="0 0 64 64" fill="none"><path d="M13 49l4-11a23 23 0 1 1 8 9l-12 2Z" stroke="white" stroke-width="5" stroke-linejoin="round"/><path d="M25 22c-2 2-2 5 0 9 3 6 8 10 14 12 3 1 6-1 7-4l-7-4-4 3c-4-2-6-4-8-8l3-3-5-5Z" fill="white"/></svg>
-    </div>
-    <div class="copy">
-    </div>
-    <span class="arrow" aria-hidden="true">›</span>
-    href="https://wa.me/919389063550" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 19l1.4-4A8 8 0 1 1 9 18.4L5 19Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 8c-.6 1 1.5 4.8 4.5 5.5l1.4-1.2-2.2-1.2-1 .7c-1-.5-1.7-1.3-2-2.2l.7-.9L9 8Z" fill="currentColor"/></svg>
-      Send on WhatsApp · WhatsApp पर भेजें →
-    </a>
-  </section>
-
-  <section class="panel docs" id="documents" aria-labelledby="docs-title">
+<section class="panel docs" id="documents" aria-labelledby="docs-title">
     <div class="section-title">
     </div>
     <div class="doc-grid">
@@ -222,19 +205,26 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
         </div>
         <a class="outline-btn" href="https://script.google.com/macros/s/AKfycbwDtiaEqI4FpX9_leagcTtTog78_Uaqx8M94xCb1NAT7Phet7usGAYsGJTyZ4CORn3NRQ/exec?page=customer" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M5 3h10l4 4v14H5zM15 3v5h4M8 12h8M8 16h6" stroke="currentColor" stroke-width="1.8"/><path d="m15 17 2 2 4-5" stroke="currentColor" stroke-width="1.8"/></svg>Send Documents →</a>
       </article>
-    </div>
+    
+      <article class="doc-card">
+        <div class="doc-art" aria-hidden="true">
+          <svg viewBox="0 0 100 70"><rect x="20" y="8" width="60" height="54" rx="8" fill="#e7f8ee" stroke="#12ad5b" stroke-width="2"/><path d="M31 23h38M31 34h38M31 45h25" stroke="#12ad5b" stroke-width="4" stroke-linecap="round"/></svg>
+        </div>
+        <h3>WhatsApp</h3>
+        <p>Send a message to our team · हमारी टीम को संदेश भेजें</p>
+        <a class="outline-btn" href="https://wa.me/919389063550" target="_blank" rel="noopener">Send on WhatsApp →</a>
+      </article>
+      <article class="doc-card">
+        <div class="doc-art" aria-hidden="true">
+          <svg viewBox="0 0 100 70"><rect x="15" y="8" width="70" height="54" rx="7" fill="#f3e8fc" stroke="#7b22b9" stroke-width="2"/><text x="50" y="48" text-anchor="middle" font-size="34" font-weight="bold" fill="#7b22b9">₹</text></svg>
+        </div>
+        <h3>Pay Now</h3>
+        <p>Google Pay, PhonePe, Paytm &amp; more · अभी भुगतान करें</p>
+        <a class="outline-btn" href="upi://pay?pa=8881899990@ptyes&amp;pn=ONESTOP&amp;cu=INR">Pay Now →</a>
+      </article>
+</div>
   </section>
-
-  <section class="panel payment" id="payment" aria-labelledby="pay-title">
-    <div class="icon-tile pay-tile" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M16 10h39v9H29l-3 7h29v9H22l-3 7h36v9H15l-4 8H1l8-17h14l3-7H13l4-9h13l3-7H12Z" fill="#7b22b9" transform="translate(5 -2)"/></svg></div>
-    <div class="copy">
-      <div class="pay-tags"><span class="pay-tag">Google Pay</span><span class="pay-tag">PhonePe</span><span class="pay-tag">Paytm</span><span class="pay-tag">&amp; more · और भी</span></div>
-    </div>
-    <span class="arrow pay-arrow" aria-hidden="true">›</span>
-    <a class="action pay-action" href="upi://pay?pa=8881899990@ptyes&amp;pn=ONESTOP&amp;cu=INR"><span aria-hidden="true">₹</span> Pay Now · अभी भुगतान करें →</a>
-  </section>
-
-  <section class="panel benefits" aria-label="Service benefits">
+<section class="panel benefits" aria-label="Service benefits">
     <div class="benefit"><svg viewBox="0 0 32 32" fill="none"><path d="M16 2 28 7v8c0 8-5 12-12 15C9 27 4 23 4 15V7z" fill="currentColor"/><path d="m10 16 4 4 8-9" stroke="white" stroke-width="2.5"/></svg><span>Simple Process<br>आसान प्रक्रिया</span></div>
     <div class="benefit"><svg viewBox="0 0 32 32" fill="none"><rect x="6" y="13" width="20" height="16" rx="3" fill="currentColor"/><path d="M10 13V9a6 6 0 0 1 12 0v4" stroke="currentColor" stroke-width="3"/><circle cx="16" cy="20" r="2" fill="white"/></svg><span>Secure<br>सुरक्षित</span></div>
     <div class="benefit"><svg viewBox="0 0 32 32" fill="currentColor"><circle cx="12" cy="9" r="6"/><path d="M1 29v-4c0-7 5-11 11-11s11 4 11 11v4z"/><circle cx="25" cy="11" r="4"/><path d="M25 17c4 0 6 3 6 7v4h-5v-3c0-3-1-6-4-7z"/></svg><span>Reliable Support<br>विश्वसनीय सहायता</span></div>
@@ -243,7 +233,7 @@ footer{background:var(--brand);color:#fff;padding:15px clamp(16px,4vw,30px) 13px
 
   <section class="panel support" id="support">
     <div class="support-left"><div class="headset"><svg viewBox="0 0 32 32" fill="none"><path d="M4 17v-3a12 12 0 0 1 24 0v9a4 4 0 0 1-4 4h-5" stroke="currentColor" stroke-width="3"/><rect x="2" y="15" width="7" height="12" rx="3" fill="currentColor"/><rect x="23" y="15" width="7" height="12" rx="3" fill="currentColor"/><path d="M18 27h-4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div><div><h2>Need help? · मदद चाहिए?</h2><p>Our team is here to assist you.<br>हमारी टीम आपकी सहायता के लिए है।</p></div></div>
-    <a class="support-btn" href="https://wa.me/919389063550" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19l1.4-4A8 8 0 1 1 9 18.4L5 19Z" stroke="currentColor" stroke-width="1.8"/><path d="M9 8c-.6 1 1.5 4.8 4.5 5.5l1.4-1.2-2.2-1.2-1 .7c-1-.5-1.7-1.3-2-2.2l.7-.9L9 8Z" fill="currentColor"/></svg>Contact Support</a>
+    <a class="support-btn" href="https://wa.me/919389063550" target="_blank" rel="noopener">Contact Support</a>
   </section>
 </main>
 <footer>
