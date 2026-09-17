@@ -1,0 +1,19 @@
+/* ONESTOP Job Update — approved recruitment layout theme */
+:root{--navy:#073b91;--blue:#075fc8;--red:#c8102e;--green:#07845c;--purple:#5636c8;--orange:#ef6c00;--pink:#c21878;--teal:#087f83;--ink:#10264f;--line:#cbd9ee;--pale:#eef6ff}
+body{background:#f3f8ff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+header{background:#fff;color:var(--navy);border-bottom:5px solid var(--blue);padding:16px 20px}
+.nav{max-width:1500px}.brand{font-size:25px;letter-spacing:.4px;color:var(--navy)}.nav .pill{background:#e7f0ff;color:var(--navy)}
+.wrap{width:min(1540px,calc(100% - 28px));padding-top:20px}.notice{border-color:#b9d5ff;background:#edf6ff;color:#123d79}
+.grid{grid-template-columns:minmax(0,1.05fr) minmax(430px,.95fr);gap:18px}
+.card{border:1px solid #cbdcf3;border-radius:12px;box-shadow:0 5px 18px rgba(7,59,145,.07);padding:18px}
+.card h2{color:#fff;background:var(--blue);margin:-18px -18px 16px;padding:12px 16px;border-radius:11px 11px 0 0;font-size:20px}
+.card:nth-child(2) h2{background:var(--green)}
+.card h3{color:var(--navy)}
+.btn{border-radius:7px}.btn.primary{background:var(--blue)}.btn.success{background:var(--green)}.btn.secondary{background:#e8f1ff;color:#123d79;border:1px solid #c4d8f7}
+input,textarea,select{border-radius:7px;border-color:#bfd0e7}textarea{min-height:88px}
+.field-row,.custom-row{background:#f8fbff;border-color:#cbdcf3;border-radius:9px;grid-template-columns:minmax(140px, .7fr) minmax(0,1.4fr) auto}
+.field-row label{color:#173a70}.table-wrap{border-color:#b8cde8;border-radius:8px}.data-table{min-width:600px}.data-table th{background:#dcecff;color:#12366f}.data-table td,.data-table th{border-color:#c4d5eb}
+.preview-shell{top:12px}.preview-shell>h2{background:var(--navy)}#preview{border:1px solid #b9cde8;border-radius:12px;background:#fff}
+.preview-head{background:linear-gradient(110deg,#063b8f,#0871db);padding:22px 24px}.preview-head h1{font-size:clamp(22px,2vw,32px);line-height:1.2}.section{padding:18px 20px;border-bottom:1px solid #d9e5f4}.section h3{border-bottom:2px solid #d6e5f8;padding-bottom:9px;color:var(--navy);font-size:19px}.kv>div{grid-template-columns:minmax(145px,.8fr) minmax(0,1.3fr);border-bottom:1px solid #dce6f3;padding:10px 8px}.kv>div:nth-child(odd){background:#f3f8ff}.kv b{color:#183b72}
+@media(max-width:1050px){.grid{grid-template-columns:1fr}.preview-shell{position:static}}
+@media(max-width:600px){.wrap{width:calc(100% - 12px)}.card{padding:12px}.card h2{margin:-12px -12px 14px;padding:11px 12px}.field-row,.custom-row{grid-template-columns:1fr}.kv>div{grid-template-columns:1fr;gap:4px}.preview-head{padding:18px}.section{padding:14px}}
