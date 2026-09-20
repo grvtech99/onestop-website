@@ -1,580 +1,179 @@
-
 <!doctype html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Gaurav Yadav | Personal Blog</title>
-<meta name="description" content="Gaurav Yadav का personal blog — विचार, अनुभव, technology, education और उपयोगी जानकारी।">
-
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore technology, education, science and the universe with Gaurav's World.">
+<title>Gaurav's World | Explore. Learn. Discover.</title>
 <style>
-:root{
-  --brand:#1459a6;
-  --brand-dark:#103f78;
-  --ink:#172033;
-  --muted:#64748b;
-  --bg:#f5f7fb;
-  --card:#fff;
-  --line:#e5eaf1;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:system-ui,"Noto Sans Devanagari",Arial,sans-serif;
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.65;
-}
-a{color:var(--brand)}
-header{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-.header-inner{
-  max-width:1120px;
-  margin:auto;
-  padding:14px 18px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-  flex-wrap:wrap;
-}
-.brand{
-  color:var(--ink);
-  text-decoration:none;
-  font-size:1.25rem;
-  font-weight:850;
-}
-.tagline{font-size:.82rem;color:var(--muted)}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-nav a{
-  text-decoration:none;
-  color:#334155;
-  padding:7px 11px;
-  border-radius:8px;
-  font-size:.92rem;
-}
-nav a:hover{background:#edf4fc;color:var(--brand)}
-main{max-width:1120px;margin:auto;padding:24px 18px}
-.hero{
-  background:linear-gradient(130deg,#1459a6,#287bd1);
-  color:white;
-  border-radius:20px;
-  padding:clamp(24px,5vw,48px);
-  margin-bottom:28px;
-}
-.eyebrow{
-  font-size:.78rem;
-  letter-spacing:1.5px;
-  font-weight:750;
-  opacity:.85;
-}
-.hero h1{
-  font-size:clamp(2rem,5vw,3.2rem);
-  line-height:1.2;
-  margin:10px 0;
-}
-.hero p{max-width:650px;margin:0 0 20px;color:#eaf3ff}
-.hero-links{display:flex;gap:10px;flex-wrap:wrap}
-.btn{
-  display:inline-block;
-  text-decoration:none;
-  border:0;
-  border-radius:10px;
-  padding:10px 16px;
-  background:var(--brand);
-  color:white;
-  font:inherit;
-  cursor:pointer;
-}
-.btn-light{background:white;color:var(--brand-dark)}
-.btn-outline{background:#fff;color:var(--brand);border:1px solid var(--line)}
-.section-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  margin:28px 0 14px;
-}
-.section-head h2{margin:0;font-size:1.55rem}
-.layout{
-  display:grid;
-  grid-template-columns:minmax(0,2fr) minmax(250px,1fr);
-  gap:22px;
-}
-.featured{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:22px;
-  margin-bottom:22px;
-}
-.featured-label{
-  color:var(--brand);
-  font-size:.78rem;
-  font-weight:800;
-  letter-spacing:1px;
-}
-.featured h2{font-size:1.6rem;line-height:1.4;margin:8px 0}
-.meta{font-size:.82rem;color:var(--muted)}
-.featured p{color:#475569;white-space:pre-wrap}
-.tools{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin:14px 0;
-}
-input,select{
-  font:inherit;
-  border:1px solid #d6deea;
-  background:white;
-  padding:10px 12px;
-  border-radius:10px;
-  min-width:0;
-}
-#search{flex:1;min-width:180px}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-.filters button{
-  border:1px solid #d5deea;
-  background:white;
-  color:#334155;
-  padding:7px 12px;
-  border-radius:999px;
-  cursor:pointer;
-}
-.filters button.active{background:var(--brand);color:white}
-.cards{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:14px;
-}
-.article{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:18px;
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  min-width:0;
-}
-.article h3{font-size:1.12rem;line-height:1.5;margin:8px 0}
-.article p{color:#475569;margin:0 0 14px;white-space:pre-wrap}
-.article .read{margin-top:auto}
-.article .source{font-size:.8rem;color:var(--muted);margin-bottom:12px}
-aside .panel{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:18px;
-  margin-bottom:16px;
-}
-.panel h3{margin:0 0 10px}
-.panel p{color:#475569;margin:0}
-.panel ul{padding-left:20px;margin:8px 0}
-.panel li{margin:8px 0}
-.about{
-  background:white;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:24px;
-  margin-top:30px;
-}
-.notice{font-size:.88rem;color:var(--muted)}
-.empty{
-  background:white;
-  padding:20px;
-  border-radius:12px;
-  color:var(--muted);
-}
-footer{
-  background:#fff;
-  border-top:1px solid var(--line);
-  margin-top:36px;
-  padding:26px 18px;
-  text-align:center;
-  color:var(--muted);
-  font-size:.88rem;
-}
-footer a{margin:0 7px;text-decoration:none}
-@media(max-width:800px){
-  .layout{grid-template-columns:1fr}
-}
-@media(max-width:560px){
-  .header-inner{align-items:flex-start}
-  nav{width:100%;gap:4px}
-  nav a{padding:6px 8px;font-size:.85rem}
-  main{padding:18px 12px}
-  .hero{border-radius:15px}
-  .cards{grid-template-columns:1fr}
-  .section-head h2{font-size:1.35rem}
-}
+:root{--navy:#07162d;--navy2:#102647;--blue:#1688f8;--ink:#15233b;--muted:#53627a;--paper:#f4f8fc;--card:#fff;--line:#dce6f1;--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:rgba(5,18,38,.97);color:white;border-bottom:1px solid #233957}
+.nav{max-width:1240px;margin:auto;padding:12px 24px;display:flex;align-items:center;gap:22px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:clamp(18px,2.4vw,25px);white-space:nowrap}
+.brandmark{font-size:30px;color:#39a6ff}.brand small{display:block;color:#83c5ff;font-size:10px;letter-spacing:3px;font-weight:500}
+nav{display:flex;gap:22px;margin-left:auto}nav a{color:#dbeaff;font-size:14px}nav a:hover{color:#55b3ff}
+.nav-actions{display:flex;gap:10px;align-items:center}.iconbtn,.menu-btn{border:1px solid #46617f;background:transparent;color:white;border-radius:10px;padding:8px 12px}
+.menu-btn{display:none}
+.hero{background:radial-gradient(ellipse at 78% 10%,#254a82 0%,transparent 35%),linear-gradient(115deg,#061329,#0b2143 65%,#102b4e);color:white;overflow:hidden;position:relative}
+.hero:after{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px);background-size:83px 83px;opacity:.23;pointer-events:none}
+.hero-inner{max-width:1240px;margin:auto;min-height:360px;padding:58px 24px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:28px;position:relative;z-index:1}
+.eyebrow{color:#85c8ff;text-transform:uppercase;letter-spacing:1.8px;font-size:12px;font-weight:700}
+h1{font-size:clamp(40px,6vw,68px);line-height:1.02;letter-spacing:-2px;margin:12px 0 18px}.gradient{color:#28a0ff}
+.hero p{max-width:590px;color:#d9e8ff;font-size:18px;margin:0 0 25px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:white;border:0;border-radius:999px;padding:12px 21px;font-weight:700;box-shadow:0 6px 18px #0875d744}
+.btn.secondary{background:transparent;border:1px solid #b9d7f7;box-shadow:none;margin-left:10px}
+.hero-art{min-height:230px;display:flex;align-items:center;justify-content:center;position:relative}
+.planet{width:min(330px,80%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 28%,#b4dfff 0 2%,#287fcb 20%,#123b76 53%,#06162d 72%);box-shadow:0 0 70px #248fff66,inset -35px -22px 60px #020a1a;position:relative}
+.planet:before{content:"";position:absolute;width:145%;height:24%;border:12px solid #75c6ff99;border-left-color:#c8efff;border-right-color:#367dc4;border-radius:50%;transform:rotate(-19deg);left:-23%;top:39%;box-shadow:0 0 18px #59b8ff66}
+.planet:after{content:"✦  ·  ✧   ·    ✦";position:absolute;color:#fff;top:-30px;right:-80px;white-space:nowrap;font-size:23px}
+main{max-width:1240px;margin:auto;padding:24px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:30px}
+.category{display:flex;align-items:center;gap:13px;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);transition:.2s;cursor:pointer;text-align:left}
+.category:hover{transform:translateY(-3px);box-shadow:0 12px 30px #183b6214}.cat-icon{font-size:32px}.category strong{display:block;font-size:17px}.category small{display:block;color:var(--muted);font-size:12px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 14px}
+.section-head h2{font-size:21px;margin:0;letter-spacing:.2px}.section-head a{color:#0866c6;font-weight:700;font-size:14px}
+.feature-layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,.8fr);gap:22px}
+.featured,.about,.post-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:0 4px 15px #183b6208}
+.feature-img{width:100%;height:260px;object-fit:cover;background:linear-gradient(135deg,#07162d,#275e9d);display:block}
+.feature-content{padding:20px}.tag{display:inline-block;background:#e7f2ff;color:#0867bd;padding:4px 10px;border-radius:999px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+.feature-content h3{font-size:clamp(24px,3vw,32px);line-height:1.15;margin:12px 0}.feature-content p{color:var(--muted);margin:0 0 14px}.meta{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:13px}.avatar{width:38px;height:38px;border-radius:50%;background:#dcecff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;color:#1269bd;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.about{padding:22px;text-align:center}.about h2{font-size:20px;margin:0 0 15px;text-align:left}.about .avatar{width:92px;height:92px;font-size:30px;margin:0 auto 8px}.about h3{margin:5px 0}.about p{color:var(--muted);margin:8px 0 16px}.quote{background:#edf5fd;border-radius:12px;padding:15px;margin-top:18px;color:#2e496a;font-style:italic}
+.posts{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.post-card{display:flex;flex-direction:column;min-width:0}.post-card img{width:100%;height:145px;object-fit:cover;background:linear-gradient(135deg,#07162d,#275e9d)}.post-body{padding:14px;display:flex;flex-direction:column;flex:1}.post-body h3{font-size:17px;line-height:1.25;margin:10px 0}.post-body p{font-size:14px;color:var(--muted);margin:0 0 14px}.post-body .meta{margin-top:auto;font-size:12px}.empty{padding:30px;text-align:center;color:var(--muted);background:white;border:1px dashed var(--line);border-radius:14px}
+.subscribe{margin:28px 0;background:linear-gradient(110deg,#07162d,#17385f);border-radius:16px;color:white;padding:22px;display:flex;align-items:center;gap:20px;justify-content:space-between}.subscribe h2{margin:0;font-size:22px}.subscribe p{margin:4px 0 0;color:#c9dcf4;font-size:14px}.subscribe form{display:flex;gap:8px;flex:0 1 420px}.subscribe input{min-width:0;flex:1;padding:12px;border-radius:10px;border:1px solid #9eb9d8}
+footer{background:#061329;color:#d5e4f8;padding:30px 24px}.footer-inner{max-width:1192px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px}.footer-inner h3{color:white;margin-top:0}.footer-inner a{display:block;color:#b8cce4;font-size:14px;margin:5px 0}.copyright{max-width:1192px;margin:24px auto 0;border-top:1px solid #28405f;padding-top:15px;color:#91a9c7;font-size:12px;display:flex;justify-content:space-between}
+.modal{position:fixed;inset:0;background:#061329bb;z-index:50;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-box{background:white;color:var(--ink);border-radius:18px;width:min(900px,100%);max-height:90vh;overflow:auto;padding:24px;position:relative}.close{position:absolute;right:16px;top:12px;border:0;background:#eaf2fb;border-radius:50%;width:36px;height:36px;font-size:22px}.modal-box h2{padding-right:40px}.article-cover{width:100%;max-height:380px;object-fit:cover;border-radius:12px}.article-copy{max-width:720px;margin:20px auto;white-space:pre-wrap}
+#adminPanel{position:fixed;inset:0;background:#071329eF;z-index:60;display:none;overflow:auto;padding:20px}
+#adminPanel.open{display:block}.admin-wrap{max-width:1100px;margin:20px auto;background:white;border-radius:18px;padding:24px}.admin-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.admin-card{border:1px solid var(--line);border-radius:14px;padding:16px}.admin-card h3{margin-top:0}.field{display:grid;gap:5px;margin:10px 0}.field label{font-size:13px;font-weight:700}.field input,.field textarea,.field select{width:100%;border:1px solid #cbd8e7;border-radius:9px;padding:10px;background:white;color:var(--ink)}.field textarea{min-height:90px}.admin-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.btn.dark{background:#122b4d}.btn.light{background:#e8f2fc;color:#134a7c;box-shadow:none}.post-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}.hint{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.categories{grid-template-columns:repeat(2,1fr)}.feature-layout{grid-template-columns:1fr}.posts{grid-template-columns:repeat(2,1fr)}.hero-inner{grid-template-columns:1fr .7fr}.footer-inner{grid-template-columns:1fr 1fr}.subscribe{flex-wrap:wrap}}
+@media(max-width:620px){.nav{padding:10px 14px;gap:10px}.brand{font-size:17px}.brandmark{font-size:25px}.brand small{font-size:8px;letter-spacing:2px}nav{display:none;position:absolute;top:58px;left:0;right:0;background:#061329;padding:16px;flex-direction:column;gap:14px}nav.open{display:flex}.menu-btn{display:inline-block}.nav-actions .iconbtn{display:none}.hero-inner{display:block;padding:42px 20px;min-height:0}.hero-art{min-height:160px;margin-top:15px}.planet{width:180px}h1{font-size:43px}.hero p{font-size:16px}.hero .btn{padding:10px 15px}.hero .btn.secondary{margin-left:5px}main{padding:16px}.categories{gap:10px}.category{padding:13px;gap:8px}.cat-icon{font-size:25px}.category strong{font-size:15px}.category small{font-size:11px}.feature-img{height:190px}.posts{gap:10px}.post-card img{height:115px}.post-body{padding:11px}.post-body h3{font-size:15px}.post-body p{font-size:13px}.section-head h2{font-size:18px}.subscribe{padding:18px}.subscribe form{flex-basis:100%}.footer-inner{grid-template-columns:1fr 1fr}.admin-grid{grid-template-columns:1fr}.admin-wrap{padding:16px}.copyright{display:block}.copyright span{display:block;margin:5px 0}}
 </style>
 </head>
-
 <body>
-<header>
-  <div class="header-inner">
-    <div>
-      <a class="brand" href="#">Gaurav Yadav</a>
-      <div class="tagline">Personal Blog · विचार, अनुभव और जानकारी</div>
-    </div>
-    <nav aria-label="मुख्य नेविगेशन">
-      <a href="#">होम</a>
-      <a href="#latest">लेख</a>
-      <a href="#about">मेरे बारे में</a>
-      <a href="#contact">संपर्क</a>
-      <a href="admin.html">Admin</a>
-    </nav>
-  </div>
-</header>
-
+<header><div class="nav">
+<a class="brand" href="#" id="brandHome"><span class="brandmark">🪐</span><span><span id="brandName">GAURAV'S <b style="color:#2e9cff">WORLD</b></span><small id="brandTag">EXPLORE • LEARN • DISCOVER</small></span></a>
+<nav id="mainNav"><a href="#home">Home</a><a href="#latest" data-cat="Tech">Tech</a><a href="#latest" data-cat="Education">Education</a><a href="#latest" data-cat="Science">Science</a><a href="#latest" data-cat="Universe">Universe</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+<div class="nav-actions"><button class="iconbtn" onclick="openSearch()" aria-label="Search">⌕</button><button class="iconbtn" onclick="openAdmin()">Admin</button><button class="menu-btn" onclick="toggleMenu()">☰</button></div>
+</div></header>
+<section class="hero" id="home"><div class="hero-inner"><div>
+<div class="eyebrow" id="heroEyebrow">IDEAS TODAY. A BRIGHTER TOMORROW.</div>
+<h1 id="heroTitle">Explore. Learn.<br><span class="gradient">Discover.</span></h1>
+<p id="heroText">A personal blog on Technology, Education, Science and the Universe — simple ideas for a smarter, more curious you.</p>
+<a class="btn" href="#latest">Read Latest Articles →</a><a class="btn secondary" href="#about">About Me</a>
+</div><div class="hero-art" aria-hidden="true"><div class="planet"></div></div></div></section>
 <main>
-  <section class="hero">
-    <div class="eyebrow">WELCOME TO MY BLOG</div>
-    <h1>नमस्ते, मैं गौरव यादव हूँ।</h1>
-    <p>
-      यहाँ मैं अपने विचार, अनुभव और उपयोगी जानकारी साझा करता हूँ।
-      Technology, education, digital services और रोजमर्रा की सीख —
-      सरल भाषा में।
-    </p>
-    <div class="hero-links">
-      <a class="btn btn-light" href="#latest">लेख पढ़ें</a>
-      <a class="btn" href="#about">मेरे बारे में</a>
-    </div>
-  </section>
-
-  <div class="layout">
-    <section id="latest">
-      <div class="section-head">
-        <h2>नवीनतम लेख</h2>
-        <span class="meta" id="articleCount"></span>
-      </div>
-
-      <div id="featured"></div>
-
-      <div class="tools">
-        <input id="search" type="search"
-          placeholder="लेख खोजें…"
-          aria-label="लेख खोजें">
-        <select id="sort" aria-label="लेख क्रम">
-          <option value="new">नए पहले</option>
-          <option value="old">पुराने पहले</option>
-        </select>
-      </div>
-
-      <div class="filters" id="filters"></div>
-      <div class="cards" id="cards"></div>
-      <p class="notice" id="status" role="status" aria-live="polite">
-        लेख लोड हो रहे हैं…
-      </p>
-    </section>
-
-    <aside>
-      <div class="panel">
-        <h3>मेरे बारे में</h3>
-        <p>
-          मैं गौरव यादव हूँ। इस ब्लॉग पर व्यक्तिगत विचारों के साथ
-          technology, education और उपयोगी जानकारी साझा करता हूँ।
-        </p>
-        <p style="margin-top:12px">
-          <a href="#about">और जानें →</a>
-        </p>
-      </div>
-
-      <div class="panel">
-        <h3>विषय</h3>
-        <ul>
-          <li>व्यक्तिगत विचार</li>
-          <li>Technology</li>
-          <li>Education</li>
-          <li>Digital Services</li>
-          <li>उपयोगी जानकारी</li>
-        </ul>
-        <p class="notice">
-          उपलब्ध categories प्रकाशित लेखों के अनुसार दिखाई देंगी।
-        </p>
-      </div>
-
-      <div class="panel">
-        <h3>इस ब्लॉग के बारे में</h3>
-        <p>
-          यहाँ प्रकाशित लेख जानकारी और अनुभव साझा करने के उद्देश्य से हैं।
-          किसी भी जरूरी निर्णय से पहले संबंधित आधिकारिक स्रोत की जाँच करें।
-        </p>
-      </div>
-    </aside>
-  </div>
-
-  <section class="about" id="about">
-    <h2>मेरे बारे में</h2>
-    <p>
-      नमस्ते! मैं गौरव यादव हूँ। यह मेरा personal और informational blog है।
-      यहाँ मैं अपने विचार, अनुभव और पाठकों के लिए उपयोगी लेख प्रकाशित करता हूँ।
-    </p>
-    <p class="notice">
-      इस परिचय को आप अपनी वास्तविक जानकारी और पसंद के अनुसार Admin/HTML
-      में अपडेट कर सकते हैं।
-    </p>
-  </section>
-
-  <section class="about" id="contact">
-    <h2>संपर्क करें</h2>
-    <p>
-      किसी लेख के बारे में सुझाव या प्रश्न साझा करने के लिए संपर्क करें।
-    </p>
-    <p>
-      <a href="https://onestopfzd.in/">ONESTOP वेबसाइट</a>
-    </p>
-  </section>
+<section class="categories" id="categories">
+<button class="category" onclick="filterCategory('Tech')"><span class="cat-icon">▣</span><span><strong>Technology</strong><small>Gadgets, AI, Software and Digital Life</small></span></button>
+<button class="category" onclick="filterCategory('Education')"><span class="cat-icon">🎓</span><span><strong>Education</strong><small>Learning, Skills, Career and Growth</small></span></button>
+<button class="category" onclick="filterCategory('Science')"><span class="cat-icon">⚗</span><span><strong>Science</strong><small>Research, Discoveries and How Things Work</small></span></button>
+<button class="category" onclick="filterCategory('Universe')"><span class="cat-icon">🪐</span><span><strong>Universe</strong><small>Space, Planets, Stars and Beyond</small></span></button>
+</section>
+<div class="feature-layout">
+<section><div class="section-head"><h2>⭐ FEATURED ARTICLE</h2><a href="#latest">Explore posts →</a></div><article class="featured" id="featured"></article></section>
+<aside class="about" id="about"><h2>👤 ABOUT ME</h2><div class="avatar" id="aboutAvatar">GY</div><h3 id="aboutName">Hi, I'm Gaurav 👋</h3><p id="aboutBio">I'm a learner, explorer and tech enthusiast. This blog is my space to share ideas about technology, education, science and the amazing universe we live in.</p><a class="btn" href="#contact">Know More About Me →</a><div class="quote" id="aboutQuote">“Stay curious, keep learning, and never stop exploring.”</div></aside>
+</div>
+<div class="section-head" id="latest"><h2>▤ LATEST ARTICLES</h2><a href="#" onclick="filterCategory('All');return false">View All Articles →</a></div>
+<div id="posts" class="posts"></div>
+<section class="subscribe" id="contact"><div><h2>✉ Join the Journey</h2><p>Get new articles, ideas and updates directly in your inbox.</p></div><form onsubmit="subscribe(event)"><input id="emailInput" type="email" placeholder="Enter your email address" required><button class="btn">Subscribe</button></form><div id="subscribeMsg">Let's explore<br>a brighter future together 🚀</div></section>
 </main>
-
-<footer>
-  <div>© <span id="year"></span> Gaurav Yadav · Personal Blog</div>
-  <p>
-    <a href="#">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </p>
-</footer>
-
+<footer><div class="footer-inner"><div><div class="brand"><span class="brandmark">🪐</span><span id="footerBrand">GAURAV'S WORLD<small>EXPLORE • LEARN • DISCOVER</small></span></div><p id="footerAbout">A personal blog on Technology, Education, Science and the Universe. Sharing ideas for a better tomorrow.</p></div><div><h3>Quick Links</h3><a href="#home">Home</a><a href="#latest">Articles</a><a href="#categories">Categories</a><a href="#about">About</a></div><div><h3>Support</h3><a href="#contact">Contact</a><a href="#" onclick="alert('Add your privacy policy page URL in the Admin settings.');return false">Privacy Policy</a><a href="#" onclick="alert('Add your terms page URL in the Admin settings.');return false">Terms of Use</a></div><div><h3>Follow Me</h3><a id="socialLink" href="#" target="_blank" rel="noopener">Social profile ↗</a><p>Let's connect and explore together!</p></div></div><div class="copyright"><span id="copyright">© 2026 Gaurav's World. All rights reserved.</span><span>Made with ❤️ for curious minds.</span></div></footer>
+<div class="modal" id="articleModal" onclick="if(event.target===this)closeArticle()"><div class="modal-box"><button class="close" onclick="closeArticle()">×</button><div id="articleModalContent"></div></div></div>
+<div class="modal" id="searchModal" onclick="if(event.target===this)this.classList.remove('open')"><div class="modal-box"><button class="close" onclick="document.getElementById('searchModal').classList.remove('open')">×</button><h2>Search articles</h2><div class="field"><input id="searchBox" placeholder="Search title, category or keyword…" oninput="renderPosts()"></div><div id="searchResults" class="posts"></div></div></div>
+<div id="adminPanel"><div class="admin-wrap"><div class="admin-top"><div><h1 style="font-size:28px;margin:0">Blog Admin</h1><p class="hint">Customize your website and manage articles. Changes save in this browser; connect Apps Script for shared publishing.</p></div><button class="btn dark" onclick="closeAdmin()">Close ✕</button></div>
+<div class="admin-grid">
+<section class="admin-card"><h3>Website customization</h3>
+<div class="field"><label>Blog / brand name</label><input id="cfgName"></div>
+<div class="field"><label>Tagline</label><input id="cfgTag"></div>
+<div class="field"><label>Hero eyebrow</label><input id="cfgEyebrow"></div>
+<div class="field"><label>Hero heading (use | for line break)</label><input id="cfgHeroTitle"></div>
+<div class="field"><label>Hero description</label><textarea id="cfgHeroText"></textarea></div>
+<div class="field"><label>Author name</label><input id="cfgAuthor"></div>
+<div class="field"><label>About description</label><textarea id="cfgBio"></textarea></div>
+<div class="field"><label>Quote</label><input id="cfgQuote"></div>
+<div class="field"><label>Profile image URL (optional)</label><input id="cfgAvatar" placeholder="https://…"></div>
+<div class="field"><label>Social profile URL</label><input id="cfgSocial" placeholder="https://…"></div>
+<div class="field"><label>Accent color</label><input id="cfgColor" type="color" value="#1688f8"></div>
+<div class="admin-actions"><button class="btn" onclick="saveSettings()">Save customization</button><button class="btn light" onclick="resetSettings()">Reset defaults</button></div></section>
+<section class="admin-card"><h3>Create / edit article</h3><input type="hidden" id="postId">
+<div class="field"><label>Article title</label><input id="pTitle"></div>
+<div class="field"><label>Category</label><select id="pCategory"><option>Tech</option><option>Education</option><option>Science</option><option>Universe</option></select></div>
+<div class="field"><label>Short summary</label><textarea id="pSummary"></textarea></div>
+<div class="field"><label>Article image URL</label><input id="pImage" placeholder="https://…"></div>
+<div class="field"><label>Full article text</label><textarea id="pContent" style="min-height:150px"></textarea></div>
+<div class="field"><label>Publish date</label><input id="pDate" type="date"></div>
+<div class="field"><label><input id="pFeatured" type="checkbox" style="width:auto"> Set as featured article</label></div>
+<div class="admin-actions"><button class="btn" onclick="savePost()">Save article</button><button class="btn light" onclick="clearPostForm()">Clear form</button></div>
+<hr><h3>Existing articles</h3><div id="adminPostList"></div></section>
+<section class="admin-card"><h3>Backup & publishing connection</h3>
+<p class="hint">Export a JSON backup before changing devices. For a live public site, configure your deployed Apps Script Web App URL below.</p>
+<div class="field"><label>Apps Script Web App URL</label><input id="apiUrl" placeholder="https://script.google.com/macros/s/…/exec"></div>
+<div class="field"><label>Admin access key (must match Apps Script)</label><input id="apiKey" type="password" placeholder="Set a long secret key"></div>
+<div class="admin-actions"><button class="btn" onclick="saveApiConfig()">Save connection</button><button class="btn dark" onclick="syncToServer()">Publish / Sync to server</button><button class="btn light" onclick="loadFromServer()">Load from server</button></div>
+<p id="syncStatus" class="hint" aria-live="polite"></p>
+<div class="admin-actions"><button class="btn light" onclick="exportBackup()">Export backup JSON</button><label class="btn light" for="importFile">Import backup JSON</label><input id="importFile" type="file" accept="application/json" hidden onchange="importBackup(event)"></div>
+</section>
+<section class="admin-card"><h3>How admin publishing works</h3><ol><li>Deploy the included Apps Script as a Web App.</li><li>Paste its URL and matching admin key above.</li><li>Use Publish / Sync to send this browser's settings and articles to the server.</li><li>On the public site, set the same Web App URL in the script's published configuration or embed the URL in this HTML as instructed in README.</li></ol><p class="hint"><b>Important:</b> Browser-only edits are local to this browser until synced. Apps Script is a simple JSON backend; protect the admin key and restrict who can edit/deploy the script.</p></section>
+</div></div></div>
 <script>
-"use strict";
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbyNZ47P0AVPUKzEiDMoKjiD4zpJPoy_Pk5z1skCoNHJrb2rf4F-2HwRaQe003eNoPOoLA/exec";
-
-let articles = [];
-let selected = "सभी";
-let searchText = "";
-
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({
-  "&":"&amp;",
-  "<":"&lt;",
-  ">":"&gt;",
-  '"':"&quot;",
-  "'":"&#39;"
-}[c]));
-
-function articleDate(a){
-  return a.publishedAt || a.date || a.createdAt || "";
-}
-
-function getFiltered(){
-  let list = selected === "सभी"
-    ? [...articles]
-    : articles.filter(a => (a.category || "अन्य") === selected);
-
-  if(searchText){
-    list = list.filter(a =>
-      [a.title,a.summary,a.body,a.category]
-        .some(v => String(v || "").toLowerCase().includes(searchText))
-    );
-  }
-
-  if(document.querySelector("#sort").value === "old"){
-    list.reverse();
-  }
-
-  return list;
-}
-
+const STORAGE_KEY='gw_blog_data_v1', API_KEY='gw_blog_api_v1';
+const defaultSettings={name:"Gaurav's World",tagline:"EXPLORE • LEARN • DISCOVER",eyebrow:"IDEAS TODAY. A BRIGHTER TOMORROW.",heroTitle:"Explore. Learn.|Discover.",heroText:"A personal blog on Technology, Education, Science and the Universe — simple ideas for a smarter, more curious you.",author:"Gaurav Yadav",bio:"I'm a learner, explorer and tech enthusiast. This blog is my space to share ideas about technology, education, science and the amazing universe we live in.",quote:"“Stay curious, keep learning, and never stop exploring.”",avatar:"",social:"#",color:"#1688f8"};
+const starterPosts=[
+{id:"p1",title:"What Lies Beyond Our Observable Universe?",category:"Universe",summary:"A simple explanation of what we know, what we don't, and the mind-bending possibilities that exist beyond our cosmic horizon.",image:"https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1400&q=85",content:"The observable universe is the region whose light has had time to reach us. Beyond it, space may continue much farther—possibly without a known edge.\\n\\nScientists use observations of galaxies, cosmic expansion and the cosmic microwave background to understand the universe. The parts beyond our horizon remain uncertain because their light has not reached us.\\n\\nThe key takeaway: the observable universe is a limit on what we can see, not necessarily the edge of everything.",date:"2026-09-14",featured:true},
+{id:"p2",title:"How AI Is Changing Our Daily Lives",category:"Tech",summary:"From smart assistants to creative tools, AI is becoming part of everyday life. Here's how it's making work easier—and what to consider.",image:"https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80",content:"Artificial intelligence can help people summarize information, translate text, organize tasks and explore ideas. It can also make mistakes, so important outputs should be checked.\\n\\nUse AI as an assistant—not as a substitute for your judgment, privacy awareness or learning.",date:"2026-09-10"},
+{id:"p3",title:"Best Online Learning Habits for 2026",category:"Education",summary:"A practical guide to building a steady learning routine, choosing courses and turning new knowledge into real skills.",image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80",content:"Set a clear learning goal, break it into small sessions and practice actively. Keep notes in your own words, test yourself and build a small project to apply what you learn.\\n\\nConsistency and feedback make online learning more useful than simply watching lessons.",date:"2026-09-08"},
+{id:"p4",title:"How DNA Makes Us Unique",category:"Science",summary:"A simple guide to DNA, genes and how biological information contributes to the traits we share and the differences we see.",image:"https://images.unsplash.com/photo-1530210124550-912dc1381cb8?auto=format&fit=crop&w=900&q=80",content:"DNA stores biological instructions used by living things. Genes are sections of DNA that contribute to making functional products, often proteins.\\n\\nTraits usually reflect many genes and environmental influences; DNA is a powerful part of the story, not the whole story.",date:"2026-09-05"},
+{id:"p5",title:"Could Humans Live on Mars in the Future?",category:"Universe",summary:"Explore the challenges, technologies and possibilities of human life on the Red Planet.",image:"https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=900&q=80",content:"Mars missions must address radiation, low gravity, reliable life support, food, energy and the challenge of using local resources. Robotic exploration helps researchers understand the environment.\\n\\nA sustained human settlement would require major engineering advances and careful planning.",date:"2026-09-02"}
+];
+let state=loadState(), activeFilter='All';
+function loadState(){try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY));if(x&&x.settings&&Array.isArray(x.posts))return x}catch(e){}return {settings:{...defaultSettings},posts:starterPosts.map(p=>({...p}))}}
+function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(state))}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function safeUrl(s){try{let u=new URL(s,location.href);return ['http:','https:'].includes(u.protocol)?u.href:'#'}catch(e){return '#'}}
+function fmtDate(d){if(!d)return '';let x=new Date(d+'T12:00:00');return isNaN(x)?d:x.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
 function render(){
-  const categories = [
-    "सभी",
-    ...new Set(articles.map(a => a.category || "अन्य"))
-  ];
-
-  if(!categories.includes(selected)) selected = "सभी";
-
-  document.querySelector("#filters").innerHTML =
-    categories.map(c =>
-      `<button type="button"
-        class="${c === selected ? "active" : ""}"
-        data-cat="${esc(c)}">${esc(c)}</button>`
-    ).join("");
-
-  document.querySelectorAll("#filters [data-cat]").forEach(b => {
-    b.onclick = () => {
-      selected = b.dataset.cat;
-      render();
-    };
-  });
-
-  const list = getFiltered();
-  document.querySelector("#articleCount").textContent =
-    `${list.length} लेख`;
-
-  const featured = document.querySelector("#featured");
-
-  if(list.length){
-    const a = list[0];
-    featured.innerHTML = `
-      <article class="featured">
-        <div class="featured-label">FEATURED ARTICLE</div>
-        <div class="meta">${esc(a.category || "लेख")} · ${esc(articleDate(a))}</div>
-        <h2>${esc(a.title || "शीर्षक उपलब्ध नहीं")}</h2>
-        <p>${esc(a.summary || "")}</p>
-        <button class="btn" type="button" id="featuredRead">
-          पूरा लेख पढ़ें
-        </button>
-      </article>`;
-
-    document.querySelector("#featuredRead").onclick = () => openArticle(a);
-  } else {
-    featured.innerHTML = "";
-  }
-
-  document.querySelector("#cards").innerHTML =
-    list.slice(1).map((a,i) => `
-      <article class="article">
-        <div class="meta">${esc(a.category || "लेख")} · ${esc(articleDate(a))}</div>
-        <h3>${esc(a.title || "शीर्षक उपलब्ध नहीं")}</h3>
-        <p>${esc(a.summary || "")}</p>
-        ${a.source ? `<div class="source">स्रोत: ${esc(a.source)}</div>` : ""}
-        <button class="btn read" type="button" data-index="${i+1}">
-          पूरा लेख पढ़ें →
-        </button>
-      </article>
-    `).join("");
-
-  document.querySelectorAll("#cards [data-index]").forEach(b => {
-    b.onclick = () => openArticle(list[Number(b.dataset.index)]);
-  });
-
-  if(!list.length){
-    document.querySelector("#cards").innerHTML =
-      `<div class="empty">इस खोज या श्रेणी में कोई लेख नहीं मिला।</div>`;
-  }
-
-  document.querySelector("#status").textContent =
-    articles.length ? "" : "अभी कोई प्रकाशित लेख उपलब्ध नहीं है।";
+ const s=state.settings;document.title=s.name+' | Explore. Learn. Discover.';
+ document.getElementById('brandName').innerHTML=esc(s.name.toUpperCase());document.getElementById('brandTag').textContent=s.tagline;
+ document.getElementById('heroEyebrow').textContent=s.eyebrow;document.getElementById('heroTitle').innerHTML=esc(s.heroTitle).split('|').map((x,i)=>i===1?'<span class="gradient">'+x+'</span>':x).join('<br>');
+ document.getElementById('heroText').textContent=s.heroText;document.getElementById('aboutName').textContent="Hi, I'm "+s.author+" 👋";document.getElementById('aboutBio').textContent=s.bio;document.getElementById('aboutQuote').textContent=s.quote;
+ const av=document.getElementById('aboutAvatar');av.innerHTML=s.avatar?'<img src="'+esc(safeUrl(s.avatar))+'" alt="Author portrait">':esc((s.author||'GY').split(/\s+/).map(x=>x[0]).join('').slice(0,2).toUpperCase());
+ document.getElementById('footerBrand').innerHTML=esc(s.name.toUpperCase())+'<small>'+esc(s.tagline)+'</small>';document.getElementById('footerAbout').textContent='A personal blog on Technology, Education, Science and the Universe. Sharing ideas for a better tomorrow.';document.getElementById('copyright').textContent='© '+new Date().getFullYear()+' '+s.name+'. All rights reserved.';
+ document.getElementById('socialLink').href=safeUrl(s.social);
+ document.documentElement.style.setProperty('--blue',s.color||defaultSettings.color);
+ let posts=state.posts.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));let feat=posts.find(p=>p.featured)||posts[0];
+ document.getElementById('featured').innerHTML=feat?`<img class="feature-img" src="${esc(safeUrl(feat.image||''))}" alt="${esc(feat.title)}" onerror="this.style.display='none'"><div class="feature-content"><span class="tag">${esc(feat.category)}</span><h3>${esc(feat.title)}</h3><p>${esc(feat.summary)}</p><div class="meta"><span class="avatar">${esc((s.author||'GY').split(/\s+/).map(x=>x[0]).join('').slice(0,2))}</span><span>By ${esc(s.author)}<br>${fmtDate(feat.date)} · ${Math.max(1,Math.ceil((feat.content||'').split(/\s+/).length/200))} min read</span><a style="margin-left:auto;color:#0866c6;font-weight:700" href="#" onclick="openArticle('${feat.id}');return false">Read More →</a></div></div>`:'<div class="empty">No articles yet. Add your first post in Admin.</div>';
+ renderPosts();renderAdminList();
 }
-
-function openArticle(a){
-  if(!a) return;
-
-  const title = a.title || "लेख";
-  const body = a.body || a.summary || "इस लेख का पूरा विवरण उपलब्ध नहीं है।";
-
-  const win = window.open("", "_blank");
-  if(!win){
-    alert("लेख खोलने के लिए browser में pop-up की अनुमति दें।");
-    return;
-  }
-
-  const safeTitle = esc(title);
-  const safeBody = esc(body).replace(/\n/g,"<br>");
-  const safeMeta = esc((a.category || "लेख") + " · " + articleDate(a));
-  const safeSource = a.source
-    ? `<p>स्रोत: ${esc(a.source)}</p>`
-    : "";
-  const safeUrl = /^https?:\/\//i.test(a.url || "")
-    ? `<p><a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">मूल स्रोत देखें</a></p>`
-    : "";
-
-  win.document.write(`<!doctype html>
-<html lang="hi">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>${safeTitle}</title>
-<style>
-body{font-family:system-ui,"Noto Sans Devanagari",Arial,sans-serif;
-max-width:760px;margin:40px auto;padding:0 18px;line-height:1.9;color:#172033}
-.meta{color:#64748b;font-size:.9rem}
-h1{line-height:1.4}
-.body{white-space:normal}
-a{color:#1459a6}
-</style>
-</head>
-<body>
-<p><a href="javascript:window.close()">← वापस जाएँ</a></p>
-<div class="meta">${safeMeta}</div>
-<h1>${safeTitle}</h1>
-${safeSource}
-<div class="body">${safeBody}</div>
-${safeUrl}
-</body>
-</html>`);
-  win.document.close();
+function renderPosts(){
+ let target=document.getElementById('searchModal').classList.contains('open')?document.getElementById('searchResults'):document.getElementById('posts');
+ let query=(document.getElementById('searchBox')?.value||'').toLowerCase().trim();
+ let list=state.posts.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')).filter(p=>(activeFilter==='All'||p.category===activeFilter)&&(!query||(p.title+' '+p.summary+' '+p.category).toLowerCase().includes(query)));
+ target.innerHTML=list.length?list.map(p=>`<article class="post-card"><img src="${esc(safeUrl(p.image||''))}" alt="${esc(p.title)}" onerror="this.style.display='none'"><div class="post-body"><span class="tag">${esc(p.category)}</span><h3><a href="#" onclick="openArticle('${p.id}');return false">${esc(p.title)}</a></h3><p>${esc(p.summary)}</p><div class="meta">${fmtDate(p.date)} · ${Math.max(1,Math.ceil((p.content||'').split(/\s+/).length/200))} min read</div></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">No matching articles found.</div>';
 }
-
-function load(){
-  const status = document.querySelector("#status");
-  status.textContent = "लेख लोड हो रहे हैं…";
-
-  const cb = "onestopBlog_" + Date.now() + "_" +
-    Math.random().toString(36).slice(2);
-
-  const script = document.createElement("script");
-  let done = false;
-  let timeout;
-
-  function finish(){
-    if(done) return;
-    done = true;
-    clearTimeout(timeout);
-    try{ delete window[cb]; }
-    catch(_){ window[cb] = undefined; }
-    script.remove();
-  }
-
-  timeout = setTimeout(() => {
-    finish();
-    status.textContent =
-      "लेख लोड नहीं हो सके। Apps Script JSONP support और deployment जाँचें।";
-  },15000);
-
-  window[cb] = data => {
-    finish();
-
-    if(data && data.ok === true && Array.isArray(data.articles)){
-      articles = data.articles.filter(a =>
-        String(a.status || "published").toLowerCase() === "published"
-      );
-
-      selected = "सभी";
-      render();
-    }else{
-      articles = [];
-      render();
-      status.textContent = "API से सही लेख डेटा नहीं मिला।";
-    }
-  };
-
-  script.onerror = () => {
-    finish();
-    status.textContent =
-      "API से कनेक्शन नहीं हो पाया। JSONP और deployment जाँचें।";
-  };
-
-  const sep = API_URL.includes("?") ? "&" : "?";
-  script.src = API_URL + sep +
-    "action=articles&callback=" + encodeURIComponent(cb) +
-    "&_=" + Date.now();
-
-  document.head.appendChild(script);
-}
-
-document.querySelector("#year").textContent = new Date().getFullYear();
-
-document.querySelector("#search").addEventListener("input", e => {
-  searchText = e.target.value.trim().toLowerCase();
-  render();
-});
-
-document.querySelector("#sort").addEventListener("change", render);
-
+function filterCategory(cat){activeFilter=cat;renderPosts();document.getElementById('latest').scrollIntoView({behavior:'smooth'})}
+function openArticle(id){let p=state.posts.find(x=>x.id===id);if(!p)return;document.getElementById('articleModalContent').innerHTML=`<span class="tag">${esc(p.category)}</span><h2>${esc(p.title)}</h2><div class="meta">By ${esc(state.settings.author)} · ${fmtDate(p.date)}</div>${p.image?`<img class="article-cover" src="${esc(safeUrl(p.image))}" alt="${esc(p.title)}">`:''}<p style="font-size:18px;color:#53627a">${esc(p.summary)}</p><div class="article-copy">${esc(p.content||'')}</div>`;document.getElementById('articleModal').classList.add('open')}
+function closeArticle(){document.getElementById('articleModal').classList.remove('open')}
+function openSearch(){document.getElementById('searchModal').classList.add('open');document.getElementById('searchBox').value='';renderPosts();document.getElementById('searchBox').focus()}
+function toggleMenu(){document.getElementById('mainNav').classList.toggle('open')}
+function openAdmin(){document.getElementById('adminPanel').classList.add('open');fillSettingsForm();renderAdminList()}
+function closeAdmin(){document.getElementById('adminPanel').classList.remove('open')}
+function fillSettingsForm(){let s=state.settings;for(let [id,key] of Object.entries({cfgName:'name',cfgTag:'tagline',cfgEyebrow:'eyebrow',cfgHeroTitle:'heroTitle',cfgHeroText:'heroText',cfgAuthor:'author',cfgBio:'bio',cfgQuote:'quote',cfgAvatar:'avatar',cfgSocial:'social',cfgColor:'color'}))document.getElementById(id).value=s[key]||'';let c=loadApi();document.getElementById('apiUrl').value=c.url||'';document.getElementById('apiKey').value=c.key||''}
+function saveSettings(){let s=state.settings;for(let [id,key] of Object.entries({cfgName:'name',cfgTag:'tagline',cfgEyebrow:'eyebrow',cfgHeroTitle:'heroTitle',cfgHeroText:'heroText',cfgAuthor:'author',cfgBio:'bio',cfgQuote:'quote',cfgAvatar:'avatar',cfgSocial:'social',cfgColor:'color'}))s[key]=document.getElementById(id).value.trim();persist();render();alert('Customization saved in this browser.')}
+function resetSettings(){if(!confirm('Reset website settings to defaults?'))return;state.settings={...defaultSettings};persist();fillSettingsForm();render()}
+function clearPostForm(){['postId','pTitle','pSummary','pImage','pContent'].forEach(id=>document.getElementById(id).value='');document.getElementById('pCategory').value='Tech';document.getElementById('pDate').value=new Date().toISOString().slice(0,10);document.getElementById('pFeatured').checked=false}
+function savePost(){let id=document.getElementById('postId').value||'p'+Date.now(),title=document.getElementById('pTitle').value.trim();if(!title){alert('Please enter an article title.');return}let obj={id,title,category:document.getElementById('pCategory').value,summary:document.getElementById('pSummary').value.trim(),image:document.getElementById('pImage').value.trim(),content:document.getElementById('pContent').value.trim(),date:document.getElementById('pDate').value||new Date().toISOString().slice(0,10),featured:document.getElementById('pFeatured').checked};state.posts=state.posts.map(p=>({...p,featured:obj.featured?false:p.featured}));let idx=state.posts.findIndex(p=>p.id===id);if(idx>=0)state.posts[idx]=obj;else state.posts.unshift(obj);persist();render();clearPostForm();alert('Article saved locally. Use Publish / Sync to send it to your server.')}
+function editPost(id){let p=state.posts.find(x=>x.id===id);if(!p)return;document.getElementById('postId').value=p.id;document.getElementById('pTitle').value=p.title;document.getElementById('pCategory').value=p.category;document.getElementById('pSummary').value=p.summary;document.getElementById('pImage').value=p.image;document.getElementById('pContent').value=p.content;document.getElementById('pDate').value=p.date;document.getElementById('pFeatured').checked=!!p.featured;document.getElementById('pTitle').scrollIntoView({behavior:'smooth',block:'center'})}
+function deletePost(id){if(!confirm('Delete this article?'))return;state.posts=state.posts.filter(p=>p.id!==id);persist();render()}
+function renderAdminList(){let el=document.getElementById('adminPostList');if(!el)return;el.innerHTML=state.posts.map(p=>`<div class="post-row"><span><b>${esc(p.title)}</b><br><small>${esc(p.category)} · ${fmtDate(p.date)}</small></span><span style="white-space:nowrap"><button class="btn light" onclick="editPost('${p.id}')">Edit</button> <button class="btn light" onclick="deletePost('${p.id}')">Delete</button></span></div>`).join('')||'<p class="hint">No posts yet.</p>'}
+function exportBackup(){let blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gauravs-world-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importBackup(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.settings||!Array.isArray(x.posts))throw Error();state=x;persist();render();fillSettingsForm();alert('Backup imported.')}catch(err){alert('Invalid backup JSON.')}};r.readAsText(f);e.target.value=''}
+function subscribe(e){e.preventDefault();let email=document.getElementById('emailInput').value;document.getElementById('subscribeMsg').textContent='Thanks! Subscription demo received for '+email+'. Connect an email service to collect subscribers.';e.target.reset()}
+function loadApi(){try{return JSON.parse(localStorage.getItem(API_KEY)||'{}')}catch(e){return {}}}
+function saveApiConfig(){localStorage.setItem(API_KEY,JSON.stringify({url:document.getElementById('apiUrl').value.trim(),key:document.getElementById('apiKey').value}));document.getElementById('syncStatus').textContent='Connection settings saved in this browser.'}
+async function apiRequest(action,payload){let c=loadApi();if(!c.url||!c.key)throw Error('Enter Apps Script Web App URL and admin key first.');let res=await fetch(c.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,key:c.key,payload})});let data=await res.json();if(!res.ok||!data.ok)throw Error(data.error||'Server request failed');return data}
+async function syncToServer(){saveApiConfig();let el=document.getElementById('syncStatus');el.textContent='Publishing…';try{let d=await apiRequest('save',state);el.textContent='Published to Apps Script successfully. '+(d.updatedAt||'');}catch(e){el.textContent='Publish failed: '+e.message}}
+async function loadFromServer(){saveApiConfig();let el=document.getElementById('syncStatus');el.textContent='Loading…';try{let d=await apiRequest('load',{});if(!d.data||!d.data.settings||!Array.isArray(d.data.posts))throw Error('Server returned invalid blog data.');state=d.data;persist();render();fillSettingsForm();el.textContent='Loaded server data into this browser.';}catch(e){el.textContent='Load failed: '+e.message}}
+document.querySelectorAll('nav [data-cat]').forEach(a=>a.addEventListener('click',()=>{filterCategory(a.dataset.cat);document.getElementById('mainNav').classList.remove('open')}));
+document.getElementById('pDate').value=new Date().toISOString().slice(0,10);
 render();
-load();
 </script>
-</body>
-</html>
+</body></html>
