@@ -6,7 +6,7 @@
 
 // Set this to your deployed Apps Script /exec URL.
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbywnTL4O_EpmdOe3EgYesh-wEAsXMsuus6H1L2n8-rBD2oYWR4v6-3DrUTs8mSTE7f9/exec";
+  'https://script.google.com/macros/s/AKfycbywnTL4O_EpmdOe3EgYesh-wEAsXMsuus6H1L2n8-rBD2oYWR4v6-3DrUTs8mSTE7f9/exec';
 
 const $ = s => document.querySelector(s);
 
@@ -776,4 +776,50 @@ document.addEventListener("DOMContentLoaded", () => {
   if ($("#articleRoot")) {
     loadArticle();
   }
+});
+
+/* Added responsive menu and footer navigation actions */
+document.addEventListener("DOMContentLoaded", () => {
+  const menuBtn = document.querySelector("#menuBtn");
+  if (menuBtn && !document.querySelector("#gwMenuPanel")) {
+    const panel = document.createElement("nav");
+    panel.id = "gwMenuPanel";
+    panel.hidden = true;
+    panel.setAttribute("aria-label", "मुख्य मेन्यू");
+    panel.innerHTML = `
+      <a href="index.html">🏠 होम</a>
+      <button type="button" data-gw-menu="categories">▦ सभी कैटेगरी</button>
+      <button type="button" data-gw-menu="trending">🔥 ट्रेंडिंग</button>
+      <button type="button" data-gw-menu="saved">♧ सेव लेख</button>
+      <a href="admin.html">⚙️ Admin</a>`;
+    document.querySelector(".topbar")?.insertAdjacentElement("afterend", panel);
+    menuBtn.setAttribute("aria-expanded", "false");
+    menuBtn.onclick = () => { panel.hidden = !panel.hidden; menuBtn.setAttribute("aria-expanded", String(!panel.hidden)); };
+    panel.addEventListener("click", e => {
+      const action=e.target.closest("[data-gw-menu]")?.dataset.gwMenu; if(!action) return;
+      panel.hidden=true; menuBtn.setAttribute("aria-expanded","false");
+      if(action==="categories") { document.querySelector("#categories")?.scrollIntoView({behavior:"smooth",block:"start"}); }
+      if(action==="trending") setFilter("Trending");
+      if(action==="saved") showSaved();
+    });
+  }
+  function setFilter(category) {
+    if (typeof state !== "undefined") { state.category=category; state.savedOnly=false; state.page=1; categories(); renderFeed(); }
+    document.querySelector("#feed")?.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function showSaved() {
+    if (typeof state !== "undefined") { state.savedOnly=true; state.category="All"; state.page=1; categories(); renderFeed(); }
+    document.querySelector("#feed")?.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  document.querySelectorAll('.bottomnav [data-filter]').forEach(btn=>btn.addEventListener('click',()=>setFilter(btn.dataset.filter)));
+  const myArticles=document.querySelector('#myArticlesBtn');
+  if(myArticles) myArticles.addEventListener('click',()=>{
+    const saved=(()=>{try{return JSON.parse(localStorage.getItem('gw_saved')||'[]')}catch(_){return []}})();
+    if(typeof state !== 'undefined'){state.savedOnly=true;state.category='All';state.page=1;categories();renderFeed();}
+    const feed=document.querySelector('#feed');
+    if(feed && !saved.length) feed.innerHTML='<p class="state">आपने अभी कोई लेख सेव नहीं किया है।</p>';
+    feed?.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+  const home=document.querySelector('.bottomnav a.active');
+  if(home && location.pathname.endsWith('/article.html')) home.href='index.html';
 });
