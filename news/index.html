@@ -1,30 +1,212 @@
 <!doctype html>
-<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ONESTOP Hindi News</title><meta name="description" content="ONESTOP Hindi News — ताज़ा खबरें, सरल भाषा में">
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONESTOP Hindi News</title>
+<meta name="description" content="ONESTOP Hindi News — ताज़ा खबरें, सरल भाषा में">
 <style>
-:root{--brand:#1459a6;--ink:#172033;--muted:#64748b;--bg:#f3f6fb;--card:#fff}*{box-sizing:border-box}body{margin:0;font-family:system-ui,"Noto Sans Devanagari",Arial,sans-serif;background:var(--bg);color:var(--ink)}
+:root{--brand:#1459a6;--ink:#172033;--muted:#64748b;--bg:#f3f6fb;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,"Noto Sans Devanagari",Arial,sans-serif;background:var(--bg);color:var(--ink)}
 header{background:var(--brand);color:#fff;padding:16px max(16px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.brand{font-size:1.35rem;font-weight:850}.tag{font-size:.88rem;opacity:.9}nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;padding:7px 10px;border-radius:8px;background:#ffffff1c}
-main{max-width:1120px;margin:auto;padding:20px 16px}.breaking{background:#fff;border-left:5px solid #e5484d;border-radius:10px;padding:12px 14px;margin-bottom:18px}.breaking b{color:#c52d32;margin-right:8px}
-.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:18px}.hero{background:linear-gradient(130deg,#174d8c,#287bd1);color:#fff;padding:24px;border-radius:16px;margin-bottom:18px}.hero h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.4rem)}.hero p{margin:0;opacity:.9}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}.filters button{border:1px solid #d5deea;background:white;padding:8px 12px;border-radius:999px;cursor:pointer}.filters button.active{background:var(--brand);color:white}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.article{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 3px 14px #14213d0a}.article .meta{font-size:.8rem;color:var(--muted)}.article h2{font-size:1.15rem;line-height:1.45;margin:8px 0}.article p{color:#475569;line-height:1.6;margin:0 0 12px}.article button,.primary{background:var(--brand);color:white;border:0;border-radius:9px;padding:9px 12px;cursor:pointer}
-aside .panel{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px}.panel h3{margin-top:0}.panel li{margin:10px 0;color:#475569}.notice{font-size:.85rem;color:var(--muted);line-height:1.55}
+.brand{font-size:1.35rem;font-weight:850}
+.tag{font-size:.88rem;opacity:.9}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:#fff;text-decoration:none;padding:7px 10px;border-radius:8px;background:#ffffff1c}
+main{max-width:1120px;margin:auto;padding:20px 16px}
+.breaking{background:#fff;border-left:5px solid #e5484d;border-radius:10px;padding:12px 14px;margin-bottom:18px}
+.breaking b{color:#c52d32;margin-right:8px}
+.layout{display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);gap:18px}
+.hero{background:linear-gradient(130deg,#174d8c,#287bd1);color:#fff;padding:24px;border-radius:16px;margin-bottom:18px}
+.hero h1{margin:0 0 8px;font-size:clamp(1.6rem,4vw,2.4rem)}
+.hero p{margin:0;opacity:.9}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 16px}
+.filters button{border:1px solid #d5deea;background:white;padding:8px 12px;border-radius:999px;cursor:pointer}
+.filters button.active{background:var(--brand);color:white}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.article{background:var(--card);border-radius:14px;padding:16px;box-shadow:0 3px 14px #14213d0a}
+.article .meta{font-size:.8rem;color:var(--muted)}
+.article h2{font-size:1.15rem;line-height:1.45;margin:8px 0}
+.article p{color:#475569;line-height:1.6;margin:0 0 12px;white-space:pre-wrap}
+.article button,.primary{background:var(--brand);color:white;border:0;border-radius:9px;padding:9px 12px;cursor:pointer}
+aside .panel{background:#fff;border-radius:14px;padding:16px;margin-bottom:14px}
+.panel h3{margin-top:0}
+.panel li{margin:10px 0;color:#475569}
+.notice{font-size:.85rem;color:var(--muted);line-height:1.55}
 footer{text-align:center;padding:22px;color:var(--muted);font-size:.88rem}
 @media(max-width:760px){.layout{grid-template-columns:1fr}.cards{grid-template-columns:1fr}header{align-items:flex-start}}
-</style></head><body>
-<header><div><div class="brand">ONESTOP Hindi News</div><div class="tag">खबरें सरल भाषा में</div></div><nav><a href="#">होम</a><a href="#latest">ताज़ा खबरें</a><a href="#about">हमारे बारे में</a><a href="admin.html">Admin</a></nav></header>
-<main><div class="breaking"><b>ब्रेकिंग</b><span id="ticker">महत्वपूर्ण खबरें यहाँ प्रकाशित होंगी।</span></div>
-<section class="hero"><h1>आपकी खबर, आपकी भाषा</h1><p>स्थानीय, देश-दुनिया, शिक्षा, टेक्नोलॉजी और उपयोगी जानकारी — एक ही जगह।</p></section>
-<div class="layout"><section id="latest"><h2>ताज़ा खबरें</h2><div class="filters" id="filters"></div><div class="cards" id="cards"></div><p class="notice" id="status"></p></section>
-<aside><div class="panel"><h3>मुख्य श्रेणियाँ</h3><ul><li>स्थानीय समाचार</li><li>देश-दुनिया</li><li>शिक्षा और रोजगार</li><li>टेक्नोलॉजी</li><li>सरकारी योजनाएँ</li></ul></div><div class="panel"><h3>संपादकीय सूचना</h3><p class="notice">यह वेबसाइट केवल Admin CMS से प्रकाशित खबरें दिखाने के लिए तैयार है। प्रकाशित करने से पहले तथ्य, तारीख और स्रोत की जाँच करें।</p></div></aside></div>
-<section id="about"><h2>ONESTOP Hindi News</h2><p class="notice">हमारा उद्देश्य पाठकों तक स्पष्ट, उपयोगी और जिम्मेदार समाचार पहुँचाना है।</p></section></main><footer>© <span id="year"></span> ONESTOP Hindi News</footer>
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">ONESTOP Hindi News</div>
+    <div class="tag">खबरें सरल भाषा में</div>
+  </div>
+  <nav>
+    <a href="#">होम</a>
+    <a href="#latest">ताज़ा खबरें</a>
+    <a href="#about">हमारे बारे में</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
+
+<main>
+  <div class="breaking"><b>ब्रेकिंग</b><span id="ticker">महत्वपूर्ण खबरें यहाँ प्रकाशित होंगी।</span></div>
+  <section class="hero">
+    <h1>आपकी खबर, आपकी भाषा</h1>
+    <p>स्थानीय, देश-दुनिया, शिक्षा, टेक्नोलॉजी और उपयोगी जानकारी — एक ही जगह।</p>
+  </section>
+
+  <div class="layout">
+    <section id="latest">
+      <h2>ताज़ा खबरें</h2>
+      <div class="filters" id="filters"></div>
+      <div class="cards" id="cards"></div>
+      <p class="notice" id="status" role="status" aria-live="polite">खबरें लोड हो रही हैं…</p>
+    </section>
+
+    <aside>
+      <div class="panel">
+        <h3>मुख्य श्रेणियाँ</h3>
+        <ul>
+          <li>स्थानीय समाचार</li>
+          <li>देश-दुनिया</li>
+          <li>शिक्षा और रोजगार</li>
+          <li>टेक्नोलॉजी</li>
+          <li>सरकारी योजनाएँ</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>संपादकीय सूचना</h3>
+        <p class="notice">यह वेबसाइट केवल Admin CMS से प्रकाशित खबरें दिखाने के लिए तैयार है। प्रकाशित करने से पहले तथ्य, तारीख और स्रोत की जाँच करें।</p>
+      </div>
+    </aside>
+  </div>
+
+  <section id="about">
+    <h2>ONESTOP Hindi News</h2>
+    <p class="notice">हमारा उद्देश्य पाठकों तक स्पष्ट, उपयोगी और जिम्मेदार समाचार पहुँचाना है।</p>
+  </section>
+</main>
+
+<footer>© <span id="year"></span> ONESTOP Hindi News</footer>
+
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbyNZ47P0AVPUKzEiDMoKjiD4zpJPoy_Pk5z1skCoNHJrb2rf4F-2HwRaQe003eNoPOoLA/exec"; // तैनात Apps Script Web App URL यहाँ डालें
-const sample=[{title:"ONESTOP Hindi News में आपका स्वागत है",category:"सूचना",summary:"यह नमूना कार्ड है। वास्तविक खबरें Admin CMS से प्रकाशित होने पर यहाँ दिखाई देंगी।",date:"डेमो",source:"ONESTOP",url:""}];
-let articles=sample, selected="सभी";
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-function render(){let cats=["सभी",...new Set(articles.map(a=>a.category||"अन्य"))];document.querySelector("#filters").innerHTML=cats.map(c=>`<button class="${c===selected?"active":""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");document.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{selected=b.dataset.cat;render()});let list=selected==="सभी"?articles:articles.filter(a=>(a.category||"अन्य")===selected);document.querySelector("#cards").innerHTML=list.map(a=>`<article class="article"><div class="meta">${esc(a.category||"समाचार")} · ${esc(a.date||"")}</div><h2>${esc(a.title)}</h2><p>${esc(a.summary||"")}</p>${a.source?`<div class="meta">स्रोत: ${esc(a.source)}</div>`:""}${a.url?`<p><a href="${esc(a.url)}" target="_blank" rel="noopener">स्रोत देखें</a></p>`:""}</article>`).join("")||"<p>इस श्रेणी में अभी खबर उपलब्ध नहीं है।</p>";}
-async function load(){if(!API_URL){document.querySelector("#status").textContent="डेमो मोड: लाइव डेटा के लिए README में दिए गए Apps Script URL को जोड़ें।";render();return;}try{let r=await fetch(API_URL+"?action=articles");let d=await r.json();if(d.ok&&Array.isArray(d.articles))articles=d.articles;document.querySelector("#status").textContent="";}catch(e){document.querySelector("#status").textContent="लाइव खबरें लोड नहीं हो सकीं। API URL और deployment जाँचें।"}render()}
-document.querySelector("#year").textContent=new Date().getFullYear();load();
-</script></body></html>
+"use strict";
+
+// यही आपका Apps Script Web App URL है।
+const API_URL = "https://script.google.com/macros/s/AKfycbyNZ47P0AVPUKzEiDMoKjiD4zpJPoy_Pk5z1skCoNHJrb2rf4F-2HwRaQe003eNoPOoLA/exec";
+
+// Demo कार्ड हटाया गया है ताकि API fail होने पर नकली खबर न दिखे।
+let articles = [];
+let selected = "सभी";
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({
+  "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+}[c]));
+
+function render() {
+  const cats = ["सभी", ...new Set(articles.map(a => a.category || "अन्य"))];
+
+  if (!cats.includes(selected)) selected = "सभी";
+
+  document.querySelector("#filters").innerHTML = cats.map(c =>
+    `<button type="button" class="${c === selected ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`
+  ).join("");
+
+  document.querySelectorAll("#filters [data-cat]").forEach(b => {
+    b.onclick = () => {
+      selected = b.dataset.cat;
+      render();
+    };
+  });
+
+  const list = selected === "सभी"
+    ? articles
+    : articles.filter(a => (a.category || "अन्य") === selected);
+
+  document.querySelector("#cards").innerHTML = list.map(a => `
+    <article class="article">
+      <div class="meta">${esc(a.category || "समाचार")} · ${esc(a.date || "")}</div>
+      <h2>${esc(a.title || "शीर्षक उपलब्ध नहीं")}</h2>
+      <p>${esc(a.summary || "")}</p>
+      ${a.source ? `<div class="meta">स्रोत: ${esc(a.source)}</div>` : ""}
+      ${a.url ? `<p><a href="${esc(a.url)}" target="_blank" rel="noopener noreferrer">स्रोत देखें</a></p>` : ""}
+    </article>
+  `).join("") || `<p class="notice">इस श्रेणी में अभी कोई प्रकाशित खबर उपलब्ध नहीं है।</p>`;
+}
+
+function load() {
+  const status = document.querySelector("#status");
+
+  if (!API_URL) {
+    status.textContent = "API URL उपलब्ध नहीं है।";
+    render();
+    return;
+  }
+
+  status.textContent = "खबरें लोड हो रही हैं…";
+
+  const callbackName = "onestopNewsCallback_" +
+    Date.now() + "_" + Math.random().toString(36).slice(2);
+
+  const script = document.createElement("script");
+  let finished = false;
+
+  function finish() {
+    if (finished) return;
+    finished = true;
+    clearTimeout(timeout);
+    try { delete window[callbackName]; } catch (_) { window[callbackName] = undefined; }
+    script.remove();
+  }
+
+  const timeout = setTimeout(() => {
+    finish();
+    status.textContent = "लाइव खबरें लोड नहीं हो सकीं। API URL, JSONP doGet और deployment जाँचें।";
+    render();
+  }, 15000);
+
+  window[callbackName] = function(data) {
+    finish();
+
+    if (data && data.ok === true && Array.isArray(data.articles)) {
+      articles = data.articles;
+      selected = "सभी";
+
+      if (articles.length === 0) {
+        status.textContent = "अभी कोई प्रकाशित खबर उपलब्ध नहीं है।";
+      } else {
+        status.textContent = "";
+        const first = articles[0];
+        document.querySelector("#ticker").textContent =
+          first && first.title ? first.title : "ताज़ा खबरें";
+      }
+    } else {
+      status.textContent = "API से सही समाचार डेटा नहीं मिला।";
+    }
+
+    render();
+  };
+
+  script.onerror = function() {
+    finish();
+    status.textContent = "API से कनेक्शन नहीं हो पाया। JSONP endpoint और deployment जाँचें।";
+    render();
+  };
+
+  const separator = API_URL.includes("?") ? "&" : "?";
+  script.src = API_URL + separator +
+    "action=articles&callback=" + encodeURIComponent(callbackName);
+
+  document.head.appendChild(script);
+}
+
+document.querySelector("#year").textContent = new Date().getFullYear();
+render();
+load();
+</script>
+</body>
+</html>
