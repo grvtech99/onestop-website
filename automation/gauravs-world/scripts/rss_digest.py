@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Fetch public RSS feeds and produce a source-linked candidate digest.
+"""Fetch public RSS feeds and produce source-linked candidate digest.
 
 This stage never publishes. It writes candidate data for later editorial review.
 """
+import html
 import json
-import os
 import re
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -17,13 +17,17 @@ FEEDS = [
     "https://www.theguardian.com/world/rss",
     "https://www.theguardian.com/technology/rss",
     "https://techcrunch.com/feed/",
+    # Google News RSS queries add Hindi-first India coverage and topical variety.
+    "https://news.google.com/rss/search?q=AI+OR+cybersecurity+OR+technology+India&hl=en-IN&gl=IN&ceid=IN:en",
+    "https://news.google.com/rss/search?q=AI+OR+cyber+security+OR+technology+India&hl=hi&gl=IN&ceid=IN:hi",
+    "https://news.google.com/rss/search?q=science+OR+space+OR+education+India&hl=hi&gl=IN&ceid=IN:hi",
 ]
 OUT = Path("automation/gauravs-world/output")
 OUT.mkdir(parents=True, exist_ok=True)
 
 
 def clean(value):
-    return re.sub(r"\\s+", " ", value or "").strip()
+    return re.sub(r"\s+", " ", html.unescape(value or "")).strip()
 
 
 def parse_feed(url):
@@ -34,11 +38,10 @@ def parse_feed(url):
     for item in root.findall(".//item"):
         title = clean(item.findtext("title"))
         link = clean(item.findtext("link"))
-        desc = clean(item.findtext("description"))
+        desc = clean(re.sub(r"<[^>]+>", " ", item.findtext("description") or ""))
         pub = clean(item.findtext("pubDate"))
         if title and link:
-            entries.append({"title": title, "url": link, "summary": re.sub(r"<[^>]+>", " ", desc), "published": pub, "feed": url})
-    # Atom fallback
+            entries.append({"title": title, "url": link, "summary": desc, "published": pub, "feed": url})
     ns = {"a": "http://www.w3.org/2005/Atom"}
     for item in root.findall("a:entry", ns):
         title = clean(item.findtext("a:title", namespaces=ns))
@@ -77,5 +80,7 @@ payload = {
 }
 (OUT / "news-candidates.json").write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 print(f"Collected {len(unique)} unique RSS candidates; publication disabled.")
+if errors:
+    print(f"{len(errors)} feed(s) failed; see feed_errors in artifact.")
 if not unique:
     print("No candidates collected. Check feed/network availability in Actions logs.")
