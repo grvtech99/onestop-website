@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gaurav’s World — Admin</title><link rel="stylesheet" href="assets/style.css"></head>
+<body class="adminbody">
+<header class="topbar"><a class="brand" href="index.html"><strong>Gaurav’s <span>World</span> — Admin</strong><small>CONTENT CONTROL CENTER</small></a><a class="iconbtn" href="index.html">↗</a></header>
+<main class="adminmain">
+<section class="panel" id="loginPanel"><h1>Admin Login</h1><p>अपना admin key डालें। यह केवल इसी browser session में रहेगा।</p><form id="loginForm"><label>Admin key<input id="adminKey" type="password" required autocomplete="current-password"></label><button class="primary" type="submit">Continue</button><p id="loginMsg" class="msg"></p></form></section>
+<section class="panel" id="editorPanel" hidden>
+<div class="adminheading"><div><h1>Content Control</h1><p>पोस्ट बनाएँ, अपडेट करें, publish/draft करें या हटाएँ।</p></div><button id="logoutBtn" class="secondary">Logout</button></div>
+<form id="postForm" class="postform">
+<input type="hidden" id="postId">
+<label>Title / हेडलाइन<input id="title" required maxlength="180"></label>
+<label>Hook line<input id="hook" maxlength="240"></label>
+<div class="two"><label>Category<select id="category"><option>Technology</option><option>Science</option><option>History</option><option>Universe</option><option>Mystery</option><option>Nature</option><option>World</option><option>AI</option><option>Trending</option></select></label><label>Status<select id="status"><option value="draft">Draft</option><option value="published">Published</option></select></label></div>
+<div class="two"><label>Thumbnail URL<input id="thumbnail" type="url" placeholder="https://…"></label><label>Hero image URL<input id="heroImage" type="url" placeholder="https://…"></label></div>
+<label>Short excerpt<textarea id="excerpt" rows="2"></textarea></label>
+<label>Full article content<textarea id="content" rows="10" required placeholder="लेख का पूरा टेक्स्ट…"></textarea></label>
+<div class="two"><label>Tags (comma separated)<input id="tags"></label><label>Author<input id="author" value="Gaurav"></label></div>
+<div class="actions"><button class="primary" type="submit">Save Post</button><button class="secondary" type="button" id="resetBtn">Clear</button></div><p id="saveMsg" class="msg"></p>
+</form>
+<h2>Posts</h2><div id="adminPosts" class="adminposts"></div>
+</section></main><script src="assets/admin.js"></script></body></html>

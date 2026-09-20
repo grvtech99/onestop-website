@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff"><title>Gaurav’s World — Discover • Learn • Explore</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <button class="iconbtn" id="menuBtn" aria-label="Menu">☰</button>
+  <a class="brand" href="index.html"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a>
+  <button class="iconbtn" id="searchBtn" aria-label="Search">⌕</button>
+</header>
+<div class="searchwrap" id="searchWrap"><input id="searchInput" placeholder="टॉपिक खोजें…" autocomplete="off"></div>
+<nav class="categories" id="categories" aria-label="Categories"></nav>
+<section class="feature" id="feature">
+  <div><div class="eyebrow">🔥 आज की मुख्य खबर</div><h1>दिलचस्प सवालों की दुनिया में आपका स्वागत है</h1><p>नई खोजें, अनसुने तथ्य और जिज्ञासा जगाने वाली कहानियाँ।</p></div>
+  <img id="featureImg" alt="" hidden>
+</section>
+<main class="main">
+  <div class="sectionhead"><div><h2>ताज़ा लेख</h2><p>नई और रोचक जानकारियाँ हर दिन</p></div>
+  <select id="sortSelect" aria-label="Sort"><option value="new">नवीनतम</option><option value="popular">लोकप्रिय</option><option value="old">पुराने लेख</option></select></div>
+  <div id="feed" class="feed"><p class="state">लेख लोड हो रहे हैं…</p></div>
+  <button id="moreBtn" class="morebtn" hidden>⌄ और लेख देखें</button>
+</main>
+<footer class="bottomnav">
+  <a class="active" href="index.html"><span>⌂</span>होम</a><button data-filter="All"><span>▦</span>कैटेगरी</button><button data-filter="Trending"><span>♨</span>ट्रेंडिंग</button><button id="savedBtn"><span>♧</span>सेव</button><button id="myArticlesBtn"><span>♙</span>मेरे लेख</button>
+</footer>
+<script src="assets/app.js"></script>
+</body></html>
