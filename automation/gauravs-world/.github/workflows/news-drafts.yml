@@ -1,0 +1,27 @@
+name: Gaurav's World — News Draft Builder
+on:
+  workflow_dispatch:
+  schedule:
+    # Six daily UTC runs. GitHub may delay scheduled jobs.
+    - cron: '15 0,4,8,12,16,20 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: gauravs-world-news-drafts
+  cancel-in-progress: false
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate setup-status draft artifact
+        run: python automation/gauravs-world/scripts/run.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gauravs-world-draft-status-${{ github.run_number }}
+          path: automation/gauravs-world/output/
+          retention-days: 14
