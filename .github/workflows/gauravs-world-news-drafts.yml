@@ -32,6 +32,9 @@ jobs:
       - name: Validate candidates
         run: python automation/gauravs-world/scripts/validate_candidates.py
 
+      - name: Build human-readable editorial review packet
+        run: python automation/gauravs-world/scripts/build_review_packet.py
+
       - name: Write pipeline status
         run: python automation/gauravs-world/scripts/run.py
 
