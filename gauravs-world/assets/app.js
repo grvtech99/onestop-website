@@ -1,4 +1,3 @@
-
 /* =========================================
    GAURAV'S WORLD — HOMEPAGE & ARTICLE API
    Updated: stable loading, retry, no demo fallback
@@ -6,7 +5,7 @@
 
 // Set this to your deployed Apps Script /exec URL.
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbywnTL4O_EpmdOe3EgYesh-wEAsXMsuus6H1L2n8-rBD2oYWR4v6-3DrUTs8mSTE7f9/exec';
+  'https://script.google.com/macros/s/AKfycbxPqioJ9nu_znGgoJLInxzi9xRxR35Ex5eLCFzctbpPipyxzoL9vd5B31u3wcecwHF7/exec';
 
 const $ = s => document.querySelector(s);
 
@@ -81,7 +80,8 @@ function setFeedMessage(message) {
 
 
 /* =========================================
-   API REQUEST WITH RETRY
+   API REQUEST WITH RETRY — JSONP
+   Public read requests only
 ========================================= */
 
 async function api(action, params = {}) {
@@ -89,65 +89,88 @@ async function api(action, params = {}) {
     throw new Error("Apps Script API URL सेट नहीं है");
   }
 
-  const url = new URL(API_URL);
-
-  url.searchParams.set("action", action);
-
-  Object.entries(params).forEach(([key, value]) => {
-    url.searchParams.set(
-      key,
-      typeof value === "string"
-        ? value
-        : JSON.stringify(value)
-    );
-  });
-
   let lastError;
 
-  // Initial attempt + 2 retries
   for (let attempt = 0; attempt < 3; attempt++) {
-    const controller = new AbortController();
-
-    const timeout = setTimeout(
-      () => controller.abort(),
-      20000
-    );
-
     try {
-      const response = await fetch(url.toString(), {
-        method: "GET",
-        cache: "no-store",
-        redirect: "follow",
-        signal: controller.signal
+      const result = await new Promise((resolve, reject) => {
+        const callbackName =
+          "__gw_public_" +
+          Date.now() +
+          "_" +
+          Math.random().toString(36).slice(2);
+
+        const url = new URL(API_URL);
+        url.searchParams.set("action", action);
+        url.searchParams.set("callback", callbackName);
+
+        Object.entries(params).forEach(([name, value]) => {
+          if (value !== undefined && value !== null) {
+            url.searchParams.set(name, String(value));
+          }
+        });
+
+        if (url.toString().length > 7000) {
+          reject(new Error("API request URL बहुत लंबा है"));
+          return;
+        }
+
+        const script = document.createElement("script");
+        let finished = false;
+        let timeout;
+
+        function cleanup() {
+          clearTimeout(timeout);
+          script.onerror = null;
+          script.remove();
+
+          try {
+            delete window[callbackName];
+          } catch (_) {
+            window[callbackName] = undefined;
+          }
+        }
+
+        function finish(error, response) {
+          if (finished) return;
+          finished = true;
+          cleanup();
+
+          if (error) {
+            reject(error);
+            return;
+          }
+
+          if (!response || response.ok !== true) {
+            reject(
+              new Error(
+                response?.error || "Apps Script API error"
+              )
+            );
+            return;
+          }
+
+          resolve(response.data);
+        }
+
+        window[callbackName] = response => {
+          finish(null, response);
+        };
+
+        script.onerror = () => {
+          finish(new Error("Apps Script JSONP request failed"));
+        };
+
+        timeout = setTimeout(() => {
+          finish(new Error("Apps Script response timeout"));
+        }, 20000);
+
+        script.async = true;
+        script.src = url.toString();
+        document.head.appendChild(script);
       });
 
-      const text = await response.text();
-
-      let result;
-
-      try {
-        result = JSON.parse(text);
-      } catch (_) {
-        throw new Error(
-          "Apps Script ने JSON के बजाय HTML/अमान्य response दिया।"
-        );
-      }
-
-      if (!response.ok) {
-        throw new Error(
-          "HTTP error: " + response.status
-        );
-      }
-
-      if (!result || result.ok !== true) {
-        throw new Error(
-          result && result.error
-            ? result.error
-            : "Apps Script API error"
-        );
-      }
-
-      return result.data;
+      return result;
 
     } catch (error) {
       lastError = error;
@@ -162,9 +185,6 @@ async function api(action, params = {}) {
           setTimeout(resolve, 700 * (attempt + 1))
         );
       }
-
-    } finally {
-      clearTimeout(timeout);
     }
   }
 
@@ -778,48 +798,154 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
 /* Added responsive menu and footer navigation actions */
+
 document.addEventListener("DOMContentLoaded", () => {
   const menuBtn = document.querySelector("#menuBtn");
+
   if (menuBtn && !document.querySelector("#gwMenuPanel")) {
     const panel = document.createElement("nav");
+
     panel.id = "gwMenuPanel";
     panel.hidden = true;
     panel.setAttribute("aria-label", "मुख्य मेन्यू");
+
     panel.innerHTML = `
       <a href="index.html">🏠 होम</a>
       <button type="button" data-gw-menu="categories">▦ सभी कैटेगरी</button>
       <button type="button" data-gw-menu="trending">🔥 ट्रेंडिंग</button>
       <button type="button" data-gw-menu="saved">♧ सेव लेख</button>
       <a href="admin.html">⚙️ Admin</a>`;
-    document.querySelector(".topbar")?.insertAdjacentElement("afterend", panel);
+
+    document.querySelector(".topbar")
+      ?.insertAdjacentElement("afterend", panel);
+
     menuBtn.setAttribute("aria-expanded", "false");
-    menuBtn.onclick = () => { panel.hidden = !panel.hidden; menuBtn.setAttribute("aria-expanded", String(!panel.hidden)); };
+
+    menuBtn.onclick = () => {
+      panel.hidden = !panel.hidden;
+
+      menuBtn.setAttribute(
+        "aria-expanded",
+        String(!panel.hidden)
+      );
+    };
+
     panel.addEventListener("click", e => {
-      const action=e.target.closest("[data-gw-menu]")?.dataset.gwMenu; if(!action) return;
-      panel.hidden=true; menuBtn.setAttribute("aria-expanded","false");
-      if(action==="categories") { document.querySelector("#categories")?.scrollIntoView({behavior:"smooth",block:"start"}); }
-      if(action==="trending") setFilter("Trending");
-      if(action==="saved") showSaved();
+      const action =
+        e.target.closest("[data-gw-menu]")?.dataset.gwMenu;
+
+      if (!action) return;
+
+      panel.hidden = true;
+      menuBtn.setAttribute("aria-expanded", "false");
+
+      if (action === "categories") {
+        document.querySelector("#categories")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+      }
+
+      if (action === "trending") {
+        setFilter("Trending");
+      }
+
+      if (action === "saved") {
+        showSaved();
+      }
     });
   }
+
   function setFilter(category) {
-    if (typeof state !== "undefined") { state.category=category; state.savedOnly=false; state.page=1; categories(); renderFeed(); }
-    document.querySelector("#feed")?.scrollIntoView({behavior:"smooth",block:"start"});
+    if (typeof state !== "undefined") {
+      state.category = category;
+      state.savedOnly = false;
+      state.page = 1;
+
+      categories();
+      renderFeed();
+    }
+
+    document.querySelector("#feed")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
   }
+
   function showSaved() {
-    if (typeof state !== "undefined") { state.savedOnly=true; state.category="All"; state.page=1; categories(); renderFeed(); }
-    document.querySelector("#feed")?.scrollIntoView({behavior:"smooth",block:"start"});
+    if (typeof state !== "undefined") {
+      state.savedOnly = true;
+      state.category = "All";
+      state.page = 1;
+
+      categories();
+      renderFeed();
+    }
+
+    document.querySelector("#feed")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
   }
-  document.querySelectorAll('.bottomnav [data-filter]').forEach(btn=>btn.addEventListener('click',()=>setFilter(btn.dataset.filter)));
-  const myArticles=document.querySelector('#myArticlesBtn');
-  if(myArticles) myArticles.addEventListener('click',()=>{
-    const saved=(()=>{try{return JSON.parse(localStorage.getItem('gw_saved')||'[]')}catch(_){return []}})();
-    if(typeof state !== 'undefined'){state.savedOnly=true;state.category='All';state.page=1;categories();renderFeed();}
-    const feed=document.querySelector('#feed');
-    if(feed && !saved.length) feed.innerHTML='<p class="state">आपने अभी कोई लेख सेव नहीं किया है।</p>';
-    feed?.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-  const home=document.querySelector('.bottomnav a.active');
-  if(home && location.pathname.endsWith('/article.html')) home.href='index.html';
+
+  document.querySelectorAll(
+    '.bottomnav [data-filter]'
+  ).forEach(btn =>
+    btn.addEventListener("click", () =>
+      setFilter(btn.dataset.filter)
+    )
+  );
+
+  const myArticles =
+    document.querySelector("#myArticlesBtn");
+
+  if (myArticles) {
+    myArticles.addEventListener("click", () => {
+      const saved = (() => {
+        try {
+          return JSON.parse(
+            localStorage.getItem("gw_saved") || "[]"
+          );
+        } catch (_) {
+          return [];
+        }
+      })();
+
+      if (typeof state !== "undefined") {
+        state.savedOnly = true;
+        state.category = "All";
+        state.page = 1;
+
+        categories();
+        renderFeed();
+      }
+
+      const feed = document.querySelector("#feed");
+
+      if (feed && !saved.length) {
+        feed.innerHTML =
+          '<p class="state">आपने अभी कोई लेख सेव नहीं किया है।</p>';
+      }
+
+      feed?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+  }
+
+  const home =
+    document.querySelector(".bottomnav a.active");
+
+  if (
+    home &&
+    location.pathname.endsWith("/article.html")
+  ) {
+    home.href = "index.html";
+  }
 });
