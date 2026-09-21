@@ -6,7 +6,8 @@
  * Supports draft generation and guarded GitHub JSON article publishing.
  * Image upload is intentionally a separate next step (binary/base64 limits need testing).
  */
-const MAX_REQUEST_CHARS = 12000;
+// Body Markdown permits up to 30,000 chars; leave room for JSON keys/metadata.
+const MAX_REQUEST_CHARS = 50000;
 
 function doGet() {
   try {
