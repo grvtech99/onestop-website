@@ -1,7 +1,5 @@
 /* Gaurav's World published-article loader.
- * Include this file after the homepage's existing script to merge published
- * manifest entries into the existing `articles` array and rerender safely.
- * Manifest fields: articles[] entries {id,title,slug,category,summary,image,updatedAt}.
+ * Merges published manifest entries with the homepage's existing articles.
  */
 (function () {
   'use strict';
@@ -12,7 +10,10 @@
   if (!root || !search || !category || !Array.isArray(window.articles)) return;
 
   const fallbackArticles = window.articles.slice();
-  const esc = (value) => String(value == null ? '' : value).replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[ch]));
+  const legacyIds = new Set(fallbackArticles.map(a => String(a.id)));
+  const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  })[ch]);
 
   function render(list) {
     const q = search.value.trim().toLowerCase();
@@ -21,15 +22,18 @@
       (String(a.title || '') + ' ' + String(a.description || a.summary || '') + ' ' + String(a.category || '')).toLowerCase().includes(q));
     root.innerHTML = filtered.length ? filtered.map(a => {
       const id = String(a.slug || a.id || '');
-      return `<article class=\"post\"><span class=\"tag\">${esc(a.category || 'General')}</span><h2>${esc(a.title)}</h2><p>${esc(a.description || a.summary || '')}</p><div class=\"meta\">${esc(a.date || (a.updatedAt ? new Date(a.updatedAt).toLocaleDateString() : 'Published'))}</div><a class=\"read\" href=\"article-dynamic.html?id=${encodeURIComponent(id)}\">और पढ़ें →</a></article>`;
-    }).join('') : '<div class=\"empty\">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
+      const reader = legacyIds.has(String(a.id)) ? 'article.html' : 'article-dynamic.html';
+      const date = a.date || (a.updatedAt ? new Date(a.updatedAt).toLocaleDateString() : 'Published');
+      return `<article class="post"><span class="tag">${esc(a.category || 'General')}</span><h2>${esc(a.title)}</h2><p>${esc(a.description || a.summary || '')}</p><div class="meta">${esc(date)}</div><a class="read" href="${reader}?id=${encodeURIComponent(id)}">और पढ़ें →</a></article>`;
+    }).join('') : '<div class="empty">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
   }
 
   function normalize(item) {
     if (!item || typeof item !== 'object' || !item.title || !(item.slug || item.id)) return null;
-    return { id: String(item.slug || item.id), slug: String(item.slug || item.id), title: String(item.title),
-      category: String(item.category || 'General'), summary: String(item.summary || ''),
-      description: String(item.summary || ''), image: String(item.image || ''), updatedAt: item.updatedAt || '' };
+    const id = String(item.slug || item.id);
+    return { id, slug: id, title: String(item.title), category: String(item.category || 'General'),
+      summary: String(item.summary || ''), description: String(item.summary || ''),
+      image: String(item.image || ''), updatedAt: item.updatedAt || '' };
   }
 
   fetch(MANIFEST_URL, { cache: 'no-store' })
