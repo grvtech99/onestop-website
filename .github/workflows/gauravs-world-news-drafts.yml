@@ -1,0 +1,44 @@
+name: Gaurav's World — News Draft Builder
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Six daily UTC runs. GitHub may delay scheduled jobs.
+    - cron: '15 0,4,8,12,16,20 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gauravs-world-news-drafts
+  cancel-in-progress: false
+
+jobs:
+  draft-candidates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out automation branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Collect source-linked RSS candidates
+        run: python automation/gauravs-world/scripts/rss_digest.py
+
+      - name: Validate candidates
+        run: python automation/gauravs-world/scripts/validate_candidates.py
+
+      - name: Write pipeline status
+        run: python automation/gauravs-world/scripts/run.py
+
+      - name: Upload review-only candidate artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gauravs-world-draft-candidates-${{ github.run_number }}
+          path: automation/gauravs-world/output/
+          if-no-files-found: error
+          retention-days: 14
