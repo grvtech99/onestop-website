@@ -2,14 +2,20 @@
 const API_URL =
   "https://script.google.com/macros/s/AKfycbywnTL4O_EpmdOe3EgYesh-wEAsXMsuus6H1L2n8-rBD2oYWR4v6-3DrUTs8mSTE7f9/exec";
 
-const $ = (selector) => document.querySelector(selector);
+const $ = selector => document.querySelector(selector);
 
 let key = "";
+let editingPostId = "";
 let saving = false;
 let loading = false;
 
+
+/* =========================================
+   HELPERS
+========================================= */
+
 function esc(value = "") {
-  return String(value).replace(/[&<>"']/g, (char) => ({
+  return String(value).replace(/[&<>"']/g, char => ({
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
@@ -20,39 +26,50 @@ function esc(value = "") {
 
 function setMessage(message, isError = false) {
   const el = $("#saveMsg");
+
   if (!el) return;
 
   el.textContent = message;
   el.style.color = isError ? "#b91c1c" : "";
 }
 
+
+/* =========================================
+   API CALL - GET
+========================================= */
+
 async function call(action, data = {}) {
   if (!API_URL.startsWith("https://")) {
     throw new Error("API_URL सेट नहीं है");
   }
 
-  const payload = {
-    ...data,
-    action,
-    adminKey: key
-  };
+  const url = new URL(API_URL);
+
+  url.searchParams.set("action", action);
+  url.searchParams.set("adminKey", key);
+
+  Object.entries(data).forEach(([name, value]) => {
+    if (value !== undefined && value !== null) {
+      url.searchParams.set(
+        name,
+        String(value)
+      );
+    }
+  });
 
   let response;
 
   try {
-    response = await fetch(API_URL, {
-      method: "POST",
+    response = await fetch(url.toString(), {
+      method: "GET",
       redirect: "follow",
-      headers: {
-        "Content-Type": "text/plain;charset=UTF-8"
-      },
-      body: JSON.stringify(payload)
+      cache: "no-store"
     });
   } catch (error) {
-    console.error("Apps Script network error:", error);
+    console.error("API network error:", error);
 
     throw new Error(
-      "Failed to fetch: Apps Script connection या browser CORS समस्या।"
+      "Failed to fetch. Apps Script connection/CORS error."
     );
   }
 
@@ -61,10 +78,10 @@ async function call(action, data = {}) {
   try {
     result = await response.json();
   } catch (error) {
-    console.error("Invalid API response:", error);
+    console.error("API response was not JSON:", error);
 
     throw new Error(
-      "Apps Script से valid JSON response नहीं मिला। Deployment जाँचें।"
+      "Apps Script ने JSON के बजाय HTML response दिया। Deployment जाँचें।"
     );
   }
 
@@ -75,9 +92,14 @@ async function call(action, data = {}) {
   return result.data;
 }
 
+
+/* =========================================
+   FORM DATA
+========================================= */
+
 function getForm() {
   return {
-    id: $("#postId").value.trim(),
+    id: editingPostId || "",
     title: $("#title").value.trim(),
     hook: $("#hook").value.trim(),
     category: $("#category").value,
@@ -91,37 +113,91 @@ function getForm() {
   };
 }
 
+
+/* =========================================
+   RESET FORM
+========================================= */
+
 function reset() {
+  editingPostId = "";
+
   $("#postForm").reset();
-
   $("#postId").value = "";
-
   $("#author").value = "Gaurav";
 
   setMessage("");
 
-  const saveButton = $("#postForm button[type='submit']");
-  if (saveButton) {
-    saveButton.textContent = "Save Post";
-    saveButton.disabled = false;
+  const button = $("#postForm").querySelector(
+    '[type="submit"]'
+  );
+
+  if (button) {
+    button.textContent = "Save Post";
+    button.disabled = false;
   }
 }
 
-function setSavingState(state) {
-  const button = $("#postForm button[type='submit']");
 
-  if (!button) return;
+/* =========================================
+   EDIT POST
+========================================= */
 
-  button.disabled = state;
-
-  if (state) {
-    button.textContent = "Saving...";
-  } else {
-    button.textContent = $("#postId").value
-      ? "Update Post"
-      : "Save Post";
+function edit(post) {
+  if (!post || !post.id) {
+    alert("Post ID missing. Cannot edit.");
+    return;
   }
+
+  editingPostId = String(post.id).trim();
+
+  // Keep original ID in hidden field too.
+  $("#postId").value = editingPostId;
+
+  const fields = [
+    "title",
+    "hook",
+    "category",
+    "status",
+    "thumbnail",
+    "heroImage",
+    "excerpt",
+    "content",
+    "tags",
+    "author"
+  ];
+
+  fields.forEach(field => {
+    const el = $("#" + field);
+
+    if (el) {
+      el.value = post[field] == null
+        ? ""
+        : post[field];
+    }
+  });
+
+  const button = $("#postForm").querySelector(
+    '[type="submit"]'
+  );
+
+  if (button) {
+    button.textContent = "Update Post";
+  }
+
+  setMessage(
+    "Editing existing post. ID: " + editingPostId
+  );
+
+  $("#postForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
 }
+
+
+/* =========================================
+   REFRESH ADMIN LIST
+========================================= */
 
 async function refresh() {
   if (loading) return;
@@ -135,7 +211,7 @@ async function refresh() {
 
     if (!container) return;
 
-    container.innerHTML = posts.map((post) => `
+    container.innerHTML = posts.map(post => `
       <div class="adminpost">
         <div>
           <strong>${esc(post.title)}</strong>
@@ -145,105 +221,84 @@ async function refresh() {
         </div>
 
         <div>
-          <button type="button"
-            data-edit="${esc(post.id)}">
+          <button
+            type="button"
+            data-edit="${esc(post.id)}"
+          >
             Edit
           </button>
 
-          <button type="button"
-            data-delete="${esc(post.id)}">
+          <button
+            type="button"
+            data-delete="${esc(post.id)}"
+          >
             Delete
           </button>
         </div>
       </div>
     `).join("") || "<p>अभी कोई पोस्ट नहीं।</p>";
 
-    container.querySelectorAll("[data-edit]").forEach((button) => {
-      button.onclick = () => {
-        const post = posts.find(
-          (item) => item.id === button.dataset.edit
-        );
+    container.querySelectorAll("[data-edit]")
+      .forEach(button => {
+        button.onclick = () => {
+          const post = posts.find(
+            item =>
+              String(item.id) === button.dataset.edit
+          );
 
-        edit(post);
-      };
-    });
+          edit(post);
+        };
+      });
 
-    container.querySelectorAll("[data-delete]").forEach((button) => {
-      button.onclick = async () => {
-        const id = button.dataset.delete;
+    container.querySelectorAll("[data-delete]")
+      .forEach(button => {
+        button.onclick = async () => {
+          const id = button.dataset.delete;
 
-        if (!confirm("यह पोस्ट permanently delete करें?")) {
-          return;
-        }
+          if (!confirm("यह पोस्ट delete करें?")) {
+            return;
+          }
 
-        button.disabled = true;
+          button.disabled = true;
 
-        try {
-          await call("delete", { id });
+          try {
+            await call("delete", { id });
 
-          await refresh();
+            if (editingPostId === id) {
+              reset();
+            }
 
-          setMessage("Post deleted successfully");
-        } catch (error) {
-          alert(error.message);
-          button.disabled = false;
-        }
-      };
-    });
+            await refresh();
+
+            setMessage("Post deleted successfully");
+
+          } catch (error) {
+            alert(error.message);
+            button.disabled = false;
+          }
+        };
+      });
 
   } finally {
     loading = false;
   }
 }
 
-function edit(post) {
-  if (!post) return;
 
-  const fields = [
-    "id",
-    "title",
-    "hook",
-    "category",
-    "status",
-    "thumbnail",
-    "heroImage",
-    "excerpt",
-    "content",
-    "tags",
-    "author"
-  ];
-
-  for (const field of fields) {
-    const element = $("#" + field);
-
-    if (element) {
-      element.value = post[field] ?? "";
-    }
-  }
-
-  setMessage("Editing existing post — ID सुरक्षित है।");
-
-  const saveButton = $("#postForm button[type='submit']");
-
-  if (saveButton) {
-    saveButton.textContent = "Update Post";
-  }
-
-  $("#postForm").scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-}
+/* =========================================
+   LOGIN
+========================================= */
 
 async function login() {
-  const input = $("#adminKey");
-
-  key = input.value;
+  key = $("#adminKey").value;
 
   try {
     await call("adminList");
 
-    sessionStorage.setItem("gw_admin_key", key);
+    sessionStorage.setItem(
+      "gw_admin_key",
+      key
+    );
 
     $("#loginPanel").hidden = true;
     $("#editorPanel").hidden = false;
@@ -256,8 +311,15 @@ async function login() {
   }
 }
 
+
+/* =========================================
+   RESTORE SESSION
+========================================= */
+
 async function restoreSession() {
-  const saved = sessionStorage.getItem("gw_admin_key");
+  const saved = sessionStorage.getItem(
+    "gw_admin_key"
+  );
 
   if (!saved) return;
 
@@ -277,60 +339,104 @@ async function restoreSession() {
   }
 }
 
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  $("#loginForm").onsubmit = async (event) => {
+  /* LOGIN */
+
+  $("#loginForm").onsubmit = async event => {
     event.preventDefault();
     await login();
   };
 
   restoreSession();
 
-  $("#postForm").onsubmit = async (event) => {
+
+  /* SAVE / UPDATE */
+
+  $("#postForm").onsubmit = async event => {
     event.preventDefault();
 
     if (saving) return;
 
     const post = getForm();
+    const isUpdate = Boolean(editingPostId);
 
     if (!post.title || !post.content.trim()) {
       setMessage(
-        "Title और Full article content जरूरी हैं।",
+        "Title और Full content भरना जरूरी है।",
+        true
+      );
+      return;
+    }
+
+    // Critical: never let an edit lose its ID.
+    if (isUpdate && !post.id) {
+      setMessage(
+        "Update cancelled: Original Post ID missing.",
         true
       );
       return;
     }
 
     saving = true;
-    setSavingState(true);
+
+    const button = $("#postForm").querySelector(
+      '[type="submit"]'
+    );
+
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Saving...";
+    }
 
     try {
-      const result = await call("save", post);
+      const action = isUpdate ? "update" : "create";
 
-      // Keep the returned ID to prevent accidental
-      // creation of another post on the next save.
-      if (result && result.id) {
-        $("#postId").value = result.id;
-      }
+      const result = await call(action, post);
 
-      setMessage("Post saved successfully");
+      setMessage(
+        isUpdate
+          ? "Post updated successfully."
+          : "New post created successfully."
+      );
+
+      // Clear form only after confirmed API success.
+      reset();
 
       await refresh();
 
-      reset();
-
     } catch (error) {
-      console.error("Save error:", error);
+      console.error("Save failed:", error);
 
       setMessage(error.message, true);
 
     } finally {
       saving = false;
-      setSavingState(false);
+
+      if (button) {
+        button.disabled = false;
+        button.textContent = editingPostId
+          ? "Update Post"
+          : "Save Post";
+      }
     }
   };
 
-  $("#resetBtn").onclick = reset;
+
+  /* RESET */
+
+  $("#resetBtn").onclick = event => {
+    event.preventDefault();
+    reset();
+  };
+
+
+  /* LOGOUT */
 
   $("#logoutBtn").onclick = () => {
     sessionStorage.removeItem("gw_admin_key");
