@@ -1,6 +1,11 @@
 
+/* =========================================
+   GAURAV'S WORLD — ADMIN.JS
+   JSONP API VERSION
+========================================= */
+
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbywnTL4O_EpmdOe3EgYesh-wEAsXMsuus6H1L2n8-rBD2oYWR4v6-3DrUTs8mSTE7f9/exec";
+  "https://script.google.com/macros/s/AKfycbxPqioJ9nu_znGgoJLInxzi9xRxR35Ex5eLCFzctbpPipyxzoL9vd5B31u3wcecwHF7/exec";
 
 const $ = selector => document.querySelector(selector);
 
@@ -33,63 +38,112 @@ function setMessage(message, isError = false) {
   el.style.color = isError ? "#b91c1c" : "";
 }
 
+function setLoginMessage(message, isError = true) {
+  const el = $("#loginMsg");
+
+  if (!el) return;
+
+  el.textContent = message;
+  el.style.color = isError ? "#b91c1c" : "";
+}
+
 
 /* =========================================
-   API CALL - GET
+   API CALL — JSONP
+   Requires Apps Script JSONP callback support
 ========================================= */
 
-async function call(action, data = {}) {
-  if (!API_URL.startsWith("https://")) {
-    throw new Error("API_URL सेट नहीं है");
-  }
+function call(action, data = {}) {
+  return new Promise((resolve, reject) => {
 
-  const url = new URL(API_URL);
-
-  url.searchParams.set("action", action);
-  url.searchParams.set("adminKey", key);
-
-  Object.entries(data).forEach(([name, value]) => {
-    if (value !== undefined && value !== null) {
-      url.searchParams.set(
-        name,
-        String(value)
-      );
+    if (!API_URL.startsWith("https://")) {
+      reject(new Error("API_URL सेट नहीं है।"));
+      return;
     }
-  });
 
-  let response;
+    const callbackName =
+      "__gwcb_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).slice(2);
 
-  try {
-    response = await fetch(url.toString(), {
-      method: "GET",
-      redirect: "follow",
-      cache: "no-store"
+    const url = new URL(API_URL);
+
+    url.searchParams.set("action", action);
+    url.searchParams.set("adminKey", key);
+    url.searchParams.set("callback", callbackName);
+
+    Object.entries(data).forEach(([name, value]) => {
+      if (value !== undefined && value !== null) {
+        url.searchParams.set(name, String(value));
+      }
     });
-  } catch (error) {
-    console.error("API network error:", error);
 
-    throw new Error(
-      "Failed to fetch. Apps Script connection/CORS error."
-    );
-  }
+    const script = document.createElement("script");
 
-  let result;
+    let finished = false;
 
-  try {
-    result = await response.json();
-  } catch (error) {
-    console.error("API response was not JSON:", error);
+    const timer = setTimeout(() => {
+      finish(
+        new Error(
+          "Apps Script response timeout. Deployment URL और API जाँचें।"
+        )
+      );
+    }, 30000);
 
-    throw new Error(
-      "Apps Script ने JSON के बजाय HTML response दिया। Deployment जाँचें।"
-    );
-  }
+    function cleanup() {
+      clearTimeout(timer);
 
-  if (!result.ok) {
-    throw new Error(result.error || "Request failed");
-  }
+      try {
+        delete window[callbackName];
+      } catch (_) {
+        window[callbackName] = undefined;
+      }
 
-  return result.data;
+      script.onerror = null;
+      script.remove();
+    }
+
+    function finish(error, result) {
+      if (finished) return;
+
+      finished = true;
+      cleanup();
+
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      if (!result || result.ok !== true) {
+        reject(
+          new Error(
+            result?.error || "Apps Script request failed."
+          )
+        );
+        return;
+      }
+
+      resolve(result.data);
+    }
+
+    window[callbackName] = result => {
+      finish(null, result);
+    };
+
+    script.onerror = () => {
+      finish(
+        new Error(
+          "Apps Script JSONP load failed. API URL, deployment और access settings जाँचें।"
+        )
+      );
+    };
+
+    script.async = true;
+    script.src = url.toString();
+
+    document.head.appendChild(script);
+  });
 }
 
 
@@ -100,14 +154,18 @@ async function call(action, data = {}) {
 function getForm() {
   return {
     id: editingPostId || "",
+
     title: $("#title").value.trim(),
     hook: $("#hook").value.trim(),
     category: $("#category").value,
     status: $("#status").value,
+
     thumbnail: $("#thumbnail").value.trim(),
     heroImage: $("#heroImage").value.trim(),
+
     excerpt: $("#excerpt").value.trim(),
     content: $("#content").value,
+
     tags: $("#tags").value,
     author: $("#author").value.trim()
   };
@@ -121,13 +179,25 @@ function getForm() {
 function reset() {
   editingPostId = "";
 
-  $("#postForm").reset();
-  $("#postId").value = "";
-  $("#author").value = "Gaurav";
+  const form = $("#postForm");
+
+  if (form) {
+    form.reset();
+  }
+
+  const postId = $("#postId");
+  if (postId) {
+    postId.value = "";
+  }
+
+  const author = $("#author");
+  if (author) {
+    author.value = "Gaurav";
+  }
 
   setMessage("");
 
-  const button = $("#postForm").querySelector(
+  const button = form?.querySelector(
     '[type="submit"]'
   );
 
@@ -139,7 +209,7 @@ function reset() {
 
 
 /* =========================================
-   EDIT POST
+   EDIT EXISTING POST
 ========================================= */
 
 function edit(post) {
@@ -150,8 +220,11 @@ function edit(post) {
 
   editingPostId = String(post.id).trim();
 
-  // Keep original ID in hidden field too.
-  $("#postId").value = editingPostId;
+  const postId = $("#postId");
+
+  if (postId) {
+    postId.value = editingPostId;
+  }
 
   const fields = [
     "title",
@@ -170,9 +243,10 @@ function edit(post) {
     const el = $("#" + field);
 
     if (el) {
-      el.value = post[field] == null
-        ? ""
-        : post[field];
+      el.value =
+        post[field] == null
+          ? ""
+          : post[field];
     }
   });
 
@@ -196,7 +270,7 @@ function edit(post) {
 
 
 /* =========================================
-   REFRESH ADMIN LIST
+   REFRESH ADMIN POSTS
 ========================================= */
 
 async function refresh() {
@@ -204,56 +278,94 @@ async function refresh() {
 
   loading = true;
 
+  const container = $("#adminPosts");
+
+  if (container) {
+    container.setAttribute("aria-busy", "true");
+  }
+
   try {
     const posts = await call("adminList");
 
-    const container = $("#adminPosts");
+    if (!Array.isArray(posts)) {
+      throw new Error(
+        "API ने posts की valid list नहीं भेजी।"
+      );
+    }
 
     if (!container) return;
 
     container.innerHTML = posts.map(post => `
       <div class="adminpost">
+
         <div>
-          <strong>${esc(post.title)}</strong>
+          <strong>${esc(post.title || "Untitled")}</strong>
+
           <small>
-            ${esc(post.category)} · ${esc(post.status)}
+            ${esc(post.category || "")}
+            ·
+            ${esc(post.status || "")}
           </small>
         </div>
 
         <div>
           <button
             type="button"
-            data-edit="${esc(post.id)}"
+            data-edit="${esc(post.id || "")}"
           >
             Edit
           </button>
 
           <button
             type="button"
-            data-delete="${esc(post.id)}"
+            data-delete="${esc(post.id || "")}"
           >
             Delete
           </button>
         </div>
+
       </div>
     `).join("") || "<p>अभी कोई पोस्ट नहीं।</p>";
 
-    container.querySelectorAll("[data-edit]")
+
+    /* EDIT BUTTONS */
+
+    container
+      .querySelectorAll("[data-edit]")
       .forEach(button => {
+
         button.onclick = () => {
-          const post = posts.find(
-            item =>
-              String(item.id) === button.dataset.edit
+          const id = button.dataset.edit;
+
+          const post = posts.find(item =>
+            String(item.id) === id
           );
+
+          if (!post) {
+            alert("Post नहीं मिली। List refresh करें।");
+            return;
+          }
 
           edit(post);
         };
+
       });
 
-    container.querySelectorAll("[data-delete]")
+
+    /* DELETE BUTTONS */
+
+    container
+      .querySelectorAll("[data-delete]")
       .forEach(button => {
+
         button.onclick = async () => {
+
           const id = button.dataset.delete;
+
+          if (!id) {
+            alert("Post ID missing.");
+            return;
+          }
 
           if (!confirm("यह पोस्ट delete करें?")) {
             return;
@@ -268,19 +380,31 @@ async function refresh() {
               reset();
             }
 
+            setMessage("Post deleted successfully.");
+
             await refresh();
 
-            setMessage("Post deleted successfully");
-
           } catch (error) {
+            console.error("Delete failed:", error);
+
             alert(error.message);
+
             button.disabled = false;
           }
         };
+
       });
+
+  } catch (error) {
+    console.error("Posts refresh failed:", error);
+    throw error;
 
   } finally {
     loading = false;
+
+    if (container) {
+      container.removeAttribute("aria-busy");
+    }
   }
 }
 
@@ -290,7 +414,28 @@ async function refresh() {
 ========================================= */
 
 async function login() {
-  key = $("#adminKey").value;
+  const keyInput = $("#adminKey");
+
+  const enteredKey = keyInput
+    ? keyInput.value.trim()
+    : "";
+
+  if (!enteredKey) {
+    setLoginMessage("Admin key भरें।");
+    return;
+  }
+
+  key = enteredKey;
+
+  const loginButton = $("#loginForm")
+    ?.querySelector('[type="submit"]');
+
+  if (loginButton) {
+    loginButton.disabled = true;
+    loginButton.textContent = "Connecting...";
+  }
+
+  setLoginMessage("", false);
 
   try {
     await call("adminList");
@@ -306,8 +451,19 @@ async function login() {
     await refresh();
 
   } catch (error) {
-    $("#loginMsg").textContent = error.message;
+    console.error("Login failed:", error);
+
     key = "";
+
+    sessionStorage.removeItem("gw_admin_key");
+
+    setLoginMessage(error.message);
+
+  } finally {
+    if (loginButton) {
+      loginButton.disabled = false;
+      loginButton.textContent = "Continue";
+    }
   }
 }
 
@@ -334,8 +490,18 @@ async function restoreSession() {
     await refresh();
 
   } catch (error) {
+    console.error("Session restore failed:", error);
+
     sessionStorage.removeItem("gw_admin_key");
+
     key = "";
+
+    $("#loginPanel").hidden = false;
+    $("#editorPanel").hidden = true;
+
+    setLoginMessage(
+      "Session verify नहीं हुआ। कृपया दोबारा login करें।"
+    );
   }
 }
 
@@ -346,102 +512,145 @@ async function restoreSession() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  const loginForm = $("#loginForm");
+  const postForm = $("#postForm");
+  const resetBtn = $("#resetBtn");
+  const logoutBtn = $("#logoutBtn");
+
+
   /* LOGIN */
 
-  $("#loginForm").onsubmit = async event => {
-    event.preventDefault();
-    await login();
-  };
+  if (loginForm) {
+    loginForm.onsubmit = async event => {
+      event.preventDefault();
+      await login();
+    };
+  }
+
+
+  /* RESTORE SESSION */
 
   restoreSession();
 
 
   /* SAVE / UPDATE */
 
-  $("#postForm").onsubmit = async event => {
-    event.preventDefault();
+  if (postForm) {
+    postForm.onsubmit = async event => {
 
-    if (saving) return;
+      event.preventDefault();
 
-    const post = getForm();
-    const isUpdate = Boolean(editingPostId);
+      if (saving) return;
 
-    if (!post.title || !post.content.trim()) {
-      setMessage(
-        "Title और Full content भरना जरूरी है।",
-        true
-      );
-      return;
-    }
+      const post = getForm();
 
-    // Critical: never let an edit lose its ID.
-    if (isUpdate && !post.id) {
-      setMessage(
-        "Update cancelled: Original Post ID missing.",
-        true
-      );
-      return;
-    }
+      const isUpdate = Boolean(editingPostId);
 
-    saving = true;
+      if (!post.title || !post.content.trim()) {
+        setMessage(
+          "Title और Full content भरना जरूरी है।",
+          true
+        );
+        return;
+      }
 
-    const button = $("#postForm").querySelector(
-      '[type="submit"]'
-    );
+      /*
+       * Never create a new post accidentally
+       * when editing an existing post.
+       */
 
-    if (button) {
-      button.disabled = true;
-      button.textContent = "Saving...";
-    }
+      if (isUpdate && !post.id) {
+        setMessage(
+          "Update cancelled: Original Post ID missing.",
+          true
+        );
+        return;
+      }
 
-    try {
-      const action = isUpdate ? "update" : "create";
+      saving = true;
 
-      const result = await call(action, post);
-
-      setMessage(
-        isUpdate
-          ? "Post updated successfully."
-          : "New post created successfully."
+      const button = postForm.querySelector(
+        '[type="submit"]'
       );
 
-      // Clear form only after confirmed API success.
-      reset();
-
-      await refresh();
-
-    } catch (error) {
-      console.error("Save failed:", error);
-
-      setMessage(error.message, true);
-
-    } finally {
-      saving = false;
+      const originalButtonText = button
+        ? button.textContent
+        : "Save Post";
 
       if (button) {
-        button.disabled = false;
-        button.textContent = editingPostId
-          ? "Update Post"
-          : "Save Post";
+        button.disabled = true;
+        button.textContent = isUpdate
+          ? "Updating..."
+          : "Saving...";
       }
-    }
-  };
+
+      setMessage("");
+
+      try {
+        const action = isUpdate
+          ? "update"
+          : "create";
+
+        await call(action, post);
+
+        setMessage(
+          isUpdate
+            ? "Post updated successfully."
+            : "New post created successfully."
+        );
+
+        /*
+         * Reset only after confirmed API success.
+         */
+
+        reset();
+
+        await refresh();
+
+      } catch (error) {
+        console.error("Save failed:", error);
+
+        setMessage(error.message, true);
+
+      } finally {
+        saving = false;
+
+        if (button) {
+          button.disabled = false;
+
+          button.textContent = editingPostId
+            ? "Update Post"
+            : originalButtonText;
+        }
+      }
+    };
+  }
 
 
   /* RESET */
 
-  $("#resetBtn").onclick = event => {
-    event.preventDefault();
-    reset();
-  };
+  if (resetBtn) {
+    resetBtn.onclick = event => {
+      event.preventDefault();
+
+      if (saving) return;
+
+      reset();
+    };
+  }
 
 
   /* LOGOUT */
 
-  $("#logoutBtn").onclick = () => {
-    sessionStorage.removeItem("gw_admin_key");
-    key = "";
-    location.reload();
-  };
+  if (logoutBtn) {
+    logoutBtn.onclick = () => {
+      sessionStorage.removeItem("gw_admin_key");
+
+      key = "";
+      editingPostId = "";
+
+      location.reload();
+    };
+  }
 
 });
