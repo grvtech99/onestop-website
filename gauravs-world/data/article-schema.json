@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gaurav's World article metadata",
+  "type": "object",
+  "required": ["id", "title", "category", "description", "date", "status"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "title": { "type": "string", "minLength": 3, "maxLength": 140 },
+    "category": { "type": "string", "enum": ["Technology", "Computer Skills", "Digital Services", "Education"] },
+    "description": { "type": "string", "minLength": 10, "maxLength": 320 },
+    "date": { "type": "string", "maxLength": 40 },
+    "status": { "type": "string", "enum": ["draft", "published"] },
+    "coverImage": { "type": "string", "pattern": "^images/[a-z0-9-]+\\.(webp|avif|png|jpg|jpeg)$" },
+    "coverAlt": { "type": "string", "maxLength": 200 },
+    "articlePath": { "type": "string", "pattern": "^article\\.html\\?id=[a-z0-9-]+$" }
+  },
+  "additionalProperties": false
+}
