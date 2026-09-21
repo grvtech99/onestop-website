@@ -1,7 +1,6 @@
-
 /* =========================================
    GAURAV'S WORLD — ADMIN.JS
-   JSONP API VERSION
+   JSONP-compatible build
 ========================================= */
 
 const API_URL =
@@ -14,10 +13,7 @@ let editingPostId = "";
 let saving = false;
 let loading = false;
 
-
-/* =========================================
-   HELPERS
-========================================= */
+/* HELPERS */
 
 function esc(value = "") {
   return String(value).replace(/[&<>"']/g, char => ({
@@ -31,44 +27,32 @@ function esc(value = "") {
 
 function setMessage(message, isError = false) {
   const el = $("#saveMsg");
-
   if (!el) return;
-
   el.textContent = message;
   el.style.color = isError ? "#b91c1c" : "";
 }
 
 function setLoginMessage(message, isError = true) {
   const el = $("#loginMsg");
-
   if (!el) return;
-
   el.textContent = message;
   el.style.color = isError ? "#b91c1c" : "";
 }
 
-
-/* =========================================
-   API CALL — JSONP
-   Requires Apps Script JSONP callback support
-========================================= */
+/* API CALL — JSONP */
 
 function call(action, data = {}) {
   return new Promise((resolve, reject) => {
-
     if (!API_URL.startsWith("https://")) {
       reject(new Error("API_URL सेट नहीं है।"));
       return;
     }
 
     const callbackName =
-      "__gwcb_" +
-      Date.now() +
-      "_" +
+      "__gwcb_" + Date.now() + "_" +
       Math.random().toString(36).slice(2);
 
     const url = new URL(API_URL);
-
     url.searchParams.set("action", action);
     url.searchParams.set("adminKey", key);
     url.searchParams.set("callback", callbackName);
@@ -79,34 +63,32 @@ function call(action, data = {}) {
       }
     });
 
+    if (url.toString().length > 7000) {
+      reject(new Error(
+        "Article data URL ke liye bahut lamba hai. Save nahi bheja gaya. " +
+        "Is setup mein JSONP URL limit hai; large articles ke liye POST-based " +
+        "same-origin/restricted admin backend chahiye."
+      ));
+      return;
+    }
+
     const script = document.createElement("script");
-
     let finished = false;
-
-    const timer = setTimeout(() => {
-      finish(
-        new Error(
-          "Apps Script response timeout. Deployment URL और API जाँचें।"
-        )
-      );
-    }, 30000);
+    let timer;
 
     function cleanup() {
       clearTimeout(timer);
-
       try {
         delete window[callbackName];
       } catch (_) {
         window[callbackName] = undefined;
       }
-
       script.onerror = null;
       script.remove();
     }
 
     function finish(error, result) {
       if (finished) return;
-
       finished = true;
       cleanup();
 
@@ -116,101 +98,71 @@ function call(action, data = {}) {
       }
 
       if (!result || result.ok !== true) {
-        reject(
-          new Error(
-            result?.error || "Apps Script request failed."
-          )
-        );
+        reject(new Error(result?.error || "Apps Script request failed."));
         return;
       }
 
       resolve(result.data);
     }
 
-    window[callbackName] = result => {
-      finish(null, result);
-    };
+    window[callbackName] = result => finish(null, result);
 
-    script.onerror = () => {
-      finish(
-        new Error(
-          "Apps Script JSONP load failed. API URL, deployment और access settings जाँचें।"
-        )
-      );
-    };
+    script.onerror = () => finish(new Error(
+      "Apps Script JSONP load failed. API URL, deployment aur access settings check karein."
+    ));
+
+    timer = setTimeout(() => finish(new Error(
+      "Apps Script response timeout. Deployment URL ya access check karein."
+    )), 30000);
 
     script.async = true;
     script.src = url.toString();
-
     document.head.appendChild(script);
   });
 }
 
-
-/* =========================================
-   FORM DATA
-========================================= */
+/* FORM DATA */
 
 function getForm() {
   return {
     id: editingPostId || "",
-
     title: $("#title").value.trim(),
     hook: $("#hook").value.trim(),
     category: $("#category").value,
     status: $("#status").value,
-
     thumbnail: $("#thumbnail").value.trim(),
     heroImage: $("#heroImage").value.trim(),
-
     excerpt: $("#excerpt").value.trim(),
     content: $("#content").value,
-
     tags: $("#tags").value,
     author: $("#author").value.trim()
   };
 }
 
-
-/* =========================================
-   RESET FORM
-========================================= */
+/* RESET */
 
 function reset() {
   editingPostId = "";
 
   const form = $("#postForm");
-
-  if (form) {
-    form.reset();
-  }
+  if (form) form.reset();
 
   const postId = $("#postId");
-  if (postId) {
-    postId.value = "";
-  }
+  if (postId) postId.value = "";
 
   const author = $("#author");
-  if (author) {
-    author.value = "Gaurav";
-  }
+  if (author) author.value = "Gaurav";
 
   setMessage("");
 
-  const button = form?.querySelector(
-    '[type="submit"]'
-  );
-
+  const button = form?.querySelector('[type="submit"]');
   if (button) {
     button.textContent = "Save Post";
     button.disabled = false;
   }
 }
 
-
-/* =========================================
-   EDIT EXISTING POST
-========================================= */
+/* EDIT */
 
 function edit(post) {
   if (!post || !post.id) {
@@ -221,46 +173,21 @@ function edit(post) {
   editingPostId = String(post.id).trim();
 
   const postId = $("#postId");
+  if (postId) postId.value = editingPostId;
 
-  if (postId) {
-    postId.value = editingPostId;
-  }
-
-  const fields = [
-    "title",
-    "hook",
-    "category",
-    "status",
-    "thumbnail",
-    "heroImage",
-    "excerpt",
-    "content",
-    "tags",
-    "author"
-  ];
-
-  fields.forEach(field => {
+  [
+    "title", "hook", "category", "status",
+    "thumbnail", "heroImage", "excerpt",
+    "content", "tags", "author"
+  ].forEach(field => {
     const el = $("#" + field);
-
-    if (el) {
-      el.value =
-        post[field] == null
-          ? ""
-          : post[field];
-    }
+    if (el) el.value = post[field] == null ? "" : post[field];
   });
 
-  const button = $("#postForm").querySelector(
-    '[type="submit"]'
-  );
+  const button = $("#postForm").querySelector('[type="submit"]');
+  if (button) button.textContent = "Update Post";
 
-  if (button) {
-    button.textContent = "Update Post";
-  }
-
-  setMessage(
-    "Editing existing post. ID: " + editingPostId
-  );
+  setMessage("Editing existing post. ID: " + editingPostId);
 
   $("#postForm").scrollIntoView({
     behavior: "smooth",
@@ -268,132 +195,80 @@ function edit(post) {
   });
 }
 
-
-/* =========================================
-   REFRESH ADMIN POSTS
-========================================= */
+/* REFRESH POSTS */
 
 async function refresh() {
   if (loading) return;
-
   loading = true;
 
   const container = $("#adminPosts");
-
-  if (container) {
-    container.setAttribute("aria-busy", "true");
-  }
+  if (container) container.setAttribute("aria-busy", "true");
 
   try {
     const posts = await call("adminList");
 
     if (!Array.isArray(posts)) {
-      throw new Error(
-        "API ने posts की valid list नहीं भेजी।"
-      );
+      throw new Error("API ne posts ki valid list nahi bheji.");
     }
 
     if (!container) return;
 
     container.innerHTML = posts.map(post => `
       <div class="adminpost">
-
         <div>
           <strong>${esc(post.title || "Untitled")}</strong>
-
-          <small>
-            ${esc(post.category || "")}
-            ·
-            ${esc(post.status || "")}
-          </small>
+          <small>${esc(post.category || "")} · ${esc(post.status || "")}</small>
         </div>
-
         <div>
-          <button
-            type="button"
-            data-edit="${esc(post.id || "")}"
-          >
-            Edit
-          </button>
-
-          <button
-            type="button"
-            data-delete="${esc(post.id || "")}"
-          >
-            Delete
-          </button>
+          <button type="button" data-edit="${esc(post.id || "")}">Edit</button>
+          <button type="button" data-delete="${esc(post.id || "")}">Delete</button>
         </div>
-
       </div>
     `).join("") || "<p>अभी कोई पोस्ट नहीं।</p>";
 
+    container.querySelectorAll("[data-edit]").forEach(button => {
+      button.onclick = () => {
+        const post = posts.find(item =>
+          String(item.id) === button.dataset.edit
+        );
 
-    /* EDIT BUTTONS */
+        if (!post) {
+          alert("Post nahi mili. List refresh karein.");
+          return;
+        }
 
-    container
-      .querySelectorAll("[data-edit]")
-      .forEach(button => {
+        edit(post);
+      };
+    });
 
-        button.onclick = () => {
-          const id = button.dataset.edit;
+    container.querySelectorAll("[data-delete]").forEach(button => {
+      button.onclick = async () => {
+        const id = button.dataset.delete;
 
-          const post = posts.find(item =>
-            String(item.id) === id
-          );
+        if (!id) {
+          alert("Post ID missing.");
+          return;
+        }
 
-          if (!post) {
-            alert("Post नहीं मिली। List refresh करें।");
-            return;
-          }
+        if (!confirm("यह पोस्ट delete करें?")) return;
 
-          edit(post);
-        };
+        button.disabled = true;
 
-      });
+        try {
+          await call("delete", { id });
 
+          if (editingPostId === id) reset();
 
-    /* DELETE BUTTONS */
+          setMessage("Post deleted successfully.");
+          await refresh();
 
-    container
-      .querySelectorAll("[data-delete]")
-      .forEach(button => {
-
-        button.onclick = async () => {
-
-          const id = button.dataset.delete;
-
-          if (!id) {
-            alert("Post ID missing.");
-            return;
-          }
-
-          if (!confirm("यह पोस्ट delete करें?")) {
-            return;
-          }
-
-          button.disabled = true;
-
-          try {
-            await call("delete", { id });
-
-            if (editingPostId === id) {
-              reset();
-            }
-
-            setMessage("Post deleted successfully.");
-
-            await refresh();
-
-          } catch (error) {
-            console.error("Delete failed:", error);
-
-            alert(error.message);
-
-            button.disabled = false;
-          }
-        };
-
-      });
+        } catch (error) {
+          console.error("Delete failed:", error);
+          alert(error.message);
+          button.disabled = false;
+        }
+      };
+    });
 
   } catch (error) {
     console.error("Posts refresh failed:", error);
@@ -401,24 +276,15 @@ async function refresh() {
 
   } finally {
     loading = false;
-
-    if (container) {
-      container.removeAttribute("aria-busy");
-    }
+    if (container) container.removeAttribute("aria-busy");
   }
 }
 
-
-/* =========================================
-   LOGIN
-========================================= */
+/* LOGIN */
 
 async function login() {
-  const keyInput = $("#adminKey");
-
-  const enteredKey = keyInput
-    ? keyInput.value.trim()
-    : "";
+  const input = $("#adminKey");
+  const enteredKey = input ? input.value.trim() : "";
 
   if (!enteredKey) {
     setLoginMessage("Admin key भरें।");
@@ -427,8 +293,7 @@ async function login() {
 
   key = enteredKey;
 
-  const loginButton = $("#loginForm")
-    ?.querySelector('[type="submit"]');
+  const loginButton = $("#loginForm")?.querySelector('[type="submit"]');
 
   if (loginButton) {
     loginButton.disabled = true;
@@ -439,11 +304,7 @@ async function login() {
 
   try {
     await call("adminList");
-
-    sessionStorage.setItem(
-      "gw_admin_key",
-      key
-    );
+    sessionStorage.setItem("gw_admin_key", key);
 
     $("#loginPanel").hidden = true;
     $("#editorPanel").hidden = false;
@@ -454,9 +315,7 @@ async function login() {
     console.error("Login failed:", error);
 
     key = "";
-
     sessionStorage.removeItem("gw_admin_key");
-
     setLoginMessage(error.message);
 
   } finally {
@@ -467,16 +326,10 @@ async function login() {
   }
 }
 
-
-/* =========================================
-   RESTORE SESSION
-========================================= */
+/* RESTORE SESSION */
 
 async function restoreSession() {
-  const saved = sessionStorage.getItem(
-    "gw_admin_key"
-  );
-
+  const saved = sessionStorage.getItem("gw_admin_key");
   if (!saved) return;
 
   key = saved;
@@ -493,32 +346,22 @@ async function restoreSession() {
     console.error("Session restore failed:", error);
 
     sessionStorage.removeItem("gw_admin_key");
-
     key = "";
 
     $("#loginPanel").hidden = false;
     $("#editorPanel").hidden = true;
 
-    setLoginMessage(
-      "Session verify नहीं हुआ। कृपया दोबारा login करें।"
-    );
+    setLoginMessage("Session verify nahi hua. Dobara login karein.");
   }
 }
 
-
-/* =========================================
-   INITIALIZE
-========================================= */
+/* INITIALIZE */
 
 document.addEventListener("DOMContentLoaded", () => {
-
   const loginForm = $("#loginForm");
   const postForm = $("#postForm");
   const resetBtn = $("#resetBtn");
   const logoutBtn = $("#logoutBtn");
-
-
-  /* LOGIN */
 
   if (loginForm) {
     loginForm.onsubmit = async event => {
@@ -527,89 +370,54 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-
-  /* RESTORE SESSION */
-
   restoreSession();
-
-
-  /* SAVE / UPDATE */
 
   if (postForm) {
     postForm.onsubmit = async event => {
-
       event.preventDefault();
 
       if (saving) return;
 
       const post = getForm();
-
       const isUpdate = Boolean(editingPostId);
 
       if (!post.title || !post.content.trim()) {
-        setMessage(
-          "Title और Full content भरना जरूरी है।",
-          true
-        );
+        setMessage("Title और Full content भरना जरूरी है।", true);
         return;
       }
 
-      /*
-       * Never create a new post accidentally
-       * when editing an existing post.
-       */
-
       if (isUpdate && !post.id) {
-        setMessage(
-          "Update cancelled: Original Post ID missing.",
-          true
-        );
+        setMessage("Update cancelled: Original Post ID missing.", true);
         return;
       }
 
       saving = true;
 
-      const button = postForm.querySelector(
-        '[type="submit"]'
-      );
-
+      const button = postForm.querySelector('[type="submit"]');
       const originalButtonText = button
         ? button.textContent
         : "Save Post";
 
       if (button) {
         button.disabled = true;
-        button.textContent = isUpdate
-          ? "Updating..."
-          : "Saving...";
+        button.textContent = isUpdate ? "Updating..." : "Saving...";
       }
 
       setMessage("");
 
       try {
-        const action = isUpdate
-          ? "update"
-          : "create";
+        await call(isUpdate ? "update" : "create", post);
 
-        await call(action, post);
-
-        setMessage(
-          isUpdate
-            ? "Post updated successfully."
-            : "New post created successfully."
+        setMessage(isUpdate
+          ? "Post updated successfully."
+          : "New post created successfully."
         );
 
-        /*
-         * Reset only after confirmed API success.
-         */
-
         reset();
-
         await refresh();
 
       } catch (error) {
         console.error("Save failed:", error);
-
         setMessage(error.message, true);
 
       } finally {
@@ -617,7 +425,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (button) {
           button.disabled = false;
-
           button.textContent = editingPostId
             ? "Update Post"
             : originalButtonText;
@@ -626,31 +433,19 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-
-  /* RESET */
-
   if (resetBtn) {
     resetBtn.onclick = event => {
       event.preventDefault();
-
-      if (saving) return;
-
-      reset();
+      if (!saving) reset();
     };
   }
-
-
-  /* LOGOUT */
 
   if (logoutBtn) {
     logoutBtn.onclick = () => {
       sessionStorage.removeItem("gw_admin_key");
-
       key = "";
       editingPostId = "";
-
       location.reload();
     };
   }
-
 });
