@@ -12,7 +12,7 @@
   if (!root || !search || !category || !Array.isArray(window.articles)) return;
 
   const fallbackArticles = window.articles.slice();
-  const esc = (value) => String(value == null ? '' : value).replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const esc = (value) => String(value == null ? '' : value).replace(/[&<>\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[ch]));
 
   function render(list) {
     const q = search.value.trim().toLowerCase();
@@ -21,8 +21,8 @@
       (String(a.title || '') + ' ' + String(a.description || a.summary || '') + ' ' + String(a.category || '')).toLowerCase().includes(q));
     root.innerHTML = filtered.length ? filtered.map(a => {
       const id = String(a.slug || a.id || '');
-      return `<article class="post"><span class="tag">${esc(a.category || 'General')}</span><h2>${esc(a.title)}</h2><p>${esc(a.description || a.summary || '')}</p><div class="meta">${esc(a.date || (a.updatedAt ? new Date(a.updatedAt).toLocaleDateString() : 'Published'))}</div><a class="read" href="article.html?id=${encodeURIComponent(id)}">और पढ़ें →</a></article>`;
-    }).join('') : '<div class="empty">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
+      return `<article class=\"post\"><span class=\"tag\">${esc(a.category || 'General')}</span><h2>${esc(a.title)}</h2><p>${esc(a.description || a.summary || '')}</p><div class=\"meta\">${esc(a.date || (a.updatedAt ? new Date(a.updatedAt).toLocaleDateString() : 'Published'))}</div><a class=\"read\" href=\"article-dynamic.html?id=${encodeURIComponent(id)}\">और पढ़ें →</a></article>`;
+    }).join('') : '<div class=\"empty\">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
   }
 
   function normalize(item) {
