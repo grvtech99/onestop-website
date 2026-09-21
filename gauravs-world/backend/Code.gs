@@ -1,0 +1,111 @@
+/**
+ * Gaurav's World — Apps Script backend starter
+ * Deploy as Web App: Execute as Me; access: only signed-in users in your domain
+ * (or use a separate verified identity layer for consumer Google accounts).
+ * Set Script Properties: ADMIN_EMAIL, OPENAI_API_KEY, OPENAI_MODEL,
+ * GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH.
+ * Never place secrets in HTML or client-side JavaScript.
+ *
+ * This starter supports authenticated draft generation only. Publishing is
+ * intentionally not implemented until repo/path policy and auth are reviewed.
+ */
+
+function doGet() {
+  assertAdmin_();
+  return json_({ ok: true, service: 'gauravs-world-api', version: 1,
+    actions: ['health', 'generateDraft'] });
+}
+
+function doPost(e) {
+  try {
+    assertAdmin_();
+    const body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    if (body.action === 'health') {
+      return json_({ ok: true, service: 'gauravs-world-api', version: 1 });
+    }
+    if (body.action === 'generateDraft') {
+      return json_({ ok: true, draft: generateDraft_(body) });
+    }
+    throw new Error('Unsupported action');
+  } catch (err) {
+    // Avoid returning stack traces, credentials, or upstream response bodies.
+    return json_({ ok: false, error: safeMessage_(err) });
+  }
+}
+
+function assertAdmin_() {
+  const props = PropertiesService.getScriptProperties();
+  const expected = String(props.getProperty('ADMIN_EMAIL') || '').trim().toLowerCase();
+  const actual = String(Session.getActiveUser().getEmail() || '').trim().toLowerCase();
+  if (!expected || !actual || actual !== expected) {
+    throw new Error('Unauthorized: admin identity could not be verified');
+  }
+}
+
+function generateDraft_(input) {
+  const title = cleanText_(input.title, 160, 'title');
+  const category = cleanText_(input.category || 'General', 80, 'category');
+  const language = cleanText_(input.language || 'Hindi', 30, 'language');
+  const notes = cleanText_(input.notes || '', 4000, 'notes');
+  const apiKey = PropertiesService.getScriptProperties().getProperty('OPENAI_API_KEY');
+  const model = PropertiesService.getScriptProperties().getProperty('OPENAI_MODEL') || 'gpt-4.1-mini';
+  if (!apiKey) throw new Error('Server configuration missing: OPENAI_API_KEY');
+
+  const payload = {
+    model: model,
+    instructions: 'Write an original, useful blog article. Do not invent citations or factual claims. Return valid JSON only with keys: summary, bodyMarkdown, tags. bodyMarkdown should use Markdown headings and practical steps.',
+    input: 'Language: ' + language + '\nCategory: ' + category + '\nTitle: ' + title + '\nNotes: ' + notes,
+    text: { format: { type: 'json_object' } }
+  };
+  const response = UrlFetchApp.fetch('https://api.openai.com/v1/responses', {
+    method: 'post', contentType: 'application/json',
+    headers: { Authorization: 'Bearer ' + apiKey },
+    payload: JSON.stringify(payload), muteHttpExceptions: true
+  });
+  const code = response.getResponseCode();
+  if (code < 200 || code >= 300) throw new Error('OpenAI request failed (HTTP ' + code + ')');
+  const result = JSON.parse(response.getContentText());
+  const outputText = extractOutputText_(result);
+  const draft = JSON.parse(outputText);
+  if (!draft || typeof draft.summary !== 'string' || typeof draft.bodyMarkdown !== 'string') {
+    throw new Error('OpenAI returned an invalid draft structure');
+  }
+  return {
+    title: title,
+    category: category,
+    language: language,
+    summary: draft.summary.slice(0, 1200),
+    bodyMarkdown: draft.bodyMarkdown.slice(0, 30000),
+    tags: Array.isArray(draft.tags) ? draft.tags.slice(0, 12).map(String) : []
+  };
+}
+
+function extractOutputText_(result) {
+  if (result && typeof result.output_text === 'string') return result.output_text;
+  const output = (result && Array.isArray(result.output)) ? result.output : [];
+  for (let i = 0; i < output.length; i++) {
+    const content = Array.isArray(output[i].content) ? output[i].content : [];
+    for (let j = 0; j < content.length; j++) {
+      if (content[j].type === 'output_text' && typeof content[j].text === 'string') return content[j].text;
+    }
+  }
+  throw new Error('No text output received from OpenAI');
+}
+
+function cleanText_(value, max, field) {
+  if (typeof value !== 'string') throw new Error('Invalid ' + field);
+  const text = value.trim();
+  if (!text || text.length > max) throw new Error('Invalid ' + field + ' length');
+  return text;
+}
+
+function safeMessage_(err) {
+  const message = String(err && err.message || 'Request failed');
+  if (/token|secret|api.?key|bearer/i.test(message)) return 'Request failed; check server configuration.';
+  return message.slice(0, 240);
+}
+
+function json_(value) {
+  return ContentService.createTextOutput(JSON.stringify(value))
+    .setMimeType(ContentService.MimeType.JSON);
+}
