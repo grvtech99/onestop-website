@@ -26,6 +26,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Test candidate validation
+        run: python -m unittest discover -s automation/gauravs-world/tests -v
+
       - name: Collect source-linked RSS candidates
         run: python automation/gauravs-world/scripts/rss_digest.py
 
