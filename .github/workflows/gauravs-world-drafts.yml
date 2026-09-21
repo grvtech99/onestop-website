@@ -1,0 +1,43 @@
+name: Gaurav's World — News Review Queue
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Six runs per day (UTC); GitHub may delay scheduled workflows.
+    - cron: '15 0,4,8,12,16,20 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gauravs-world-news-review
+  cancel-in-progress: false
+
+jobs:
+  collect-and-validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout automation branch
+        uses: actions/checkout@v4
+        with:
+          ref: gauravs-world-automation
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Collect Hindi and English RSS candidates
+        run: python automation/gauravs-world/scripts/rss_digest.py
+
+      - name: Validate links and remove duplicate candidates
+        run: python automation/gauravs-world/scripts/validate_candidates.py
+
+      - name: Upload review artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gauravs-world-news-review-${{ github.run_number }}
+          path: automation/gauravs-world/output/
+          if-no-files-found: error
+          retention-days: 14
