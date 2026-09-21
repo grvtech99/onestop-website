@@ -1,34 +1,37 @@
 /**
  * Gaurav's World — Apps Script backend starter
- * Deploy as Web App: Execute as Me; access: only signed-in users in your domain
- * (or use a separate verified identity layer for consumer Google accounts).
- * Set Script Properties: ADMIN_EMAIL, OPENAI_API_KEY, OPENAI_MODEL,
- * GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO, GITHUB_BRANCH.
+ * Keep deployment restricted to a verified admin identity.
+ * Script Properties: ADMIN_EMAIL, OPENAI_API_KEY, OPENAI_MODEL.
  * Never place secrets in HTML or client-side JavaScript.
- *
- * This starter supports authenticated draft generation only. Publishing is
- * intentionally not implemented until repo/path policy and auth are reviewed.
+ * Draft generation only; GitHub publishing is not implemented here.
  */
 
+const MAX_REQUEST_CHARS = 12000;
+
 function doGet() {
-  assertAdmin_();
-  return json_({ ok: true, service: 'gauravs-world-api', version: 1,
-    actions: ['health', 'generateDraft'] });
+  try {
+    assertAdmin_();
+    return json_({ ok: true, service: 'gauravs-world-api', version: 1,
+      actions: ['health', 'generateDraft'] });
+  } catch (err) {
+    return json_({ ok: false, error: safeMessage_(err) });
+  }
 }
 
 function doPost(e) {
   try {
     assertAdmin_();
-    const body = JSON.parse((e && e.postData && e.postData.contents) || '{}');
-    if (body.action === 'health') {
-      return json_({ ok: true, service: 'gauravs-world-api', version: 1 });
-    }
-    if (body.action === 'generateDraft') {
-      return json_({ ok: true, draft: generateDraft_(body) });
-    }
+    const raw = e && e.postData && e.postData.contents;
+    if (typeof raw !== 'string' || !raw) throw new Error('Request body is required');
+    if (raw.length > MAX_REQUEST_CHARS) throw new Error('Request body is too large');
+    let body;
+    try { body = JSON.parse(raw); } catch (_) { throw new Error('Invalid JSON request'); }
+    if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Invalid request');
+
+    if (body.action === 'health') return json_({ ok: true, service: 'gauravs-world-api', version: 1 });
+    if (body.action === 'generateDraft') return json_({ ok: true, draft: generateDraft_(body) });
     throw new Error('Unsupported action');
   } catch (err) {
-    // Avoid returning stack traces, credentials, or upstream response bodies.
     return json_({ ok: false, error: safeMessage_(err) });
   }
 }
@@ -43,10 +46,10 @@ function assertAdmin_() {
 }
 
 function generateDraft_(input) {
-  const title = cleanText_(input.title, 160, 'title');
-  const category = cleanText_(input.category || 'General', 80, 'category');
-  const language = cleanText_(input.language || 'Hindi', 30, 'language');
-  const notes = cleanText_(input.notes || '', 4000, 'notes');
+  const title = requiredText_(input.title, 160, 'title');
+  const category = optionalText_(input.category, 'General', 80, 'category');
+  const language = optionalText_(input.language, 'Hindi', 30, 'language');
+  const notes = optionalText_(input.notes, '', 4000, 'notes');
   const apiKey = PropertiesService.getScriptProperties().getProperty('OPENAI_API_KEY');
   const model = PropertiesService.getScriptProperties().getProperty('OPENAI_MODEL') || 'gpt-4.1-mini';
   if (!apiKey) throw new Error('Server configuration missing: OPENAI_API_KEY');
@@ -64,9 +67,11 @@ function generateDraft_(input) {
   });
   const code = response.getResponseCode();
   if (code < 200 || code >= 300) throw new Error('OpenAI request failed (HTTP ' + code + ')');
-  const result = JSON.parse(response.getContentText());
+  let result;
+  try { result = JSON.parse(response.getContentText()); } catch (_) { throw new Error('Invalid response from OpenAI'); }
   const outputText = extractOutputText_(result);
-  const draft = JSON.parse(outputText);
+  let draft;
+  try { draft = JSON.parse(outputText); } catch (_) { throw new Error('OpenAI returned invalid JSON'); }
   if (!draft || typeof draft.summary !== 'string' || typeof draft.bodyMarkdown !== 'string') {
     throw new Error('OpenAI returned an invalid draft structure');
   }
@@ -76,7 +81,7 @@ function generateDraft_(input) {
     language: language,
     summary: draft.summary.slice(0, 1200),
     bodyMarkdown: draft.bodyMarkdown.slice(0, 30000),
-    tags: Array.isArray(draft.tags) ? draft.tags.slice(0, 12).map(String) : []
+    tags: Array.isArray(draft.tags) ? draft.tags.slice(0, 12).map(function(tag) { return String(tag).slice(0, 60); }) : []
   };
 }
 
@@ -92,11 +97,19 @@ function extractOutputText_(result) {
   throw new Error('No text output received from OpenAI');
 }
 
-function cleanText_(value, max, field) {
+function requiredText_(value, max, field) {
   if (typeof value !== 'string') throw new Error('Invalid ' + field);
   const text = value.trim();
   if (!text || text.length > max) throw new Error('Invalid ' + field + ' length');
   return text;
+}
+
+function optionalText_(value, fallback, max, field) {
+  if (value === undefined || value === null || value === '') return fallback;
+  if (typeof value !== 'string') throw new Error('Invalid ' + field);
+  const text = value.trim();
+  if (text.length > max) throw new Error('Invalid ' + field + ' length');
+  return text || fallback;
 }
 
 function safeMessage_(err) {
