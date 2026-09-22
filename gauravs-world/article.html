@@ -9,9 +9,9 @@
 </head>
 <body>
 <header class="topbar">
-  <button class="iconbtn" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
+  <button class="iconbtn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="gwMenuPanel">☰</button>
   <a class="brand" href="index.html" aria-label="Gaurav’s World Home"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a>
-  <button class="iconbtn" id="searchBtn" aria-label="Search" aria-expanded="false">⌕</button>
+  <button class="iconbtn" id="searchBtn" aria-label="Search" aria-expanded="false" aria-controls="searchWrap">⌕</button>
 </header>
 <nav id="gwMenuPanel" hidden aria-label="विस्तृत मेन्यू">
   <a href="index.html">सभी लेख</a>
@@ -33,7 +33,7 @@
   <a href="index.html?category=Technology"><span>💻</span>Technology</a>
   <a href="index.html?category=Science"><span>⚛</span>Science</a>
   <a href="index.html?category=History"><span>🏛</span>History</a>
-  <button type="button" id="moreNavBtn" aria-label="More menu"><span>☰</span>More</button>
+  <button type="button" id="moreNavBtn" aria-label="More menu" aria-controls="gwMenuPanel" aria-expanded="false"><span>☰</span>More</button>
 </footer>
 <script>
 (()=>{
@@ -43,9 +43,12 @@
  const searchBtn=document.getElementById('searchBtn');
  const searchWrap=document.getElementById('searchWrap');
  const input=document.getElementById('searchInput');
- const toggle=()=>{menu.hidden=!menu.hidden;menuBtn.setAttribute('aria-expanded',String(!menu.hidden));};
+ const setMenu=(open)=>{menu.hidden=!open;menuBtn.setAttribute('aria-expanded',String(open));more.setAttribute('aria-expanded',String(open));};
+ const toggle=()=>setMenu(menu.hidden);
  menuBtn.addEventListener('click',toggle);
  more.addEventListener('click',toggle);
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'){setMenu(false);searchWrap.classList.remove('open');searchBtn.setAttribute('aria-expanded','false');}});
+ document.addEventListener('click',event=>{if(!menu.hidden&&!menu.contains(event.target)&&!menuBtn.contains(event.target)&&!more.contains(event.target))setMenu(false);});
  searchBtn.addEventListener('click',()=>{const open=searchWrap.classList.toggle('open');searchBtn.setAttribute('aria-expanded',String(open));if(open)input.focus();});
  input.addEventListener('keydown',event=>{if(event.key==='Enter'&&input.value.trim())window.location.href='index.html?q='+encodeURIComponent(input.value.trim());});
 })();
