@@ -45,12 +45,21 @@
 <script src="assets/app.js"></script>
 <script>
 (()=>{
+ const params=new URLSearchParams(window.location.search);
+ const initialQuery=params.get('q')||params.get('query')||'';
+ const initialCategory=params.get('category')||'All';
+ if(typeof state!=='undefined'){
+   state.query=initialQuery.trim();
+   state.category=initialCategory;
+   state.page=1;
+ }
  const menuBtn=document.getElementById('menuBtn');
  const moreBtn=document.getElementById('moreNavBtn');
  const panel=document.getElementById('gwMenuPanel');
  const searchBtn=document.getElementById('searchBtn');
  const searchWrap=document.getElementById('searchWrap');
  const searchInput=document.getElementById('searchInput');
+ if(searchInput) searchInput.value=initialQuery;
  const toggleMenu=()=>{const open=panel.hidden;panel.hidden=!open;menuBtn.setAttribute('aria-expanded',String(open));};
  menuBtn.addEventListener('click',toggleMenu);
  moreBtn.addEventListener('click',toggleMenu);
