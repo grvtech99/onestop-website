@@ -2,9 +2,6 @@ name: Gaurav's World — News Review Drafts
 
 on:
   workflow_dispatch:
-  schedule:
-    # Six runs per day (UTC); GitHub may delay scheduled workflows.
-    - cron: '15 0,4,8,12,16,20 * * *'
 
 permissions:
   contents: write
