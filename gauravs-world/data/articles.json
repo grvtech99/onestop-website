@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "upi-payment-fraud-se-bachne-ke-7-tarike",
+      "slug": "upi-payment-fraud-se-bachne-ke-7-tarike",
+      "title": "UPI पेमेंट करते समय ये 7 गलतियाँ न करें — ऑनलाइन फ्रॉड से बचने के तरीके",
+      "category": "Technology",
+      "summary": "आज UPI से पैसे भेजना और प्राप्त करना आसान हो गया है, लेकिन गलत QR कोड स्कैन करना, अनजान लिंक खोलना या अपना UPI PIN साझा करना आर्थिक नुकसान का कारण बन सकता है। इस लेख में जानिए UPI इस्तेमाल करते समय होने वाली 7 आम गलतियाँ और डिजिटल पेमेंट को सुरक्षित रखने के आसान तरीके।",
+      "image": "images/upi-payment-safety-7-mistakes-4x3.webp",
+      "updatedAt": "2026-09-22T13:51:02.074Z"
+    },
+    {
       "id": "ai-deepfake-se-kaise-bache",
       "slug": "ai-deepfake-se-kaise-bache",
       "title": "AI Deepfake से कैसे बचें? नकली वीडियो और आवाज़ पहचानने के 7 तरीके",
@@ -37,5 +46,5 @@
       "updatedAt": "2026-09-22T07:50:48.528Z"
     }
   ],
-  "updatedAt": "2026-09-22T13:35:50.456Z"
+  "updatedAt": "2026-09-22T13:51:02.074Z"
 }
