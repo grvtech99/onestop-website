@@ -1,7 +1,27 @@
 <!doctype html>
-<html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>लेख — Gaurav’s World</title><link rel="stylesheet" href="assets/style.css"></head>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>लेख — Gaurav’s World</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
 <body>
-<header class="topbar"><a class="iconbtn back" href="index.html" aria-label="Back">‹</a><a class="brand" href="index.html"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a><button class="iconbtn" id="shareBtn">↗</button></header>
+<header class="topbar">
+  <button class="iconbtn" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
+  <a class="brand" href="index.html" aria-label="Gaurav’s World Home"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a>
+  <button class="iconbtn" id="searchBtn" aria-label="Search" aria-expanded="false">⌕</button>
+</header>
+<div class="searchwrap" id="searchWrap"><input id="searchInput" placeholder="टॉपिक खोजें…" autocomplete="off" aria-label="टॉपिक खोजें"></div>
 <main class="article-main" id="articleRoot"><p class="state">लेख लोड हो रहा है…</p></main>
-<script src="assets/app.js"></script><script>window.GWArticlePage=true;</script>
-</body></html>
+<footer class="bottomnav" aria-label="मुख्य नेविगेशन">
+  <a href="index.html"><span>⌂</span>Home</a>
+  <a href="index.html#technology"><span>💻</span>Technology</a>
+  <a href="index.html#science"><span>⚛</span>Science</a>
+  <a href="index.html#history"><span>🏛</span>History</a>
+  <button type="button" id="moreNavBtn" aria-label="More menu" onclick="document.getElementById('menuBtn').click()"><span>☰</span>More</button>
+</footer>
+<script src="assets/app.js"></script>
+</body>
+</html>
