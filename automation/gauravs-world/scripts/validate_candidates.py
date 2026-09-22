@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Validate the RSS candidate artifact without publishing or calling the blog API."""
+"""Validate RSS candidates and make the accepted set the generator input.
+
+This stage never publishes or calls the blog API.
+"""
 import json
 import re
 from pathlib import Path
@@ -41,6 +44,7 @@ def main():
         seen_urls.add(key_url)
         seen_titles.add(key_title)
         accepted.append(item)
+
     result = {
         "generated_at_utc": payload.get("generated_at_utc"),
         "status": "validated_candidates" if accepted else "no_valid_candidates",
@@ -56,7 +60,14 @@ def main():
         "blog_api_called": False,
     }
     TARGET.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Validation complete: {len(accepted)} accepted, {len(rejected)} rejected; no publishing.")
+
+    # run.py consumes news-candidates.json. Replace its candidate list with only
+    # the validated items while preserving feed diagnostics and provenance.
+    payload["candidates"] = accepted[:40]
+    payload["candidate_count"] = len(payload["candidates"])
+    payload["validation_report"] = "candidate-validation.json"
+    SOURCE.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"Validation complete: {len(accepted)} accepted, {len(rejected)} rejected; generator input filtered; no publishing.")
 
 
 if __name__ == "__main__":
