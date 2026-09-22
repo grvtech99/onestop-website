@@ -13,6 +13,19 @@
   <a class="brand" href="index.html" aria-label="Gaurav’s World Home"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a>
   <button class="iconbtn" id="searchBtn" aria-label="Search" aria-expanded="false">⌕</button>
 </header>
+<nav id="gwMenuPanel" hidden aria-label="विस्तृत मेन्यू">
+  <a href="index.html">सभी लेख</a>
+  <a href="index.html?category=Technology">Technology</a>
+  <a href="index.html?category=Science">Science</a>
+  <a href="index.html?category=History">History</a>
+  <a href="index.html?category=Universe">Universe</a>
+  <a href="index.html?category=Mystery">Mystery</a>
+  <a href="index.html?category=Nature">Nature</a>
+  <a href="index.html?category=World">World</a>
+  <a href="index.html?category=AI">AI</a>
+  <a href="index.html?category=Trending">Trending</a>
+  <a href="index.html?saved=1">Saved Articles</a>
+</nav>
 <div class="searchwrap" id="searchWrap"><input id="searchInput" placeholder="टॉपिक खोजें…" autocomplete="off" aria-label="टॉपिक खोजें"></div>
 <main class="article-main" id="articleRoot"><p class="state">लेख लोड हो रहा है…</p></main>
 <footer class="bottomnav" aria-label="मुख्य नेविगेशन">
@@ -20,16 +33,21 @@
   <a href="index.html?category=Technology"><span>💻</span>Technology</a>
   <a href="index.html?category=Science"><span>⚛</span>Science</a>
   <a href="index.html?category=History"><span>🏛</span>History</a>
-  <button type="button" id="moreNavBtn" aria-label="More menu" onclick="document.getElementById('menuBtn').click()"><span>☰</span>More</button>
+  <button type="button" id="moreNavBtn" aria-label="More menu"><span>☰</span>More</button>
 </footer>
 <script>
-(function () {
-  const input = document.getElementById('searchInput');
-  if (input) input.addEventListener('keydown', function (event) {
-    if (event.key !== 'Enter') return;
-    const query = input.value.trim();
-    if (query) window.location.href = 'index.html?q=' + encodeURIComponent(query);
-  });
+(()=>{
+ const menu=document.getElementById('gwMenuPanel');
+ const menuBtn=document.getElementById('menuBtn');
+ const more=document.getElementById('moreNavBtn');
+ const searchBtn=document.getElementById('searchBtn');
+ const searchWrap=document.getElementById('searchWrap');
+ const input=document.getElementById('searchInput');
+ const toggle=()=>{menu.hidden=!menu.hidden;menuBtn.setAttribute('aria-expanded',String(!menu.hidden));};
+ menuBtn.addEventListener('click',toggle);
+ more.addEventListener('click',toggle);
+ searchBtn.addEventListener('click',()=>{const open=searchWrap.classList.toggle('open');searchBtn.setAttribute('aria-expanded',String(open));if(open)input.focus();});
+ input.addEventListener('keydown',event=>{if(event.key==='Enter'&&input.value.trim())window.location.href='index.html?q='+encodeURIComponent(input.value.trim());});
 })();
 </script>
 <script src="assets/app.js"></script>
