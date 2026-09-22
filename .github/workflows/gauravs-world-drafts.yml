@@ -1,7 +1,7 @@
 name: Gaurav's World — News Review Drafts
 
 on:
-  # Initial rollout is manual-only to avoid unexpected API usage.
+  # Manual-only: run when an editor chooses to collect and draft news.
   workflow_dispatch:
 
 permissions:
@@ -33,14 +33,14 @@ jobs:
       - name: Validate links and remove duplicate candidates
         run: python automation/gauravs-world/scripts/validate_candidates.py
 
-      - name: Generate bilingual drafts and AI cover images
+      - name: Generate bilingual editorial drafts (text only)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
           MAX_DRAFTS_PER_RUN: '3'
         run: python automation/gauravs-world/scripts/run.py
 
-      - name: Commit review drafts and images to automation branch
+      - name: Commit review drafts and status (manual covers only)
         if: success()
         run: |
           git config user.name "github-actions[bot]"
@@ -49,7 +49,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "No generated files to commit."
           else
-            git commit -m "chore(automation): save review drafts and generated images"
+            git commit -m "chore(automation): save review drafts and manual cover assets"
             git push origin HEAD:gauravs-world-automation
           fi
 
