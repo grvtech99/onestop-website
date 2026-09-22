@@ -32,7 +32,12 @@
     .then(a => {
       if (!a || !a.title) throw new Error('invalid article');
       const body = a.bodyMarkdown || a.body || a.content || '';
-      root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1><p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
+      const imagePath = String(a.image || a.coverImage || '').trim();
+      const imageUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
+      const cover = imageUrl ? `<figure class="article-cover"><img src="${esc(imageUrl)}" alt="${esc(a.title)}" loading="eager" decoding="async"></figure>` : '';
+      root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
+      const img = root.querySelector('.article-cover img');
+      if (img) img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); });
       document.title = `${a.title} | Gaurav's World`;
     })
     .catch(() => { root.innerHTML = '<p>यह लेख अभी उपलब्ध नहीं है। कृपया सभी लेखों पर वापस जाएँ।</p>'; });
