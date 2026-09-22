@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "ai-kya-hai-artificial-intelligence-guide-2026",
+      "slug": "ai-kya-hai-artificial-intelligence-guide-2026",
+      "title": "AI क्या है? 2026 में Artificial Intelligence कैसे बदल रही है हमारी दुनिया?",
+      "category": "Technology",
+      "summary": "जानिए Artificial Intelligence (AI) क्या है, यह कैसे काम करती है और शिक्षा, नौकरी, बिजनेस व रोजमर्रा की जिंदगी में इसका इस्तेमाल कैसे किया जा सकता है। इस आसान हिंदी गाइड में AI के फायदे, सीमाएं और सुरक्षित उपयोग के तरीके समझें।",
+      "image": "images/1000201852.webp",
+      "updatedAt": "2026-09-22T16:48:37.741Z"
+    },
+    {
       "id": "upi-payment-fraud-se-bachne-ke-7-tarike",
       "slug": "upi-payment-fraud-se-bachne-ke-7-tarike",
       "title": "UPI पेमेंट करते समय ये 7 गलतियाँ न करें — ऑनलाइन फ्रॉड से बचने के तरीके",
@@ -46,5 +55,5 @@
       "updatedAt": "2026-09-22T07:50:48.528Z"
     }
   ],
-  "updatedAt": "2026-09-22T13:51:02.074Z"
+  "updatedAt": "2026-09-22T16:48:37.741Z"
 }
