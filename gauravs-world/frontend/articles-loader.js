@@ -1,14 +1,13 @@
-/* Compact image-and-title article feed; newest first. */
+/* Compact responsive article feed. Loads published data even without inline fallback. */
 (function () {
   'use strict';
   const MANIFEST_URL = './data/articles.json';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
-  if (!root || !search || !category || !Array.isArray(window.articles)) return;
+  if (!root || !search || !category) return;
 
-  const fallbackArticles = window.articles.slice();
-  const legacyIds = new Set(fallbackArticles.map(a => String(a.id)));
+  const fallbackArticles = Array.isArray(window.articles) ? window.articles.slice() : [];
   const esc = value => String(value == null ? '' : value).replace(/[&<>\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' })[ch]);
   function timestamp(a) {
     const raw = a.updatedAt || a.publishedAt || a.date || a.createdAt || '';
@@ -26,12 +25,11 @@
       .slice().sort((a, b) => timestamp(b) - timestamp(a));
     root.innerHTML = filtered.length ? filtered.map(a => {
       const id = String(a.slug || a.id || '');
-      const reader = legacyIds.has(String(a.id)) ? 'article.html' : 'article-dynamic.html';
-      const href = `${reader}?id=${encodeURIComponent(id)}`;
+      const href = `article-dynamic.html?id=${encodeURIComponent(id)}`;
       const image = String(a.image || a.coverImage || a.thumbnail || '');
-      const imageMarkup = image ? `<div class="post-cover-link"><a class="post-image-open" href="${esc(href)}" aria-label="${esc(a.title)} पढ़ें"><img class="post-cover" src="${esc(image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"></a><span class="post-actions"><button class="post-action like-action${liked(id) ? ' is-liked' : ''}" type="button" data-like="${esc(id)}" aria-label="Like" aria-pressed="${liked(id)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg></button><button class="post-action share-action" type="button" data-share="${esc(id)}" data-title="${esc(a.title)}" data-url="${esc(new URL(href, location.href).href)}" aria-label="Share"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"/></svg></button></span></div>` : `<div class="post-cover-link post-cover-placeholder">Gaurav’s World</div>`;
+      const imageMarkup = image ? `<div class="post-cover-link"><a class="post-image-open" href="${esc(href)}" aria-label="${esc(a.title)} पढ़ें"><img class="post-cover" src="${esc(image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"></a><span class="post-actions"><button class="post-action like-action${liked(id) ? ' is-liked' : ''}" type="button" data-like="${esc(id)}" aria-label="Like" aria-pressed="${liked(id)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg></button><button class="post-action share-action" type="button" data-share="${esc(id)}" data-title="${esc(a.title)}" data-url="${esc(new URL(href, location.href).href)}" aria-label="Share"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4"/></svg></button></span></div>` : `<a class="post-cover-link post-cover-placeholder" href="${esc(href)}">Gaurav’s World</a>`;
       return `<article class="post">${imageMarkup}<div class="post-content"><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2></div></article>`;
-    }).join('') : '<div class="empty">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
+    }).join('') : '<div class="empty">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
   function normalize(item) {
     if (!item || typeof item !== 'object' || !item.title || !(item.slug || item.id)) return null;
@@ -63,11 +61,14 @@
           await navigator.clipboard.writeText(data.url);
           shareButton.setAttribute('aria-label', 'Link copied');
         } else window.prompt('Copy article link:', data.url);
-      } catch (_) { /* Share dismissed or unavailable. */ }
+      } catch (_) {}
     }
   });
+  search.addEventListener('input', () => render(window.articles || fallbackArticles));
+  category.addEventListener('change', () => render(window.articles || fallbackArticles));
+  render(fallbackArticles);
   fetch(MANIFEST_URL, { cache: 'no-store' })
-    .then(response => { if (!response.ok) throw new Error('manifest unavailable'); return response.json(); })
+    .then(response => { if (!response.ok) throw new Error('manifest unavailable: ' + response.status); return response.json(); })
     .then(data => {
       const published = Array.isArray(data.articles) ? data.articles.map(normalize).filter(Boolean) : [];
       const byId = new Map(fallbackArticles.map(a => [String(a.slug || a.id), a]));
@@ -75,7 +76,9 @@
       window.articles = Array.from(byId.values());
       render(window.articles);
     })
-    .catch(() => render(fallbackArticles));
-  search.addEventListener('input', () => render(window.articles));
-  category.addEventListener('change', () => render(window.articles));
+    .catch(() => {
+      window.articles = fallbackArticles;
+      render(fallbackArticles);
+      if (!fallbackArticles.length) root.innerHTML = '<div class="empty">लेख लोड नहीं हो पाए। कृपया थोड़ी देर बाद refresh करें।</div>';
+    });
 })();
