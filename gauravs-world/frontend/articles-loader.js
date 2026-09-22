@@ -1,4 +1,4 @@
-/* Published article loader: merges manifest and fallback articles, newest first. */
+/* Published article loader: responsive image cards, newest first. */
 (function () {
   'use strict';
   const MANIFEST_URL = './data/articles.json';
@@ -31,10 +31,13 @@
     root.innerHTML = filtered.length ? filtered.map(a => {
       const id = String(a.slug || a.id || '');
       const reader = legacyIds.has(String(a.id)) ? 'article.html' : 'article-dynamic.html';
+      const href = `${reader}?id=${encodeURIComponent(id)}`;
       const rawDate = a.publishedAt || a.updatedAt || a.date || '';
       const parsed = Date.parse(rawDate);
       const date = Number.isFinite(parsed) ? new Date(parsed).toLocaleDateString() : (rawDate || 'Published');
-      return `<article class="post"><span class="tag">${esc(a.category || 'General')}</span><h2>${esc(a.title)}</h2><p>${esc(a.description || a.summary || '')}</p><div class="meta">${esc(date)}</div><a class="read" href="${reader}?id=${encodeURIComponent(id)}">और पढ़ें →</a></article>`;
+      const image = String(a.image || a.coverImage || a.thumbnail || '');
+      const imageMarkup = image ? `<a class="post-cover-link" href="${esc(href)}" aria-label="${esc(a.title)} पढ़ें"><img class="post-cover" src="${esc(image)}" alt="${esc(a.title)}" loading="lazy" decoding="async"></a>` : '';
+      return `<article class="post">${imageMarkup}<div class="post-content"><span class="tag">${esc(a.category || 'General')}</span><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2><p>${esc(a.description || a.summary || '')}</p><div class="meta">${esc(a.author || 'Gaurav Yadav')} · ${esc(date)}</div><a class="read" href="${esc(href)}">पूरा लेख पढ़ें →</a></div></article>`;
     }).join('') : '<div class="empty">कोई लेख नहीं मिला। दूसरा शब्द खोजें।</div>';
   }
 
@@ -43,7 +46,7 @@
     const id = String(item.slug || item.id);
     return { ...item, id, slug: id, title: String(item.title), category: String(item.category || 'General'),
       summary: String(item.summary || item.description || ''), description: String(item.summary || item.description || ''),
-      image: String(item.image || item.coverImage || ''), updatedAt: item.updatedAt || '', publishedAt: item.publishedAt || item.date || '' };
+      image: String(item.image || item.coverImage || item.thumbnail || ''), updatedAt: item.updatedAt || '', publishedAt: item.publishedAt || item.date || '' };
   }
 
   fetch(MANIFEST_URL, { cache: 'no-store' })
