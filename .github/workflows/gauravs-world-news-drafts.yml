@@ -1,10 +1,8 @@
-name: Gaurav's World — News Draft Builder
+name: Gaurav's World — News Draft Candidates
 
 on:
+  # Manual-only candidate collection; no AI image generation or draft API call.
   workflow_dispatch:
-  schedule:
-    # Six daily UTC runs. GitHub may delay scheduled jobs.
-    - cron: '15 0,4,8,12,16,20 * * *'
 
 permissions:
   contents: read
@@ -20,6 +18,8 @@ jobs:
     steps:
       - name: Check out automation branch
         uses: actions/checkout@v4
+        with:
+          ref: gauravs-world-automation
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -37,9 +37,6 @@ jobs:
 
       - name: Build human-readable editorial review packet
         run: python automation/gauravs-world/scripts/build_review_packet.py
-
-      - name: Write pipeline status
-        run: python automation/gauravs-world/scripts/run.py
 
       - name: Upload review-only candidate artifact
         uses: actions/upload-artifact@v4
