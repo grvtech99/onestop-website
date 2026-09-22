@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "ai-deepfake-se-kaise-bache",
+      "slug": "ai-deepfake-se-kaise-bache",
+      "title": "AI Deepfake से कैसे बचें? नकली वीडियो और आवाज़ पहचानने के 7 तरीके",
+      "category": "Technology",
+      "summary": "AI Deepfake तकनीक से नकली वीडियो और आवाज़ बनाना संभव हो गया है। जानिए ऐसे वीडियो को पहचानने, ऑनलाइन धोखाधड़ी से बचने और अपनी डिजिटल पहचान सुरक्षित रखने के 7 आसान तरीके।",
+      "image": "images/gauravs-world-ai-deepfake-hero.webp",
+      "updatedAt": "2026-09-22T13:35:50.456Z"
+    },
+    {
       "id": "ai-ka-2025-mein-zindagi-par-asar",
       "slug": "ai-ka-2025-mein-zindagi-par-asar",
       "title": "AI का 2025 में हमारी ज़िंदगी पर असर: क्या AI हमारे लिए मौका है या चुनौती?",
@@ -28,5 +37,5 @@
       "updatedAt": "2026-09-22T07:50:48.528Z"
     }
   ],
-  "updatedAt": "2026-09-22T13:06:14.940Z"
+  "updatedAt": "2026-09-22T13:35:50.456Z"
 }
