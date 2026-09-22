@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "cyber-fraud-se-bachne-ke-7-tareeke",
+      "slug": "cyber-fraud-se-bachne-ke-7-tareeke",
+      "title": "Cyber Fraud से कैसे बचें? 7 जरूरी बातें जो हर इंटरनेट यूजर को जाननी चाहिए",
+      "category": "Technology",
+      "summary": "आजकल UPI, online shopping और social media के इस्तेमाल के साथ cyber fraud का खतरा भी बढ़ता है। जानिए 7 आसान सुरक्षा उपाय, जिनसे आप अपनी personal information और online accounts को सुरक्षित रखने में मदद पा सकते हैं।",
+      "image": "images/gauravs_world_cyber_fraud_4x3.webp",
+      "updatedAt": "2026-09-22T08:33:54.043Z"
+    },
+    {
       "id": "dfgfd",
       "slug": "dfgfd",
       "title": "test",
@@ -19,5 +28,5 @@
       "updatedAt": "2026-09-22T07:50:48.528Z"
     }
   ],
-  "updatedAt": "2026-09-22T08:16:55.936Z"
+  "updatedAt": "2026-09-22T08:33:54.043Z"
 }
