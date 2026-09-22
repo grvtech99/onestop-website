@@ -1,14 +1,4 @@
 {
-  "articles": [
-    {
-      "id": "ai-jobs-future-india",
-      "slug": "ai-jobs-future-india",
-      "title": "क्या AI हमारी नौकरियाँ छीन लेगा? सच, झूठ और भविष्य की पूरी तस्वीर",
-      "category": "Technology",
-      "summary": "क्या Artificial Intelligence इंसानों की नौकरियाँ खत्म कर देगी? जानिए AI का काम पर असर, बदलते करियर, नए अवसर और भविष्य के लिए जरूरी स्किल्स।",
-      "image": "images/gy.png",
-      "updatedAt": "2026-09-22T07:35:13.036Z"
-    }
-  ],
-  "updatedAt": "2026-09-22T07:35:13.036Z"
+  "articles": [],
+  "updatedAt": "2026-09-22T07:45:46.018Z"
 }
