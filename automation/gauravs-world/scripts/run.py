@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Create review-only bilingual drafts from RSS candidates.
 
-Text drafting requires OPENAI_API_KEY. Cover image generation is disabled by
- default: editors upload images manually into automation/gauravs-world/images.
+Text drafting requires OPENAI_API_KEY. Cover images are manual uploads only;
+no image-generation API or image prompt generation is used.
 Never publishes to the live blog.
 """
 import json
@@ -58,7 +58,7 @@ def responses_text(result):
 
 
 def make_draft(candidate):
-    prompt = f'''Create an editorial review draft based only on the supplied source metadata. Do not invent facts, quotes, dates, statistics, or details absent from the metadata. If information is insufficient, explicitly mark it as needing verification. Write useful original bilingual content: Hindi first, then English. Return ONLY valid JSON with keys: title_hi, title_en, slug, category, summary_hi, summary_en, body_hi, body_en, tags (array of 3-6 strings), image_prompt, verification_notes (array), sources (array of objects with title,url,published). Each body should be structured with short paragraphs and headings, not copied from the source. Include source URL exactly as provided. Do not claim independent verification. Keep each language body around 350-550 words when metadata supports it; otherwise make a concise draft and list missing facts.
+    prompt = f'''Create an editorial review draft based only on the supplied source metadata. Do not invent facts, quotes, dates, statistics, or details absent from the metadata. If information is insufficient, explicitly mark it as needing verification. Write useful original bilingual content: Hindi first, then English. Return ONLY valid JSON with keys: title_hi, title_en, slug, category, summary_hi, summary_en, body_hi, body_en, tags (array of 3-6 strings), verification_notes (array), sources (array of objects with title,url,published). Each body should be structured with short paragraphs and headings, not copied from the source. Include source URL exactly as provided. Do not claim independent verification. Keep each language body around 350-550 words when metadata supports it; otherwise make a concise draft and list missing facts.
 
 SOURCE METADATA:
 {json.dumps(candidate, ensure_ascii=False)}'''
@@ -115,7 +115,7 @@ def main():
                 slug = f"{slug}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
                 draft["slug"] = slug
                 target = drafts_dir / f"{slug}.json"
-            # No paid image API call: editor uploads {slug}.png manually.
+            # Editors upload the matching cover file manually: images/{slug}.png
             manual_image = IMAGE_DIR / f"{slug}.png"
             if manual_image.exists():
                 draft["cover_image"] = f"images/{slug}.png"
@@ -146,7 +146,7 @@ def main():
         "publication_performed": False,
         "live_blog_modified": False,
         "requires_editorial_fact_check": True,
-        "notes": "Drafts use RSS metadata and are not independently fact-checked. Review source links and verification_notes before use. Upload cover image as images/{slug}.png. No live blog API is called."
+        "notes": "Drafts use RSS metadata and are not independently fact-checked. Review source links and verification_notes before use. Upload cover image as images/{slug}.png. No image-generation API is called and no live blog API is called."
     }
     (OUT / "workflow-status.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"Finished: {len(generated)} draft(s); cover images are manual; publication remains disabled.")
