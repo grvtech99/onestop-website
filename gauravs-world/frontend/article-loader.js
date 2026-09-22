@@ -1,4 +1,4 @@
-/* Published article reader enhancement. Loads the selected published article JSON. */
+/* Published article reader enhancement. Render an immediate title while article JSON loads. */
 (() => {
   'use strict';
   const params = new URLSearchParams(location.search);
@@ -8,6 +8,10 @@
   const root = document.getElementById('article');
   if (!root) return;
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const readable = id.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  // Give immediate visual feedback rather than leaving the page blank until JSON arrives.
+  root.innerHTML = `<span class="tag">Gaurav's World</span><h1>${esc(readable)}</h1><p class="date">लेख खोला जा रहा है…</p><div class="article-body" aria-busy="true"><p>कृपया प्रतीक्षा करें—लेख का विवरण लोड हो रहा है।</p></div>`;
+  document.title = `${readable} | Gaurav's World`;
   const inline = text => esc(text)
     .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
@@ -27,8 +31,6 @@
     }
     closeList(); return out.join('');
   }
-  // Allow the browser/CDN to reuse the published JSON response instead of
-  // forcing a fresh network request on every visit.
   fetch(`./data/articles/${encodeURIComponent(id)}.json`)
     .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(a => {
@@ -42,5 +44,5 @@
       if (img) img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); });
       document.title = `${a.title} | Gaurav's World`;
     })
-    .catch(() => { root.innerHTML = '<p>यह लेख अभी उपलब्ध नहीं है। कृपया सभी लेखों पर वापस जाएँ।</p>'; });
+    .catch(() => { root.innerHTML = `<h1>${esc(readable)}</h1><p>यह लेख अभी लोड नहीं हो पाया। कृपया इंटरनेट कनेक्शन जाँचकर पेज दोबारा खोलें।</p><p><a href="./">सभी लेखों पर वापस जाएँ</a></p>`; });
 })();
