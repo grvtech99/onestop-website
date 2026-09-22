@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Turn RSS candidates into review-only bilingual drafts and optional AI covers.
+"""Create review-only bilingual drafts from RSS candidates.
 
-Requires OPENAI_API_KEY. Never publishes to the live blog. Outputs are written
-under automation/gauravs-world/output and copied into the isolated automation
-images folder for versioned review by the workflow.
+Text drafting requires OPENAI_API_KEY. Cover image generation is disabled by
+ default: editors upload images manually into automation/gauravs-world/images.
+Never publishes to the live blog.
 """
-import base64
 import json
 import os
 import re
@@ -46,7 +45,6 @@ def request_json(url, payload, headers=None, timeout=90):
 
 
 def responses_text(result):
-    # Responses API commonly returns output[].content[].text; handle both text types.
     chunks = []
     for item in result.get("output", []):
         for content in item.get("content", []):
@@ -75,7 +73,7 @@ SOURCE METADATA:
         draft = json.loads(raw)
     except json.JSONDecodeError as exc:
         raise RuntimeError(f"Model returned invalid JSON: {raw[:500]}") from exc
-    required = ["title_hi", "title_en", "summary_hi", "summary_en", "body_hi", "body_en", "image_prompt", "sources"]
+    required = ["title_hi", "title_en", "summary_hi", "summary_en", "body_hi", "body_en", "sources"]
     missing = [key for key in required if not draft.get(key)]
     if missing:
         raise RuntimeError("Draft missing required fields: " + ", ".join(missing))
@@ -88,21 +86,6 @@ SOURCE METADATA:
     draft["publication_status"] = "review_draft"
     draft["published"] = False
     return draft
-
-
-def make_image(prompt, slug):
-    result = request_json("https://api.openai.com/v1/images/generations", {
-        "model": "gpt-image-1",
-        "prompt": "Create an original editorial illustration, no text, no logos, no watermark. " + prompt,
-        "size": "1024x1024",
-    }, timeout=180)
-    data = result.get("data") or []
-    if not data or not data[0].get("b64_json"):
-        raise RuntimeError("Image API response did not include base64 image data")
-    image_bytes = base64.b64decode(data[0]["b64_json"])
-    path = IMAGE_DIR / f"{slug}.png"
-    path.write_bytes(image_bytes)
-    return str(path), len(image_bytes)
 
 
 def main():
@@ -120,9 +103,6 @@ def main():
         print("No RSS candidates available; nothing generated.")
         return 0
 
-    existing = set()
-    for p in IMAGE_DIR.glob("*.png"):
-        existing.add(p.stem)
     drafts_dir = OUT / "drafts"
     drafts_dir.mkdir(parents=True, exist_ok=True)
     generated, failures = [], []
@@ -130,25 +110,23 @@ def main():
         try:
             draft = make_draft(candidate)
             slug = draft["slug"]
-            # Avoid overwriting prior reviewed draft files.
             target = drafts_dir / f"{slug}.json"
             if target.exists():
                 slug = f"{slug}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M%S')}"
                 draft["slug"] = slug
                 target = drafts_dir / f"{slug}.json"
-            try:
-                image_path, image_bytes = make_image(draft["image_prompt"], slug)
-                draft["cover_image"] = image_path.replace("automation/gauravs-world/", "")
-                draft["cover_image_bytes"] = image_bytes
-                draft["image_status"] = "generated"
-            except Exception as image_exc:
+            # No paid image API call: editor uploads {slug}.png manually.
+            manual_image = IMAGE_DIR / f"{slug}.png"
+            if manual_image.exists():
+                draft["cover_image"] = f"images/{slug}.png"
+                draft["image_status"] = "manual_uploaded"
+            else:
                 draft["cover_image"] = None
-                draft["image_status"] = "failed"
-                draft["image_error"] = str(image_exc)[:500]
-                failures.append({"stage": "image", "slug": slug, "error": str(image_exc)[:500]})
+                draft["image_status"] = "manual_pending"
+                draft["image_upload_filename"] = f"{slug}.png"
             target.write_text(json.dumps(draft, ensure_ascii=False, indent=2), encoding="utf-8")
-            generated.append({"slug": slug, "file": str(target), "image": draft.get("cover_image"), "image_status": draft.get("image_status"), "source_url": candidate.get("url")})
-            print(f"Created review draft: {slug}")
+            generated.append({"slug": slug, "file": str(target), "image": draft.get("cover_image"), "image_status": draft.get("image_status"), "image_upload_filename": draft.get("image_upload_filename"), "source_url": candidate.get("url")})
+            print(f"Created review draft: {slug} (cover: {draft['image_status']})")
         except Exception as exc:
             failures.append({"stage": "draft", "source_url": candidate.get("url"), "error": str(exc)[:700]})
             print(f"Draft failed for candidate: {str(exc)[:250]}", file=sys.stderr)
@@ -163,14 +141,15 @@ def main():
         "generated_count": len(generated),
         "generated": generated,
         "failures": failures,
+        "cover_image_mode": "manual_upload",
         "draft_only": True,
         "publication_performed": False,
         "live_blog_modified": False,
         "requires_editorial_fact_check": True,
-        "notes": "Drafts use RSS metadata and are not independently fact-checked. Review source links and verification_notes before use. No live blog API is called."
+        "notes": "Drafts use RSS metadata and are not independently fact-checked. Review source links and verification_notes before use. Upload cover image as images/{slug}.png. No live blog API is called."
     }
     (OUT / "workflow-status.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Finished: {len(generated)} draft(s); publication remains disabled.")
+    print(f"Finished: {len(generated)} draft(s); cover images are manual; publication remains disabled.")
     return 0 if generated else 1
 
 
