@@ -11,6 +11,18 @@
   <a class="brand" href="index.html" aria-label="Gaurav’s World Home"><strong>Gaurav’s <span>World</span> 🌐</strong><small>DISCOVER · LEARN · EXPLORE · GROW</small></a>
   <button class="iconbtn" id="searchBtn" aria-label="Search" aria-expanded="false">⌕</button>
 </header>
+<nav id="gwMenuPanel" hidden aria-label="विस्तृत मेन्यू">
+  <button type="button" data-menu-filter="All">सभी लेख</button>
+  <button type="button" data-menu-filter="Technology">Technology</button>
+  <button type="button" data-menu-filter="Science">Science</button>
+  <button type="button" data-menu-filter="History">History</button>
+  <button type="button" data-menu-filter="Universe">Universe</button>
+  <button type="button" data-menu-filter="Mystery">Mystery</button>
+  <button type="button" data-menu-filter="Nature">Nature</button>
+  <button type="button" data-menu-filter="World">World</button>
+  <button type="button" data-menu-filter="AI">AI</button>
+  <button type="button" data-menu-filter="Trending">Trending</button>
+</nav>
 <div class="searchwrap" id="searchWrap"><input id="searchInput" placeholder="टॉपिक खोजें…" autocomplete="off" aria-label="टॉपिक खोजें"></div>
 <nav class="categories" id="categories" aria-label="Categories"></nav>
 <section class="feature" id="feature">
@@ -28,7 +40,30 @@
   <button type="button" data-filter="Technology"><span>💻</span>Technology</button>
   <button type="button" data-filter="Science"><span>⚛</span>Science</button>
   <button type="button" data-filter="History"><span>🏛</span>History</button>
-  <button type="button" id="moreNavBtn" aria-label="More menu" onclick="document.getElementById('menuBtn').click()"><span>☰</span>More</button>
+  <button type="button" id="moreNavBtn" aria-label="More menu"><span>☰</span>More</button>
 </footer>
 <script src="assets/app.js"></script>
+<script>
+(()=>{
+ const menuBtn=document.getElementById('menuBtn');
+ const moreBtn=document.getElementById('moreNavBtn');
+ const panel=document.getElementById('gwMenuPanel');
+ const searchBtn=document.getElementById('searchBtn');
+ const searchWrap=document.getElementById('searchWrap');
+ const searchInput=document.getElementById('searchInput');
+ const toggleMenu=()=>{const open=panel.hidden;panel.hidden=!open;menuBtn.setAttribute('aria-expanded',String(open));};
+ menuBtn.addEventListener('click',toggleMenu);
+ moreBtn.addEventListener('click',toggleMenu);
+ searchBtn.addEventListener('click',()=>{const open=searchWrap.classList.toggle('open');searchBtn.setAttribute('aria-expanded',String(open));if(open)searchInput.focus();});
+ searchInput.addEventListener('input',()=>{if(typeof state!=='undefined'){state.query=searchInput.value.trim();state.page=1;renderFeed();}});
+ document.querySelectorAll('[data-filter],[data-menu-filter]').forEach(btn=>btn.addEventListener('click',()=>{
+   if(typeof state!=='undefined'){state.category=btn.dataset.filter||btn.dataset.menuFilter;state.page=1;state.savedOnly=false;categories();renderFeed();}
+   panel.hidden=true;menuBtn.setAttribute('aria-expanded','false');
+ }));
+ const sort=document.getElementById('sortSelect');
+ sort.addEventListener('change',()=>{if(typeof state!=='undefined'){state.sort=sort.value;state.page=1;renderFeed();}});
+ const more=document.getElementById('moreBtn');
+ more.addEventListener('click',()=>{if(typeof state!=='undefined'){state.page++;renderFeed();}});
+})();
+</script>
 </body></html>
