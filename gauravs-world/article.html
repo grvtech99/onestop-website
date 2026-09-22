@@ -17,11 +17,21 @@
 <main class="article-main" id="articleRoot"><p class="state">लेख लोड हो रहा है…</p></main>
 <footer class="bottomnav" aria-label="मुख्य नेविगेशन">
   <a href="index.html"><span>⌂</span>Home</a>
-  <a href="index.html#technology"><span>💻</span>Technology</a>
-  <a href="index.html#science"><span>⚛</span>Science</a>
-  <a href="index.html#history"><span>🏛</span>History</a>
+  <a href="index.html?category=Technology"><span>💻</span>Technology</a>
+  <a href="index.html?category=Science"><span>⚛</span>Science</a>
+  <a href="index.html?category=History"><span>🏛</span>History</a>
   <button type="button" id="moreNavBtn" aria-label="More menu" onclick="document.getElementById('menuBtn').click()"><span>☰</span>More</button>
 </footer>
+<script>
+(function () {
+  const input = document.getElementById('searchInput');
+  if (input) input.addEventListener('keydown', function (event) {
+    if (event.key !== 'Enter') return;
+    const query = input.value.trim();
+    if (query) window.location.href = 'index.html?q=' + encodeURIComponent(query);
+  });
+})();
+</script>
 <script src="assets/app.js"></script>
 </body>
 </html>
