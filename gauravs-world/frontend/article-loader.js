@@ -1,4 +1,4 @@
-/* Published article reader enhancement. Render an immediate title while article JSON loads. */
+/* Published article reader enhancement. Render Markdown images and formatting safely. */
 (() => {
   'use strict';
   const params = new URLSearchParams(location.search);
@@ -9,13 +9,27 @@
   if (!root) return;
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const readable = id.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-  // Give immediate visual feedback rather than leaving the page blank until JSON arrives.
   root.innerHTML = `<span class="tag">Gaurav's World</span><h1>${esc(readable)}</h1><p class="date">लेख खोला जा रहा है…</p><div class="article-body" aria-busy="true"><p>कृपया प्रतीक्षा करें—लेख का विवरण लोड हो रहा है।</p></div>`;
   document.title = `${readable} | Gaurav's World`;
-  const inline = text => esc(text)
-    .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+  // Only permit web URLs or the site's known images/ path for Markdown images.
+  function safeImageUrl(raw) {
+    const value = String(raw || '').trim();
+    if (/^https:\/\/[a-z0-9.-]+\//i.test(value)) return value;
+    if (/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(value) && !value.includes('..')) return `./${value}`;
+    return '';
+  }
+  function inline(text) {
+    let value = esc(text);
+    // Convert Markdown image syntax before link syntax, so the leading ! is not left as text.
+    value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(?:png|jpe?g|webp))\)/gi, (whole, alt, rawUrl) => {
+      const url = safeImageUrl(rawUrl);
+      return url ? `<figure class="article-inline-image"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async"><figcaption>${esc(alt)}</figcaption></figure>` : esc(whole);
+    });
+    value = value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    value = value.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+    return value;
+  }
   function markdown(source) {
     const lines = String(source || '').replace(/\r/g, '').split('\n');
     const out = []; let list = false;
@@ -37,11 +51,13 @@
       if (!a || !a.title) throw new Error('invalid article');
       const body = a.bodyMarkdown || a.body || a.content || '';
       const imagePath = String(a.image || a.coverImage || '').trim();
-      const imageUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
-      const cover = imageUrl ? `<figure class="article-cover"><img src="${esc(imageUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
+      const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
+      const cover = coverUrl ? `<figure class="article-cover"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
-      const img = root.querySelector('.article-cover img');
-      if (img) img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); });
+      root.querySelectorAll('.article-body img').forEach(img => {
+        img.style.display = 'block'; img.style.width = 'auto'; img.style.maxWidth = '100%'; img.style.height = 'auto'; img.style.maxHeight = '680px'; img.style.margin = '18px auto'; img.style.objectFit = 'contain'; img.style.borderRadius = '10px';
+        img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); else img.remove(); });
+      });
       document.title = `${a.title} | Gaurav's World`;
     })
     .catch(() => { root.innerHTML = `<h1>${esc(readable)}</h1><p>यह लेख अभी लोड नहीं हो पाया। कृपया इंटरनेट कनेक्शन जाँचकर पेज दोबारा खोलें।</p><p><a href="./">सभी लेखों पर वापस जाएँ</a></p>`; });
