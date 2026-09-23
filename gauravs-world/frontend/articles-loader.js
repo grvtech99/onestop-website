@@ -9,7 +9,7 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    #posts { display:block; width:100%; }
+    #posts { display:block; width:100%; }\n    #posts .home-section{content-visibility:auto;contain-intrinsic-size:1px 320px;}
     #posts .featured-story{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0;margin:0 0 22px;border:1px solid #e1e8f0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(23,32,51,.07)}
     #posts .featured-media{display:block;min-height:230px;background:#eaf0f6;overflow:hidden}
     #posts .featured-media img{display:block;width:100%;height:100%;min-height:230px;max-height:340px;object-fit:cover}
