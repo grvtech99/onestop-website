@@ -7,25 +7,25 @@
   const category = document.getElementById('category');
   if (!root || !search || !category) return;
 
-  // Keep the current list/card design. Only widen thumbnails into landscape rectangles.
+  // Preserve compact row/card dimensions; only change thumbnail shape to a small 4:3 landscape.
   const style = document.createElement('style');
   style.textContent = `
-    #posts .post { display:flex; align-items:stretch; gap:12px; }
-    #posts .post-cover-link { display:block; position:relative; flex:0 0 clamp(140px, 38%, 220px); width:clamp(140px, 38%, 220px); aspect-ratio:4/3; height:auto; overflow:hidden; }
+    #posts .post { display:flex; align-items:center; gap:12px; }
+    #posts .post-cover-link { display:block; position:relative; flex:0 0 104px; width:104px; height:78px; aspect-ratio:4/3; overflow:hidden; }
     #posts .post-cover-link > a { display:block; width:100%; height:100%; }
-    #posts .post-cover { display:block; width:100%; height:100%; object-fit:cover; }
-    #posts .post-content { flex:1 1 0; min-width:0; display:flex; align-items:center; padding:10px 8px 10px 0; }
+    #posts .post-cover { display:block; width:100%; height:100%; object-fit:contain; }
+    #posts .post-content { flex:1 1 0; min-width:0; display:flex; align-items:center; padding:6px 8px 6px 0; }
     #posts .post h2 { margin:0; }
     @media(max-width:560px) {
       #posts .post { gap:10px; }
-      #posts .post-cover-link { flex-basis:clamp(140px, 40%, 170px); width:clamp(140px, 40%, 170px); }
-      #posts .post-content { padding:8px 6px 8px 0; }
+      #posts .post-cover-link { flex-basis:104px; width:104px; height:78px; }
+      #posts .post-content { padding:6px 4px 6px 0; }
     }
   `;
   document.head.appendChild(style);
 
   const fallbackArticles = Array.isArray(window.articles) ? window.articles.slice() : [];
-  const esc = value => String(value == null ? '' : value).replace(/[&<>\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' })[ch]);
+  const esc = value => String(value == null ? '' : value).replace(/[&<>\\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\\"': '&quot;', "'": '&#39;' })[ch]);
   function timestamp(a) {
     const raw = a.updatedAt || a.publishedAt || a.date || a.createdAt || '';
     const value = Date.parse(raw);
