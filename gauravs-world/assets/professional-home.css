@@ -1,0 +1,129 @@
+/* Gaurav’s World — isolated homepage polish
+   Additive overrides only; existing app logic and article data remain unchanged. */
+
+/* Featured story: make the lead story feel editorial and tappable. */
+.feature {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(16, 24, 40, .06);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.feature:hover {
+  box-shadow: 0 12px 32px rgba(16, 24, 40, .10);
+}
+.feature:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+}
+.feature .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+}
+.feature h1 {
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.feature img {
+  box-shadow: 0 4px 16px rgba(16, 24, 40, .12);
+}
+
+/* Cleaner section heading and more intentional article rows. */
+.sectionhead {
+  margin-bottom: 4px;
+  padding-bottom: 16px;
+}
+.sectionhead h2 {
+  letter-spacing: -.035em;
+}
+.story {
+  position: relative;
+  border-radius: 14px;
+  padding: 16px 12px;
+  margin: 3px -12px;
+  transition: background-color .16s ease, transform .16s ease;
+}
+.story:hover {
+  background: #f7faff;
+}
+.story:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.story img {
+  box-shadow: 0 3px 12px rgba(16, 24, 40, .09);
+}
+.story-title {
+  letter-spacing: -.018em;
+  text-wrap: pretty;
+}
+.story-cat {
+  display: inline-block;
+  color: var(--blue);
+  text-transform: uppercase;
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .feature, .story { transition: none; }
+}
+
+/* Mobile: compact lead story and balanced image/text rhythm. */
+@media (max-width: 520px) {
+  .feature {
+    align-items: stretch;
+    padding: 16px;
+    gap: 12px;
+  }
+  .feature h1 {
+    font-size: clamp(19px, 5.2vw, 24px);
+    line-height: 1.3;
+  }
+  .feature p {
+    line-height: 1.5;
+  }
+  .feature img {
+    align-self: center;
+    width: 30%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .story {
+    margin-inline: -5px;
+    padding: 14px 5px;
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) 104px;
+  }
+  .story img {
+    width: 104px;
+    height: 82px;
+  }
+  .story-title {
+    font-size: clamp(15px, 4.2vw, 17px);
+    line-height: 1.42;
+  }
+}
+
+@media (max-width: 360px) {
+  .feature { padding: 13px; }
+  .feature img { width: 27%; }
+  .story { grid-template-columns: minmax(0, 1fr) 84px; gap: 9px; }
+  .story img { width: 84px; height: 70px; }
+}
+
+/* Wide screens: preserve readable line lengths and add breathing room. */
+@media (min-width: 900px) {
+  .feature {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 34px;
+  }
+  .feature img { width: 32%; max-width: 340px; }
+  .feed { gap: 2px; }
+}
