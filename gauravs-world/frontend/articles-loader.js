@@ -78,6 +78,7 @@
   });
   search.addEventListener('input',()=>render(window.articles||fallbackArticles));
   category.addEventListener('change',()=>{listMode=false;listModeCategory='all';render(window.articles||fallbackArticles);});
+  root.innerHTML='<div class="empty" aria-live="polite">लेख लोड हो रहे हैं…</div>';
   render(fallbackArticles);
-  fetch(MANIFEST_URL,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));window.articles=Array.from(byId.values());render(window.articles);}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class=\"empty\">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';});
+  fetch(MANIFEST_URL,{cache:'default'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));window.articles=Array.from(byId.values());render(window.articles);}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class=\"empty\">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';});
 })();
