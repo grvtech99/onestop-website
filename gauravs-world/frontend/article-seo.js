@@ -28,12 +28,7 @@
   const plain = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   const canonicalUrl = new URL(`./article-dynamic.html?id=${encodeURIComponent(id)}`, location.href).href;
 
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-3`)
-    .then(response => {
-      if (!response.ok) throw new Error('Article unavailable');
-      return response.json();
-    })
-    .then(article => {
+  const applyArticle = article => {
       if (!article || !article.title) return;
       const title = `${plain(article.title)} | Gaurav's World`;
       const description = plain(article.summary || article.description || article.excerpt || article.title);
@@ -105,6 +100,8 @@
       script.type = 'application/ld+json';
       script.textContent = JSON.stringify(schema);
       document.head.appendChild(script);
-    })
-    .catch(() => { /* Keep the existing reader usable if metadata lookup fails. */ });
+  };
+
+  if (window.gwArticle) applyArticle(window.gwArticle);
+  else window.addEventListener('gw:article-loaded', event => applyArticle(event.detail), {once:true});
 })();
