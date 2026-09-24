@@ -22,7 +22,7 @@
     let value = esc(text);
     value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(?:png|jpe?g|webp))\)/gi, (whole, alt, rawUrl) => {
       const url = safeImageUrl(rawUrl);
-      return url ? `<figure class="article-inline-image"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async"><figcaption>${esc(alt)}</figcaption></figure>` : esc(whole);
+      return url ? `<figure class="article-inline-image"><img class="article-image-bg" src="${esc(url)}" alt="" aria-hidden="true" loading="lazy" decoding="async"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async"><figcaption>${esc(alt)}</figcaption></figure>` : esc(whole);
     });
     value = value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     value = value.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
