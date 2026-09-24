@@ -22,8 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+      CLASP_JSON: ${{ secrets.CLASP_JSON }}
       CLASP_DEPLOYMENT_ID: AKfycbz0X-G77V-tAFVGIimtE6ohKQjeNhVsSjAPy2cs-EINuTDoES43sDWlkW0VK3fhZsk0
-      APPS_SCRIPT_ID: AKfycbz0X-G77V-tAFVGIimtE6ohKQjeNhVsSjAPy2cs-EINuTDoES43sDWlkW0VK3fhZsk0
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
         run: |
           set -euo pipefail
           missing=0
-          for name in CLASPRC_JSON; do
+          for name in CLASPRC_JSON CLASP_JSON; do
             if [ -z "${!name:-}" ]; then
               echo "::warning::Missing GitHub Actions secret: $name"
               missing=1
@@ -69,8 +69,11 @@ jobs:
           rm -rf "$RUNNER_TEMP/gauravs-world-appsscript"
           mkdir -p "$RUNNER_TEMP/gauravs-world-appsscript"
 
+          printf '%s' "$CLASP_JSON" > "$RUNNER_TEMP/clasp-config.json"
+          SCRIPT_ID="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); if(!x.scriptId) process.exit(2); process.stdout.write(x.scriptId)" "$RUNNER_TEMP/clasp-config.json")"
+
           cd "$RUNNER_TEMP"
-          npx --yes @google/clasp@latest clone-script "$APPS_SCRIPT_ID" --rootDir "$RUNNER_TEMP/gauravs-world-appsscript"
+          npx --yes @google/clasp@latest clone-script "$SCRIPT_ID" --rootDir "$RUNNER_TEMP/gauravs-world-appsscript"
 
       - name: Replace only GitHub-controlled backend files
         if: steps.credentials.outputs.configured == 'true'
@@ -123,4 +126,4 @@ jobs:
         if: steps.credentials.outputs.configured != 'true'
         run: |
           echo "Auto-sync workflow is installed."
-          echo "Add CLASPRC_JSON once; the target project and existing deployment are already bound in the workflow. Future backend commits will sync automatically."
+          echo "Add CLASPRC_JSON and CLASP_JSON once. The existing production deployment ID is already bound in the workflow. Future backend commits will sync automatically."
