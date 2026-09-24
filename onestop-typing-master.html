@@ -5,802 +5,256 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ONESTOP Typing Master</title>
 <style>
-:root{--brand:#0b78d0;--brand2:#075ca5;--bg:#f4f8fc;--card:#fff;--text:#17324d;--muted:#6b7d90;--ok:#16a34a;--bad:#dc2626;--line:#dce7f1;--shadow:0 12px 30px rgba(25,70,110,.10)}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
-button,select,input,textarea{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh;display:flex;flex-direction:column}
-header{height:64px;background:var(--brand);color:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;box-shadow:0 2px 12px #0002;position:sticky;top:0;z-index:50}
-.logo{width:40px;height:40px;border-radius:10px;background:#fff;color:var(--brand);display:grid;place-items:center;font-weight:900;font-size:19px}.title{font-weight:800;letter-spacing:.2px}.subtitle{font-size:11px;opacity:.8}
-.head-actions{margin-left:auto;display:flex;gap:8px}.head-actions button{background:#ffffff18;color:#fff;border:1px solid #ffffff35;padding:8px 11px;border-radius:9px}
-.layout{display:grid;grid-template-columns:72px 1fr;min-height:calc(100vh - 64px);align-items:stretch}
-aside{background:#fff;border-right:1px solid var(--line);padding:12px 9px;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;z-index:40}
-.nav-title{font-size:0;text-align:center;color:var(--muted);font-weight:800;margin:10px 0 7px}.nav{display:grid;gap:6px}.nav button{width:54px;height:46px;text-align:center;background:transparent;color:var(--text);padding:8px 4px;border-radius:10px;font-size:0;position:relative}.nav button::first-letter{font-size:22px}.nav button.active,.nav button:hover{background:#eaf4ff;color:var(--brand);font-weight:700}
-.nav button.active::after{content:"";position:absolute;left:0;top:9px;bottom:9px;width:3px;border-radius:3px;background:var(--brand)}
-main{padding:18px;max-width:none;width:100%;margin:0;align-self:start;min-width:0}.view{display:none}.view.active{display:block}
-.layout.practice-mode{grid-template-columns:1fr;height:calc(100vh - 64px);overflow:hidden}.layout.practice-mode aside{display:none}.layout.practice-mode main{padding:0;height:100%;overflow:hidden}.layout.practice-mode #practice{height:100%;display:flex;flex-direction:column;overflow:hidden}.layout.practice-mode #practice>.card{border-radius:0;border:0;border-bottom:1px solid var(--line);margin:0!important;box-shadow:none;flex:0 0 auto;padding:7px 12px}.layout.practice-mode #practice>.card h2{font-size:0;margin:0;height:0}.layout.practice-mode #practice>.card .toolbar{margin:0;display:grid;grid-template-columns:170px 110px 150px auto auto;gap:6px;align-items:center}.layout.practice-mode #practice>.card .toolbar select,.layout.practice-mode #practice>.card .toolbar button{height:36px;padding:5px 9px;font-size:13px;margin:0}.layout.practice-mode .practice{margin:0!important;border:0;border-radius:0;box-shadow:none;display:grid;grid-template-rows:44px 1fr 68px 23px minmax(205px,30vh);height:100%;min-height:0;overflow:hidden}.layout.practice-mode .practice .stats{height:44px;min-height:44px}.layout.practice-mode .practice .stat{padding:4px;display:flex;flex-direction:column;justify-content:center}.layout.practice-mode .practice .stat b{font-size:15px;line-height:1.05}.layout.practice-mode .practice .stat span{font-size:8px;line-height:1.05}.layout.practice-mode .practice .prompt{min-height:0;overflow:auto;overflow-wrap:anywhere;white-space:normal;font-size:21px;line-height:1.55;padding:12px 28px;background:#fbfdff;border-bottom:1px solid var(--line);scrollbar-width:thin}.layout.practice-mode .practice textarea#input{min-height:0;height:68px;font-size:18px;line-height:1.3;padding:8px 14px;resize:none;border:0;border-bottom:1px solid var(--line)}.layout.practice-mode .practice-foot{height:23px;min-height:23px;padding:3px 12px;font-size:9px;white-space:nowrap;overflow:hidden}.layout.practice-mode .practice .keyboard{height:100%;min-height:0;overflow:hidden;padding:8px 18px 11px;background:#f6f9fc;border-top:0}.layout.practice-mode .keys{height:100%;max-width:1180px;grid-template-rows:repeat(5,minmax(0,1fr));gap:5px}.layout.practice-mode .row{min-width:0;gap:5px}.layout.practice-mode .key{height:100%;min-height:31px;min-width:0;flex:1;padding:0 7px;border-radius:7px;font-size:13px;font-weight:800;position:relative}.layout.practice-mode .key::after{content:attr(data-finger);position:absolute;bottom:3px;right:4px;font-size:7px;font-weight:800;opacity:.45}.layout.practice-mode .key.w4{flex:0 0 52%;min-width:0}.keyboard-guide{display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px;font-size:9px;color:var(--muted);font-weight:700}.finger-chip{padding:2px 5px;border-radius:999px;border:1px solid var(--line);background:#fff}.finger-lp{background:#fce7f3}.finger-lr{background:#fef3c7}.finger-li{background:#dcfce7}.finger-ri{background:#dbeafe}.finger-rr{background:#ede9fe}.finger-rp{background:#fce7f3}.finger-thumb{background:#e5e7eb}.key.finger-lp{background:#fdf0f6}.key.finger-lr{background:#fff8df}.key.finger-li{background:#edfff2}.key.finger-ri{background:#edf5ff}.key.finger-rr{background:#f4f1ff}.key.finger-rp{background:#fdf0f6}.key.finger-thumb{background:#f3f4f6}.key.active{background:#dbeafe!important;border:2px solid var(--brand);color:var(--brand);box-shadow:0 0 0 2px #dbeafe;transform:none}.key.error{background:#fee2e2!important;border:2px solid #ef4444!important;color:#b91c1c!important;animation:keyError .22s ease}@keyframes keyError{50%{transform:translateX(2px)}}.next-finger{font-size:10px;color:var(--brand);font-weight:800;margin-left:5px}
-
-.hero{background:linear-gradient(110deg,var(--brand),#1596ee);color:#fff;border-radius:16px;padding:22px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:space-between;gap:18px}.hero h1{margin:0 0 5px;font-size:28px}.hero p{margin:0;opacity:.9}.hero-badge{background:#fff2;color:#fff;border:1px solid #fff4;border-radius:12px;padding:12px 15px;text-align:center;min-width:120px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;box-shadow:var(--shadow)}.card h3{margin:0 0 7px;font-size:15px}.card p{margin:0;color:var(--muted);font-size:13px}.big{font-size:25px;font-weight:850}
-.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}.toolbar select,.toolbar input,.toolbar button,.settings input,.settings select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 11px;color:var(--text)}.primary{background:var(--brand)!important;color:#fff!important;border-color:var(--brand)!important}.danger{background:#fee2e2!important;color:#991b1b!important}
-.practice{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.stats{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--line)}.stat{padding:12px;text-align:center;border-right:1px solid var(--line)}.stat:last-child{border:0}.stat b{display:block;font-size:20px}.stat span{font-size:11px;color:var(--muted)}
-.prompt{padding:20px;min-height:170px;font-size:22px;line-height:1.8;letter-spacing:.2px;background:#fbfdff}.prompt .typed{color:#7a8a99}.prompt .current{background:#dbeafe;color:#075ca5;border-radius:3px}.prompt .wrong{background:#fee2e2;color:#b91c1c;border-radius:3px}.prompt .correct{color:var(--ok)}
-textarea#input{width:100%;min-height:130px;border:0;border-top:1px solid var(--line);outline:0;padding:17px;font-size:20px;resize:vertical;color:var(--text)}.practice-foot{padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:12px}
-.keyboard{padding:15px;background:#f8fbfe;border-top:1px solid var(--line)}.keys{max-width:1050px;margin:auto;display:grid;gap:5px}.row{display:flex;gap:5px;justify-content:center}.key{height:42px;min-width:38px;padding:0 8px;background:#fff;border:1px solid #ccd9e5;border-radius:6px;display:grid;place-items:center;font-size:12px}.key.w2{min-width:62px}.key.w3{min-width:84px}.key.w4{min-width:105px}.key.active{background:#dbeafe;border-color:var(--brand);color:var(--brand);transform:translateY(-1px)}.key.error{background:#fee2e2;border-color:#ef4444}
-.lesson-grid,.game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.lesson,.game{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}.lesson .level,.game .emoji{font-size:28px}.lesson button,.game button{margin-top:12px;width:100%;padding:10px;border-radius:9px;background:#eaf4ff;color:var(--brand);font-weight:700}
-.game-area{min-height:400px;background:#071827;border-radius:16px;position:relative;overflow:hidden;color:#fff}.game-hud{display:flex;justify-content:space-between;padding:12px;background:#0b2235}.game-word{position:absolute;font-size:25px;font-weight:800;padding:8px 12px;border-radius:10px;background:#0d5c8f}.game-input{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:min(500px,90%);padding:14px;border-radius:10px;border:0;text-align:center;outline:0}
-.results{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.result-actions{margin-top:15px;display:flex;gap:8px;flex-wrap:wrap}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:9px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}
-.settings{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.setting-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}.setting-row:last-child{border:0}
-footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
-.toast{position:fixed;bottom:18px;right:18px;background:#17324d;color:#fff;padding:11px 14px;border-radius:9px;display:none;z-index:50}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.lesson-grid,.game-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(3,1fr)}.stat{border-bottom:1px solid var(--line)}}
-@media(max-width:720px){header{height:58px}.layout{grid-template-columns:1fr}aside{position:fixed;left:-270px;top:58px;width:260px;height:calc(100vh - 58px);z-index:60;transition:.2s;padding:12px}.layout.open aside{left:0}.layout.open::after{content:"";position:fixed;inset:58px 0 0 0;background:#08233a55;z-index:55}.nav-title{font-size:11px;text-align:left;margin:12px 8px 7px}.nav button{width:100%;height:auto;text-align:left;font-size:15px;padding:10px 11px}.nav button::first-letter{font-size:inherit}.nav button.active::after{display:none}main{padding:10px}.hero{padding:17px}.hero h1{font-size:22px}.hero-badge{display:none}.grid,.lesson-grid,.game-grid,.results,.settings{grid-template-columns:1fr}.prompt{font-size:18px;min-height:145px}.key{min-width:27px;height:36px;font-size:10px;padding:0 5px}.key.w2{min-width:45px}.key.w3{min-width:60px}.key.w4{min-width:75px}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:9px}.stat b{font-size:17px}.layout.practice-mode{height:calc(100vh - 58px)}.layout.practice-mode main{padding:0}.layout.practice-mode #practice>.card{padding:6px 7px}.layout.practice-mode #practice>.card .toolbar{grid-template-columns:1fr 1fr 1.15fr auto auto;gap:4px}.layout.practice-mode #practice>.card .toolbar select,.layout.practice-mode #practice>.card .toolbar button{height:34px;padding:4px 6px;font-size:11px;min-width:0}.layout.practice-mode #practice>.card .toolbar button{font-size:0}.layout.practice-mode #practice>.card .toolbar #startBtn{font-size:0}.layout.practice-mode #practice>.card .toolbar #startBtn::before{content:"▶";font-size:13px}.layout.practice-mode #practice>.card .toolbar #clearBtn{font-size:0}.layout.practice-mode #practice>.card .toolbar #clearBtn::before{content:"×";font-size:17px}.layout.practice-mode .practice{grid-template-rows:42px 1fr 64px 22px minmax(185px,29vh)}.layout.practice-mode .practice .stats{height:42px;min-height:42px}.layout.practice-mode .practice .stat b{font-size:13px}.layout.practice-mode .practice .stat span{font-size:7px}.layout.practice-mode .practice .prompt{font-size:18px;line-height:1.5;padding:9px 11px;overflow-wrap:anywhere}.layout.practice-mode .practice textarea#input{height:64px;font-size:17px;padding:7px 10px}.layout.practice-mode .practice-foot{height:22px;min-height:22px;padding:3px 7px}.layout.practice-mode .practice .keyboard{padding:7px 5px 9px}.layout.practice-mode .keys{gap:3px}.layout.practice-mode .row{gap:3px}.layout.practice-mode .key{font-size:10px;min-height:27px;padding:0 2px}.layout.practice-mode .key::after{font-size:6px;bottom:1px;right:2px}.keyboard-guide{gap:3px;margin-bottom:3px;font-size:7px}.finger-chip{padding:1px 3px}.next-finger{font-size:9px}}
-</style>
-<style>
-/* ONESTOP Typing Master — practice readability upgrade */
-.layout.practice-mode .practice{
-  grid-template-rows:44px minmax(145px,22vh) 125px 23px minmax(205px,30vh)!important;
+:root{
+  --blue:#1268d5;--blue2:#0754b7;--ink:#183a66;--panel:#eef3ff;
+  --line:#b9c9ed;--bg:#f5f8fd;--white:#fff;
+  --lp:#ef476f;--lr:#9b5de5;--li:#8ac926;--ri:#1982c4;--rr:#6a4c93;--rp:#ef476f;--th:#f4a261;
 }
-.layout.practice-mode .practice .prompt{
-  background:#eef5fb!important;
-  border-bottom:1px solid #c6d7e6!important;
-  padding:0 30px 16px!important;
-  font-size:23px!important;
-  line-height:1.62!important;
-  color:#102a43!important;
-  overflow:auto!important;
-  overflow-wrap:anywhere!important;
-  white-space:normal!important;
-}
-.section-label{
-  position:sticky;
-  top:0;
-  z-index:2;
-  display:flex;
-  align-items:center;
-  min-height:30px;
-  margin:0 -30px 12px;
-  padding:6px 14px;
-  background:#123b5d;
-  color:#fff;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.7px;
-  border-bottom:2px solid #0b78d0;
-}
-.prompt-text{max-width:1200px;margin:auto}
-.prompt-text .correct{color:#087f3e!important}
-.prompt-text .wrong{
-  color:#fff!important;
-  background:#c62828!important;
-  border-radius:4px;
-  padding:0 2px;
-}
-.prompt-text .current{
-  color:#082f49!important;
-  background:#ffd54a!important;
-  border-radius:4px;
-  box-shadow:0 0 0 2px #f59e0b;
-}
-.typing-area{
-  background:#fff;
-  border-top:4px solid #0b78d0;
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-}
-.typing-label{
-  position:static;
-  min-height:24px;
-  margin:0!important;
-  padding:4px 14px;
-  background:#0b78d0;
-  border:0;
-  font-size:10px;
-}
-.layout.practice-mode .practice textarea#input{
-  height:64px!important;
-  min-height:0!important;
-  flex:1;
-  background:#fff!important;
-  color:#102a43!important;
-  border:0!important;
-  border-bottom:1px solid #c6d7e6!important;
-  font-size:18px!important;
-  line-height:1.35!important;
-  padding:7px 14px!important;
-  outline:0!important;
-}
-.layout.practice-mode .practice textarea#input:focus{
-  box-shadow:inset 0 0 0 2px #7dd3fc;
-}
-.layout.practice-mode .practice .keyboard{
-  background:#dce6f0!important;
-  border-top:5px solid #123b5d!important;
-  padding:8px 18px 11px!important;
-}
-.layout.practice-mode .keyboard-guide{
-  margin-bottom:5px!important;
-  color:#18324a!important;
-}
-.layout.practice-mode .finger-chip{
-  color:#fff!important;
-  border:1px solid #17324d!important;
-  font-weight:900!important;
-}
-.layout.practice-mode .finger-lp{background:#7f1d1d!important}
-.layout.practice-mode .finger-lr{background:#92400e!important}
-.layout.practice-mode .finger-li{background:#166534!important}
-.layout.practice-mode .finger-ri{background:#1d4ed8!important}
-.layout.practice-mode .finger-rr{background:#6d28d9!important}
-.layout.practice-mode .finger-rp{background:#9d174d!important}
-.layout.practice-mode .key{
-  border:2px solid #17324d!important;
-  color:#fff!important;
-  font-weight:900!important;
-  box-shadow:0 2px 0 #8aa0b5;
-}
-.layout.practice-mode .key.finger-lp{background:#7f1d1d!important}
-.layout.practice-mode .key.finger-lr{background:#92400e!important}
-.layout.practice-mode .key.finger-li{background:#166534!important}
-.layout.practice-mode .key.finger-ri{background:#1d4ed8!important}
-.layout.practice-mode .key.finger-rr{background:#6d28d9!important}
-.layout.practice-mode .key.finger-rp{background:#9d174d!important}
-.layout.practice-mode .key.finger-thumb{background:#374151!important}
-.layout.practice-mode .key.active{
-  background:#ffd54a!important;
-  color:#111827!important;
-  border:3px solid #111827!important;
-  box-shadow:0 0 0 3px #f59e0b,0 3px 0 #111827!important;
-}
-.layout.practice-mode .key.error{
-  background:#ef4444!important;
-  color:#fff!important;
-  border-color:#7f1d1d!important;
-}
-@media(max-width:720px){
-  .layout.practice-mode .practice{grid-template-rows:42px minmax(115px,18vh) 92px 22px minmax(185px,29vh)!important}
-  .layout.practice-mode .practice .prompt{padding:0 11px 10px!important;font-size:18px!important;line-height:1.5!important}
-  .layout.practice-mode .section-label{margin:0 -11px 8px!important;padding:5px 9px!important}
-  .layout.practice-mode .practice textarea#input{height:58px!important;font-size:16px!important}
-  .layout.practice-mode .practice .keyboard{padding:7px 5px 9px!important}
-}
-/* Final practice navigation + keyboard redesign */
-.head-back{display:none;background:#ffffff18;color:#fff;border:1px solid #ffffff45;padding:8px 12px;border-radius:9px;font-weight:800}
-.layout.practice-mode ~ *{}
-.layout.practice-mode + *{}
-.layout.practice-mode main{}
-.layout.practice-mode .head-back{display:inline-flex}
-.layout.practice-mode header .head-back{display:inline-flex}
-.layout.practice-mode .logo{display:none}
-.layout.practice-mode header{gap:8px}
-.layout.practice-mode .practice .prompt{font-size:26px!important;line-height:1.62!important;letter-spacing:.15px!important}
-.layout.practice-mode .practice textarea#input{font-size:21px!important;line-height:1.45!important}
-.layout.practice-mode .practice .keyboard{background:#cbd7e3!important;border-top:5px solid #18344d!important;padding:9px 18px 12px!important}
-.layout.practice-mode .keyboard-guide{margin-bottom:6px!important;color:#18344d!important}
-.layout.practice-mode .finger-chip{background:#eef3f7!important;color:#18344d!important;border:1px solid #8ea4b7!important}
-.layout.practice-mode .key{
-  background:#263f56!important;
-  color:#fff!important;
-  border:2px solid #5d7890!important;
-  box-shadow:0 3px 0 #14283a!important;
-}
-.layout.practice-mode .key.finger-lp,.layout.practice-mode .key.finger-lr,.layout.practice-mode .key.finger-li{background:#284a63!important}
-.layout.practice-mode .key.finger-ri,.layout.practice-mode .key.finger-rr,.layout.practice-mode .key.finger-rp{background:#304e68!important}
-.layout.practice-mode .key.finger-thumb{background:#1f3347!important}
-.layout.practice-mode .key:hover{filter:brightness(1.12)}
-.layout.practice-mode .key.active{background:#f6c945!important;color:#10243a!important;border:3px solid #10243a!important;box-shadow:0 0 0 3px #e5a900,0 3px 0 #10243a!important}
-.layout.practice-mode .key.error{background:#d93636!important;color:#fff!important;border-color:#7f1d1d!important;box-shadow:0 3px 0 #641515!important}
-.layout.practice-mode .next-finger{color:#0b5d8d!important;font-size:10px!important}
-@media(max-width:720px){
-  .layout.practice-mode .practice .prompt{font-size:20px!important;line-height:1.5!important}
-  .layout.practice-mode .practice textarea#input{font-size:18px!important;line-height:1.4!important}
-  .layout.practice-mode .practice .keyboard{padding:7px 5px 9px!important}
-  .layout.practice-mode .key{border-width:1.5px!important;box-shadow:0 2px 0 #14283a!important}
-}
-</style><style>
-/* Final practice alignment + compact passage */
-.layout.practice-mode #practice>.card{
-  width:calc(100% - 28px)!important;
-  max-width:1360px!important;
-  margin:0 auto!important;
-  border-radius:0 0 12px 12px!important;
-}
-.layout.practice-mode .practice{
-  width:calc(100% - 28px)!important;
-  max-width:1360px!important;
-  margin:0 auto!important;
-  border:1px solid #c6d7e6!important;
-  border-radius:0 0 12px 12px!important;
-  overflow:hidden!important;
-}
-.layout.practice-mode .practice .prompt{
-  padding:0 24px 10px!important;
-  font-size:20px!important;
-  line-height:1.36!important;
-  letter-spacing:0!important;
-}
-.layout.practice-mode .section-label{
-  margin:0 -24px 8px!important;
-  min-height:28px!important;
-  padding:5px 12px!important;
-}
-.layout.practice-mode .prompt-text{
-  max-width:1240px!important;
-}
-.layout.practice-mode .practice .typing-area{
-  min-height:0!important;
-  border-top:3px solid #0b78d0!important;
-}
-.layout.practice-mode .practice .typing-label{
-  min-height:27px!important;
-  padding:4px 12px!important;
-}
-.layout.practice-mode .practice textarea#input{
-  height:125px!important;
-  min-height:125px!important;
-  font-size:22px!important;
-  line-height:1.4!important;
-  padding:8px 14px!important;
-}
-.layout.practice-mode .practice .keyboard{
-  padding:8px 14px 10px!important;
-}
-.layout.practice-mode .keys{
-  max-width:1240px!important;
-}
-@media(max-width:720px){
-  .layout.practice-mode #practice>.card{
-    width:calc(100% - 12px)!important;
-  }
-  .layout.practice-mode .practice{
-    width:calc(100% - 12px)!important;
-    border-radius:0 0 10px 10px!important;
-  }
-  .layout.practice-mode .practice .prompt{
-    padding:0 12px 8px!important;
-    font-size:18px!important;
-    line-height:1.42!important;
-  }
-  .layout.practice-mode .section-label{
-    margin:0 -12px 7px!important;
-  }
-  .layout.practice-mode .practice textarea#input{
-    height:92px!important;
-    min-height:92px!important;
-    font-size:19px!important;
-  }
-  .layout.practice-mode .practice .keyboard{
-    padding:6px 5px 8px!important;
-  }
-}
-</style><style>
-/* Classic TypingMaster-inspired lesson workspace */
-.layout.practice-mode{
-  background:#edf4fb!important;
-}
-.layout.practice-mode main{
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
+button,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;overflow:auto}
+.classic-page{
+  min-height:100vh;padding:30px 20px 34px;
   background:
-    radial-gradient(circle at 92% 8%,#d7ecff 0 110px,transparent 111px),
-    radial-gradient(circle at 2% 92%,#dcecff 0 130px,transparent 131px),
-    #f5f9fd!important;
+    radial-gradient(circle at 95% 5%,#0b92e8 0 180px,transparent 181px),
+    radial-gradient(circle at 2% 92%,#0751b8 0 175px,transparent 176px),
+    linear-gradient(135deg,#f8fbff,#eef4fa);
 }
-.layout.practice-mode header{
-  background:#fff!important;
-  color:#1168c5!important;
-  box-shadow:0 2px 12px rgba(20,70,120,.12)!important;
-  border-bottom:1px solid #d5e3ef!important;
+.classic-header{
+  width:min(790px,100%);margin:0 auto 22px;
+  display:flex;align-items:center;gap:14px;
 }
-.layout.practice-mode header .title{color:#1168c5!important}
-.layout.practice-mode header .subtitle{color:#6c8195!important;opacity:1}
-.layout.practice-mode header .head-actions button{
-  background:#eef6ff!important;color:#1168c5!important;border-color:#c8ddef!important;
+.brand-mark{
+  width:64px;height:64px;border-radius:50%;
+  background:linear-gradient(145deg,#0b59c7,#063c98);
+  color:#fff;display:grid;place-items:center;
+  font-size:38px;font-weight:900;
+  box-shadow:0 6px 16px #174f9c33;
 }
-.layout.practice-mode header #menuBtn{color:#1168c5!important}
-.layout.practice-mode header .head-back{
-  background:#1168c5!important;color:#fff!important;border-color:#1168c5!important;
+.brand-title{font-size:39px;font-weight:800;font-style:italic;color:#1268d5;letter-spacing:-1.5px}
+.brand-sub{font-size:11px;color:#67819c;margin-top:2px}
+.workspace{
+  width:min(790px,100%);margin:0 auto;
+  background:#fff;border:7px solid #fff;
+  box-shadow:0 15px 40px #183d6530;
+  display:grid;grid-template-columns:minmax(0,1fr) 205px;
+  grid-template-rows:auto auto auto auto;
+  grid-template-areas:"lesson progress" "keyboard progress" "hands progress" "controls progress";
 }
-.layout.practice-mode header .logo{
-  display:grid!important;background:#1168c5!important;color:#fff!important;
+.lesson-board{grid-area:lesson;background:#f1f5ff;border-right:1px solid #cad7ec;padding:18px 24px 12px}
+.target-line{height:66px;display:flex;align-items:center;justify-content:center;gap:6px;overflow:hidden}
+.target-key{
+  width:34px;height:36px;border:1px solid #aebde5;background:#f9fbff;
+  color:#154a9a;display:grid;place-items:center;font-size:18px;font-weight:800;
+  position:relative;border-radius:1px;flex:0 0 auto;
 }
-.layout.practice-mode .classic-practice{
-  width:calc(100% - 44px)!important;
-  max-width:1180px!important;
-  margin:10px auto 0!important;
-  display:grid!important;
-  grid-template-columns:minmax(0,1fr) 205px!important;
-  grid-template-rows:44px minmax(118px,1fr) 120px 23px 190px 88px!important;
-  grid-template-areas:
-    "stats side"
-    "prompt side"
-    "typing side"
-    "foot side"
-    "keyboard side"
-    "hands side";
-  gap:0!important;
-  background:#f9fbff!important;
-  border:8px solid #fff!important;
-  border-radius:2px!important;
-  box-shadow:0 16px 45px rgba(27,67,105,.18)!important;
-  overflow:hidden!important;
+.target-key.current{border:2px solid #0b58c5;background:#fff;box-shadow:0 0 0 2px #d9e5ff}
+.target-key.done{opacity:.42}
+.target-key.wrong{background:#ffd8d8;border-color:#d22;color:#a00}
+.target-key .dot,.key .dot{position:absolute;width:6px;height:6px;border-radius:50%;bottom:3px;left:4px;border:1px solid #fff;box-shadow:0 0 0 1px #7083a3}
+.target-key.space{width:54px;font-size:9px}
+.drill-title{font-size:12px;font-weight:800;margin:4px 0 5px;color:#2e5688}
+.drill-text{font-size:14px;line-height:1.45;color:#55708c;height:42px;overflow:hidden}
+.keyboard-wrap{grid-area:keyboard;background:#f1f5ff;padding:0 22px 12px;border-right:1px solid #cad7ec}
+.keyboard{display:grid;gap:3px}
+.keyrow{display:flex;gap:3px}
+.key{
+  flex:1;height:35px;border:1px solid #9db0dc;border-radius:2px;
+  background:#edf1ff;color:#163f79;font-weight:800;font-size:11px;
+  display:grid;place-items:center;position:relative;min-width:0;
+  box-shadow:0 1px 0 #7f91bb;
 }
-.layout.practice-mode .classic-practice>.stats{grid-area:stats}
-.layout.practice-mode .classic-practice>.prompt{grid-area:prompt}
-.layout.practice-mode .classic-practice>.typing-area{grid-area:typing}
-.layout.practice-mode .classic-practice>.practice-foot{grid-area:foot}
-.layout.practice-mode .classic-practice>.keyboard{grid-area:keyboard}
-.layout.practice-mode .classic-practice>.hand-guide{grid-area:hands}
-.layout.practice-mode .classic-side{
-  grid-area:side;
-  background:#dbeafa;
-  border-left:1px solid #bdd1e5;
-  padding:18px 14px 12px;
-  display:flex;
-  flex-direction:column;
-  color:#17324d;
-}
-.classic-side .side-title{
-  font-weight:900;font-size:13px;padding-bottom:9px;border-bottom:2px solid #fff;
-}
-.progress-bars{
-  height:92px;display:flex;align-items:end;justify-content:center;gap:3px;padding:10px 4px;
-}
-.progress-bars i{
-  display:block;width:12px;background:#eaffd9;border:1px solid #56713c;
-  height:20px;
-}
-.progress-bars i:nth-child(2){height:27px}.progress-bars i:nth-child(3){height:34px}
-.progress-bars i:nth-child(4){height:42px}.progress-bars i:nth-child(5){height:51px}
-.progress-bars i:nth-child(6){height:60px}.progress-bars i:nth-child(7){height:70px}
-.progress-bars i:nth-child(8){height:79px}.progress-bars i:nth-child(9){height:88px}
-.progress-bars i:nth-child(10){height:98px}
-.side-time,.side-stat{padding:10px 0;border-bottom:1px solid #fff}
-.side-time span,.side-stat span{display:block;font-size:10px;font-weight:800}
-.side-time b{font-size:23px;display:block;margin-top:2px}
-.side-stat{display:flex;justify-content:space-between;align-items:center}
-.side-stat b{font-size:17px}
-.side-next,.side-cancel{
-  width:100%;padding:9px 7px;border-radius:7px;margin-top:auto;
-  font-weight:800;border:1px solid #1266c2;
-}
-.side-next{background:#1266c2;color:#fff}
-.side-cancel{margin-top:7px;background:#fff;color:#1266c2}
-.layout.practice-mode .classic-practice .prompt{
-  background:#f3f6ff!important;
-  padding:0 20px 8px!important;
-  font-size:20px!important;
-  line-height:1.36!important;
-}
-.layout.practice-mode .classic-practice .section-label{
-  margin:0 -20px 7px!important;
-  min-height:27px!important;
-  background:#173e62!important;
-}
-.layout.practice-mode .classic-practice .typing-area{
-  border-top:1px solid #cad9e7!important;
-  background:#fff!important;
-}
-.layout.practice-mode .classic-practice .typing-label{
-  background:#e5effa!important;
-  color:#173e62!important;
-  border-bottom:1px solid #c3d7e9!important;
-  font-size:10px!important;
-}
-.layout.practice-mode .classic-practice textarea#input{
-  height:91px!important;min-height:91px!important;
-  font-size:22px!important;line-height:1.42!important;
-  padding:8px 14px!important;
-}
-.layout.practice-mode .classic-practice .keyboard{
-  background:#f2f5fa!important;
-  border-top:1px solid #c5d5e4!important;
-  padding:8px 12px 10px!important;
-}
-.layout.practice-mode .classic-practice .keys{max-width:920px!important}
-.layout.practice-mode .classic-practice .key{
-  background:#e9edff!important;color:#123c7a!important;
-  border:1px solid #aabce9!important;box-shadow:0 2px 0 #879ac4!important;
-  border-radius:2px!important;
-}
-.layout.practice-mode .classic-practice .key.finger-lp{background:#fff0f2!important;color:#8b1e2d!important}
-.layout.practice-mode .classic-practice .key.finger-lr{background:#f5e8ff!important;color:#6b2b91!important}
-.layout.practice-mode .classic-practice .key.finger-li{background:#e9f6df!important;color:#2e6b2e!important}
-.layout.practice-mode .classic-practice .key.finger-ri{background:#e9f0ff!important;color:#2454a6!important}
-.layout.practice-mode .classic-practice .key.finger-rr{background:#f2eaff!important;color:#6938a1!important}
-.layout.practice-mode .classic-practice .key.finger-rp{background:#fff0f2!important;color:#8b1e2d!important}
-.layout.practice-mode .classic-practice .key.active{
-  background:#c8d8ff!important;color:#174bb1!important;border:2px solid #174bb1!important;
-  box-shadow:0 0 0 2px #d9e5ff!important;
-}
-.layout.practice-mode .classic-practice .key.error{
-  background:#ffd6d6!important;color:#a51616!important;border-color:#d22!important;
-}
-.layout.practice-mode .classic-practice .practice-foot{
-  background:#fff!important;border-top:1px solid #d5e1eb!important;
-}
-.layout.practice-mode .classic-practice .stats{
-  background:#fff!important;
-}
+.key:hover{filter:brightness(.98)}
+.key.active{background:#fff;border:2px solid #0d5fc9;color:#0d5fc9;box-shadow:0 0 0 2px #d9e5ff}
+.key.error{background:#ffd2d2!important;border-color:#c11!important;color:#9d1111!important}
+.key.space{flex:0 0 54%;height:30px}
+.key .dot{bottom:3px;left:4px}
+.f-lp{--fc:var(--lp)}.f-lr{--fc:var(--lr)}.f-li{--fc:var(--li)}.f-ri{--fc:var(--ri)}.f-rr{--fc:var(--rr)}.f-rp{--fc:var(--rp)}.f-th{--fc:var(--th)}
+.key .dot{background:var(--fc)}
+.hands{grid-area:hands;background:#f1f5ff;border-right:1px solid #cad7ec;height:145px;display:flex;justify-content:center;align-items:flex-end;gap:28px;overflow:hidden;padding-top:8px}
+.hand{width:180px;height:135px;position:relative}
+.palm{position:absolute;left:43px;bottom:-33px;width:96px;height:100px;border-radius:48% 48% 25% 25%;background:linear-gradient(150deg,#ffe0c5,#edb08d 58%,#c77c60);border:2px solid #a8664e;box-shadow:inset 5px 5px 10px #fff8,0 2px 3px #86503e55}
+.finger{position:absolute;bottom:50px;width:22px;border-radius:14px 14px 8px 8px;background:linear-gradient(150deg,#ffe2c7,#e9a981 65%,#c57a5e);border:2px solid #a8664e;transform-origin:bottom;transition:.15s}
+.finger:after{content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#fff8;border:1px solid #a8664e}
+.finger.active{background:#ffd54a;border-color:#b77900;box-shadow:0 0 0 3px #fff,0 0 0 5px #f0ad00,0 0 15px #ffd54a}
+.left .pinky{left:23px;height:57px;transform:rotate(-20deg)}
+.left .ring{left:48px;height:88px;transform:rotate(-8deg)}
+.left .middle{left:76px;height:99px}
+.left .index{left:103px;height:91px;transform:rotate(6deg)}
+.left .thumb{left:126px;bottom:39px;height:57px;transform:rotate(45deg)}
+.right .pinky{right:23px;height:57px;transform:rotate(20deg)}
+.right .ring{right:48px;height:88px;transform:rotate(8deg)}
+.right .middle{right:76px;height:99px}
+.right .index{right:103px;height:91px;transform:rotate(-6deg)}
+.right .thumb{right:126px;bottom:39px;height:57px;transform:rotate(-45deg)}
+.hand-label{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:8px;font-weight:900;color:#71859b;white-space:nowrap}
+.progress-panel{grid-area:progress;background:#dceafb;padding:18px 14px;display:flex;flex-direction:column;min-height:560px}
+.progress-title{font-weight:900;font-size:13px;padding-bottom:9px;border-bottom:2px solid #fff}
+.bars{height:120px;display:flex;align-items:end;justify-content:center;gap:3px;padding:15px 0}
+.bar{width:12px;background:#efffdc;border:1px solid #63784b}
+.bar:nth-child(1){height:22px}.bar:nth-child(2){height:30px}.bar:nth-child(3){height:38px}.bar:nth-child(4){height:47px}.bar:nth-child(5){height:57px}.bar:nth-child(6){height:68px}.bar:nth-child(7){height:80px}.bar:nth-child(8){height:92px}.bar:nth-child(9){height:104px}.bar:nth-child(10){height:114px}
+.side-label{font-size:10px;font-weight:800;margin-top:7px}
+.side-time{font-size:25px;font-weight:900;margin:3px 0 8px}
+.side-value{font-size:19px;font-weight:900;padding:7px 0;border-bottom:1px solid #fff}
+.progress-panel .spacer{flex:1}
+.side-btn{width:100%;padding:10px 6px;border-radius:7px;border:1px solid #1268d5;font-weight:800}
+.next{background:#1268d5;color:#fff}.back{background:#fff;color:#1268d5;margin-top:8px}
+.controls{grid-area:controls;background:#f7f9fd;border-top:1px solid #c9d7e9;padding:10px 18px;display:flex;gap:6px}
+.controls select,.controls button{height:32px;border:1px solid #afc2df;background:#fff;color:#23496f;border-radius:4px;padding:0 8px;font-size:11px}
+.controls .start{background:#1268d5;color:#fff;border-color:#1268d5;flex:1}
+.controls .clear{width:70px}
+.hidden{display:none!important}
+.dot-lp{background:var(--lp)}.dot-lr{background:var(--lr)}.dot-li{background:var(--li)}.dot-ri{background:var(--ri)}.dot-rr{background:var(--rr)}.dot-rp{background:var(--rp)}.dot-th{background:var(--th)}
 @media(max-width:800px){
-  .layout.practice-mode .classic-practice{
-    width:calc(100% - 14px)!important;
-    grid-template-columns:1fr!important;
-    grid-template-rows:42px 18vh 105px 22px 195px 72px auto!important;
-    grid-template-areas:"stats" "prompt" "typing" "foot" "keyboard" "hands" "side"!important;
-    border-width:4px!important;
-  }
-  .layout.practice-mode .classic-side{
-    border-left:0;border-top:1px solid #bdd1e5;min-height:180px;
-  }
+ .classic-page{padding:14px 7px 22px;background:#f5f8fd}
+ .classic-header{margin-bottom:10px}.brand-mark{width:45px;height:45px;font-size:27px}.brand-title{font-size:27px}
+ .workspace{grid-template-columns:1fr;grid-template-areas:"lesson" "keyboard" "hands" "controls" "progress"}
+ .lesson-board,.keyboard-wrap,.hands{border-right:0}
+ .progress-panel{min-height:220px}
+ .target-key{width:28px;height:31px;font-size:14px}.target-line{height:55px}
+ .keyboard-wrap{padding:0 6px 8px}.key{height:31px;font-size:9px}.key.space{height:27px}
+ .hands{height:110px;gap:0}.hand{transform:scale(.72);transform-origin:bottom center}
+ .drill-text{font-size:12px}
 }
-</style><style>
-/* ONESTOP — live hand/finger guide */
-.hand-guide{
-  display:flex;justify-content:center;align-items:flex-end;gap:55px;
-  height:92px;padding:4px 20px 0;background:#f2f5fa;
-  border-top:1px solid #d5e1eb;overflow:hidden;
-}
-.hand{
-  position:relative;width:220px;height:88px;
-}
-.hand .palm{
-  position:absolute;left:48px;bottom:-28px;width:124px;height:72px;
-  background:linear-gradient(#f2c7aa,#d99a78);border:2px solid #b87558;
-  border-radius:54% 54% 25% 25%;transform:rotate(-3deg);
-  box-shadow:inset 0 4px 8px #fff5;
-}
-.hand .finger{
-  position:absolute;bottom:25px;width:25px;
-  background:linear-gradient(#f3cdb2,#d99b79);border:2px solid #b87558;
-  border-radius:15px 15px 8px 8px;transform-origin:bottom center;
-  transition:.18s ease;box-shadow:inset 0 3px 5px #fff5;
-}
-.hand .finger.active{
-  background:#ffd54a;border-color:#b77900;
-  box-shadow:0 0 0 3px #f59e0b,0 0 14px #ffd54a;
-  transform:translateY(-7px) scale(1.06);
-}
-.hand.left .pinky{left:27px;height:49px;transform:rotate(-18deg)}
-.hand.left .ring{left:58px;height:68px;transform:rotate(-7deg)}
-.hand.left .index{left:114px;height:76px;transform:rotate(5deg)}
-.hand.left .middle{left:86px;height:82px}
-.hand.left .thumb{left:137px;bottom:17px;height:48px;transform:rotate(48deg)}
-.hand.right .pinky{right:27px;height:49px;transform:rotate(18deg)}
-.hand.right .ring{right:58px;height:68px;transform:rotate(7deg)}
-.hand.right .index{right:114px;height:76px;transform:rotate(-5deg)}
-.hand.right .middle{right:86px;height:82px}
-.hand.right .thumb{right:137px;bottom:17px;height:48px;transform:rotate(-48deg)}
-.hand-label{
-  position:absolute;top:2px;left:50%;transform:translateX(-50%);
-  font-size:8px;font-weight:900;color:#547087;white-space:nowrap;
-}
-@media(max-width:800px){
- .hand-guide{gap:10px;height:72px;padding:2px 4px}
- .hand{width:150px;height:68px;transform:scale(.78);transform-origin:bottom center}
-}
-</style><style>
-/* TypingMaster-style visual lesson board */
-.target-strip{
-  height:76px;background:#f5f7ff;border-bottom:1px solid #c8d5e5;
-  display:flex;justify-content:center;align-items:center;gap:20px;padding:7px 12px;
-}
-.target-seq{display:flex;align-items:center;gap:6px;min-width:0}
-.target-letter{
-  width:36px;height:36px;display:grid;place-items:center;
-  background:#eef2ff;border:1px solid #9eafe2;color:#173e78;
-  font-size:19px;font-weight:800;position:relative;border-radius:2px;
-}
-.target-letter .dot{
-  position:absolute;bottom:3px;width:6px;height:6px;border-radius:50%;
-  box-shadow:0 0 0 1px #fff;
-}
-.target-letter.current{
-  border:2px solid #173e78;background:#fff;
-  box-shadow:0 0 0 2px #d8e4ff;
-  transform:translateY(-1px);
-}
-.target-letter.done{opacity:.52}
-.target-letter.space{width:58px;font-size:10px}
-.target-letter.error{border-color:#d22;background:#ffe0e0;color:#a51616}
-.dot-lp{background:#ef476f}.dot-lr{background:#9b5de5}.dot-li{background:#8ac926}
-.dot-ri{background:#1982c4}.dot-rr{background:#6a4c93}.dot-rp{background:#ef476f}.dot-thumb{background:#f4a261}
-
-.layout.practice-mode .classic-practice>.target-strip{grid-area:target}
-.layout.practice-mode .classic-practice{
- grid-template-rows:44px minmax(118px,1fr) 120px 23px 76px 190px 88px!important;
- grid-template-areas:"stats side" "prompt side" "typing side" "foot side" "target side" "keyboard side" "hands side"!important;
-}
-.layout.practice-mode .classic-practice .keyboard{border-top:0!important}
-.layout.practice-mode .classic-practice .keys{max-width:920px!important}
-.layout.practice-mode .classic-practice .key{position:relative}
-.layout.practice-mode .classic-practice .key::before{
- content:"";position:absolute;bottom:4px;left:5px;width:5px;height:5px;border-radius:50%;
- background:#6c82a8;border:1px solid #fff8;opacity:.95;
-}
-.layout.practice-mode .classic-practice .key.finger-lp::before{background:#ef476f}
-.layout.practice-mode .classic-practice .key.finger-lr::before{background:#9b5de5}
-.layout.practice-mode .classic-practice .key.finger-li::before{background:#8ac926}
-.layout.practice-mode .classic-practice .key.finger-ri::before{background:#1982c4}
-.layout.practice-mode .classic-practice .key.finger-rr::before{background:#6a4c93}
-.layout.practice-mode .classic-practice .key.finger-rp::before{background:#ef476f}
-.layout.practice-mode .classic-practice .key.finger-thumb::before{background:#f4a261}
-.layout.practice-mode .classic-practice .key.active::before{
- width:8px;height:8px;bottom:3px;left:4px;background:#ffca3a;
- box-shadow:0 0 0 2px #fff,0 0 8px #ffca3a;
-}
-.layout.practice-mode .hand-guide{
- background:#f5f7ff!important;height:88px!important;
-}
-.layout.practice-mode .hand .palm{
- background:linear-gradient(145deg,#ffd9bd 0%,#edb08d 52%,#c98262 100%)!important;
- border-color:#a8664e!important;
- box-shadow:inset 2px 4px 8px #fff8,0 2px 4px #8b5b4a55!important;
-}
-.layout.practice-mode .hand .finger{
- background:linear-gradient(145deg,#ffe0c5,#e9aa85 65%,#c47b5e)!important;
- border-color:#a8664e!important;
- box-shadow:inset 2px 3px 5px #fff8!important;
-}
-.layout.practice-mode .hand .finger.active{
- background:#ffd54a!important;border-color:#b77900!important;
- box-shadow:0 0 0 3px #fff,0 0 0 5px #f0ad00,0 0 16px #ffd54a!important;
-}
-.layout.practice-mode .hand .finger::after{
- content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);
- width:6px;height:6px;border-radius:50%;background:#fff9;border:1px solid #a8664e;
-}
-.layout.practice-mode .hand .finger.active::after{background:#ffca3a;box-shadow:0 0 5px #ffca3a}
-@media(max-width:800px){
- .layout.practice-mode .classic-practice{
-  grid-template-rows:42px 18vh 105px 22px 64px 195px 72px auto!important;
-  grid-template-areas:"stats" "prompt" "typing" "foot" "target" "keyboard" "hands" "side"!important;
- }
- .target-strip{height:64px;gap:6px;padding:5px}
- .target-letter{width:29px;height:30px;font-size:15px}.target-letter.space{width:42px}
-}
-</style></head>
+</style>
+</head>
 <body>
 <div class="app">
-<header><button id="menuBtn" style="background:transparent;color:#fff;font-size:22px" aria-label="Menu">☰</button><button id="backBtn" class="head-back" aria-label="Back to previous screen">← Back</button><div class="logo">O</div><div><div class="title">ONESTOP Typing Master</div><div class="subtitle">Learn • Practice • Test • Play</div></div><div class="head-actions"><button id="focusBtn">⛶ Focus</button><button id="themeBtn">◐</button></div></header>
-<div class="layout" id="layout">
-<aside><div class="nav-title">Typing</div><div class="nav">
-<button class="active" data-view="home">🏠 Dashboard</button><button data-view="practice">⌨️ Free Practice</button><button data-view="lessons">📚 Lessons</button><button data-view="tests">⚡ Speed Test</button><button data-view="games">🎮 Typing Games</button><button data-view="custom">📝 Custom Text</button>
-</div><div class="nav-title">Progress</div><div class="nav"><button data-view="history">📊 History & Analytics</button><button data-view="settings">⚙️ Settings</button></div></aside>
-<main>
-<section id="home" class="view active"><div class="hero"><div><h1>ONESTOP Typing Master</h1><p>Basic से Advanced तक typing सीखें — speed, accuracy और confidence के साथ.</p></div><div class="hero-badge"><b id="homeWpm">0 WPM</b><br><small>Best Speed</small></div></div>
-<div class="grid"><div class="card"><h3>Best WPM</h3><div class="big" id="dashBest">0</div><p>Personal best</p></div><div class="card"><h3>Best Accuracy</h3><div class="big" id="dashAcc">0%</div><p>Highest accuracy</p></div><div class="card"><h3>Practice Time</h3><div class="big" id="dashTime">0m</div><p>Total recorded</p></div><div class="card"><h3>Tests</h3><div class="big" id="dashTests">0</div><p>Completed sessions</p></div></div>
-<div class="card" style="margin-top:14px"><h3>Choose your path</h3><div class="grid" style="margin-top:10px"><button class="card" onclick="showView('lessons')"><b>📚 Learn Touch Typing</b><p>Home row → full keyboard → punctuation.</p></button><button class="card" onclick="showView('practice')"><b>⌨️ Free Practice</b><p>Unlimited, timed or word-count practice.</p></button><button class="card" onclick="showView('tests')"><b>⚡ Speed Test</b><p>Measure WPM, raw speed and accuracy.</p></button><button class="card" onclick="showView('games')"><b>🎮 Play & Improve</b><p>Reaction and word typing games.</p></button></div></div></section>
-
-<section id="practice" class="view"><div class="card"><h2 style="margin-top:0">Free Practice</h2><div class="toolbar"><select id="mode"><option value="unlimited">♾ Unlimited</option><option value="time">⏱ Timed</option><option value="words">🔢 Word Count</option></select><select id="duration"><option value="30">30 sec</option><option value="60" selected>1 min</option><option value="120">2 min</option><option value="300">5 min</option><option value="600">10 min</option><option value="900">15 min</option></select><select id="level">
-<option value="home">Basic 1 — Home Row (ASDF / JKL;)</option>
-<option value="top">Basic 2 — Top Row (QWERTY / UIOP)</option>
-<option value="bottom">Basic 3 — Bottom Row (ZXCV / BNM)</option>
-<option value="beginner" selected>Basic 4 — Full Letters</option>
-<option value="intermediate">Intermediate — Words & Sentences</option>
-<option value="advanced">Advanced — Paragraphs</option>
-<option value="punctuation">Punctuation</option>
-<option value="numbers">Numbers</option>
-<option value="code">Code</option>
-</select><button class="primary" id="startBtn">Start / Restart</button><button id="clearBtn">Clear</button></div></div>
-<div class="practice classic-practice" style="margin-top:12px"><div class="classic-side">
-  <div class="side-title">📊 YOUR PROGRESS</div>
-  <div class="progress-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="side-time"><span>TIME</span><b id="sideTimer">0:00</b></div>
-  <div class="side-stat"><span>WPM</span><b id="sideWpm">0</b></div>
-  <div class="side-stat"><span>ACCURACY</span><b id="sideAcc">100%</b></div>
-  <button class="side-next" id="sideNextBtn">Next Lesson</button>
-  <button class="side-cancel" id="sideBackBtn">Back</button>
-</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="target-strip" id="targetStrip"><div class="target-seq" id="targetSeq"></div><div class="target-seq second" id="targetSeq2"></div></div><div class="keyboard" id="keyboard"></div><div class="hand-guide" id="handGuide">
-  <div class="hand left"><span class="hand-label">LEFT HAND</span><div class="palm"></div>
-    <i class="finger pinky" data-hand-finger="lp"></i><i class="finger ring" data-hand-finger="lr"></i>
-    <i class="finger middle" data-hand-finger="li"></i><i class="finger index" data-hand-finger="li"></i><i class="finger thumb" data-hand-finger="thumb"></i>
+<section class="classic-page">
+  <div class="classic-header">
+    <div class="brand-mark">T</div>
+    <div><div class="brand-title">ONESTOP TypingMaster</div><div class="brand-sub">Learn • Practice • Test • Play</div></div>
   </div>
-  <div class="hand right"><span class="hand-label">RIGHT HAND</span><div class="palm"></div>
-    <i class="finger thumb" data-hand-finger="thumb"></i><i class="finger index" data-hand-finger="ri"></i>
-    <i class="finger middle" data-hand-finger="ri"></i><i class="finger ring" data-hand-finger="rr"></i><i class="finger pinky" data-hand-finger="rp"></i>
-  </div>
-</div></div></section>
 
-<section id="lessons" class="view"><div class="card"><h2 style="margin-top:0">Progressive Typing Course</h2><p>Start with finger placement and gradually unlock harder drills.</p></div><div class="lesson-grid" id="lessonGrid" style="margin-top:12px"></div></section>
-<section id="tests" class="view"><div class="card"><h2 style="margin-top:0">Speed Test</h2><p>Standard WPM = correctly typed characters ÷ 5 ÷ minutes. Choose a duration and start.</p><div class="toolbar"><select id="testDuration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="180">3 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option><option value="900">15 minutes</option></select><button class="primary" onclick="startTest()">Start Speed Test</button></div></div><div class="results" style="margin-top:12px"><div class="card"><div class="big" id="testBest">0</div><p>Best WPM</p></div><div class="card"><div class="big" id="testAvg">0</div><p>Average WPM</p></div><div class="card"><div class="big" id="testSessions">0</div><p>Sessions</p></div><div class="card"><div class="big" id="testGoal">50</div><p>Suggested Goal</p></div></div></section>
+  <main class="workspace" id="workspace">
+    <section class="lesson-board">
+      <div class="target-line" id="targetLine"></div>
+      <div class="drill-title" id="drillTitle">Home Row — Finger Placement</div>
+      <div class="drill-text" id="drillText">Place your fingers correctly and practice only the selected keys. Accuracy comes before speed.</div>
+    </section>
 
-<section id="games" class="view"><div class="card"><h2 style="margin-top:0">Typing Games</h2><p>Practice reaction, accuracy and speed while playing.</p></div><div class="game-grid" style="margin-top:12px"><div class="game"><div class="emoji">☄️</div><h3>Word Drop</h3><p>Type falling words before they reach the bottom. Speed increases.</p><button onclick="startGame('drop')">Play Word Drop</button></div><div class="game"><div class="emoji">⚡</div><h3>Speed Sprint</h3><p>Type as many short words as possible in 60 seconds.</p><button onclick="startGame('sprint')">Play Speed Sprint</button></div><div class="game"><div class="emoji">🎯</div><h3>Key Hunt</h3><p>Find and type the requested key quickly.</p><button onclick="startGame('key')">Play Key Hunt</button></div></div><div id="gameBox" style="margin-top:12px"></div></section>
+    <section class="keyboard-wrap">
+      <div class="keyboard" id="keyboard"></div>
+    </section>
 
-<section id="custom" class="view"><div class="card"><h2 style="margin-top:0">Custom Text Practice</h2><p>Paste an article, school paragraph, exam passage or your own content.</p><textarea id="customText" style="width:100%;min-height:220px;padding:13px;border:1px solid var(--line);border-radius:10px" placeholder="Paste your custom typing text here..."></textarea><div class="toolbar"><button class="primary" onclick="useCustom()">Practice This Text</button><button onclick="document.getElementById('customText').value=''">Clear</button></div></div></section>
+    <section class="hands">
+      <div class="hand left" id="leftHand"><span class="hand-label">LEFT HAND</span><div class="palm"></div>
+        <i class="finger pinky" data-f="lp"></i><i class="finger ring" data-f="lr"></i><i class="finger middle" data-f="li"></i><i class="finger index" data-f="li"></i><i class="finger thumb" data-f="th"></i>
+      </div>
+      <div class="hand right" id="rightHand"><span class="hand-label">RIGHT HAND</span><div class="palm"></div>
+        <i class="finger thumb" data-f="th"></i><i class="finger index" data-f="ri"></i><i class="finger middle" data-f="ri"></i><i class="finger ring" data-f="rr"></i><i class="finger pinky" data-f="rp"></i>
+      </div>
+    </section>
 
-<section id="history" class="view"><div class="card"><h2 style="margin-top:0">History & Analytics</h2><p>Results are stored locally in this browser.</p><div class="toolbar"><button onclick="exportHistory()">Export CSV</button><button class="danger" onclick="resetHistory()">Reset History</button></div><div style="overflow:auto"><table class="table"><thead><tr><th>Date</th><th>Mode</th><th>WPM</th><th>Accuracy</th><th>Errors</th><th>Duration</th></tr></thead><tbody id="historyBody"></tbody></table></div></div></section>
+    <aside class="progress-panel">
+      <div class="progress-title">▥ YOUR PROGRESS</div>
+      <div class="bars" id="bars"><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i></div>
+      <div class="side-label">TIME</div><div class="side-time" id="time">00:00</div>
+      <div class="side-label">WPM</div><div class="side-value" id="wpm">0</div>
+      <div class="side-label">ACCURACY</div><div class="side-value" id="accuracy">100%</div>
+      <div class="side-label">ERRORS</div><div class="side-value" id="errors">0</div>
+      <div class="spacer"></div>
+      <button class="side-btn next" id="nextBtn">Next</button>
+      <button class="side-btn back" id="backBtn">Back</button>
+    </aside>
 
-<section id="settings" class="view"><div class="card"><h2 style="margin-top:0">Settings</h2><div class="setting-row"><span>Sound effects</span><input type="checkbox" id="sound" checked></div><div class="setting-row"><span>Show on-screen keyboard</span><input type="checkbox" id="showKeyboard" checked></div><div class="setting-row"><span>Font size</span><select id="fontSize"><option value="18">18 px</option><option value="20" selected>20 px</option><option value="22">22 px</option><option value="25">25 px</option></select></div><div class="setting-row"><span>Auto-save results</span><input type="checkbox" id="autosave" checked></div></div></section>
-<footer>ONESTOP Typing Master • ONESTOP Computer & Skill Development Center</footer>
-</main></div></div><div class="toast" id="toast"></div>
+    <div class="controls">
+      <select id="level">
+        <option value="home">Basic 1 — ASDFG / HJKL;</option>
+        <option value="top">Basic 2 — QWERTY / UIOP</option>
+        <option value="bottom">Basic 3 — ZXCV / BNM</option>
+        <option value="full">Basic 4 — Full Letters</option>
+        <option value="words">Intermediate — Words</option>
+        <option value="paragraph">Advanced — Paragraph</option>
+      </select>
+      <button class="start" id="startBtn">Start / Restart</button>
+      <button class="clear" id="clearBtn">Clear</button>
+    </div>
+  </main>
+</section>
+</div>
 
 <script>
-const texts={
-home:"asdfg hjkl; asdfg hjkl; asdfg fdsa hjkl; lkjh; aa ss dd ff gg hh jj kk ll ;; as df gh hj kl ;l",
-top:"qwerty uiop qwerty uiop qw er ty ui op we rt yu io po qi wo ei ru to yp",
-bottom:"zxcv bnm, zxcv bnm, zx cv bn m, xc vb nm mz cx bv mn",
-beginner:"asdf jkl; sad dad lad ask all fall flask; the quick brown fox jumps over the lazy dog.",
-intermediate:"The quick brown fox jumps over the lazy dog. Good typing is built with correct finger placement, steady rhythm, and careful accuracy.",
-advanced:"Technology changes quickly, but strong keyboard skills remain useful for study, office work, coding, research, and everyday digital communication.",
-punctuation:"Hello, world! Can you type accurately? Practice commas, periods, apostrophes, quotes, colons: and semicolons; then try brackets (like these).",
-numbers:"2026 12345 67890 42 108 365 1000 2500 9999 3.14159 10% 50% 75% 100%",
-code:"const user = { name: 'ONESTOP', skill: 'typing' }; function speed(text){ return text.length / 5; } console.log('Practice every day!');"
-};
-const words="apple orange keyboard computer school student practice accuracy speed master window browser internet digital center village future learning typing lesson keyboard mouse screen website code science history world technology".split(" ");
-let history=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]"), timerId=null, startTime=0, running=false, target="", lastKey="";
 const $=id=>document.getElementById(id);
-function toast(s){$("toast").textContent=s;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
-let previousView="home";
-function showView(id){
-const current=document.querySelector(".view.active")?.id||"home";
-if(current!==id) previousView=current;
-document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
-$(id).classList.add("active");
-document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===id));
-const immersive=(id==="practice");
-$("layout").classList.toggle("practice-mode",immersive);
-$("layout").classList.remove("open");
-$("backBtn").style.display=immersive?"inline-flex":"none";
-if(id==="history")renderHistory();
-if(id==="home")updateDash();
-if(immersive)setTimeout(()=>$("input").focus(),50);
-}
-document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
-$("menuBtn").onclick=()=>{
-  if($("layout").classList.contains("practice-mode")){
-    showView(previousView==="practice"?"home":previousView);
-  }else{
-    $("layout").classList.toggle("open");
-  }
+const fingers={q:"lp",a:"lp",z:"lp",w:"lr",s:"lr",x:"lr",e:"li",d:"li",c:"li",r:"li",f:"li",v:"li",t:"li",g:"li",b:"li",y:"ri",h:"ri",n:"ri",u:"ri",j:"ri",m:"ri",i:"rr",k:"rr",",":"rr",o:"rr",l:"rr",".":"rr",">":"rr",p:"rp",";":"rp","/":"rp","?":"rp","[":"rp","]":"rp","-":"rp","=":"rp"," ":"th","1":"lp","2":"lr","3":"li","4":"li","5":"li","6":"ri","7":"ri","8":"ri","9":"rr","0":"rp"};
+const rows=["1234567890-=","qwertyuiop[]\\","asdfghjkl;'","zxcvbnm,./"];
+const texts={
+ home:"asdfg hjkl; asdfg fdsa hjkl; aa ss dd ff gg hh jj kk ll ;; as df gh hj kl ;l",
+ top:"qwerty uiop qw er ty yu ui io op qi wo ei ru to yp",
+ bottom:"zxcv bnm zxcv bnm zx cv bn nm xc vb",
+ full:"asdf jkl; sad dad lad ask flask fall all the quick brown fox jumps",
+ words:"the quick brown fox jumps over the lazy dog. good typing needs correct finger placement.",
+ paragraph:"Good typing is built with correct finger placement, steady rhythm, careful accuracy, and relaxed hands."
 };
-$("backBtn").onclick=()=>showView(previousView==="practice"?"home":previousView);
-$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");document.body.style.background=document.body.classList.contains("dark")?"#081827":"var(--bg)"};
-$("focusBtn").onclick=()=>document.documentElement.requestFullscreen?.();
-function makeKeyboard(){const fingerMap={q:'lp',a:'lp',z:'lp',w:'lr',s:'lr',x:'lr',e:'li',d:'li',c:'li',r:'li',f:'li',v:'li',t:'li',g:'li',b:'li',y:'ri',h:'ri',n:'ri',u:'ri',j:'ri',m:'ri',i:'rr',k:'rr',',':'rr','<':'rr',o:'rr',l:'rr','.':'rr','>':'rr',p:'rp',';':'rp','/':'rp','?':'rp','[':'rp',']':'rp','-':'rp','=':'rp','1':'lp','2':'lr','3':'li','4':'li','5':'li','6':'ri','7':'ri','8':'ri','9':'rr','0':'rp','\\\\':'rp',"'":'rp'};const names={lp:'Left little',lr:'Left ring',li:'Left index',ri:'Right index',rr:'Right ring',rp:'Right little'};const rows=["1234567890-=","qwertyuiop[]\\\\","asdfghjkl;'","zxcvbnm,./"];let html='<div class="keyboard-guide"><span class="finger-chip finger-lp">L Little</span><span class="finger-chip finger-lr">L Ring</span><span class="finger-chip finger-li">L Index</span><span class="finger-chip finger-ri">R Index</span><span class="finger-chip finger-rr">R Ring</span><span class="finger-chip finger-rp">R Little</span><span class="next-finger" id="nextFinger">Next key</span></div><div class="keys">';rows.forEach(r=>{html+='<div class="row">';[...r].forEach(k=>{const f=fingerMap[k]||'ri';html+=`<div class="key finger-${f}" data-key="${escapeHtml(k)}" data-finger="${f.toUpperCase()}">${escapeHtml(k)}</div>`});html+='</div>'});html+='<div class="row"><div class="key w4 finger-thumb" data-key=" " data-finger="TH">SPACE</div></div></div>';$('keyboard').innerHTML=html}
-const keyEls={};
-let activeKeyEl=null;
-makeKeyboard();
-cacheKeys();
-function buildText(level){
-  const base=texts[level]||texts.intermediate;
-  if(level==="home"||level==="top"||level==="bottom"){
-    let out="";
-    while(out.length<420) out+=base+" ";
-    return out.trim();
-  }
-  let out="";
-  while(out.length<1300) out+=base+" ";
-  return out.trim();
+const names={lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",th:"Thumb"};
+let target="",started=false,startTime=0,timer=null,errors=0;
+function keyForChar(ch){return (ch||"").toLowerCase()}
+function buildTarget(level){
+ let base=texts[level]||texts.home;
+ if(["home","top","bottom"].includes(level)){let s="";while(s.length<70)s+=base+" ";return s.trim()}
+ let s="";while(s.length<240)s+=base+" ";return s.trim()
 }
-let promptReady=false,lastRenderedValue="";
-function renderPrompt(force=false){
-  const val=$("input").value;
-  const box=$("promptText");
-  if(force||!promptReady||box.children.length!==target.length){
-    const frag=document.createDocumentFragment();
-    for(let i=0;i<target.length;i++){
-      const s=document.createElement("span");
-      s.dataset.i=i;
-      s.textContent=target[i];
-      frag.appendChild(s);
-    }
-    box.replaceChildren(frag);
-    promptReady=true;
-  }
-  const spans=box.children;
-  for(let i=0;i<spans.length;i++){
-    spans[i].className="";
-    if(i<val.length){
-      spans[i].className=(val[i]===target[i])?"correct":"wrong";
-    }
-  }
-  const cur=spans[val.length];
-  if(cur && running) cur.className="current";
-  lastRenderedValue=val;
+function keyClass(k){return "f-"+(fingers[k]||"ri")}
+function makeKeyboard(){
+ let html="";
+ rows.forEach(row=>{html+="<div class='keyrow'>";[...row].forEach(k=>{
+   html+="<button class='key "+keyClass(k)+"' data-key='"+k.replace(/'/g,"&#39;")+"'>"+k.replace(/</g,"&lt;")+"<i class='dot dot-"+(fingers[k]||"ri")+"'></i></button>";
+ });html+="</div>"});
+ html+="<div class='keyrow'><button class='key space f-th' data-key=' '>SPACE<i class='dot dot-th'></i></button></div>";
+ $("keyboard").innerHTML=html;
+ document.querySelectorAll(".key").forEach(k=>k.addEventListener("click",()=>typeKey(k.dataset.key)));
 }
-function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function startPractice(custom=false){
-  clearInterval(timerId);
-  running=false;
-  $("input").value="";
-  target=custom?($("customText").value.trim()||texts.intermediate):buildText($("level").value);
-  promptReady=false;
-  lastRenderedValue="";
-  $("wpm").textContent=0;
-  $("raw").textContent=0;
-  $("acc").textContent="100%";
-  $("errors").textContent=0;
-  $("combo").textContent=0;
-  $("progress").textContent=`0 / ${target.length} characters`;
-  $("timer").textContent="0:00";
-  $("sideTimer").textContent="0:00";
-  $("sideWpm").textContent="0";
-  $("sideAcc").textContent="100%";
-  renderPrompt(true);
-  highlightKey();
-  $("input").focus();
+function renderTarget(){
+ const pos=$("input")?.value.length||0;
+ const start=Math.max(0,pos-2), chars=target.slice(start,start+8);
+ $("targetLine").innerHTML=chars.map((ch,i)=>{
+   const idx=start+i, f=fingers[ch.toLowerCase()]||"ri";
+   return "<span class='target-key "+(idx===pos?"current ":"")+(idx<pos?"done ":"")+(ch===" "?"space":"")+"'>"+(ch===" "?"SPACE":ch)+"<i class='dot dot-"+f+"'></i></span>";
+ }).join("");
 }
-$("startBtn").onclick=()=>{startPractice();highlightKey()};
-$("clearBtn").onclick=()=>{startPractice();highlightKey()};
-$("input").addEventListener("input",()=>{const val=$("input").value,idx=val.length-1;if(!running){running=true;startTime=Date.now();if($("mode").value==="time"){let end=+$("duration").value;timerId=setInterval(()=>{let left=end-(Date.now()-startTime)/1000;if(left<=0){finish();return}$("timer").textContent=formatTime(end-left);$("sideTimer").textContent=formatTime(end-left)},100)}else timerId=setInterval(()=>updateStats(),100)}const typed=idx>=0?val[idx].toLowerCase():"";const expected=idx>=0?(target[idx]||"").toLowerCase():"";if(typed&&typed!==expected){const bad=keyEls[keyForChar(typed)];if(bad){bad.classList.remove("error");void bad.offsetWidth;bad.classList.add("error");setTimeout(()=>bad.classList.remove("error"),500)}}updateStats();renderPrompt(false);highlightKey()});
-function updateStats(){let val=$("input").value,elapsed=Math.max(.001,(Date.now()-startTime)/1000),correct=0,errors=0;for(let i=0;i<val.length;i++)val[i]===target[i]?correct++:errors++;let mins=elapsed/60,wpm=Math.floor(correct/5/mins),raw=Math.floor(val.length/5/mins),acc=val.length?Math.round(correct/val.length*100):100;$("wpm").textContent=Math.max(0,wpm);$("sideWpm").textContent=Math.max(0,wpm);$("sideAcc").textContent=acc+"%";$("sideTimer").textContent=formatTime(elapsed);$("raw").textContent=Math.max(0,raw);$("acc").textContent=acc+"%";$("errors").textContent=errors;$("combo").textContent=correct-errors>0?Math.max(0,correct-errors):0;$("progress").textContent=`${val.length} / ${target.length} characters`;if($("mode").value==="words"&&val.trim().split(/\\s+/).filter(Boolean).length>=+($("duration").value||25))finish();if(val.length>=target.length)finish()}
-function finish(){if(!running)return;running=false;clearInterval(timerId);updateStats();let elapsed=Math.max(1,(Date.now()-startTime)/1000),r={date:new Date().toLocaleString(),mode:$("mode").value,wpm:+$("wpm").textContent,accuracy:+$("acc").textContent.replace("%",""),errors:+$("errors").textContent,duration:Math.round(elapsed)};if($("autosave").checked!==false){history.unshift(r);history=history.slice(0,200);localStorage.setItem("onestopTypingHistory",JSON.stringify(history))}toast(`Finished — ${r.wpm} WPM • ${r.accuracy}% accuracy`);updateDash()}
-function formatTime(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
-function cacheKeys(){Object.keys(keyEls).forEach(k=>delete keyEls[k]);document.querySelectorAll(".key").forEach(k=>keyEls[k.dataset.key]=k)}
-function keyForChar(ch){return ch===" "?" ":ch.toLowerCase()}
-function virtualType(ch){
-  const input=$("input");
-  if(!target) return;
-  input.focus();
-  const pos=input.selectionStart==null?input.value.length:input.selectionStart;
-  const end=input.selectionEnd==null?pos:input.selectionEnd;
-  input.setRangeText(ch,pos,end,"end");
-  input.dispatchEvent(new Event("input",{bubbles:true}));
+function highlight(){
+ document.querySelectorAll(".key").forEach(k=>k.classList.remove("active"));
+ document.querySelectorAll(".finger").forEach(f=>f.classList.remove("active"));
+ const ch=target[$("input").value.length]||"";
+ const k=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===ch);
+ if(k)k.classList.add("active");
+ const f=fingers[ch.toLowerCase()]||"";
+ if(f)document.querySelectorAll("[data-f='"+f+"']").forEach(x=>x.classList.add("active"));
+ renderTarget();
 }
-$("keyboard").addEventListener("click",e=>{
-  const key=e.target.closest(".key");
-  if(key) virtualType(key.dataset.key||"");
-});
-function fingerName(f){return({lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",thumb:"Thumb"})[f]||"Finger"}
-function renderTargetStrip(){
-  const a=$("targetSeq"), b=$("targetSeq2");
-  if(!a||!b)return;
-  const pos=$("input").value.length, start=Math.max(0,pos-4);
-  const chars=target.slice(start,start+8);
-  const html=chars.map((ch,i)=>{
-    const idx=start+i, key=keyEls[keyForChar(ch)], f=key?key.dataset.finger.toLowerCase():"thumb";
-    const cls=(idx===pos?" current":"")+(idx<pos?" done":"")+(ch===" "?" space":"");
-    const dot=f==="th"?"thumb":f;
-    return '<span class="target-letter'+cls+'" data-index="'+idx+'">'+(ch===" "?"SPACE":escapeHtml(ch))+'<i class="dot dot-'+dot+'"></i></span>';
-  }).join("");
-  a.innerHTML=html;
-  const chars2=target.slice(pos+8,pos+16);
-  b.innerHTML=chars2.map((ch,i)=>{
-    const key=keyEls[keyForChar(ch)], f=key?key.dataset.finger.toLowerCase():"thumb";
-    return '<span class="target-letter'+(ch===" "?" space":"")+'">'+(ch===" "?"SPACE":escapeHtml(ch))+'<i class="dot dot-'+(f==="th"?"thumb":f)+'"></i></span>';
-  }).join("");
+function start(){
+ clearInterval(timer);started=false;errors=0;$("input")?.remove();
+ const ta=document.createElement("textarea");ta.id="input";ta.setAttribute("aria-label","Typing input");
+ ta.style.cssText="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0";
+ document.body.appendChild(ta);
+ target=buildTarget($("level").value);$("time").textContent="00:00";$("wpm").textContent="0";$("accuracy").textContent="100%";$("errors").textContent="0";
+ renderTarget();highlight();ta.focus();
+ ta.addEventListener("input",onInput);
 }
-function updateHandGuide(){
-  document.querySelectorAll("[data-hand-finger]").forEach(x=>x.classList.remove("active"));
-  const ch=(target[$("input").value.length]||"").toLowerCase();
-  const el=keyEls[keyForChar(ch)];
-  if(!el) return;
-  const f=el.dataset.finger==="TH"?"thumb":el.dataset.finger.toLowerCase();
-  document.querySelectorAll('[data-hand-finger="'+f+'"]').forEach(x=>x.classList.add("active"));
+function onInput(){
+ const ta=$("input"),v=ta.value,pos=v.length-1,expected=(target[pos]||"").toLowerCase(),typed=(v[pos]||"").toLowerCase();
+ if(!started){started=true;startTime=Date.now();timer=setInterval(update,100)}
+ if(typed&&typed!==expected){errors++;const k=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===v[pos]);if(k){k.classList.add("error");setTimeout(()=>k.classList.remove("error"),180)}}
+ update();highlight();
+ if(v.length>=target.length){clearInterval(timer);started=false}
 }
-function highlightKey(){
-  renderTargetStrip();
-  const typed=$("input").value;
-  const next=target[typed.length]||"";
-  if(activeKeyEl)activeKeyEl.classList.remove("active");
-  const nextEl=keyEls[keyForChar(next)];
-  activeKeyEl=nextEl||null;
-  updateHandGuide();
-  if(nextEl){
-    nextEl.classList.add("active");
-    $("nextFinger").textContent="Next: "+(next===" "?"SPACE":next.toUpperCase())+" • "+fingerName(nextEl.dataset.finger==="TH"?"thumb":nextEl.dataset.finger.toLowerCase());
-  }else $("nextFinger").textContent="Finished";
+function update(){
+ const v=$("input")?.value||"",elapsed=started?Math.max(1,(Date.now()-startTime)/1000):Math.max(1,(Date.now()-startTime)/1000);
+ $("time").textContent=Math.floor(elapsed/60).toString().padStart(2,"0")+":"+Math.floor(elapsed%60).toString().padStart(2,"0");
+ const wpm=Math.round((v.length/5)/(elapsed/60));$("wpm").textContent=isFinite(wpm)?wpm:0;
+ const good=Math.max(0,v.length-errors);$("accuracy").textContent=(v.length?Math.max(0,Math.round(good/v.length*100)):100)+"%";$("errors").textContent=errors;
 }
-$("showKeyboard").onchange=e=>$("keyboard").style.display=e.target.checked?"block":"none";
-$("sideBackBtn").onclick=()=>showView("home");
-$("sideNextBtn").onclick=()=>{let i=$("level").selectedIndex;if(i<$("level").options.length-1){$("level").selectedIndex=i+1;startPractice();toast("Next level loaded")}};
-$("fontSize").onchange=e=>{$("prompt").style.fontSize=e.target.value+"px";$("input").style.fontSize=e.target.value+"px"};
-function updateDash(){let best=history.reduce((a,b)=>Math.max(a,b.wpm||0),0),acc=history.length?Math.max(...history.map(x=>x.accuracy||0)):0,time=Math.round(history.reduce((a,b)=>a+(b.duration||0),0)/60);$("dashBest").textContent=best;$("homeWpm").textContent=best+" WPM";$("dashAcc").textContent=acc+"%";$("dashTime").textContent=time+"m";$("dashTests").textContent=history.length;$("testBest").textContent=best;$("testSessions").textContent=history.length;$("testAvg").textContent=history.length?Math.round(history.reduce((a,b)=>a+b.wpm,0)/history.length):0}
-function renderHistory(){$("historyBody").innerHTML=history.map(x=>`<tr><td>${escapeHtml(x.date)}</td><td>${x.mode}</td><td>${x.wpm}</td><td>${x.accuracy}%</td><td>${x.errors}</td><td>${x.duration}s</td></tr>`).join("")||'<tr><td colspan="6">No results yet.</td></tr>'}
-function resetHistory(){if(confirm("Reset all local typing history?")){history=[];localStorage.removeItem("onestopTypingHistory");renderHistory();updateDash()}}
-function exportHistory(){let csv="Date,Mode,WPM,Accuracy,Errors,Duration\\n"+history.map(x=>`"${x.date}",${x.mode},${x.wpm},${x.accuracy},${x.errors},${x.duration}`).join("\\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));a.download="onestop-typing-history.csv";a.click()}
-function useCustom(){showView("practice");$("mode").value="unlimited";startPractice(true)}
-function startTest(){showView("practice");$("mode").value="time";$("duration").value=$("testDuration").value;startPractice()}
-const lessons=[
-["Home Row","ASDF JKL;","Learn the correct resting position of your fingers."],["Home Row + GH","ASDFGH JKL;","Add G and H without moving your hands."],["Top Row","QWERTY UIOP","Build reach to the top row."],["Bottom Row","ZXCV BNM","Build controlled movement on the bottom row."],["Common Words","the and you for","Type common words without looking."],["Letter Pairs","th he in er an re","Train common letter combinations."],["Capitals","Shift + letters","Use both Shift keys correctly."],["Punctuation",".,!? :; ' \"","Develop punctuation accuracy."],["Numbers","1234567890","Practice number-row typing."],["Advanced","paragraphs + symbols","Maintain rhythm with complex text."],["Code","{} [] () => ;","Practice programming symbols."],["Mastery","full keyboard","Combine speed, accuracy and consistency."]
-];
-$("lessonGrid").innerHTML=lessons.map((l,i)=>`<div class="lesson"><div class="level">${String(i+1).padStart(2,"0")}</div><h3>${l[0]}</h3><b>${l[1]}</b><p style="margin-top:7px">${l[2]}</p><button onclick="lessonStart(${i})">Start Lesson</button></div>`).join("");
-function lessonStart(i){
-let lessonLevel=i===0||i===1?"home":i===2?"top":i===3?"bottom":i<8?"intermediate":"advanced";
-let t=lessons[i][1]+" "+lessons[i][2]+" ";
-showView("practice");
-target=(t+" "+buildText(lessonLevel)).repeat(4);$("mode").value="unlimited";$("input").value="";renderPrompt();$("input").focus();toast("Lesson loaded — start typing")}
-let gameTimer=null,gameScore=0,gameType="";
-function startGame(type){gameType=type;gameScore=0;clearInterval(gameTimer);$("gameBox").innerHTML=`<div class="game-area"><div class="game-hud"><span id="gameStatus">Ready</span><b>Score: <span id="gameScore">0</span></b></div><div class="game-word" id="gameWord">START</div><input class="game-input" id="gameInput" autocomplete="off" placeholder="Type here..."></div>`;let gi=$("gameInput");gi.focus();let word=()=>type==="key"?[..."abcdefghijklmnopqrstuvwxyz"][Math.floor(Math.random()*26)]:words[Math.floor(Math.random()*words.length)];$("gameWord").textContent=word();let start=Date.now();gameTimer=setInterval(()=>{let left=60-(Date.now()-start)/1000;$("gameStatus").textContent="Time "+formatTime(left);if(left<=0){clearInterval(gameTimer);gi.disabled=true;$("gameStatus").textContent="Finished";toast("Game over — Score "+gameScore)}},100);gi.oninput=()=>{let need=$("gameWord").textContent.toLowerCase(),got=gi.value.toLowerCase();if(got===need){gameScore++;$("gameScore").textContent=gameScore;gi.value="";$("gameWord").textContent=word()}}}
-$("mode").onchange=()=>{$("duration").disabled=$("mode").value==="unlimited"};
-updateDash();startPractice();
+function typeKey(ch){
+ const ta=$("input");if(!ta)return;
+ const pos=ta.selectionStart||ta.value.length;ta.setRangeText(ch,pos,ta.selectionEnd||pos,"end");ta.dispatchEvent(new Event("input",{bubbles:true}));ta.focus()
+}
+$("startBtn").onclick=start;$("clearBtn").onclick=start;
+$("level").onchange=start;
+$("nextBtn").onclick=()=>{let i=$("level").selectedIndex;if(i<$("level").options.length-1){$("level").selectedIndex=i+1;start()}};
+$("backBtn").onclick=()=>{clearInterval(timer);window.history.back()};
+makeKeyboard();start();
 </script>
-</body></html>
+</body>
+</html>
