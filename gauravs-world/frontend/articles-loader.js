@@ -27,7 +27,7 @@
     #posts .post{display:flex;align-items:center;gap:12px;min-width:0;background:#fff;border:1px solid #e5eaf1;border-radius:10px;overflow:hidden;padding:8px}
     #posts .post-cover-link{display:block;position:relative;flex:0 0 104px;width:104px;height:78px;aspect-ratio:4/3;overflow:hidden;background:#eaf0f6;border-radius:7px}
     #posts .post-cover-link>a{display:block;width:100%;height:100%}
-    #posts .post-cover{display:block;width:100%;height:100%;object-fit:cover}
+    #posts .post-cover{display:block;width:100%;height:100%;object-fit:contain;background:#eaf0f6}
     #posts .post-content{flex:1 1 0;min-width:0;display:flex;align-items:center;padding:6px 8px 6px 0}
     #posts .post h2{margin:0;font-size:.95rem;line-height:1.25}
     #posts .post-actions{right:4px;bottom:4px;gap:4px}
