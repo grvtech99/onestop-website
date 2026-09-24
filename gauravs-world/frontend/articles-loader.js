@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json';
+  const MANIFEST_URL = './data/articles.json?v=20260924-2';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -31,12 +31,12 @@
     #posts .post-cover-link>a{display:block;width:100%;height:100%}
     #posts .post-cover{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#eaf0f6}
     #posts .post-content{flex:1 1 0;min-width:0;display:flex;align-items:center;padding:6px 8px 6px 0}
-    #posts .post h2{margin:0;font-size:.95rem;line-height:1.25}
+    #posts .post h2{margin:0;font-size:.95rem;line-height:1.25} #posts .post-meta{margin-top:3px;color:#64748b;font-size:.67rem;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #posts .post-meta .author{color:#075da8;font-weight:700}
     #posts .post-actions{right:4px;bottom:4px;gap:4px}
     #posts .post-action{width:26px;height:26px}
     #posts .post-action svg{width:14px;height:14px}
     @media(max-width:800px){#posts .featured-story{grid-template-columns:1fr}#posts .featured-media,#posts .featured-media img{min-height:180px;max-height:250px}#posts .section-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
-    @media(max-width:560px){#posts .featured-story{margin-bottom:18px;border-radius:12px}#posts .featured-media,#posts .featured-media img{min-height:175px;max-height:210px}#posts .featured-copy{padding:16px}#posts .featured-label{margin-bottom:9px}#posts .featured-title{font-size:1.25rem;margin-bottom:9px}#posts .featured-summary{font-size:.86rem;margin-bottom:13px;-webkit-line-clamp:3}#posts .home-section{margin:12px 0 18px}#posts .section-head h2{font-size:.94rem}#posts .section-grid{display:flex;flex-direction:column;gap:0}#posts .post{gap:10px;width:100%;border:0;border-bottom:1px solid #e5eaf1;border-radius:0;background:transparent;padding:5px 2px;min-height:0}#posts .post-cover-link{flex-basis:104px;width:104px;height:59px;aspect-ratio:16/9}#posts .post-content{padding:6px 4px 6px 0}#posts .post h2{font-size:.8rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#posts .post-action{width:23px;height:23px}}
+    @media(max-width:560px){#posts .featured-story{margin-bottom:18px;border-radius:12px}#posts .featured-media,#posts .featured-media img{min-height:175px;max-height:210px}#posts .featured-copy{padding:16px}#posts .featured-label{margin-bottom:9px}#posts .featured-title{font-size:1.25rem;margin-bottom:9px}#posts .featured-summary{font-size:.86rem;margin-bottom:13px;-webkit-line-clamp:3}#posts .home-section{margin:12px 0 18px}#posts .section-head h2{font-size:.94rem}#posts .section-grid{display:flex;flex-direction:column;gap:0}#posts .post{gap:10px;width:100%;border:0;border-bottom:1px solid #e5eaf1;border-radius:0;background:transparent;padding:5px 2px;min-height:0}#posts .post-cover-link{flex-basis:104px;width:104px;height:59px;aspect-ratio:16/9}#posts .post-content{padding:6px 4px 6px 0}#posts .post h2{font-size:.8rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#posts .post-action{width:23px;height:23px}#posts .post-meta{font-size:.6rem;margin-top:2px}}
   `;
   document.head.appendChild(style);
   const fallbackArticles = Array.isArray(window.articles) ? window.articles.slice() : [];
@@ -49,7 +49,7 @@
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
     const image=String(a.image||a.coverImage||a.thumbnail||'');
     const media=image?`<div class=\"post-cover-link\"><img class=\"post-cover-bg\" src=\"${esc(image)}\" alt=\"\" aria-hidden=\"true\" loading=\"lazy\" decoding=\"async\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image)}\" alt=\"${esc(a.title)}\" loading=\"lazy\" decoding=\"async\"></a><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
-    return `<article class=\"post\">${media}<div class=\"post-content\"><h2><a class=\"post-title\" href=\"${esc(href)}\">${esc(a.title)}</a></h2></div></article>`;
+    const metaParts=[];if(a.author)metaParts.push(`<span class="author">${esc(a.author)}</span>`);const published=a.publishedAt||a.date||'';if(published){const d=new Date(published);metaParts.push(Number.isNaN(d.getTime())?esc(published):esc(new Intl.DateTimeFormat('hi-IN',{day:'numeric',month:'short',year:'numeric'}).format(d)));}const meta=metaParts.length?`<div class="post-meta" aria-label="लेखक और प्रकाशित तारीख">${metaParts.join(' · ')}</div>`:'';return `<article class="post">${media}<div class="post-content"><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2>${meta}</div></article>`;
   }
   function featured(a){
     if(!a)return '';
