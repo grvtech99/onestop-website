@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Free 1Click Calculator by ONESTOP — multiple everyday calculators in one smart tool.">
+<title>Free 1Click Calculator | ONESTOP</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:Arial,"Segoe UI",sans-serif;background:#eef6ff;color:#14213d}
+:root{--blue:#0757c9;--line:#d8e6f7;--muted:#687992;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+.app{height:100dvh;display:grid;grid-template-rows:56px 1fr 25px}.top{background:#fff;border-bottom:1px solid #e2eafa}.nav{height:56px;max-width:1180px;margin:auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;color:#0757c9}.brand strong{display:block;font-size:22px;font-weight:900;line-height:1}.brand small{display:block;font-size:8px;letter-spacing:.8px;font-weight:800;margin-top:4px}.home{background:var(--grad);color:#fff;padding:8px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:800}
+main{min-height:0;display:flex;align-items:center;justify-content:center;padding:8px 12px}.panel{width:min(1050px,100%);height:min(690px,calc(100dvh - 89px));display:grid;grid-template-rows:auto 1fr auto;gap:8px}.hero{background:var(--grad);color:#fff;border-radius:15px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}.hero h1{margin:0;font-size:clamp(20px,3.5vw,34px)}.hero p{margin:3px 0 0;font-size:11px}.badge{background:#ffffff24;border:1px solid #ffffff45;padding:7px 10px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
+.work{min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;box-shadow:0 5px 18px #06265f0b;min-height:0}.tool-card{display:flex;flex-direction:column;min-height:0}.tool-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}.tool-head label{font-size:9px;font-weight:900;color:#526681}.select{width:100%;height:40px;border:1px solid #cbd9e9;border-radius:9px;background:#fff;color:#14213d;padding:0 10px;font-size:12px;font-weight:800}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:8px;overflow:auto;min-height:0;padding-right:1px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field input,.field select{width:100%;height:36px;border:1px solid #cbd9e9;border-radius:8px;padding:0 8px;background:#fff;color:#14213d;font-size:12px}.field input:focus,.field select:focus,.select:focus{outline:2px solid #b7d4fa;outline-offset:1px}
+.actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:8px}.calc,.clear{border:0;border-radius:9px;height:40px;font-weight:900;cursor:pointer}.calc{background:var(--grad);color:#fff;box-shadow:0 5px 13px #0757c933}.clear{background:#fff0f0;color:#c62828}
+.result-card{display:flex;flex-direction:column;min-height:0}.result-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}.result-head strong{font-size:13px}.result-head span{font-size:9px;color:var(--muted);font-weight:700}.result{background:#f7fbff;border:1px solid var(--line);border-radius:10px;padding:12px;line-height:1.65;overflow:auto;min-height:120px;flex:1}.result .hero-value{font-size:20px;font-weight:900;color:var(--blue);margin-bottom:5px}.row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #e3edf8;padding:7px 0}.row:first-of-type{border-top:0}.row b{color:#14213d}.hint{margin-top:7px;color:var(--muted);font-size:9px;line-height:1.4}.note{font-size:9px;color:#6b7890}.foot{text-align:center;color:#8b98ab;font-size:9px;padding:5px 8px}
+@media(max-width:700px){
+.app{grid-template-rows:52px minmax(0,1fr) 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}.panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}
+.work{grid-template-columns:1fr;grid-template-rows:minmax(125px,17vh) minmax(0,1fr);gap:6px}.card{padding:8px;border-radius:11px}.result-card{min-height:0}.tool-card{min-height:0;overflow:hidden}.result{min-height:0;padding:9px}.form{gap:6px}.field label{font-size:8px}.field input,.field select{height:34px;font-size:11px}.select{height:36px;font-size:11px}.actions{grid-template-columns:1fr 78px;gap:6px}.calc,.clear{height:36px;font-size:10px}.result-head strong{font-size:11px}.result-head span{font-size:8px}.hero-value{font-size:18px!important}.hint,.note{font-size:8px}.foot{font-size:8px}
+}
+@media(max-width:390px){.hero p,.badge{display:none}.work{grid-template-rows:minmax(118px,16vh) minmax(0,1fr)}.brand small{font-size:6.5px}.form{grid-template-columns:1fr 1fr}.field input,.field select{height:32px}.result{font-size:11px}.row{padding:5px 0}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="nav"><a class="brand" href="../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">⌂ Home</a></div></header>
+<main><section class="panel">
+<section class="hero"><div><h1>Free 1Click Calculator</h1><p>10 Everyday Calculators • Smart Inputs • Clear Outputs • Browser Based</p></div><div class="badge">100% LOCAL</div></section>
+<section class="work">
+<div class="card tool-card">
+<div class="tool-head"><label for="type">SELECT CALCULATOR</label></div>
+<select id="type" class="select" aria-label="Select calculator"></select>
+<div id="form" class="form" style="margin-top:8px"></div>
+<div class="actions"><button id="calc" class="calc">Calculate</button><button id="clear" class="clear">Clear</button></div>
+</div>
+<div class="card result-card">
+<div class="result-head"><strong id="resultTitle">Result</strong><span id="resultHint">Enter values</span></div>
+<div id="result" class="result" aria-live="polite">Select a calculator and enter the required values. Every calculator keeps its own input and output structure.</div>
+<div id="hint" class="hint"></div>
+</div>
+</section>
+<section class="card" style="padding:7px 11px"><div class="note"><b>Privacy:</b> Calculations run locally in your browser. No financial or personal calculation data is uploaded.</div></section>
+</section></main><footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Calculator</footer>
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>'₹'+Number(n).toLocaleString('en-IN',{maximumFractionDigits:2});
+const num=v=>Number(v);
+const calculators={
+age:{name:'🎂 Age Calculator',hint:'Calculate exact age as of a selected date.',fields:[
+ ['dob','Date of birth','date','', 'full'],['asof','Calculate as of','date','', 'full']],calc(v){
+  if(!v.dob||!v.asof)return err('Please enter both dates.');let b=new Date(v.dob+'T00:00:00Z'),x=new Date(v.asof+'T00:00:00Z');if(b>x)return err('Date of birth cannot be after the calculation date.');
+  let y=x.getUTCFullYear()-b.getUTCFullYear(),m=x.getUTCMonth()-b.getUTCMonth(),d=x.getUTCDate()-b.getUTCDate();if(d<0){m--;d+=new Date(Date.UTC(x.getUTCFullYear(),x.getUTCMonth(),0)).getUTCDate()}if(m<0){y--;m+=12}
+  return res(y+' years, '+m+' months, '+d+' days',[['Total years',(y+m/12+d/365.2425).toFixed(2)]]);
+ }},
+emi:{name:'🏦 EMI Calculator',hint:'Monthly loan payment, total interest and total payment.',fields:[['loan','Loan amount (₹)','number','0'],['rate','Annual interest rate (%)','number','0.01'],['years','Tenure (years)','number','0.1']],calc(v){
+ let P=num(v.loan),R=num(v.rate),Y=num(v.years),N=Y*12;if(!Number.isFinite(P)||P<=0||!Number.isFinite(R)||R<0||!Number.isFinite(Y)||Y<=0)return err('Enter a valid loan amount, rate and tenure.');
+ let m=R/1200,emi=m?P*m*Math.pow(1+m,N)/(Math.pow(1+m,N)-1):P/N,total=emi*N;return res(money(emi),[['Total Interest',money(total-P)],['Total Payment',money(total)],['Loan Amount',money(P)],['Tenure',Y+' years']]);
+ }},
+gst:{name:'🧾 GST Calculator',hint:'Add GST or remove GST from an inclusive amount.',fields:[['amt','Amount (₹)','number','0.01'],['rate','GST rate (%)','select','',null,['0','5','12','18','28']],['mode','Calculation','select','',null,[['add','Add GST to amount'],['remove','Remove GST from GST-inclusive amount']]]],calc(v){
+ let a=num(v.amt),r=num(v.rate);if(!Number.isFinite(a)||a<0)return err('Enter a valid amount.');
+ if(v.mode==='add'){let g=a*r/100;return res(money(a+g),[['Base Amount',money(a)],['GST',money(g)],['GST Rate',r+'%']])}
+ let base=a/(1+r/100),g=a-base;return res(money(a),[['Base Amount',money(base)],['GST included',money(g)],['GST Rate',r+'%']]);
+ }},
+percentage:{name:'📊 Percentage Calculator',hint:'Two common percentage calculations in one screen.',fields:[['p','X %','number','0.01'],['y','Y','number','0.01'],['x2','X','number','0.01'],['y2','Y for X/Y','number','0.01']],calc(v){
+ let p=num(v.p),y=num(v.y),x=num(v.x2),y2=num(v.y2);if(![p,y,x,y2].every(Number.isFinite)||y2===0)return err('Enter valid numbers. Y for the second calculation cannot be zero.');
+ return res('Percentage results',[['X% of Y',Number(p*y/100).toLocaleString('en-IN',{maximumFractionDigits:4})],['X as % of Y',((x/y2)*100).toFixed(2)+'%']]);
+ }},
+discount:{name:'🏷️ Discount Calculator',hint:'Find discount amount, final sale price and savings.',fields:[['price','Original price (₹)','number','0.01'],['disc','Discount (%)','number','0.01']],calc(v){
+ let p=num(v.price),d=num(v.disc);if(!Number.isFinite(p)||!Number.isFinite(d)||p<0||d<0||d>100)return err('Enter a valid price and discount from 0–100%.');let save=p*d/100;return res(money(p-save),[['Original Price',money(p)],['Discount',money(save)],['You Save',money(save)],['Discount Rate',d+'%']]);
+ }},
+profit:{name:'📦 Profit & Loss Calculator',hint:'Compare cost price and selling price.',fields:[['cp','Cost Price (CP) ₹','number','0.01'],['sp','Selling Price (SP) ₹','number','0.01']],calc(v){
+ let c=num(v.cp),s=num(v.sp);if(!Number.isFinite(c)||!Number.isFinite(s)||c<=0||s<0)return err('Cost price must be greater than 0 and selling price cannot be negative.');let d=s-c,p=Math.abs(d)/c*100;if(d>0)return res(money(d),[['Status','Profit'],['Profit %',p.toFixed(2)+'%'],['Cost Price',money(c)],['Selling Price',money(s)]]);if(d<0)return res(money(-d),[['Status','Loss'],['Loss %',p.toFixed(2)+'%'],['Cost Price',money(c)],['Selling Price',money(s)]]);return res('₹0',[['Status','No Profit, No Loss']]);
+ }},
+salary:{name:'💵 Salary Calculator',hint:'Estimate take-home salary from gross salary and deductions.',fields:[['gross','Monthly gross salary ₹','number','0.01'],['pf','PF deduction (%)','number','0.01','12'],['pt','Professional tax / month ₹','number','0.01','0'],['od','Other deductions / month ₹','number','0.01','0']],calc(v){
+ let g=num(v.gross),pf=num(v.pf),pt=num(v.pt),od=num(v.od);if(![g,pf,pt,od].every(Number.isFinite)||g<0||pf<0||pf>100||pt<0||od<0)return err('Please enter valid salary and deduction values.');let p=g*pf/100,total=p+pt+od,net=g-total;return res(money(net),[['Monthly Gross',money(g)],['PF Deduction',money(p)],['Total Deductions',money(total)],['Annual Gross',money(g*12)],['Annual Estimated Take-Home',money(net*12)]]);
+ }},
+simple:{name:'💰 Simple Interest Calculator',hint:'Calculate simple interest and total amount.',fields:[['p','Principal amount ₹','number','0.01'],['r','Annual interest rate (%)','number','0.01'],['t','Time (years)','number','0.01']],calc(v){
+ let p=num(v.p),r=num(v.r),t=num(v.t);if(![p,r,t].every(Number.isFinite)||p<0||r<0||t<0)return err('Enter valid non-negative values.');let si=p*r*t/100;return res(money(p+si),[['Simple Interest',money(si)],['Principal',money(p)],['Rate',r+'%'],['Time',t+' years']]);
+ }},
+compound:{name:'💹 Compound Interest Calculator',hint:'Calculate compound growth with flexible compounding frequency.',fields:[['p','Principal amount ₹','number','0.01'],['r','Annual interest rate (%)','number','0.01'],['t','Time (years)','number','0.1'],['n','Compounding','select','',null,[['1','Yearly'],['2','Half-yearly'],['4','Quarterly'],['12','Monthly'],['365','Daily']]]],calc(v){
+ let p=num(v.p),r=num(v.r),t=num(v.t),n=num(v.n);if(![p,r,t,n].every(Number.isFinite)||p<0||r<0||t<0||n<=0)return err('Enter valid non-negative values.');let a=p*Math.pow(1+r/100/n,n*t),ci=a-p;return res(money(a),[['Interest Earned',money(ci)],['Principal',money(p)],['Rate',r+'%'],['Compounding',document.querySelector('#n option:checked')?.textContent||'Selected']]);
+ }},
+sip:{name:'📈 SIP Calculator',hint:'Estimate invested amount, returns and future value.',fields:[['p','Monthly investment ₹','number','0.01'],['r','Expected annual return (%)','number','0.1'],['n','Investment period (years)','number','1']],calc(v){
+ let P=num(v.p),R=num(v.r),Y=num(v.n),N=Y*12;if(!Number.isFinite(P)||P<=0||!Number.isFinite(R)||R<0||!Number.isFinite(Y)||Y<=0)return err('Enter a valid monthly investment, return rate and period.');let m=R/1200,f=m?Math.pow(1+m,N):1,amount=m?P*(f-1)/m*(1+m):P*N,invest=P*N;return res(money(amount),[['Invested Amount',money(invest)],['Estimated Returns',money(amount-invest)],['Monthly Investment',money(P)],['Period',Y+' years']]);
+ }}
+};
+function err(msg){return {error:msg}}function res(hero,rows){return {hero,rows}}
+function makeField(f){
+ const [id,label,type,step,cls,opts]=f;let wrap=document.createElement('div');wrap.className='field'+(cls==='full'?' full':'');let lab=document.createElement('label');lab.htmlFor=id;lab.textContent=label;wrap.appendChild(lab);
+ if(type==='select'){let s=document.createElement('select');s.id=id;(opts||[]).forEach(o=>{let v=Array.isArray(o)?o[0]:o,t=Array.isArray(o)?o[1]:o;let op=document.createElement('option');op.value=v;op.textContent=t;s.appendChild(op)});wrap.appendChild(s)}
+ else{let i=document.createElement('input');i.id=id;i.type=type;i.step=step||'any';if(type==='number')i.min='0';wrap.appendChild(i)}
+ return wrap;
+}
+function renderForm(){const key=$('type').value,c=calculators[key],form=$('form');form.innerHTML='';c.fields.forEach(f=>form.appendChild(makeField(f)));c.fields.forEach(f=>{if(f[4])$(f[0]).classList.add(f[4])});if(key==='age'){$('asof').value=new Date().toISOString().slice(0,10)}if(key==='salary'){$('pf').value='12';$('pt').value='0';$('od').value='0'}$('resultTitle').textContent=c.name.replace(/^\S+\s/,'')+' Result';$('resultHint').textContent='Ready';$('result').innerHTML='Enter the values on the left and tap Calculate.';$('hint').textContent=c.hint}
+function values(){let v={};calculators[$('type').value].fields.forEach(f=>v[f[0]]=$(f[0]).value);return v}
+function calculate(){const r=calculators[$('type').value].calc(values());if(r.error){$('result').innerHTML='<div style="color:#c62828;font-weight:800">'+r.error+'</div>';$('resultHint').textContent='Check inputs';return}$('result').innerHTML='<div class="hero-value">'+r.hero+'</div>'+r.rows.map(x=>'<div class="row"><span>'+x[0]+'</span><b>'+x[1]+'</b></div>').join('');$('resultHint').textContent='Calculated'}
+function clearForm(){renderForm();$('resultHint').textContent='Ready'}
+Object.entries(calculators).forEach(([k,c])=>{let o=document.createElement('option');o.value=k;o.textContent=c.name;$('type').appendChild(o)});$('type').addEventListener('change',renderForm);$('calc').addEventListener('click',calculate);$('clear').addEventListener('click',clearForm);renderForm();
+</script></div></body></html>
