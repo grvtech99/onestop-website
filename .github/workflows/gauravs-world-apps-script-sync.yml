@@ -1,0 +1,131 @@
+name: Sync Gaurav's World Apps Script
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'gauravs-world/backend/Code.gs'
+      - 'gauravs-world/backend/Admin.html'
+      - 'gauravs-world/backend/**'
+  workflow_dispatch:
+
+concurrency:
+  group: gauravs-world-apps-script-production
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    name: GitHub → Google Apps Script
+    runs-on: ubuntu-latest
+    env:
+      CLASPRC_JSON: ${{ secrets.CLASPRC_JSON }}
+      CLASP_JSON: ${{ secrets.CLASP_JSON }}
+      CLASP_DEPLOYMENT_ID: ${{ secrets.CLASP_DEPLOYMENT_ID }}
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Check one-time Apps Script credentials
+        id: credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing=0
+          for name in CLASPRC_JSON CLASP_JSON CLASP_DEPLOYMENT_ID; do
+            if [ -z "${!name:-}" ]; then
+              echo "::warning::Missing GitHub Actions secret: $name"
+              missing=1
+            fi
+          done
+          if [ "$missing" -eq 1 ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "Apps Script auto-sync is installed but waiting for the one-time GitHub secrets."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node.js
+        if: steps.credentials.outputs.configured == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Prepare clasp credentials
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s' "$CLASPRC_JSON" > "$HOME/.clasprc.json"
+          chmod 600 "$HOME/.clasprc.json"
+
+      - name: Clone current Apps Script project safely
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf "$RUNNER_TEMP/gauravs-world-appsscript"
+          mkdir -p "$RUNNER_TEMP/gauravs-world-appsscript"
+
+          printf '%s' "$CLASP_JSON" > "$RUNNER_TEMP/gauravs-world-appsscript/.clasp.json"
+
+          SCRIPT_ID="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); if(!x.scriptId) process.exit(2); process.stdout.write(x.scriptId)" "$RUNNER_TEMP/gauravs-world-appsscript/.clasp.json")"
+
+          cd "$RUNNER_TEMP/gauravs-world-appsscript"
+          npx --yes @google/clasp@latest clone-script "$SCRIPT_ID" --rootDir "$RUNNER_TEMP/gauravs-world-appsscript"
+
+      - name: Replace only GitHub-controlled backend files
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp "$GITHUB_WORKSPACE/gauravs-world/backend/Code.gs" "$RUNNER_TEMP/gauravs-world-appsscript/Code.gs"
+          cp "$GITHUB_WORKSPACE/gauravs-world/backend/Admin.html" "$RUNNER_TEMP/gauravs-world-appsscript/Admin.html"
+
+      - name: Push GitHub code to Apps Script
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/gauravs-world-appsscript"
+          npx --yes @google/clasp@latest push --force
+
+      - name: Create Apps Script version
+        if: steps.credentials.outputs.configured == 'true'
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/gauravs-world-appsscript"
+          output="$(npx --yes @google/clasp@latest version "GitHub $GITHUB_SHA")"
+          echo "$output"
+          version_number="$(printf '%s\n' "$output" | grep -Eo 'version[[:space:]]+[0-9]+' | tail -1 | awk '{print $2}')"
+          if [ -z "$version_number" ]; then
+            echo "::error::Could not determine the new Apps Script version number."
+            exit 1
+          fi
+          echo "number=$version_number" >> "$GITHUB_OUTPUT"
+
+      - name: Update existing production deployment
+        if: steps.credentials.outputs.configured == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/gauravs-world-appsscript"
+          npx --yes @google/clasp@latest redeploy "$CLASP_DEPLOYMENT_ID" "${{ steps.version.outputs.number }}" "GitHub $GITHUB_SHA"
+
+      - name: Sync summary
+        if: steps.credentials.outputs.configured == 'true'
+        run: |
+          echo "GitHub backend has been synced to Google Apps Script."
+          echo "Apps Script version: ${{ steps.version.outputs.number }}"
+          echo "Existing production deployment was updated; its deployment URL remains unchanged."
+
+      - name: Waiting-for-credentials summary
+        if: steps.credentials.outputs.configured != 'true'
+        run: |
+          echo "Auto-sync workflow is installed."
+          echo "Add CLASPRC_JSON, CLASP_JSON and CLASP_DEPLOYMENT_ID once; future backend commits will sync automatically."
