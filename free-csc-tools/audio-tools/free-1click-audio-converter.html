@@ -23,7 +23,15 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <div class="card">
 <div class="settings">
 <div class="field tools"><label>AUDIO TOOL / MODE</label><select id="mode">
-<option value="convert">Audio Converter</option><option value="compress">Audio Compressor</option><option value="cut">Audio Cutter</option><option value="equalizer">Audio Equalizer</option><option value="fade">Audio Fade</option><option value="info">Audio File Info</option><option value="join">Audio Joiner</option><option value="mute">Audio Mute</option><option value="noise">Noise Reducer</option><option value="normalize">Audio Normalizer</option><option value="pitch">Pitch Changer</option><option value="ringtone">Ringtone Maker</option><option value="silence">Silence Remover</option><option value="speed">Speed Changer</option><option value="tts">Text to Speech</option><option value="videoaudio">Video → Audio</option><option value="recorder">Voice Recorder</option><option value="volume">Volume Changer / Booster</option><option value="waveform">Waveform</option><option value="reverse">Reverse Audio</option><option value="vocal">Vocal Remover</option><option value="voice">Voice Changer</option><option value="audiovideo">Audio → Video</option></select></div>
+<option value="convert">Audio Converter</option>
+<option value="compress">Audio Compressor</option>
+<option value="cut">Audio Cutter</option>
+<option value="join">Audio Joiner</option>
+<option value="noise">Noise Reducer</option>
+<option value="ringtone">Ringtone Maker</option>
+<option value="tts">Text to Speech</option>
+<option value="videoaudio">Video → Audio</option>
+</select></div>
 <div class="field" id="outField"><label>OUTPUT</label><select id="out"><option value="wav">WAV</option><option value="original">Original / Best Supported</option></select></div>
 <div class="field"><label>QUALITY / PRESET</label><select id="preset"><option>Best</option><option>High</option><option>Medium</option><option>Small File</option></select></div>
 <div class="field" id="p1"><label>START (sec)</label><input id="start" type="number" min="0" step=".1" value="0"></div>
@@ -36,7 +44,7 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <div class="actions"><button id="download" class="download" disabled>⬇ Process &amp; Download</button><button id="clear" class="clear">Clear</button></div>
 <div class="progress"><div id="bar" class="bar"></div></div><div id="status" class="status"></div>
 </div></section>
-<section class="card" style="padding:7px 11px"><div class="note"><b>One Tool, Many Functions:</b> Compressor • Converter • Cutter • Equalizer • Fade • Info • Joiner • Mute • Noise Reducer • Normalizer • Pitch • Ringtone • Silence Remover • Speed • TTS • Video→Audio • Recorder • Volume • Waveform • Reverse • Vocal Remover • Voice Changer • Audio→Video.</div></section>
+<section class="card" style="padding:7px 11px"><div class="note"><b>One Tool, Selected Functions:</b> Converter • Compressor • Cutter • Joiner • Noise Reducer • Ringtone Maker • Text to Speech • Video → Audio.</div></section>
 </section></main><footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Audio Converter</footer>
 <script>
 const $=id=>document.getElementById(id);let files=[],ctx=null,buffer=null,sourceURL='';
@@ -45,21 +53,20 @@ function fmt(s){if(!isFinite(s))return'—';let m=Math.floor(s/60),x=(s%60).toFi
 function renderMeta(){if(!files.length){$('meta').textContent='No file selected';return}let f=files[0];$('meta').innerHTML='<b>'+f.name.replace(/</g,'&lt;')+'</b> • '+(f.type||'audio')+' • '+(f.size/1024/1024).toFixed(2)+' MB'+(buffer?' • '+fmt(buffer.duration)+' • '+buffer.sampleRate+' Hz':'')}
 async function loadFile(f){if(!f)return;try{if(ctx)await ctx.close().catch(()=>{});ctx=new AudioContext();buffer=await ctx.decodeAudioData(await f.arrayBuffer());sourceURL=URL.createObjectURL(f);$('audio').src=sourceURL;renderMeta();$('download').disabled=false;setStatus('Ready: '+fmt(buffer.duration))}catch(e){buffer=null;$('download').disabled=false;setStatus('File loaded, but browser decoding is not available for this format. Try MP3/WAV/OGG.');renderMeta()}}
 $('files').onchange=()=>{files=[...$('files').files];if(files.length)loadFile(files[0]);else{$('download').disabled=true;renderMeta()}};
-$('mode').onchange=()=>{let m=$('mode').value;$('outField').style.display=['convert','videoaudio'].includes(m)?'block':'none';$('p1').style.display=['cut','ringtone','silence'].includes(m)?'block':'none';$('p2').style.display=['cut','ringtone'].includes(m)?'block':'none';$('level').style.display=['volume','compress','normalize','noise','equalizer','vocal','voice'].includes(m)?'block':'none';$('speedBox').style.display=['speed','pitch','voice'].includes(m)?'block':'none';$('fadeBox').style.display=m==='fade'?'block':'none';if(m==='tts')setStatus('Enter text on the left, then Process & Download.');else setStatus('')};
+$('mode').onchange=()=>{let m=$('mode').value;$('outField').style.display=['convert','videoaudio'].includes(m)?'block':'none';$('p1').style.display=['cut','ringtone'].includes(m)?'block':'none';$('p2').style.display=['cut','ringtone'].includes(m)?'block':'none';$('level').style.display=['compress','noise'].includes(m)?'block':'none';$('speedBox').style.display='none';$('fadeBox').style.display='none';if(m==='tts')setStatus('Enter text on the left, then Process & Download.');else setStatus('')};
 $('amount').oninput=()=>{$('amountOut').textContent=$('amount').value+'%'};$('speed').oninput=()=>{$('speedOut').textContent=(+$('speed').value/100).toFixed(2)+'×'};
 function wavBlob(b){let n=b.numberOfChannels,len=b.length*2*n,buf=new ArrayBuffer(44+len),v=new DataView(buf),o=0;const w=(s)=>{for(let i=0;i<s.length;i++)v.setUint8(o++,s.charCodeAt(i))};const u=(x)=>{v.setUint32(o,x,true);o+=4},h=(x)=>{v.setUint16(o,x,true);o+=2};w('RIFF');u(36+len);w('WAVE');w('fmt ');u(16);h(1);h(n);u(b.sampleRate);u(b.sampleRate*n*2);h(n*2);h(16);w('data');u(len);for(let i=0;i<b.length;i++)for(let c=0;c<n;c++){let x=Math.max(-1,Math.min(1,b.getChannelData(c)[i]));v.setInt16(o,x<0?x*32768:x*32767,true);o+=2}return new Blob([buf],{type:'audio/wav'})}
 function makeBuffer(src,start,end,mode){let rate=src.sampleRate,n=src.numberOfChannels,s=Math.max(0,Math.floor(start*rate)),e=Math.min(src.length,Math.floor(end*rate)),len=Math.max(1,e-s),out=ctx.createBuffer(n,len,rate);for(let c=0;c<n;c++){let a=src.getChannelData(c),d=out.getChannelData(c);for(let i=0;i<len;i++){let x=a[s+i]||0;if(mode==='reverse')x=a[e-1-i]||0;if(mode==='mute' && i/rate>len/rate*.4 && i/rate<len/rate*.6)x=0;if(mode==='volume')x*=+$('amount').value/100;if(mode==='normalize')x*=.95/(Math.max(...a.slice(s,e).map(Math.abs))||1);if(mode==='noise')x=Math.abs(x)<.018?0:x;if(mode==='fade'){let f=+$('fadeSec').value;let t=i/rate;if(t<f)x*=t/f;if(t>len/rate-f)x*=(len/rate-t)/f}d[i]=x}}return out}
 function downloadBlob(blob,name){let u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
 $('download').onclick=async()=>{if($('mode').value==='tts'){let t=$('paste').value.trim();if(!t){setStatus('Enter text first.');return}let u=new SpeechSynthesisUtterance(t);speechSynthesis.speak(u);setStatus('Text-to-Speech started. Browser speech cannot be exported as audio on all devices.');return}
 if(!files.length&&!buffer){setStatus('Select an audio file first.');return}let m=$('mode').value;$('download').disabled=true;$('bar').style.width='20%';try{
-if(m==='info'){renderMeta();setStatus('File information displayed above.');$('bar').style.width='100%';return}
+if(false){renderMeta();return}
 if(m==='join'){if(files.length<2)throw Error('Select 2 or more audio files for Joiner.');let bufs=[];for(let f of files){let c=new AudioContext();bufs.push(await c.decodeAudioData(await f.arrayBuffer()));await c.close()}let rate=bufs[0].sampleRate,n=bufs[0].numberOfChannels,total=bufs.reduce((x,b)=>x+b.length,0),out=ctx.createBuffer(n,total,rate),pos=0;for(let b of bufs){for(let c=0;c<n;c++)out.getChannelData(c).set(b.getChannelData(Math.min(c,b.numberOfChannels-1)),pos);pos+=b.length}downloadBlob(wavBlob(out),'onestop-joined.wav');setStatus('Joined '+files.length+' audio files.');$('bar').style.width='100%';return}
 if(!buffer)throw Error('Browser could not decode this file.');
 let end=+$('end').value||buffer.duration,start=+$('start').value||0;if(end<=start)end=buffer.duration;
-let mode=(m==='reverse'?'reverse':m==='mute'?'mute':m==='volume'||m==='compress'||m==='normalize'||m==='noise'?'volume':m==='fade'?'fade':m==='cut'||m==='ringtone'?'normal':'normal');
+let mode=(m==='compress'||m==='noise'?'volume':'normal');
 let out=makeBuffer(buffer,start,end,mode);
-if(m==='equalizer'){let f=+$('amount').value;for(let c=0;c<out.numberOfChannels;c++){let d=out.getChannelData(c);for(let i=0;i<d.length;i++)d[i]*=1+(f-100)/300}}
-if(m==='speed'){let rate=Math.max(.5,+$('speed').value/100),newLen=Math.max(1,Math.floor(out.length/rate)),r=ctx.createBuffer(out.numberOfChannels,newLen,out.sampleRate);for(let c=0;c<r.numberOfChannels;c++){let a=out.getChannelData(c),d=r.getChannelData(c);for(let i=0;i<newLen;i++)d[i]=a[Math.min(a.length-1,Math.floor(i*rate))]}out=r}
+
 downloadBlob(wavBlob(out),'onestop-audio-'+m+'.wav');$('bar').style.width='100%';setStatus('Processed successfully • '+fmt(out.duration)+' • WAV downloaded.');
 }catch(e){setStatus(e.message||'Processing failed.')}finally{setTimeout(()=>{$('download').disabled=false},400)}};
 $('clear').onclick=()=>{files=[];buffer=null;$('files').value='';$('paste').value='';$('audio').removeAttribute('src');$('meta').textContent='No file selected';$('bar').style.width='0';setStatus('');$('download').disabled=true};
