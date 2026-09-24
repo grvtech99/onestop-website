@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "dinosaurs-extinction-asteroid-impact",
+      "slug": "dinosaurs-extinction-asteroid-impact",
+      "title": "डायनासोर का अंत कैसे हुआ? 66 मिलियन साल पहले क्या हुआ था?",
+      "category": "Science",
+      "summary": "लगभग 66 मिलियन साल पहले पृथ्वी पर एक विशाल asteroid impact हुआ। जानिए कैसे इस घटना ने जलवायु, खाद्य श्रृंखला और गैर-पक्षी डायनासोरों के भविष्य को बदल दिया।",
+      "image": "images/gauravs_world_dinosaur_extinction_16x9.webp",
+      "updatedAt": "2026-09-24T06:08:52.044Z"
+    },
+    {
       "id": "top-10-ai-tools-2026-hindi-guide",
       "slug": "top-10-ai-tools-2026-hindi-guide",
       "title": "2026 के 10 Best AI Tools: पढ़ाई, नौकरी और बिजनेस के लिए उपयोगी टूल्स",
@@ -8,18 +17,6 @@
       "summary": "2026 में AI टूल्स पढ़ाई, लेखन, डिजाइनिंग, रिसर्च और ऑफिस के कामों में मदद कर सकते हैं। जानिए ChatGPT, Gemini, Canva AI, Microsoft Copilot और अन्य उपयोगी AI टूल्स के प्रमुख इस्तेमाल, उनकी सीमाएं और सही टूल चुनने के तरीके।",
       "image": "images/gauravs_world_ai_tools_top10_hero.webp",
       "updatedAt": "2026-09-24T06:06:55.711Z"
-    },
-    {
-      "id": "dinosaurs-extinction-asteroid-impact",
-      "slug": "dinosaurs-extinction-asteroid-impact",
-      "title": "डायनासोर का अंत कैसे हुआ? 66 मिलियन साल पहले क्या हुआ था?",
-      "category": "Science",
-      "summary": "लगभग 66 मिलियन साल पहले पृथ्वी पर एक विशाल asteroid impact हुआ। जानिए कैसे इस घटना ने जलवायु, खाद्य श्रृंखला और गैर-पक्षी डायनासोरों के भविष्य को बदल दिया।",
-      "image": "images/gauravs_world_dinosaur_extinction_16x9.webp",
-      "updatedAt": "2026-09-23T11:03:06+05:30",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-23T11:03:06+05:30"
     },
     {
       "id": "space-time-dilation-einstein-relativity",
@@ -106,5 +103,5 @@
       "publishedAt": "2026-09-22T13:20:49+05:30"
     }
   ],
-  "updatedAt": "2026-09-24T06:06:55.711Z"
+  "updatedAt": "2026-09-24T06:08:52.044Z"
 }
