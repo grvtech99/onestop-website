@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "ai-deepfake-se-kaise-bache",
+      "slug": "ai-deepfake-se-kaise-bache",
+      "title": "AI Deepfake से कैसे बचें? नकली वीडियो और आवाज़ पहचानने के 7 तरीके",
+      "category": "Technology",
+      "summary": "AI Deepfake तकनीक से नकली वीडियो और आवाज़ बनाना संभव हो गया है। जानिए ऐसे वीडियो को पहचानने, ऑनलाइन धोखाधड़ी से बचने और अपनी डिजिटल पहचान सुरक्षित रखने के 7 आसान तरीके।",
+      "image": "images/gauravs-world-ai-deepfake-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-22T08:05:00.000Z",
+      "updatedAt": "2026-09-24T08:03:23.530Z"
+    },
+    {
       "id": "ai-ka-2025-mein-zindagi-par-asar",
       "slug": "ai-ka-2025-mein-zindagi-par-asar",
       "title": "AI का 2025 में हमारी ज़िंदगी पर असर: क्या AI हमारे लिए मौका है या चुनौती?",
@@ -73,18 +85,6 @@
       "updatedAt": "2026-09-24T06:08:52.044Z"
     },
     {
-      "id": "ai-deepfake-se-kaise-bache",
-      "slug": "ai-deepfake-se-kaise-bache",
-      "title": "AI Deepfake से कैसे बचें? नकली वीडियो और आवाज़ पहचानने के 7 तरीके",
-      "category": "Technology",
-      "summary": "AI Deepfake तकनीक से नकली वीडियो और आवाज़ बनाना संभव हो गया है। जानिए ऐसे वीडियो को पहचानने, ऑनलाइन धोखाधड़ी से बचने और अपनी डिजिटल पहचान सुरक्षित रखने के 7 आसान तरीके।",
-      "image": "images/gauravs-world-ai-deepfake-hero.webp",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-22T19:05:51+05:30",
-      "updatedAt": "2026-09-22T19:05:51+05:30"
-    },
-    {
       "id": "cyber-fraud-se-bachne-ke-7-tareeke",
       "slug": "cyber-fraud-se-bachne-ke-7-tareeke",
       "title": "Cyber Fraud से कैसे बचें? 7 जरूरी बातें जो हर इंटरनेट यूजर को जाननी चाहिए",
@@ -109,5 +109,5 @@
       "updatedAt": "2026-09-22T13:20:49+05:30"
     }
   ],
-  "updatedAt": "2026-09-24T07:26:41.185Z"
+  "updatedAt": "2026-09-24T08:03:23.530Z"
 }
