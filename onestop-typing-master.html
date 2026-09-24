@@ -163,10 +163,43 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   .layout.practice-mode .practice textarea#input{height:58px!important;font-size:16px!important}
   .layout.practice-mode .practice .keyboard{padding:7px 5px 9px!important}
 }
+/* Final practice navigation + keyboard redesign */
+.head-back{display:none;background:#ffffff18;color:#fff;border:1px solid #ffffff45;padding:8px 12px;border-radius:9px;font-weight:800}
+.layout.practice-mode ~ *{}
+.layout.practice-mode + *{}
+.layout.practice-mode main{}
+.layout.practice-mode .head-back{display:inline-flex}
+.layout.practice-mode header .head-back{display:inline-flex}
+.layout.practice-mode .logo{display:none}
+.layout.practice-mode header{gap:8px}
+.layout.practice-mode .practice .prompt{font-size:26px!important;line-height:1.62!important;letter-spacing:.15px!important}
+.layout.practice-mode .practice textarea#input{font-size:21px!important;line-height:1.45!important}
+.layout.practice-mode .practice .keyboard{background:#cbd7e3!important;border-top:5px solid #18344d!important;padding:9px 18px 12px!important}
+.layout.practice-mode .keyboard-guide{margin-bottom:6px!important;color:#18344d!important}
+.layout.practice-mode .finger-chip{background:#eef3f7!important;color:#18344d!important;border:1px solid #8ea4b7!important}
+.layout.practice-mode .key{
+  background:#263f56!important;
+  color:#fff!important;
+  border:2px solid #5d7890!important;
+  box-shadow:0 3px 0 #14283a!important;
+}
+.layout.practice-mode .key.finger-lp,.layout.practice-mode .key.finger-lr,.layout.practice-mode .key.finger-li{background:#284a63!important}
+.layout.practice-mode .key.finger-ri,.layout.practice-mode .key.finger-rr,.layout.practice-mode .key.finger-rp{background:#304e68!important}
+.layout.practice-mode .key.finger-thumb{background:#1f3347!important}
+.layout.practice-mode .key:hover{filter:brightness(1.12)}
+.layout.practice-mode .key.active{background:#f6c945!important;color:#10243a!important;border:3px solid #10243a!important;box-shadow:0 0 0 3px #e5a900,0 3px 0 #10243a!important}
+.layout.practice-mode .key.error{background:#d93636!important;color:#fff!important;border-color:#7f1d1d!important;box-shadow:0 3px 0 #641515!important}
+.layout.practice-mode .next-finger{color:#0b5d8d!important;font-size:10px!important}
+@media(max-width:720px){
+  .layout.practice-mode .practice .prompt{font-size:20px!important;line-height:1.5!important}
+  .layout.practice-mode .practice textarea#input{font-size:18px!important;line-height:1.4!important}
+  .layout.practice-mode .practice .keyboard{padding:7px 5px 9px!important}
+  .layout.practice-mode .key{border-width:1.5px!important;box-shadow:0 2px 0 #14283a!important}
+}
 </style></head>
 <body>
 <div class="app">
-<header><button id="menuBtn" style="background:transparent;color:#fff;font-size:22px">☰</button><div class="logo">O</div><div><div class="title">ONESTOP Typing Master</div><div class="subtitle">Learn • Practice • Test • Play</div></div><div class="head-actions"><button id="focusBtn">⛶ Focus</button><button id="themeBtn">◐</button></div></header>
+<header><button id="menuBtn" style="background:transparent;color:#fff;font-size:22px" aria-label="Menu">☰</button><button id="backBtn" class="head-back" aria-label="Back to previous screen">← Back</button><div class="logo">O</div><div><div class="title">ONESTOP Typing Master</div><div class="subtitle">Learn • Practice • Test • Play</div></div><div class="head-actions"><button id="focusBtn">⛶ Focus</button><button id="themeBtn">◐</button></div></header>
 <div class="layout" id="layout">
 <aside><div class="nav-title">Typing</div><div class="nav">
 <button class="active" data-view="home">🏠 Dashboard</button><button data-view="practice">⌨️ Free Practice</button><button data-view="lessons">📚 Lessons</button><button data-view="tests">⚡ Speed Test</button><button data-view="games">🎮 Typing Games</button><button data-view="custom">📝 Custom Text</button>
@@ -205,7 +238,10 @@ const words="apple orange keyboard computer school student practice accuracy spe
 let history=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]"), timerId=null, startTime=0, running=false, target="", lastKey="";
 const $=id=>document.getElementById(id);
 function toast(s){$("toast").textContent=s;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",1800)}
+let previousView="home";
 function showView(id){
+const current=document.querySelector(".view.active")?.id||"home";
+if(current!==id) previousView=current;
 document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
 $(id).classList.add("active");
 document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",x.dataset.view===id));
@@ -217,7 +253,14 @@ if(id==="home")updateDash();
 if(immersive)setTimeout(()=>$("input").focus(),50);
 }
 document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>showView(b.dataset.view));
-$("menuBtn").onclick=()=>$("layout").classList.toggle("open");
+$("menuBtn").onclick=()=>{
+  if($("layout").classList.contains("practice-mode")){
+    showView(previousView==="practice"?"home":previousView);
+  }else{
+    $("layout").classList.toggle("open");
+  }
+};
+$("backBtn").onclick=()=>showView(previousView==="practice"?"home":previousView);
 $("themeBtn").onclick=()=>{document.body.classList.toggle("dark");document.body.style.background=document.body.classList.contains("dark")?"#081827":"var(--bg)"};
 $("focusBtn").onclick=()=>document.documentElement.requestFullscreen?.();
 function makeKeyboard(){const fingerMap={q:'lp',a:'lp',z:'lp',w:'lr',s:'lr',x:'lr',e:'li',d:'li',c:'li',r:'li',f:'li',v:'li',t:'li',g:'li',b:'li',y:'ri',h:'ri',n:'ri',u:'ri',j:'ri',m:'ri',i:'rr',k:'rr',',':'rr','<':'rr',o:'rr',l:'rr','.':'rr','>':'rr',p:'rp',';':'rp','/':'rp','?':'rp','[':'rp',']':'rp','-':'rp','=':'rp','1':'lp','2':'lr','3':'li','4':'li','5':'li','6':'ri','7':'ri','8':'ri','9':'rr','0':'rp','\\\\':'rp',"'":'rp'};const names={lp:'Left little',lr:'Left ring',li:'Left index',ri:'Right index',rr:'Right ring',rp:'Right little'};const rows=["1234567890-=","qwertyuiop[]\\\\","asdfghjkl;'","zxcvbnm,./"];let html='<div class="keyboard-guide"><span class="finger-chip finger-lp">L Little</span><span class="finger-chip finger-lr">L Ring</span><span class="finger-chip finger-li">L Index</span><span class="finger-chip finger-ri">R Index</span><span class="finger-chip finger-rr">R Ring</span><span class="finger-chip finger-rp">R Little</span><span class="next-finger" id="nextFinger">Next key</span></div><div class="keys">';rows.forEach(r=>{html+='<div class="row">';[...r].forEach(k=>{const f=fingerMap[k]||'ri';html+=`<div class="key finger-${f}" data-key="${escapeHtml(k)}" data-finger="${f.toUpperCase()}">${escapeHtml(k)}</div>`});html+='</div>'});html+='<div class="row"><div class="key w4 finger-thumb" data-key=" " data-finger="TH">SPACE</div></div></div>';$('keyboard').innerHTML=html}
