@@ -20,26 +20,63 @@
   }
   function inline(text) {
     let value = esc(text);
-    value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(?:png|jpe?g|webp))\)/gi, (whole, alt, rawUrl) => {
+    const protectedParts = [];
+    const protect = html => '@@GWPROTECT' + protectedParts.push(html) + '@@';
+    value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:png|jpe?g|webp))\)/gi, (whole, alt, rawUrl) => {
       const url = safeImageUrl(rawUrl);
-      return url ? `<figure class="article-inline-image"><img class="article-image-bg" src="${esc(url)}" alt="" aria-hidden="true" loading="lazy" decoding="async"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" decoding="async"><figcaption>${esc(alt)}</figcaption></figure>` : esc(whole);
+      return url ? protect('<figure class="article-inline-image"><img class="article-image-bg" src="' + esc(url) + '" alt="" aria-hidden="true" loading="lazy" decoding="async"><img src="' + esc(url) + '" alt="' + esc(alt) + '" loading="lazy" decoding="async"><figcaption>' + esc(alt) + '</figcaption></figure>') : esc(whole);
     });
-    value = value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    value = value.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (whole, label, url) => protect('<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + label + '</a>'));
     value = value.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<em>$1</em>');
+    value = value.replace(/(?<![="\'>])(https?:\/\/[^\s<]+)/gi, url => protect('<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(url) + '</a>'));
+    value = value.replace(/\bwww\.[^\s<]+/gi, url => protect('<a href="https://' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(url) + '</a>'));
+    protectedParts.forEach((html, i) => { value = value.replace('@@GWPROTECT' + (i + 1) + '@@', html); });
     return value;
   }
+
+  function makeTable(rows) {
+    const data = rows.map(row => row.split('\t').map(cell => cell.trim()));
+    const width = Math.max.apply(null, data.map(r => r.length));
+    if (width < 2) return '';
+    data.forEach(r => { while (r.length < width) r.push(''); });
+    let html = '<div class="article-table-wrap"><table class="article-table"><thead><tr>';
+    html += data[0].map(c => '<th>' + inline(c) + '</th>').join('');
+    html += '</tr></thead><tbody>';
+    for (let i = 1; i < data.length; i++) html += '<tr>' + data[i].map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>';
+    return html + '</tbody></table></div>';
+  }
+
   function markdown(source) {
     const lines = String(source || '').replace(/\r/g, '').split('\n');
-    const out = []; let list = false;
-    const closeList = () => { if (list) { out.push('</ul>'); list = false; } };
-    for (const line of lines) {
-      const t = line.trim();
+    const out = []; let list = null;
+    const closeList = () => { if (list === 'ul') out.push('</ul>'); if (list === 'ol') out.push('</ol>'); list = null; };
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i], t = line.trim();
       if (!t) { closeList(); continue; }
+      if (t.indexOf('\t') >= 0 && i + 1 < lines.length && lines[i + 1].indexOf('\t') >= 0) {
+        closeList(); const rows = [];
+        while (i < lines.length && lines[i].trim() && lines[i].indexOf('\t') >= 0) { rows.push(lines[i].trim()); i++; }
+        i--; const table = makeTable(rows); if (table) { out.push(table); continue; }
+      }
+      if (/^\|.+\|$/.test(t) && i + 1 < lines.length && /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?$/.test(lines[i + 1].trim())) {
+        closeList(); const rows = [t]; i++;
+        while (i + 1 < lines.length && /^\|.*\|$/.test(lines[i + 1].trim())) { i++; rows.push(lines[i].trim()); }
+        const cells = rows.map(r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+        const head = cells[0], body = cells.slice(1);
+        let html = '<div class="article-table-wrap"><table class="article-table"><thead><tr>' + head.map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>';
+        body.forEach(r => { while (r.length < head.length) r.push(''); html += '<tr>' + head.map((_, j) => '<td>' + inline(r[j] || '') + '</td>').join('') + '</tr>'; });
+        out.push(html + '</tbody></table></div>'); continue;
+      }
+      if (/^---+$/.test(t) || /^___+$/.test(t)) { closeList(); out.push('<hr>'); continue; }
       const h = /^(#{1,3})\s+(.+)$/.exec(t);
-      const li = /^[-*]\s+(.+)$/.exec(t);
-      if (h) { closeList(); const level = h[1].length; out.push(`<h${level}>${inline(h[2])}</h${level}>`); }
-      else if (li) { if (!list) { out.push('<ul>'); list = true; } out.push(`<li>${inline(li[1])}</li>`); }
-      else { closeList(); out.push(`<p>${inline(t)}</p>`); }
+      const ol = /^\d+[.)]\s+(.+)$/.exec(t);
+      const ul = /^[-*+]\s+(.+)$/.exec(t);
+      const quote = /^>\s*(.*)$/.exec(t);
+      if (h) { closeList(); const level = h[1].length; out.push('<h' + level + '>' + inline(h[2]) + '</h' + level + '>'); }
+      else if (ol) { if (list !== 'ol') { closeList(); out.push('<ol>'); list = 'ol'; } out.push('<li>' + inline(ol[1]) + '</li>'); }
+      else if (ul) { if (list !== 'ul') { closeList(); out.push('<ul>'); list = 'ul'; } out.push('<li>' + inline(ul[1]) + '</li>'); }
+      else if (quote) { closeList(); out.push('<blockquote>' + inline(quote[1]) + '</blockquote>'); }
+      else { closeList(); out.push('<p>' + inline(t) + '</p>'); }
     }
     closeList(); return out.join('');
   }
