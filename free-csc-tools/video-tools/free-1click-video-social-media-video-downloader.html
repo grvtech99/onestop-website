@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Free 1Click Video Social Media Video Downloader</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f4f8ff;color:#172033}
+body{display:flex;justify-content:center}
+.app{width:100%;max-width:760px;height:100dvh;display:flex;flex-direction:column;background:#fff}
+.header{height:56px;flex:0 0 56px;padding:0 14px;color:#fff;background:linear-gradient(135deg,#0868e8,#1749c8);display:flex;align-items:center;gap:10px}
+.logo{width:34px;height:34px;border-radius:10px;background:#ffffff1f;display:grid;place-items:center;font-size:18px}
+.headtxt{min-width:0}.headtxt h1{font-size:15px;line-height:18px;margin:0;font-weight:800}.headtxt p{font-size:10px;line-height:12px;margin:2px 0 0;opacity:.85}
+.main{flex:1;min-height:0;padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
+.hero{border-radius:14px;padding:11px 12px;background:linear-gradient(135deg,#eef6ff,#f7faff);border:1px solid #dceaff}
+.hero h2{margin:0;font-size:17px}.hero p{margin:3px 0 0;font-size:11px;color:#60708a}
+.platforms{display:flex;gap:6px}.pill{flex:1;border:1px solid #dce4ef;background:#fff;border-radius:10px;padding:7px 5px;text-align:center;font-size:11px;font-weight:700;color:#45546b}
+.inputbox{position:relative}.inputbox textarea{width:100%;height:112px;resize:none;border:1px solid #cfd9e8;border-radius:12px;padding:11px 12px 28px;outline:none;font:500 12px/1.45 inherit;color:#172033;background:#fff}.inputbox textarea:focus{border-color:#1671e8;box-shadow:0 0 0 3px #1671e814}.hint{position:absolute;bottom:7px;left:12px;font-size:9px;color:#8794a8}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.select{height:38px;border:1px solid #d5deeb;border-radius:10px;background:#fff;padding:0 10px;font-size:11px;color:#31415b}
+.download{height:44px;border:0;border-radius:12px;color:#fff;font-size:13px;font-weight:800;letter-spacing:.1px;background:linear-gradient(135deg,#0874f9,#1849c7);box-shadow:0 7px 18px #155ed32b;cursor:pointer;touch-action:manipulation}
+.download:active{transform:scale(.975);box-shadow:0 3px 8px #155ed33b}.download:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.clear{height:36px;border:1px solid #d6dfeb;border-radius:10px;background:#fff;color:#53647b;font-size:11px;font-weight:700}
+.status{min-height:36px;border:1px solid #e0e7f0;background:#f8fbff;border-radius:10px;padding:8px 10px;font-size:10px;color:#5e6e85;display:flex;align-items:center;gap:7px}
+.dot{width:7px;height:7px;border-radius:50%;background:#20a66a;flex:0 0 7px}
+.note{font-size:9px;line-height:12px;color:#7b8799;text-align:center;padding:0 4px}
+.footer{height:28px;flex:0 0 28px;border-top:1px solid #edf1f6;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8b96a7}
+@media(max-width:420px){.header{height:52px;flex-basis:52px}.main{padding:8px;gap:7px}.hero{padding:9px 10px}.hero h2{font-size:15px}.inputbox textarea{height:105px}.platforms .pill{font-size:10px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="header"><div class="logo">▶</div><div class="headtxt"><h1>Free 1Click Video Social Media Video Downloader</h1><p>ONESTOP Free CSC Tools</p></div></header>
+<main class="main">
+<section class="hero"><h2>Social Media Video Downloader</h2><p>Paste multiple supported video URLs — one link per line.</p></section>
+<div class="platforms"><div class="pill">▶ YouTube</div><div class="pill">◎ Instagram</div><div class="pill">f Facebook</div></div>
+<div class="inputbox"><textarea id="links" placeholder="Paste video links here&#10;&#10;Example:&#10;https://example.com/video.mp4&#10;https://example.com/another-video.mp4"></textarea><div class="hint" id="count">0 links</div></div>
+<div class="row"><select id="format" class="select"><option value="mp4">Video Format: MP4</option><option value="original">Original Format</option></select><select id="quality" class="select"><option>Best Available</option><option>1080p</option><option>720p</option><option>480p</option></select></div>
+<button id="downloadBtn" class="download">⬇ Download All</button>
+<button id="clearBtn" class="clear">Clear Links</button>
+<div class="status"><span class="dot"></span><span id="status">Ready — add video links above.</span></div>
+<div class="note">This browser-only version downloads direct video-file URLs. Social-media page URLs (YouTube/Facebook/Instagram) generally require the platform's own download feature or an authorized server/API; this tool does not bypass access controls or platform restrictions.</div>
+</main>
+<footer class="footer">ONESTOP DIGITAL SOLUTION • Free Tool</footer>
+</div>
+<script>
+const links=document.getElementById('links'),count=document.getElementById('count'),status=document.getElementById('status'),btn=document.getElementById('downloadBtn'),clearBtn=document.getElementById('clearBtn');
+function getLinks(){return links.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}
+function updateCount(){const n=getLinks().length;count.textContent=n+(n===1?' link':' links')}
+function isDirectVideo(url){try{const u=new URL(url);return /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(u.pathname+u.search)}catch(e){return false}}
+function safeName(url,i){try{const u=new URL(url);let n=decodeURIComponent(u.pathname.split('/').pop()||'video-'+(i+1));n=n.replace(/[^\w.\-]+/g,'_');if(!/\.(mp4|webm|mov|m4v|ogg)$/i.test(n))n+='.'+(document.getElementById('format').value==='mp4'?'mp4':'bin');return n}catch(e){return 'video-'+(i+1)+'.mp4'}}
+function triggerDownload(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
+async function downloadAll(){const arr=getLinks();if(!arr.length){status.textContent='Please paste at least one video link.';return}btn.disabled=true;let direct=0,social=0;arr.forEach(u=>{if(isDirectVideo(u)){direct++;triggerDownload(u,safeName(u,direct-1))}else{social++;window.open(u,'_blank','noopener')}});if(social&&direct)status.textContent=direct+' direct video file(s) sent for download; '+social+' social-media page link(s) opened for authorized/platform download.';else if(direct)status.textContent=direct+' direct video file(s) sent for download.';else status.textContent='These are social-media page URLs. Use the platform-provided download/export option where available.';setTimeout(()=>btn.disabled=false,900)}
+links.addEventListener('input',updateCount);btn.addEventListener('click',downloadAll);clearBtn.addEventListener('click',()=>{links.value='';updateCount();status.textContent='Ready — add video links above.'});updateCount();
+</script>
+</body>
+</html>
