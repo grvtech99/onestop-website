@@ -14,8 +14,37 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 .player{padding:6px 7px;border-top:1px solid var(--line);display:flex;align-items:center;gap:6px}.player audio{width:100%;height:29px}.joinList{padding:6px;display:flex;flex-direction:column;gap:4px;overflow:auto}.joinItem{display:flex;align-items:center;gap:6px;padding:6px;border:1px solid var(--line);border-radius:7px;background:#f8fbff;font-size:9px}.joinItem b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.joinItem button{border:0;background:#fff0f0;color:#c62828;border-radius:5px;font-size:9px}
 .ttsBox{height:100%;padding:9px;display:flex;flex-direction:column;gap:7px}.ttsBox textarea{flex:1;resize:none;border:1px solid #cbd9e9;border-radius:8px;padding:8px;font:11px/1.4 Arial;outline:0}.ttsBox select{height:31px;border:1px solid #cbd9e9;border-radius:7px}.videoPreview{width:100%;height:100%;object-fit:contain;background:#0b1730}.dropzone{padding:7px;text-align:center;font-size:9px;color:var(--muted);border-top:1px solid var(--line)}
 .settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field select,.field input{width:100%;height:35px;border:1px solid #cbd9e9;border-radius:8px;padding:0 8px;background:#fff;color:#14213d}.tools{grid-column:1/-1}.tools select{font-weight:800}.range{display:grid;grid-template-columns:1fr 46px;gap:6px;align-items:center}.range output{text-align:center;font-size:9px;font-weight:800;background:#edf4ff;border-radius:6px;padding:5px}.field input[type=range]{padding:0;accent-color:var(--blue)}.preview{margin-top:8px;border:1px solid var(--line);border-radius:9px;background:#f8fbff;padding:7px}.preview audio{width:100%;height:32px}.meta{display:flex;gap:7px;flex-wrap:wrap;font-size:8px;color:var(--muted);margin-top:5px}.meta b{color:#14213d}.actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:8px}.download,.clear{border:0;border-radius:9px;height:38px;font-weight:900;cursor:pointer}.download{background:var(--grad);color:#fff;box-shadow:0 5px 13px #0757c933}.download:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.clear{background:#fff0f0;color:#c62828}.progress{height:5px;background:#e8edf4;border-radius:9px;margin-top:7px;overflow:hidden}.bar{height:100%;width:0;background:var(--grad);transition:width .15s}.status{font-size:9px;color:var(--muted);margin-top:4px;min-height:11px}.note{font-size:9px;color:#6b7890}.foot{text-align:center;color:#8b98ab;font-size:9px;padding:5px 8px}
-@media(max-width:700px){.app{grid-template-rows:52px 1fr 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}.panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}.work{grid-template-columns:1fr 1fr;gap:6px}.card{padding:8px;border-radius:11px}.left{padding:7px;gap:5px}.leftHead h2{font-size:12px}.dropBtn{font-size:8px;padding:5px 7px}.field label{font-size:8px}.field select,.field input{height:31px;font-size:10px}.actions{grid-template-columns:1fr 66px;gap:6px}.download,.clear{height:34px;font-size:10px}.preview audio{height:28px}.foot{font-size:8px}}
-@media(max-width:390px){.hero p,.badge{display:none}.leftHead h2{font-size:11px}.leftHead span{display:none}}
+@media(max-width:700px){
+.app{grid-template-rows:52px minmax(0,1fr) 22px}
+.nav{height:52px;padding:5px 10px}
+.brand strong{font-size:19px}.brand small{font-size:7px}
+.home{font-size:10px;padding:7px 9px}
+.panel{height:calc(100dvh - 78px);gap:6px}
+.hero{padding:9px 11px;border-radius:11px}
+.hero h1{font-size:21px}.hero p{font-size:9px}
+.badge{font-size:8px;padding:5px 7px}
+.work{grid-template-columns:1fr;grid-template-rows:minmax(150px,18vh) minmax(0,1fr);gap:6px}
+.card{padding:8px;border-radius:11px}
+.preview-card{min-height:0}.tools-card{min-height:0;overflow:hidden}
+.left{padding:7px;gap:5px}
+.leftHead h2{font-size:12px}.leftHead span{font-size:7px}
+.dropBtn{font-size:8px;padding:5px 7px}
+.visual{min-height:0}
+.field label{font-size:8px}.field select,.field input{height:31px;font-size:10px}
+.settings{gap:6px}
+.actions{grid-template-columns:1fr 78px;gap:6px}
+.download,.clear{height:36px;font-size:10px}
+.preview{margin-top:6px}.preview audio{height:28px}
+.meta{font-size:8px}
+.progress{margin-top:6px}
+.foot{font-size:8px}
+}
+@media(max-width:390px){
+.hero p,.badge{display:none}
+.work{grid-template-rows:minmax(145px,18vh) minmax(0,1fr)}
+.leftHead h2{font-size:11px}.leftHead span{display:none}
+.brand small{font-size:6.5px}
+}
 </style></head>
 <body><div class="app">
 <header class="top"><div class="nav"><a class="brand" href="../../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">← Free CSC Tools</a></div></header>
