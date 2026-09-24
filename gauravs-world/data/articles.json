@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "ai-kya-hai-artificial-intelligence-guide-2026",
+      "slug": "ai-kya-hai-artificial-intelligence-guide-2026",
+      "title": "AI क्या है? 2026 में Artificial Intelligence कैसे बदल रही है हमारी दुनिया?",
+      "category": "Technology",
+      "summary": "जानिए Artificial Intelligence (AI) क्या है, यह कैसे काम करती है और शिक्षा, नौकरी, बिजनेस व रोजमर्रा की जिंदगी में इसका इस्तेमाल कैसे किया जा सकता है। इस आसान हिंदी गाइड में AI के फायदे, सीमाएं और सुरक्षित उपयोग के तरीके समझें।",
+      "image": "images/1000201852.webp",
+      "updatedAt": "2026-09-24T06:53:03.029Z"
+    },
+    {
       "id": "space-time-dilation-einstein-relativity",
       "slug": "space-time-dilation-einstein-relativity",
       "title": "क्या अंतरिक्ष में समय धीमा चलता है? Einstein की Relativity का आसान विज्ञान",
@@ -32,18 +41,6 @@
       "author": "Gaurav Yadav",
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
       "publishedAt": "2026-09-23T11:03:06+05:30"
-    },
-    {
-      "id": "ai-kya-hai-artificial-intelligence-guide-2026",
-      "slug": "ai-kya-hai-artificial-intelligence-guide-2026",
-      "title": "AI क्या है? 2026 में Artificial Intelligence कैसे बदल रही है हमारी दुनिया?",
-      "category": "Technology",
-      "summary": "जानिए Artificial Intelligence (AI) क्या है, यह कैसे काम करती है और शिक्षा, नौकरी, बिजनेस व रोजमर्रा की जिंदगी में इसका इस्तेमाल कैसे किया जा सकता है। इस आसान हिंदी गाइड में AI के फायदे, सीमाएं और सुरक्षित उपयोग के तरीके समझें।",
-      "image": "images/1000201852.webp",
-      "updatedAt": "2026-09-22T22:18:38+05:30",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-22T22:18:38+05:30"
     },
     {
       "id": "upi-payment-fraud-se-bachne-ke-7-tarike",
@@ -106,5 +103,5 @@
       "publishedAt": "2026-09-22T13:20:49+05:30"
     }
   ],
-  "updatedAt": "2026-09-24T06:37:22.383Z"
+  "updatedAt": "2026-09-24T06:53:03.029Z"
 }
