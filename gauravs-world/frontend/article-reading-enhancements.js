@@ -221,7 +221,7 @@
   const observer = new MutationObserver(enhance);
   observer.observe(root, {childList:true, subtree:true});
 
-  fetch(`./data/articles/${encodeURIComponent(id)}.json`)
+  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-2`)
     .then(r => r.ok ? r.json() : null)
     .then(a => { article = a; enhance(); })
     .catch(() => {});
