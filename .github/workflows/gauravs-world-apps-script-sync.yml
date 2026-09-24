@@ -7,7 +7,8 @@ on:
     paths:
       - 'gauravs-world/backend/Code.gs'
       - 'gauravs-world/backend/Admin.html'
-      - 'gauravs-world/backend/**'
+      - 'gauravs-world/backend/Code.gs'
+      - 'gauravs-world/backend/Admin.html'
   workflow_dispatch:
 
 concurrency:
@@ -70,11 +71,10 @@ jobs:
           rm -rf "$RUNNER_TEMP/gauravs-world-appsscript"
           mkdir -p "$RUNNER_TEMP/gauravs-world-appsscript"
 
-          printf '%s' "$CLASP_JSON" > "$RUNNER_TEMP/gauravs-world-appsscript/.clasp.json"
+          printf '%s' "$CLASP_JSON" > "$RUNNER_TEMP/clasp-config.json"
+          SCRIPT_ID="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); if(!x.scriptId) process.exit(2); process.stdout.write(x.scriptId)" "$RUNNER_TEMP/clasp-config.json")"
 
-          SCRIPT_ID="$(node -e "const fs=require('fs'); const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8')); if(!x.scriptId) process.exit(2); process.stdout.write(x.scriptId)" "$RUNNER_TEMP/gauravs-world-appsscript/.clasp.json")"
-
-          cd "$RUNNER_TEMP/gauravs-world-appsscript"
+          cd "$RUNNER_TEMP"
           npx --yes @google/clasp@latest clone-script "$SCRIPT_ID" --rootDir "$RUNNER_TEMP/gauravs-world-appsscript"
 
       - name: Replace only GitHub-controlled backend files
