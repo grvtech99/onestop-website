@@ -84,7 +84,7 @@
       } catch (_) { window.prompt('Copy article link:', url); }
     });
   }
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-4`)
+  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-5`,{cache:'no-cache'})
     .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(a => {
       if (!a || !a.title) throw new Error('invalid article');
@@ -100,6 +100,8 @@
         img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); else img.remove(); });
       });
       document.title = `${a.title} | Gaurav's World`;
+      window.gwArticle = a;
+      window.dispatchEvent(new CustomEvent('gw:article-loaded',{detail:a}));
     })
     .catch(() => { root.innerHTML = `<h1>${esc(readable)}</h1><p>यह लेख अभी लोड नहीं हो पाया। कृपया इंटरनेट कनेक्शन जाँचकर पेज दोबारा खोलें।</p><p><a href="./">सभी लेखों पर वापस जाएँ</a></p>`; });
 })();
