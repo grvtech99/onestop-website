@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260924-2';
+  const MANIFEST_URL = './data/articles.json?v=20260924-3';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -30,13 +30,13 @@
     #posts .post-cover{position:relative;z-index:1;display:block;width:100%;height:100%;object-fit:contain;background:transparent}
     #posts .post-cover-link>a{display:block;width:100%;height:100%}
     #posts .post-cover{display:block;width:100%;height:100%;object-fit:cover;object-position:center;background:#eaf0f6}
-    #posts .post-content{flex:1 1 0;min-width:0;display:flex;align-items:center;padding:6px 8px 6px 0}
-    #posts .post h2{margin:0;font-size:.95rem;line-height:1.25} #posts .post-meta{margin-top:3px;color:#64748b;font-size:.67rem;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #posts .post-meta .author{color:#075da8;font-weight:700}
+    #posts .post-content{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:6px 8px 6px 0}
+    #posts .post h2{margin:0;font-size:.95rem;line-height:1.25} #posts .post-meta{display:block;width:100%;max-width:100%;margin-top:3px;color:#64748b;font-size:.64rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #posts .post-meta .author{color:#075da8;font-weight:700}
     #posts .post-actions{right:4px;bottom:4px;gap:4px}
     #posts .post-action{width:26px;height:26px}
     #posts .post-action svg{width:14px;height:14px}
     @media(max-width:800px){#posts .featured-story{grid-template-columns:1fr}#posts .featured-media,#posts .featured-media img{min-height:180px;max-height:250px}#posts .section-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}}
-    @media(max-width:560px){#posts .featured-story{margin-bottom:18px;border-radius:12px}#posts .featured-media,#posts .featured-media img{min-height:175px;max-height:210px}#posts .featured-copy{padding:16px}#posts .featured-label{margin-bottom:9px}#posts .featured-title{font-size:1.25rem;margin-bottom:9px}#posts .featured-summary{font-size:.86rem;margin-bottom:13px;-webkit-line-clamp:3}#posts .home-section{margin:12px 0 18px}#posts .section-head h2{font-size:.94rem}#posts .section-grid{display:flex;flex-direction:column;gap:0}#posts .post{gap:10px;width:100%;border:0;border-bottom:1px solid #e5eaf1;border-radius:0;background:transparent;padding:5px 2px;min-height:0}#posts .post-cover-link{flex-basis:104px;width:104px;height:59px;aspect-ratio:16/9}#posts .post-content{padding:6px 4px 6px 0}#posts .post h2{font-size:.8rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#posts .post-action{width:23px;height:23px}#posts .post-meta{font-size:.6rem;margin-top:2px}}
+    @media(max-width:560px){#posts .featured-story{margin-bottom:18px;border-radius:12px}#posts .featured-media,#posts .featured-media img{min-height:175px;max-height:210px}#posts .featured-copy{padding:16px}#posts .featured-label{margin-bottom:9px}#posts .featured-title{font-size:1.25rem;margin-bottom:9px}#posts .featured-summary{font-size:.86rem;margin-bottom:13px;-webkit-line-clamp:3}#posts .home-section{margin:12px 0 18px}#posts .section-head h2{font-size:.94rem}#posts .section-grid{display:flex;flex-direction:column;gap:0}#posts .post{gap:10px;width:100%;border:0;border-bottom:1px solid #e5eaf1;border-radius:0;background:transparent;padding:5px 2px;min-height:0}#posts .post-cover-link{flex-basis:104px;width:104px;height:59px;aspect-ratio:16/9}#posts .post-content{padding:6px 4px 6px 0}#posts .post h2{font-size:.8rem;line-height:1.2;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}#posts .post-action{width:23px;height:23px}#posts .post-meta{font-size:.61rem;margin-top:2px}}
   `;
   document.head.appendChild(style);
   const fallbackArticles = Array.isArray(window.articles) ? window.articles.slice() : [];
