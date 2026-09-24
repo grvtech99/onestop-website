@@ -40,11 +40,11 @@ button{cursor:pointer}
   background:#fff;border:7px solid #fff;
   box-shadow:0 15px 40px #183d6530;
   display:grid;grid-template-columns:minmax(0,1fr) 205px;
-  grid-template-rows:auto auto auto auto;
+  grid-template-rows:112px auto 145px 0;
   grid-template-areas:"lesson progress" "keyboard progress" "hands progress" "controls progress";
 }
-.lesson-board{grid-area:lesson;background:#f1f5ff;border-right:1px solid #cad7ec;padding:18px 24px 12px}
-.target-line{height:66px;display:flex;align-items:center;justify-content:center;gap:6px;overflow:hidden}
+.lesson-board{grid-area:lesson;background:#f1f5ff;border-right:1px solid #cad7ec;padding:10px 24px 8px}
+.target-line{height:112px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px 7px;overflow:hidden;padding:5px 0}
 .target-key{
   width:34px;height:36px;border:1px solid #aebde5;background:#f9fbff;
   color:#154a9a;display:grid;place-items:center;font-size:18px;font-weight:800;
@@ -101,7 +101,7 @@ button{cursor:pointer}
 .progress-panel .spacer{flex:1}
 .side-btn{width:100%;padding:10px 6px;border-radius:7px;border:1px solid #1268d5;font-weight:800}
 .next{background:#1268d5;color:#fff}.back{background:#fff;color:#1268d5;margin-top:8px}
-.controls{grid-area:controls;background:#f7f9fd;border-top:1px solid #c9d7e9;padding:10px 18px;display:flex;gap:6px}
+.controls{display:none}
 .controls select,.controls button{height:32px;border:1px solid #afc2df;background:#fff;color:#23496f;border-radius:4px;padding:0 8px;font-size:11px}
 .controls .start{background:#1268d5;color:#fff;border-color:#1268d5;flex:1}
 .controls .clear{width:70px}
@@ -208,7 +208,7 @@ function makeKeyboard(){
 }
 function renderTarget(){
  const pos=$("input")?.value.length||0;
- const start=Math.max(0,pos-2), chars=target.slice(start,start+8);
+ const start=Math.max(0,pos-2), chars=target.slice(start,start+16);
  $("targetLine").innerHTML=chars.map((ch,i)=>{
    const idx=start+i, f=fingers[ch.toLowerCase()]||"ri";
    return "<span class='target-key "+(idx===pos?"current ":"")+(idx<pos?"done ":"")+(ch===" "?"space":"")+"'>"+(ch===" "?"SPACE":ch)+"<i class='dot dot-"+f+"'></i></span>";
