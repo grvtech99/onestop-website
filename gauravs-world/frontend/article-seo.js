@@ -58,6 +58,23 @@
       if (image) ensureMeta('twitter:image', image);
       ensureCanonical(canonicalUrl);
 
+      const oldBreadcrumb = document.getElementById('breadcrumb-jsonld');
+      if (oldBreadcrumb) oldBreadcrumb.remove();
+      const breadcrumbScript = document.createElement('script');
+      breadcrumbScript.id = 'breadcrumb-jsonld';
+      breadcrumbScript.type = 'application/ld+json';
+      const categoryName = plain(article.category || 'लेख');
+      breadcrumbScript.textContent = JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'मुख्य पृष्ठ', item: new URL('./', location.href).href },
+          { '@type': 'ListItem', position: 2, name: categoryName, item: new URL(`./?category=${encodeURIComponent(categoryName)}#posts`, location.href).href },
+          { '@type': 'ListItem', position: 3, name: plain(article.title), item: canonicalUrl }
+        ]
+      });
+      document.head.appendChild(breadcrumbScript);
+
       const old = document.getElementById('blogposting-jsonld');
       if (old) old.remove();
       const schema = {
