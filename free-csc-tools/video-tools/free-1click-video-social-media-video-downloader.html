@@ -1,58 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Free 1Click Video Social Media Video Downloader</title>
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0757c9"><meta name="description" content="Free 1Click Video Social Media Video Downloader by ONESTOP.">
+<title>Free 1Click Video Social Media Video Downloader | ONESTOP</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:#f4f8ff;color:#172033}
-body{display:flex;justify-content:center}
-.app{width:100%;max-width:760px;height:100dvh;display:flex;flex-direction:column;background:#fff}
-.header{height:56px;flex:0 0 56px;padding:0 14px;color:#fff;background:linear-gradient(135deg,#0868e8,#1749c8);display:flex;align-items:center;gap:10px}
-.logo{width:34px;height:34px;border-radius:10px;background:#ffffff1f;display:grid;place-items:center;font-size:18px}
-.headtxt{min-width:0}.headtxt h1{font-size:15px;line-height:18px;margin:0;font-weight:800}.headtxt p{font-size:10px;line-height:12px;margin:2px 0 0;opacity:.85}
-.main{flex:1;min-height:0;padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden}
-.hero{border-radius:14px;padding:11px 12px;background:linear-gradient(135deg,#eef6ff,#f7faff);border:1px solid #dceaff}
-.hero h2{margin:0;font-size:17px}.hero p{margin:3px 0 0;font-size:11px;color:#60708a}
-.platforms{display:flex;gap:6px}.pill{flex:1;border:1px solid #dce4ef;background:#fff;border-radius:10px;padding:7px 5px;text-align:center;font-size:11px;font-weight:700;color:#45546b}
-.inputbox{position:relative}.inputbox textarea{width:100%;height:112px;resize:none;border:1px solid #cfd9e8;border-radius:12px;padding:11px 12px 28px;outline:none;font:500 12px/1.45 inherit;color:#172033;background:#fff}.inputbox textarea:focus{border-color:#1671e8;box-shadow:0 0 0 3px #1671e814}.hint{position:absolute;bottom:7px;left:12px;font-size:9px;color:#8794a8}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.select{height:38px;border:1px solid #d5deeb;border-radius:10px;background:#fff;padding:0 10px;font-size:11px;color:#31415b}
-.download{height:44px;border:0;border-radius:12px;color:#fff;font-size:13px;font-weight:800;letter-spacing:.1px;background:linear-gradient(135deg,#0874f9,#1849c7);box-shadow:0 7px 18px #155ed32b;cursor:pointer;touch-action:manipulation}
-.download:active{transform:scale(.975);box-shadow:0 3px 8px #155ed33b}.download:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.clear{height:36px;border:1px solid #d6dfeb;border-radius:10px;background:#fff;color:#53647b;font-size:11px;font-weight:700}
-.status{min-height:36px;border:1px solid #e0e7f0;background:#f8fbff;border-radius:10px;padding:8px 10px;font-size:10px;color:#5e6e85;display:flex;align-items:center;gap:7px}
-.dot{width:7px;height:7px;border-radius:50%;background:#20a66a;flex:0 0 7px}
-.note{font-size:9px;line-height:12px;color:#7b8799;text-align:center;padding:0 4px}
-.footer{height:28px;flex:0 0 28px;border-top:1px solid #edf1f6;display:flex;align-items:center;justify-content:center;font-size:9px;color:#8b96a7}
-@media(max-width:420px){.header{height:52px;flex-basis:52px}.main{padding:8px;gap:7px}.hero{padding:9px 10px}.hero h2{font-size:15px}.inputbox textarea{height:105px}.platforms .pill{font-size:10px}}
-</style>
-</head>
-<body>
-<div class="app">
-<header class="header"><div class="logo">▶</div><div class="headtxt"><h1>Free 1Click Video Social Media Video Downloader</h1><p>ONESTOP Free CSC Tools</p></div></header>
-<main class="main">
-<section class="hero"><h2>Social Media Video Downloader</h2><p>Paste multiple supported video URLs — one link per line.</p></section>
-<div class="platforms"><div class="pill">▶ YouTube</div><div class="pill">◎ Instagram</div><div class="pill">f Facebook</div></div>
-<div class="inputbox"><textarea id="links" placeholder="Paste video links here&#10;&#10;Example:&#10;https://example.com/video.mp4&#10;https://example.com/another-video.mp4"></textarea><div class="hint" id="count">0 links</div></div>
-<div class="row"><select id="format" class="select"><option value="mp4">Video Format: MP4</option><option value="original">Original Format</option></select><select id="quality" class="select"><option>Best Available</option><option>1080p</option><option>720p</option><option>480p</option></select></div>
-<button id="downloadBtn" class="download">⬇ Download All</button>
-<button id="clearBtn" class="clear">Clear Links</button>
-<div class="status"><span class="dot"></span><span id="status">Ready — add video links above.</span></div>
-<div class="note">This browser-only version downloads direct video-file URLs. Social-media page URLs (YouTube/Facebook/Instagram) generally require the platform's own download feature or an authorized server/API; this tool does not bypass access controls or platform restrictions.</div>
-</main>
-<footer class="footer">ONESTOP DIGITAL SOLUTION • Free Tool</footer>
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden}body{font-family:Arial,"Segoe UI",sans-serif;background:#eef6ff;color:#14213d}
+:root{--blue:#0757c9;--line:#d8e6f7;--muted:#687992;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+.app{height:100dvh;display:grid;grid-template-rows:56px 1fr 25px}.top{background:#fff;border-bottom:1px solid #e2eafa}.nav{height:56px;max-width:1180px;margin:auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}.brand{text-decoration:none;color:#0757c9}.brand strong{display:block;font-size:22px;font-weight:900;line-height:1}.brand small{display:block;font-size:8px;letter-spacing:.8px;font-weight:800;margin-top:4px}.home{background:var(--grad);color:#fff;padding:8px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:800}
+main{min-height:0;display:flex;align-items:center;justify-content:center;padding:8px 12px}.panel{width:min(1050px,100%);height:min(690px,calc(100dvh - 89px));display:grid;grid-template-rows:auto 1fr auto;gap:8px}.hero{background:var(--grad);color:#fff;border-radius:15px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}.hero h1{margin:0;font-size:clamp(20px,3.5vw,34px)}.hero p{margin:3px 0 0;font-size:11px}.badge{background:#ffffff24;border:1px solid #ffffff45;padding:7px 10px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
+.work{min-height:0;display:grid;grid-template-columns:1.15fr .85fr;gap:8px}.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;box-shadow:0 5px 18px #06265f0b;min-height:0}
+.drop{height:100%;min-height:120px;border:2px dashed #b8c8dd;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#fbfdff}.drop h2{font-size:16px;margin:5px 0}.drop p{font-size:10px;color:var(--muted);margin:0}.paste{width:92%;height:175px;resize:none;border:1px solid #cbd9e9;border-radius:9px;padding:9px;font:11px/1.45 Arial,"Segoe UI",sans-serif;color:#14213d;outline:0;background:#fff}.paste:focus{border-color:var(--blue);box-shadow:0 0 0 3px #0757c912}.paste::placeholder{color:#8997aa}.hint{font-size:8px;color:var(--muted);margin-top:5px}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field select,.field input{width:100%;height:35px;border:1px solid #cbd9e9;border-radius:8px;padding:0 8px;background:#fff;color:#14213d}.field input[type=range]{padding:0;accent-color:var(--blue)}.platforms{grid-column:1/-1;display:flex;gap:5px}.platform{flex:1;height:30px;border:1px solid var(--line);border-radius:7px;background:#f8fbff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#526681}
+.files{margin-top:8px}.files-title{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:900;margin-bottom:5px}.files-title span{font-size:9px;color:var(--muted);font-weight:700}.list{display:flex;gap:5px;overflow:hidden;height:45px}.chip{width:45px;height:45px;flex:0 0 45px;border:1px solid var(--line);border-radius:7px;background:#edf4ff;display:grid;place-items:center;color:var(--blue);font-size:15px;font-weight:900}.more{height:45px;min-width:45px;border-radius:7px;background:#edf4ff;color:var(--blue);display:grid;place-items:center;font-size:10px;font-weight:900}
+.actions{display:grid;grid-template-columns:1fr 90px;gap:8px;margin-top:8px}.download,.clear{border:0;border-radius:9px;height:38px;font-weight:900;cursor:pointer;transition:.12s}.download{background:var(--grad);color:#fff;box-shadow:0 5px 13px #0757c933}.download:active,.clear:active{transform:scale(.96)}.download:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}.clear{background:#fff0f0;color:#c62828}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:7px;font-size:9px;color:var(--muted)}.stats b{color:#14213d}.progress{height:5px;background:#e8edf4;border-radius:9px;margin-top:6px;overflow:hidden}.bar{height:100%;width:0;background:var(--grad);transition:width .15s}.status{font-size:9px;color:var(--muted);margin-top:4px;min-height:11px}.note{font-size:9px;color:#6b7890}
+.foot{text-align:center;color:#8b98ab;font-size:9px;padding:5px 8px}
+@media(max-width:700px){.app{grid-template-rows:52px 1fr 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}.panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}.work{grid-template-columns:1fr 1fr;gap:6px}.card{padding:8px;border-radius:11px}.drop{min-height:95px}.drop h2{font-size:13px}.drop p{font-size:8px}.paste{height:120px;font-size:9px}.hint{font-size:7px}.platform{font-size:8px;height:27px}.settings{gap:6px}.field label{font-size:8px}.field select,.field input{height:31px;font-size:10px}.actions{grid-template-columns:1fr 66px;gap:6px}.download,.clear{height:34px;font-size:10px}.files-title{font-size:9px}.list{height:37px}.chip,.more{width:37px;height:37px;flex-basis:37px}.stats{font-size:8px;gap:6px}.foot{font-size:8px}}
+@media(max-width:390px){.hero p{display:none}.badge{display:none}.drop h2{font-size:12px}.drop p{display:none}.paste{height:105px}.platform{font-size:7px}.brand small{font-size:6.5px}}
+</style></head>
+<body><div class="app">
+<header class="top"><div class="nav"><a class="brand" href="../../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">← Free CSC Tools</a></div></header>
+<main><section class="panel">
+<section class="hero"><div><h1>Free 1Click Video Social Media Video Downloader</h1><p>YouTube / Instagram / Facebook • Multiple Links • Fast &amp; Simple</p></div><div class="badge">VIDEO TOOL</div></section>
+<section class="work">
+<div class="card"><div id="drop" class="drop">
+<div style="font-size:27px">▶</div><h2>Paste Video Links Here</h2><p>YouTube, Instagram or Facebook • One link per line</p>
+<textarea id="links" class="paste" placeholder="Paste video links here&#10;&#10;https://...&#10;https://..."></textarea><div class="hint">Multiple links supported</div>
+</div></div>
+<div class="card">
+<div class="settings">
+<div class="platforms"><div class="platform">▶ YouTube</div><div class="platform">◎ Instagram</div><div class="platform">f Facebook</div></div>
+<div class="field"><label>VIDEO FORMAT</label><select id="format"><option value="mp4">MP4</option><option value="original">Original</option></select></div>
+<div class="field"><label>QUALITY</label><select id="quality"><option>Best Available</option><option>1080p</option><option>720p</option><option>480p</option></select></div>
 </div>
+<div class="files"><div class="files-title">Video Links <span id="count">0 links</span></div><div id="list" class="list"></div></div>
+<div class="actions"><button id="download" class="download" disabled>⬇ Download All</button><button id="clear" class="clear">Clear</button></div>
+<div class="stats"><span>Links <b id="linkCount">0</b></span><span>Supported <b>3 Platforms</b></span></div>
+<div class="progress"><div id="bar" class="bar"></div></div><div id="status" class="status"></div>
+</div></section>
+<section class="card" style="padding:7px 11px"><div class="note"><b>Note:</b> Social-media page URLs may require an authorized downloader/API. This tool does not bypass access controls or platform restrictions.</div></section>
+</section></main><footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Video Social Media Video Downloader</footer>
 <script>
-const links=document.getElementById('links'),count=document.getElementById('count'),status=document.getElementById('status'),btn=document.getElementById('downloadBtn'),clearBtn=document.getElementById('clearBtn');
-function getLinks(){return links.value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}
-function updateCount(){const n=getLinks().length;count.textContent=n+(n===1?' link':' links')}
-function isDirectVideo(url){try{const u=new URL(url);return /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(u.pathname+u.search)}catch(e){return false}}
-function safeName(url,i){try{const u=new URL(url);let n=decodeURIComponent(u.pathname.split('/').pop()||'video-'+(i+1));n=n.replace(/[^\w.\-]+/g,'_');if(!/\.(mp4|webm|mov|m4v|ogg)$/i.test(n))n+='.'+(document.getElementById('format').value==='mp4'?'mp4':'bin');return n}catch(e){return 'video-'+(i+1)+'.mp4'}}
-function triggerDownload(url,name){const a=document.createElement('a');a.href=url;a.download=name;a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
-async function downloadAll(){const arr=getLinks();if(!arr.length){status.textContent='Please paste at least one video link.';return}btn.disabled=true;let direct=0,social=0;arr.forEach(u=>{if(isDirectVideo(u)){direct++;triggerDownload(u,safeName(u,direct-1))}else{social++;window.open(u,'_blank','noopener')}});if(social&&direct)status.textContent=direct+' direct video file(s) sent for download; '+social+' social-media page link(s) opened for authorized/platform download.';else if(direct)status.textContent=direct+' direct video file(s) sent for download.';else status.textContent='These are social-media page URLs. Use the platform-provided download/export option where available.';setTimeout(()=>btn.disabled=false,900)}
-links.addEventListener('input',updateCount);btn.addEventListener('click',downloadAll);clearBtn.addEventListener('click',()=>{links.value='';updateCount();status.textContent='Ready — add video links above.'});updateCount();
-</script>
-</body>
-</html>
+const $=id=>document.getElementById(id);let busy=false;
+function getLinks(){return $('links').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}
+function render(){let a=getLinks();$('count').textContent=a.length+' link'+(a.length===1?'':'s');$('linkCount').textContent=a.length;$('download').disabled=!a.length||busy;$('list').innerHTML=a.slice(0,7).map((u,i)=>'<div class="chip">▶</div>').join('')+(a.length>7?'<div class="more">+'+(a.length-7)+'</div>':'')}
+$('links').addEventListener('input',render);
+$('download').onclick=async()=>{let a=getLinks();if(!a.length||busy)return;busy=true;render();$('bar').style.width='0';$('status').textContent='Checking '+a.length+' video link'+(a.length===1?'':'s')+'…';let direct=a.filter(u=>/\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(u));let social=a.length-direct.length;direct.forEach((u,i)=>{let x=document.createElement('a');x.href=u;x.download='video-'+(i+1)+'.'+($('format').value==='mp4'?'mp4':'bin');x.target='_blank';x.rel='noopener';document.body.appendChild(x);x.click();x.remove()});$('bar').style.width='100%';if(direct&&social)$('status').textContent=direct.length+' direct video file(s) sent for download; '+social+' social-media link(s) need an authorized downloader/API.';else if(direct)$('status').textContent=direct.length+' direct video file(s) sent for download.';else $('status').textContent='Social-media page links detected. An authorized downloader/API is required to fetch the video.';setTimeout(()=>{busy=false;render()},900)};
+$('clear').onclick=()=>{if(busy)return;$('links').value='';$('bar').style.width='0';$('status').textContent='';render()};render();
+</script></div></body></html>
