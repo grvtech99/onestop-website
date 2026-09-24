@@ -20,15 +20,13 @@ The production deployment ID is kept in a GitHub Secret, so the public web-app U
 Google's clasp CI/CD documentation requires these GitHub Actions secrets:
 
 - `CLASPRC_JSON`: the contents of the authenticated `~/.clasprc.json`.
-- `CLASP_JSON`: JSON containing the target Apps Script `scriptId`, for example:
-  `{"scriptId":"YOUR_SCRIPT_ID"}`
 - `CLASP_DEPLOYMENT_ID`: the existing production web-app deployment ID.
 
 Also enable the Google Apps Script API for the Google account/project used by clasp.
 
 Do **not** commit `.clasprc.json`, OAuth credentials, or access tokens to GitHub.
 
-After these three secrets exist, no future Code.gs/Admin.html copy-paste into Apps Script is required. A commit to `main` will perform the sync automatically.
+After these two secrets exist, no future Code.gs/Admin.html copy-paste into Apps Script is required. A commit to `main` will perform the sync automatically.
 
 ## Safety
 
