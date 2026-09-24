@@ -34,7 +34,136 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.lesson-grid,.game-grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(3,1fr)}.stat{border-bottom:1px solid var(--line)}}
 @media(max-width:720px){header{height:58px}.layout{grid-template-columns:1fr}aside{position:fixed;left:-270px;top:58px;width:260px;height:calc(100vh - 58px);z-index:60;transition:.2s;padding:12px}.layout.open aside{left:0}.layout.open::after{content:"";position:fixed;inset:58px 0 0 0;background:#08233a55;z-index:55}.nav-title{font-size:11px;text-align:left;margin:12px 8px 7px}.nav button{width:100%;height:auto;text-align:left;font-size:15px;padding:10px 11px}.nav button::first-letter{font-size:inherit}.nav button.active::after{display:none}main{padding:10px}.hero{padding:17px}.hero h1{font-size:22px}.hero-badge{display:none}.grid,.lesson-grid,.game-grid,.results,.settings{grid-template-columns:1fr}.prompt{font-size:18px;min-height:145px}.key{min-width:27px;height:36px;font-size:10px;padding:0 5px}.key.w2{min-width:45px}.key.w3{min-width:60px}.key.w4{min-width:75px}.stats{grid-template-columns:repeat(3,1fr)}.stat{padding:9px}.stat b{font-size:17px}.layout.practice-mode{height:calc(100vh - 58px)}.layout.practice-mode main{padding:0}.layout.practice-mode #practice>.card{padding:6px 7px}.layout.practice-mode #practice>.card .toolbar{grid-template-columns:1fr 1fr 1.15fr auto auto;gap:4px}.layout.practice-mode #practice>.card .toolbar select,.layout.practice-mode #practice>.card .toolbar button{height:34px;padding:4px 6px;font-size:11px;min-width:0}.layout.practice-mode #practice>.card .toolbar button{font-size:0}.layout.practice-mode #practice>.card .toolbar #startBtn{font-size:0}.layout.practice-mode #practice>.card .toolbar #startBtn::before{content:"▶";font-size:13px}.layout.practice-mode #practice>.card .toolbar #clearBtn{font-size:0}.layout.practice-mode #practice>.card .toolbar #clearBtn::before{content:"×";font-size:17px}.layout.practice-mode .practice{grid-template-rows:42px 1fr 64px 22px minmax(185px,29vh)}.layout.practice-mode .practice .stats{height:42px;min-height:42px}.layout.practice-mode .practice .stat b{font-size:13px}.layout.practice-mode .practice .stat span{font-size:7px}.layout.practice-mode .practice .prompt{font-size:18px;line-height:1.5;padding:9px 11px;overflow-wrap:anywhere}.layout.practice-mode .practice textarea#input{height:64px;font-size:17px;padding:7px 10px}.layout.practice-mode .practice-foot{height:22px;min-height:22px;padding:3px 7px}.layout.practice-mode .practice .keyboard{padding:7px 5px 9px}.layout.practice-mode .keys{gap:3px}.layout.practice-mode .row{gap:3px}.layout.practice-mode .key{font-size:10px;min-height:27px;padding:0 2px}.layout.practice-mode .key::after{font-size:6px;bottom:1px;right:2px}.keyboard-guide{gap:3px;margin-bottom:3px;font-size:7px}.finger-chip{padding:1px 3px}.next-finger{font-size:9px}}
 </style>
-</head>
+<style>
+/* ONESTOP Typing Master — practice readability upgrade */
+.layout.practice-mode .practice{
+  grid-template-rows:44px 1fr 88px 23px minmax(205px,30vh)!important;
+}
+.layout.practice-mode .practice .prompt{
+  background:#eef5fb!important;
+  border-bottom:1px solid #c6d7e6!important;
+  padding:0 30px 16px!important;
+  font-size:23px!important;
+  line-height:1.62!important;
+  color:#102a43!important;
+  overflow:auto!important;
+  overflow-wrap:anywhere!important;
+  white-space:normal!important;
+}
+.section-label{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:center;
+  min-height:30px;
+  margin:0 -30px 12px;
+  padding:6px 14px;
+  background:#123b5d;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.7px;
+  border-bottom:2px solid #0b78d0;
+}
+.prompt-text{max-width:1200px;margin:auto}
+.prompt-text .correct{color:#087f3e!important}
+.prompt-text .wrong{
+  color:#fff!important;
+  background:#c62828!important;
+  border-radius:4px;
+  padding:0 2px;
+}
+.prompt-text .current{
+  color:#082f49!important;
+  background:#ffd54a!important;
+  border-radius:4px;
+  box-shadow:0 0 0 2px #f59e0b;
+}
+.typing-area{
+  background:#fff;
+  border-top:4px solid #0b78d0;
+  display:flex;
+  flex-direction:column;
+  min-height:0;
+}
+.typing-label{
+  position:static;
+  min-height:24px;
+  margin:0!important;
+  padding:4px 14px;
+  background:#0b78d0;
+  border:0;
+  font-size:10px;
+}
+.layout.practice-mode .practice textarea#input{
+  height:64px!important;
+  min-height:0!important;
+  flex:1;
+  background:#fff!important;
+  color:#102a43!important;
+  border:0!important;
+  border-bottom:1px solid #c6d7e6!important;
+  font-size:18px!important;
+  line-height:1.35!important;
+  padding:7px 14px!important;
+  outline:0!important;
+}
+.layout.practice-mode .practice textarea#input:focus{
+  box-shadow:inset 0 0 0 2px #7dd3fc;
+}
+.layout.practice-mode .practice .keyboard{
+  background:#dce6f0!important;
+  border-top:5px solid #123b5d!important;
+  padding:8px 18px 11px!important;
+}
+.layout.practice-mode .keyboard-guide{
+  margin-bottom:5px!important;
+  color:#18324a!important;
+}
+.layout.practice-mode .finger-chip{
+  color:#fff!important;
+  border:1px solid #17324d!important;
+  font-weight:900!important;
+}
+.layout.practice-mode .finger-lp{background:#7f1d1d!important}
+.layout.practice-mode .finger-lr{background:#92400e!important}
+.layout.practice-mode .finger-li{background:#166534!important}
+.layout.practice-mode .finger-ri{background:#1d4ed8!important}
+.layout.practice-mode .finger-rr{background:#6d28d9!important}
+.layout.practice-mode .finger-rp{background:#9d174d!important}
+.layout.practice-mode .key{
+  border:2px solid #17324d!important;
+  color:#fff!important;
+  font-weight:900!important;
+  box-shadow:0 2px 0 #8aa0b5;
+}
+.layout.practice-mode .key.finger-lp{background:#7f1d1d!important}
+.layout.practice-mode .key.finger-lr{background:#92400e!important}
+.layout.practice-mode .key.finger-li{background:#166534!important}
+.layout.practice-mode .key.finger-ri{background:#1d4ed8!important}
+.layout.practice-mode .key.finger-rr{background:#6d28d9!important}
+.layout.practice-mode .key.finger-rp{background:#9d174d!important}
+.layout.practice-mode .key.finger-thumb{background:#374151!important}
+.layout.practice-mode .key.active{
+  background:#ffd54a!important;
+  color:#111827!important;
+  border:3px solid #111827!important;
+  box-shadow:0 0 0 3px #f59e0b,0 3px 0 #111827!important;
+}
+.layout.practice-mode .key.error{
+  background:#ef4444!important;
+  color:#fff!important;
+  border-color:#7f1d1d!important;
+}
+@media(max-width:720px){
+  .layout.practice-mode .practice{grid-template-rows:42px 1fr 82px 22px minmax(185px,29vh)!important}
+  .layout.practice-mode .practice .prompt{padding:0 11px 10px!important;font-size:18px!important;line-height:1.5!important}
+  .layout.practice-mode .section-label{margin:0 -11px 8px!important;padding:5px 9px!important}
+  .layout.practice-mode .practice textarea#input{height:58px!important;font-size:16px!important}
+  .layout.practice-mode .practice .keyboard{padding:7px 5px 9px!important}
+}
+</style></head>
 <body>
 <div class="app">
 <header><button id="menuBtn" style="background:transparent;color:#fff;font-size:22px">☰</button><div class="logo">O</div><div><div class="title">ONESTOP Typing Master</div><div class="subtitle">Learn • Practice • Test • Play</div></div><div class="head-actions"><button id="focusBtn">⛶ Focus</button><button id="themeBtn">◐</button></div></header>
@@ -48,7 +177,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 <div class="card" style="margin-top:14px"><h3>Choose your path</h3><div class="grid" style="margin-top:10px"><button class="card" onclick="showView('lessons')"><b>📚 Learn Touch Typing</b><p>Home row → full keyboard → punctuation.</p></button><button class="card" onclick="showView('practice')"><b>⌨️ Free Practice</b><p>Unlimited, timed or word-count practice.</p></button><button class="card" onclick="showView('tests')"><b>⚡ Speed Test</b><p>Measure WPM, raw speed and accuracy.</p></button><button class="card" onclick="showView('games')"><b>🎮 Play & Improve</b><p>Reaction and word typing games.</p></button></div></div></section>
 
 <section id="practice" class="view"><div class="card"><h2 style="margin-top:0">Free Practice</h2><div class="toolbar"><select id="mode"><option value="unlimited">♾ Unlimited</option><option value="time">⏱ Timed</option><option value="words">🔢 Word Count</option></select><select id="duration"><option value="30">30 sec</option><option value="60" selected>1 min</option><option value="120">2 min</option><option value="300">5 min</option><option value="600">10 min</option><option value="900">15 min</option></select><select id="level"><option value="beginner">Beginner</option><option value="intermediate" selected>Intermediate</option><option value="advanced">Advanced</option><option value="punctuation">Punctuation</option><option value="numbers">Numbers</option><option value="code">Code</option></select><button class="primary" id="startBtn">Start / Restart</button><button id="clearBtn">Clear</button></div></div>
-<div class="practice" style="margin-top:12px"><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"></div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Click Start and begin typing here..."></textarea><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
+<div class="practice" style="margin-top:12px"><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
 
 <section id="lessons" class="view"><div class="card"><h2 style="margin-top:0">Progressive Typing Course</h2><p>Start with finger placement and gradually unlock harder drills.</p></div><div class="lesson-grid" id="lessonGrid" style="margin-top:12px"></div></section>
 <section id="tests" class="view"><div class="card"><h2 style="margin-top:0">Speed Test</h2><p>Standard WPM = correctly typed characters ÷ 5 ÷ minutes. Choose a duration and start.</p><div class="toolbar"><select id="testDuration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="180">3 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option><option value="900">15 minutes</option></select><button class="primary" onclick="startTest()">Start Speed Test</button></div></div><div class="results" style="margin-top:12px"><div class="card"><div class="big" id="testBest">0</div><p>Best WPM</p></div><div class="card"><div class="big" id="testAvg">0</div><p>Average WPM</p></div><div class="card"><div class="big" id="testSessions">0</div><p>Sessions</p></div><div class="card"><div class="big" id="testGoal">50</div><p>Suggested Goal</p></div></div></section>
@@ -100,7 +229,8 @@ function buildText(level){let base=texts[level]||texts.intermediate;let out="";w
 let promptReady=false,lastRenderedValue="";
 function renderPrompt(force=false){
   const val=$("input").value;
-  if(force||!promptReady){
+  const box=$("promptText");
+  if(force||!promptReady||box.children.length!==target.length){
     const frag=document.createDocumentFragment();
     for(let i=0;i<target.length;i++){
       const s=document.createElement("span");
@@ -108,18 +238,15 @@ function renderPrompt(force=false){
       s.textContent=target[i];
       frag.appendChild(s);
     }
-    $("prompt").replaceChildren(frag);
+    box.replaceChildren(frag);
     promptReady=true;
-    lastRenderedValue="";
   }
-  const spans=$("prompt").children;
-  if(lastRenderedValue===val && !force) return;
-  const max=Math.max(lastRenderedValue.length,val.length);
-  for(let i=0;i<max;i++){
-    const s=spans[i];
-    if(!s) continue;
-    if(i<val.length) s.className=val[i]===target[i]?"correct":"wrong";
-    else s.className="";
+  const spans=box.children;
+  for(let i=0;i<spans.length;i++){
+    spans[i].className="";
+    if(i<val.length){
+      spans[i].className=(val[i]===target[i])?"correct":"wrong";
+    }
   }
   const cur=spans[val.length];
   if(cur && running) cur.className="current";
