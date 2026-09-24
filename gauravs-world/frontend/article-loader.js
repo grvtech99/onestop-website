@@ -43,6 +43,20 @@
     }
     closeList(); return out.join('');
   }
+  function addBreadcrumb(category, title) {
+    if (root.querySelector('.article-breadcrumb')) return;
+    const nav = document.createElement('nav');
+    nav.className = 'article-breadcrumb';
+    nav.setAttribute('aria-label','ब्रेडक्रंब');
+    const categoryUrl = category ? `./?category=${encodeURIComponent(category)}#posts` : './#posts';
+    nav.innerHTML = `<a href="./">मुख्य पृष्ठ</a><span aria-hidden="true">›</span><a href="${esc(categoryUrl)}">${esc(category || 'लेख')}</a><span aria-hidden="true">›</span><span aria-current="page">${esc(title)}</span>`;
+    const style = document.createElement('style');
+    style.id = 'article-breadcrumb-style';
+    style.textContent = '.article-breadcrumb{display:flex;flex-wrap:wrap;align-items:center;gap:5px 7px;color:#64748b;font-size:.78rem;line-height:1.4;margin:0 0 10px}.article-breadcrumb a{color:#64748b}.article-breadcrumb a:hover,.article-breadcrumb a:focus-visible{color:#0876d1}.article-breadcrumb span[aria-hidden="true"]{color:#9aa8b8}.article-breadcrumb span[aria-current="page"]{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media(max-width:560px){.article-breadcrumb{font-size:.74rem;margin-bottom:8px}}';
+    if (!document.getElementById('article-breadcrumb-style')) document.head.appendChild(style);
+    root.prepend(nav);
+  }
+
   function addShareControls(title) {
     if (root.querySelector('.article-share')) return;
     const bar = document.createElement('div');
@@ -79,6 +93,7 @@
       const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
       const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
+      addBreadcrumb(a.category || 'General', a.title);
       addShareControls(a.title);
       root.querySelectorAll('.article-body img').forEach(img => {
         img.style.display = 'block'; img.style.width = '100%'; img.style.maxWidth = '100%'; img.style.height = '100%'; img.style.maxHeight = 'none'; img.style.margin = '0 auto'; img.style.objectFit = 'contain'; img.style.borderRadius = '10px';
