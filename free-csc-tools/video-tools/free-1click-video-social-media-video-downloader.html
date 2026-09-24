@@ -42,9 +42,51 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 </section></main><footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Video Social Media Video Downloader</footer>
 <script>
 const $=id=>document.getElementById(id);let busy=false;
+
+/* Optional authorized backend.
+   Keep API keys/server secrets on the backend, never in this GitHub Pages file.
+   Expected POST JSON:
+   {urls:[...],format:"mp4"|"original",quality:"Best Available"|"1080p"|"720p"|"480p"}
+   Expected response:
+   {results:[{downloadUrl:"https://...",fileName:"video.mp4",status:"ok",message:"..."}]}
+*/
+const API_ENDPOINT='';
+
 function getLinks(){return $('links').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}
-function render(){let a=getLinks();$('count').textContent=a.length+' link'+(a.length===1?'':'s');$('linkCount').textContent=a.length;$('download').disabled=!a.length||busy;$('list').innerHTML=a.slice(0,7).map((u,i)=>'<div class="chip">▶</div>').join('')+(a.length>7?'<div class="more">+'+(a.length-7)+'</div>':'')}
+function isDirect(u){return /\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(u)}
+function render(){let a=getLinks();$('count').textContent=a.length+' link'+(a.length===1?'':'s');$('linkCount').textContent=a.length;$('download').disabled=!a.length||busy;$('list').innerHTML=a.slice(0,7).map(()=>'<div class="chip">▶</div>').join('')+(a.length>7?'<div class="more">+'+(a.length-7)+'</div>':'')}
+async function sendToAuthorizedApi(urls){
+  const r=await fetch(API_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({urls,format:$('format').value,quality:$('quality').value})});
+  if(!r.ok) throw new Error('API HTTP '+r.status);
+  return await r.json();
+}
+function triggerDownload(url,name){const a=document.createElement('a');a.href=url;a.download=name||'video.mp4';a.target='_blank';a.rel='noopener';document.body.appendChild(a);a.click();a.remove()}
 $('links').addEventListener('input',render);
-$('download').onclick=async()=>{let a=getLinks();if(!a.length||busy)return;busy=true;render();$('bar').style.width='0';$('status').textContent='Checking '+a.length+' video link'+(a.length===1?'':'s')+'…';let direct=a.filter(u=>/\.(mp4|webm|mov|m4v|ogg)(\?.*)?$/i.test(u));let social=a.length-direct.length;direct.forEach((u,i)=>{let x=document.createElement('a');x.href=u;x.download='video-'+(i+1)+'.'+($('format').value==='mp4'?'mp4':'bin');x.target='_blank';x.rel='noopener';document.body.appendChild(x);x.click();x.remove()});$('bar').style.width='100%';if(direct&&social)$('status').textContent=direct.length+' direct video file(s) sent for download; '+social+' social-media link(s) need an authorized downloader/API.';else if(direct)$('status').textContent=direct.length+' direct video file(s) sent for download.';else $('status').textContent='Social-media page links detected. An authorized downloader/API is required to fetch the video.';setTimeout(()=>{busy=false;render()},900)};
+$('download').onclick=async()=>{
+  const a=getLinks();if(!a.length||busy)return;busy=true;render();$('bar').style.width='5%';
+  try{
+    $('status').textContent='Preparing '+a.length+' video link'+(a.length===1?'':'s')+'…';
+    const direct=a.filter(isDirect), social=a.filter(u=>!isDirect(u));
+    let done=0;
+    direct.forEach((u,i)=>{triggerDownload(u,'video-'+(i+1)+'.'+($('format').value==='mp4'?'mp4':'bin'));done++;$('bar').style.width=Math.max(5,Math.round(done/a.length*100))+'%'});
+    if(social.length && API_ENDPOINT){
+      $('status').textContent='Sending '+social.length+' social-media link'+(social.length===1?'':'s')+' to the authorized download service…';
+      const data=await sendToAuthorizedApi(social);
+      const results=Array.isArray(data.results)?data.results:[];
+      results.forEach(x=>{if(x&&x.downloadUrl)triggerDownload(x.downloadUrl,x.fileName)});
+      done+=results.filter(x=>x&&x.status==='ok').length;
+    }
+    $('bar').style.width='100%';
+    if(social.length && !API_ENDPOINT){
+      $('status').textContent=direct.length+' direct video file(s) sent for download; '+social.length+' social-media link(s) need an authorized API endpoint.';
+    }else if(social.length){
+      $('status').textContent=done+' video download'+(done===1?'':'s')+' started. Check any API error messages returned by the service.';
+    }else{
+      $('status').textContent=direct.length+' direct video file(s) sent for download.';
+    }
+  }catch(e){
+    $('bar').style.width='100%';$('status').textContent='Download service error: '+(e.message||'Request failed.');
+  }finally{setTimeout(()=>{busy=false;render()},900)}
+};
 $('clear').onclick=()=>{if(busy)return;$('links').value='';$('bar').style.width='0';$('status').textContent='';render()};render();
 </script></div></body></html>
