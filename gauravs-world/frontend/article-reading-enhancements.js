@@ -16,7 +16,7 @@
     .reading-progress{position:fixed;top:0;left:0;width:100%;height:3px;z-index:2100;pointer-events:none;background:transparent}
     .reading-progress-bar{height:100%;width:0;transform-origin:left center;background:#0876d1;transition:width .08s linear}
     .reading-meta{display:flex;flex-wrap:wrap;gap:6px 12px;color:#64748b;font-size:.84rem;margin:7px 0 14px}
-    .reading-meta .meta-sep{color:#a3afbf}
+    .reading-meta .meta-sep{color:#a3afbf}.reading-meta a{color:#075da8;font-weight:700}.reading-meta a:hover{text-decoration:underline}
     .reading-toc{border:1px solid #dce8f5;background:#f6faff;border-radius:12px;margin:18px 0}
     .reading-toc summary{cursor:pointer;padding:12px 15px;font-weight:750;color:#18324d;list-style:none}
     .reading-toc summary::-webkit-details-marker{display:none}
@@ -177,18 +177,32 @@
 
     done = true;
     const words = (body.innerText || '').trim().split(/\s+/).filter(Boolean).length;
-    const bits = [`लगभग ${Math.max(1, Math.ceil(words / 200))} मिनट पढ़ने का समय`];
-    if (article && article.author) bits.unshift(`लेखक: ${article.author}`);
-    if (article && article.publishedAt) bits.push(`प्रकाशित: ${article.publishedAt}`);
-    if (article && article.updatedAt) bits.push(`अपडेट: ${article.updatedAt}`);
+    const readingMinutes = Math.max(1, Math.ceil(words / 200));
+    const formatDate = value => {
+      if (!value) return '';
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return String(value);
+      return new Intl.DateTimeFormat('hi-IN', {day:'numeric', month:'long', year:'numeric'}).format(d);
+    };
+    const parts = [];
+    if (article && article.author) {
+      const authorText = esc(article.author);
+      const authorUrl = String(article.authorUrl || article.authorURL || '').trim();
+      parts.push(authorUrl && /^https:\/\//i.test(authorUrl)
+        ? `लेखक: <a href="${esc(authorUrl)}">${authorText}</a>`
+        : `लेखक: ${authorText}`);
+    }
+    if (article && article.publishedAt) parts.push(`प्रकाशित: ${formatDate(article.publishedAt)}`);
+    if (article && article.updatedAt && article.updatedAt !== article.publishedAt) parts.push(`अपडेट: ${formatDate(article.updatedAt)}`);
+    parts.push(`लगभग ${readingMinutes} मिनट पढ़ने का समय`);
 
     const meta = document.createElement('div');
     meta.className = 'reading-meta';
-    meta.innerHTML = bits.map((bit,i) => (i ? '<span class="meta-sep" aria-hidden="true">·</span>' : '') + esc(bit)).join('');
+    meta.innerHTML = parts.map((bit,i) => (i ? '<span class="meta-sep" aria-hidden="true">·</span>' : '') + bit).join('');
     const date = root.querySelector('.date');
-    if (date && article && article.updatedAt) date.textContent = `अपडेट: ${article.updatedAt}`;
-    if (date && !(article && (article.publishedAt || article.date || article.updatedAt))) date.remove();
-    (date || title).insertAdjacentElement('afterend', meta);
+    if (date) date.remove();
+    const share = root.querySelector('.article-share');
+    (share || title).insertAdjacentElement('afterend', meta);
 
     addToc(body, meta);
     addTopButton(body);
