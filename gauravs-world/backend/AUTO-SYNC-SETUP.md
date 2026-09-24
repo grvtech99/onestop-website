@@ -13,7 +13,7 @@ When files under `gauravs-world/backend/` change on `main`:
 5. It creates a new immutable Apps Script version.
 6. It redeploys the existing production deployment to that new version.
 
-The production deployment ID is kept in a GitHub Secret, so the public web-app URL does not need to change.
+The existing production deployment ID is bound in the workflow, so the public web-app URL does not need to change.
 
 ## One-time setup
 
