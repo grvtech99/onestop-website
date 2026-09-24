@@ -65,15 +65,24 @@
         '@type': 'BlogPosting',
         headline: plain(article.title),
         description,
+        inLanguage: 'hi',
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-        publisher: { '@type': 'Organization', name: "Gaurav's World" }
+        publisher: { '@type': 'Organization', name: "Gaurav's World", url: new URL('./', location.href).href }
       };
+      if (article.category) schema.articleSection = plain(article.category);
+      if (article.tags) schema.keywords = Array.isArray(article.tags) ? article.tags.map(plain).filter(Boolean) : plain(article.tags);
+
       if (image) schema.image = [image];
       const published = article.publishedAt || article.date;
       const modified = article.updatedAt || published;
       if (published) schema.datePublished = published;
       if (modified) schema.dateModified = modified;
-      if (article.author) schema.author = { '@type': 'Person', name: plain(article.author) };
+      if (article.author) {
+        schema.author = { '@type': 'Person', name: plain(article.author) };
+        const authorUrl = article.authorUrl || article.authorURL;
+        if (authorUrl && /^https?:\\/\\//i.test(String(authorUrl))) schema.author.url = String(authorUrl);
+      }
+      if (image) ensureMeta('og:image:alt', plain(article.title), true);
       const script = document.createElement('script');
       script.id = 'blogposting-jsonld';
       script.type = 'application/ld+json';
