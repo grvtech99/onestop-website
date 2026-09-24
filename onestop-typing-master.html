@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ONESTOP Typing Tutor</title>
+<title>ONESTOP Typing Master | Gaurav Yadav</title>
 <style>
 :root{
  --blue:#1769d1;--blue2:#0d56b7;--pale:#edf4ff;--line:#b8c8e5;
@@ -38,18 +38,38 @@ body{overflow:hidden}
 .modal{position:fixed;inset:0;background:#12213a99;display:none;align-items:center;justify-content:center;z-index:20}.dialog{width:460px;background:white;border:1px solid #b5c7e1;border-radius:8px;box-shadow:0 15px 50px #14233b66;padding:22px}.dialog h2{margin:0 0 5px;color:#155fbc}.dialog p{font-size:12px;color:#6c7b90}.resultGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:18px 0}.resultCard{background:#eef4fd;border:1px solid #cad8ec;padding:10px;text-align:center}.resultCard b{font-size:22px;display:block;color:#135fbd}.resultCard span{font-size:10px;color:#708097}
 .lessonPanel{position:fixed;inset:0;background:#12213a88;display:none;align-items:center;justify-content:center;z-index:19}.panel{width:720px;max-height:80vh;overflow:auto;background:white;border-radius:8px;padding:20px}.lessonGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.lessonItem{padding:11px;border:1px solid #c7d5e8;background:#f7faff;border-radius:5px;text-align:left;cursor:pointer}.lessonItem:hover{border-color:#5d85df;background:#eef4ff}.lessonItem b{display:block;font-size:12px;color:#185fae}.lessonItem span{font-size:10px;color:#72829a}
 @media(max-width:850px){body{overflow:auto}.app{height:auto;min-height:100vh}.content{grid-template-columns:1fr}.right{min-height:350px}.sideButtons{position:static;margin-top:20px}.topStats{display:none}.lessonGrid{grid-template-columns:repeat(2,1fr)}}
+
+/* ONESTOP SMART FIT */
+html,body{width:100%;height:100%;overflow:hidden}
+.windowbar{height:26px;min-height:26px}
+.app{height:calc(100vh - 26px);max-height:calc(100vh - 26px);width:min(1280px,100vw);overflow:hidden}
+.topbar{height:68px;min-height:68px;padding:6px 18px;gap:14px}
+.logo{gap:10px;min-width:250px}.logoCircle{width:46px;height:46px;font-size:24px}.logoText{font-size:27px;letter-spacing:-1.2px}.sub{font-size:9px;margin-left:0;letter-spacing:.35px}
+.topRight{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:0}.copyright{font-size:8px;font-weight:700;color:#52657f;white-space:nowrap;text-align:right}
+.topStats{margin-left:0;gap:6px}.pill{padding:5px 9px;min-width:72px}.pill b{font-size:15px}.pill span{font-size:9px}
+.nav{height:38px;min-height:38px;padding:0 14px;gap:3px}.nav button{height:28px;padding:0 12px;font-size:11px}
+.content{height:calc(100% - 106px);grid-template-columns:minmax(0,1fr) 255px;overflow:hidden}
+.left{padding:10px 14px 6px;overflow:hidden}.right{padding:10px 12px;overflow:hidden}
+.exerciseHeader{height:30px;margin-bottom:6px}.lessonTitle{font-size:15px}.controls{gap:4px}.smallBtn{padding:5px 8px;font-size:10px}
+.targetBox{height:86px;padding:9px 12px;font-size:21px;line-height:1.48;letter-spacing:.8px}
+.keyboard{margin:8px auto 0;max-width:760px}.krow{gap:3px;margin-bottom:3px}.key{height:31px;min-width:30px;font-size:10px}.key small{font-size:7px;top:2px;left:3px}.key.home:after{bottom:3px;width:8px}
+.handArea{display:none!important}.statusLine{height:20px;font-size:10px;margin-top:4px}.progressBar{height:6px}
+.sideTitle{font-size:14px}.rule{margin:5px 0 8px}.chart{height:78px;padding:0 4px 5px;gap:4px}.bar{width:12px}.metric{margin-top:8px}.metric label{font-size:10px}.big{font-size:23px;margin-top:0}.submetric{font-size:9px}
+.brandFooter{font-size:8px;color:#6b7d95;text-align:right;margin-top:5px;white-space:nowrap}.sideButtons{bottom:10px;left:12px;right:12px}.mainBtn{height:32px;font-size:10px}.outlineBtn{height:30px;margin-top:5px;font-size:10px}
+@media(max-width:850px){.topbar{height:58px;min-height:58px;padding:5px 10px}.logo{min-width:0}.logoCircle{width:38px;height:38px;font-size:20px}.logoText{font-size:21px}.sub{font-size:7px}.topRight{gap:2px}.copyright{font-size:6.5px}.pill{min-width:57px;padding:4px 5px}.pill b{font-size:12px}.pill span{font-size:7px}.topStats{gap:3px}.nav{height:34px;min-height:34px;padding:0 8px}.nav button{height:25px;padding:0 8px;font-size:9px}.content{height:calc(100% - 92px);grid-template-columns:minmax(0,1fr) 185px}.left{padding:7px 8px 4px}.right{padding:7px 8px}.exerciseHeader{height:25px;margin-bottom:4px}.lessonTitle{font-size:12px}.lessonTitle small{margin-left:4px}.smallBtn{padding:4px 5px;font-size:8px}.targetBox{height:68px;padding:7px 8px;font-size:16px;line-height:1.42}.keyboard{margin-top:6px}.krow{gap:2px;margin-bottom:2px}.key{height:26px;min-width:22px;font-size:8px}.key small{display:none}.key.special{flex:1.25}.statusLine{height:17px;font-size:8px;margin-top:3px}.progressBar{height:5px}.sideTitle{font-size:11px}.rule{margin:3px 0 5px}.chart{height:55px;gap:3px}.bar{width:8px}.metric{margin-top:5px}.metric label{font-size:8px}.big{font-size:17px}.submetric{font-size:7px}.sideButtons{bottom:6px;left:8px;right:8px}.mainBtn{height:26px;font-size:8px}.outlineBtn{height:24px;font-size:8px;margin-top:3px}}
+@media(max-width:600px){.content{grid-template-columns:1fr 150px}.copyright{display:none}.topStats .pill:nth-child(3){display:none}.logoText{font-size:18px}.targetBox{height:60px;font-size:14px}.key{height:23px;font-size:7px}.right{padding:6px}.chart{height:42px}.big{font-size:15px}}
 </style>
 </head>
 <body>
 <div class="windowbar"><span class="title">Typing Master</span><span class="winbtn">—</span><span class="winbtn">□</span><span class="winbtn">×</span></div>
 <div class="app">
   <header class="topbar">
-    <div class="logo"><div class="logoCircle">T</div><div><div class="logoText">TypingMaster</div><div class="sub">Touch Typing Tutor</div></div></div>
-    <div class="topStats">
+    <div class="logo"><div class="logoCircle">T</div><div><div class="logoText">ONESTOP Typing Master</div><div class="sub">ONESTOP COMPUTER &amp; SKILL DEVELOPMENT CENTER</div></div></div>
+    <div class="topRight"><div class="copyright">© 2026 Gaurav Yadav • ONESTOP DIGITAL SOLUTION</div><div class="topStats">
       <div class="pill"><b id="topWpm">0</b><span>WPM</span></div>
       <div class="pill"><b id="topAcc">100%</b><span>ACCURACY</span></div>
       <div class="pill"><b id="topLesson">1</b><span>LESSON</span></div>
-    </div>
+    </div></div>
   </header>
   <nav class="nav">
     <button class="active" data-page="lesson">Lessons</button>
@@ -65,11 +85,6 @@ body{overflow:hidden}
       </div>
       <div class="targetBox" id="targetBox"></div>
       <div class="keyboard" id="keyboard"></div>
-      <div class="handArea">
-        <img src="https://testingcenter.illinois.edu/sites/default/files/styles/hero_image/public/paragraphs/hero/2024-07/UI-02-180724-011.jpg?h=379e4d2e&itok=mr7vRSwP" alt="Real hands on keyboard">
-        <div class="fingerHint" id="fingerHint"></div>
-        <div class="hintText" id="hintText">Place your fingers on the home row: A S D F — J K L ;</div>
-      </div>
       <div class="statusLine"><span id="status">Click here or start typing</span><div class="progressBar"><i id="progressFill"></i></div><span id="count">0 / 0</span></div>
     </section>
     <aside class="right">
@@ -78,7 +93,7 @@ body{overflow:hidden}
       <div class="metric"><label>Current Speed</label><div class="big"><span id="wpm">0</span> <small style="font-size:12px">WPM</small></div><div class="submetric">Gross speed</div></div>
       <div class="metric"><label>Accuracy</label><div class="big"><span id="accuracy">100</span><small style="font-size:12px">%</small></div><div class="submetric"><span id="errors">0</span> errors</div></div>
       <div class="metric"><label>Time</label><div class="big" id="timer">00:00</div><div class="submetric" id="modeText">Lesson mode</div></div>
-      <div class="sideButtons"><button class="mainBtn" id="nextBtn">Next Exercise</button><button class="outlineBtn" id="cancelBtn">Cancel / Reset</button></div>
+      <div class="brandFooter">Gaurav Yadav • ONESTOP Computer &amp; Skill Development Center</div><div class="sideButtons"><button class="mainBtn" id="nextBtn">Next Exercise</button><button class="outlineBtn" id="cancelBtn">Cancel / Reset</button></div>
     </aside>
   </main>
 </div>
