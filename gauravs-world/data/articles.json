@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "dinosaurs-extinction-asteroid-impact",
+      "slug": "dinosaurs-extinction-asteroid-impact",
+      "title": "डायनासोर का अंत कैसे हुआ? 66 मिलियन साल पहले क्या हुआ था?",
+      "category": "History",
+      "summary": "लगभग 66 मिलियन साल पहले पृथ्वी पर एक विशाल asteroid impact हुआ। जानिए कैसे इस घटना ने जलवायु, खाद्य श्रृंखला और गैर-पक्षी डायनासोरों के भविष्य को बदल दिया।",
+      "image": "images/gauravs_world_dinosaur_extinction_16x9.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-23T11:03:06+05:30",
+      "updatedAt": "2026-09-24T08:47:44.166Z"
+    },
+    {
       "id": "ai-jobs-future-india",
       "slug": "ai-jobs-future-india",
       "title": "क्या AI हमारी नौकरियाँ छीन लेगा? सच, झूठ और भविष्य की पूरी तस्वीर",
@@ -95,19 +107,7 @@
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
       "publishedAt": "2026-09-23T09:17:34+05:30",
       "updatedAt": "2026-09-24T06:22:58.287Z"
-    },
-    {
-      "id": "dinosaurs-extinction-asteroid-impact",
-      "slug": "dinosaurs-extinction-asteroid-impact",
-      "title": "डायनासोर का अंत कैसे हुआ? 66 मिलियन साल पहले क्या हुआ था?",
-      "category": "Science",
-      "summary": "लगभग 66 मिलियन साल पहले पृथ्वी पर एक विशाल asteroid impact हुआ। जानिए कैसे इस घटना ने जलवायु, खाद्य श्रृंखला और गैर-पक्षी डायनासोरों के भविष्य को बदल दिया।",
-      "image": "images/gauravs_world_dinosaur_extinction_16x9.webp",
-      "author": "Gaurav Yadav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-23T11:03:06+05:30",
-      "updatedAt": "2026-09-24T06:08:52.044Z"
     }
   ],
-  "updatedAt": "2026-09-24T08:08:47.995Z"
+  "updatedAt": "2026-09-24T08:47:44.166Z"
 }
