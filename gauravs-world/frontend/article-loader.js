@@ -84,7 +84,7 @@
       } catch (_) { window.prompt('Copy article link:', url); }
     });
   }
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-2`)
+  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-3`)
     .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(a => {
       if (!a || !a.title) throw new Error('invalid article');
