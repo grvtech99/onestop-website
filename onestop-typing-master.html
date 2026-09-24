@@ -152,6 +152,19 @@ function finish(){if(!running)return;running=false;clearInterval(timerId);update
 function formatTime(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
 function cacheKeys(){Object.keys(keyEls).forEach(k=>delete keyEls[k]);document.querySelectorAll(".key").forEach(k=>keyEls[k.dataset.key]=k)}
 function keyForChar(ch){return ch===" "?" ":ch.toLowerCase()}
+function virtualType(ch){
+  const input=$("input");
+  if(!target) return;
+  input.focus();
+  const pos=input.selectionStart==null?input.value.length:input.selectionStart;
+  const end=input.selectionEnd==null?pos:input.selectionEnd;
+  input.setRangeText(ch,pos,end,"end");
+  input.dispatchEvent(new Event("input",{bubbles:true}));
+}
+$("keyboard").addEventListener("click",e=>{
+  const key=e.target.closest(".key");
+  if(key) virtualType(key.dataset.key||"");
+});
 function fingerName(f){return({lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",thumb:"Thumb"})[f]||"Finger"}
 function highlightKey(){
   const typed=$("input").value;
