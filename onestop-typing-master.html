@@ -58,6 +58,23 @@ html,body{width:100%;height:100%;overflow:hidden}
 .brandFooter{font-size:8px;color:#6b7d95;text-align:right;margin-top:5px;white-space:nowrap}.sideButtons{bottom:10px;left:12px;right:12px}.mainBtn{height:32px;font-size:10px}.outlineBtn{height:30px;margin-top:5px;font-size:10px}
 @media(max-width:850px){.topbar{height:58px;min-height:58px;padding:5px 10px}.logo{min-width:0}.logoCircle{width:38px;height:38px;font-size:20px}.logoText{font-size:21px}.sub{font-size:7px}.topRight{gap:2px}.copyright{font-size:6.5px}.pill{min-width:57px;padding:4px 5px}.pill b{font-size:12px}.pill span{font-size:7px}.topStats{gap:3px}.nav{height:34px;min-height:34px;padding:0 8px}.nav button{height:25px;padding:0 8px;font-size:9px}.content{height:calc(100% - 92px);grid-template-columns:minmax(0,1fr) 185px}.left{padding:7px 8px 4px}.right{padding:7px 8px}.exerciseHeader{height:25px;margin-bottom:4px}.lessonTitle{font-size:12px}.lessonTitle small{margin-left:4px}.smallBtn{padding:4px 5px;font-size:8px}.targetBox{height:68px;padding:7px 8px;font-size:16px;line-height:1.42}.keyboard{margin-top:6px}.krow{gap:2px;margin-bottom:2px}.key{height:26px;min-width:22px;font-size:8px}.key small{display:none}.key.special{flex:1.25}.statusLine{height:17px;font-size:8px;margin-top:3px}.progressBar{height:5px}.sideTitle{font-size:11px}.rule{margin:3px 0 5px}.chart{height:55px;gap:3px}.bar{width:8px}.metric{margin-top:5px}.metric label{font-size:8px}.big{font-size:17px}.submetric{font-size:7px}.sideButtons{bottom:6px;left:8px;right:8px}.mainBtn{height:26px;font-size:8px}.outlineBtn{height:24px;font-size:8px;margin-top:3px}}
 @media(max-width:600px){.content{grid-template-columns:1fr 150px}.copyright{display:none}.topStats .pill:nth-child(3){display:none}.logoText{font-size:18px}.targetBox{height:60px;font-size:14px}.key{height:23px;font-size:7px}.right{padding:6px}.chart{height:42px}.big{font-size:15px}}
+/* KEYBOARD SIZE REFINEMENT */
+.targetBox{height:94px;padding:11px 14px;font-size:23px;line-height:1.52;letter-spacing:1px}
+.keyboard{margin:10px auto 0;max-width:800px;width:100%}
+.krow{gap:4px;margin-bottom:5px}
+.key{height:42px;min-width:34px;font-size:11px;border-radius:4px}
+.key small{font-size:7px;top:3px;left:4px}
+.key.home:after{bottom:4px;width:10px}
+.keyboard .krow:last-child .key{height:44px}
+.statusLine{margin-top:7px}
+@media(max-width:850px){
+ .targetBox{height:76px;padding:8px 9px;font-size:18px;line-height:1.42}
+ .keyboard{margin-top:7px}
+ .krow{gap:2px;margin-bottom:3px}
+ .key{height:32px;min-width:24px;font-size:8.5px}
+ .keyboard .krow:last-child .key{height:34px}
+ .statusLine{margin-top:4px}
+}
 </style>
 </head>
 <body>
