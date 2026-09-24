@@ -248,6 +248,7 @@ document.querySelectorAll(".nav button").forEach(x=>x.classList.toggle("active",
 const immersive=(id==="practice");
 $("layout").classList.toggle("practice-mode",immersive);
 $("layout").classList.remove("open");
+$("backBtn").style.display=immersive?"inline-flex":"none";
 if(id==="history")renderHistory();
 if(id==="home")updateDash();
 if(immersive)setTimeout(()=>$("input").focus(),50);
