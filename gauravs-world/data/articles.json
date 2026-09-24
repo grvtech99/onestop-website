@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "cyber-fraud-se-bachne-ke-7-tareeke",
+      "slug": "cyber-fraud-se-bachne-ke-7-tareeke",
+      "title": "Cyber Fraud से कैसे बचें? 7 जरूरी बातें जो हर इंटरनेट यूजर को जाननी चाहिए",
+      "category": "Technology",
+      "summary": "आजकल UPI, online shopping और social media के इस्तेमाल के साथ cyber fraud का खतरा भी बढ़ता है। जानिए 7 आसान सुरक्षा उपाय, जिनसे आप अपनी personal information और online accounts को सुरक्षित रखने में मदद पा सकते हैं।",
+      "image": "images/gauravs_world_cyber_fraud_4x3.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-22T03:03:00.000Z",
+      "updatedAt": "2026-09-24T08:05:25.735Z"
+    },
+    {
       "id": "ai-deepfake-se-kaise-bache",
       "slug": "ai-deepfake-se-kaise-bache",
       "title": "AI Deepfake से कैसे बचें? नकली वीडियो और आवाज़ पहचानने के 7 तरीके",
@@ -85,18 +97,6 @@
       "updatedAt": "2026-09-24T06:08:52.044Z"
     },
     {
-      "id": "cyber-fraud-se-bachne-ke-7-tareeke",
-      "slug": "cyber-fraud-se-bachne-ke-7-tareeke",
-      "title": "Cyber Fraud से कैसे बचें? 7 जरूरी बातें जो हर इंटरनेट यूजर को जाननी चाहिए",
-      "category": "Technology",
-      "summary": "आजकल UPI, online shopping और social media के इस्तेमाल के साथ cyber fraud का खतरा भी बढ़ता है। जानिए 7 आसान सुरक्षा उपाय, जिनसे आप अपनी personal information और online accounts को सुरक्षित रखने में मदद पा सकते हैं।",
-      "image": "images/gauravs_world_cyber_fraud_4x3.webp",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-22T14:03:55+05:30",
-      "updatedAt": "2026-09-22T14:03:55+05:30"
-    },
-    {
       "id": "ai-jobs-future-india",
       "slug": "ai-jobs-future-india",
       "title": "क्या AI हमारी नौकरियाँ छीन लेगा? सच, झूठ और भविष्य की पूरी तस्वीर",
@@ -109,5 +109,5 @@
       "updatedAt": "2026-09-22T13:20:49+05:30"
     }
   ],
-  "updatedAt": "2026-09-24T08:03:23.530Z"
+  "updatedAt": "2026-09-24T08:05:25.735Z"
 }
