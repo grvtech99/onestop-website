@@ -119,7 +119,33 @@ button{cursor:pointer}
  .drill-text{font-size:12px}
 }
 </style>
-</head>
+<style>
+/* Final reference layout tuning */
+.workspace{width:790px!important;height:540px!important;grid-template-columns:570px 200px!important;grid-template-rows:498px 36px!important}
+.lesson-board{padding:7px 25px 0!important;background:#f2f5ff!important;overflow:hidden!important}
+.ref-instructions{height:48px;color:#8baa35;font-size:14px;line-height:1.35;padding:2px 0 0}
+.ref-instructions>div{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.ref-instructions b{width:22px;height:22px;border-radius:50%;background:#9bd64e;color:#fff;display:grid;place-items:center;font-size:10px}
+.target-line{height:76px!important;align-content:start!important;padding:3px 9px 7px!important;gap:7px 20px!important}
+.target-key{width:34px!important;height:34px!important;font-size:16px!important}
+.keyboard-wrap{padding:0 25px 0!important;background:#f2f5ff!important}
+.keyboard{gap:0!important}
+.keyrow{gap:2px!important;margin-bottom:3px!important}
+.key{height:34px!important;font-size:11px!important;border-radius:0!important}
+.key.space{height:29px!important}
+.hands{height:133px!important;margin-top:2px!important;background:#f2f5ff!important;gap:28px!important}
+.hand{transform:scale(.96)!important;transform-origin:bottom center}
+.progress-panel{padding:18px 14px!important;background:#dbeafb!important}
+.controls{display:none!important}
+@media(max-width:800px){
+ .workspace{width:100%!important;height:auto!important;grid-template-columns:1fr!important;grid-template-rows:auto auto auto!important}
+ .progress-panel{grid-row:3!important}
+ .lesson-board{padding:7px 9px 0!important}
+ .keyboard-wrap{padding:0 8px!important}
+ .target-line{height:72px!important}
+ .hands{height:110px!important}
+}
+</style></head>
 <body>
 <div class="app">
 <section class="classic-page">
@@ -130,6 +156,10 @@ button{cursor:pointer}
 
   <main class="workspace" id="workspace">
     <section class="lesson-board">
+      <div class="ref-instructions">
+        <div><b>▶</b><span>Type the key sequences, follow the highlighted key</span></div>
+        <div><b>▶</b><span>Look at the on-screen keyboard and hands for hints, when needed</span></div>
+      </div>
       <div class="target-line" id="targetLine"></div>
       <div class="drill-title" id="drillTitle">Home Row — Finger Placement</div>
       <div class="drill-text" id="drillText">Place your fingers correctly and practice only the selected keys. Accuracy comes before speed.</div>
