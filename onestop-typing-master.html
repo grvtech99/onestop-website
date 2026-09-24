@@ -307,13 +307,14 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   margin:10px auto 0!important;
   display:grid!important;
   grid-template-columns:minmax(0,1fr) 205px!important;
-  grid-template-rows:44px minmax(118px,1fr) 120px 23px 235px!important;
+  grid-template-rows:44px minmax(118px,1fr) 120px 23px 190px 88px!important;
   grid-template-areas:
     "stats side"
     "prompt side"
     "typing side"
     "foot side"
-    "keyboard side";
+    "keyboard side"
+    "hands side";
   gap:0!important;
   background:#f9fbff!important;
   border:8px solid #fff!important;
@@ -326,6 +327,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 .layout.practice-mode .classic-practice>.typing-area{grid-area:typing}
 .layout.practice-mode .classic-practice>.practice-foot{grid-area:foot}
 .layout.practice-mode .classic-practice>.keyboard{grid-area:keyboard}
+.layout.practice-mode .classic-practice>.hand-guide{grid-area:hands}
 .layout.practice-mode .classic-side{
   grid-area:side;
   background:#dbeafa;
@@ -421,13 +423,58 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   .layout.practice-mode .classic-practice{
     width:calc(100% - 14px)!important;
     grid-template-columns:1fr!important;
-    grid-template-rows:42px 18vh 105px 22px 220px auto!important;
-    grid-template-areas:"stats" "prompt" "typing" "foot" "keyboard" "side"!important;
+    grid-template-rows:42px 18vh 105px 22px 195px 72px auto!important;
+    grid-template-areas:"stats" "prompt" "typing" "foot" "keyboard" "hands" "side"!important;
     border-width:4px!important;
   }
   .layout.practice-mode .classic-side{
     border-left:0;border-top:1px solid #bdd1e5;min-height:180px;
   }
+}
+</style><style>
+/* ONESTOP — live hand/finger guide */
+.hand-guide{
+  display:flex;justify-content:center;align-items:flex-end;gap:55px;
+  height:92px;padding:4px 20px 0;background:#f2f5fa;
+  border-top:1px solid #d5e1eb;overflow:hidden;
+}
+.hand{
+  position:relative;width:220px;height:88px;
+}
+.hand .palm{
+  position:absolute;left:48px;bottom:-28px;width:124px;height:72px;
+  background:linear-gradient(#f2c7aa,#d99a78);border:2px solid #b87558;
+  border-radius:54% 54% 25% 25%;transform:rotate(-3deg);
+  box-shadow:inset 0 4px 8px #fff5;
+}
+.hand .finger{
+  position:absolute;bottom:25px;width:25px;
+  background:linear-gradient(#f3cdb2,#d99b79);border:2px solid #b87558;
+  border-radius:15px 15px 8px 8px;transform-origin:bottom center;
+  transition:.18s ease;box-shadow:inset 0 3px 5px #fff5;
+}
+.hand .finger.active{
+  background:#ffd54a;border-color:#b77900;
+  box-shadow:0 0 0 3px #f59e0b,0 0 14px #ffd54a;
+  transform:translateY(-7px) scale(1.06);
+}
+.hand.left .pinky{left:27px;height:49px;transform:rotate(-18deg)}
+.hand.left .ring{left:58px;height:68px;transform:rotate(-7deg)}
+.hand.left .index{left:114px;height:76px;transform:rotate(5deg)}
+.hand.left .middle{left:86px;height:82px}
+.hand.left .thumb{left:137px;bottom:17px;height:48px;transform:rotate(48deg)}
+.hand.right .pinky{right:27px;height:49px;transform:rotate(18deg)}
+.hand.right .ring{right:58px;height:68px;transform:rotate(7deg)}
+.hand.right .index{right:114px;height:76px;transform:rotate(-5deg)}
+.hand.right .middle{right:86px;height:82px}
+.hand.right .thumb{right:137px;bottom:17px;height:48px;transform:rotate(-48deg)}
+.hand-label{
+  position:absolute;top:2px;left:50%;transform:translateX(-50%);
+  font-size:8px;font-weight:900;color:#547087;white-space:nowrap;
+}
+@media(max-width:800px){
+ .hand-guide{gap:10px;height:72px;padding:2px 4px}
+ .hand{width:150px;height:68px;transform:scale(.78);transform-origin:bottom center}
 }
 </style></head>
 <body>
@@ -461,7 +508,16 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   <div class="side-stat"><span>ACCURACY</span><b id="sideAcc">100%</b></div>
   <button class="side-next" id="sideNextBtn">Next Lesson</button>
   <button class="side-cancel" id="sideBackBtn">Back</button>
-</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
+</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div><div class="hand-guide" id="handGuide">
+  <div class="hand left"><span class="hand-label">LEFT HAND</span><div class="palm"></div>
+    <i class="finger pinky" data-hand-finger="lp"></i><i class="finger ring" data-hand-finger="lr"></i>
+    <i class="finger middle" data-hand-finger="li"></i><i class="finger index" data-hand-finger="li"></i><i class="finger thumb" data-hand-finger="thumb"></i>
+  </div>
+  <div class="hand right"><span class="hand-label">RIGHT HAND</span><div class="palm"></div>
+    <i class="finger thumb" data-hand-finger="thumb"></i><i class="finger index" data-hand-finger="ri"></i>
+    <i class="finger middle" data-hand-finger="ri"></i><i class="finger ring" data-hand-finger="rr"></i><i class="finger pinky" data-hand-finger="rp"></i>
+  </div>
+</div></div></section>
 
 <section id="lessons" class="view"><div class="card"><h2 style="margin-top:0">Progressive Typing Course</h2><p>Start with finger placement and gradually unlock harder drills.</p></div><div class="lesson-grid" id="lessonGrid" style="margin-top:12px"></div></section>
 <section id="tests" class="view"><div class="card"><h2 style="margin-top:0">Speed Test</h2><p>Standard WPM = correctly typed characters ÷ 5 ÷ minutes. Choose a duration and start.</p><div class="toolbar"><select id="testDuration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="180">3 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option><option value="900">15 minutes</option></select><button class="primary" onclick="startTest()">Start Speed Test</button></div></div><div class="results" style="margin-top:12px"><div class="card"><div class="big" id="testBest">0</div><p>Best WPM</p></div><div class="card"><div class="big" id="testAvg">0</div><p>Average WPM</p></div><div class="card"><div class="big" id="testSessions">0</div><p>Sessions</p></div><div class="card"><div class="big" id="testGoal">50</div><p>Suggested Goal</p></div></div></section>
@@ -604,12 +660,21 @@ $("keyboard").addEventListener("click",e=>{
   if(key) virtualType(key.dataset.key||"");
 });
 function fingerName(f){return({lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",thumb:"Thumb"})[f]||"Finger"}
+function updateHandGuide(){
+  document.querySelectorAll("[data-hand-finger]").forEach(x=>x.classList.remove("active"));
+  const ch=(target[$("input").value.length]||"").toLowerCase();
+  const el=keyEls[keyForChar(ch)];
+  if(!el) return;
+  const f=el.dataset.finger==="TH"?"thumb":el.dataset.finger.toLowerCase();
+  document.querySelectorAll('[data-hand-finger="'+f+'"]').forEach(x=>x.classList.add("active"));
+}
 function highlightKey(){
   const typed=$("input").value;
   const next=target[typed.length]||"";
   if(activeKeyEl)activeKeyEl.classList.remove("active");
   const nextEl=keyEls[keyForChar(next)];
   activeKeyEl=nextEl||null;
+  updateHandGuide();
   if(nextEl){
     nextEl.classList.add("active");
     $("nextFinger").textContent="Next: "+(next===" "?"SPACE":next.toUpperCase())+" • "+fingerName(nextEl.dataset.finger==="TH"?"thumb":nextEl.dataset.finger.toLowerCase());
