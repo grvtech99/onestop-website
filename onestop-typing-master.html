@@ -476,6 +476,86 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
  .hand-guide{gap:10px;height:72px;padding:2px 4px}
  .hand{width:150px;height:68px;transform:scale(.78);transform-origin:bottom center}
 }
+</style><style>
+/* TypingMaster-style visual lesson board */
+.target-strip{
+  height:76px;background:#f5f7ff;border-bottom:1px solid #c8d5e5;
+  display:flex;justify-content:center;align-items:center;gap:20px;padding:7px 12px;
+}
+.target-seq{display:flex;align-items:center;gap:6px;min-width:0}
+.target-letter{
+  width:36px;height:36px;display:grid;place-items:center;
+  background:#eef2ff;border:1px solid #9eafe2;color:#173e78;
+  font-size:19px;font-weight:800;position:relative;border-radius:2px;
+}
+.target-letter .dot{
+  position:absolute;bottom:3px;width:6px;height:6px;border-radius:50%;
+  box-shadow:0 0 0 1px #fff;
+}
+.target-letter.current{
+  border:2px solid #173e78;background:#fff;
+  box-shadow:0 0 0 2px #d8e4ff;
+  transform:translateY(-1px);
+}
+.target-letter.done{opacity:.52}
+.target-letter.space{width:58px;font-size:10px}
+.target-letter.error{border-color:#d22;background:#ffe0e0;color:#a51616}
+.dot-lp{background:#ef476f}.dot-lr{background:#9b5de5}.dot-li{background:#8ac926}
+.dot-ri{background:#1982c4}.dot-rr{background:#6a4c93}.dot-rp{background:#ef476f}.dot-thumb{background:#f4a261}
+
+.layout.practice-mode .classic-practice>.target-strip{grid-area:target}
+.layout.practice-mode .classic-practice{
+ grid-template-rows:44px minmax(118px,1fr) 120px 23px 76px 190px 88px!important;
+ grid-template-areas:"stats side" "prompt side" "typing side" "foot side" "target side" "keyboard side" "hands side"!important;
+}
+.layout.practice-mode .classic-practice .keyboard{border-top:0!important}
+.layout.practice-mode .classic-practice .keys{max-width:920px!important}
+.layout.practice-mode .classic-practice .key{position:relative}
+.layout.practice-mode .classic-practice .key::before{
+ content:"";position:absolute;bottom:4px;left:5px;width:5px;height:5px;border-radius:50%;
+ background:#6c82a8;border:1px solid #fff8;opacity:.95;
+}
+.layout.practice-mode .classic-practice .key.finger-lp::before{background:#ef476f}
+.layout.practice-mode .classic-practice .key.finger-lr::before{background:#9b5de5}
+.layout.practice-mode .classic-practice .key.finger-li::before{background:#8ac926}
+.layout.practice-mode .classic-practice .key.finger-ri::before{background:#1982c4}
+.layout.practice-mode .classic-practice .key.finger-rr::before{background:#6a4c93}
+.layout.practice-mode .classic-practice .key.finger-rp::before{background:#ef476f}
+.layout.practice-mode .classic-practice .key.finger-thumb::before{background:#f4a261}
+.layout.practice-mode .classic-practice .key.active::before{
+ width:8px;height:8px;bottom:3px;left:4px;background:#ffca3a;
+ box-shadow:0 0 0 2px #fff,0 0 8px #ffca3a;
+}
+.layout.practice-mode .hand-guide{
+ background:#f5f7ff!important;height:88px!important;
+}
+.layout.practice-mode .hand .palm{
+ background:linear-gradient(145deg,#ffd9bd 0%,#edb08d 52%,#c98262 100%)!important;
+ border-color:#a8664e!important;
+ box-shadow:inset 2px 4px 8px #fff8,0 2px 4px #8b5b4a55!important;
+}
+.layout.practice-mode .hand .finger{
+ background:linear-gradient(145deg,#ffe0c5,#e9aa85 65%,#c47b5e)!important;
+ border-color:#a8664e!important;
+ box-shadow:inset 2px 3px 5px #fff8!important;
+}
+.layout.practice-mode .hand .finger.active{
+ background:#ffd54a!important;border-color:#b77900!important;
+ box-shadow:0 0 0 3px #fff,0 0 0 5px #f0ad00,0 0 16px #ffd54a!important;
+}
+.layout.practice-mode .hand .finger::after{
+ content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);
+ width:6px;height:6px;border-radius:50%;background:#fff9;border:1px solid #a8664e;
+}
+.layout.practice-mode .hand .finger.active::after{background:#ffca3a;box-shadow:0 0 5px #ffca3a}
+@media(max-width:800px){
+ .layout.practice-mode .classic-practice{
+  grid-template-rows:42px 18vh 105px 22px 64px 195px 72px auto!important;
+  grid-template-areas:"stats" "prompt" "typing" "foot" "target" "keyboard" "hands" "side"!important;
+ }
+ .target-strip{height:64px;gap:6px;padding:5px}
+ .target-letter{width:29px;height:30px;font-size:15px}.target-letter.space{width:42px}
+}
 </style></head>
 <body>
 <div class="app">
@@ -508,7 +588,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   <div class="side-stat"><span>ACCURACY</span><b id="sideAcc">100%</b></div>
   <button class="side-next" id="sideNextBtn">Next Lesson</button>
   <button class="side-cancel" id="sideBackBtn">Back</button>
-</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div><div class="hand-guide" id="handGuide">
+</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="target-strip" id="targetStrip"><div class="target-seq" id="targetSeq"></div><div class="target-seq second" id="targetSeq2"></div></div><div class="keyboard" id="keyboard"></div><div class="hand-guide" id="handGuide">
   <div class="hand left"><span class="hand-label">LEFT HAND</span><div class="palm"></div>
     <i class="finger pinky" data-hand-finger="lp"></i><i class="finger ring" data-hand-finger="lr"></i>
     <i class="finger middle" data-hand-finger="li"></i><i class="finger index" data-hand-finger="li"></i><i class="finger thumb" data-hand-finger="thumb"></i>
@@ -660,6 +740,24 @@ $("keyboard").addEventListener("click",e=>{
   if(key) virtualType(key.dataset.key||"");
 });
 function fingerName(f){return({lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",thumb:"Thumb"})[f]||"Finger"}
+function renderTargetStrip(){
+  const a=$("targetSeq"), b=$("targetSeq2");
+  if(!a||!b)return;
+  const pos=$("input").value.length, start=Math.max(0,pos-4);
+  const chars=target.slice(start,start+8);
+  const html=chars.map((ch,i)=>{
+    const idx=start+i, key=keyEls[keyForChar(ch)], f=key?key.dataset.finger.toLowerCase():"thumb";
+    const cls=(idx===pos?" current":"")+(idx<pos?" done":"")+(ch===" "?" space":"");
+    const dot=f==="th"?"thumb":f;
+    return '<span class="target-letter'+cls+'" data-index="'+idx+'">'+(ch===" "?"SPACE":escapeHtml(ch))+'<i class="dot dot-'+dot+'"></i></span>';
+  }).join("");
+  a.innerHTML=html;
+  const chars2=target.slice(pos+8,pos+16);
+  b.innerHTML=chars2.map((ch,i)=>{
+    const key=keyEls[keyForChar(ch)], f=key?key.dataset.finger.toLowerCase():"thumb";
+    return '<span class="target-letter'+(ch===" "?" space":"")+'">'+(ch===" "?"SPACE":escapeHtml(ch))+'<i class="dot dot-'+(f==="th"?"thumb":f)+'"></i></span>';
+  }).join("");
+}
 function updateHandGuide(){
   document.querySelectorAll("[data-hand-finger]").forEach(x=>x.classList.remove("active"));
   const ch=(target[$("input").value.length]||"").toLowerCase();
@@ -669,6 +767,7 @@ function updateHandGuide(){
   document.querySelectorAll('[data-hand-finger="'+f+'"]').forEach(x=>x.classList.add("active"));
 }
 function highlightKey(){
+  renderTargetStrip();
   const typed=$("input").value;
   const next=target[typed.length]||"";
   if(activeKeyEl)activeKeyEl.classList.remove("active");
