@@ -7,8 +7,6 @@ on:
     paths:
       - 'gauravs-world/backend/Code.gs'
       - 'gauravs-world/backend/Admin.html'
-      - 'gauravs-world/backend/Code.gs'
-      - 'gauravs-world/backend/Admin.html'
   workflow_dispatch:
 
 concurrency:
