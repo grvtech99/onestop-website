@@ -37,7 +37,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 <style>
 /* ONESTOP Typing Master — practice readability upgrade */
 .layout.practice-mode .practice{
-  grid-template-rows:44px 1fr 88px 23px minmax(205px,30vh)!important;
+  grid-template-rows:44px minmax(145px,22vh) 125px 23px minmax(205px,30vh)!important;
 }
 .layout.practice-mode .practice .prompt{
   background:#eef5fb!important;
@@ -157,7 +157,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   border-color:#7f1d1d!important;
 }
 @media(max-width:720px){
-  .layout.practice-mode .practice{grid-template-rows:42px 1fr 82px 22px minmax(185px,29vh)!important}
+  .layout.practice-mode .practice{grid-template-rows:42px minmax(115px,18vh) 92px 22px minmax(185px,29vh)!important}
   .layout.practice-mode .practice .prompt{padding:0 11px 10px!important;font-size:18px!important;line-height:1.5!important}
   .layout.practice-mode .section-label{margin:0 -11px 8px!important;padding:5px 9px!important}
   .layout.practice-mode .practice textarea#input{height:58px!important;font-size:16px!important}
@@ -214,8 +214,8 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 }
 .layout.practice-mode .practice .prompt{
   padding:0 24px 10px!important;
-  font-size:21px!important;
-  line-height:1.42!important;
+  font-size:20px!important;
+  line-height:1.36!important;
   letter-spacing:0!important;
 }
 .layout.practice-mode .section-label{
@@ -235,9 +235,9 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
   padding:4px 12px!important;
 }
 .layout.practice-mode .practice textarea#input{
-  height:73px!important;
-  min-height:73px!important;
-  font-size:23px!important;
+  height:125px!important;
+  min-height:125px!important;
+  font-size:22px!important;
   line-height:1.4!important;
   padding:8px 14px!important;
 }
@@ -264,9 +264,9 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
     margin:0 -12px 7px!important;
   }
   .layout.practice-mode .practice textarea#input{
-    height:64px!important;
-    min-height:64px!important;
-    font-size:18px!important;
+    height:92px!important;
+    min-height:92px!important;
+    font-size:19px!important;
   }
   .layout.practice-mode .practice .keyboard{
     padding:6px 5px 8px!important;
@@ -285,7 +285,17 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 <div class="grid"><div class="card"><h3>Best WPM</h3><div class="big" id="dashBest">0</div><p>Personal best</p></div><div class="card"><h3>Best Accuracy</h3><div class="big" id="dashAcc">0%</div><p>Highest accuracy</p></div><div class="card"><h3>Practice Time</h3><div class="big" id="dashTime">0m</div><p>Total recorded</p></div><div class="card"><h3>Tests</h3><div class="big" id="dashTests">0</div><p>Completed sessions</p></div></div>
 <div class="card" style="margin-top:14px"><h3>Choose your path</h3><div class="grid" style="margin-top:10px"><button class="card" onclick="showView('lessons')"><b>📚 Learn Touch Typing</b><p>Home row → full keyboard → punctuation.</p></button><button class="card" onclick="showView('practice')"><b>⌨️ Free Practice</b><p>Unlimited, timed or word-count practice.</p></button><button class="card" onclick="showView('tests')"><b>⚡ Speed Test</b><p>Measure WPM, raw speed and accuracy.</p></button><button class="card" onclick="showView('games')"><b>🎮 Play & Improve</b><p>Reaction and word typing games.</p></button></div></div></section>
 
-<section id="practice" class="view"><div class="card"><h2 style="margin-top:0">Free Practice</h2><div class="toolbar"><select id="mode"><option value="unlimited">♾ Unlimited</option><option value="time">⏱ Timed</option><option value="words">🔢 Word Count</option></select><select id="duration"><option value="30">30 sec</option><option value="60" selected>1 min</option><option value="120">2 min</option><option value="300">5 min</option><option value="600">10 min</option><option value="900">15 min</option></select><select id="level"><option value="beginner">Beginner</option><option value="intermediate" selected>Intermediate</option><option value="advanced">Advanced</option><option value="punctuation">Punctuation</option><option value="numbers">Numbers</option><option value="code">Code</option></select><button class="primary" id="startBtn">Start / Restart</button><button id="clearBtn">Clear</button></div></div>
+<section id="practice" class="view"><div class="card"><h2 style="margin-top:0">Free Practice</h2><div class="toolbar"><select id="mode"><option value="unlimited">♾ Unlimited</option><option value="time">⏱ Timed</option><option value="words">🔢 Word Count</option></select><select id="duration"><option value="30">30 sec</option><option value="60" selected>1 min</option><option value="120">2 min</option><option value="300">5 min</option><option value="600">10 min</option><option value="900">15 min</option></select><select id="level">
+<option value="home">Basic 1 — Home Row (ASDF / JKL;)</option>
+<option value="top">Basic 2 — Top Row (QWERTY / UIOP)</option>
+<option value="bottom">Basic 3 — Bottom Row (ZXCV / BNM)</option>
+<option value="beginner" selected>Basic 4 — Full Letters</option>
+<option value="intermediate">Intermediate — Words & Sentences</option>
+<option value="advanced">Advanced — Paragraphs</option>
+<option value="punctuation">Punctuation</option>
+<option value="numbers">Numbers</option>
+<option value="code">Code</option>
+</select><button class="primary" id="startBtn">Start / Restart</button><button id="clearBtn">Clear</button></div></div>
 <div class="practice" style="margin-top:12px"><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
 
 <section id="lessons" class="view"><div class="card"><h2 style="margin-top:0">Progressive Typing Course</h2><p>Start with finger placement and gradually unlock harder drills.</p></div><div class="lesson-grid" id="lessonGrid" style="margin-top:12px"></div></section>
@@ -303,7 +313,10 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 
 <script>
 const texts={
-beginner:"asdf jkl; asdf jkl; fjfj dkdk slsl aaaa ssss dddd ffff jjjj kkkk llll ;;;; sad dad lad ask flask fall all ask dad",
+home:"asdf jkl; asdf jkl; asdf fdsa jkl; lkj; fj fj dk dk sl sl aa ss dd ff jj kk ll ;; as df jk l; fd sa kj ;l",
+top:"qwerty uiop qwerty uiop qw er ty ui op we rt yu io po qi wo ei ru to yp",
+bottom:"zxcv bnm, zxcv bnm, zx cv bn m, xc vb nm mz cx bv mn",
+beginner:"asdf jkl; sad dad lad ask all fall flask; the quick brown fox jumps over the lazy dog.",
 intermediate:"The quick brown fox jumps over the lazy dog. Good typing is built with correct finger placement, steady rhythm, and careful accuracy.",
 advanced:"Technology changes quickly, but strong keyboard skills remain useful for study, office work, coding, research, and everyday digital communication.",
 punctuation:"Hello, world! Can you type accurately? Practice commas, periods, apostrophes, quotes, colons: and semicolons; then try brackets (like these).",
@@ -345,7 +358,17 @@ const keyEls={};
 let activeKeyEl=null;
 makeKeyboard();
 cacheKeys();
-function buildText(level){let base=texts[level]||texts.intermediate;let out="";while(out.length<1300)out+=base+" ";return out.trim()}
+function buildText(level){
+  const base=texts[level]||texts.intermediate;
+  if(level==="home"||level==="top"||level==="bottom"){
+    let out="";
+    while(out.length<420) out+=base+" ";
+    return out.trim();
+  }
+  let out="";
+  while(out.length<1300) out+=base+" ";
+  return out.trim();
+}
 let promptReady=false,lastRenderedValue="";
 function renderPrompt(force=false){
   const val=$("input").value;
