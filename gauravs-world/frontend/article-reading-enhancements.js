@@ -242,7 +242,7 @@
     addTopButton(body);
     addArticleDetails(body);
 
-    fetch('./data/articles.json').then(r => r.ok ? r.json() : null).then(data => {
+    fetch('./data/articles.json',{cache:'no-cache'}).then(r => r.ok ? r.json() : null).then(data => {
       const list = Array.isArray(data) ? data : (data && Array.isArray(data.articles) ? data.articles : []);
       if (!list.length) return;
       addRelated(list);
@@ -256,10 +256,9 @@
   const observer = new MutationObserver(enhance);
   observer.observe(root, {childList:true, subtree:true});
 
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-3`)
-    .then(r => r.ok ? r.json() : null)
-    .then(a => { article = a; enhance(); })
-    .catch(() => {});
+  const useLoadedArticle = a => { if (a && a.title) { article = a; enhance(); } };
+  if (window.gwArticle) useLoadedArticle(window.gwArticle);
+  else window.addEventListener('gw:article-loaded', event => useLoadedArticle(event.detail), {once:true});
 
   enhance();
 })();
