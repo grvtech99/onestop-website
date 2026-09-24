@@ -77,11 +77,11 @@
       const body = a.bodyMarkdown || a.body || a.content || '';
       const imagePath = String(a.image || a.coverImage || '').trim();
       const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
-      const cover = coverUrl ? `<figure class="article-cover"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
+      const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
       addShareControls(a.title);
       root.querySelectorAll('.article-body img').forEach(img => {
-        img.style.display = 'block'; img.style.width = 'auto'; img.style.maxWidth = '100%'; img.style.height = 'auto'; img.style.maxHeight = '680px'; img.style.margin = '18px auto'; img.style.objectFit = 'contain'; img.style.borderRadius = '10px';
+        img.style.display = 'block'; img.style.width = '100%'; img.style.maxWidth = '100%'; img.style.height = '100%'; img.style.maxHeight = 'none'; img.style.margin = '0 auto'; img.style.objectFit = 'contain'; img.style.borderRadius = '10px';
         img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); else img.remove(); });
       });
       document.title = `${a.title} | Gaurav's World`;
