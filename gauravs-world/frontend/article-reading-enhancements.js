@@ -25,6 +25,7 @@
     .reading-toc ul{margin:0;padding:0 15px 13px 34px}
     .reading-toc li{margin:5px 0}
     .reading-toc li.reading-h3{margin-left:14px;font-size:.94em}
+    .article-details{border-top:1px solid #e5eaf1;margin-top:28px;padding-top:18px}.article-details h2{font-size:1.15rem!important;margin:0 0 12px!important}.article-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.article-detail{border:1px solid #e2e9f1;border-radius:10px;background:#f9fbfd;padding:9px 11px}.article-detail-label{display:block;color:#64748b;font-size:.72rem;margin-bottom:2px}.article-detail-value{display:block;color:#172033;font-size:.9rem;font-weight:700;line-height:1.4}.article-detail-value a{color:#075da8}.article-tags{margin-top:10px;color:#64748b;font-size:.82rem;line-height:1.6}.article-tags strong{color:#172033}.article-tag{display:inline-block;margin:3px 4px 0 0;padding:2px 7px;border-radius:999px;background:#eaf4ff;color:#075da8;font-size:.74rem}@media(max-width:560px){.article-details{margin-top:24px;padding-top:16px}.article-details-grid{grid-template-columns:1fr 1fr;gap:8px}.article-detail{padding:8px 9px}.article-detail-value{font-size:.82rem}.article-tags{font-size:.78rem}}
     .reading-related{border-top:1px solid #e5eaf1;margin-top:30px;padding-top:18px}
     .reading-related h2,.reading-pagination h2{font-size:1.15rem!important;margin:0 0 10px!important}
     .reading-related-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
@@ -129,6 +130,32 @@
     return `<a class="reading-related-card" href="./article-dynamic.html?id=${encodeURIComponent(a.id)}">${safeImage ? `<img class="reading-related-thumb" src="${esc(safeImage)}" alt="" loading="lazy" decoding="async">` : ''}<span class="reading-related-title">${esc(a.title || a.id)}</span></a>`;
   }
 
+  function addArticleDetails(body) {
+    if (root.querySelector('.article-details')) return;
+    const section = document.createElement('section');
+    section.className = 'article-details';
+    const formatDate = value => {
+      if (!value) return '';
+      const d = new Date(value);
+      if (Number.isNaN(d.getTime())) return String(value);
+      return new Intl.DateTimeFormat('hi-IN', {day:'numeric', month:'long', year:'numeric'}).format(d);
+    };
+    const author = article && article.author ? esc(article.author) : '';
+    const authorUrl = article ? String(article.authorUrl || article.authorURL || '').trim() : '';
+    const authorHtml = authorUrl && /^https:\/\//i.test(authorUrl)
+      ? '<a href="' + esc(authorUrl) + '">' + author + '</a>'
+      : author;
+    const fields = [];
+    if (author) fields.push('<div class="article-detail"><span class="article-detail-label">लेखक</span><strong class="article-detail-value">' + authorHtml + '</strong></div>');
+    if (article && article.publishedAt) fields.push('<div class="article-detail"><span class="article-detail-label">प्रकाशित</span><strong class="article-detail-value">' + esc(formatDate(article.publishedAt)) + '</strong></div>');
+    if (article && article.updatedAt && article.updatedAt !== article.publishedAt) fields.push('<div class="article-detail"><span class="article-detail-label">अपडेट</span><strong class="article-detail-value">' + esc(formatDate(article.updatedAt)) + '</strong></div>');
+    if (article && article.category) fields.push('<div class="article-detail"><span class="article-detail-label">श्रेणी</span><strong class="article-detail-value">' + esc(article.category) + '</strong></div>');
+    const tags = article && Array.isArray(article.tags) ? article.tags.map(t => String(t).trim()).filter(Boolean) : [];
+    section.innerHTML = '<h2>लेख की जानकारी</h2><div class="article-details-grid">' + fields.join('') + '</div>' +
+      (tags.length ? '<div class="article-tags"><strong>Tags:</strong> ' + tags.map(t => '<span class="article-tag">' + esc(t) + '</span>').join('') + '</div>' : '');
+    body.insertAdjacentElement('afterend', section);
+  }
+
   function addNavigation(list) {
     if (root.querySelector('.reading-pagination')) return;
     const index = list.findIndex(a => a && a.id === id);
@@ -206,6 +233,7 @@
 
     addToc(body, meta);
     addTopButton(body);
+    addArticleDetails(body);
 
     fetch('./data/articles.json').then(r => r.ok ? r.json() : null).then(data => {
       const list = Array.isArray(data) ? data : (data && Array.isArray(data.articles) ? data.articles : []);
@@ -221,7 +249,7 @@
   const observer = new MutationObserver(enhance);
   observer.observe(root, {childList:true, subtree:true});
 
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-2`)
+  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-3`)
     .then(r => r.ok ? r.json() : null)
     .then(a => { article = a; enhance(); })
     .catch(() => {});
