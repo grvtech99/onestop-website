@@ -28,7 +28,7 @@
   const plain = value => String(value || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
   const canonicalUrl = new URL(`./article-dynamic.html?id=${encodeURIComponent(id)}`, location.href).href;
 
-  fetch(`./data/articles/${encodeURIComponent(id)}.json`)
+  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-2`)
     .then(response => {
       if (!response.ok) throw new Error('Article unavailable');
       return response.json();
