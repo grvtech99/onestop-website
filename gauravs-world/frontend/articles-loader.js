@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260924-5';
+  const MANIFEST_URL = './data/articles.json?v=20260924-6';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -69,7 +69,7 @@
     const section=(name,items,key)=>items.length?`<section class=\"home-section\"><div class=\"section-head\"><h2>${name}</h2><button class=\"section-view\" type=\"button\" data-view=\"${esc(key)}\">View all →</button></div><div class=\"section-grid\">${items.map(card).join('')}</div></section>`:'';
     let html=featured(lead);
     html+=section('Latest Articles',remaining.slice(0,6),'all');
-    groups.forEach(([name,key])=>{const items=remaining.filter(a=>String(a.category||'').toLowerCase()===key.toLowerCase()).slice(0,4);html+=section(name,items,key);});
+    groups.forEach(([name,key])=>{const items=remaining.filter(a=>String(a.category||'').toLowerCase()===key.toLowerCase()).slice(0,6);html+=section(name,items,key);});
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
