@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260924-4';
+  const MANIFEST_URL = './data/articles.json?v=20260924-5';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -73,6 +73,7 @@
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
+async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
   root.addEventListener('click',async event=>{
     const view=event.target.closest('[data-view]');if(view){listMode=true;listModeCategory=view.dataset.view||'all';category.value=listModeCategory;root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
     const like=event.target.closest('[data-like]');if(like){event.preventDefault();event.stopPropagation();const id=like.dataset.like;try{const next=!liked(id);if(next)localStorage.setItem('gw-liked-'+id,'1');else localStorage.removeItem('gw-liked-'+id);like.classList.toggle('is-liked',next);like.setAttribute('aria-pressed',String(next));}catch(_){like.classList.toggle('is-liked');}return;}
@@ -82,5 +83,5 @@
   category.addEventListener('change',()=>{listMode=false;listModeCategory='all';render(window.articles||fallbackArticles);});
   root.innerHTML='<div class="empty" aria-live="polite">लेख लोड हो रहे हैं…</div>';
   render(fallbackArticles);
-  fetch(MANIFEST_URL,{cache:'default'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));window.articles=Array.from(byId.values());render(window.articles);}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class=\"empty\">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';});
+  fetch(MANIFEST_URL,{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));return hydrateMissingMetadata(Array.from(byId.values()));}).then(list=>{window.articles=list;render(window.articles);}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class=\"empty\">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';});
 })();
