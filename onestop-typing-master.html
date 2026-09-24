@@ -95,28 +95,52 @@ function makeKeyboard(){const fingerMap={q:'lp',a:'lp',z:'lp',w:'lr',s:'lr',x:'l
 makeKeyboard();cacheKeys();
 function buildText(level){let base=texts[level]||texts.intermediate;let out="";while(out.length<1300)out+=base+" ";return out.trim()}
 let promptReady=false,lastRenderedValue="";
-function renderPrompt(force=true){
-const val=$("input").value;
-if(force||!promptReady){
-let html="";
-for(let i=0;i<target.length;i++){const ch=target[i];html+=`<span data-i="${i}">${ch===" "?"&nbsp;":escapeHtml(ch)}</span>`;}
-$("prompt").innerHTML=html;promptReady=true;lastRenderedValue="";
-}
-const spans=$("prompt").children,oldVal=lastRenderedValue;
-if(oldVal===val&&!force)return;
-if(Math.abs(oldVal.length-val.length)>1||val.slice(0,Math.min(oldVal.length,val.length))!==oldVal.slice(0,Math.min(oldVal.length,val.length))){
-for(let i=0;i<val.length;i++){const s=spans[i];if(s)s.className=val[i]===target[i]?"correct":"wrong";}
-}else if(oldVal.length>val.length){
-for(let i=val.length;i<=oldVal.length;i++){const s=spans[i];if(s)s.className="";}
-}else{
-const i=val.length-1,s=spans[i];if(s&&i>=0)s.className=val[i]===target[i]?"correct":"wrong";
-}
-const prev=spans[Math.max(0,val.length-1)];if(prev)prev.classList.remove("current");
-const cur=spans[val.length];if(cur&&running)cur.className="current";
-lastRenderedValue=val;
+function renderPrompt(force=false){
+  const val=$("input").value;
+  if(force||!promptReady){
+    const frag=document.createDocumentFragment();
+    for(let i=0;i<target.length;i++){
+      const s=document.createElement("span");
+      s.dataset.i=i;
+      s.textContent=target[i];
+      frag.appendChild(s);
+    }
+    $("prompt").replaceChildren(frag);
+    promptReady=true;
+    lastRenderedValue="";
+  }
+  const spans=$("prompt").children;
+  if(lastRenderedValue===val && !force) return;
+  const max=Math.max(lastRenderedValue.length,val.length);
+  for(let i=0;i<max;i++){
+    const s=spans[i];
+    if(!s) continue;
+    if(i<val.length) s.className=val[i]===target[i]?"correct":"wrong";
+    else s.className="";
+  }
+  const cur=spans[val.length];
+  if(cur && running) cur.className="current";
+  lastRenderedValue=val;
 }
 function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function startPractice(custom=false){clearInterval(timerId);running=false;$("input").value="";target=custom?($("customText").value.trim()||texts.intermediate):buildText($("level").value);promptReady=false;lastRenderedValue="";$("wpm").textContent=0;$("raw").textContent=0;$("acc").textContent="100%";$("errors").textContent=0;$("combo").textContent=0;$("progress").textContent=`0 / ${target.length} characters`;$("timer").textContent="0:00";$("input").focus()}
+function startPractice(custom=false){
+  clearInterval(timerId);
+  running=false;
+  $("input").value="";
+  target=custom?($("customText").value.trim()||texts.intermediate):buildText($("level").value);
+  promptReady=false;
+  lastRenderedValue="";
+  $("wpm").textContent=0;
+  $("raw").textContent=0;
+  $("acc").textContent="100%";
+  $("errors").textContent=0;
+  $("combo").textContent=0;
+  $("progress").textContent=`0 / ${target.length} characters`;
+  $("timer").textContent="0:00";
+  renderPrompt(true);
+  highlightKey();
+  $("input").focus();
+}
 $("startBtn").onclick=()=>{startPractice();highlightKey()};
 $("clearBtn").onclick=()=>{startPractice();highlightKey()};
 $("input").addEventListener("input",()=>{const val=$("input").value,idx=val.length-1;if(!running){running=true;startTime=Date.now();if($("mode").value==="time"){let end=+$("duration").value;timerId=setInterval(()=>{let left=end-(Date.now()-startTime)/1000;if(left<=0){finish();return}$("timer").textContent=formatTime(end-left)},100)}else timerId=setInterval(()=>updateStats(),100)}const typed=idx>=0?val[idx].toLowerCase():"";const expected=idx>=0?(target[idx]||"").toLowerCase():"";if(typed&&typed!==expected){const bad=keyEls[keyForChar(typed)];if(bad){bad.classList.remove("error");void bad.offsetWidth;bad.classList.add("error");setTimeout(()=>bad.classList.remove("error"),500)}}updateStats();renderPrompt(false);highlightKey()});
@@ -124,10 +148,20 @@ function updateStats(){let val=$("input").value,elapsed=Math.max(.001,(Date.now(
 function finish(){if(!running)return;running=false;clearInterval(timerId);updateStats();let elapsed=Math.max(1,(Date.now()-startTime)/1000),r={date:new Date().toLocaleString(),mode:$("mode").value,wpm:+$("wpm").textContent,accuracy:+$("acc").textContent.replace("%",""),errors:+$("errors").textContent,duration:Math.round(elapsed)};if($("autosave").checked!==false){history.unshift(r);history=history.slice(0,200);localStorage.setItem("onestopTypingHistory",JSON.stringify(history))}toast(`Finished — ${r.wpm} WPM • ${r.accuracy}% accuracy`);updateDash()}
 function formatTime(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
 const keyEls={};
-function cacheKeys(){$(".key");document.querySelectorAll(".key").forEach(k=>keyEls[k.dataset.key]=k)}
+function cacheKeys(){Object.keys(keyEls).forEach(k=>delete keyEls[k]);document.querySelectorAll(".key").forEach(k=>keyEls[k.dataset.key]=k)}
 function keyForChar(ch){return ch===" "?" ":ch.toLowerCase()}
 function fingerName(f){return({lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",thumb:"Thumb"})[f]||"Finger"}
-function highlightKey(){const typed=$("input").value,last=typed.slice(-1).toLowerCase(),next=target[typed.length]||"";document.querySelectorAll(".key").forEach(k=>k.classList.remove("active"));const nextEl=[...document.querySelectorAll(".key")].find(k=>k.dataset.key===keyForChar(next));if(nextEl){nextEl.classList.add("active");$("nextFinger").textContent="Next: "+(next===" "?"SPACE":next.toUpperCase())+" • "+fingerName(nextEl.dataset.finger==="TH"?"thumb":nextEl.dataset.finger.toLowerCase())}else $("nextFinger").textContent="Finished";if(last){const lastEl=[...document.querySelectorAll(".key")].find(k=>k.dataset.key===keyForChar(last));if(lastEl&&last!==keyForChar(target[Math.max(0,typed.length-1)])){lastEl.classList.add("error");setTimeout(()=>lastEl.classList.remove("error"),380)}}}
+function highlightKey(){
+  const typed=$("input").value;
+  const next=target[typed.length]||"";
+  if(activeKeyEl)activeKeyEl.classList.remove("active");
+  const nextEl=keyEls[keyForChar(next)];
+  activeKeyEl=nextEl||null;
+  if(nextEl){
+    nextEl.classList.add("active");
+    $("nextFinger").textContent="Next: "+(next===" "?"SPACE":next.toUpperCase())+" • "+fingerName(nextEl.dataset.finger==="TH"?"thumb":nextEl.dataset.finger.toLowerCase());
+  }else $("nextFinger").textContent="Finished";
+}
 $("showKeyboard").onchange=e=>$("keyboard").style.display=e.target.checked?"block":"none";
 $("fontSize").onchange=e=>{$("prompt").style.fontSize=e.target.value+"px";$("input").style.fontSize=e.target.value+"px"};
 function updateDash(){let best=history.reduce((a,b)=>Math.max(a,b.wpm||0),0),acc=history.length?Math.max(...history.map(x=>x.accuracy||0)):0,time=Math.round(history.reduce((a,b)=>a+(b.duration||0),0)/60);$("dashBest").textContent=best;$("homeWpm").textContent=best+" WPM";$("dashAcc").textContent=acc+"%";$("dashTime").textContent=time+"m";$("dashTests").textContent=history.length;$("testBest").textContent=best;$("testSessions").textContent=history.length;$("testAvg").textContent=history.length?Math.round(history.reduce((a,b)=>a+b.wpm,0)/history.length):0}
@@ -144,6 +178,6 @@ function lessonStart(i){let t=lessons[i][1]+" "+lessons[i][2]+" ";showView("prac
 let gameTimer=null,gameScore=0,gameType="";
 function startGame(type){gameType=type;gameScore=0;clearInterval(gameTimer);$("gameBox").innerHTML=`<div class="game-area"><div class="game-hud"><span id="gameStatus">Ready</span><b>Score: <span id="gameScore">0</span></b></div><div class="game-word" id="gameWord">START</div><input class="game-input" id="gameInput" autocomplete="off" placeholder="Type here..."></div>`;let gi=$("gameInput");gi.focus();let word=()=>type==="key"?[..."abcdefghijklmnopqrstuvwxyz"][Math.floor(Math.random()*26)]:words[Math.floor(Math.random()*words.length)];$("gameWord").textContent=word();let start=Date.now();gameTimer=setInterval(()=>{let left=60-(Date.now()-start)/1000;$("gameStatus").textContent="Time "+formatTime(left);if(left<=0){clearInterval(gameTimer);gi.disabled=true;$("gameStatus").textContent="Finished";toast("Game over — Score "+gameScore)}},100);gi.oninput=()=>{let need=$("gameWord").textContent.toLowerCase(),got=gi.value.toLowerCase();if(got===need){gameScore++;$("gameScore").textContent=gameScore;gi.value="";$("gameWord").textContent=word()}}}
 $("mode").onchange=()=>{$("duration").disabled=$("mode").value==="unlimited"};
-updateDash();startPractice();renderPrompt(true);highlightKey();
+updateDash();startPractice();
 </script>
 </body></html>
