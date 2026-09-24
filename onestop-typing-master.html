@@ -1,290 +1,209 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>ONESTOP Typing Master</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ONESTOP Typing Tutor</title>
 <style>
 :root{
-  --blue:#1268d5;--blue2:#0754b7;--ink:#183a66;--panel:#eef3ff;
-  --line:#b9c9ed;--bg:#f5f8fd;--white:#fff;
-  --lp:#ef476f;--lr:#9b5de5;--li:#8ac926;--ri:#1982c4;--rr:#6a4c93;--rp:#ef476f;--th:#f4a261;
+ --blue:#1769d1;--blue2:#0d56b7;--pale:#edf4ff;--line:#b8c8e5;
+ --green:#54a820;--text:#10213b;--red:#d94b55;--gold:#e8b63f;
 }
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
-button,select,textarea{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;overflow:auto}
-.classic-page{
-  min-height:100vh;padding:30px 20px 34px;
-  background:
-    radial-gradient(circle at 95% 5%,#0b92e8 0 180px,transparent 181px),
-    radial-gradient(circle at 2% 92%,#0751b8 0 175px,transparent 176px),
-    linear-gradient(135deg,#f8fbff,#eef4fa);
-}
-.classic-header{
-  width:min(790px,100%);margin:0 auto 22px;
-  display:flex;align-items:center;gap:14px;
-}
-.brand-mark{
-  width:64px;height:64px;border-radius:50%;
-  background:linear-gradient(145deg,#0b59c7,#063c98);
-  color:#fff;display:grid;place-items:center;
-  font-size:38px;font-weight:900;
-  box-shadow:0 6px 16px #174f9c33;
-}
-.brand-title{font-size:39px;font-weight:800;font-style:italic;color:#1268d5;letter-spacing:-1.5px}
-.brand-sub{font-size:11px;color:#67819c;margin-top:2px}
-.workspace{
-  width:min(790px,100%);margin:0 auto;
-  background:#fff;border:7px solid #fff;
-  box-shadow:0 15px 40px #183d6530;
-  display:grid;grid-template-columns:minmax(0,1fr) 205px;
-  grid-template-rows:112px auto 145px 0;
-  grid-template-areas:"lesson progress" "keyboard progress" "hands progress" "controls progress";
-}
-.lesson-board{grid-area:lesson;background:#f1f5ff;border-right:1px solid #cad7ec;padding:10px 24px 8px}
-.target-line{height:112px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:6px 7px;overflow:hidden;padding:5px 0}
-.target-key{
-  width:34px;height:36px;border:1px solid #aebde5;background:#f9fbff;
-  color:#154a9a;display:grid;place-items:center;font-size:18px;font-weight:800;
-  position:relative;border-radius:1px;flex:0 0 auto;
-}
-.target-key.current{border:2px solid #0b58c5;background:#fff;box-shadow:0 0 0 2px #d9e5ff}
-.target-key.done{opacity:.42}
-.target-key.wrong{background:#ffd8d8;border-color:#d22;color:#a00}
-.target-key .dot,.key .dot{position:absolute;width:6px;height:6px;border-radius:50%;bottom:3px;left:4px;border:1px solid #fff;box-shadow:0 0 0 1px #7083a3}
-.target-key.space{width:54px;font-size:9px}
-.drill-title{font-size:12px;font-weight:800;margin:4px 0 5px;color:#2e5688}
-.drill-text{font-size:14px;line-height:1.45;color:#55708c;height:42px;overflow:hidden}
-.keyboard-wrap{grid-area:keyboard;background:#f1f5ff;padding:0 22px 12px;border-right:1px solid #cad7ec}
-.keyboard{display:grid;gap:3px}
-.keyrow{display:flex;gap:3px}
-.key{
-  flex:1;height:35px;border:1px solid #9db0dc;border-radius:2px;
-  background:#edf1ff;color:#163f79;font-weight:800;font-size:11px;
-  display:grid;place-items:center;position:relative;min-width:0;
-  box-shadow:0 1px 0 #7f91bb;
-}
-.key:hover{filter:brightness(.98)}
-.key.active{background:#fff;border:2px solid #0d5fc9;color:#0d5fc9;box-shadow:0 0 0 2px #d9e5ff}
-.key.error{background:#ffd2d2!important;border-color:#c11!important;color:#9d1111!important}
-.key.space{flex:0 0 54%;height:30px}
-.key .dot{bottom:3px;left:4px}
-.f-lp{--fc:var(--lp)}.f-lr{--fc:var(--lr)}.f-li{--fc:var(--li)}.f-ri{--fc:var(--ri)}.f-rr{--fc:var(--rr)}.f-rp{--fc:var(--rp)}.f-th{--fc:var(--th)}
-.key .dot{background:var(--fc)}
-.hands{grid-area:hands;background:#f1f5ff;border-right:1px solid #cad7ec;height:145px;display:flex;justify-content:center;align-items:flex-end;gap:28px;overflow:hidden;padding-top:8px}
-.hand{width:180px;height:135px;position:relative}
-.palm{position:absolute;left:43px;bottom:-33px;width:96px;height:100px;border-radius:48% 48% 25% 25%;background:linear-gradient(150deg,#ffe0c5,#edb08d 58%,#c77c60);border:2px solid #a8664e;box-shadow:inset 5px 5px 10px #fff8,0 2px 3px #86503e55}
-.finger{position:absolute;bottom:50px;width:22px;border-radius:14px 14px 8px 8px;background:linear-gradient(150deg,#ffe2c7,#e9a981 65%,#c57a5e);border:2px solid #a8664e;transform-origin:bottom;transition:.15s}
-.finger:after{content:"";position:absolute;left:50%;top:8px;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:#fff8;border:1px solid #a8664e}
-.finger.active{background:#ffd54a;border-color:#b77900;box-shadow:0 0 0 3px #fff,0 0 0 5px #f0ad00,0 0 15px #ffd54a}
-.left .pinky{left:23px;height:57px;transform:rotate(-20deg)}
-.left .ring{left:48px;height:88px;transform:rotate(-8deg)}
-.left .middle{left:76px;height:99px}
-.left .index{left:103px;height:91px;transform:rotate(6deg)}
-.left .thumb{left:126px;bottom:39px;height:57px;transform:rotate(45deg)}
-.right .pinky{right:23px;height:57px;transform:rotate(20deg)}
-.right .ring{right:48px;height:88px;transform:rotate(8deg)}
-.right .middle{right:76px;height:99px}
-.right .index{right:103px;height:91px;transform:rotate(-6deg)}
-.right .thumb{right:126px;bottom:39px;height:57px;transform:rotate(-45deg)}
-.hand-label{position:absolute;top:0;left:50%;transform:translateX(-50%);font-size:8px;font-weight:900;color:#71859b;white-space:nowrap}
-.progress-panel{grid-area:progress;background:#dceafb;padding:18px 14px;display:flex;flex-direction:column;min-height:560px}
-.progress-title{font-weight:900;font-size:13px;padding-bottom:9px;border-bottom:2px solid #fff}
-.bars{height:120px;display:flex;align-items:end;justify-content:center;gap:3px;padding:15px 0}
-.bar{width:12px;background:#efffdc;border:1px solid #63784b}
-.bar:nth-child(1){height:22px}.bar:nth-child(2){height:30px}.bar:nth-child(3){height:38px}.bar:nth-child(4){height:47px}.bar:nth-child(5){height:57px}.bar:nth-child(6){height:68px}.bar:nth-child(7){height:80px}.bar:nth-child(8){height:92px}.bar:nth-child(9){height:104px}.bar:nth-child(10){height:114px}
-.side-label{font-size:10px;font-weight:800;margin-top:7px}
-.side-time{font-size:25px;font-weight:900;margin:3px 0 8px}
-.side-value{font-size:19px;font-weight:900;padding:7px 0;border-bottom:1px solid #fff}
-.progress-panel .spacer{flex:1}
-.side-btn{width:100%;padding:10px 6px;border-radius:7px;border:1px solid #1268d5;font-weight:800}
-.next{background:#1268d5;color:#fff}.back{background:#fff;color:#1268d5;margin-top:8px}
-.controls{display:none}
-.controls select,.controls button{height:32px;border:1px solid #afc2df;background:#fff;color:#23496f;border-radius:4px;padding:0 8px;font-size:11px}
-.controls .start{background:#1268d5;color:#fff;border-color:#1268d5;flex:1}
-.controls .clear{width:70px}
-.hidden{display:none!important}
-.dot-lp{background:var(--lp)}.dot-lr{background:var(--lr)}.dot-li{background:var(--li)}.dot-ri{background:var(--ri)}.dot-rr{background:var(--rr)}.dot-rp{background:var(--rp)}.dot-th{background:var(--th)}
-@media(max-width:800px){
- .classic-page{padding:14px 7px 22px;background:#f5f8fd}
- .classic-header{margin-bottom:10px}.brand-mark{width:45px;height:45px;font-size:27px}.brand-title{font-size:27px}
- .workspace{grid-template-columns:1fr;grid-template-areas:"lesson" "keyboard" "hands" "controls" "progress"}
- .lesson-board,.keyboard-wrap,.hands{border-right:0}
- .progress-panel{min-height:220px}
- .target-key{width:28px;height:31px;font-size:14px}.target-line{height:55px}
- .keyboard-wrap{padding:0 6px 8px}.key{height:31px;font-size:9px}.key.space{height:27px}
- .hands{height:110px;gap:0}.hand{transform:scale(.72);transform-origin:bottom center}
- .drill-text{font-size:12px}
-}
+html,body{margin:0;height:100%;font-family:Segoe UI,Arial,sans-serif;background:#dfe7f1;color:var(--text)}
+body{overflow:hidden}
+.windowbar{height:28px;background:linear-gradient(#4e970c,#3d8100);color:#fff;display:flex;align-items:center;padding:0 10px;font-size:13px;box-shadow:0 1px 2px #333}
+.windowbar .title{flex:1}.winbtn{margin-left:20px;font-size:14px}
+.app{width:min(1180px,100vw);height:calc(100vh - 28px);margin:auto;background:#f7faff;display:flex;flex-direction:column}
+.topbar{height:78px;display:flex;align-items:center;padding:8px 24px;border-bottom:1px solid #c8d4e6;background:#f8fbff}
+.logo{display:flex;align-items:center;gap:12px}.logoCircle{width:53px;height:53px;border-radius:50%;background:#0958bd;color:white;display:grid;place-items:center;font-size:28px;font-weight:800}
+.logoText{font-size:31px;color:#1464c7;font-weight:700;font-style:italic;letter-spacing:-1.5px}.sub{font-size:11px;color:#70819a;margin-left:8px;font-style:normal}
+.topStats{margin-left:auto;display:flex;gap:9px}.pill{background:white;border:1px solid #c7d5e8;border-radius:5px;padding:7px 12px;min-width:82px;text-align:center}.pill b{display:block;font-size:17px;color:#135fbd}.pill span{font-size:10px;color:#728198}
+.nav{height:43px;background:#e9f1fc;border-bottom:1px solid #c6d6eb;display:flex;align-items:center;padding:0 20px;gap:5px}
+.nav button{height:31px;border:1px solid transparent;background:transparent;color:#204b83;padding:0 15px;border-radius:4px;font-size:12px;cursor:pointer}.nav button.active,.nav button:hover{background:#fff;border-color:#b8c9e3;color:#075fc8}
+.content{flex:1;display:grid;grid-template-columns:1fr 285px;min-height:0}
+.left{background:#f1f5ff;padding:18px 24px 10px;position:relative;min-width:0}
+.right{background:#dce9fb;border-left:1px solid #c2d3ea;padding:16px 17px;position:relative}
+.exerciseHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.lessonTitle{font-size:17px;font-weight:700}.lessonTitle small{font-weight:400;color:#71819a;margin-left:8px}.controls{display:flex;gap:6px}.smallBtn{border:1px solid #aabedc;background:white;color:#1765c6;border-radius:4px;padding:6px 10px;font-size:11px;cursor:pointer}
+.targetBox{background:#fff;border:1px solid #c5d3e7;box-shadow:0 1px 2px #b8c5d7;padding:13px 16px;height:118px;overflow:hidden;font-family:Consolas,monospace;font-size:24px;line-height:1.55;letter-spacing:1px;color:#aab4c3}
+.targetBox .done{color:#355f94}.targetBox .current{background:#4f7ff0;color:white;border-radius:2px;box-shadow:0 0 0 2px #b7c9ff}.targetBox .wrong{color:#fff;background:#d9505b;border-radius:2px}
+.keyboard{margin:12px auto 0;max-width:720px}.krow{display:flex;gap:4px;margin-bottom:4px}.key{height:38px;min-width:45px;flex:1;border:1px solid #aabbd8;border-radius:3px;background:linear-gradient(#fff,#e6edf8);box-shadow:inset 0 1px #fff,0 1px 1px #b9c5d5;color:#173d78;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;user-select:none;position:relative}.key small{position:absolute;top:3px;left:5px;font-size:8px;color:#8091ad}.key.special{flex:1.35}.key.space{flex:5}.key.active{background:linear-gradient(#7899f4,#5579df);color:white;border-color:#486bd0;transform:translateY(1px);box-shadow:0 0 0 2px #c2d2ff}.key.error{background:#efb7bc!important;color:#8e1822!important}.key.home:after{content:"";position:absolute;bottom:4px;width:10px;height:2px;background:#6b7f9c}
+.handArea{height:145px;margin:5px auto 0;max-width:720px;position:relative;overflow:hidden;text-align:center;background:linear-gradient(transparent,#e9effb 88%)}.handArea img{height:185px;width:430px;object-fit:cover;object-position:center 45%;mix-blend-mode:multiply;transform:translateY(8px);opacity:.96}.fingerHint{position:absolute;width:18px;height:18px;border-radius:50%;background:#5d82ef;border:2px solid white;box-shadow:0 0 0 1px #4d69bd;transition:.15s;display:none}
+.hintText{position:absolute;left:0;right:0;bottom:5px;font-size:11px;color:#6b7c96}.statusLine{height:24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#657894}
+.progressBar{height:8px;background:#d7e0ed;border-radius:6px;overflow:hidden;width:42%}.progressBar i{display:block;height:100%;background:#4e82e7;width:0%}
+.sideTitle{font-size:15px;font-weight:700;display:flex;gap:7px;align-items:center}.sideTitle:before{content:"▥";color:#6c85bb}.rule{height:1px;background:#fff;border-top:1px solid #c1d1e7;margin:8px 0 14px}
+.chart{height:125px;display:flex;align-items:end;gap:5px;padding:0 5px 8px;border-bottom:1px solid #c1d1e7}.bar{width:15px;background:#edf8d9;border:1px solid #61733d;min-height:5px}
+.metric{margin-top:15px}.metric label{font-size:11px;font-weight:700}.big{font-size:28px;font-weight:800;margin-top:2px}.submetric{font-size:10px;color:#6e7e96}
+.sideButtons{position:absolute;bottom:15px;left:17px;right:17px}.mainBtn{height:38px;width:100%;background:#1768ce;color:white;border:1px solid #0e58b5;border-radius:5px;text-decoration:underline;cursor:pointer;font-size:12px}.outlineBtn{height:36px;width:100%;margin-top:8px;background:white;color:#1264c9;border:1px solid #1872df;border-radius:8px;cursor:pointer;font-size:12px;text-decoration:underline}
+.modal{position:fixed;inset:0;background:#12213a99;display:none;align-items:center;justify-content:center;z-index:20}.dialog{width:460px;background:white;border:1px solid #b5c7e1;border-radius:8px;box-shadow:0 15px 50px #14233b66;padding:22px}.dialog h2{margin:0 0 5px;color:#155fbc}.dialog p{font-size:12px;color:#6c7b90}.resultGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:18px 0}.resultCard{background:#eef4fd;border:1px solid #cad8ec;padding:10px;text-align:center}.resultCard b{font-size:22px;display:block;color:#135fbd}.resultCard span{font-size:10px;color:#708097}
+.lessonPanel{position:fixed;inset:0;background:#12213a88;display:none;align-items:center;justify-content:center;z-index:19}.panel{width:720px;max-height:80vh;overflow:auto;background:white;border-radius:8px;padding:20px}.lessonGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.lessonItem{padding:11px;border:1px solid #c7d5e8;background:#f7faff;border-radius:5px;text-align:left;cursor:pointer}.lessonItem:hover{border-color:#5d85df;background:#eef4ff}.lessonItem b{display:block;font-size:12px;color:#185fae}.lessonItem span{font-size:10px;color:#72829a}
+@media(max-width:850px){body{overflow:auto}.app{height:auto;min-height:100vh}.content{grid-template-columns:1fr}.right{min-height:350px}.sideButtons{position:static;margin-top:20px}.topStats{display:none}.lessonGrid{grid-template-columns:repeat(2,1fr)}}
 </style>
-<style>
-/* Final reference layout tuning */
-.workspace{width:790px!important;height:540px!important;grid-template-columns:570px 200px!important;grid-template-rows:498px 36px!important}
-.lesson-board{padding:7px 25px 0!important;background:#f2f5ff!important;overflow:hidden!important}
-.ref-instructions{height:48px;color:#8baa35;font-size:14px;line-height:1.35;padding:2px 0 0}
-.ref-instructions>div{display:flex;align-items:center;gap:9px;margin-bottom:5px}
-.ref-instructions b{width:22px;height:22px;border-radius:50%;background:#9bd64e;color:#fff;display:grid;place-items:center;font-size:10px}
-.target-line{height:76px!important;align-content:start!important;padding:3px 9px 7px!important;gap:7px 20px!important}
-.target-key{width:34px!important;height:34px!important;font-size:16px!important}
-.keyboard-wrap{padding:0 25px 0!important;background:#f2f5ff!important}
-.keyboard{gap:0!important}
-.keyrow{gap:2px!important;margin-bottom:3px!important}
-.key{height:34px!important;font-size:11px!important;border-radius:0!important}
-.key.space{height:29px!important}
-.hands{height:133px!important;margin-top:2px!important;background:#f2f5ff!important;gap:28px!important}
-.hand{transform:scale(.96)!important;transform-origin:bottom center}
-.progress-panel{padding:18px 14px!important;background:#dbeafb!important}
-.controls{display:none!important}
-@media(max-width:800px){
- .workspace{width:100%!important;height:auto!important;grid-template-columns:1fr!important;grid-template-rows:auto auto auto!important}
- .progress-panel{grid-row:3!important}
- .lesson-board{padding:7px 9px 0!important}
- .keyboard-wrap{padding:0 8px!important}
- .target-line{height:72px!important}
- .hands{height:110px!important}
-}
-</style></head>
+</head>
 <body>
+<div class="windowbar"><span class="title">Typing Master</span><span class="winbtn">—</span><span class="winbtn">□</span><span class="winbtn">×</span></div>
 <div class="app">
-<section class="classic-page">
-  <div class="classic-header">
-    <div class="brand-mark">T</div>
-    <div><div class="brand-title">ONESTOP TypingMaster</div><div class="brand-sub">Learn • Practice • Test • Play</div></div>
-  </div>
-
-  <main class="workspace" id="workspace">
-    <section class="lesson-board">
-      <div class="ref-instructions">
-        <div><b>▶</b><span>Type the key sequences, follow the highlighted key</span></div>
-        <div><b>▶</b><span>Look at the on-screen keyboard and hands for hints, when needed</span></div>
-      </div>
-      <div class="target-line" id="targetLine"></div>
-      <div class="drill-title" id="drillTitle">Home Row — Finger Placement</div>
-      <div class="drill-text" id="drillText">Place your fingers correctly and practice only the selected keys. Accuracy comes before speed.</div>
-    </section>
-
-    <section class="keyboard-wrap">
-      <div class="keyboard" id="keyboard"></div>
-    </section>
-
-    <section class="hands">
-      <div class="hand left" id="leftHand"><span class="hand-label">LEFT HAND</span><div class="palm"></div>
-        <i class="finger pinky" data-f="lp"></i><i class="finger ring" data-f="lr"></i><i class="finger middle" data-f="li"></i><i class="finger index" data-f="li"></i><i class="finger thumb" data-f="th"></i>
-      </div>
-      <div class="hand right" id="rightHand"><span class="hand-label">RIGHT HAND</span><div class="palm"></div>
-        <i class="finger thumb" data-f="th"></i><i class="finger index" data-f="ri"></i><i class="finger middle" data-f="ri"></i><i class="finger ring" data-f="rr"></i><i class="finger pinky" data-f="rp"></i>
-      </div>
-    </section>
-
-    <aside class="progress-panel">
-      <div class="progress-title">▥ YOUR PROGRESS</div>
-      <div class="bars" id="bars"><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i><i class="bar"></i></div>
-      <div class="side-label">TIME</div><div class="side-time" id="time">00:00</div>
-      <div class="side-label">WPM</div><div class="side-value" id="wpm">0</div>
-      <div class="side-label">ACCURACY</div><div class="side-value" id="accuracy">100%</div>
-      <div class="side-label">ERRORS</div><div class="side-value" id="errors">0</div>
-      <div class="spacer"></div>
-      <button class="side-btn next" id="nextBtn">Next</button>
-      <button class="side-btn back" id="backBtn">Back</button>
-    </aside>
-
-    <div class="controls">
-      <select id="level">
-        <option value="home">Basic 1 — ASDFG / HJKL;</option>
-        <option value="top">Basic 2 — QWERTY / UIOP</option>
-        <option value="bottom">Basic 3 — ZXCV / BNM</option>
-        <option value="full">Basic 4 — Full Letters</option>
-        <option value="words">Intermediate — Words</option>
-        <option value="paragraph">Advanced — Paragraph</option>
-      </select>
-      <button class="start" id="startBtn">Start / Restart</button>
-      <button class="clear" id="clearBtn">Clear</button>
+  <header class="topbar">
+    <div class="logo"><div class="logoCircle">T</div><div><div class="logoText">TypingMaster</div><div class="sub">Touch Typing Tutor</div></div></div>
+    <div class="topStats">
+      <div class="pill"><b id="topWpm">0</b><span>WPM</span></div>
+      <div class="pill"><b id="topAcc">100%</b><span>ACCURACY</span></div>
+      <div class="pill"><b id="topLesson">1</b><span>LESSON</span></div>
     </div>
+  </header>
+  <nav class="nav">
+    <button class="active" data-page="lesson">Lessons</button>
+    <button data-page="test">Typing Test</button>
+    <button id="lessonsBtn">Choose Lesson</button>
+    <button id="resetBtn">Reset</button>
+  </nav>
+  <main class="content">
+    <section class="left">
+      <div class="exerciseHeader">
+        <div class="lessonTitle" id="lessonTitle">Lesson 1 — Home Row <small>Beginner</small></div>
+        <div class="controls"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button></div>
+      </div>
+      <div class="targetBox" id="targetBox"></div>
+      <div class="keyboard" id="keyboard"></div>
+      <div class="handArea">
+        <img src="https://testingcenter.illinois.edu/sites/default/files/styles/hero_image/public/paragraphs/hero/2024-07/UI-02-180724-011.jpg?h=379e4d2e&itok=mr7vRSwP" alt="Real hands on keyboard">
+        <div class="fingerHint" id="fingerHint"></div>
+        <div class="hintText" id="hintText">Place your fingers on the home row: A S D F — J K L ;</div>
+      </div>
+      <div class="statusLine"><span id="status">Click here or start typing</span><div class="progressBar"><i id="progressFill"></i></div><span id="count">0 / 0</span></div>
+    </section>
+    <aside class="right">
+      <div class="sideTitle">Your Progress</div><div class="rule"></div>
+      <div class="chart" id="chart"></div>
+      <div class="metric"><label>Current Speed</label><div class="big"><span id="wpm">0</span> <small style="font-size:12px">WPM</small></div><div class="submetric">Gross speed</div></div>
+      <div class="metric"><label>Accuracy</label><div class="big"><span id="accuracy">100</span><small style="font-size:12px">%</small></div><div class="submetric"><span id="errors">0</span> errors</div></div>
+      <div class="metric"><label>Time</label><div class="big" id="timer">00:00</div><div class="submetric" id="modeText">Lesson mode</div></div>
+      <div class="sideButtons"><button class="mainBtn" id="nextBtn">Next Exercise</button><button class="outlineBtn" id="cancelBtn">Cancel / Reset</button></div>
+    </aside>
   </main>
-</section>
 </div>
 
+<div class="modal" id="modal"><div class="dialog">
+<h2>Exercise Complete</h2><p>Your typing result for this exercise</p>
+<div class="resultGrid"><div class="resultCard"><b id="rWpm">0</b><span>WPM</span></div><div class="resultCard"><b id="rAcc">0%</b><span>ACCURACY</span></div><div class="resultCard"><b id="rErr">0</b><span>ERRORS</span></div><div class="resultCard"><b id="rTime">0:00</b><span>TIME</span></div></div>
+<button class="mainBtn" id="continueBtn">Continue to Next Exercise</button>
+</div></div>
+
+<div class="lessonPanel" id="lessonPanel"><div class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px"><div><h2 style="margin:0;color:#155fbc">Choose Lesson</h2><small style="color:#71819a">20 structured touch-typing exercises</small></div><button class="smallBtn" id="closeLessons">Close</button></div>
+<div class="lessonGrid" id="lessonGrid"></div>
+</div></div>
+
 <script>
+const lessons=[
+["Home Row","Beginner","a s d f j k l ; as df jk l; aa ss dd ff jj kk ll ;;"],
+["Home Row Patterns","Beginner","asdf jkl; asdf jkl; fdsa ;lkj asdf jkl;"],
+["Left Hand","Beginner","a s d f a s d f as ad sd fd da sa fa"],
+["Right Hand","Beginner","j k l ; j k l ; jk jl kl k; ;l kj"],
+["Alternating Hands","Beginner","a j s k d l f ; asdf jkl; a j s k d l f ;"],
+["F and J","Beginner","f j fj jf f j fj jf ff jj fj jf"],
+["G and H","Basic","g h gh hg fg hj gd hk gf hj"],
+["Top Row E and I","Basic","e i ei ie de ke fe ji di ki"],
+["Top Row R and U","Basic","r u ru ur fr ju dr ku"],
+["Top Row T and Y","Basic","t y ty yt ft jy gt hy"],
+["Top Row W and O","Basic","w o wo ow sw lo dw ko"],
+["Top Row Q and P","Basic","q p qp pq aq pl sq op"],
+["Full Top Row","Basic","qwerty ytrewq poiuy trewq qwerty"],
+["Bottom Row C and M","Basic","c m cm mc dc km fc jm"],
+["Bottom Row V and N","Basic","v n vn nv fv jn cv mn"],
+["Bottom Row X and B","Basic","x b xb bx sx jb ax"],
+["Bottom Row Z and Comma","Basic","z , z, ,z az j, sz l,"],
+["Full Letters","Intermediate","the quick brown fox jumps over the lazy dog"],
+["Speed Builder","Intermediate","typing speed grows with practice and accuracy"],
+["Final Practice","Advanced","Touch typing lets you write faster while keeping your eyes on the screen"]
+];
+let lesson=0, text="",pos=0,errors=0,startTime=0,timerId=null,started=false,sound=true,mode="lesson",testTime=60;
 const $=id=>document.getElementById(id);
-const fingers={q:"lp",a:"lp",z:"lp",w:"lr",s:"lr",x:"lr",e:"li",d:"li",c:"li",r:"li",f:"li",v:"li",t:"li",g:"li",b:"li",y:"ri",h:"ri",n:"ri",u:"ri",j:"ri",m:"ri",i:"rr",k:"rr",",":"rr",o:"rr",l:"rr",".":"rr",">":"rr",p:"rp",";":"rp","/":"rp","?":"rp","[":"rp","]":"rp","-":"rp","=":"rp"," ":"th","1":"lp","2":"lr","3":"li","4":"li","5":"li","6":"ri","7":"ri","8":"ri","9":"rr","0":"rp"};
-const rows=["1234567890-=","qwertyuiop[]\\","asdfghjkl;'","zxcvbnm,./"];
-const texts={
- home:"asdfg hjkl; asdfg fdsa hjkl; aa ss dd ff gg hh jj kk ll ;; as df gh hj kl ;l",
- top:"qwerty uiop qw er ty yu ui io op qi wo ei ru to yp",
- bottom:"zxcv bnm zxcv bnm zx cv bn nm xc vb",
- full:"asdf jkl; sad dad lad ask flask fall all the quick brown fox jumps",
- words:"the quick brown fox jumps over the lazy dog. good typing needs correct finger placement.",
- paragraph:"Good typing is built with correct finger placement, steady rhythm, careful accuracy, and relaxed hands."
-};
-const names={lp:"Left little",lr:"Left ring",li:"Left index",ri:"Right index",rr:"Right ring",rp:"Right little",th:"Thumb"};
-let target="",started=false,startTime=0,timer=null,errors=0;
-function keyForChar(ch){return (ch||"").toLowerCase()}
-function buildTarget(level){
- let base=texts[level]||texts.home;
- if(["home","top","bottom"].includes(level)){let s="";while(s.length<70)s+=base+" ";return s.trim()}
- let s="";while(s.length<240)s+=base+" ";return s.trim()
-}
-function keyClass(k){return "f-"+(fingers[k]||"ri")}
 function makeKeyboard(){
- let html="";
- rows.forEach(row=>{html+="<div class='keyrow'>";[...row].forEach(k=>{
-   html+="<button class='key "+keyClass(k)+"' data-key='"+k.replace(/'/g,"&#39;")+"'>"+k.replace(/</g,"&lt;")+"<i class='dot dot-"+(fingers[k]||"ri")+"'></i></button>";
- });html+="</div>"});
- html+="<div class='keyrow'><button class='key space f-th' data-key=' '>SPACE<i class='dot dot-th'></i></button></div>";
- $("keyboard").innerHTML=html;
- document.querySelectorAll(".key").forEach(k=>k.addEventListener("click",()=>typeKey(k.dataset.key)));
+ const rows=[
+ [["`","~"],["1","!"],["2","@"],["3","#"],["4","$"],["5","%"],["6","^"],["7","&"],["8","*"],["9","("],["0",")"],["-","_"],["=","+"],["Backspace",""]],
+ [["Tab",""],["Q",""],["W",""],["E",""],["R",""],["T",""],["Y",""],["U",""],["I",""],["O",""],["P",""],["[",""],["]",""],["\\",""]],
+ [["Caps Lock",""],["A",""],["S",""],["D",""],["F",""],["G",""],["H",""],["J",""],["K",""],["L",""],[";",""],["'",""],["Enter",""]],
+ [["Shift",""],["Z",""],["X",""],["C",""],["V",""],["B",""],["N",""],["M",""],[",",""],[".",""],["/",""],["Shift",""]],
+ [["Ctrl",""],["Win",""],["Alt",""],["Space",""],["Alt",""],["Win",""],["Menu",""],["Ctrl",""]]
+ ];
+ const kb=$("keyboard");kb.innerHTML="";
+ rows.forEach((row,ri)=>{let r=document.createElement("div");r.className="krow";row.forEach(k=>{
+ let d=document.createElement("div");d.className="key";d.dataset.key=k[0].toLowerCase();
+ if(["Backspace","Tab","Caps Lock","Enter","Shift","Ctrl","Win","Alt","Menu"].includes(k[0]))d.classList.add("special");
+ if(k[0]=="Space")d.classList.add("space");
+ if(["A","S","D","F","J","K","L",";"].includes(k[0]))d.classList.add("home");
+ d.innerHTML=k[0]+(k[1]?'<small>'+k[1]+'</small>':"");r.appendChild(d);});kb.appendChild(r)});
 }
-function renderTarget(){
- const pos=$("input")?.value.length||0;
- const start=Math.max(0,pos-2), chars=target.slice(start,start+16);
- $("targetLine").innerHTML=chars.map((ch,i)=>{
-   const idx=start+i, f=fingers[ch.toLowerCase()]||"ri";
-   return "<span class='target-key "+(idx===pos?"current ":"")+(idx<pos?"done ":"")+(ch===" "?"space":"")+"'>"+(ch===" "?"SPACE":ch)+"<i class='dot dot-"+f+"'></i></span>";
- }).join("");
+function renderText(){
+ text=lessons[lesson][2];
+ $("targetBox").innerHTML="";
+ [...text].forEach((c,i)=>{let s=document.createElement("span");s.textContent=c===" "?"·":c;s.dataset.i=i;$("targetBox").appendChild(s)});
+ updateUI();highlight();
 }
 function highlight(){
  document.querySelectorAll(".key").forEach(k=>k.classList.remove("active"));
- document.querySelectorAll(".finger").forEach(f=>f.classList.remove("active"));
- const ch=target[$("input").value.length]||"";
- const k=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===ch);
- if(k)k.classList.add("active");
- const f=fingers[ch.toLowerCase()]||"";
- if(f)document.querySelectorAll("[data-f='"+f+"']").forEach(x=>x.classList.add("active"));
- renderTarget();
+ let c=text[pos]||" ";let target=c===" "?"space":c.toLowerCase();
+ let el=[...document.querySelectorAll(".key")].find(k=>k.dataset.key===target);if(el)el.classList.add("active");
+ const s=$(`targetBox`).querySelectorAll("span");s.forEach((x,i)=>x.className=i<pos?"done":i===pos?"current":"");
+ $("hintText").textContent="Next key: "+(c===" "?"SPACE":c.toUpperCase());
 }
 function start(){
- clearInterval(timer);started=false;errors=0;$("input")?.remove();
- const ta=document.createElement("textarea");ta.id="input";ta.setAttribute("aria-label","Typing input");
- ta.style.cssText="position:fixed;left:-9999px;top:-9999px;width:1px;height:1px;opacity:0";
- document.body.appendChild(ta);
- target=buildTarget($("level").value);$("time").textContent="00:00";$("wpm").textContent="0";$("accuracy").textContent="100%";$("errors").textContent="0";
- renderTarget();highlight();ta.focus();
- ta.addEventListener("input",onInput);
+ if(started)return;started=true;startTime=Date.now();timerId=setInterval(updateUI,250);
+ $("status").textContent="Typing…";
 }
-function onInput(){
- const ta=$("input"),v=ta.value,pos=v.length-1,expected=(target[pos]||"").toLowerCase(),typed=(v[pos]||"").toLowerCase();
- if(!started){started=true;startTime=Date.now();timer=setInterval(update,100)}
- if(typed&&typed!==expected){errors++;const k=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===v[pos]);if(k){k.classList.add("error");setTimeout(()=>k.classList.remove("error"),180)}}
- update();highlight();
- if(v.length>=target.length){clearInterval(timer);started=false}
+function updateUI(){
+ let sec=started?Math.max(0,(Date.now()-startTime)/1000):0;
+ if(mode==="test"&&sec>=testTime){finish();return}
+ let minutes=sec/60,wpm=minutes>0?Math.round((pos/5)/minutes):0;
+ let acc=pos?Math.max(0,Math.round(((pos-errors)/pos)*100)):100;
+ $("wpm").textContent=wpm;$("accuracy").textContent=acc;$("errors").textContent=errors;
+ $("topWpm").textContent=wpm;$("topAcc").textContent=acc+"%";
+ $("timer").textContent=fmt(sec);$("count").textContent=pos+" / "+text.length;
+ $("progressFill").style.width=(text.length?pos/text.length*100:0)+"%";
 }
-function update(){
- const v=$("input")?.value||"",elapsed=started?Math.max(1,(Date.now()-startTime)/1000):Math.max(1,(Date.now()-startTime)/1000);
- $("time").textContent=Math.floor(elapsed/60).toString().padStart(2,"0")+":"+Math.floor(elapsed%60).toString().padStart(2,"0");
- const wpm=Math.round((v.length/5)/(elapsed/60));$("wpm").textContent=isFinite(wpm)?wpm:0;
- const good=Math.max(0,v.length-errors);$("accuracy").textContent=(v.length?Math.max(0,Math.round(good/v.length*100)):100)+"%";$("errors").textContent=errors;
+function fmt(s){s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
+function beep(ok){
+ if(!sound)return;try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?660:150;g.gain.value=.035;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045)}catch(e){}
 }
-function typeKey(ch){
- const ta=$("input");if(!ta)return;
- const pos=ta.selectionStart||ta.value.length;ta.setRangeText(ch,pos,ta.selectionEnd||pos,"end");ta.dispatchEvent(new Event("input",{bubbles:true}));ta.focus()
+function finish(){
+ if(!started)return;started=false;clearInterval(timerId);timerId=null;
+ let sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((pos/5)/(sec/60)),acc=pos?Math.max(0,Math.round(((pos-errors)/pos)*100)):100;
+ $("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=errors;$("rTime").textContent=fmt(sec);
+ saveProgress(wpm,acc);$("modal").style.display="flex";updateChart();
 }
-$("startBtn").onclick=start;$("clearBtn").onclick=start;
-$("level").onchange=start;
-$("nextBtn").onclick=()=>{let i=$("level").selectedIndex;if(i<$("level").options.length-1){$("level").selectedIndex=i+1;start()}};
-$("backBtn").onclick=()=>{clearInterval(timer);window.history.back()};
-makeKeyboard();start();
+function reset(){
+ clearInterval(timerId);timerId=null;started=false;pos=0;errors=0;
+ $("status").textContent="Click here or start typing";$("timer").textContent="00:00";renderText();
+}
+function next(){lesson=(lesson+1)%lessons.length;loadLesson()}
+function loadLesson(){mode="lesson";$("modeText").textContent="Lesson mode";$("lessonTitle").innerHTML=`Lesson ${lesson+1} — ${lessons[lesson][0]} <small>${lessons[lesson][1]}</small>`;$("topLesson").textContent=lesson+1;reset()}
+function choose(i){lesson=i;$("lessonPanel").style.display="none";loadLesson()}
+function saveProgress(wpm,acc){let a=JSON.parse(localStorage.getItem("typingHistory")||"[]");a.push({date:Date.now(),wpm,acc});a=a.slice(-12);localStorage.setItem("typingHistory",JSON.stringify(a))}
+function updateChart(){
+ let a=JSON.parse(localStorage.getItem("typingHistory")||"[]"),c=$("chart");c.innerHTML="";
+ let vals=a.map(x=>x.wpm).slice(-10);let max=Math.max(20,...vals);
+ for(let v of vals){let b=document.createElement("div");b.className="bar";b.style.height=Math.max(8,Math.round(v/max*105))+"px";c.appendChild(b)}
+}
+function openLessons(){let g=$("lessonGrid");g.innerHTML="";lessons.forEach((l,i)=>{let d=document.createElement("div");d.className="lessonItem";d.innerHTML=`<b>${i+1}. ${l[0]}</b><span>${l[1]} · ${l[2].slice(0,30)}…</span>`;d.onclick=()=>choose(i);g.appendChild(d)});$("lessonPanel").style.display="flex"}
+document.addEventListener("keydown",e=>{
+ if(e.ctrlKey||e.altKey||e.metaKey||e.key==="Tab")return;
+ if(e.key==="Escape"){$("modal").style.display="none";$("lessonPanel").style.display="none";return}
+ let k=e.key===" "?" ":e.key.toLowerCase();
+ if(!text)return;
+ if(!started)start();
+ if(k==="backspace"){return}
+ let expected=text[pos];
+ if(k===expected){pos++;beep(true);$("status").textContent="Correct";if(pos>=text.length)finish();else highlight()}
+ else{errors++;beep(false);$("status").textContent="Incorrect key";let el=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===k);if(el){el.classList.add("error");setTimeout(()=>el.classList.remove("error"),170)}}
+ updateUI();
+});
+$("restartBtn").onclick=reset;$("cancelBtn").onclick=reset;$("nextBtn").onclick=next;$("lessonsBtn").onclick=openLessons;$("closeLessons").onclick=()=>$("lessonPanel").style.display="none";
+$("continueBtn").onclick=()=>{$("modal").style.display="none";next()};
+$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};
+$("resetBtn").onclick=()=>{localStorage.removeItem("typingHistory");updateChart();reset()};
+document.querySelectorAll(".nav button[data-page]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");if(b.dataset.page==="test"){mode="test";text="The quick brown fox jumps over the lazy dog. Practice typing every word with accuracy and steady rhythm.";$("lessonTitle").innerHTML="Typing Test — 60 Seconds <small>Timed</small>";$("modeText").textContent="Test mode";reset()}else loadLesson()});
+makeKeyboard();updateChart();loadLesson();
 </script>
 </body>
 </html>
