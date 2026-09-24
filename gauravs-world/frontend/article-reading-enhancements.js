@@ -202,6 +202,13 @@
       return;
     }
 
+    // Wait for the same article JSON used by the reader before locking the enhancement state.
+    // This prevents a refresh race where the reader renders first and metadata arrives second.
+    if (!article) {
+      if (progressReady) requestProgressUpdate();
+      return;
+    }
+
     done = true;
     const words = (body.innerText || '').trim().split(/\s+/).filter(Boolean).length;
     const readingMinutes = Math.max(1, Math.ceil(words / 200));
