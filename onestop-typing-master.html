@@ -75,7 +75,31 @@ html,body{width:100%;height:100%;overflow:hidden}
  .keyboard .krow:last-child .key{height:34px}
  .statusLine{margin-top:4px}
 }
-</style>
+/* FINAL VERTICAL BALANCE */
+.practiceStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px auto 0;max-width:800px}
+.practiceStrip>div{background:#e7eef9;border:1px solid #c6d4e8;border-radius:5px;padding:8px 9px;min-height:52px}
+.practiceStrip b{display:block;font-size:9px;color:#1b5fae;margin-bottom:4px}
+.practiceStrip span{font-size:8px;color:#6b7c94;line-height:1.3}
+.targetBox{height:96px}
+.keyboard{margin-top:9px;max-width:800px}
+.krow{gap:4px;margin-bottom:5px}
+.key{height:48px;min-width:34px}
+.keyboard .krow:last-child .key{height:50px}
+.statusLine{margin-top:7px}
+@media(max-width:850px){
+ .targetBox{height:78px}
+ .keyboard{margin-top:7px}
+ .krow{gap:2px;margin-bottom:3px}
+ .key{height:34px;min-width:24px}
+ .keyboard .krow:last-child .key{height:36px}
+ .practiceStrip{gap:4px;margin-top:6px}
+ .practiceStrip>div{min-height:40px;padding:5px}
+ .practiceStrip b{font-size:7px;margin-bottom:2px}.practiceStrip span{font-size:6.5px}
+}
+@media(max-width:600px){
+ .practiceStrip{display:none}
+ .key{height:27px}.keyboard .krow:last-child .key{height:29px}
+}</style>
 </head>
 <body>
 <div class="windowbar"><span class="title">Typing Master</span><span class="winbtn">—</span><span class="winbtn">□</span><span class="winbtn">×</span></div>
@@ -103,6 +127,11 @@ html,body{width:100%;height:100%;overflow:hidden}
       <div class="targetBox" id="targetBox"></div>
       <div class="keyboard" id="keyboard"></div>
       <div class="statusLine"><span id="status">Click here or start typing</span><div class="progressBar"><i id="progressFill"></i></div><span id="count">0 / 0</span></div>
+      <div class="practiceStrip">
+        <div><b>⌨ HOME ROW</b><span>Keep fingers on A S D F · J K L ;</span></div>
+        <div><b>🎯 ACCURACY FIRST</b><span>Type correctly before increasing speed.</span></div>
+        <div><b>⚡ STEADY RHYTHM</b><span>Look at the text, not the keyboard.</span></div>
+      </div>
     </section>
     <aside class="right">
       <div class="sideTitle">Your Progress</div><div class="rule"></div>
