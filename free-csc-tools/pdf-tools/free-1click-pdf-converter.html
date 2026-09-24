@@ -56,8 +56,7 @@
 
 <section class="card">
 <div class="actions">
-<button id="make" class="btn primary" disabled>⚡ Create PDF</button>
-<button id="download" class="btn secondary" disabled>⬇ Download PDF</button>
+<button id="download" class="btn primary" disabled>⬇ Download PDF</button>
 <button id="clear" class="btn danger" disabled>Clear All</button>
 </div>
 <div id="progress" class="progress"><div class="bar"><i id="bar"></i></div><div id="status" class="status"></div></div>
@@ -68,7 +67,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 const $=id=>document.getElementById(id);
-const filesInput=$('files'),drop=$('drop'),list=$('list'),stats=$('stats'),make=$('make'),download=$('download'),clear=$('clear');
+const filesInput=$('files'),drop=$('drop'),list=$('list'),stats=$('stats'),download=$('download'),clear=$('clear');
 let items=[],lastBlob=null,lastName='onestop-pdf.pdf';
 
 function fmt(n){if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(2)+' MB'}
@@ -80,7 +79,7 @@ function render(){
  <button class="mini" data-up="${i}" title="Move up" ${i===0?'disabled':''}>↑</button><button class="mini" data-down="${i}" title="Move down" ${i===items.length-1?'disabled':''}>↓</button><button class="mini del" data-del="${i}" title="Remove">×</button>
  </div>`).join(''):'<div class="empty">No images selected yet.</div>';
  stats.textContent=items.length+' image'+(items.length===1?'':'s')+' • '+fmt(items.reduce((a,x)=>a+x.file.size,0));
- make.disabled=!items.length;clear.disabled=!items.length;
+ download.disabled=!items.length;clear.disabled=!items.length;
  list.querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>{const i=+b.dataset.up;if(i){[items[i-1],items[i]]=[items[i],items[i-1]];render()}});
  list.querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>{const i=+b.dataset.down;if(i<items.length-1){[items[i+1],items[i]]=[items[i],items[i+1]];render()}});
  list.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{const i=+b.dataset.del;URL.revokeObjectURL(items[i].url);items.splice(i,1);render()});
@@ -111,8 +110,7 @@ async function buildPDF(imgs){
  for(let i=0;i<imgs.length;i++){setProgress(Math.round(i/imgs.length*85),'Preparing image '+(i+1)+' of '+imgs.length+'…');const img=await loadImage(imgs[i].file);const pg=pageSpec(img);if(!doc)doc=new jsPDF({unit:'pt',format:pg.format,orientation:pg.w>pg.h?'landscape':'portrait',compress:true});else doc.addPage(pg.format,pg.w>pg.h?'landscape':'portrait');const d=drawImageData(img,pg);doc.addImage(d.data,'JPEG',d.x,d.y,d.w,d.h,undefined,'FAST');URL.revokeObjectURL(img.src)}
  setProgress(95,'Generating PDF…');const blob=doc.output('blob');setProgress(100,'PDF ready • '+fmt(blob.size));return blob
 }
-make.onclick=async()=>{make.disabled=true;download.disabled=true;try{if($('mode').value==='separate'){setProgress(2,'Creating separate PDFs…');window._separate=[];for(let i=0;i<items.length;i++){const b=await buildPDF([items[i]]);window._separate.push({blob:b,name:items[i].file.name.replace(/\.[^.]+$/,'')+'.pdf'});setProgress(Math.round((i+1)/items.length*100),'Created '+(i+1)+' of '+items.length)}lastBlob=null;download.disabled=false;lastName='separate';}else{lastBlob=await buildPDF(items);lastName='onestop-'+new Date().toISOString().slice(0,10)+'.pdf';download.disabled=false}}catch(e){alert('PDF creation failed: '+e.message)}finally{make.disabled=false}};
-download.onclick=async()=>{if($('mode').value==='separate'&&window._separate?.length){for(const x of window._separate){const a=document.createElement('a');a.href=URL.createObjectURL(x.blob);a.download=x.name;a.click();await new Promise(r=>setTimeout(r,350))}}else if(lastBlob){const a=document.createElement('a');a.href=URL.createObjectURL(lastBlob);a.download=lastName;a.click()}};
+download.onclick=async()=>{if(!items.length)return alert('Please select images first.');download.disabled=true;try{if($('mode').value==='separate'){setProgress(2,'Creating PDFs…');window._separate=[];for(let i=0;i<items.length;i++){const b=await buildPDF([items[i]]);window._separate.push({blob:b,name:items[i].file.name.replace(/\.[^.]+$/,'')+'.pdf'});setProgress(Math.round((i+1)/items.length*100),'Created '+(i+1)+' of '+items.length)}for(const x of window._separate){const a=document.createElement('a');a.href=URL.createObjectURL(x.blob);a.download=x.name;a.click();await new Promise(r=>setTimeout(r,350))}}else{const blob=await buildPDF(items);const name='onestop-'+new Date().toISOString().slice(0,10)+'.pdf';const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}}catch(e){alert('PDF creation failed: '+e.message)}finally{download.disabled=!items.length}};
 render();
 </script>
 </body>
