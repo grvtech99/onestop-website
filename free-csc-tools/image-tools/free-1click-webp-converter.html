@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free 1Click WebP Converter - Fast bulk JPG PNG to WebP image compression tool by ONESTOP.">
+<title>Free 1Click WebP Converter | ONESTOP</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Segoe UI,sans-serif;background:#f5f9ff;color:#14213d}header{background:#fff;border-bottom:1px solid #e2eafa;padding:11px 20px}.nav{max-width:1180px;margin:auto;display:flex;align-items:center;justify-content:space-between}.brand strong{display:block;color:#0757c9;font-size:25px;font-weight:900}.brand small{display:block;font-size:9px;letter-spacing:1px;font-weight:800;margin-top:4px}.home{background:#0757c9;color:#fff;padding:10px 15px;border-radius:10px;text-decoration:none;font-weight:800}.wrap{max-width:1050px;margin:auto;padding:22px 14px}.hero{background:linear-gradient(112deg,#0757c9,#1688e8,#5bc8f4);color:#fff;border-radius:18px;padding:28px 22px;text-align:center}.hero h1{margin:0;font-size:clamp(30px,6vw,48px)}.hero p{margin:8px 0 0}.card{background:#fff;border:1px solid #dbe8f8;border-radius:16px;padding:16px;margin-top:15px;box-shadow:0 7px 22px #06265f0d}.drop{border:2px dashed #b8c8dd;border-radius:13px;padding:35px 15px;text-align:center;cursor:pointer}.drop.drag{border-color:#0757c9;background:#eef6ff}.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.primary{background:#0757c9;color:#fff}.secondary{background:#eaf3ff;color:#0757c9}.danger{background:#fff0ef;color:#c62828}.controls{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px}.field label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}.field input,.field select{width:100%;height:40px;border:1px solid #ccd8e8;border-radius:9px;padding:0 10px}.row{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.stats{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:#667085;margin-top:12px}.stats b{color:#14213d}.progress{height:7px;background:#e8edf4;border-radius:9px;margin-top:12px;overflow:hidden}.bar{height:100%;width:0;background:#0757c9}.list{display:grid;gap:8px}.item{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;border:1px solid #e2eafa;border-radius:10px;padding:8px}.thumb{width:52px;height:52px;object-fit:cover;border-radius:8px;background:#edf2f7}.name{font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.meta{font-size:11px;color:#667085;margin-top:3px}.status{font-size:12px;font-weight:800}.ok{color:#128a52}.work{color:#0757c9}.foot{text-align:center;font-size:11px;color:#8a97aa;padding:20px}.notice{font-size:12px;color:#667085}.actions{display:flex;justify-content:space-between;gap:10px;margin-top:15px}@media(max-width:700px){.controls{grid-template-columns:1fr}.actions{flex-direction:column}.actions .row{width:100%}.actions .btn{flex:1}.item{grid-template-columns:44px 1fr}.thumb{width:44px;height:44px}.item .status{grid-column:2}.hero{border-radius:12px;padding:23px 15px}}
+</style></head>
+<body>
+<header><div class="nav"><a class="brand" href="../index.html" style="text-decoration:none"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">⌂ Home</a></div></header>
+<div class="wrap">
+<section class="hero"><h1>Free 1Click WebP Converter</h1><p>JPG / PNG → WebP • Fast Bulk Processing • Low Size • 100% Browser Based</p></section>
+<section class="card"><div id="drop" class="drop"><h2>Drop JPG / PNG Images Here</h2><p>Select multiple images and convert them together.</p><br><button id="pick" class="btn primary">Choose Images</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden></div></section>
+<section class="card">
+<div class="controls">
+<div class="field"><label>WEBP QUALITY <span id="qv">72</span>%</label><input id="quality" type="range" min="10" max="100" value="72"></div>
+<div class="field"><label>MAX WIDTH (OPTIONAL)</label><input id="mw" type="number" min="0" placeholder="Original"></div>
+<div class="field"><label>MAX HEIGHT (OPTIONAL)</label><input id="mh" type="number" min="0" placeholder="Original"></div>
+</div>
+<div class="actions"><div class="row"><button id="convert" class="btn primary">Convert All</button><button id="downloadAll" class="btn secondary" disabled>Download All</button><button id="clear" class="btn danger">Clear</button></div></div>
+<div class="stats"><span>Files: <b id="count">0</b></span><span>Original: <b id="orig">0 B</b></span><span>Output: <b id="out">0 B</b></span><span>Saved: <b id="saved">0%</b></span></div>
+<div class="progress"><div id="bar" class="bar"></div></div>
+</section>
+<section class="card"><div id="list" class="list"></div><p class="notice">Privacy: images are processed locally in your browser. They are not uploaded to a server.</p></section>
+</div><div class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click WebP Converter</div>
+<script>
+const $=x=>document.getElementById(x);let items=[],outputs=[];
+$('pick').onclick=e=>{$('files').click();e.stopPropagation()};$('drop').onclick=()=>$('files').click();
+$('files').onchange=e=>add(e.target.files);$('quality').oninput=e=>$('qv').textContent=e.target.value;
+['dragenter','dragover'].forEach(x=>$('drop').addEventListener(x,e=>{e.preventDefault();$('drop').classList.add('drag')}));
+['dragleave','drop'].forEach(x=>$('drop').addEventListener(x,e=>{e.preventDefault();$('drop').classList.remove('drag')}));
+$('drop').addEventListener('drop',e=>add(e.dataTransfer.files));
+function add(fs){[...fs].filter(f=>/^image\/(jpeg|png|webp)$/.test(f.type)).forEach(f=>items.push({f,status:'Ready',out:null}));render();stats()}
+function size(n){if(!n)return'0 B';let u=['B','KB','MB','GB'],i=Math.floor(Math.log(n)/Math.log(1024));return(n/1024**i).toFixed(i?2:0)+' '+u[i]}
+function render(){ $('count').textContent=items.length;$('list').innerHTML=items.map((x,i)=>'<div class="item"><img class="thumb" src="'+URL.createObjectURL(x.f)+'"><div><div class="name">'+esc(x.f.name)+'</div><div class="meta">'+size(x.f.size)+'</div></div><div class="status '+(x.status==='Converted'?'ok':x.status==='Converting'?'work':'')+'">'+x.status+'</div></div>').join('')}
+function esc(s){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function stats(){let a=items.reduce((n,x)=>n+x.f.size,0),b=outputs.reduce((n,x)=>n+x.blob.size,0);$('orig').textContent=size(a);$('out').textContent=size(b);$('saved').textContent=a?Math.max(0,100-b/a*100).toFixed(1)+'%':'0%'}
+function convert(x){return new Promise((res,rej)=>{let im=new Image();im.onload=()=>{let mw=+$('mw').value||im.naturalWidth,mh=+$('mh').value||im.naturalHeight,s=Math.min(1,mw/im.naturalWidth,mh/im.naturalHeight),w=Math.max(1,Math.round(im.naturalWidth*s)),h=Math.max(1,Math.round(im.naturalHeight*s)),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(im,0,0,w,h);c.toBlob(b=>b?res(b):rej(), 'image/webp',+$('quality').value/100)};im.onerror=rej;im.src=URL.createObjectURL(x.f)})}
+$('convert').onclick=async()=>{if(!items.length)return alert('Please select images first.');outputs=[];$('bar').style.width='0';for(let i=0;i<items.length;i++){items[i].status='Converting';render();try{let b=await convert(items[i]),n=items[i].f.name.replace(/\.[^.]+$/,'')+'.webp';items[i].out={blob:b,name:n};outputs.push(items[i].out);items[i].status='Converted'}catch(e){items[i].status='Failed'}$('bar').style.width=((i+1)/items.length*100)+'%';render();stats();await new Promise(requestAnimationFrame)}$('downloadAll').disabled=!outputs.length};
+$('downloadAll').onclick=()=>outputs.forEach((x,i)=>setTimeout(()=>{let a=document.createElement('a');a.href=URL.createObjectURL(x.blob);a.download=x.name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)},i*120));
+$('clear').onclick=()=>{items=[];outputs=[];$('files').value='';$('bar').style.width='0';$('downloadAll').disabled=true;render();stats()};
+</script></body></html>
