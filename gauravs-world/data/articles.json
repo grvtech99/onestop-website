@@ -1,18 +1,6 @@
 {
   "articles": [
     {
-      "id": "education",
-      "slug": "education",
-      "title": "IBPS Hindi Officer HO Recruitment 2026",
-      "category": "Education",
-      "summary": "Advt. No. IBPS/2026-27/04 : Short Details of Notification",
-      "image": "",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-24T10:33:36.023Z",
-      "updatedAt": "2026-09-24T10:33:36.023Z"
-    },
-    {
       "id": "sindhu-ghati-sabhyata",
       "slug": "sindhu-ghati-sabhyata",
       "title": "सिंधु घाटी सभ्यता: दुनिया की सबसे प्राचीन शहरी सभ्यताओं में से एक",
@@ -133,5 +121,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-24T10:33:36.023Z"
+  "updatedAt": "2026-09-24T10:38:03.408Z"
 }
