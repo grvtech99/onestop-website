@@ -313,7 +313,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 
 <script>
 const texts={
-home:"asdf jkl; asdf jkl; asdf fdsa jkl; lkj; fj fj dk dk sl sl aa ss dd ff jj kk ll ;; as df jk l; fd sa kj ;l",
+home:"asdfg hjkl; asdfg hjkl; asdfg fdsa hjkl; lkjh; aa ss dd ff gg hh jj kk ll ;; as df gh hj kl ;l",
 top:"qwerty uiop qwerty uiop qw er ty ui op we rt yu io po qi wo ei ru to yp",
 bottom:"zxcv bnm, zxcv bnm, zx cv bn m, xc vb nm mz cx bv mn",
 beginner:"asdf jkl; sad dad lad ask all fall flask; the quick brown fox jumps over the lazy dog.",
@@ -459,7 +459,11 @@ const lessons=[
 ["Home Row","ASDF JKL;","Learn the correct resting position of your fingers."],["Home Row + GH","ASDFGH JKL;","Add G and H without moving your hands."],["Top Row","QWERTY UIOP","Build reach to the top row."],["Bottom Row","ZXCV BNM","Build controlled movement on the bottom row."],["Common Words","the and you for","Type common words without looking."],["Letter Pairs","th he in er an re","Train common letter combinations."],["Capitals","Shift + letters","Use both Shift keys correctly."],["Punctuation",".,!? :; ' \"","Develop punctuation accuracy."],["Numbers","1234567890","Practice number-row typing."],["Advanced","paragraphs + symbols","Maintain rhythm with complex text."],["Code","{} [] () => ;","Practice programming symbols."],["Mastery","full keyboard","Combine speed, accuracy and consistency."]
 ];
 $("lessonGrid").innerHTML=lessons.map((l,i)=>`<div class="lesson"><div class="level">${String(i+1).padStart(2,"0")}</div><h3>${l[0]}</h3><b>${l[1]}</b><p style="margin-top:7px">${l[2]}</p><button onclick="lessonStart(${i})">Start Lesson</button></div>`).join("");
-function lessonStart(i){let t=lessons[i][1]+" "+lessons[i][2]+" ";showView("practice");target=(t+" "+buildText(i<4?"beginner":i<8?"intermediate":"advanced")).repeat(4);$("mode").value="unlimited";$("input").value="";renderPrompt();$("input").focus();toast("Lesson loaded — start typing")}
+function lessonStart(i){
+let lessonLevel=i===0||i===1?"home":i===2?"top":i===3?"bottom":i<8?"intermediate":"advanced";
+let t=lessons[i][1]+" "+lessons[i][2]+" ";
+showView("practice");
+target=(t+" "+buildText(lessonLevel)).repeat(4);$("mode").value="unlimited";$("input").value="";renderPrompt();$("input").focus();toast("Lesson loaded — start typing")}
 let gameTimer=null,gameScore=0,gameType="";
 function startGame(type){gameType=type;gameScore=0;clearInterval(gameTimer);$("gameBox").innerHTML=`<div class="game-area"><div class="game-hud"><span id="gameStatus">Ready</span><b>Score: <span id="gameScore">0</span></b></div><div class="game-word" id="gameWord">START</div><input class="game-input" id="gameInput" autocomplete="off" placeholder="Type here..."></div>`;let gi=$("gameInput");gi.focus();let word=()=>type==="key"?[..."abcdefghijklmnopqrstuvwxyz"][Math.floor(Math.random()*26)]:words[Math.floor(Math.random()*words.length)];$("gameWord").textContent=word();let start=Date.now();gameTimer=setInterval(()=>{let left=60-(Date.now()-start)/1000;$("gameStatus").textContent="Time "+formatTime(left);if(left<=0){clearInterval(gameTimer);gi.disabled=true;$("gameStatus").textContent="Finished";toast("Game over — Score "+gameScore)}},100);gi.oninput=()=>{let need=$("gameWord").textContent.toLowerCase(),got=gi.value.toLowerCase();if(got===need){gameScore++;$("gameScore").textContent=gameScore;gi.value="";$("gameWord").textContent=word()}}}
 $("mode").onchange=()=>{$("duration").disabled=$("mode").value==="unlimited"};
