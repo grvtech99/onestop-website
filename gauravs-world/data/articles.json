@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "ai-jobs-future-india",
+      "slug": "ai-jobs-future-india",
+      "title": "क्या AI हमारी नौकरियाँ छीन लेगा? सच, झूठ और भविष्य की पूरी तस्वीर",
+      "category": "Technology",
+      "summary": "क्या Artificial Intelligence इंसानों की नौकरियाँ खत्म कर देगी? जानिए AI का काम पर असर, बदलते करियर, नए अवसर और भविष्य के लिए जरूरी स्किल्स।",
+      "image": "images/0001.jpg",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-22T02:20:00.000Z",
+      "updatedAt": "2026-09-24T08:08:47.995Z"
+    },
+    {
       "id": "cyber-fraud-se-bachne-ke-7-tareeke",
       "slug": "cyber-fraud-se-bachne-ke-7-tareeke",
       "title": "Cyber Fraud से कैसे बचें? 7 जरूरी बातें जो हर इंटरनेट यूजर को जाननी चाहिए",
@@ -95,19 +107,7 @@
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
       "publishedAt": "2026-09-23T11:03:06+05:30",
       "updatedAt": "2026-09-24T06:08:52.044Z"
-    },
-    {
-      "id": "ai-jobs-future-india",
-      "slug": "ai-jobs-future-india",
-      "title": "क्या AI हमारी नौकरियाँ छीन लेगा? सच, झूठ और भविष्य की पूरी तस्वीर",
-      "category": "Technology",
-      "summary": "क्या Artificial Intelligence इंसानों की नौकरियाँ खत्म कर देगी? जानिए AI का काम पर असर, बदलते करियर, नए अवसर और भविष्य के लिए जरूरी स्किल्स।",
-      "image": "images/0001.jpg",
-      "author": "Gaurav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-22T13:20:49+05:30",
-      "updatedAt": "2026-09-22T13:20:49+05:30"
     }
   ],
-  "updatedAt": "2026-09-24T08:05:25.735Z"
+  "updatedAt": "2026-09-24T08:08:47.995Z"
 }
