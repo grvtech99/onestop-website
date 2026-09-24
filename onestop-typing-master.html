@@ -272,6 +272,163 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
     padding:6px 5px 8px!important;
   }
 }
+</style><style>
+/* Classic TypingMaster-inspired lesson workspace */
+.layout.practice-mode{
+  background:#edf4fb!important;
+}
+.layout.practice-mode main{
+  background:
+    radial-gradient(circle at 92% 8%,#d7ecff 0 110px,transparent 111px),
+    radial-gradient(circle at 2% 92%,#dcecff 0 130px,transparent 131px),
+    #f5f9fd!important;
+}
+.layout.practice-mode header{
+  background:#fff!important;
+  color:#1168c5!important;
+  box-shadow:0 2px 12px rgba(20,70,120,.12)!important;
+  border-bottom:1px solid #d5e3ef!important;
+}
+.layout.practice-mode header .title{color:#1168c5!important}
+.layout.practice-mode header .subtitle{color:#6c8195!important;opacity:1}
+.layout.practice-mode header .head-actions button{
+  background:#eef6ff!important;color:#1168c5!important;border-color:#c8ddef!important;
+}
+.layout.practice-mode header #menuBtn{color:#1168c5!important}
+.layout.practice-mode header .head-back{
+  background:#1168c5!important;color:#fff!important;border-color:#1168c5!important;
+}
+.layout.practice-mode header .logo{
+  display:grid!important;background:#1168c5!important;color:#fff!important;
+}
+.layout.practice-mode .classic-practice{
+  width:calc(100% - 44px)!important;
+  max-width:1180px!important;
+  margin:10px auto 0!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 205px!important;
+  grid-template-rows:44px minmax(118px,1fr) 120px 23px 235px!important;
+  grid-template-areas:
+    "stats side"
+    "prompt side"
+    "typing side"
+    "foot side"
+    "keyboard side";
+  gap:0!important;
+  background:#f9fbff!important;
+  border:8px solid #fff!important;
+  border-radius:2px!important;
+  box-shadow:0 16px 45px rgba(27,67,105,.18)!important;
+  overflow:hidden!important;
+}
+.layout.practice-mode .classic-practice>.stats{grid-area:stats}
+.layout.practice-mode .classic-practice>.prompt{grid-area:prompt}
+.layout.practice-mode .classic-practice>.typing-area{grid-area:typing}
+.layout.practice-mode .classic-practice>.practice-foot{grid-area:foot}
+.layout.practice-mode .classic-practice>.keyboard{grid-area:keyboard}
+.layout.practice-mode .classic-side{
+  grid-area:side;
+  background:#dbeafa;
+  border-left:1px solid #bdd1e5;
+  padding:18px 14px 12px;
+  display:flex;
+  flex-direction:column;
+  color:#17324d;
+}
+.classic-side .side-title{
+  font-weight:900;font-size:13px;padding-bottom:9px;border-bottom:2px solid #fff;
+}
+.progress-bars{
+  height:92px;display:flex;align-items:end;justify-content:center;gap:3px;padding:10px 4px;
+}
+.progress-bars i{
+  display:block;width:12px;background:#eaffd9;border:1px solid #56713c;
+  height:20px;
+}
+.progress-bars i:nth-child(2){height:27px}.progress-bars i:nth-child(3){height:34px}
+.progress-bars i:nth-child(4){height:42px}.progress-bars i:nth-child(5){height:51px}
+.progress-bars i:nth-child(6){height:60px}.progress-bars i:nth-child(7){height:70px}
+.progress-bars i:nth-child(8){height:79px}.progress-bars i:nth-child(9){height:88px}
+.progress-bars i:nth-child(10){height:98px}
+.side-time,.side-stat{padding:10px 0;border-bottom:1px solid #fff}
+.side-time span,.side-stat span{display:block;font-size:10px;font-weight:800}
+.side-time b{font-size:23px;display:block;margin-top:2px}
+.side-stat{display:flex;justify-content:space-between;align-items:center}
+.side-stat b{font-size:17px}
+.side-next,.side-cancel{
+  width:100%;padding:9px 7px;border-radius:7px;margin-top:auto;
+  font-weight:800;border:1px solid #1266c2;
+}
+.side-next{background:#1266c2;color:#fff}
+.side-cancel{margin-top:7px;background:#fff;color:#1266c2}
+.layout.practice-mode .classic-practice .prompt{
+  background:#f3f6ff!important;
+  padding:0 20px 8px!important;
+  font-size:20px!important;
+  line-height:1.36!important;
+}
+.layout.practice-mode .classic-practice .section-label{
+  margin:0 -20px 7px!important;
+  min-height:27px!important;
+  background:#173e62!important;
+}
+.layout.practice-mode .classic-practice .typing-area{
+  border-top:1px solid #cad9e7!important;
+  background:#fff!important;
+}
+.layout.practice-mode .classic-practice .typing-label{
+  background:#e5effa!important;
+  color:#173e62!important;
+  border-bottom:1px solid #c3d7e9!important;
+  font-size:10px!important;
+}
+.layout.practice-mode .classic-practice textarea#input{
+  height:91px!important;min-height:91px!important;
+  font-size:22px!important;line-height:1.42!important;
+  padding:8px 14px!important;
+}
+.layout.practice-mode .classic-practice .keyboard{
+  background:#f2f5fa!important;
+  border-top:1px solid #c5d5e4!important;
+  padding:8px 12px 10px!important;
+}
+.layout.practice-mode .classic-practice .keys{max-width:920px!important}
+.layout.practice-mode .classic-practice .key{
+  background:#e9edff!important;color:#123c7a!important;
+  border:1px solid #aabce9!important;box-shadow:0 2px 0 #879ac4!important;
+  border-radius:2px!important;
+}
+.layout.practice-mode .classic-practice .key.finger-lp{background:#fff0f2!important;color:#8b1e2d!important}
+.layout.practice-mode .classic-practice .key.finger-lr{background:#f5e8ff!important;color:#6b2b91!important}
+.layout.practice-mode .classic-practice .key.finger-li{background:#e9f6df!important;color:#2e6b2e!important}
+.layout.practice-mode .classic-practice .key.finger-ri{background:#e9f0ff!important;color:#2454a6!important}
+.layout.practice-mode .classic-practice .key.finger-rr{background:#f2eaff!important;color:#6938a1!important}
+.layout.practice-mode .classic-practice .key.finger-rp{background:#fff0f2!important;color:#8b1e2d!important}
+.layout.practice-mode .classic-practice .key.active{
+  background:#c8d8ff!important;color:#174bb1!important;border:2px solid #174bb1!important;
+  box-shadow:0 0 0 2px #d9e5ff!important;
+}
+.layout.practice-mode .classic-practice .key.error{
+  background:#ffd6d6!important;color:#a51616!important;border-color:#d22!important;
+}
+.layout.practice-mode .classic-practice .practice-foot{
+  background:#fff!important;border-top:1px solid #d5e1eb!important;
+}
+.layout.practice-mode .classic-practice .stats{
+  background:#fff!important;
+}
+@media(max-width:800px){
+  .layout.practice-mode .classic-practice{
+    width:calc(100% - 14px)!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:42px 18vh 105px 22px 220px auto!important;
+    grid-template-areas:"stats" "prompt" "typing" "foot" "keyboard" "side"!important;
+    border-width:4px!important;
+  }
+  .layout.practice-mode .classic-side{
+    border-left:0;border-top:1px solid #bdd1e5;min-height:180px;
+  }
+}
 </style></head>
 <body>
 <div class="app">
@@ -296,7 +453,15 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:15px}
 <option value="numbers">Numbers</option>
 <option value="code">Code</option>
 </select><button class="primary" id="startBtn">Start / Restart</button><button id="clearBtn">Clear</button></div></div>
-<div class="practice" style="margin-top:12px"><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
+<div class="practice classic-practice" style="margin-top:12px"><div class="classic-side">
+  <div class="side-title">📊 YOUR PROGRESS</div>
+  <div class="progress-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="side-time"><span>TIME</span><b id="sideTimer">0:00</b></div>
+  <div class="side-stat"><span>WPM</span><b id="sideWpm">0</b></div>
+  <div class="side-stat"><span>ACCURACY</span><b id="sideAcc">100%</b></div>
+  <button class="side-next" id="sideNextBtn">Next Lesson</button>
+  <button class="side-cancel" id="sideBackBtn">Back</button>
+</div><div class="stats"><div class="stat"><b id="wpm">0</b><span>WPM</span></div><div class="stat"><b id="raw">0</b><span>Raw WPM</span></div><div class="stat"><b id="acc">100%</b><span>Accuracy</span></div><div class="stat"><b id="errors">0</b><span>Errors</span></div><div class="stat"><b id="timer">0:00</b><span>Time</span></div><div class="stat"><b id="combo">0</b><span>Combo</span></div></div><div class="prompt" id="prompt"><div class="section-label">📖 PASSAGE — READ & TYPE</div><div class="prompt-text" id="promptText"></div></div><div class="typing-area"><div class="section-label typing-label">⌨️ YOUR TYPING — TYPE HERE</div><textarea id="input" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Start typing the passage here..."></textarea></div><div class="practice-foot"><span id="progress">0 / 0 characters</span><span>Tip: accuracy first, speed later.</span></div><div class="keyboard" id="keyboard"></div></div></section>
 
 <section id="lessons" class="view"><div class="card"><h2 style="margin-top:0">Progressive Typing Course</h2><p>Start with finger placement and gradually unlock harder drills.</p></div><div class="lesson-grid" id="lessonGrid" style="margin-top:12px"></div></section>
 <section id="tests" class="view"><div class="card"><h2 style="margin-top:0">Speed Test</h2><p>Standard WPM = correctly typed characters ÷ 5 ÷ minutes. Choose a duration and start.</p><div class="toolbar"><select id="testDuration"><option value="15">15 seconds</option><option value="30">30 seconds</option><option value="60" selected>1 minute</option><option value="180">3 minutes</option><option value="300">5 minutes</option><option value="600">10 minutes</option><option value="900">15 minutes</option></select><button class="primary" onclick="startTest()">Start Speed Test</button></div></div><div class="results" style="margin-top:12px"><div class="card"><div class="big" id="testBest">0</div><p>Best WPM</p></div><div class="card"><div class="big" id="testAvg">0</div><p>Average WPM</p></div><div class="card"><div class="big" id="testSessions">0</div><p>Sessions</p></div><div class="card"><div class="big" id="testGoal">50</div><p>Suggested Goal</p></div></div></section>
@@ -410,14 +575,17 @@ function startPractice(custom=false){
   $("combo").textContent=0;
   $("progress").textContent=`0 / ${target.length} characters`;
   $("timer").textContent="0:00";
+  $("sideTimer").textContent="0:00";
+  $("sideWpm").textContent="0";
+  $("sideAcc").textContent="100%";
   renderPrompt(true);
   highlightKey();
   $("input").focus();
 }
 $("startBtn").onclick=()=>{startPractice();highlightKey()};
 $("clearBtn").onclick=()=>{startPractice();highlightKey()};
-$("input").addEventListener("input",()=>{const val=$("input").value,idx=val.length-1;if(!running){running=true;startTime=Date.now();if($("mode").value==="time"){let end=+$("duration").value;timerId=setInterval(()=>{let left=end-(Date.now()-startTime)/1000;if(left<=0){finish();return}$("timer").textContent=formatTime(end-left)},100)}else timerId=setInterval(()=>updateStats(),100)}const typed=idx>=0?val[idx].toLowerCase():"";const expected=idx>=0?(target[idx]||"").toLowerCase():"";if(typed&&typed!==expected){const bad=keyEls[keyForChar(typed)];if(bad){bad.classList.remove("error");void bad.offsetWidth;bad.classList.add("error");setTimeout(()=>bad.classList.remove("error"),500)}}updateStats();renderPrompt(false);highlightKey()});
-function updateStats(){let val=$("input").value,elapsed=Math.max(.001,(Date.now()-startTime)/1000),correct=0,errors=0;for(let i=0;i<val.length;i++)val[i]===target[i]?correct++:errors++;let mins=elapsed/60,wpm=Math.floor(correct/5/mins),raw=Math.floor(val.length/5/mins),acc=val.length?Math.round(correct/val.length*100):100;$("wpm").textContent=Math.max(0,wpm);$("raw").textContent=Math.max(0,raw);$("acc").textContent=acc+"%";$("errors").textContent=errors;$("combo").textContent=correct-errors>0?Math.max(0,correct-errors):0;$("progress").textContent=`${val.length} / ${target.length} characters`;if($("mode").value==="words"&&val.trim().split(/\\s+/).filter(Boolean).length>=+($("duration").value||25))finish();if(val.length>=target.length)finish()}
+$("input").addEventListener("input",()=>{const val=$("input").value,idx=val.length-1;if(!running){running=true;startTime=Date.now();if($("mode").value==="time"){let end=+$("duration").value;timerId=setInterval(()=>{let left=end-(Date.now()-startTime)/1000;if(left<=0){finish();return}$("timer").textContent=formatTime(end-left);$("sideTimer").textContent=formatTime(end-left)},100)}else timerId=setInterval(()=>updateStats(),100)}const typed=idx>=0?val[idx].toLowerCase():"";const expected=idx>=0?(target[idx]||"").toLowerCase():"";if(typed&&typed!==expected){const bad=keyEls[keyForChar(typed)];if(bad){bad.classList.remove("error");void bad.offsetWidth;bad.classList.add("error");setTimeout(()=>bad.classList.remove("error"),500)}}updateStats();renderPrompt(false);highlightKey()});
+function updateStats(){let val=$("input").value,elapsed=Math.max(.001,(Date.now()-startTime)/1000),correct=0,errors=0;for(let i=0;i<val.length;i++)val[i]===target[i]?correct++:errors++;let mins=elapsed/60,wpm=Math.floor(correct/5/mins),raw=Math.floor(val.length/5/mins),acc=val.length?Math.round(correct/val.length*100):100;$("wpm").textContent=Math.max(0,wpm);$("sideWpm").textContent=Math.max(0,wpm);$("sideAcc").textContent=acc+"%";$("sideTimer").textContent=formatTime(elapsed);$("raw").textContent=Math.max(0,raw);$("acc").textContent=acc+"%";$("errors").textContent=errors;$("combo").textContent=correct-errors>0?Math.max(0,correct-errors):0;$("progress").textContent=`${val.length} / ${target.length} characters`;if($("mode").value==="words"&&val.trim().split(/\\s+/).filter(Boolean).length>=+($("duration").value||25))finish();if(val.length>=target.length)finish()}
 function finish(){if(!running)return;running=false;clearInterval(timerId);updateStats();let elapsed=Math.max(1,(Date.now()-startTime)/1000),r={date:new Date().toLocaleString(),mode:$("mode").value,wpm:+$("wpm").textContent,accuracy:+$("acc").textContent.replace("%",""),errors:+$("errors").textContent,duration:Math.round(elapsed)};if($("autosave").checked!==false){history.unshift(r);history=history.slice(0,200);localStorage.setItem("onestopTypingHistory",JSON.stringify(history))}toast(`Finished — ${r.wpm} WPM • ${r.accuracy}% accuracy`);updateDash()}
 function formatTime(s){s=Math.max(0,Math.floor(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
 function cacheKeys(){Object.keys(keyEls).forEach(k=>delete keyEls[k]);document.querySelectorAll(".key").forEach(k=>keyEls[k.dataset.key]=k)}
@@ -448,6 +616,8 @@ function highlightKey(){
   }else $("nextFinger").textContent="Finished";
 }
 $("showKeyboard").onchange=e=>$("keyboard").style.display=e.target.checked?"block":"none";
+$("sideBackBtn").onclick=()=>showView("home");
+$("sideNextBtn").onclick=()=>{let i=$("level").selectedIndex;if(i<$("level").options.length-1){$("level").selectedIndex=i+1;startPractice();toast("Next level loaded")}};
 $("fontSize").onchange=e=>{$("prompt").style.fontSize=e.target.value+"px";$("input").style.fontSize=e.target.value+"px"};
 function updateDash(){let best=history.reduce((a,b)=>Math.max(a,b.wpm||0),0),acc=history.length?Math.max(...history.map(x=>x.accuracy||0)):0,time=Math.round(history.reduce((a,b)=>a+(b.duration||0),0)/60);$("dashBest").textContent=best;$("homeWpm").textContent=best+" WPM";$("dashAcc").textContent=acc+"%";$("dashTime").textContent=time+"m";$("dashTests").textContent=history.length;$("testBest").textContent=best;$("testSessions").textContent=history.length;$("testAvg").textContent=history.length?Math.round(history.reduce((a,b)=>a+b.wpm,0)/history.length):0}
 function renderHistory(){$("historyBody").innerHTML=history.map(x=>`<tr><td>${escapeHtml(x.date)}</td><td>${x.mode}</td><td>${x.wpm}</td><td>${x.accuracy}%</td><td>${x.errors}</td><td>${x.duration}s</td></tr>`).join("")||'<tr><td colspan="6">No results yet.</td></tr>'}
