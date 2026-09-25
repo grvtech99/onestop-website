@@ -39,6 +39,17 @@
     const width = Math.max.apply(null, data.map(r => r.length));
     if (width < 2) return '';
     data.forEach(r => { while (r.length < width) r.push(''); });
+
+    // Two-column information tables are label/detail tables, not header tables.
+    // Keep every row as data so the first row is not incorrectly highlighted.
+    if (width === 2) {
+      let html = '<div class="article-table-wrap"><table class="article-table info-table"><tbody>';
+      data.forEach(r => {
+        html += '<tr><td class="info-label">' + inline(r[0] || '') + '</td><td>' + inline(r[1] || '') + '</td></tr>';
+      });
+      return html + '</tbody></table></div>';
+    }
+
     let html = '<div class="article-table-wrap"><table class="article-table"><thead><tr>';
     html += data[0].map(c => '<th>' + inline(c) + '</th>').join('');
     html += '</tr></thead><tbody>';
@@ -63,6 +74,21 @@
         while (i + 1 < lines.length && /^\|.*\|$/.test(lines[i + 1].trim())) { i++; rows.push(lines[i].trim()); }
         const cells = rows.map(r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
         const head = cells[0], body = cells.slice(1);
+
+        // A two-column Markdown table is used by the editor for information
+        // blocks: first column = sub-heading, second column = detail.
+        // Do not render the first row as <th>; that caused the whole first row
+        // to receive the blue header styling.
+        if (head.length === 2) {
+          let html = '<div class="article-table-wrap"><table class="article-table info-table"><tbody>';
+          const infoRows = [head].concat(body);
+          infoRows.forEach(r => {
+            while (r.length < 2) r.push('');
+            html += '<tr><td class="info-label">' + inline(r[0] || '') + '</td><td>' + inline(r[1] || '') + '</td></tr>';
+          });
+          out.push(html + '</tbody></table></div>'); continue;
+        }
+
         let html = '<div class="article-table-wrap"><table class="article-table"><thead><tr>' + head.map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>';
         body.forEach(r => { while (r.length < head.length) r.push(''); html += '<tr>' + head.map((_, j) => '<td>' + inline(r[j] || '') + '</td>').join('') + '</tr>'; });
         out.push(html + '</tbody></table></div>'); continue;
