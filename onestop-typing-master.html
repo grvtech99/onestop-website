@@ -34,10 +34,10 @@
 <body>
 <header class="top"><div class="nav"><a class="brand" href="free-csc-tools/index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="free-csc-tools/index.html">← Learning Tools</a></div></header>
 <main class="wrap">
-<div class="head"><div><h1>⌨️ ONESTOP Typing Master</h1><div class="sub">Learn touch typing • Improve speed • Build accuracy — Hindi + English guidance</div></div><div class="modeBtns"><button class="modeBtn active" id="lessonMode">Lessons</button><button class="modeBtn" id="testMode">60 Sec Test</button></div></div>
+<div class="head"><div><h1>⌨️ ONESTOP Typing Master</h1><div class="sub">Learn touch typing • Improve speed • Build accuracy — Hindi + English guidance</div></div><div class="modeBtns"><button class="modeBtn active" id="lessonMode">∞ Unlimited Practice</button><button class="modeBtn" id="testMode">60 Sec Test</button></div></div>
 <div class="workspace">
 <section class="main">
-<div class="lessonBar"><div class="lessonTitle" id="lessonTitle">Lesson 1 — Home Row <small>Beginner</small></div><div class="actions"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button></div></div>
+<div class="lessonBar"><div class="lessonTitle" id="lessonTitle">Lesson 1 — Home Row <small>Beginner</small></div><div class="actions"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button><button class="smallBtn" id="stopBtn" style="display:none">■ Stop &amp; Result</button></div></div>
 <div class="target" id="target"></div>
 <div class="keyboardBox" aria-label="Interactive typing keyboard"><div class="full-keyboard">
 <section class="main-kb">
@@ -54,7 +54,7 @@
 <div class="status"><span id="status"><strong>Ready.</strong> Click a key or start typing.</span><div class="progress"><i id="progress"></i></div><span id="count">0 / 0</span></div>
 <div class="tipStrip"><div><b>⌨ HOME ROW</b><span>Keep fingers around A S D F and J K L ;</span></div><div><b>🎯 ACCURACY FIRST</b><span>Correct typing is more important than rushing.</span></div><div><b>⚡ STEADY RHYTHM</b><span>Look at the text and build consistent speed.</span></div></div>
 </section>
-<aside class="side"><div class="sideTitle">Your Progress</div><div class="rule"></div><div class="metrics"><div class="metric"><label>Speed</label><b id="wpm">0</b><span>WPM</span></div><div class="metric"><label>Accuracy</label><b id="accuracy">100%</b><span id="errors">0 errors</span></div><div class="metric"><label>Time</label><b id="timer">00:00</b><span id="modeText">Lesson mode</span></div><div class="metric"><label>Progress</label><b id="percent">0%</b><span>completed</span></div></div><div class="chartTitle">Recent Speed</div><div class="chart" id="chart"></div><div class="sideActions"><button class="primary" id="nextBtn">Next Exercise →</button><button class="secondary" id="chooseBtn">Choose Lesson</button><button class="secondary" id="resetBtn">Reset Progress</button></div><div class="footerNote">ONESTOP DIGITAL SOLUTION • Free Typing Practice</div></aside>
+<aside class="side"><div class="sideTitle">Your Progress</div><div class="rule"></div><div class="metrics"><div class="metric"><label>Speed</label><b id="wpm">0</b><span>WPM</span></div><div class="metric"><label>Accuracy</label><b id="accuracy">100%</b><span id="errors">0 errors</span></div><div class="metric"><label>Time</label><b id="timer">00:00</b><span id="modeText">Lesson mode</span></div><div class="metric"><label>Practice</label><b id="percent">0%</b><span id="lineInfo">current line</span></div></div><div class="chartTitle">Recent Speed</div><div class="chart" id="chart"></div><div class="sideActions"><button class="primary" id="nextBtn">Next Exercise →</button><button class="secondary" id="chooseBtn">Choose Lesson</button><button class="secondary" id="resetBtn">Reset Progress</button></div><div class="footerNote">ONESTOP DIGITAL SOLUTION • Free Typing Practice</div></aside>
 </div>
 </main>
 
@@ -84,23 +84,122 @@ const lessons=[
 ["Speed Builder","Intermediate","typing speed grows with practice and accuracy"],
 ["Final Practice","Advanced","touch typing lets you write faster while keeping your eyes on the screen"]
 ];
-let lessonIndex=0,mode="lesson",targetText="",pos=0,errors=0,started=false,startTime=0,timerId=null,sound=true,testLimit=60,shiftOn=false;
+let lessonIndex=0,mode="lesson",targetText="",pos=0,errors=0,started=false,startTime=0,timerId=null,sound=true,testLimit=60,shiftOn=false,sessionChars=0,sessionErrors=0,practiceLines=0;
 const $=id=>document.getElementById(id);
 
-function makeTarget(){
+function makeTarget(resetSession=true){
  targetText=mode==="test"?"The quick brown fox jumps over the lazy dog. Practice typing every word with accuracy and steady rhythm.":lessons[lessonIndex][2];
- pos=0;errors=0;started=false;shiftOn=false;clearInterval(timerId);timerId=null;
+ pos=0;errors=0;shiftOn=false;
+ if(resetSession){sessionChars=0;sessionErrors=0;practiceLines=0;started=false;startTime=0;clearInterval(timerId);timerId=null;$("stopBtn").style.display="none";}
  $("target").innerHTML="";
  [...targetText].forEach((ch,i)=>{const s=document.createElement("span");s.textContent=ch===" "?"·":ch;s.dataset.i=i;$("target").appendChild(s)});
- $("status").innerHTML="<strong>Ready.</strong> Click a key or start typing.";
+ $("status").innerHTML=resetSession?"<strong>Ready.</strong> Unlimited practice — complete the line to continue.":"<strong>Next line ✓</strong> Continue typing…";
  update();highlight();
 }
 function normalizeKey(k){if(k===" ")return " ";if(k==="Space")return " ";if(k==="Backspace")return "Backspace";return k.length===1?k.toLowerCase():k}
 function expectedKey(){const ch=targetText[pos]||"";return ch===" "?" ":ch.toLowerCase()}
 function findKey(k){const key=normalizeKey(k);return [...document.querySelectorAll(".key")].find(el=>el.dataset.key===key)}
 function highlight(){document.querySelectorAll(".key").forEach(el=>el.classList.remove("targetKey"));const el=findKey(expectedKey());if(el)el.classList.add("targetKey");const spans=$("target").querySelectorAll("span");spans.forEach((s,i)=>s.className=i<pos?"done":i===pos?"current":"")}
-function start(){if(started)return;started=true;startTime=Date.now();timerId=setInterval(update,200);$("status").innerHTML="<strong>Typing…</strong> Keep a steady rhythm."}
-function update(){const sec=started?Math.max(0,(Date.now()-startTime)/1000):0;if(mode==="test"&&started&&sec>=testLimit){finish();return}const minutes=sec/60,wpm=minutes>0?Math.round((pos/5)/minutes):0,total=pos+errors,acc=total?Math.max(0,Math.round(pos/total*100)):100,pct=targetText.length?Math.round(pos/targetText.length*100):0;$("wpm").textContent=wpm;$("accuracy").textContent=acc+"%";$("errors").textContent=errors+" error"+(errors===1?"":"s");$("percent").textContent=pct+"%";$("timer").textContent=fmt(sec);$("count").textContent=pos+" / "+targetText.length;$("progress").style.width=pct+"%"}
+function start(){if(started)return;started=true;if(!startTime)startTime=Date.now();if(!timerId)timerId=setInterval(update,200);$("stopBtn").style.display="inline-block";$("status").innerHTML="<strong>Typing…</strong> Keep a steady rhythm."}
+function fmt(sec){sec=Math.floor(sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function beep(ok){if(!sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const a=new C(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?650:150;g.gain.value=.025;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045);setTimeout(()=>a.close(),100)}catch(e){}}
+function flashError(el){if(!el)return;el.classList.remove("pressed");el.classList.add("error");setTimeout(()=>el.classList.remove("error"),260)}
+function pressFeedback(el,wrong=false){if(!el)return;el.classList.remove("pressed","error");void el.offsetWidth;el.classList.add(wrong?"error":"pressed");setTimeout(()=>el.classList.remove(wrong?"error":"pressed"),wrong?260:140)}
+function processKey(raw,fromPhysical=false){
+ if(!targetText||pos>=targetText.length)return;
+ if(raw==="Shift"){
+   shiftOn=!shiftOn;
+   document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.toggle("shiftOn",shiftOn));
+   return;
+ }
+ if(["Ctrl","Alt","AltGr","Win","Menu","Tab","Caps Lock","Esc","Enter","Backspace","Print Screen","Scroll Lock","Pause Break","Insert","Home","Page Up","Delete","End","Page Down","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","NumLock","NumpadEnter"].includes(raw))return;
+ if(!started)start();
+ const expected=targetText[pos];
+ let actual=raw===" "?" ":(fromPhysical?raw:(shiftOn?raw.toUpperCase():raw));
+ if(actual.length===1 && expected.length===1){
+   actual=actual===expected?actual:actual.toLowerCase();
+ }
+ if(actual===expected){
+   pos++;
+   beep(true);
+   pressFeedback(findKey(raw),false);
+   $("status").innerHTML="<strong>Correct ✓</strong> Keep going.";
+   if(pos>=targetText.length){update();highlight();if(mode==="lesson"){completeUnlimitedLine();return}finish();return}
+ }else{
+   errors++;
+   beep(false);
+   $("status").innerHTML="<strong>Incorrect ✕</strong> Expected <b>"+expected+"</b>";
+   flashError(findKey(actual)||findKey(raw));
+ }
+ update();highlight();
+}
+function finish(){
+ if(!started)return;
+ sessionChars+=pos;sessionErrors+=errors;
+ started=false;clearInterval(timerId);timerId=null;$("stopBtn").style.display="none";
+ const sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((sessionChars/5)/(sec/60)),total=sessionChars+sessionErrors,acc=total?Math.max(0,Math.round(sessionChars/total*100)):100;
+ $("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=sessionErrors;$("rTime").textContent=fmt(sec);
+ if(sessionChars>0){saveHistory(wpm,acc);updateChart()}
+ $("resultModal").style.display="flex";
+}
+function completeUnlimitedLine(){
+ sessionChars+=pos;sessionErrors+=errors;practiceLines++;
+ makeTarget(false);
+ started=true;
+ $("stopBtn").style.display="inline-block";
+ update();
+}
+function finish(){
+ if(!started)return;
+ sessionChars+=pos;sessionErrors+=errors;
+ started=false;clearInterval(timerId);timerId=null;$("stopBtn").style.display="none";
+ const sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((sessionChars/5)/(sec/60)),total=sessionChars+sessionErrors,acc=total?Math.max(0,Math.round(sessionChars/total*100)):100;
+ $("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=sessionErrors;$("rTime").textContent=fmt(sec);
+ if(sessionChars>0){saveHistory(wpm,acc);updateChart()}
+ $("resultModal").style.display="flex";
+}
+function completeUnlimitedLine(){
+ sessionChars+=pos;sessionErrors+=errors;practiceLines++;
+ makeTarget(false);
+ started=true;
+ $("stopBtn").style.display="inline-block";
+ update();
+}
+function resetExercise(){clearInterval(timerId);timerId=null;makeTarget(true)}
+function nextLesson(){if(mode==="test"){mode="lesson";$("lessonMode").classList.add("active");$("testMode").classList.remove("active")}lessonIndex=(lessonIndex+1)%lessons.length;loadLesson()}
+function loadLesson(){mode="lesson";$("lessonMode").classList.add("active");$("testMode").classList.remove("active");$("lessonTitle").innerHTML="Lesson "+(lessonIndex+1)+" — "+lessons[lessonIndex][0]+' <small>'+lessons[lessonIndex][1]+"</small>";$("modeText").textContent="Unlimited practice";makeTarget(true)}
+function startTest(){mode="test";$("testMode").classList.add("active");$("lessonMode").classList.remove("active");$("lessonTitle").innerHTML='Typing Test — 60 Seconds <small>Timed</small>';$("modeText").textContent="60-second test";makeTarget(true)}
+function saveHistory(wpm,acc){const a=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]");a.push({wpm:wpm,acc:acc,date:Date.now()});localStorage.setItem("onestopTypingHistory",JSON.stringify(a.slice(-12)))}
+function updateChart(){const a=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]"),vals=a.map(x=>x.wpm).slice(-10),max=Math.max(20,...vals),c=$("chart");c.innerHTML="";vals.forEach(v=>{const b=document.createElement("div");b.className="bar";b.style.height=Math.max(5,Math.round(v/max*75))+"px";c.appendChild(b)})}
+function openLessons(){const g=$("lessonGrid");g.innerHTML="";lessons.forEach((l,i)=>{const d=document.createElement("div");d.className="lessonItem";d.innerHTML="<b>"+(i+1)+". "+l[0]+"</b><span>"+l[1]+" · "+l[2].slice(0,38)+"…</span>";d.onclick=()=>{lessonIndex=i;$("lessonPanel").style.display="none";loadLesson()};g.appendChild(d)});$("lessonPanel").style.display="flex"}
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){$("resultModal").style.display="none";$("lessonPanel").style.display="none";return}
+ if(e.repeat)return;
+ if(e.key==="Shift"){e.preventDefault();shiftOn=true;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.add("shiftOn"));return}
+ if(e.key==="CapsLock"){return}
+ if(e.ctrlKey||e.altKey||e.metaKey)return;
+ if(e.key==="Tab"||e.key==="Backspace"){e.preventDefault();return}
+ e.preventDefault();
+ processKey(e.key, true);
+});
+document.addEventListener("keyup",e=>{
+ if(e.key==="Shift"){shiftOn=false;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.remove("shiftOn"))}
+});
+document.querySelectorAll(".key").forEach(btn=>{btn.addEventListener("pointerdown",()=>btn.classList.add("pressed"));btn.addEventListener("pointerup",()=>setTimeout(()=>btn.classList.remove("pressed"),100));btn.addEventListener("pointercancel",()=>btn.classList.remove("pressed"));btn.addEventListener("click",()=>processKey(btn.dataset.key))});
+$("restartBtn").onclick=resetExercise;$("stopBtn").onclick=finish;$("nextBtn").onclick=nextLesson;$("chooseBtn").onclick=openLessons;$("closeLessons").onclick=()=>$("lessonPanel").style.display="none";$("continueBtn").onclick=()=>{$("resultModal").style.display="none";nextLesson()};$("lessonMode").onclick=loadLesson;$("testMode").onclick=startTest;$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};$("resetBtn").onclick=()=>{localStorage.removeItem("onestopTypingHistory");updateChart();resetExercise()};
+updateChart();loadLesson();function update(){
+ const sec=started?Math.max(0,(Date.now()-startTime)/1000):0;
+ if(mode==="test"&&started&&sec>=testLimit){finish();return}
+ const totalChars=sessionChars+pos,totalErrors=sessionErrors+errors,minutes=sec/60;
+ const wpm=minutes>0?Math.round((totalChars/5)/minutes):0;
+ const acc=(totalChars+totalErrors)?Math.max(0,Math.round(totalChars/(totalChars+totalErrors)*100)):100;
+ const pct=targetText.length?Math.round(pos/targetText.length*100):0;
+ $("wpm").textContent=wpm;$("accuracy").textContent=acc+"%";$("errors").textContent=totalErrors+" error"+(totalErrors===1?"":"s");
+ $("percent").textContent=pct+"%";$("lineInfo").textContent=mode==="lesson"?"Line "+(practiceLines+1)+" • unlimited":"current test";
+ $("timer").textContent=fmt(sec);$("count").textContent=mode==="lesson"?"Line "+(practiceLines+1)+" • "+pos+" / "+targetText.length:pos+" / "+targetText.length;
+ $("progress").style.width=pct+"%";
+}
 function fmt(sec){sec=Math.floor(sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
 function beep(ok){if(!sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const a=new C(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?650:150;g.gain.value=.025;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045);setTimeout(()=>a.close(),100)}catch(e){}}
 function flashError(el){if(!el)return;el.classList.remove("pressed");el.classList.add("error");setTimeout(()=>el.classList.remove("error"),260)}
