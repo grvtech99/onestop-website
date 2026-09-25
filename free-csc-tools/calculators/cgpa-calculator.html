@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="ONESTOP CGPA Calculator — calculate CGPA from grade points, marks, or semester SGPA and credits.">
+<title>CGPA Calculator | ONESTOP</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Arial,"Segoe UI",sans-serif;background:#eef6ff;color:#14213d}
+:root{--blue:#0757c9;--line:#d8e6f7;--muted:#687992;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+main{max-width:860px;margin:auto;padding:16px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.brand{color:#0757c9;text-decoration:none}.brand strong{display:block;font-size:22px;font-weight:900}.brand small{display:block;font-size:8px;letter-spacing:.8px;font-weight:800;margin-top:4px}.home{background:var(--grad);color:#fff;padding:8px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:800}
+.hero{background:var(--grad);color:#fff;border-radius:14px;padding:14px 16px}.hero h1{margin:0;font-size:28px}.hero p{margin:5px 0 0;font-size:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;margin-top:10px;box-shadow:0 5px 18px #06265f0b}
+.tabs{display:flex;gap:7px;flex-wrap:wrap}.tabs button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 12px;font-size:11px;font-weight:800;color:#38516f;cursor:pointer}.tabs button.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field input,.field select{width:100%;height:38px;border:1px solid #cbd9e9;border-radius:8px;padding:0 9px;background:#fff;color:#14213d;font-size:12px}
+.rows{margin-top:10px}.row-head,.row{display:grid;grid-template-columns:1.2fr 1fr 1fr 34px;gap:6px;align-items:center}.row-head{font-size:8px;font-weight:900;color:#6a7890;padding:0 3px 5px}.row{margin-bottom:6px}.row input{width:100%;height:36px;border:1px solid #cbd9e9;border-radius:8px;padding:0 8px;font-size:11px}.remove{height:36px;border:1px solid #ffd6d6;background:#fff2f2;color:#c62828;border-radius:8px;font-weight:900;cursor:pointer}
+.actions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}.btn{height:40px;border:0;border-radius:9px;padding:0 14px;font-size:11px;font-weight:900;cursor:pointer}.calc{background:var(--grad);color:#fff}.add{background:#eaf3ff;color:var(--blue)}.clear{background:#fff0f0;color:#c62828}
+.result{display:none}.result.show{display:block}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.metric{border:1px solid var(--line);background:#f7fbff;border-radius:9px;padding:10px;text-align:center}.metric b{display:block;font-size:19px;color:var(--blue)}.metric span{font-size:8px;color:var(--muted)}.details{margin-top:9px}.detail{display:flex;justify-content:space-between;gap:10px;border-top:1px solid #e3edf8;padding:7px 2px;font-size:10px}.detail:first-child{border-top:0}.note{font-size:9px;color:var(--muted);line-height:1.45;margin-top:8px}.error{margin-top:8px;color:#c62828;background:#fff1f1;border:1px solid #ffd5d5;border-radius:8px;padding:8px;font-size:10px;display:none}
+@media(max-width:600px){main{padding:10px}.hero h1{font-size:23px}.controls{grid-template-columns:1fr 1fr}.row-head,.row{grid-template-columns:1.15fr 1fr 1fr 34px}.metrics{grid-template-columns:1fr 1fr}.tabs button{flex:1 1 30%}}
+@media(max-width:390px){.controls{grid-template-columns:1fr}.row-head{display:none}.row{grid-template-columns:1fr 1fr 34px;grid-template-areas:"name name remove" "value extra remove";padding:7px;border:1px solid var(--line);border-radius:9px;background:#fbfdff}.row input:nth-child(1){grid-area:name}.row input:nth-child(2){grid-area:value}.row input:nth-child(3){grid-area:extra}.row button{grid-area:remove;height:100%}}
+</style>
+</head>
+<body>
+<main>
+<div class="top"><a class="brand" href="../../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">← Free Tools</a></div>
+<section class="hero"><h1>🎓 CGPA Calculator</h1><p>Grade Point • Marks Based • Semester / SGPA • 4 &amp; 10 Point Scale</p></section>
+<section class="card">
+<div class="tabs">
+<button class="active" data-mode="grade" type="button">Grade Point</button>
+<button data-mode="marks" type="button">Marks Based</button>
+<button data-mode="semester" type="button">Semester / SGPA</button>
+</div>
+<div id="error" class="error"></div>
+<div class="controls">
+<div class="field"><label>CGPA SCALE</label><select id="scale"><option value="10">10 Point Scale</option><option value="4">4 Point Scale</option></select></div>
+<div class="field"><label>ROWS</label><select id="rowCount"><option value="5">5</option><option value="8" selected>8</option><option value="12">12</option></select></div>
+</div>
+<div class="rows">
+<div class="row-head"><div>SUBJECT / SEMESTER</div><div>VALUE</div><div>CREDITS / MAX</div><div></div></div>
+<div id="rows"></div>
+</div>
+<div class="actions">
+<button id="add" class="btn add" type="button">+ Add Row</button>
+<button id="calculate" class="btn calc" type="button">Calculate CGPA</button>
+<button id="clear" class="btn clear" type="button">Clear</button>
+</div>
+</section>
+<section id="result" class="card result" aria-live="polite">
+<div class="metrics">
+<div class="metric"><b id="cgpa">—</b><span>CGPA</span></div>
+<div class="metric"><b id="pct95">—</b><span>× 9.5</span></div>
+<div class="metric"><b id="pct10">—</b><span>× 10</span></div>
+<div class="metric"><b id="included">—</b><span>Included</span></div>
+</div>
+<div id="details" class="details"></div>
+<div class="note">Percentage conversion differs by board/university. For official academic use, verify the prescribed conversion formula. Marks-based mode maps total marks percentage proportionally to the selected CGPA scale.</div>
+</section>
+</main>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+let mode='grade';
+const tabs=[...document.querySelectorAll('.tabs button')];
+function showError(msg){$('error').textContent=msg;$('error').style.display='block'}
+function clearError(){$('error').textContent='';$('error').style.display='none'}
+function rowTemplate(i){
+ const placeholder=mode==='semester'?'Semester '+i:'Subject '+i;
+ const value=mode==='marks'?'Obtained':'Grade Point / SGPA';
+ const extra=mode==='marks'?'Max Marks':'Credits';
+ return '<div class="row"><input type="text" data-name placeholder="'+placeholder+'"><input type="number" min="0" step="0.01" data-value placeholder="'+value+'"><input type="number" min="0" step="0.01" data-extra placeholder="'+extra+'"><button class="remove" type="button" aria-label="Remove row">×</button></div>';
+}
+function renderRows(n){
+ const wrap=$('rows');wrap.innerHTML='';
+ for(let i=1;i<=n;i++)wrap.insertAdjacentHTML('beforeend',rowTemplate(i));
+ wrap.querySelectorAll('.remove').forEach(btn=>btn.addEventListener('click',()=>{btn.parentElement.remove();}));
+}
+function setMode(next){
+ mode=next;tabs.forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));renderRows(Number($('rowCount').value));clearError();$('result').classList.remove('show');
+}
+tabs.forEach(b=>b.addEventListener('click',()=>setMode(b.dataset.mode)));
+$('rowCount').addEventListener('change',()=>renderRows(Number($('rowCount').value)));
+$('add').addEventListener('click',()=>{$('rows').insertAdjacentHTML('beforeend',rowTemplate($('rows').children.length+1));$('rows').lastElementChild.querySelector('.remove').addEventListener('click',e=>e.currentTarget.parentElement.remove())});
+$('clear').addEventListener('click',()=>{renderRows(Number($('rowCount').value));clearError();$('result').classList.remove('show')});
+$('calculate').addEventListener('click',()=>{
+ clearError();const scale=Number($('scale').value);const rows=[...$('rows').children];let valid=[];
+ for(const row of rows){
+  const name=row.querySelector('[data-name]').value.trim();const a=row.querySelector('[data-value]').value.trim();const b=row.querySelector('[data-extra]').value.trim();
+  if(!name&&!a&&!b)continue;if(!a||!b){showError('Please complete every filled row.');return}
+  const v=Number(a),x=Number(b);if(!Number.isFinite(v)||!Number.isFinite(x)){showError('Please enter valid numeric values.');return}
+  valid.push({name:name||'Item '+(valid.length+1),v,x});
+ }
+ if(!valid.length){showError('Enter at least one subject or semester.');return}
+ let cgpa,details=[];
+ if(mode==='grade'||mode==='semester'){
+   let weighted=0,total=0;for(const r of valid){if(r.v<0||r.v>scale||r.x<=0){showError(mode==='grade'?'Grade point must be within the selected scale and credits must be greater than 0.':'SGPA must be within the selected scale and credits must be greater than 0.');return}weighted+=r.v*r.x;total+=r.x;details.push([r.name,r.v.toFixed(2)+' × '+r.x.toFixed(2)])}cgpa=weighted/total;details.push(['Total Credits',total.toFixed(2)],['Formula','Σ(Value × Credits) ÷ Σ(Credits)']);
+ }else{
+   let got=0,max=0;for(const r of valid){if(r.v<0||r.x<=0||r.v>r.x){showError('Obtained marks must be between 0 and maximum marks.');return}got+=r.v;max+=r.x;details.push([r.name,r.v.toFixed(2)+' / '+r.x.toFixed(2)])}const pct=got/max*100;cgpa=Math.min(scale,pct/100*scale);details.push(['Marks Percentage',pct.toFixed(2)+'%'],['Formula','Marks % mapped to selected CGPA scale']);
+ }
+ $('cgpa').textContent=cgpa.toFixed(2);$('pct95').textContent=(cgpa*9.5).toFixed(2)+'%';$('pct10').textContent=(cgpa*10).toFixed(2)+'%';$('included').textContent=valid.length;
+ $('details').innerHTML=details.map(d=>'<div class="detail"><span>'+d[0]+'</span><b>'+d[1]+'</b></div>').join('');$('result').classList.add('show');
+});
+renderRows(8);
+})();
+</script>
+</main>
+</body>
+</html>
