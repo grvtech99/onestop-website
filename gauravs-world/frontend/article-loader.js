@@ -83,13 +83,40 @@
         // Do not render the first row as <th>; that caused the whole first row
         // to receive the blue header styling.
         if (head.length === 2) {
-          let html = '<div class="article-table-wrap"><table class="article-table info-table"><tbody>';
+          // Two-column recruitment/info content can contain section-heading rows
+          // inside the same pasted Markdown table. Split those rows out so the
+          // section heading is rendered as a branded bar, not as a table row.
           const infoRows = [head].concat(body);
+          let pending = [];
+          const flushInfoTable = () => {
+            if (!pending.length) return;
+            let html = '<div class="article-table-wrap"><table class="article-table info-table"><tbody>';
+            pending.forEach(r => {
+              while (r.length < 2) r.push('');
+              html += '<tr><td class="info-label">' + inline(r[0] || '') + '</td><td>' + inline(r[1] || '') + '</td></tr>';
+            });
+            out.push(html + '</tbody></table></div>');
+            pending = [];
+          };
           infoRows.forEach(r => {
             while (r.length < 2) r.push('');
-            html += '<tr><td class="info-label">' + inline(r[0] || '') + '</td><td>' + inline(r[1] || '') + '</td></tr>';
+            const label = String(r[0] || '').trim();
+            const detail = String(r[1] || '').trim();
+            if (isInfoSectionHeading(label) && !detail) {
+              flushInfoTable();
+              out.push('<div class="article-section-heading">' + inline(label) + '</div>');
+            } else if (!label && !detail) {
+              flushInfoTable();
+            } else if (!detail && pending.length === 0 && !isInfoSectionHeading(label)) {
+              // Standalone title/subtitle rows accidentally pasted as a table
+              // should remain normal article text, not become table cells.
+              out.push('<p>' + inline(label) + '</p>');
+            } else {
+              pending.push(r);
+            }
           });
-          out.push(html + '</tbody></table></div>'); continue;
+          flushInfoTable();
+          continue;
         }
 
         let html = '<div class="article-table-wrap"><table class="article-table"><thead><tr>' + head.map(c => '<th>' + inline(c) + '</th>').join('') + '</tr></thead><tbody>';
