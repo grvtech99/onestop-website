@@ -3,170 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>ONESTOP Typing Master | Gaurav Yadav</title>
+<title>ONESTOP Typing Master</title>
 <style>
-:root{
- --blue:#1769d1;--blue2:#0d56b7;--pale:#edf4ff;--line:#b8c8e5;
- --green:#54a820;--text:#10213b;--red:#d94b55;--gold:#e8b63f;
-}
-*{box-sizing:border-box}
-html,body{margin:0;height:100%;font-family:Segoe UI,Arial,sans-serif;background:#dfe7f1;color:var(--text)}
-body{overflow:hidden}
-.windowbar{height:28px;background:linear-gradient(#4e970c,#3d8100);color:#fff;display:flex;align-items:center;padding:0 10px;font-size:13px;box-shadow:0 1px 2px #333}
-.windowbar .title{flex:1}.winbtn{margin-left:20px;font-size:14px}
-.app{width:min(1180px,100vw);height:calc(100vh - 28px);margin:auto;background:#f7faff;display:flex;flex-direction:column}
-.topbar{height:78px;display:flex;align-items:center;padding:8px 24px;border-bottom:1px solid #c8d4e6;background:#f8fbff}
-.logo{display:flex;align-items:center;gap:12px}.logoCircle{width:53px;height:53px;border-radius:50%;background:#0958bd;color:white;display:grid;place-items:center;font-size:28px;font-weight:800}
-.logoText{font-size:31px;color:#1464c7;font-weight:700;font-style:italic;letter-spacing:-1.5px}.sub{font-size:11px;color:#70819a;margin-left:8px;font-style:normal}
-.topStats{margin-left:auto;display:flex;gap:9px}.pill{background:white;border:1px solid #c7d5e8;border-radius:5px;padding:7px 12px;min-width:82px;text-align:center}.pill b{display:block;font-size:17px;color:#135fbd}.pill span{font-size:10px;color:#728198}
-.nav{height:43px;background:#e9f1fc;border-bottom:1px solid #c6d6eb;display:flex;align-items:center;padding:0 20px;gap:5px}
-.nav button{height:31px;border:1px solid transparent;background:transparent;color:#204b83;padding:0 15px;border-radius:4px;font-size:12px;cursor:pointer}.nav button.active,.nav button:hover{background:#fff;border-color:#b8c9e3;color:#075fc8}
-.content{flex:1;display:grid;grid-template-columns:1fr 285px;min-height:0}
-.left{background:#f1f5ff;padding:18px 24px 10px;position:relative;min-width:0}
-.right{background:#dce9fb;border-left:1px solid #c2d3ea;padding:16px 17px;position:relative}
-.exerciseHeader{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.lessonTitle{font-size:17px;font-weight:700}.lessonTitle small{font-weight:400;color:#71819a;margin-left:8px}.controls{display:flex;gap:6px}.smallBtn{border:1px solid #aabedc;background:white;color:#1765c6;border-radius:4px;padding:6px 10px;font-size:11px;cursor:pointer}
-.targetBox{background:#fff;border:1px solid #c5d3e7;box-shadow:0 1px 2px #b8c5d7;padding:13px 16px;height:118px;overflow:hidden;font-family:Consolas,monospace;font-size:24px;line-height:1.55;letter-spacing:1px;color:#aab4c3}
-.targetBox .done{color:#355f94}.targetBox .current{background:#4f7ff0;color:white;border-radius:2px;box-shadow:0 0 0 2px #b7c9ff}.targetBox .wrong{color:#fff;background:#d9505b;border-radius:2px}
-.keyboard{margin:12px auto 0;max-width:720px}.krow{display:flex;gap:4px;margin-bottom:4px}.key{height:38px;min-width:45px;flex:1;border:1px solid #aabbd8;border-radius:3px;background:linear-gradient(#fff,#e6edf8);box-shadow:inset 0 1px #fff,0 1px 1px #b9c5d5;color:#173d78;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;user-select:none;position:relative}.key small{position:absolute;top:3px;left:5px;font-size:8px;color:#8091ad}.key.special{flex:1.35}.key.space{flex:5}.key.active{background:linear-gradient(#7899f4,#5579df);color:white;border-color:#486bd0;transform:translateY(1px);box-shadow:0 0 0 2px #c2d2ff}.key.error{background:#efb7bc!important;color:#8e1822!important}.key.home:after{content:"";position:absolute;bottom:4px;width:10px;height:2px;background:#6b7f9c}
-.handArea{height:145px;margin:5px auto 0;max-width:720px;position:relative;overflow:hidden;text-align:center;background:linear-gradient(transparent,#e9effb 88%)}.handArea img{height:185px;width:430px;object-fit:cover;object-position:center 45%;mix-blend-mode:multiply;transform:translateY(8px);opacity:.96}.fingerHint{position:absolute;width:18px;height:18px;border-radius:50%;background:#5d82ef;border:2px solid white;box-shadow:0 0 0 1px #4d69bd;transition:.15s;display:none}
-.hintText{position:absolute;left:0;right:0;bottom:5px;font-size:11px;color:#6b7c96}.statusLine{height:24px;display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#657894}
-.progressBar{height:8px;background:#d7e0ed;border-radius:6px;overflow:hidden;width:42%}.progressBar i{display:block;height:100%;background:#4e82e7;width:0%}
-.sideTitle{font-size:15px;font-weight:700;display:flex;gap:7px;align-items:center}.sideTitle:before{content:"▥";color:#6c85bb}.rule{height:1px;background:#fff;border-top:1px solid #c1d1e7;margin:8px 0 14px}
-.chart{height:125px;display:flex;align-items:end;gap:5px;padding:0 5px 8px;border-bottom:1px solid #c1d1e7}.bar{width:15px;background:#edf8d9;border:1px solid #61733d;min-height:5px}
-.metric{margin-top:15px}.metric label{font-size:11px;font-weight:700}.big{font-size:28px;font-weight:800;margin-top:2px}.submetric{font-size:10px;color:#6e7e96}
-.sideButtons{position:absolute;bottom:15px;left:17px;right:17px}.mainBtn{height:38px;width:100%;background:#1768ce;color:white;border:1px solid #0e58b5;border-radius:5px;text-decoration:underline;cursor:pointer;font-size:12px}.outlineBtn{height:36px;width:100%;margin-top:8px;background:white;color:#1264c9;border:1px solid #1872df;border-radius:8px;cursor:pointer;font-size:12px;text-decoration:underline}
-.modal{position:fixed;inset:0;background:#12213a99;display:none;align-items:center;justify-content:center;z-index:20}.dialog{width:460px;background:white;border:1px solid #b5c7e1;border-radius:8px;box-shadow:0 15px 50px #14233b66;padding:22px}.dialog h2{margin:0 0 5px;color:#155fbc}.dialog p{font-size:12px;color:#6c7b90}.resultGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:18px 0}.resultCard{background:#eef4fd;border:1px solid #cad8ec;padding:10px;text-align:center}.resultCard b{font-size:22px;display:block;color:#135fbd}.resultCard span{font-size:10px;color:#708097}
-.lessonPanel{position:fixed;inset:0;background:#12213a88;display:none;align-items:center;justify-content:center;z-index:19}.panel{width:720px;max-height:80vh;overflow:auto;background:white;border-radius:8px;padding:20px}.lessonGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.lessonItem{padding:11px;border:1px solid #c7d5e8;background:#f7faff;border-radius:5px;text-align:left;cursor:pointer}.lessonItem:hover{border-color:#5d85df;background:#eef4ff}.lessonItem b{display:block;font-size:12px;color:#185fae}.lessonItem span{font-size:10px;color:#72829a}
-@media(max-width:850px){body{overflow:auto}.app{height:auto;min-height:100vh}.content{grid-template-columns:1fr}.right{min-height:350px}.sideButtons{position:static;margin-top:20px}.topStats{display:none}.lessonGrid{grid-template-columns:repeat(2,1fr)}}
-
-/* ONESTOP SMART FIT */
-html,body{width:100%;height:100%;overflow:hidden}
-.windowbar{height:26px;min-height:26px}
-.app{height:calc(100vh - 26px);max-height:calc(100vh - 26px);width:min(1280px,100vw);overflow:hidden}
-.topbar{height:68px;min-height:68px;padding:6px 18px;gap:14px}
-.logo{gap:10px;min-width:250px}.logoCircle{width:46px;height:46px;font-size:24px}.logoText{font-size:27px;letter-spacing:-1.2px}.sub{font-size:9px;margin-left:0;letter-spacing:.35px}
-.topRight{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px;min-width:0}.copyright{font-size:8px;font-weight:700;color:#52657f;white-space:nowrap;text-align:right}
-.topStats{margin-left:0;gap:6px}.pill{padding:5px 9px;min-width:72px}.pill b{font-size:15px}.pill span{font-size:9px}
-.nav{height:38px;min-height:38px;padding:0 14px;gap:3px}.nav button{height:28px;padding:0 12px;font-size:11px}
-.content{height:calc(100% - 106px);grid-template-columns:minmax(0,1fr) 255px;overflow:hidden}
-.left{padding:10px 14px 6px;overflow:hidden}.right{padding:10px 12px;overflow:hidden}
-.exerciseHeader{height:30px;margin-bottom:6px}.lessonTitle{font-size:15px}.controls{gap:4px}.smallBtn{padding:5px 8px;font-size:10px}
-.targetBox{height:86px;padding:9px 12px;font-size:21px;line-height:1.48;letter-spacing:.8px}
-.keyboard{margin:8px auto 0;max-width:760px}.krow{gap:3px;margin-bottom:3px}.key{height:31px;min-width:30px;font-size:10px}.key small{font-size:7px;top:2px;left:3px}.key.home:after{bottom:3px;width:8px}
-.handArea{display:none!important}.statusLine{height:20px;font-size:10px;margin-top:4px}.progressBar{height:6px}
-.sideTitle{font-size:14px}.rule{margin:5px 0 8px}.chart{height:78px;padding:0 4px 5px;gap:4px}.bar{width:12px}.metric{margin-top:8px}.metric label{font-size:10px}.big{font-size:23px;margin-top:0}.submetric{font-size:9px}
-.brandFooter{font-size:8px;color:#6b7d95;text-align:right;margin-top:5px;white-space:nowrap}.sideButtons{bottom:10px;left:12px;right:12px}.mainBtn{height:32px;font-size:10px}.outlineBtn{height:30px;margin-top:5px;font-size:10px}
-@media(max-width:850px){.topbar{height:58px;min-height:58px;padding:5px 10px}.logo{min-width:0}.logoCircle{width:38px;height:38px;font-size:20px}.logoText{font-size:21px}.sub{font-size:7px}.topRight{gap:2px}.copyright{font-size:6.5px}.pill{min-width:57px;padding:4px 5px}.pill b{font-size:12px}.pill span{font-size:7px}.topStats{gap:3px}.nav{height:34px;min-height:34px;padding:0 8px}.nav button{height:25px;padding:0 8px;font-size:9px}.content{height:calc(100% - 92px);grid-template-columns:minmax(0,1fr) 185px}.left{padding:7px 8px 4px}.right{padding:7px 8px}.exerciseHeader{height:25px;margin-bottom:4px}.lessonTitle{font-size:12px}.lessonTitle small{margin-left:4px}.smallBtn{padding:4px 5px;font-size:8px}.targetBox{height:68px;padding:7px 8px;font-size:16px;line-height:1.42}.keyboard{margin-top:6px}.krow{gap:2px;margin-bottom:2px}.key{height:26px;min-width:22px;font-size:8px}.key small{display:none}.key.special{flex:1.25}.statusLine{height:17px;font-size:8px;margin-top:3px}.progressBar{height:5px}.sideTitle{font-size:11px}.rule{margin:3px 0 5px}.chart{height:55px;gap:3px}.bar{width:8px}.metric{margin-top:5px}.metric label{font-size:8px}.big{font-size:17px}.submetric{font-size:7px}.sideButtons{bottom:6px;left:8px;right:8px}.mainBtn{height:26px;font-size:8px}.outlineBtn{height:24px;font-size:8px;margin-top:3px}}
-@media(max-width:600px){.content{grid-template-columns:1fr 150px}.copyright{display:none}.topStats .pill:nth-child(3){display:none}.logoText{font-size:18px}.targetBox{height:60px;font-size:14px}.key{height:23px;font-size:7px}.right{padding:6px}.chart{height:42px}.big{font-size:15px}}
-/* KEYBOARD SIZE REFINEMENT */
-.targetBox{height:94px;padding:11px 14px;font-size:23px;line-height:1.52;letter-spacing:1px}
-.keyboard{margin:10px auto 0;max-width:800px;width:100%}
-.krow{gap:4px;margin-bottom:5px}
-.key{height:42px;min-width:34px;font-size:11px;border-radius:4px}
-.key small{font-size:7px;top:3px;left:4px}
-.key.home:after{bottom:4px;width:10px}
-.keyboard .krow:last-child .key{height:44px}
-.statusLine{margin-top:7px}
-@media(max-width:850px){
- .targetBox{height:76px;padding:8px 9px;font-size:18px;line-height:1.42}
- .keyboard{margin-top:7px}
- .krow{gap:2px;margin-bottom:3px}
- .key{height:32px;min-width:24px;font-size:8.5px}
- .keyboard .krow:last-child .key{height:34px}
- .statusLine{margin-top:4px}
-}
-/* FINAL VERTICAL BALANCE */
-.practiceStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px auto 0;max-width:800px}
-.practiceStrip>div{background:#e7eef9;border:1px solid #c6d4e8;border-radius:5px;padding:8px 9px;min-height:52px}
-.practiceStrip b{display:block;font-size:9px;color:#1b5fae;margin-bottom:4px}
-.practiceStrip span{font-size:8px;color:#6b7c94;line-height:1.3}
-.targetBox{height:96px}
-.keyboard{margin-top:9px;max-width:800px}
-.krow{gap:4px;margin-bottom:5px}
-.key{height:48px;min-width:34px}
-.keyboard .krow:last-child .key{height:50px}
-.statusLine{margin-top:7px}
-@media(max-width:850px){
- .targetBox{height:78px}
- .keyboard{margin-top:7px}
- .krow{gap:2px;margin-bottom:3px}
- .key{height:34px;min-width:24px}
- .keyboard .krow:last-child .key{height:36px}
- .practiceStrip{gap:4px;margin-top:6px}
- .practiceStrip>div{min-height:40px;padding:5px}
- .practiceStrip b{font-size:7px;margin-bottom:2px}.practiceStrip span{font-size:6.5px}
-}
-@media(max-width:600px){
- .practiceStrip{display:none}
- .key{height:27px}.keyboard .krow:last-child .key{height:29px}
-}/* WEBSITE HERO BRAND GRADIENT */
-.topbar{
- background:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%) !important;
- color:#fff;
- border-bottom:0;
- box-shadow:0 3px 10px rgba(7,87,201,.18);
-}
-.topbar .logoText{color:#fff !important;text-shadow:0 1px 2px rgba(0,0,0,.12)}
-.topbar .sub{color:#eaf6ff !important}
-.topbar .logoCircle{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-.topbar .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.42);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-.topbar .pill b{color:#fff}.topbar .pill span{color:#eaf6ff}
-.topbar .copyright{color:#f1f8ff !important}
+:root{--key:#f8fafc;--border:#cbd5e1;--text:#0f172a;--muted:#64748b;--accent:#0757c9;--accent2:#1688e8;--accent-bg:#eff6ff;--brand:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%);--page:#eef6ff;--good:#168a4a;--bad:#d94355}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);font-family:Poppins,Arial,"Segoe UI",sans-serif;color:var(--text)}button{font:inherit}
+.top{background:#fff;border-bottom:1px solid #dbe8f8;padding:11px 18px;position:relative;z-index:5}.nav{max-width:1180px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{display:block;text-decoration:none}.brand strong{font-size:23px;font-weight:900;background:var(--brand);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.brand small{display:block;margin-top:3px;font-size:8px;font-weight:800;letter-spacing:.8px;color:#14213d}.home{background:var(--brand);color:#fff;padding:9px 14px;border-radius:10px;font-weight:800;text-decoration:none;font-size:13px}
+.wrap{max-width:1180px;margin:auto;padding:18px 14px 30px}.head{margin-bottom:14px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}.head h1{font-size:25px;margin:0 0 4px;font-weight:900}.sub{font-size:13px;color:var(--muted)}.modeBtns{display:flex;gap:6px;flex-wrap:wrap}.modeBtn,.smallBtn{border:1px solid var(--border);background:#fff;color:var(--accent);border-radius:9px;padding:8px 11px;font-size:11px;font-weight:800;cursor:pointer}.modeBtn.active,.modeBtn:hover,.smallBtn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:10px;align-items:start}.main{min-width:0}.lessonBar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:8px}.lessonTitle{font-size:15px;font-weight:900}.lessonTitle small{font-size:10px;color:var(--muted);font-weight:700;margin-left:6px}.actions{display:flex;gap:5px}
+.target{background:#fff;border:1px solid var(--border);border-radius:14px;min-height:116px;padding:16px 17px;font-family:Consolas,monospace;font-size:23px;line-height:1.55;letter-spacing:.7px;box-shadow:0 2px 8px rgba(6,27,69,.05);overflow:hidden}.target span{border-radius:3px}.target .done{color:#7890ad}.target .current{background:#4f7ff0;color:#fff;box-shadow:0 0 0 2px #c7d7ff}.target .wrong{background:#d94355;color:#fff}
+.keyboardBox{margin-top:10px;padding:12px;background:#f8fafc;border:1px solid var(--border);border-radius:14px;overflow:hidden}.full-keyboard{display:grid;grid-template-columns:minmax(0,3.8fr) minmax(145px,1fr) minmax(175px,1.25fr);gap:8px;width:100%;align-items:start}.main-kb,.nav-kb,.num-kb{min-width:0}.kb-grid{display:flex;gap:6px;margin-bottom:6px;width:100%;height:46px}.kb-grid .key{flex:1;min-width:0;width:auto}.fn{gap:6px}.fn .sp{flex:0 0 8px}.fn .key{flex:1}.wide2{flex:2!important}.wide15{flex:1.5!important}.wide175{flex:1.75!important}.wide225{flex:2.25!important}.wide275{flex:2.75!important}.wide125{flex:1.25!important}.r5 .space{flex:6.25!important}
+.key{height:46px;padding:0 6px;border:1px solid var(--border);border-radius:8px;background:var(--key);font-weight:700;font-size:10px;color:var(--text);cursor:pointer;box-shadow:0 2px 2px rgba(0,0,0,.06);transition:transform .08s,background .12s,border-color .12s,box-shadow .12s;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.05;user-select:none}.key:hover{border-color:var(--accent);background:#fff}.key:active,.key.pressed{transform:translateY(3px) scale(.97);background:var(--accent-bg);border-color:var(--accent);box-shadow:0 0 0 2px #dbeafe,0 1px 1px rgba(0,0,0,.04)}.key.targetKey{background:#e5f0ff;border-color:#5c8ee9;box-shadow:0 0 0 2px #dbeafe}.key.error{background:#ffe1e4!important;border-color:#df6674!important;color:#a51f31!important;animation:shake .12s linear 2}.key.shiftOn{background:#dfeaff;border-color:var(--accent)}@keyframes shake{25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+.nav-kb,.num-kb{display:flex;flex-direction:column}.nav-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-bottom:6px}.nav-row .key{width:100%}.nav-spacer{height:52px}.nav-arrows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}.nav-arrows .key{width:100%}.num-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.num-grid .key{width:100%}.num-grid .tall{grid-row:span 2;height:auto}.num-grid .zero{grid-column:1/span 2}
+.status{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-top:9px;font-size:11px;color:var(--muted)}.status strong{color:var(--text)}.progress{height:7px;background:#dbe6f4;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--brand);border-radius:99px;transition:width .12s}
+.tipStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}.tipStrip div{background:#fff;border:1px solid var(--border);border-radius:10px;padding:9px 10px}.tipStrip b{display:block;font-size:9px;color:var(--accent);margin-bottom:3px}.tipStrip span{font-size:9px;color:var(--muted);line-height:1.3}
+.side{background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px;position:sticky;top:12px;box-shadow:0 5px 18px rgba(6,27,69,.05)}.sideTitle{font-size:15px;font-weight:900}.rule{height:1px;background:#e4edf8;margin:8px 0 11px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#f5f9ff;border:1px solid #dce8f7;border-radius:10px;padding:9px}.metric label{display:block;font-size:9px;color:var(--muted);font-weight:800}.metric b{display:block;font-size:22px;color:var(--accent);margin-top:1px}.metric span{font-size:8px;color:var(--muted)}
+.chartTitle{font-size:10px;font-weight:900;margin:13px 0 6px}.chart{height:85px;display:flex;align-items:end;gap:5px;padding:0 3px 5px;border-bottom:1px solid #dbe5f2}.bar{flex:1;min-width:4px;background:linear-gradient(180deg,#5bc8f4,#167be4);border-radius:4px 4px 0 0;min-height:4px}.sideActions{margin-top:12px;display:grid;gap:6px}.primary{height:36px;border:0;border-radius:9px;background:var(--brand);color:#fff;font-size:11px;font-weight:900;cursor:pointer}.secondary{height:34px;border:1px solid var(--border);border-radius:9px;background:#fff;color:var(--accent);font-size:11px;font-weight:800;cursor:pointer}.footerNote{text-align:center;color:var(--muted);font-size:8px;margin-top:9px}
+.modal{position:fixed;inset:0;background:rgba(8,28,60,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}.dialog{width:min(470px,100%);background:#fff;border-radius:16px;border:1px solid var(--border);padding:20px;box-shadow:0 20px 60px rgba(6,27,69,.25)}.dialog h2{margin:0;color:var(--accent);font-size:20px}.dialog p{font-size:12px;color:var(--muted)}.resultGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:15px 0}.resultCard{background:#f4f8ff;border:1px solid #d8e4f3;border-radius:9px;text-align:center;padding:9px}.resultCard b{display:block;color:var(--accent);font-size:21px}.resultCard span{font-size:9px;color:var(--muted)}
+.lessonPanel{position:fixed;inset:0;background:rgba(8,28,60,.55);display:none;align-items:center;justify-content:center;padding:16px;z-index:19}.panel{width:min(760px,100%);max-height:82vh;overflow:auto;background:#fff;border-radius:16px;padding:18px}.panelHead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.panel h2{margin:0;color:var(--accent);font-size:20px}.panelHead small{color:var(--muted);font-size:10px}.lessonGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.lessonItem{padding:11px;border:1px solid var(--border);background:#f8fbff;border-radius:10px;text-align:left;cursor:pointer}.lessonItem:hover{border-color:#76a4ed;background:#eef6ff;transform:translateY(-1px)}.lessonItem b{display:block;color:#1d5fae;font-size:11px}.lessonItem span{font-size:9px;color:var(--muted)}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.side{position:static}.metrics{grid-template-columns:repeat(4,1fr)}}@media(max-width:800px){.full-keyboard{min-width:920px}.keyboardBox{overflow-x:auto}.head{align-items:flex-start;flex-direction:column}.modeBtns{width:100%}.target{font-size:19px;min-height:96px}.metrics{grid-template-columns:repeat(4,1fr)}}@media(max-width:560px){.top{padding:10px 12px}.brand strong{font-size:20px}.brand small{font-size:7px}.home{padding:8px 11px;font-size:12px}.wrap{padding:13px 10px 24px}.head h1{font-size:21px}.sub{font-size:12px}.target{font-size:16px;min-height:82px;padding:11px}.keyboardBox{padding:9px}.status{grid-template-columns:1fr auto;font-size:9px}.status .progress{grid-column:1/-1;grid-row:2}.tipStrip{display:none}.metrics{grid-template-columns:repeat(2,1fr)}.resultGrid{grid-template-columns:repeat(2,1fr)}.lessonGrid{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-<div class="windowbar"><span class="title">Typing Master</span><span class="winbtn">—</span><span class="winbtn">□</span><span class="winbtn">×</span></div>
-<div class="app">
-  <header class="topbar">
-    <div class="logo"><div class="logoCircle">T</div><div><div class="logoText">ONESTOP Typing Master</div><div class="sub">ONESTOP COMPUTER &amp; SKILL DEVELOPMENT CENTER</div></div></div>
-    <div class="topRight"><div class="copyright">© 2026 Gaurav Yadav • ONESTOP DIGITAL SOLUTION</div><div class="topStats">
-      <div class="pill"><b id="topWpm">0</b><span>WPM</span></div>
-      <div class="pill"><b id="topAcc">100%</b><span>ACCURACY</span></div>
-      <div class="pill"><b id="topLesson">1</b><span>LESSON</span></div>
-    </div></div>
-  </header>
-  <nav class="nav">
-    <button class="active" data-page="lesson">Lessons</button>
-    <button data-page="test">Typing Test</button>
-    <button id="lessonsBtn">Choose Lesson</button>
-    <button id="resetBtn">Reset</button>
-  </nav>
-  <main class="content">
-    <section class="left">
-      <div class="exerciseHeader">
-        <div class="lessonTitle" id="lessonTitle">Lesson 1 — Home Row <small>Beginner</small></div>
-        <div class="controls"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button></div>
-      </div>
-      <div class="targetBox" id="targetBox"></div>
-      <div class="keyboard" id="keyboard"></div>
-      <div class="statusLine"><span id="status">Click here or start typing</span><div class="progressBar"><i id="progressFill"></i></div><span id="count">0 / 0</span></div>
-      <div class="practiceStrip">
-        <div><b>⌨ HOME ROW</b><span>Keep fingers on A S D F · J K L ;</span></div>
-        <div><b>🎯 ACCURACY FIRST</b><span>Type correctly before increasing speed.</span></div>
-        <div><b>⚡ STEADY RHYTHM</b><span>Look at the text, not the keyboard.</span></div>
-      </div>
-    </section>
-    <aside class="right">
-      <div class="sideTitle">Your Progress</div><div class="rule"></div>
-      <div class="chart" id="chart"></div>
-      <div class="metric"><label>Current Speed</label><div class="big"><span id="wpm">0</span> <small style="font-size:12px">WPM</small></div><div class="submetric">Gross speed</div></div>
-      <div class="metric"><label>Accuracy</label><div class="big"><span id="accuracy">100</span><small style="font-size:12px">%</small></div><div class="submetric"><span id="errors">0</span> errors</div></div>
-      <div class="metric"><label>Time</label><div class="big" id="timer">00:00</div><div class="submetric" id="modeText">Lesson mode</div></div>
-      <div class="brandFooter">Gaurav Yadav • ONESTOP Computer &amp; Skill Development Center</div><div class="sideButtons"><button class="mainBtn" id="nextBtn">Next Exercise</button><button class="outlineBtn" id="cancelBtn">Cancel / Reset</button></div>
-    </aside>
-  </main>
+<header class="top"><div class="nav"><a class="brand" href="free-csc-tools/index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="free-csc-tools/index.html">← Learning Tools</a></div></header>
+<main class="wrap">
+<div class="head"><div><h1>⌨️ ONESTOP Typing Master</h1><div class="sub">Learn touch typing • Improve speed • Build accuracy — Hindi + English guidance</div></div><div class="modeBtns"><button class="modeBtn active" id="lessonMode">Lessons</button><button class="modeBtn" id="testMode">60 Sec Test</button></div></div>
+<div class="workspace">
+<section class="main">
+<div class="lessonBar"><div class="lessonTitle" id="lessonTitle">Lesson 1 — Home Row <small>Beginner</small></div><div class="actions"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button></div></div>
+<div class="target" id="target"></div>
+<div class="keyboardBox" aria-label="Interactive typing keyboard"><div class="full-keyboard">
+<section class="main-kb">
+<div class="kb-grid fn"><button class="key" data-key="Esc">Esc</button><span class="sp"></span><button class="key" data-key="F1">F1</button><button class="key" data-key="F2">F2</button><button class="key" data-key="F3">F3</button><button class="key" data-key="F4">F4</button><span class="sp"></span><button class="key" data-key="F5">F5</button><button class="key" data-key="F6">F6</button><button class="key" data-key="F7">F7</button><button class="key" data-key="F8">F8</button><span class="sp"></span><button class="key" data-key="F9">F9</button><button class="key" data-key="F10">F10</button><button class="key" data-key="F11">F11</button><button class="key" data-key="F12">F12</button></div>
+<div class="kb-grid"><button class="key" data-key="`">~<br>`</button><button class="key" data-key="1">1</button><button class="key" data-key="2">2</button><button class="key" data-key="3">3</button><button class="key" data-key="4">4</button><button class="key" data-key="5">5</button><button class="key" data-key="6">6</button><button class="key" data-key="7">7</button><button class="key" data-key="8">8</button><button class="key" data-key="9">9</button><button class="key" data-key="0">0</button><button class="key" data-key="-">-</button><button class="key" data-key="=">=</button><button class="key wide2" data-key="Backspace">Backspace</button></div>
+<div class="kb-grid"><button class="key wide15" data-key="Tab">Tab</button><button class="key" data-key="q">Q</button><button class="key" data-key="w">W</button><button class="key" data-key="e">E</button><button class="key" data-key="r">R</button><button class="key" data-key="t">T</button><button class="key" data-key="y">Y</button><button class="key" data-key="u">U</button><button class="key" data-key="i">I</button><button class="key" data-key="o">O</button><button class="key" data-key="p">P</button><button class="key" data-key="[">[</button><button class="key" data-key="]">]</button><button class="key wide15" data-key="\\">\\</button></div>
+<div class="kb-grid"><button class="key wide175" data-key="Caps Lock">Caps Lock</button><button class="key" data-key="a">A</button><button class="key" data-key="s">S</button><button class="key" data-key="d">D</button><button class="key" data-key="f">F</button><button class="key" data-key="g">G</button><button class="key" data-key="h">H</button><button class="key" data-key="j">J</button><button class="key" data-key="k">K</button><button class="key" data-key="l">L</button><button class="key" data-key=";">;</button><button class="key" data-key="'">'</button><button class="key wide225" data-key="Enter">Enter</button></div>
+<div class="kb-grid r5"><button class="key wide125" data-key="Ctrl">Ctrl</button><button class="key wide125" data-key="Win">Win</button><button class="key wide125" data-key="Alt">Alt</button><button class="key space" data-key=" ">Space</button><button class="key wide125" data-key="AltGr">AltGr</button><button class="key wide125" data-key="Win">Win</button><button class="key wide125" data-key="Menu">Menu</button><button class="key wide125" data-key="Ctrl">Ctrl</button></div>
+</section>
+<section class="nav-kb"><div class="nav-row"><button class="key" data-key="Print Screen">PrtSc</button><button class="key" data-key="Scroll Lock">ScrLk</button><button class="key" data-key="Pause Break">Pause</button></div><div class="nav-row"><button class="key" data-key="Insert">Insert</button><button class="key" data-key="Home">Home</button><button class="key" data-key="Page Up">PgUp</button></div><div class="nav-row"><button class="key" data-key="Delete">Delete</button><button class="key" data-key="End">End</button><button class="key" data-key="Page Down">PgDn</button></div><div class="nav-spacer"></div><div class="nav-arrows"><span></span><button class="key" data-key="ArrowUp">↑</button><span></span><button class="key" data-key="ArrowLeft">←</button><button class="key" data-key="ArrowDown">↓</button><button class="key" data-key="ArrowRight">→</button></div></section>
+<section class="num-kb"><div class="num-grid"><button class="key" data-key="NumLock">Num<br>Lock</button><button class="key" data-key="/">/</button><button class="key" data-key="*">*</button><button class="key" data-key="-">−</button><button class="key" data-key="7">7</button><button class="key" data-key="8">8</button><button class="key" data-key="9">9</button><button class="key tall" data-key="+">+</button><button class="key" data-key="4">4</button><button class="key" data-key="5">5</button><button class="key" data-key="6">6</button><button class="key" data-key="1">1</button><button class="key" data-key="2">2</button><button class="key" data-key="3">3</button><button class="key tall" data-key="NumpadEnter">Enter</button><button class="key zero" data-key="0">0</button><button class="key" data-key=".">.</button></div></section>
+</div></div>
+<div class="status"><span id="status"><strong>Ready.</strong> Click a key or start typing.</span><div class="progress"><i id="progress"></i></div><span id="count">0 / 0</span></div>
+<div class="tipStrip"><div><b>⌨ HOME ROW</b><span>Keep fingers around A S D F and J K L ;</span></div><div><b>🎯 ACCURACY FIRST</b><span>Correct typing is more important than rushing.</span></div><div><b>⚡ STEADY RHYTHM</b><span>Look at the text and build consistent speed.</span></div></div>
+</section>
+<aside class="side"><div class="sideTitle">Your Progress</div><div class="rule"></div><div class="metrics"><div class="metric"><label>Speed</label><b id="wpm">0</b><span>WPM</span></div><div class="metric"><label>Accuracy</label><b id="accuracy">100%</b><span id="errors">0 errors</span></div><div class="metric"><label>Time</label><b id="timer">00:00</b><span id="modeText">Lesson mode</span></div><div class="metric"><label>Progress</label><b id="percent">0%</b><span>completed</span></div></div><div class="chartTitle">Recent Speed</div><div class="chart" id="chart"></div><div class="sideActions"><button class="primary" id="nextBtn">Next Exercise →</button><button class="secondary" id="chooseBtn">Choose Lesson</button><button class="secondary" id="resetBtn">Reset Progress</button></div><div class="footerNote">ONESTOP DIGITAL SOLUTION • Free Typing Practice</div></aside>
 </div>
+</main>
 
-<div class="modal" id="modal"><div class="dialog">
-<h2>Exercise Complete</h2><p>Your typing result for this exercise</p>
-<div class="resultGrid"><div class="resultCard"><b id="rWpm">0</b><span>WPM</span></div><div class="resultCard"><b id="rAcc">0%</b><span>ACCURACY</span></div><div class="resultCard"><b id="rErr">0</b><span>ERRORS</span></div><div class="resultCard"><b id="rTime">0:00</b><span>TIME</span></div></div>
-<button class="mainBtn" id="continueBtn">Continue to Next Exercise</button>
-</div></div>
-
-<div class="lessonPanel" id="lessonPanel"><div class="panel">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px"><div><h2 style="margin:0;color:#155fbc">Choose Lesson</h2><small style="color:#71819a">20 structured touch-typing exercises</small></div><button class="smallBtn" id="closeLessons">Close</button></div>
-<div class="lessonGrid" id="lessonGrid"></div>
-</div></div>
+<div class="modal" id="resultModal"><div class="dialog"><h2>Exercise Complete 🎉</h2><p>Your typing result is ready.</p><div class="resultGrid"><div class="resultCard"><b id="rWpm">0</b><span>WPM</span></div><div class="resultCard"><b id="rAcc">0%</b><span>ACCURACY</span></div><div class="resultCard"><b id="rErr">0</b><span>ERRORS</span></div><div class="resultCard"><b id="rTime">00:00</b><span>TIME</span></div></div><button class="primary" id="continueBtn">Continue to Next Exercise →</button></div></div>
+<div class="lessonPanel" id="lessonPanel"><div class="panel"><div class="panelHead"><div><h2>Choose Lesson</h2><small>20 structured touch-typing exercises</small></div><button class="smallBtn" id="closeLessons">Close</button></div><div class="lessonGrid" id="lessonGrid"></div></div></div>
 
 <script>
 const lessons=[
@@ -189,95 +73,51 @@ const lessons=[
 ["Bottom Row Z and Comma","Basic","z , z, ,z az j, sz l,"],
 ["Full Letters","Intermediate","the quick brown fox jumps over the lazy dog"],
 ["Speed Builder","Intermediate","typing speed grows with practice and accuracy"],
-["Final Practice","Advanced","Touch typing lets you write faster while keeping your eyes on the screen"]
+["Final Practice","Advanced","touch typing lets you write faster while keeping your eyes on the screen"]
 ];
-let lesson=0, text="",pos=0,errors=0,startTime=0,timerId=null,started=false,sound=true,mode="lesson",testTime=60;
+let lessonIndex=0,mode="lesson",targetText="",pos=0,errors=0,started=false,startTime=0,timerId=null,sound=true,testLimit=60,shiftOn=false;
 const $=id=>document.getElementById(id);
-function makeKeyboard(){
- const rows=[
- [["`","~"],["1","!"],["2","@"],["3","#"],["4","$"],["5","%"],["6","^"],["7","&"],["8","*"],["9","("],["0",")"],["-","_"],["=","+"],["Backspace",""]],
- [["Tab",""],["Q",""],["W",""],["E",""],["R",""],["T",""],["Y",""],["U",""],["I",""],["O",""],["P",""],["[",""],["]",""],["\\",""]],
- [["Caps Lock",""],["A",""],["S",""],["D",""],["F",""],["G",""],["H",""],["J",""],["K",""],["L",""],[";",""],["'",""],["Enter",""]],
- [["Shift",""],["Z",""],["X",""],["C",""],["V",""],["B",""],["N",""],["M",""],[",",""],[".",""],["/",""],["Shift",""]],
- [["Ctrl",""],["Win",""],["Alt",""],["Space",""],["Alt",""],["Win",""],["Menu",""],["Ctrl",""]]
- ];
- const kb=$("keyboard");kb.innerHTML="";
- rows.forEach((row,ri)=>{let r=document.createElement("div");r.className="krow";row.forEach(k=>{
- let d=document.createElement("div");d.className="key";d.dataset.key=k[0].toLowerCase();
- if(["Backspace","Tab","Caps Lock","Enter","Shift","Ctrl","Win","Alt","Menu"].includes(k[0]))d.classList.add("special");
- if(k[0]=="Space")d.classList.add("space");
- if(["A","S","D","F","J","K","L",";"].includes(k[0]))d.classList.add("home");
- d.innerHTML=k[0]+(k[1]?'<small>'+k[1]+'</small>':"");r.appendChild(d);});kb.appendChild(r)});
+
+function makeTarget(){
+ targetText=mode==="test"?"The quick brown fox jumps over the lazy dog. Practice typing every word with accuracy and steady rhythm.":lessons[lessonIndex][2];
+ pos=0;errors=0;started=false;shiftOn=false;clearInterval(timerId);timerId=null;
+ $("target").innerHTML="";
+ [...targetText].forEach((ch,i)=>{const s=document.createElement("span");s.textContent=ch===" "?"·":ch;s.dataset.i=i;$("target").appendChild(s)});
+ $("status").innerHTML="<strong>Ready.</strong> Click a key or start typing.";
+ update();highlight();
 }
-function renderText(){
- text=lessons[lesson][2];
- $("targetBox").innerHTML="";
- [...text].forEach((c,i)=>{let s=document.createElement("span");s.textContent=c===" "?"·":c;s.dataset.i=i;$("targetBox").appendChild(s)});
- updateUI();highlight();
-}
-function highlight(){
- document.querySelectorAll(".key").forEach(k=>k.classList.remove("active"));
- let c=text[pos]||" ";let target=c===" "?"space":c.toLowerCase();
- let el=[...document.querySelectorAll(".key")].find(k=>k.dataset.key===target);if(el)el.classList.add("active");
- const s=$(`targetBox`).querySelectorAll("span");s.forEach((x,i)=>x.className=i<pos?"done":i===pos?"current":"");
- $("hintText").textContent="Next key: "+(c===" "?"SPACE":c.toUpperCase());
-}
-function start(){
- if(started)return;started=true;startTime=Date.now();timerId=setInterval(updateUI,250);
- $("status").textContent="Typing…";
-}
-function updateUI(){
- let sec=started?Math.max(0,(Date.now()-startTime)/1000):0;
- if(mode==="test"&&sec>=testTime){finish();return}
- let minutes=sec/60,wpm=minutes>0?Math.round((pos/5)/minutes):0;
- let acc=pos?Math.max(0,Math.round(((pos-errors)/pos)*100)):100;
- $("wpm").textContent=wpm;$("accuracy").textContent=acc;$("errors").textContent=errors;
- $("topWpm").textContent=wpm;$("topAcc").textContent=acc+"%";
- $("timer").textContent=fmt(sec);$("count").textContent=pos+" / "+text.length;
- $("progressFill").style.width=(text.length?pos/text.length*100:0)+"%";
-}
-function fmt(s){s=Math.floor(s);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")}
-function beep(ok){
- if(!sound)return;try{let a=new AudioContext(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?660:150;g.gain.value=.035;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045)}catch(e){}
-}
-function finish(){
- if(!started)return;started=false;clearInterval(timerId);timerId=null;
- let sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((pos/5)/(sec/60)),acc=pos?Math.max(0,Math.round(((pos-errors)/pos)*100)):100;
- $("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=errors;$("rTime").textContent=fmt(sec);
- saveProgress(wpm,acc);$("modal").style.display="flex";updateChart();
-}
-function reset(){
- clearInterval(timerId);timerId=null;started=false;pos=0;errors=0;
- $("status").textContent="Click here or start typing";$("timer").textContent="00:00";renderText();
-}
-function next(){lesson=(lesson+1)%lessons.length;loadLesson()}
-function loadLesson(){mode="lesson";$("modeText").textContent="Lesson mode";$("lessonTitle").innerHTML=`Lesson ${lesson+1} — ${lessons[lesson][0]} <small>${lessons[lesson][1]}</small>`;$("topLesson").textContent=lesson+1;reset()}
-function choose(i){lesson=i;$("lessonPanel").style.display="none";loadLesson()}
-function saveProgress(wpm,acc){let a=JSON.parse(localStorage.getItem("typingHistory")||"[]");a.push({date:Date.now(),wpm,acc});a=a.slice(-12);localStorage.setItem("typingHistory",JSON.stringify(a))}
-function updateChart(){
- let a=JSON.parse(localStorage.getItem("typingHistory")||"[]"),c=$("chart");c.innerHTML="";
- let vals=a.map(x=>x.wpm).slice(-10);let max=Math.max(20,...vals);
- for(let v of vals){let b=document.createElement("div");b.className="bar";b.style.height=Math.max(8,Math.round(v/max*105))+"px";c.appendChild(b)}
-}
-function openLessons(){let g=$("lessonGrid");g.innerHTML="";lessons.forEach((l,i)=>{let d=document.createElement("div");d.className="lessonItem";d.innerHTML=`<b>${i+1}. ${l[0]}</b><span>${l[1]} · ${l[2].slice(0,30)}…</span>`;d.onclick=()=>choose(i);g.appendChild(d)});$("lessonPanel").style.display="flex"}
-document.addEventListener("keydown",e=>{
- if(e.ctrlKey||e.altKey||e.metaKey||e.key==="Tab")return;
- if(e.key==="Escape"){$("modal").style.display="none";$("lessonPanel").style.display="none";return}
- let k=e.key===" "?" ":e.key.toLowerCase();
- if(!text)return;
+function normalizeKey(k){if(k===" ")return " ";if(k==="Space")return " ";if(k==="Backspace")return "Backspace";return k.length===1?k.toLowerCase():k}
+function expectedKey(){const ch=targetText[pos]||"";return ch===" "?" ":ch.toLowerCase()}
+function findKey(k){const key=normalizeKey(k);return [...document.querySelectorAll(".key")].find(el=>el.dataset.key===key)}
+function highlight(){document.querySelectorAll(".key").forEach(el=>el.classList.remove("targetKey"));const el=findKey(expectedKey());if(el)el.classList.add("targetKey");const spans=$("target").querySelectorAll("span");spans.forEach((s,i)=>s.className=i<pos?"done":i===pos?"current":"")}
+function start(){if(started)return;started=true;startTime=Date.now();timerId=setInterval(update,200);$("status").innerHTML="<strong>Typing…</strong> Keep a steady rhythm."}
+function update(){const sec=started?Math.max(0,(Date.now()-startTime)/1000):0;if(mode==="test"&&started&&sec>=testLimit){finish();return}const minutes=sec/60,wpm=minutes>0?Math.round((pos/5)/minutes):0,total=pos+errors,acc=total?Math.max(0,Math.round(pos/total*100)):100,pct=targetText.length?Math.round(pos/targetText.length*100):0;$("wpm").textContent=wpm;$("accuracy").textContent=acc+"%";$("errors").textContent=errors+" error"+(errors===1?"":"s");$("percent").textContent=pct+"%";$("timer").textContent=fmt(sec);$("count").textContent=pos+" / "+targetText.length;$("progress").style.width=pct+"%"}
+function fmt(sec){sec=Math.floor(sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function beep(ok){if(!sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const a=new C(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?650:150;g.gain.value=.025;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045);setTimeout(()=>a.close(),100)}catch(e){}}
+function flashError(el){if(!el)return;el.classList.add("error");setTimeout(()=>el.classList.remove("error"),180)}
+function processKey(raw){
+ if(!targetText||pos>=targetText.length)return;
+ if(raw==="Shift"){shiftOn=!shiftOn;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.toggle("shiftOn",shiftOn));return}
+ if(["Ctrl","Alt","AltGr","Win","Menu","Tab","Caps Lock","Esc","Enter","Backspace","Print Screen","Scroll Lock","Pause Break","Insert","Home","Page Up","Delete","End","Page Down","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","NumLock","NumpadEnter"].includes(raw))return;
  if(!started)start();
- if(k==="backspace"){return}
- let expected=text[pos];
- if(k===expected){pos++;beep(true);$("status").textContent="Correct";if(pos>=text.length)finish();else highlight()}
- else{errors++;beep(false);$("status").textContent="Incorrect key";let el=[...document.querySelectorAll(".key")].find(x=>x.dataset.key===k);if(el){el.classList.add("error");setTimeout(()=>el.classList.remove("error"),170)}}
- updateUI();
-});
-$("restartBtn").onclick=reset;$("cancelBtn").onclick=reset;$("nextBtn").onclick=next;$("lessonsBtn").onclick=openLessons;$("closeLessons").onclick=()=>$("lessonPanel").style.display="none";
-$("continueBtn").onclick=()=>{$("modal").style.display="none";next()};
-$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};
-$("resetBtn").onclick=()=>{localStorage.removeItem("typingHistory");updateChart();reset()};
-document.querySelectorAll(".nav button[data-page]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");if(b.dataset.page==="test"){mode="test";text="The quick brown fox jumps over the lazy dog. Practice typing every word with accuracy and steady rhythm.";$("lessonTitle").innerHTML="Typing Test — 60 Seconds <small>Timed</small>";$("modeText").textContent="Test mode";reset()}else loadLesson()});
-makeKeyboard();updateChart();loadLesson();
+ const expected=targetText[pos],actual=raw===" "?" ":(shiftOn?raw.toUpperCase():raw);
+ if(actual===expected){pos++;beep(true);$("status").innerHTML="<strong>Correct ✓</strong> Keep going.";if(pos>=targetText.length){update();highlight();finish();return}}
+ else{errors++;beep(false);$("status").innerHTML="<strong>Incorrect ✕</strong> Expected <b>"+expected+"</b>";flashError(findKey(raw))}
+ update();highlight();
+}
+function finish(){if(!started)return;started=false;clearInterval(timerId);timerId=null;const sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((pos/5)/(sec/60)),total=pos+errors,acc=total?Math.max(0,Math.round(pos/total*100)):100;$("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=errors;$("rTime").textContent=fmt(sec);saveHistory(wpm,acc);updateChart();$("resultModal").style.display="flex"}
+function resetExercise(){clearInterval(timerId);timerId=null;makeTarget()}
+function nextLesson(){if(mode==="test"){mode="lesson";$("lessonMode").classList.add("active");$("testMode").classList.remove("active")}lessonIndex=(lessonIndex+1)%lessons.length;loadLesson()}
+function loadLesson(){mode="lesson";$("lessonMode").classList.add("active");$("testMode").classList.remove("active");$("lessonTitle").innerHTML="Lesson "+(lessonIndex+1)+" — "+lessons[lessonIndex][0]+' <small>'+lessons[lessonIndex][1]+"</small>";$("modeText").textContent="Lesson mode";makeTarget()}
+function startTest(){mode="test";$("testMode").classList.add("active");$("lessonMode").classList.remove("active");$("lessonTitle").innerHTML='Typing Test — 60 Seconds <small>Timed</small>';$("modeText").textContent="Test mode";makeTarget()}
+function saveHistory(wpm,acc){const a=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]");a.push({wpm:wpm,acc:acc,date:Date.now()});localStorage.setItem("onestopTypingHistory",JSON.stringify(a.slice(-12)))}
+function updateChart(){const a=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]"),vals=a.map(x=>x.wpm).slice(-10),max=Math.max(20,...vals),c=$("chart");c.innerHTML="";vals.forEach(v=>{const b=document.createElement("div");b.className="bar";b.style.height=Math.max(5,Math.round(v/max*75))+"px";c.appendChild(b)})}
+function openLessons(){const g=$("lessonGrid");g.innerHTML="";lessons.forEach((l,i)=>{const d=document.createElement("div");d.className="lessonItem";d.innerHTML="<b>"+(i+1)+". "+l[0]+"</b><span>"+l[1]+" · "+l[2].slice(0,38)+"…</span>";d.onclick=()=>{lessonIndex=i;$("lessonPanel").style.display="none";loadLesson()};g.appendChild(d)});$("lessonPanel").style.display="flex"}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("resultModal").style.display="none";$("lessonPanel").style.display="none";return}if(e.key==="Shift"){e.preventDefault();processKey("Shift");return}if(e.ctrlKey||e.altKey||e.metaKey)return;if(e.key==="Tab"||e.key==="Backspace"){e.preventDefault();return}processKey(e.key)});
+document.querySelectorAll(".key").forEach(btn=>{btn.addEventListener("pointerdown",()=>btn.classList.add("pressed"));btn.addEventListener("pointerup",()=>setTimeout(()=>btn.classList.remove("pressed"),100));btn.addEventListener("pointercancel",()=>btn.classList.remove("pressed"));btn.addEventListener("click",()=>processKey(btn.dataset.key))});
+$("restartBtn").onclick=resetExercise;$("nextBtn").onclick=nextLesson;$("chooseBtn").onclick=openLessons;$("closeLessons").onclick=()=>$("lessonPanel").style.display="none";$("continueBtn").onclick=()=>{$("resultModal").style.display="none";nextLesson()};$("lessonMode").onclick=loadLesson;$("testMode").onclick=startTest;$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};$("resetBtn").onclick=()=>{localStorage.removeItem("onestopTypingHistory");updateChart();resetExercise()};
+updateChart();loadLesson();
 </script>
 </body>
 </html>
