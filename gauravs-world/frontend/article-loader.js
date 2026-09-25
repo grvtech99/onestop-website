@@ -18,6 +18,61 @@
     if (/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(value) && !value.includes('..')) return `./${value}`;
     return '';
   }
+  function sanitizeStoredHtml(raw) {
+    const doc = new DOMParser().parseFromString(String(raw || ''), 'text/html');
+    const allowed = new Set(['TABLE','THEAD','TBODY','TFOOT','TR','TH','TD','CAPTION','COLGROUP','COL','P','DIV','SPAN','STRONG','B','EM','I','U','S','BR','H1','H2','H3','H4','H5','H6','UL','OL','LI','BLOCKQUOTE','HR','A','IMG','FIGURE','FIGCAPTION']);
+    const attrs = new Set(['href','target','rel','title','alt','src','colspan','rowspan','style','width','height','align','valign']);
+    const styles = new Set(['background','background-color','color','font-family','font-size','font-weight','font-style','text-decoration','text-align','vertical-align','border','border-top','border-right','border-bottom','border-left','border-collapse','border-spacing','padding','padding-top','padding-right','padding-bottom','padding-left','margin','margin-top','margin-right','margin-bottom','margin-left','width','max-width','min-width','height','white-space']);
+    const safeUrl = (v, kind) => {
+      const x = String(v || '').trim();
+      if (kind === 'href') return /^(https?:|mailto:)/i.test(x) ? x : '';
+      if (kind === 'src') return /^(https?:|data:image\/(png|jpeg|webp);base64:)/i.test(x) ? x : '';
+      return '';
+    };
+    const cleanStyle = v => String(v || '').split(';').map(part => {
+      const i = part.indexOf(':'); if (i < 0) return '';
+      const k = part.slice(0,i).trim().toLowerCase(), val = part.slice(i+1).trim();
+      if (!styles.has(k) || !val || /expression\s*\(|url\s*\(/i.test(val)) return '';
+      return k + ':' + val;
+    }).filter(Boolean).join(';');
+    const clean = node => {
+      for (const child of Array.from(node.childNodes)) {
+        if (child.nodeType === 8) { child.remove(); continue; }
+        if (child.nodeType !== 1) continue;
+        if (!allowed.has(child.tagName)) {
+          const frag = doc.createDocumentFragment();
+          while (child.firstChild) frag.appendChild(child.firstChild);
+          child.replaceWith(frag); continue;
+        }
+        for (const attr of Array.from(child.attributes)) {
+          const name = attr.name.toLowerCase();
+          if (!attrs.has(name)) { child.removeAttribute(attr.name); continue; }
+          if (name === 'style') {
+            const st = cleanStyle(attr.value); if (st) child.setAttribute('style', st); else child.removeAttribute('style');
+          } else if (name === 'href') {
+            const u = safeUrl(attr.value, 'href'); if (!u) child.removeAttribute(attr.name);
+            else { child.setAttribute('href', u); child.setAttribute('target','_blank'); child.setAttribute('rel','noopener noreferrer'); }
+          } else if (name === 'src') {
+            const u = safeUrl(attr.value, 'src'); if (!u) child.removeAttribute(attr.name); else child.setAttribute('src', u);
+          }
+        }
+        clean(child);
+      }
+    };
+    clean(doc.body);
+    doc.body.querySelectorAll('table').forEach(table => {
+      table.querySelectorAll('tr').forEach(tr => {
+        const cells = Array.from(tr.children).filter(el => /^(TD|TH)$/.test(el.tagName));
+        while (cells.length && !cells[cells.length-1].textContent.trim() && !cells[cells.length-1].querySelector('a,img')) {
+          cells[cells.length-1].remove(); cells.pop();
+        }
+        if (!cells.length || (!tr.textContent.trim() && !tr.querySelector('a,img'))) tr.remove();
+      });
+      table.querySelectorAll('tr').forEach(tr => { if (!tr.children.length) tr.remove(); });
+    });
+    return doc.body.innerHTML.trim();
+  }
+
   function inline(text) {
     let value = esc(text);
     const protectedParts = [];
@@ -182,11 +237,11 @@
     .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(a => {
       if (!a || !a.title) throw new Error('invalid article');
-      const body = a.bodyMarkdown || a.body || a.content || '';
+      const body = a.bodyHtml ? sanitizeStoredHtml(a.bodyHtml) : (a.bodyMarkdown || a.body || a.content || '');
       const imagePath = String(a.image || a.coverImage || '').trim();
       const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
       const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
-      root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${markdown(body)}</div>`;
+      root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${a.bodyHtml ? body : markdown(body)}</div>`;
       addBreadcrumb(a.category || 'General', a.title);
       addShareControls(a.title);
       root.querySelectorAll('.article-body img').forEach(img => {
