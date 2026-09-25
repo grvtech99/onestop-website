@@ -104,14 +104,31 @@ function update(){const sec=started?Math.max(0,(Date.now()-startTime)/1000):0;if
 function fmt(sec){sec=Math.floor(sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
 function beep(ok){if(!sound)return;try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;const a=new C(),o=a.createOscillator(),g=a.createGain();o.frequency.value=ok?650:150;g.gain.value=.025;o.connect(g);g.connect(a.destination);o.start();o.stop(a.currentTime+.045);setTimeout(()=>a.close(),100)}catch(e){}}
 function flashError(el){if(!el)return;el.classList.add("error");setTimeout(()=>el.classList.remove("error"),180)}
-function processKey(raw){
+function processKey(raw,fromPhysical=false){
  if(!targetText||pos>=targetText.length)return;
- if(raw==="Shift"){shiftOn=!shiftOn;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.toggle("shiftOn",shiftOn));return}
+ if(raw==="Shift"){
+   shiftOn=!shiftOn;
+   document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.toggle("shiftOn",shiftOn));
+   return;
+ }
  if(["Ctrl","Alt","AltGr","Win","Menu","Tab","Caps Lock","Esc","Enter","Backspace","Print Screen","Scroll Lock","Pause Break","Insert","Home","Page Up","Delete","End","Page Down","ArrowUp","ArrowDown","ArrowLeft","ArrowRight","NumLock","NumpadEnter"].includes(raw))return;
  if(!started)start();
- const expected=targetText[pos],actual=raw===" "?" ":(shiftOn?raw.toUpperCase():raw);
- if(actual===expected){pos++;beep(true);$("status").innerHTML="<strong>Correct ✓</strong> Keep going.";if(pos>=targetText.length){update();highlight();finish();return}}
- else{errors++;beep(false);$("status").innerHTML="<strong>Incorrect ✕</strong> Expected <b>"+expected+"</b>";flashError(findKey(raw))}
+ const expected=targetText[pos];
+ let actual=raw===" "?" ":(fromPhysical?raw:(shiftOn?raw.toUpperCase():raw));
+ if(actual.length===1 && expected.length===1){
+   actual=actual===expected?actual:actual.toLowerCase();
+ }
+ if(actual===expected){
+   pos++;
+   beep(true);
+   $("status").innerHTML="<strong>Correct ✓</strong> Keep going.";
+   if(pos>=targetText.length){update();highlight();finish();return}
+ }else{
+   errors++;
+   beep(false);
+   $("status").innerHTML="<strong>Incorrect ✕</strong> Expected <b>"+expected+"</b>";
+   flashError(findKey(actual)||findKey(raw));
+ }
  update();highlight();
 }
 function finish(){if(!started)return;started=false;clearInterval(timerId);timerId=null;const sec=Math.max((Date.now()-startTime)/1000,.1),wpm=Math.round((pos/5)/(sec/60)),total=pos+errors,acc=total?Math.max(0,Math.round(pos/total*100)):100;$("rWpm").textContent=wpm;$("rAcc").textContent=acc+"%";$("rErr").textContent=errors;$("rTime").textContent=fmt(sec);saveHistory(wpm,acc);updateChart();$("resultModal").style.display="flex"}
@@ -123,7 +140,19 @@ function saveHistory(wpm,acc){const a=JSON.parse(localStorage.getItem("onestopTy
 function updateChart(){const a=JSON.parse(localStorage.getItem("onestopTypingHistory")||"[]"),vals=a.map(x=>x.wpm).slice(-10),max=Math.max(20,...vals),c=$("chart");c.innerHTML="";vals.forEach(v=>{const b=document.createElement("div");b.className="bar";b.style.height=Math.max(5,Math.round(v/max*75))+"px";c.appendChild(b)})}
 function openLessons(){const g=$("lessonGrid");g.innerHTML="";lessons.forEach((l,i)=>{const d=document.createElement("div");d.className="lessonItem";d.innerHTML="<b>"+(i+1)+". "+l[0]+"</b><span>"+l[1]+" · "+l[2].slice(0,38)+"…</span>";d.onclick=()=>{lessonIndex=i;$("lessonPanel").style.display="none";loadLesson()};g.appendChild(d)});$("lessonPanel").style.display="flex"}
 
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("resultModal").style.display="none";$("lessonPanel").style.display="none";return}if(e.key==="Shift"){e.preventDefault();processKey("Shift");return}if(e.ctrlKey||e.altKey||e.metaKey)return;if(e.key==="Tab"||e.key==="Backspace"){e.preventDefault();return}processKey(e.key)});
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){$("resultModal").style.display="none";$("lessonPanel").style.display="none";return}
+ if(e.repeat)return;
+ if(e.key==="Shift"){e.preventDefault();shiftOn=true;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.add("shiftOn"));return}
+ if(e.key==="CapsLock"){return}
+ if(e.ctrlKey||e.altKey||e.metaKey)return;
+ if(e.key==="Tab"||e.key==="Backspace"){e.preventDefault();return}
+ e.preventDefault();
+ processKey(e.key, true);
+});
+document.addEventListener("keyup",e=>{
+ if(e.key==="Shift"){shiftOn=false;document.querySelectorAll('[data-key="Shift"]').forEach(x=>x.classList.remove("shiftOn"))}
+});
 document.querySelectorAll(".key").forEach(btn=>{btn.addEventListener("pointerdown",()=>btn.classList.add("pressed"));btn.addEventListener("pointerup",()=>setTimeout(()=>btn.classList.remove("pressed"),100));btn.addEventListener("pointercancel",()=>btn.classList.remove("pressed"));btn.addEventListener("click",()=>processKey(btn.dataset.key))});
 $("restartBtn").onclick=resetExercise;$("nextBtn").onclick=nextLesson;$("chooseBtn").onclick=openLessons;$("closeLessons").onclick=()=>$("lessonPanel").style.display="none";$("continueBtn").onclick=()=>{$("resultModal").style.display="none";nextLesson()};$("lessonMode").onclick=loadLesson;$("testMode").onclick=startTest;$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};$("resetBtn").onclick=()=>{localStorage.removeItem("onestopTypingHistory");updateChart();resetExercise()};
 updateChart();loadLesson();
