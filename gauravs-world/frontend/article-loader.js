@@ -57,6 +57,9 @@
     return html + '</tbody></table></div>';
   }
 
+  function isInfoSectionHeading(text) {
+    return /^(TOP IMPORTANT INFORMATION|IMPORTANT DATES|AGE LIMIT|CATEGORY-WISE VACANCY|EDUCATIONAL QUALIFICATION|SELECTION PROCESS|APPLICATION FEE|IMPORTANT LINKS|IMPORTANT NOTE)$/i.test(String(text || '').trim());
+  }
   function markdown(source) {
     const lines = String(source || '').replace(/\r/g, '').split('\n');
     const out = []; let list = null;
@@ -102,6 +105,7 @@
       else if (ol) { if (list !== 'ol') { closeList(); out.push('<ol>'); list = 'ol'; } out.push('<li>' + inline(ol[1]) + '</li>'); }
       else if (ul) { if (list !== 'ul') { closeList(); out.push('<ul>'); list = 'ul'; } out.push('<li>' + inline(ul[1]) + '</li>'); }
       else if (quote) { closeList(); out.push('<blockquote>' + inline(quote[1]) + '</blockquote>'); }
+      else if (isInfoSectionHeading(t)) { closeList(); out.push('<div class="article-section-heading">' + inline(t) + '</div>'); }
       else { closeList(); out.push('<p>' + inline(t) + '</p>'); }
     }
     closeList(); return out.join('');
