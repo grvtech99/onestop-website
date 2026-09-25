@@ -1,0 +1,16 @@
+/* Shared Gaurav's World site chrome: footer + mobile navigation. Keep this file as the single source of truth. */
+.site-footer{width:100%;text-align:center;color:#fff;font-size:.78rem;padding:20px 12px calc(20px + env(safe-area-inset-bottom));border-top:0;background:linear-gradient(135deg,#075da8 0%,#0876d1 50%,#19a1e6 100%);box-shadow:0 -4px 18px rgba(8,118,209,.18)}
+.site-footer a{color:#fff;text-decoration:none;font-weight:700}
+.site-footer a:hover{text-decoration:underline}
+.site-bottom-nav{display:none}
+@media(max-width:560px){
+  body{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+  .site-bottom-nav{position:fixed;z-index:1000;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:6px 4px calc(6px + env(safe-area-inset-bottom));background:linear-gradient(135deg,#075da8 0%,#0876d1 50%,#19a1e6 100%);border-top:1px solid rgba(255,255,255,.25);box-shadow:0 -5px 18px rgba(8,118,209,.28)}
+  .site-bottom-nav a{display:grid;justify-items:center;align-content:center;gap:3px;min-width:0;color:#eaf5ff;font-size:.62rem;font-weight:650;line-height:1.2;padding:3px 0;min-height:52px;border-radius:10px}
+  .site-bottom-nav .nav-ico{display:flex;align-items:center;justify-content:center;width:24px;height:22px}
+  .site-bottom-nav .nav-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .site-bottom-nav a[aria-current="page"],.site-bottom-nav a:first-child{color:#fff;background:rgba(255,255,255,.16)}
+  .site-bottom-nav a:active,.site-bottom-nav a:focus-visible{color:#fff;background:rgba(255,255,255,.16);outline:none}
+  .site-footer{padding:12px 8px calc(12px + env(safe-area-inset-bottom));font-size:.72rem}
+}
+@media(min-width:561px){.site-bottom-nav{display:none}}
