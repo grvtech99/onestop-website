@@ -21,7 +21,7 @@
   function sanitizeStoredHtml(raw) {
     const doc = new DOMParser().parseFromString(String(raw || ''), 'text/html');
     const allowed = new Set(['TABLE','THEAD','TBODY','TFOOT','TR','TH','TD','CAPTION','COLGROUP','COL','P','DIV','SPAN','STRONG','B','EM','I','U','S','BR','H1','H2','H3','H4','H5','H6','UL','OL','LI','BLOCKQUOTE','HR','A','IMG','FIGURE','FIGCAPTION']);
-    const attrs = new Set(['href','target','rel','title','alt','src','colspan','rowspan','style','width','height','align','valign']);
+    const attrs = new Set(['href','target','rel','title','alt','src','colspan','rowspan','style','width','height','align','valign','class']);
     const styles = new Set(['background','background-color','color','font-family','font-size','font-weight','font-style','text-decoration','text-align','vertical-align','border','border-top','border-right','border-bottom','border-left','border-collapse','border-spacing','padding','padding-top','padding-right','padding-bottom','padding-left','margin','margin-top','margin-right','margin-bottom','margin-left','width','max-width','min-width','height','white-space']);
     const safeUrl = (v, kind) => {
       const x = String(v || '').trim();
@@ -49,6 +49,11 @@
           if (!attrs.has(name)) { child.removeAttribute(attr.name); continue; }
           if (name === 'style') {
             const st = cleanStyle(attr.value); if (st) child.setAttribute('style', st); else child.removeAttribute('style');
+          } else if (name === 'class') {
+            // Preserve only the site's own result-table classes.
+            const safeClasses = String(attr.value || '').split(/\s+/).filter(x => x === 'article-table' || x === 'gw-results-table');
+            if (safeClasses.length) child.setAttribute('class', safeClasses.join(' '));
+            else child.removeAttribute(attr.name);
           } else if (name === 'href') {
             const u = safeUrl(attr.value, 'href'); if (!u) child.removeAttribute(attr.name);
             else { child.setAttribute('href', u); child.setAttribute('target','_blank'); child.setAttribute('rel','noopener noreferrer'); }
