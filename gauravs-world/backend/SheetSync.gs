@@ -187,7 +187,10 @@ function sheetRowToArticle_(item) {
 
   if (type === 'CONTENT') {
     const title = d.title;
-    const slug = d.slug || sheetSlug_(title, d.contentId || item.rowNumber);
+    const rawSlug = String(d.slug || '').trim().toLowerCase();
+    const slug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(rawSlug)
+      ? rawSlug
+      : sheetSlug_(title, d.contentId || item.rowNumber);
     if (!title) throw new Error('CONTENT row needs title');
     if (!d.content) throw new Error('CONTENT row needs content');
 
