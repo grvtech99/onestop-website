@@ -1,6 +1,15 @@
 {
   "articles": [
     {
+      "id": "upsssc-pet-2026-upsssc-pet-result-20",
+      "slug": "upsssc-pet-2026-upsssc-pet-result-20",
+      "title": "UPSSSC-PET-2026",
+      "category": "Result",
+      "summary": "UPSSSC-PET-2026 result information.",
+      "image": "images/ChatGPT-Image-Sep-25-2026-12_59_14-AM.webp",
+      "updatedAt": "2026-09-26T11:39:26.408Z"
+    },
+    {
       "id": "government-exam-results-2026",
       "slug": "government-exam-results-2026",
       "title": "Government Exam Results 2026 – सभी सरकारी परीक्षा परिणाम",
@@ -159,5 +168,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-26T05:28:32.025Z"
+  "updatedAt": "2026-09-26T11:39:26.408Z"
 }
