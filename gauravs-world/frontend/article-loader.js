@@ -98,7 +98,28 @@
     const data = rows.map(row => row.split('\t').map(cell => cell.trim()));
     const width = Math.max.apply(null, data.map(r => r.length));
     if (width < 2) return '';
+
     data.forEach(r => { while (r.length < width) r.push(''); });
+
+    // The common Government Results article is a real two-column result table.
+    // Keep its header as THEAD and give it the dedicated result-table class so
+    // the public page uses the same compact 72/28 layout as the Sheet/Admin.
+    const firstHeader = String(data[0] && data[0][0] || '').toLowerCase();
+    const secondHeader = String(data[0] && data[0][1] || '').toLowerCase();
+    const isResultsTable =
+      width === 2 &&
+      /(exam|परीक्षा|recruit|भर्ती)/i.test(firstHeader) &&
+      /(result|link|url|परिणाम)/i.test(secondHeader);
+
+    if (isResultsTable) {
+      let html = '<div class="article-table-wrap"><table class="article-table gw-results-table"><thead><tr>';
+      html += data[0].map(c => '<th>' + inline(c) + '</th>').join('');
+      html += '</tr></thead><tbody>';
+      for (let i = 1; i < data.length; i++) {
+        html += '<tr>' + data[i].map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>';
+      }
+      return html + '</tbody></table></div>';
+    }
 
     // Two-column information tables are label/detail tables, not header tables.
     // Keep every row as data so the first row is not incorrectly highlighted.
@@ -116,7 +137,6 @@
     for (let i = 1; i < data.length; i++) html += '<tr>' + data[i].map(c => '<td>' + inline(c) + '</td>').join('') + '</tr>';
     return html + '</tbody></table></div>';
   }
-
   function isInfoSectionHeading(text) {
     return /^(TOP IMPORTANT INFORMATION|IMPORTANT DATES|AGE LIMIT|CATEGORY-WISE VACANCY|EDUCATIONAL QUALIFICATION|SELECTION PROCESS|APPLICATION FEE|IMPORTANT LINKS|IMPORTANT NOTE)$/i.test(String(text || '').trim());
   }
