@@ -55,3 +55,33 @@ The Admin's Connect Sheet button sets this property for you.
 
 ## 8. Deployment
 The repository's GitHub Actions workflow now includes SheetSync.gs. Once the existing Apps Script CI/CD credentials are configured, backend changes can be synchronized through the existing deployment workflow.
+## 9. First test run (recommended)
+Use one test row first; do not start with bulk content.
+
+### TEST 1 — CONTENT
+In the CONTENT sheet, add one row with:
+- type = ARTICLE
+- category = Technology
+- title = Gaurav's World CMS Test Article
+- slug = gauravs-world-cms-test
+- summary = Test article for Sheet CMS import.
+- content = ## Test Article\n\nThis is a temporary CMS import test.\n\n### Verification\n\nConfirm that the text reaches the secure Admin draft editor.
+- author = Gaurav
+- status = NEW
+
+Leave heroImage and tags empty for this first test.
+
+### Verify
+1. In Admin, click **Preview Sync**. The test row should appear.
+2. Click **Sync to Drafts**.
+3. Confirm the row changes from NEW to SYNCED.
+4. Confirm the imported draft opens automatically in the Article Editor.
+5. Check title, category, summary, body, slug and author.
+6. Click **Save Draft** and verify the draft remains editable.
+7. Only after all checks pass, use **Publish** if you want to test the live publication path.
+
+### Cleanup
+After testing, delete the temporary published article if it was published. If it was only a draft, use **Delete Draft** from the Admin editor.
+
+## 10. Bulk rollout rule
+After the first test succeeds, add real rows in small batches. Keep new rows at status = NEW. Review imported drafts before publishing; the Sheet sync is intentionally not an auto-publish mechanism.
