@@ -1,0 +1,17 @@
+{
+  "id": "gaurav-s-world-cms-test-test001",
+  "slug": "gaurav-s-world-cms-test-test001",
+  "title": "GAURAV S WORLD CMS TEST",
+  "category": "TECHNOLOGY",
+  "summary": "test rtical",
+  "bodyMarkdown": "##test rtical thi",
+  "author": "Gaurav",
+  "tags": [],
+  "image": "",
+  "status": "draft",
+  "updatedAt": "2026-09-26T09:25:00.029Z",
+  "source": "google-sheet",
+  "sourceSheet": "CONTENT",
+  "sourceRow": 2,
+  "sourceId": "TEST001"
+}
