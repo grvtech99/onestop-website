@@ -7,6 +7,7 @@ on:
     paths:
       - 'gauravs-world/backend/Code.gs'
       - 'gauravs-world/backend/Admin.html'
+      - 'gauravs-world/backend/SheetSync.gs'
   workflow_dispatch:
 
 concurrency:
@@ -82,6 +83,7 @@ jobs:
           set -euo pipefail
           cp "$GITHUB_WORKSPACE/gauravs-world/backend/Code.gs" "$RUNNER_TEMP/gauravs-world-appsscript/Code.gs"
           cp "$GITHUB_WORKSPACE/gauravs-world/backend/Admin.html" "$RUNNER_TEMP/gauravs-world-appsscript/Admin.html"
+          cp "$GITHUB_WORKSPACE/gauravs-world/backend/SheetSync.gs" "$RUNNER_TEMP/gauravs-world-appsscript/SheetSync.gs"
 
       - name: Push GitHub code to Apps Script
         if: steps.credentials.outputs.configured == 'true'
