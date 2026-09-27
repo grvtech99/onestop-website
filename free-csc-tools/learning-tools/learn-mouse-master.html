@@ -152,10 +152,33 @@ function renderRight(){
 }
 function renderDrag(){
  const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
- const file=document.createElement("div");file.className="file";file.textContent="📄 Photo.jpg";file.style.left="65px";file.style.top="95px";file.draggable=true;zone.appendChild(file);
+ const file=document.createElement("div");file.className="file";file.textContent="📄 Photo.jpg";file.style.left="65px";file.style.top="95px";zone.appendChild(file);
  const drop=document.createElement("div");drop.className="dropZone";drop.innerHTML="📁<br>Photos Folder";zone.appendChild(drop);
- file.ondragstart=()=>{dragData=true;file.classList.add("dragging")};file.ondragend=()=>{dragData=false;file.classList.remove("dragging")};
- drop.ondragover=e=>{e.preventDefault();drop.classList.add("over")};drop.ondragleave=()=>drop.classList.remove("over");drop.ondrop=e=>{e.preventDefault();drop.classList.remove("over");if(dragData){file.style.left="auto";file.style.top="auto";file.style.position="relative";file.style.margin="0 auto";drop.innerHTML="✓ Photo.jpg<br>Placed correctly";complete(15)}};
+ let dragging=false,startX=0,startY=0,baseL=65,baseT=95;
+ const move=(e)=>{
+   if(!dragging)return;
+   const p=e.touches?e.touches[0]:e;
+   const r=zone.getBoundingClientRect();
+   const x=p.clientX-r.left-file.offsetWidth/2,y=p.clientY-r.top-file.offsetHeight/2;
+   file.style.left=Math.max(5,Math.min(r.width-file.offsetWidth-5,x))+"px";
+   file.style.top=Math.max(5,Math.min(r.height-file.offsetHeight-5,y))+"px";
+   const dr=drop.getBoundingClientRect(),fr=file.getBoundingClientRect();
+   const over=fr.left<dr.right&&fr.right>dr.left&&fr.top<dr.bottom&&fr.bottom>dr.top;
+   drop.classList.toggle("over",over);
+ };
+ const end=()=>{
+   if(!dragging)return;
+   dragging=false;file.classList.remove("dragging");
+   const dr=drop.getBoundingClientRect(),fr=file.getBoundingClientRect();
+   const over=fr.left<dr.right&&fr.right>dr.left&&fr.top<dr.bottom&&fr.bottom>dr.top;
+   drop.classList.remove("over");
+   if(over){file.style.left="auto";file.style.top="auto";file.style.position="relative";file.style.margin="0 auto";drop.innerHTML="✓ Photo.jpg<br>Placed correctly";complete(15)}
+   else{file.style.left=baseL+"px";file.style.top=baseT+"px";setStatus("<strong>✕ Not quite.</strong> Drop the file inside the folder.");}
+ };
+ file.addEventListener("pointerdown",e=>{e.preventDefault();dragging=true;file.classList.add("dragging");file.setPointerCapture?.(e.pointerId)});
+ file.addEventListener("pointermove",move);
+ file.addEventListener("pointerup",end);
+ file.addEventListener("pointercancel",end);
 }
 function renderScroll(){
  const box=document.createElement("div");box.className="scrollArea";box.id="scrollArea";box.innerHTML='<div class="scrollContent"><div class="scrollCard"><b>📄 Computer Basics Notes</b><p>Scroll inside this document. Keep going until you find the blue practice finish area.</p></div><div class="scrollCard"><b>🖱️ Mouse Skill</b><p>The wheel can move a page up or down. Scroll slowly when you are learning.</p></div><div class="scrollCard"><b>⌨️ Keyboard Skill</b><p>Keyboard and mouse work together in everyday computer tasks.</p></div><div class="scrollTarget">🎯 YOU FOUND IT!<br><small>Scroll Mission Finish</small></div></div>';$("stageBody").appendChild(box);
