@@ -24,9 +24,5 @@
     "Exam Admit Card"
   ],
   "status": "draft",
-  "updatedAt": "2026-09-27T13:48:43.582Z",
-  "source": "google-sheet-update",
-  "sourceSheets": [
-    "ADMIT_CARD"
-  ]
+  "updatedAt": "2026-09-27T13:49:00.121Z"
 }
