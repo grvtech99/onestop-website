@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ONESTOP Mouse Master</title>
+<style>
+:root{--blue:#0757c9;--blue2:#1688e8;--cyan:#5bc8f4;--page:#eef6ff;--text:#10213d;--muted:#64748b;--line:#d5e2f2;--good:#168a4a;--bad:#d94355;--brand:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--page);color:var(--text);font-family:Poppins,Arial,"Segoe UI",sans-serif}button{font:inherit}
+.top{background:#fff;border-bottom:1px solid #dbe8f8}.nav{max-width:1180px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{text-decoration:none;line-height:1}.brand strong{display:block;font-size:23px;font-weight:900;background:var(--brand);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}.brand small{display:block;margin-top:4px;font-size:8px;font-weight:800;letter-spacing:.8px;color:#14213d}.home{background:var(--brand);color:#fff;text-decoration:none;padding:9px 14px;border-radius:10px;font-size:12px;font-weight:900}
+.wrap{max-width:1240px;margin:auto;padding:18px 14px 32px}.head{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:12px}.head h1{margin:0;font-size:27px;font-weight:900}.sub{margin-top:4px;color:var(--muted);font-size:12px}.levelBtns{display:flex;gap:6px;flex-wrap:wrap}.levelBtn,.smallBtn{border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:9px;padding:8px 11px;font-size:11px;font-weight:900;cursor:pointer}.levelBtn.active,.levelBtn:hover,.smallBtn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:10px}.main{min-width:0}.missionBar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.missionTitle{font-size:15px;font-weight:900}.missionTitle small{font-size:10px;color:var(--muted);margin-left:5px}.actions{display:flex;gap:5px}
+.card{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 5px 18px rgba(6,27,69,.05)}.instruction{padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:9px}.missionIcon{width:38px;height:38px;border-radius:11px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:20px;flex:0 0 auto}.instruction b{display:block;font-size:13px}.instruction span{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.stage{position:relative;min-height:430px;overflow:hidden;background:linear-gradient(145deg,#f8fbff,#eaf4ff);border:1px solid var(--line);border-radius:16px}.stageTop{height:39px;background:#fff;border-bottom:1px solid #dce7f5;display:flex;align-items:center;justify-content:space-between;padding:0 12px}.dots{display:flex;gap:5px}.dots i{width:9px;height:9px;border-radius:50%;background:#dbe6f4}.stageName{font-size:9px;font-weight:900;color:#6b7f9d}.stageBody{position:relative;height:390px;padding:18px}
+.pointerZone{position:absolute;inset:18px;border-radius:13px;background:radial-gradient(circle at 20% 25%,rgba(91,200,244,.16),transparent 28%),radial-gradient(circle at 78% 72%,rgba(22,123,228,.12),transparent 30%),#fff;border:1px dashed #bfd4ee}
+.targetDot{position:absolute;width:54px;height:54px;border-radius:50%;background:var(--brand);box-shadow:0 8px 20px rgba(7,87,201,.25);display:grid;place-items:center;color:#fff;font-size:11px;font-weight:900;cursor:pointer;transition:transform .12s}.targetDot:hover{transform:scale(1.08)}.targetDot.hit{animation:pop .25s ease-out}@keyframes pop{50%{transform:scale(1.28)}}
+.bigButton{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border:0;background:var(--brand);color:#fff;border-radius:15px;padding:17px 28px;font-weight:900;box-shadow:0 12px 25px rgba(7,87,201,.22);cursor:pointer}.bigButton:active{transform:translate(-50%,-50%) scale(.96)}
+.folder{position:absolute;width:145px;height:105px;background:#fff3bf;border:2px solid #e6bd43;border-radius:10px 10px 14px 14px;display:grid;place-items:center;font-size:28px;cursor:pointer;box-shadow:0 9px 20px rgba(140,105,20,.12)}.folder:before{content:"";position:absolute;left:8px;top:-13px;width:55px;height:15px;background:#f3cf62;border-radius:8px 8px 0 0}.folder span{font-size:11px;font-weight:900;margin-top:20px}
+.context{position:absolute;display:none;width:180px;background:#fff;border:1px solid #cddbeb;border-radius:10px;padding:6px;box-shadow:0 15px 40px rgba(6,27,69,.18);z-index:5}.context button{display:block;width:100%;text-align:left;border:0;background:#fff;padding:9px;border-radius:7px;font-size:11px;cursor:pointer}.context button:hover{background:#edf5ff;color:var(--blue)}
+.file{position:absolute;padding:12px 14px;background:#fff;border:1px solid #c8d9ed;border-radius:10px;box-shadow:0 6px 16px rgba(6,27,69,.08);cursor:grab;font-size:12px;font-weight:900;user-select:none}.file.dragging{opacity:.6;transform:scale(.98)}.dropZone{position:absolute;width:190px;height:135px;right:55px;top:115px;border:2px dashed #76a5df;border-radius:15px;background:#f2f8ff;display:grid;place-items:center;color:var(--blue);font-size:12px;font-weight:900}.dropZone.over{background:#dff0ff;border-color:var(--blue);box-shadow:0 0 0 5px rgba(22,123,228,.1)}
+.scrollArea{position:absolute;inset:18px;overflow:auto;background:#fff;border:1px solid #d6e3f2;border-radius:13px;padding:15px}.scrollContent{min-height:720px}.scrollCard{background:#f7fbff;border:1px solid #dce8f6;border-radius:11px;padding:13px;margin-bottom:10px}.scrollCard b{font-size:12px}.scrollCard p{font-size:10px;color:var(--muted);line-height:1.5}.scrollTarget{margin-top:300px;padding:18px;border-radius:12px;background:var(--brand);color:#fff;text-align:center;font-weight:900;box-shadow:0 10px 22px rgba(7,87,201,.18)}
+.formDemo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(430px,86%);background:#fff;border:1px solid #d5e2f1;border-radius:14px;padding:18px;box-shadow:0 12px 30px rgba(6,27,69,.1)}.formDemo label{display:block;font-size:10px;font-weight:800;color:#64748b;margin:9px 0 4px}.formDemo input,.formDemo select{width:100%;height:38px;border:1px solid #cbd8e8;border-radius:8px;padding:0 10px;outline:none}.formDemo input:focus,.formDemo select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #e4efff}.checkRow{display:flex;align-items:center;gap:8px;font-size:11px;margin-top:12px}.checkRow input{width:auto}.formDemo .submit{margin-top:14px;width:100%;height:38px;border:0;border-radius:9px;background:var(--brand);color:#fff;font-weight:900;cursor:pointer}
+.badge{position:absolute;right:12px;top:9px;padding:5px 9px;border-radius:99px;background:#eaf3ff;color:var(--blue);font-size:9px;font-weight:900}.success{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.82);z-index:8}.successBox{background:#fff;border:1px solid #cfe0ef;border-radius:16px;padding:22px;text-align:center;box-shadow:0 20px 50px rgba(6,27,69,.18)}.successBox strong{display:block;font-size:20px;color:var(--good)}.successBox span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.status{display:grid;grid-template-columns:1fr auto 1fr;gap:9px;align-items:center;margin-top:8px;font-size:10px;color:var(--muted)}.status strong{color:var(--text)}.progress{height:7px;background:#dbe6f4;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--brand);transition:width .2s}.tipStrip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.tipStrip div{padding:9px;background:#fff;border:1px solid var(--line);border-radius:10px}.tipStrip b{display:block;color:var(--blue);font-size:9px}.tipStrip span{display:block;color:var(--muted);font-size:9px;line-height:1.3;margin-top:2px}
+.side{padding:14px;position:sticky;top:10px;height:max-content}.sideTitle{font-size:15px;font-weight:900}.rule{height:1px;background:#e4edf8;margin:8px 0 11px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#f5f9ff;border:1px solid #dce8f7;border-radius:10px;padding:9px}.metric label{display:block;font-size:9px;color:var(--muted);font-weight:800}.metric b{display:block;font-size:21px;color:var(--blue);margin-top:1px}.metric span{font-size:8px;color:var(--muted)}.skills{margin-top:13px}.skill{margin:9px 0}.skillHead{display:flex;justify-content:space-between;font-size:9px;font-weight:800}.bar{height:6px;background:#e2ebf5;border-radius:99px;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;width:0;background:var(--brand);border-radius:99px}.sideActions{display:grid;gap:6px;margin-top:13px}.primary,.secondary{height:35px;border-radius:9px;font-size:10px;font-weight:900;cursor:pointer}.primary{border:0;background:var(--brand);color:#fff}.secondary{border:1px solid var(--line);background:#fff;color:var(--blue)}.footerNote{text-align:center;color:var(--muted);font-size:8px;margin-top:9px}
+.modal{position:fixed;inset:0;background:rgba(8,28,60,.55);display:none;align-items:center;justify-content:center;padding:15px;z-index:30}.dialog{width:min(470px,100%);background:#fff;border-radius:16px;padding:20px;border:1px solid var(--line);box-shadow:0 20px 60px rgba(6,27,69,.25)}.dialog h2{margin:0;color:var(--blue);font-size:20px}.dialog p{font-size:11px;color:var(--muted)}.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:14px 0}.resultCard{background:#f4f8ff;border:1px solid #d8e4f3;border-radius:9px;text-align:center;padding:9px}.resultCard b{display:block;color:var(--blue);font-size:20px}.resultCard span{font-size:8px;color:var(--muted)}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.side{position:static}.stage{min-height:400px}.stageBody{height:360px}}@media(max-width:600px){.nav{padding:10px 12px}.brand strong{font-size:20px}.home{padding:8px 11px}.head{align-items:flex-start;flex-direction:column}.head h1{font-size:22px}.levelBtns{width:100%}.levelBtn{flex:1}.instruction{align-items:flex-start}.stage{min-height:390px}.stageBody{height:350px;padding:10px}.pointerZone{inset:10px}.tipStrip{display:none}.status{grid-template-columns:1fr auto}.status .progress{grid-column:1/-1;grid-row:2}.metrics{grid-template-columns:repeat(4,1fr)}.metric{padding:7px 5px}.metric b{font-size:17px}.resultGrid{grid-template-columns:repeat(3,1fr)}}@media(max-width:430px){.metrics{grid-template-columns:repeat(2,1fr)}.stage{min-height:370px}.stageBody{height:330px}.folder{width:125px;height:92px;right:20px}.dropZone{right:18px;width:160px}.formDemo{width:90%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="nav"><a class="brand" href="free-csc-tools/index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="free-csc-tools/index.html">← Learning Tools</a></div></header>
+
+<main class="wrap">
+<div class="head"><div><h1>🖱️ ONESTOP Mouse Master</h1><div class="sub">Learn mouse control by doing — Move • Click • Double-click • Right-click • Drag • Scroll</div></div><div class="levelBtns"><button class="levelBtn active" data-level="beginner">Beginner</button><button class="levelBtn" data-level="challenge">Challenge</button></div></div>
+
+<div class="workspace">
+<section class="main">
+<div class="missionBar"><div class="missionTitle" id="missionTitle">Mission 1 — Move &amp; Point <small>Beginner</small></div><div class="actions"><button class="smallBtn" id="soundBtn">🔊 Sound ON</button><button class="smallBtn" id="restartBtn">↻ Restart</button></div></div>
+
+<div class="instruction card"><div class="missionIcon" id="missionIcon">🎯</div><div><b id="instructionTitle">Move the pointer to the target.</b><span id="instructionText">Do not click. Just move your mouse over the glowing target.</span></div></div>
+
+<div class="stage" id="stage">
+<div class="stageTop"><div class="dots"><i></i><i></i><i></i></div><div class="stageName">ONESTOP PRACTICE DESKTOP</div><span class="badge" id="missionBadge">1 / 8</span></div>
+<div class="stageBody" id="stageBody"></div>
+<div class="success" id="success"><div class="successBox"><strong>✓ Mission Complete!</strong><span id="successText">Great work.</span></div></div>
+</div>
+
+<div class="status"><span id="status"><strong>Ready.</strong> Start the mission.</span><div class="progress"><i id="progress"></i></div><span id="count">0 / 8</span></div>
+<div class="tipStrip"><div><b>🖱️ GENTLE CONTROL</b><span>Move slowly and keep your hand relaxed.</span></div><div><b>🎯 ACCURACY FIRST</b><span>Reach the target before trying to go faster.</span></div><div><b>↔️ DRAG CAREFULLY</b><span>Hold the button, move, then release at the destination.</span></div></div>
+</section>
+
+<aside class="side card">
+<div class="sideTitle">Mouse Skills</div><div class="rule"></div>
+<div class="metrics"><div class="metric"><label>Score</label><b id="score">0</b><span>points</span></div><div class="metric"><label>Accuracy</label><b id="accuracy">100%</b><span id="mistakes">0 mistakes</span></div><div class="metric"><label>Mission</label><b id="missionNo">1</b><span>current</span></div><div class="metric"><label>Complete</label><b id="percent">0%</b><span>course</span></div></div>
+<div class="skills">
+<div class="skill"><div class="skillHead"><span>Move &amp; Point</span><span id="s1">0%</span></div><div class="bar"><i id="b1"></i></div></div>
+<div class="skill"><div class="skillHead"><span>Click</span><span id="s2">0%</span></div><div class="bar"><i id="b2"></i></div></div>
+<div class="skill"><div class="skillHead"><span>Double Click</span><span id="s3">0%</span></div><div class="bar"><i id="b3"></i></div></div>
+<div class="skill"><div class="skillHead"><span>Right Click</span><span id="s4">0%</span></div><div class="bar"><i id="b4"></i></div></div>
+<div class="skill"><div class="skillHead"><span>Drag &amp; Drop</span><span id="s5">0%</span></div><div class="bar"><i id="b5"></i></div></div>
+<div class="skill"><div class="skillHead"><span>Scroll &amp; Forms</span><span id="s6">0%</span></div><div class="bar"><i id="b6"></i></div></div>
+</div>
+<div class="sideActions"><button class="primary" id="nextBtn">Next Mission →</button><button class="secondary" id="resetBtn">Reset Progress</button></div>
+<div class="footerNote">ONESTOP DIGITAL SOLUTION • Free Mouse Practice</div>
+</aside>
+</div>
+</main>
+
+<div class="modal" id="resultModal"><div class="dialog"><h2>Mouse Master Complete 🎉</h2><p>You completed the interactive mouse practice course.</p><div class="resultGrid"><div class="resultCard"><b id="rScore">0</b><span>SCORE</span></div><div class="resultCard"><b id="rAcc">100%</b><span>ACCURACY</span></div><div class="resultCard"><b id="rMistakes">0</b><span>MISTAKES</span></div></div><button class="primary" id="closeResult">Practice Again</button></div></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const missions=[
+ {type:"move",title:"Move & Point",icon:"🎯",instruction:"Move the pointer to the target.",detail:"Do not click. Just move your mouse over the glowing target.",skill:1},
+ {type:"click",title:"Single Click",icon:"👆",instruction:"Click the blue target.",detail:"Use one gentle left-click. The target will move after every correct click.",skill:2},
+ {type:"double",title:"Double Click",icon:"⚡",instruction:"Double-click the folder.",detail:"Click the folder twice quickly to open it.",skill:3},
+ {type:"right",title:"Right Click",icon:"🖱️",instruction:"Right-click the file and choose Open.",detail:"Use the right mouse button to open the context menu, then choose Open.",skill:4},
+ {type:"drag",title:"Drag & Drop",icon:"↔️",instruction:"Drag the file into the folder.",detail:"Press and hold the file, move it to the folder, then release.",skill:5},
+ {type:"scroll",title:"Scroll",icon:"🔄",instruction:"Scroll down to the blue finish area.",detail:"Use your mouse wheel inside the document until the finish area appears.",skill:6},
+ {type:"form",title:"Point, Select & Check",icon:"☑️",instruction:"Complete the form using the mouse.",detail:"Choose the option, tick the checkbox and press Submit.",skill:6},
+ {type:"hover",title:"Hover & Discover",icon:"✨",instruction:"Hover over the Help button.",detail:"Move the pointer over the button and wait for the tooltip to appear.",skill:1}
+];
+const challenge=[
+ {type:"click",title:"Precision Click",icon:"🎯",instruction:"Click 5 targets as quickly as you can.",detail:"Targets appear one at a time. Accuracy matters.",skill:2},
+ {type:"drag",title:"Fast File Sort",icon:"📁",instruction:"Drag the file to the correct folder.",detail:"Do not drop outside the folder.",skill:5},
+ {type:"right",title:"Context Menu",icon:"🖱️",instruction:"Right-click and choose Rename.",detail:"Open the context menu and select Rename.",skill:4},
+ {type:"double",title:"Double-click Speed",icon:"⚡",instruction:"Double-click the folder to open it.",detail:"Two quick clicks are required.",skill:3}
+];
+
+let mode="beginner",list=missions,idx=0,score=0,mistakes=0,completed=0,sound=true,clickCount=0,dragData=null,scrollDone=false,formState={choice:false,check:false},timer=null;
+
+function beep(ok=true){
+ if(!sound)return;
+ try{const C=window.AudioContext||window.webkitAudioContext,c=new C(),o=c.createOscillator(),g=c.createGain();o.type="sine";o.frequency.value=ok?720:180;g.gain.value=.035;o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.09)}catch(e){}
+}
+function setStatus(html){$("status").innerHTML=html}
+function updateStats(){
+ $("score").textContent=score;$("accuracy").textContent=Math.max(0,Math.round((completed+Math.max(0,10-mistakes))/(completed+10))*100)+"%";
+ $("mistakes").textContent=mistakes+" mistakes";$("missionNo").textContent=Math.min(idx+1,list.length);$("percent").textContent=Math.round(completed/list.length*100)+"%";
+ $("progress").style.width=(completed/list.length*100)+"%";$("count").textContent=completed+" / "+list.length;
+ const vals=[0,0,0,0,0,0];list.forEach((m,i)=>{if(i<completed){vals[m.skill-1]=Math.max(vals[m.skill-1],100)}});for(let i=0;i<6;i++){const v=vals[i];$("s"+(i+1)).textContent=v+"%";$("b"+(i+1)).style.width=v+"%"}
+}
+function showSuccess(text){
+ $("successText").textContent=text;$("success").style.display="flex";beep(true);
+ clearTimeout(timer);timer=setTimeout(()=>{$("success").style.display="none";if(idx<list.length-1){idx++;loadMission()}else{finishCourse()}},650);
+}
+function fail(msg="Try again."){
+ mistakes++;score=Math.max(0,score-1);setStatus("<strong>✕ "+msg+"</strong>");beep(false);updateStats();
+}
+function complete(points=10){
+ completed=Math.max(completed,idx+1);score+=points;setStatus("<strong>✓ Correct!</strong> Mission complete.");updateStats();showSuccess("Excellent mouse control!");
+}
+function randomPos(el,zone){
+ const r=zone.getBoundingClientRect(),w=el.offsetWidth,h=el.offsetHeight;
+ el.style.left=Math.max(10,Math.random()*(r.width-w-20)+10)+"px";el.style.top=Math.max(10,Math.random()*(r.height-h-20)+10)+"px";
+}
+function loadMission(){
+ clearTimeout(timer);$("success").style.display="none";clickCount=0;scrollDone=false;formState={choice:false,check:false};
+ const m=list[idx];$("missionTitle").innerHTML="Mission "+(idx+1)+" — "+m.title+" <small>"+(mode==="beginner"?"Beginner":"Challenge")+"</small>";$("missionIcon").textContent=m.icon;$("instructionTitle").textContent=m.instruction;$("instructionText").textContent=m.detail;$("missionBadge").textContent=(idx+1)+" / "+list.length;$("stageBody").innerHTML="";setStatus("<strong>Ready.</strong> Complete the mission.");updateStats();
+ if(m.type==="move")renderMove();
+ if(m.type==="click")renderClick();
+ if(m.type==="double")renderDouble();
+ if(m.type==="right")renderRight();
+ if(m.type==="drag")renderDrag();
+ if(m.type==="scroll")renderScroll();
+ if(m.type==="form")renderForm();
+ if(m.type==="hover")renderHover();
+}
+function renderMove(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const t=document.createElement("div");t.className="targetDot";t.textContent="MOVE";zone.appendChild(t);randomPos(t,zone);
+ zone.addEventListener("pointermove",e=>{if(e.pointerType==="mouse"){const r=t.getBoundingClientRect();if(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom){t.classList.add("hit");complete(10)}}});
+}
+function renderClick(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const t=document.createElement("button");t.className="targetDot";t.textContent="CLICK";zone.appendChild(t);
+ const move=()=>randomPos(t,zone);move();
+ t.onclick=()=>{clickCount++;score+=2;beep(true);setStatus("<strong>✓ Nice click!</strong> "+(clickCount<3?"Find the next target.":""));if(clickCount>=3)complete(8);else{t.classList.remove("hit");move()}};
+}
+function renderDouble(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const f=document.createElement("div");f.className="folder";f.innerHTML="📁<span>Practice Folder</span>";zone.appendChild(f);f.style.left="calc(50% - 72px)";f.style.top="calc(50% - 52px)";
+ f.ondblclick=e=>{e.preventDefault();complete(12)};f.onclick=()=>setStatus("<strong>Almost!</strong> Double-click quickly."); 
+}
+function renderRight(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const file=document.createElement("div");file.className="file";file.textContent="📄 Practice.txt";zone.appendChild(file);file.style.left="28%";file.style.top="42%";
+ const menu=document.createElement("div");menu.className="context";menu.innerHTML='<button data-action="open">📂 Open</button><button>✏️ Rename</button><button>🗑️ Delete</button>';zone.appendChild(menu);
+ file.oncontextmenu=e=>{e.preventDefault();menu.style.display="block";menu.style.left=Math.min(e.offsetX+10,zone.clientWidth-190)+"px";menu.style.top=Math.min(e.offsetY+10,zone.clientHeight-120)+"px";setStatus("<strong>✓ Context menu opened.</strong> Choose Open.");return false};
+ menu.querySelector("[data-action=open]").onclick=()=>{menu.style.display="none";complete(14)};
+ zone.onclick=e=>{if(e.target===zone)menu.style.display="none"};
+}
+function renderDrag(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const file=document.createElement("div");file.className="file";file.textContent="📄 Photo.jpg";file.style.left="65px";file.style.top="95px";file.draggable=true;zone.appendChild(file);
+ const drop=document.createElement("div");drop.className="dropZone";drop.innerHTML="📁<br>Photos Folder";zone.appendChild(drop);
+ file.ondragstart=()=>{dragData=true;file.classList.add("dragging")};file.ondragend=()=>{dragData=false;file.classList.remove("dragging")};
+ drop.ondragover=e=>{e.preventDefault();drop.classList.add("over")};drop.ondragleave=()=>drop.classList.remove("over");drop.ondrop=e=>{e.preventDefault();drop.classList.remove("over");if(dragData){file.style.left="auto";file.style.top="auto";file.style.position="relative";file.style.margin="0 auto";drop.innerHTML="✓ Photo.jpg<br>Placed correctly";complete(15)}};
+}
+function renderScroll(){
+ const box=document.createElement("div");box.className="scrollArea";box.id="scrollArea";box.innerHTML='<div class="scrollContent"><div class="scrollCard"><b>📄 Computer Basics Notes</b><p>Scroll inside this document. Keep going until you find the blue practice finish area.</p></div><div class="scrollCard"><b>🖱️ Mouse Skill</b><p>The wheel can move a page up or down. Scroll slowly when you are learning.</p></div><div class="scrollCard"><b>⌨️ Keyboard Skill</b><p>Keyboard and mouse work together in everyday computer tasks.</p></div><div class="scrollTarget">🎯 YOU FOUND IT!<br><small>Scroll Mission Finish</small></div></div>';$("stageBody").appendChild(box);
+ box.onscroll=()=>{if(box.scrollTop+box.clientHeight>=box.scrollHeight-18&&!scrollDone){scrollDone=true;complete(12)}};
+}
+function renderForm(){
+ const f=document.createElement("div");f.className="formDemo";f.innerHTML='<b>Practice Form</b><label>Choose your course</label><select id="course"><option value="">Select...</option><option>Basic Computer</option><option>Typing</option></select><label class="checkRow"><input id="agree" type="checkbox"> I understand the practice task.</label><button class="submit" id="submitForm">Submit</button>';$("stageBody").appendChild(f);
+ $("course").onchange=()=>{formState.choice=!!$("course").value;setStatus(formState.choice?"<strong>✓ Good.</strong> Now tick the checkbox.":"Choose an option.")};
+ $("agree").onchange=()=>{formState.check=$("agree").checked;setStatus(formState.check?"<strong>✓ Good.</strong> Now press Submit.":"Tick the checkbox.")};
+ $("submitForm").onclick=()=>{if(formState.choice&&formState.check)complete(14);else fail("Complete both fields first.")};
+}
+function renderHover(){
+ const zone=document.createElement("div");zone.className="pointerZone";$("stageBody").appendChild(zone);
+ const b=document.createElement("button");b.className="bigButton";b.textContent="Hover over me";zone.appendChild(b);
+ let shown=false;b.onmouseenter=()=>{if(shown)return;shown=true;const tip=document.createElement("div");tip.textContent="✓ Tooltip: This is a hover action";tip.style.cssText="position:absolute;left:50%;top:calc(50% + 55px);transform:translateX(-50%);background:#10213d;color:#fff;padding:9px 12px;border-radius:8px;font-size:10px;font-weight:800;white-space:nowrap";zone.appendChild(tip);complete(10)};
+}
+function finishCourse(){
+ $("rScore").textContent=score;$("rAcc").textContent=Math.max(0,Math.round((completed/(completed+mistakes))*100))+"%";$("rMistakes").textContent=mistakes;$("resultModal").style.display="flex";beep(true);
+}
+function reset(){
+ idx=0;score=0;mistakes=0;completed=0;loadMission();
+}
+document.querySelectorAll(".levelBtn").forEach(b=>b.onclick=()=>{document.querySelectorAll(".levelBtn").forEach(x=>x.classList.remove("active"));b.classList.add("active");mode=b.dataset.level;list=mode==="beginner"?missions:challenge;reset()});
+$("nextBtn").onclick=()=>{if(idx<list.length-1){idx++;loadMission()}else finishCourse()};
+$("restartBtn").onclick=loadMission;
+$("resetBtn").onclick=reset;
+$("closeResult").onclick=()=>{$("resultModal").style.display="none";reset()};
+$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 Sound ON":"🔇 Sound OFF"};
+loadMission();
+</script>
+</body>
+</html>
