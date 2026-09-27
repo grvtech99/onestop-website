@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="ONESTOP Windows Keyboard Shortcuts Simulator">
+<title>ONESTOP Keyboard Shortcuts Simulator</title>
+<style>
+:root{--blue:#0757c9;--navy:#061b45;--page:#eef6ff;--line:#d7e4f3;--muted:#64748b;--good:#168a4a;--bad:#d94355;--brand:linear-gradient(112deg,#0757c9,#167be4 48%,#5bc8f4)}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--navy);font-family:Poppins,Arial,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer}
+.top{background:#fff;border-bottom:1px solid #dbe8f8}.nav{max-width:1180px;margin:auto;padding:10px 18px;display:flex;justify-content:space-between;align-items:center}.brand{text-decoration:none}.brand strong{display:block;font-size:23px;font-weight:900;background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}.brand small{display:block;font-size:8px;font-weight:800;letter-spacing:.8px;color:#14213d;margin-top:4px}.home{background:var(--brand);color:#fff;text-decoration:none;padding:9px 14px;border-radius:10px;font-size:12px;font-weight:900}
+.wrap{max-width:1240px;margin:auto;padding:18px 14px 30px}.head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:10px}.head h1{margin:0;font-size:25px;font-weight:900}.sub{font-size:12px;color:var(--muted);margin-top:4px}.actions{display:flex;gap:6px}.btn{border:1px solid var(--line);background:#fff;color:var(--blue);border-radius:9px;padding:8px 11px;font-size:11px;font-weight:900}.btn.active,.btn:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:10px}.main{min-width:0}.mission{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.mission b{font-size:15px}.mission small{color:var(--muted);font-size:10px;margin-left:6px}
+.sim{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:0 8px 25px rgba(6,27,69,.08)}.screen{height:530px;position:relative;overflow:hidden;background:linear-gradient(145deg,#e7f5ff,#8fd0f7 52%,#3c8dd9)}.screen:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 58% 40%,rgba(255,255,255,.5),transparent 24%);pointer-events:none}.desktop-label{position:absolute;right:14px;top:12px;color:#fff;font-size:10px;font-weight:800;text-shadow:0 1px 3px #2c6391}.desktop-icon{position:absolute;width:82px;text-align:center;color:#fff;font-size:9px;font-weight:800;text-shadow:0 1px 3px #24527d;border:0;background:transparent;padding:6px;border-radius:9px}.desktop-icon:hover{background:rgba(255,255,255,.18)}.desktop-icon .ico{display:block;font-size:29px;margin-bottom:2px}.window{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:490px;max-width:80%;background:#fff;border:1px solid #9eb8d7;border-radius:10px;box-shadow:0 18px 45px rgba(6,27,69,.25);display:none;z-index:5;overflow:hidden}.titlebar{height:36px;background:#f5f8fc;border-bottom:1px solid #d7e2ee;display:flex;align-items:center;justify-content:space-between;padding:0 9px;font-size:11px;font-weight:800}.winbtns{display:flex;gap:4px}.winbtns button{width:25px;height:22px;border:0;background:#e7edf5;border-radius:5px;font-size:11px}.winbody{padding:14px;font-size:11px}.explorer-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.explorer-item{padding:10px 5px;border:1px solid #d8e4f1;border-radius:8px;background:#f8fbff;text-align:center}.explorer-item span{display:block;font-size:25px}.notepad{border:1px solid #d5e2ef;padding:12px;min-height:135px}.start{position:absolute;left:9px;bottom:51px;width:245px;background:rgba(255,255,255,.98);border:1px solid #a8bfd9;border-radius:12px;padding:10px;box-shadow:0 18px 45px rgba(6,27,69,.25);display:none;z-index:8}.start h3{margin:0 0 7px;font-size:13px;color:var(--blue)}.start button{display:block;width:100%;border:0;background:#fff;text-align:left;padding:9px;border-radius:7px;font-size:10px}.start button:hover{background:#edf5ff;color:var(--blue)}.taskbar{position:absolute;left:0;right:0;bottom:0;height:46px;background:rgba(248,251,255,.94);border-top:1px solid #a9c2dc;display:flex;align-items:center;gap:7px;padding:5px 8px;z-index:9}.startbtn{width:39px;height:35px;border:0;border-radius:8px;background:var(--brand);color:#fff;font-size:18px}.task{width:35px;height:35px;border:1px solid #cbd9e8;background:#fff;border-radius:8px;font-size:16px}.clock{margin-left:auto;font-size:10px;font-weight:800;color:#48617f}
+.status{display:grid;grid-template-columns:1fr auto 1fr;gap:9px;align-items:center;margin-top:8px;font-size:10px;color:var(--muted)}.status strong{color:var(--navy)}.progress{height:7px;background:#dce7f4;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:var(--brand);transition:.2s}.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:8px}.tips div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px}.tips b{display:block;color:var(--blue);font-size:9px}.tips span{font-size:9px;color:var(--muted)}
+.side{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;height:max-content}.side h2{font-size:15px;margin:0}.rule{height:1px;background:#e5edf7;margin:9px 0 11px}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px}.metric{background:#f5f9ff;border:1px solid #dce8f7;border-radius:10px;padding:9px}.metric label{display:block;font-size:9px;color:var(--muted);font-weight:800}.metric b{display:block;font-size:21px;color:var(--blue);margin-top:1px}.metric span{font-size:8px;color:var(--muted)}.skill{margin-top:12px}.skillHead{display:flex;justify-content:space-between;font-size:9px;font-weight:800}.bar{height:6px;background:#e1eaf4;border-radius:99px;overflow:hidden;margin-top:4px}.bar i{display:block;height:100%;width:0;background:var(--brand)}.sideBtns{display:grid;gap:6px;margin-top:13px}.primary,.secondary{height:35px;border-radius:9px;font-size:10px;font-weight:900}.primary{border:0;background:var(--brand);color:#fff}.secondary{border:1px solid var(--line);background:#fff;color:var(--blue)}
+.shortcut-card{margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}.keys{display:flex;gap:4px;flex-wrap:wrap}.key{background:#f3f7fc;border:1px solid #bdccdd;border-bottom-width:3px;border-radius:5px;padding:5px 8px;font-size:10px;font-weight:900;color:#294563}.shortcut-card span{font-size:9px;color:var(--muted)}
+.modal{position:fixed;inset:0;background:rgba(8,28,60,.55);display:none;align-items:center;justify-content:center;padding:15px;z-index:30}.dialog{width:min(460px,100%);background:#fff;border-radius:15px;padding:20px;text-align:center}.dialog h2{color:var(--blue);margin:0;font-size:20px}.dialog p{color:var(--muted);font-size:11px}.result{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.result div{background:#f4f8ff;border:1px solid #d8e4f3;border-radius:9px;padding:9px}.result b{display:block;color:var(--blue);font-size:20px}.result span{font-size:8px;color:var(--muted)}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.screen{height:490px}}@media(max-width:600px){.nav{padding:10px 12px}.brand strong{font-size:20px}.head{align-items:flex-start;flex-direction:column}.screen{height:430px}.window{max-width:90%}.tips{display:none}.status{grid-template-columns:1fr auto}.status .progress{grid-column:1/-1;grid-row:2}}@media(max-width:430px){.home{font-size:0;padding:10px;width:38px;text-align:center}.home:after{content:"⌂";font-size:18px}.screen{height:390px}.desktop-icon{width:68px}.window{max-width:94%}.explorer-grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="nav"><a class="brand" href="../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">← Learning Tools</a></div></header>
+<main class="wrap">
+<div class="head"><div><h1>⌨️ ONESTOP Keyboard Shortcuts Simulator</h1><div class="sub">Practice useful Windows shortcuts inside a safe virtual desktop.</div></div><div class="actions"><button class="btn active" id="beginner">Beginner</button><button class="btn" id="challenge">Challenge</button></div></div>
+<div class="workspace"><section class="main">
+<div class="mission"><div><b id="missionTitle"></b><small id="missionLevel"></small></div><button class="btn" id="restart">↻ Restart</button></div>
+<div class="sim"><div class="screen" id="screen">
+<div class="desktop-label">ONESTOP Virtual Windows</div>
+<button class="desktop-icon" id="explorerIcon" style="left:18px;top:18px"><span class="ico">📁</span>File Explorer</button>
+<button class="desktop-icon" id="pcIcon" style="left:18px;top:105px"><span class="ico">💻</span>This PC</button>
+<button class="desktop-icon" id="notesIcon" style="left:18px;top:192px"><span class="ico">📝</span>Notes</button>
+<div class="window" id="win"><div class="titlebar"><span id="winTitle">File Explorer</span><div class="winbtns"><button id="min">—</button><button id="max">□</button><button id="cls">×</button></div></div><div class="winbody" id="winbody"></div></div>
+<div class="start" id="start"><h3>Start Menu</h3><button data-app="explorer">📁 File Explorer</button><button data-app="settings">⚙️ Settings</button><button data-app="notes">📝 Notepad</button></div>
+<div class="taskbar"><button class="startbtn" id="startBtn">⊞</button><button class="task" data-task="explorer">📁</button><button class="task" data-task="notes">📝</button><button class="task" data-task="settings">⚙️</button><div class="clock" id="clock"></div></div>
+</div></div>
+<div class="shortcut-card"><div class="keys" id="keys"></div><span id="shortcutMeaning"></span></div>
+<div class="status"><span id="status"><strong>Ready.</strong></span><div class="progress"><i id="progress"></i></div><span id="count">0 / 8</span></div>
+<div class="tips"><div><b>⌨️ SHORTCUTS</b><span>Use the physical keyboard when available.</span></div><div><b>🪟 DESKTOP</b><span>Shortcut actions are checked inside this simulator.</span></div><div><b>🎯 PRACTICE</b><span>Wrong actions reduce accuracy; repeat the mission if needed.</span></div></div>
+</section>
+<aside class="side"><h2>Shortcut Skills</h2><div class="rule"></div><div class="metrics"><div class="metric"><label>Score</label><b id="score">0</b><span>points</span></div><div class="metric"><label>Accuracy</label><b id="accuracy">100%</b><span id="mistakes">0 mistakes</span></div><div class="metric"><label>Mission</label><b id="missionNo">1</b><span>current</span></div><div class="metric"><label>Complete</label><b id="percent">0%</b><span>course</span></div></div>
+<div class="skill"><div class="skillHead"><span>Keyboard Control</span><span id="skill">0%</span></div><div class="bar"><i id="skillBar"></i></div></div>
+<div class="sideBtns"><button class="primary" id="next">Next Mission →</button><button class="secondary" id="reset">Reset Progress</button></div></aside></div></main>
+<div class="modal" id="modal"><div class="dialog"><h2>Shortcut Skills Complete 🎉</h2><p>You finished the keyboard shortcut missions.</p><div class="result"><div><b id="rScore">0</b><span>SCORE</span></div><div><b id="rAcc">100%</b><span>ACCURACY</span></div><div><b id="rMistakes">0</b><span>MISTAKES</span></div></div><button class="primary" id="again" style="width:100%;margin-top:12px">Practice Again</button></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const beginner=[
+["Open File Explorer","Press Windows + E.","winE",["Win","E"],"Open File Explorer"],
+["Copy Selected Item","Select the file, then press Ctrl + C.","copy",["Ctrl","C"],"Copy"],
+["Paste Item","Press Ctrl + V to paste the copied item.","paste",["Ctrl","V"],"Paste"],
+["Rename Item","Select Budget.xlsx and press F2.","rename",["F2"],"Rename"],
+["Delete Item","Select Old Notes.txt and press Delete.","delete",["Delete"],"Move to Recycle Bin"],
+["Minimize Window","Press Windows + Down Arrow.","minimize",["Win","↓"],"Minimize active window"],
+["Show Desktop","Press Windows + D.","desktop",["Win","D"],"Show / hide desktop"],
+["Open Settings","Press Windows + I.","settings",["Win","I"],"Open Settings"]
+];
+const challenge=[
+["Cut a File","Select Report.docx and press Ctrl + X.","cut",["Ctrl","X"],"Cut"],
+["Switch Apps","Press Alt + Tab to switch to the other app.","altTab",["Alt","Tab"],"Switch apps"],
+["New Folder","Press Ctrl + Shift + N in File Explorer.","newFolder",["Ctrl","Shift","N"],"Create new folder"],
+["Search","Press Ctrl + F to focus File Explorer search.","search",["Ctrl","F"],"Search"],
+["Close Window","Press Alt + F4 to close the active window.","close",["Alt","F4"],"Close active window"],
+["Undo","Press Ctrl + Z after a file operation.","undo",["Ctrl","Z"],"Undo last action"]
+];
+let list=beginner,idx=0,score=0,mistakes=0,done=0,mode="Beginner",selected=false,clipboard=false,cut=false,desktopShown=false;
+function setStatus(t){$("status").innerHTML=t}
+function update(){const n=list.length,acc=Math.max(0,Math.round(done/(done+mistakes||1)*100));$("score").textContent=score;$("mistakes").textContent=mistakes+" mistakes";$("missionNo").textContent=Math.min(idx+1,n);$("percent").textContent=Math.round(done/n*100)+"%";$("progress").style.width=done/n*100+"%";$("count").textContent=done+" / "+n;$("skill").textContent=Math.round(done/n*100)+"%";$("skillBar").style.width=done/n*100+"%";$("accuracy").textContent=acc+"%"}
+function success(){done=Math.max(done,idx+1);score+=10;setStatus("<strong>✓ Correct!</strong> Shortcut mission complete.");update();setTimeout(()=>{if(idx<list.length-1){idx++;load()}else finish()},450)}
+function fail(msg){mistakes++;score=Math.max(0,score-2);setStatus("<strong>✕ "+msg+"</strong>");update()}
+function openApp(app){$("win").style.display="block";$("winTitle").textContent=app==="explorer"?"File Explorer":app==="notes"?"Notepad":"Settings";$("winbody").innerHTML=app==="explorer"?'<div class="explorer-grid"><div class="explorer-item">📄<br>Budget.xlsx</div><div class="explorer-item">📝<br>Old Notes.txt</div><div class="explorer-item">📄<br>Report.docx</div><div class="explorer-item">📽️<br>Presentation.pptx</div></div>':app==="notes"?'<div class="notepad">ONESTOP Keyboard Practice<br><br>Use shortcuts to work faster.</div>':'<div class="explorer-grid"><div class="explorer-item">🖥️<br>Display</div><div class="explorer-item">🔊<br>Sound</div><div class="explorer-item">🌐<br>Network</div></div>'}
+function resetView(){selected=false;clipboard=false;cut=false;desktopShown=false;$("win").style.display="none";$("start").style.display="none";$("keys").innerHTML=list[idx][3].map(k=>'<span class="key">'+k+"</span>").join("");$("shortcutMeaning").textContent=list[idx][4];$("missionTitle").textContent="Mission "+(idx+1)+" — "+list[idx][0];$("missionLevel").textContent=mode;setStatus("<strong>Ready.</strong> "+list[idx][1]);update()}
+function load(){resetView()}
+function finish(){$("rScore").textContent=score;$("rAcc").textContent=$("accuracy").textContent;$("rMistakes").textContent=mistakes;$("modal").style.display="flex"}
+$("explorerIcon").ondblclick=()=>{selected=true;openApp("explorer")};$("pcIcon").ondblclick=()=>openApp("explorer");$("notesIcon").ondblclick=()=>openApp("notes");
+$("startBtn").onclick=()=>{$("start").style.display=$("start").style.display==="block"?"none":"block"};
+document.querySelectorAll("[data-app]").forEach(b=>b.onclick=()=>{openApp(b.dataset.app);$("start").style.display="none"});
+document.querySelectorAll("[data-task]").forEach(b=>b.onclick=()=>openApp(b.dataset.task));
+$("min").onclick=()=>{$("win").style.display="none"};$("max").onclick=()=>{$("win").style.width="88%"};$("cls").onclick=()=>{$("win").style.display="none"};
+$("next").onclick=()=>{if(idx<list.length-1){idx++;load()}else finish()};$("restart").onclick=load;$("reset").onclick=()=>{idx=0;score=0;mistakes=0;done=0;load()};$("again").onclick=()=>{$("modal").style.display="none";idx=0;score=0;mistakes=0;done=0;load()};
+$("beginner").onclick=()=>{mode="Beginner";list=beginner;idx=0;score=0;mistakes=0;done=0;load()};$("challenge").onclick=()=>{mode="Challenge";list=challenge;idx=0;score=0;mistakes=0;done=0;load()};
+document.addEventListener("keydown",e=>{
+ const k=e.key.toLowerCase(),ctrl=e.ctrlKey,alt=e.altKey,shift=e.shiftKey,win=e.metaKey||e.getModifierState?.("OS");
+ let action="";
+ if(win&&k==="e")action="winE";
+ else if(ctrl&&k==="c")action="copy";
+ else if(ctrl&&k==="v")action="paste";
+ else if(k==="f2")action="rename";
+ else if(k==="delete")action="delete";
+ else if(win&&k==="arrowdown")action="minimize";
+ else if(win&&k==="d")action="desktop";
+ else if(win&&k==="i")action="settings";
+ else if(ctrl&&k==="x")action="cut";
+ else if(alt&&k==="tab")action="altTab";
+ else if(ctrl&&shift&&k==="n")action="newFolder";
+ else if(ctrl&&k==="f")action="search";
+ else if(alt&&k==="f4")action="close";
+ else if(ctrl&&k==="z")action="undo";
+ if(!action)return;
+ e.preventDefault();
+ const target=list[idx][2];
+ if(action!==target){fail("Try the shortcut shown above.");return}
+ if(action==="winE")openApp("explorer");
+ if(action==="copy"){selected=true;clipboard=true}
+ if(action==="paste"){if(!clipboard)clipboard=true}
+ if(action==="rename")selected=true;
+ if(action==="delete")selected=true;
+ if(action==="minimize")$("win").style.display="none";
+ if(action==="desktop"){desktopShown=!desktopShown;$("win").style.display=desktopShown?"none":"block"}
+ if(action==="settings")openApp("settings");
+ if(action==="cut"){selected=true;cut=true}
+ if(action==="altTab"){openApp("notes")}
+ if(action==="newFolder")openApp("explorer");
+ if(action==="search")openApp("explorer");
+ if(action==="close")$("win").style.display="none";
+ if(action==="undo")setStatus("<strong>Undo:</strong> previous virtual action reversed.");
+ success();
+});
+$("clock").textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+load();
+</script>
+</body>
+</html>
