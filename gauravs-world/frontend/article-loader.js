@@ -155,7 +155,7 @@
       if (/^\|.+\|$/.test(t) && i + 1 < lines.length && /^\|?\s*:?-+:?\s*(\|\s*:?-+:?\s*)+\|?$/.test(lines[i + 1].trim())) {
         closeList(); const rows = [t]; i++;
         while (i + 1 < lines.length && /^\|.*\|$/.test(lines[i + 1].trim())) { i++; rows.push(lines[i].trim()); }
-        const cells = rows.map(r => r.replace(/^\||\|$/g, '').split('|').map(c => c.trim()));
+        const splitTableRow = row => { let s=String(row||'').trim(); if(s.startsWith('|')) s=s.slice(1); if(s.endsWith('|') && !s.endsWith('\\|')) s=s.slice(0,-1); const cells=[]; let cur='',escaped=false; for(let k=0;k<s.length;k++){ const ch=s[k]; if(escaped){ cur+=ch; escaped=false; continue; } if(ch==='\\'){ escaped=true; cur+=ch; continue; } if(ch==='|'){ cells.push(cur.trim()); cur=''; continue; } cur+=ch; } cells.push(cur.trim()); return cells.map(c=>c.replace(/\\\|/g,'|')); }; const cells = rows.map(splitTableRow);
         const head = cells[0], body = cells.slice(1);
 
         // A two-column Markdown table is used by the editor for information
