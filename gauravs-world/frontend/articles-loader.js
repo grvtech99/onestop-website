@@ -43,6 +43,7 @@
   const fallbackArticles = Array.isArray(window.articles) ? window.articles.slice() : [];
   let listMode = false;
   let listModeCategory = 'all';
+  let listModeKeys = null;
   const esc = value => String(value == null ? '' : value).replace(/[&<>\\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\\"':'&quot;',"'":'&#39;'}[ch]));
   function timestamp(a){const v=Date.parse(a.updatedAt||a.publishedAt||a.date||a.createdAt||'');return Number.isFinite(v)?v:0;}
   function liked(id){try{return localStorage.getItem('gw-liked-'+id)==='1';}catch(_){return false;}}
@@ -68,7 +69,7 @@
   ];
   function render(list){
     const q=search.value.trim().toLowerCase();const selected=listMode?listModeCategory:category.value;
-    const filtered=list.filter(a=>(selected==='all'||String(a.category||'').toLowerCase()===selected.toLowerCase())&&(String(a.title||'')+' '+String(a.description||a.summary||'')+' '+String(a.category||'')).toLowerCase().includes(q)).slice().sort((a,b)=>timestamp(b)-timestamp(a));
+    const filtered=list.filter(a=>{const cat=String(a.category||'').toLowerCase();const inScope=listMode&&Array.isArray(listModeKeys)?listModeKeys.includes(cat):(selected==='all'||cat===selected.toLowerCase());return inScope&&(String(a.title||'')+' '+String(a.description||a.summary||'')+' '+String(a.category||'')).toLowerCase().includes(q);}).slice().sort((a,b)=>timestamp(b)-timestamp(a));
     if(listMode || selected!=='all' || q) {root.innerHTML=filtered.length?filtered.map(card).join(''):'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';return;}
     const lead=filtered[0];
     const remaining=lead?filtered.filter(a=>String(a.slug||a.id)!==String(lead.slug||lead.id)):filtered;
@@ -78,22 +79,22 @@
     };
     let html=featured(lead);
     html+=section('Latest Articles',remaining.slice(0,6),'all');
-    groups.forEach(group=>{
+    groups.forEach((group,index)=>{
       const keys=new Set(group.keys.map(x=>x.toLowerCase()));
       const items=remaining.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
-      html+=section(group.title,items,'all');
+      html+=section(group.title,items,'group-'+index);
     });
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
 async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'Gaurav Yadav',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'https://onestopfzd.in/gauravs-world/author-gaurav.html',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
   root.addEventListener('click',async event=>{
-    const view=event.target.closest('[data-view]');if(view){listMode=true;listModeCategory=view.dataset.view||'all';category.value=listModeCategory;root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
+    const view=event.target.closest('[data-view]');if(view){const key=view.dataset.view||'all';listMode=true;listModeKeys=null;listModeCategory='all';if(key.startsWith('group-')){const index=Number(key.slice(6));const group=groups[index];if(group)listModeKeys=group.keys.map(x=>x.toLowerCase());}category.value='all';root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
     const like=event.target.closest('[data-like]');if(like){event.preventDefault();event.stopPropagation();const id=like.dataset.like;try{const next=!liked(id);if(next)localStorage.setItem('gw-liked-'+id,'1');else localStorage.removeItem('gw-liked-'+id);like.classList.toggle('is-liked',next);like.setAttribute('aria-pressed',String(next));}catch(_){like.classList.toggle('is-liked');}return;}
     const share=event.target.closest('[data-share]');if(share){event.preventDefault();event.stopPropagation();const data={title:share.dataset.title||'Gaurav’s World',url:share.dataset.url||location.href};try{if(navigator.share)await navigator.share(data);else if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(data.url);share.setAttribute('aria-label','Link copied');}else window.prompt('Copy article link:',data.url);}catch(_){}}
   });
   search.addEventListener('input',()=>render(window.articles||fallbackArticles));
-  category.addEventListener('change',()=>{listMode=false;listModeCategory='all';render(window.articles||fallbackArticles);});
+  category.addEventListener('change',()=>{listMode=false;listModeCategory='all';listModeKeys=null;render(window.articles||fallbackArticles);});
   root.innerHTML='<div class="empty" aria-live="polite">लेख लोड हो रहे हैं…</div>';
   render(fallbackArticles);
   fetch(MANIFEST_URL,{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));return hydrateMissingMetadata(Array.from(byId.values()));}).then(list=>{window.articles=list;render(window.articles);}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class=\"empty\">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';});
