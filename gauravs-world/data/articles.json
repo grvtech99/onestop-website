@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "government-exam-results-2026",
+      "slug": "government-exam-results-2026",
+      "title": "Government Exam Results 2026 – सभी सरकारी परीक्षा परिणाम",
+      "category": "Result",
+      "summary": "2026 में जारी होने वाले विभिन्न सरकारी परीक्षाओं और भर्ती परिणामों के महत्वपूर्ण official result links एक ही जगह। Result, Score Card, Merit List और संबंधित official pages के links समय-समय पर update किए जाएंगे।",
+      "image": "images/1000203103.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-30T13:38:21.672Z",
+      "updatedAt": "2026-09-30T13:38:21.672Z"
+    },
+    {
       "id": "nasa-perseverance-mars-ancient-water-margin-unit-2026",
       "slug": "nasa-perseverance-mars-ancient-water-margin-unit-2026",
       "title": "NASA के Perseverance Rover ने Mars पर खोजी पानी की एक जटिल कहानी",
@@ -165,15 +177,6 @@
       "updatedAt": "2026-09-28T16:58:05.971Z"
     },
     {
-      "id": "government-exam-results-2026",
-      "slug": "government-exam-results-2026",
-      "title": "Government Exam Results 2026 – सभी सरकारी परीक्षा परिणाम",
-      "category": "Result",
-      "summary": "2026 में जारी होने वाले विभिन्न सरकारी परीक्षाओं और भर्ती परिणामों के महत्वपूर्ण official result links एक ही जगह। Result, Score Card, Merit List और संबंधित official pages के links समय-समय पर update किए जाएंगे।",
-      "image": "images/1000203103.webp",
-      "updatedAt": "2026-09-28T16:50:57.886Z"
-    },
-    {
       "id": "btsc-fisheries-extension-officer-recruitment-2026",
       "slug": "btsc-fisheries-extension-officer-recruitment-2026",
       "title": "BTSC Fisheries Extension Officer Recruitment 2026: 231 Posts,  आवेदन शुरू\t24 सितंबर 2026: अंतिम तिथि 23 अक्टूबर 2026: न्यूनतम आयु\t21 वर्ष",
@@ -301,5 +304,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T13:10:21.917Z"
+  "updatedAt": "2026-09-30T13:38:21.672Z"
 }
