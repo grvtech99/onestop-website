@@ -15,7 +15,7 @@
   function safeImageUrl(raw) {
     const value = String(raw || '').trim();
     if (/^https:\/\/[a-z0-9.-]+\//i.test(value)) return value;
-    if (/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(value) && !value.includes('..')) return `./${value}`;
+    if (/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(value) && !value.includes('..')) return `./${value}`;
     return '';
   }
   function sanitizeStoredHtml(raw) {
@@ -264,7 +264,7 @@
       if (!a || !a.title) throw new Error('invalid article');
       const body = a.bodyHtml ? sanitizeStoredHtml(a.bodyHtml) : (a.bodyMarkdown || a.body || a.content || '');
       const imagePath = String(a.image || a.coverImage || '').trim();
-      const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
+      const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
       const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${a.bodyHtml ? body : markdown(body)}</div>`;
       addBreadcrumb(a.category || 'General', a.title);
