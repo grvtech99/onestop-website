@@ -1,6 +1,25 @@
 {
   "articles": [
     {
+      "id": "15-windows-keyboard-shortcuts-computer-skills",
+      "slug": "15-windows-keyboard-shortcuts-computer-skills",
+      "title": "Windows के 15 Keyboard Shortcuts जो हर Computer User को सीखने चाहिए",
+      "category": "Computer Skills",
+      "summary": "Windows के 15 जरूरी keyboard shortcuts सीखें और रोज़ के computer काम को तेज़, आसान और smart बनाएं।",
+      "image": "images/windows-15-keyboard-shortcuts.svg",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-30T16:00:00+05:30",
+      "updatedAt": "2026-09-30T16:00:00+05:30",
+      "seoTitle": "Windows के 15 Keyboard Shortcuts: हर Computer User के लिए जरूरी",
+      "metaDescription": "Windows के 15 जरूरी keyboard shortcuts सीखें जो रोज़ के computer काम को तेज़ और आसान बनाते हैं। Beginners और regular users के लिए practical guide.",
+      "focusKeyword": "Windows Keyboard Shortcuts",
+      "canonicalUrl": "https://onestopfzd.in/gauravs-world/article-dynamic.html?id=15-windows-keyboard-shortcuts-computer-skills",
+      "socialTitle": "Windows के 15 Keyboard Shortcuts जो हर Computer User को सीखने चाहिए",
+      "socialDescription": "Copy, paste, undo, search, screenshot और कई रोज़मर्रा के काम keyboard shortcuts से तेज़ करने की practical guide.",
+      "indexable": true
+    },
+    {
       "id": "hanuman-ansh-box-office-400-crore-52-days",
       "slug": "hanuman-ansh-box-office-400-crore-52-days",
       "title": "₹2 करोड़ के बजट वाली ‘हनुमान अंश’ ने 52 दिनों में कमाए ₹400 करोड़, बॉक्स ऑफिस पर बनाया नया रिकॉर्ड",
@@ -229,5 +248,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T08:45:01.547Z"
+  "updatedAt": "2026-09-30T16:00:00+05:30"
 }
