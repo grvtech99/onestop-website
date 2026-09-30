@@ -59,7 +59,12 @@
     const summary=String(a.summary||a.description||'');
     return `<article class=\"featured-story\">${media}<div class=\"featured-copy\"><span class=\"featured-label\">FEATURED STORY · आज की खास कहानी</span><p class=\"featured-category\">${esc(a.category||'Gaurav’s World')}</p><a class=\"featured-title\" href=\"${esc(href)}\">${esc(a.title)}</a>${summary?`<p class=\"featured-summary\">${esc(summary)}</p>`:''}<a class=\"featured-read\" href=\"${esc(href)}\">पूरा लेख पढ़ें <span aria-hidden=\"true\">→</span></a></div></article>`;
   }
-  const groups=[['Technology','Technology'],['Science','Science'],['History','History'],['Universe','Universe'],['World Secret','World Secret'],['Duniya','Duniya'],['Lifestyle','Lifestyle'],['Entertainment','Entertainment'],['Trending','Trending'],['Computer Skills','Computer Skills'],['Education','Education'],['Latest Govt Job','Latest Govt Job'],['Admit Card','Admit Card'],['Result','Result'],['Answer Key','Answer Key'],['Syllabus','Syllabus'],['Admission','Admission'],['Exam Dates','Exam Dates'],['Schemes','Schemes'],['Scholarships','Scholarships']];
+  const groups=[
+    {title:'Knowledge & World',keys:['Technology','Science','History','Universe','World Secret','Duniya','Lifestyle']},
+    {title:'Entertainment & Trending',keys:['Entertainment','Trending']},
+    {title:'Computer & Education',keys:['Computer Skills','Education']},
+    {title:'Government Jobs & Exams',keys:['Latest Govt Job','Admit Card','Result','Answer Key','Syllabus','Admission','Exam Dates','Schemes','Scholarships']}
+  ];
   function render(list){
     const q=search.value.trim().toLowerCase();const selected=listMode?listModeCategory:category.value;
     const filtered=list.filter(a=>(selected==='all'||String(a.category||'').toLowerCase()===selected.toLowerCase())&&(String(a.title||'')+' '+String(a.description||a.summary||'')+' '+String(a.category||'')).toLowerCase().includes(q)).slice().sort((a,b)=>timestamp(b)-timestamp(a));
@@ -69,7 +74,11 @@
     const section=(name,items,key)=>items.length?`<section class=\"home-section\"><div class=\"section-head\"><h2>${name}</h2><button class=\"section-view\" type=\"button\" data-view=\"${esc(key)}\">View all →</button></div><div class=\"section-grid\">${items.map(card).join('')}</div></section>`:'';
     let html=featured(lead);
     html+=section('Latest Articles',remaining.slice(0,6),'all');
-    groups.forEach(([name,key])=>{const items=remaining.filter(a=>String(a.category||'').toLowerCase()===key.toLowerCase()).slice(0,6);html+=section(name,items,key);});
+    groups.forEach(group=>{
+      const keys=new Set(group.keys.map(x=>x.toLowerCase()));
+      const items=remaining.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
+      html+=section(group.title,items,'all');
+    });
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
