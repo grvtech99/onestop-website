@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-7';
+  const MANIFEST_URL = './data/articles.json?v=20260930-8';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -9,7 +9,7 @@
 
   const style = document.createElement('style');
   style.textContent = `
-    #posts { display:block; width:100%; }\n    #posts .home-section{content-visibility:auto;contain-intrinsic-size:1px 320px;}
+    #posts { display:block; width:100%; visibility:hidden; opacity:0; transition:opacity .12s ease; }\n    #posts.home-ready{visibility:visible;opacity:1;}\n    #posts .home-section{content-visibility:auto;contain-intrinsic-size:1px 320px;}
     #posts .featured-story{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:0;margin:0 0 22px;border:1px solid #e1e8f0;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(23,32,51,.07)}
     #posts .featured-media{display:block;min-height:230px;background:#eaf0f6;overflow:hidden}
     #posts .featured-media img{display:block;width:100%;height:100%;min-height:230px;max-height:340px;object-fit:cover}
@@ -86,9 +86,9 @@
     });
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
   }
-  function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
+  function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),author:String(item.author||'Gaurav Yadav'),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
 async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'Gaurav Yadav',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'https://onestopfzd.in/gauravs-world/author-gaurav.html',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
-  root.addEventListener('click',async event=>{
+  function revealFeed(){requestAnimationFrame(()=>root.classList.add('home-ready'));}\n  root.addEventListener('click',async event=>{
     const view=event.target.closest('[data-view]');if(view){const key=view.dataset.view||'all';listMode=true;listModeKeys=null;listModeCategory='all';if(key.startsWith('group-')){const index=Number(key.slice(6));const group=groups[index];if(group)listModeKeys=group.keys.map(x=>x.toLowerCase());}category.value='all';root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
     const like=event.target.closest('[data-like]');if(like){event.preventDefault();event.stopPropagation();const id=like.dataset.like;try{const next=!liked(id);if(next)localStorage.setItem('gw-liked-'+id,'1');else localStorage.removeItem('gw-liked-'+id);like.classList.toggle('is-liked',next);like.setAttribute('aria-pressed',String(next));}catch(_){like.classList.toggle('is-liked');}return;}
     const share=event.target.closest('[data-share]');if(share){event.preventDefault();event.stopPropagation();const data={title:share.dataset.title||'Gaurav’s World',url:share.dataset.url||location.href};try{if(navigator.share)await navigator.share(data);else if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(data.url);share.setAttribute('aria-label','Link copied');}else window.prompt('Copy article link:',data.url);}catch(_){}}
