@@ -6,18 +6,11 @@
       "title": "Windows Task Manager के 10 Useful Tips जो हर Computer User को सीखने चाहिए",
       "category": "Computer Skills",
       "summary": "PC slow, app hang या startup issue समझने के लिए Windows Task Manager के 10 practical tips सीखें—Processes, Performance, Startup apps, CPU, Memory और troubleshooting की आसान guide.",
-      "image": "images/windows-task-manager-10-useful-tips.svg",
+      "image": "images/windows-task-manager-10-useful-tips.webp",
       "author": "Gaurav Yadav",
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
       "publishedAt": "2026-09-30T18:00:00+05:30",
-      "updatedAt": "2026-09-30T18:00:00+05:30",
-      "seoTitle": "Windows Task Manager के 10 Useful Tips | Computer Skills",
-      "metaDescription": "Windows Task Manager के 10 useful tips सीखें—Processes, CPU, Memory, Disk, Startup apps, End Task और PC troubleshooting की practical Hindi guide.",
-      "focusKeyword": "Windows Task Manager Tips",
-      "canonicalUrl": "https://onestopfzd.in/gauravs-world/article-dynamic.html?id=windows-task-manager-10-useful-tips",
-      "socialTitle": "Windows Task Manager के 10 Useful Tips जो हर Computer User को सीखने चाहिए",
-      "socialDescription": "PC slow या app hang होने पर Task Manager से क्या देखें? Processes, Performance और Startup apps की आसान guide.",
-      "indexable": true
+      "updatedAt": "2026-09-30T11:43:29.130Z"
     },
     {
       "id": "windows-file-explorer-12-useful-tricks",
@@ -279,5 +272,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T17:05:00+05:30"
+  "updatedAt": "2026-09-30T11:43:29.130Z"
 }
