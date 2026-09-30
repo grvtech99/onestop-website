@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0876d1"/><stop offset="1" stop-color="#07529a"/></linearGradient>
+  <filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-opacity=".22"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<circle cx="1420" cy="90" r="230" fill="#ffffff" opacity=".08"/><circle cx="150" cy="820" r="260" fill="#ffffff" opacity=".06"/>
+<text x="90" y="105" fill="#fff" font-family="Arial,sans-serif" font-size="34" font-weight="700">GAURAV'S WORLD</text>
+<rect x="90" y="145" width="570" height="58" rx="29" fill="#fff" opacity=".16"/>
+<text x="120" y="185" fill="#fff" font-family="Arial,sans-serif" font-size="27" font-weight="700">COMPUTER SKILLS • WINDOWS</text>
+<text x="90" y="290" fill="#fff" font-family="Arial,sans-serif" font-size="67" font-weight="800">Windows Task Manager</text>
+<text x="90" y="365" fill="#fff" font-family="Arial,sans-serif" font-size="58" font-weight="800">10 Useful Tips</text>
+<text x="90" y="420" fill="#dff2ff" font-family="Arial,sans-serif" font-size="28">PC performance, startup apps, CPU, memory &amp; troubleshooting</text>
+<g filter="url(#shadow)">
+<rect x="865" y="185" width="610" height="520" rx="22" fill="#f7fbff"/>
+<rect x="865" y="185" width="610" height="58" rx="22" fill="#e9f3fb"/>
+<circle cx="902" cy="214" r="9" fill="#ef4444"/><circle cx="932" cy="214" r="9" fill="#f59e0b"/><circle cx="962" cy="214" r="9" fill="#22c55e"/>
+<text x="1005" y="222" fill="#17324d" font-family="Arial,sans-serif" font-size="23" font-weight="700">Task Manager</text>
+<rect x="895" y="270" width="155" height="350" rx="12" fill="#edf6fd"/>
+<text x="920" y="310" fill="#0876d1" font-family="Arial,sans-serif" font-size="20" font-weight="700">Processes</text>
+<text x="920" y="355" fill="#53677a" font-family="Arial,sans-serif" font-size="18">Performance</text>
+<text x="920" y="400" fill="#53677a" font-family="Arial,sans-serif" font-size="18">Startup apps</text>
+<text x="920" y="445" fill="#53677a" font-family="Arial,sans-serif" font-size="18">Users</text>
+<text x="920" y="490" fill="#53677a" font-family="Arial,sans-serif" font-size="18">Details</text>
+<text x="920" y="535" fill="#53677a" font-family="Arial,sans-serif" font-size="18">Services</text>
+<rect x="1080" y="270" width="350" height="58" rx="10" fill="#e8f3ff"/>
+<text x="1100" y="307" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700">CPU</text><text x="1370" y="307" fill="#0876d1" font-family="Arial,sans-serif" font-size="22" font-weight="800">42%</text>
+<rect x="1080" y="345" width="350" height="58" rx="10" fill="#f2f6f9"/>
+<text x="1100" y="382" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700">Memory</text><text x="1355" y="382" fill="#0876d1" font-family="Arial,sans-serif" font-size="22" font-weight="800">68%</text>
+<rect x="1080" y="420" width="350" height="58" rx="10" fill="#f2f6f9"/>
+<text x="1100" y="457" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700">Disk</text><text x="1370" y="457" fill="#0876d1" font-family="Arial,sans-serif" font-size="22" font-weight="800">17%</text>
+<rect x="1080" y="495" width="350" height="58" rx="10" fill="#f2f6f9"/>
+<text x="1100" y="532" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700">Network</text><text x="1370" y="532" fill="#0876d1" font-family="Arial,sans-serif" font-size="22" font-weight="800">3%</text>
+<rect x="1080" y="585" width="175" height="46" rx="23" fill="#0876d1"/><text x="1115" y="615" fill="#fff" font-family="Arial,sans-serif" font-size="17" font-weight="700">Ctrl + Shift + Esc</text>
+</g>
+<text x="90" y="785" fill="#fff" font-family="Arial,sans-serif" font-size="25" font-weight="700">Learn • Practice • Use</text>
+<text x="90" y="830" fill="#dff2ff" font-family="Arial,sans-serif" font-size="22">Simple Hindi guide for everyday computer users</text>
+</svg>
