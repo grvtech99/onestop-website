@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-6';
+  const MANIFEST_URL = './data/articles.json?v=20260930-7';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
