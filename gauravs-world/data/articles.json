@@ -6,7 +6,7 @@
       "title": "Windows File Explorer के 12 Useful Tricks जो हर Computer User को सीखने चाहिए",
       "category": "Computer Skills",
       "summary": "Files और folders के साथ रोज़ काम करते हैं? इन 12 File Explorer tricks से folders खोलना, search, rename, tabs, properties, refresh और file management ज्यादा तेज़ और आसान हो सकता है।",
-      "image": "images/windows-file-explorer-12-tricks.webp",
+      "image": "images/windows-file-explorer-12-tricks.svg",
       "author": "Gaurav Yadav",
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
       "publishedAt": "2026-09-30T17:00:00+05:30",
@@ -260,5 +260,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T17:00:00+05:30"
+  "updatedAt": "2026-09-30T17:05:00+05:30"
 }
