@@ -1,6 +1,25 @@
 {
   "articles": [
     {
+      "id": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
+      "slug": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
+      "title": "क्या Black Hole सच में सब कुछ निगल लेते हैं? विज्ञान क्या कहता है",
+      "category": "Science",
+      "summary": "Black Hole को लेकर सबसे बड़ा सवाल यही है—क्या वह अपने आसपास की हर चीज़ को निगल लेता है? जानिए Event Horizon, Accretion Disk, Gravity, Spaghettification और Black Hole की वास्तविक वैज्ञानिक तस्वीर आसान हिंदी में।",
+      "image": "images/black-hole-science-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-30T18:00:00+05:30",
+      "updatedAt": "2026-09-30T12:30:00Z",
+      "seoTitle": "क्या Black Hole सच में सब कुछ निगल लेते हैं? | Gaurav's World Science",
+      "metaDescription": "Black Hole क्या है और क्या वह सच में सब कुछ निगल लेता है? Event Horizon, Accretion Disk, Spaghettification, M87* और Sagittarius A* को आसान हिंदी में समझें।",
+      "focusKeyword": "Black Hole क्या है",
+      "canonicalUrl": "https://onestopfzd.in/gauravs-world/article-dynamic.html?id=black-hole-sach-mein-sab-kuch-nigal-lete-hain",
+      "socialTitle": "क्या Black Hole सच में सब कुछ निगल लेते हैं? विज्ञान क्या कहता है",
+      "socialDescription": "Black Hole के Event Horizon, gravity, accretion disk, spaghettification और वैज्ञानिक evidence को आसान हिंदी में समझिए।",
+      "indexable": true
+    },
+    {
       "id": "15-windows-keyboard-shortcuts-computer-skills",
       "slug": "15-windows-keyboard-shortcuts-computer-skills",
       "title": "Windows के 15 Keyboard Shortcuts जो हर Computer User को सीखने चाहिए",
@@ -265,5 +284,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T11:48:44.524Z"
+  "updatedAt": "2026-09-30T12:30:00Z"
 }
