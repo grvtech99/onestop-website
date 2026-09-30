@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-2';
+  const MANIFEST_URL = './data/articles.json?v=20260930-3';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -59,7 +59,7 @@
     const summary=String(a.summary||a.description||'');
     return `<article class=\"featured-story\">${media}<div class=\"featured-copy\"><span class=\"featured-label\">FEATURED STORY · आज की खास कहानी</span><p class=\"featured-category\">${esc(a.category||'Gaurav’s World')}</p><a class=\"featured-title\" href=\"${esc(href)}\">${esc(a.title)}</a>${summary?`<p class=\"featured-summary\">${esc(summary)}</p>`:''}<a class=\"featured-read\" href=\"${esc(href)}\">पूरा लेख पढ़ें <span aria-hidden=\"true\">→</span></a></div></article>`;
   }
-  const groups=[['Technology','Technology'],['Science','Science'],['History','History'],['Universe','Universe'],['Entertainment','Entertainment']];
+  const groups=[['Technology','Technology'],['Science','Science'],['History','History'],['Universe','Universe'],['World Secret','World Secret'],['Duniya','Duniya'],['Lifestyle','Lifestyle'],['Entertainment','Entertainment'],['Trending','Trending'],['Computer Skills','Computer Skills'],['Education','Education'],['Latest Govt Job','Latest Govt Job'],['Admit Card','Admit Card'],['Result','Result'],['Answer Key','Answer Key'],['Syllabus','Syllabus'],['Admission','Admission'],['Exam Dates','Exam Dates'],['Schemes','Schemes'],['Scholarships','Scholarships']];
   function render(list){
     const q=search.value.trim().toLowerCase();const selected=listMode?listModeCategory:category.value;
     const filtered=list.filter(a=>(selected==='all'||String(a.category||'').toLowerCase()===selected.toLowerCase())&&(String(a.title||'')+' '+String(a.description||a.summary||'')+' '+String(a.category||'')).toLowerCase().includes(q)).slice().sort((a,b)=>timestamp(b)-timestamp(a));
