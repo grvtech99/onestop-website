@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
+      "slug": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
+      "title": "क्या Black Hole सच में सब कुछ निगल लेते हैं? विज्ञान क्या कहता है",
+      "category": "Universe",
+      "summary": "Black Hole को लेकर सबसे बड़ा सवाल यही है—क्या वह अपने आसपास की हर चीज़ को निगल लेता है? जानिए Event Horizon, Accretion Disk, Gravity, Spaghettification और Black Hole की वास्तविक वैज्ञानिक तस्वीर आसान हिंदी में।",
+      "image": "images/black-hole-science-hero-final.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-09-30T18:00:00+05:30",
+      "updatedAt": "2026-09-30T12:44:38.603Z"
+    },
+    {
       "id": "trump-ufo-uap-new-video-batch-release-06-september-2026",
       "slug": "trump-ufo-uap-new-video-batch-release-06-september-2026",
       "title": "Trump Administration ने UFO/UAP का नया Video Batch जारी किया: 15 Videos में क्या है?",
@@ -18,18 +30,6 @@
       "socialTitle": "Trump Administration ने जारी किए 15 नए UFO/UAP Videos — क्या दिखता है?",
       "socialDescription": "PURSUE Release 06 के 15 UAP videos, AARO records और official evidence को आसान भाषा में समझिए।",
       "indexable": true
-    },
-    {
-      "id": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
-      "slug": "black-hole-sach-mein-sab-kuch-nigal-lete-hain",
-      "title": "क्या Black Hole सच में सब कुछ निगल लेते हैं? विज्ञान क्या कहता है",
-      "category": "Science",
-      "summary": "Black Hole को लेकर सबसे बड़ा सवाल यही है—क्या वह अपने आसपास की हर चीज़ को निगल लेता है? जानिए Event Horizon, Accretion Disk, Gravity, Spaghettification और Black Hole की वास्तविक वैज्ञानिक तस्वीर आसान हिंदी में।",
-      "image": "images/black-hole-science-hero-final.webp",
-      "author": "Gaurav Yadav",
-      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "publishedAt": "2026-09-30T18:00:00+05:30",
-      "updatedAt": "2026-09-30T12:42:06.233Z"
     },
     {
       "id": "15-windows-keyboard-shortcuts-computer-skills",
@@ -296,5 +296,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T13:00:00Z"
+  "updatedAt": "2026-09-30T12:44:38.603Z"
 }
