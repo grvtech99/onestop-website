@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-12';
+  const MANIFEST_URL = './data/articles.json?v=20260930-13';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -50,7 +50,7 @@
   function card(a){
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
     const image=String(a.image||a.coverImage||a.thumbnail||'');
-    const media=image?`<div class=\"post-cover-link\"><img class=\"post-cover-bg\" src=\"${esc(image)}\" alt=\"\" aria-hidden=\"true\" loading=\"lazy\" decoding=\"async\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image)}\" alt=\"${esc(a.title)}\" loading=\"lazy\" decoding=\"async\"></a><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
+    const media=image?`<div class=\"post-cover-link\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image)}\" alt=\"${esc(a.title)}\" width=\"104\" height=\"59\" loading=\"lazy\" decoding=\"async\" fetchpriority=\"low\"><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
     const metaParts=[];const authorName=String(a.author||'Gaurav Yadav').trim()||'Gaurav Yadav';metaParts.push(`<span class="author">${esc(authorName)}</span>`);const published=a.publishedAt||a.date||a.updatedAt||a.createdAt||'';if(published){const d=new Date(published);metaParts.push(Number.isNaN(d.getTime())?esc(published):esc(new Intl.DateTimeFormat('hi-IN',{day:'numeric',month:'short',year:'numeric'}).format(d)));}const meta=metaParts.length?`<div class="post-meta" aria-label="लेखक और प्रकाशित तारीख">${metaParts.join(' · ')}</div>`:'';return `<article class="post">${media}<div class="post-content"><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2>${meta}</div></article>`;
   }
   function featured(a){
