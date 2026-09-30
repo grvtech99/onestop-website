@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-3';
+  const MANIFEST_URL = './data/articles.json?v=20260930-4';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -43,7 +43,7 @@
   let listMode = false;
   let listModeCategory = 'all';
   const esc = value => String(value == null ? '' : value).replace(/[&<>\\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\\"':'&quot;',"'":'&#39;'}[ch]));
-  function timestamp(a){const v=Date.parse(a.publishedAt||a.updatedAt||a.date||a.createdAt||'');return Number.isFinite(v)?v:0;}
+  function timestamp(a){const v=Date.parse(a.updatedAt||a.publishedAt||a.date||a.createdAt||'');return Number.isFinite(v)?v:0;}
   function liked(id){try{return localStorage.getItem('gw-liked-'+id)==='1';}catch(_){return false;}}
   function card(a){
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
