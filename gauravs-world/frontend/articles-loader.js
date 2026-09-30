@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20260930-4';
+  const MANIFEST_URL = './data/articles.json?v=20260930-6';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -21,6 +21,7 @@
     #posts .featured-read{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#0876d1;color:#fff;text-decoration:none;font-weight:800;font-size:.88rem}
     #posts .home-section{margin:14px 0 20px}
     #posts .section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 7px}
+    #posts .smart-empty{padding:12px 10px;border:1px dashed #cbd5e1;border-radius:10px;color:#64748b;background:#f8fafc;font-size:.8rem}
     #posts .section-head h2{font-size:1.05rem;margin:0;font-weight:800;color:#172033}
     #posts .section-view{font-size:.75rem;font-weight:700;color:#0876d1;background:#e8f3ff;border-radius:999px;padding:5px 10px;border:0;cursor:pointer}
     #posts .section-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
@@ -71,7 +72,10 @@
     if(listMode || selected!=='all' || q) {root.innerHTML=filtered.length?filtered.map(card).join(''):'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';return;}
     const lead=filtered[0];
     const remaining=lead?filtered.filter(a=>String(a.slug||a.id)!==String(lead.slug||lead.id)):filtered;
-    const section=(name,items,key)=>items.length?`<section class=\"home-section\"><div class=\"section-head\"><h2>${name}</h2><button class=\"section-view\" type=\"button\" data-view=\"${esc(key)}\">View all →</button></div><div class=\"section-grid\">${items.map(card).join('')}</div></section>`:'';
+    const section=(name,items,key)=>{
+      const body=items.length?items.map(card).join(''):'<div class="smart-empty">इस category में अभी कोई published article नहीं है।</div>';
+      return `<section class="home-section"><div class="section-head"><h2>${name}</h2><button class="section-view" type="button" data-view="${esc(key)}">View all →</button></div><div class="section-grid">${body}</div></section>`;
+    };
     let html=featured(lead);
     html+=section('Latest Articles',remaining.slice(0,6),'all');
     groups.forEach(group=>{
