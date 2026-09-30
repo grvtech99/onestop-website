@@ -81,7 +81,7 @@
     html+=section('Latest Articles',remaining.slice(0,6),'all');
     groups.forEach((group,index)=>{
       const keys=new Set(group.keys.map(x=>x.toLowerCase()));
-      const items=remaining.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
+      const items=filtered.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
       html+=section(group.title,items,'group-'+index);
     });
     root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
