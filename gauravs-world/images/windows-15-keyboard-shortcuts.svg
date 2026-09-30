@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0876d1"/><stop offset="1" stop-color="#0b3f73"/></linearGradient></defs>
+<rect width="1600" height="900" fill="url(#g)"/>
+<rect x="100" y="100" width="1400" height="700" rx="42" fill="#ffffff" opacity=".08"/>
+<rect x="190" y="175" width="1220" height="520" rx="28" fill="#102a43" stroke="#ffffff" stroke-opacity=".35" stroke-width="4"/>
+<rect x="245" y="230" width="1110" height="360" rx="16" fill="#f7fbff"/>
+<circle cx="280" cy="205" r="8" fill="#fff"/><circle cx="307" cy="205" r="8" fill="#fff"/><circle cx="334" cy="205" r="8" fill="#fff"/>
+<text x="800" y="330" text-anchor="middle" font-family="Arial,sans-serif" font-size="72" font-weight="800" fill="#0876d1">15 Windows Shortcuts</text>
+<text x="800" y="420" text-anchor="middle" font-family="Arial,sans-serif" font-size="48" font-weight="700" fill="#172033">Computer Skills • Fast &amp; Smart</text>
+<text x="800" y="500" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#526273">Keyboard skills that save time every day</text>
+<g transform="translate(440 625)">
+<rect width="140" height="64" rx="14" fill="#fff" stroke="#d7e1ec" stroke-width="3"/><text x="70" y="43" text-anchor="middle" font-family="Arial" font-size="27" font-weight="700" fill="#172033">Ctrl</text>
+<rect x="170" width="140" height="64" rx="14" fill="#fff" stroke="#d7e1ec" stroke-width="3"/><text x="240" y="43" text-anchor="middle" font-family="Arial" font-size="27" font-weight="700" fill="#172033">Shift</text>
+<rect x="340" width="140" height="64" rx="14" fill="#fff" stroke="#d7e1ec" stroke-width="3"/><text x="410" y="43" text-anchor="middle" font-family="Arial" font-size="27" font-weight="700" fill="#172033">Alt</text>
+<rect x="510" width="140" height="64" rx="14" fill="#fff" stroke="#d7e1ec" stroke-width="3"/><text x="580" y="43" text-anchor="middle" font-family="Arial" font-size="27" font-weight="700" fill="#172033">Win</text>
+</g>
+<text x="800" y="760" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#fff" opacity=".85">Gaurav’s World • Computer Skills</text>
+</svg>
