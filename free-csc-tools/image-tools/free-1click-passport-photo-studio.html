@@ -374,9 +374,10 @@ function renderPhotoTo(targetCtx,w,h){
  targetCtx.beginPath();
  targetCtx.rect(gap,gap,innerW,innerH);
  targetCtx.clip();
- targetCtx.filter="brightness("+state.brightness+"%) contrast("+state.contrast+"%) saturate("+state.saturation+"%)";
+ targetCtx.filter="none";
  targetCtx.fillStyle=state.bg;
  targetCtx.fillRect(gap,gap,innerW,innerH);
+ targetCtx.filter="brightness("+state.brightness+"%) contrast("+state.contrast+"%) saturate("+state.saturation+"%)";
  targetCtx.drawImage(source,x,y,dw,dh);
  targetCtx.restore();
  if(state.nameDate){
