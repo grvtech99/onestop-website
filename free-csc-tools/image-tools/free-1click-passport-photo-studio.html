@@ -434,38 +434,92 @@ function makePhotoBlob(){
 }
 function drawA4(){
  const W=Math.round(210*state.dpi/25.4),H=Math.round(297*state.dpi/25.4);
+ if(!W||!H||W>16000||H>16000)throw new Error("A4 canvas size is not supported at this DPI. Use 300 DPI or lower.");
  a4.width=W;a4.height=H;
  a4ctx.setTransform(1,0,0,1,0,0);
- a4ctx.clearRect(0,0,W,H);a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
+ a4ctx.globalCompositeOperation="source-over";
+ a4ctx.filter="none";
+ a4ctx.clearRect(0,0,W,H);
+ a4ctx.fillStyle="#fff";
+ a4ctx.fillRect(0,0,W,H);
+
+ /* IMPORTANT: the visible photo canvas is the single source of truth.
+    It is already rendered and visible to the user, so the A4 export must
+    copy that exact bitmap instead of rebuilding the photo from the AI Blob. */
+ draw();
+ if(!canvas.width||!canvas.height)throw new Error("Photo canvas is empty.");
  const p=photoSize(),maxCols=Math.max(1,Math.floor(W/p.w)),maxRows=Math.max(1,Math.floor(H/p.h));
  const capacity=maxCols*maxRows,fitCount=Math.min(state.copies,capacity);
- photoCanvas.width=p.w;photoCanvas.height=p.h;
- if(!renderPhotoTo(photoCtx,p.w,p.h))throw new Error("Photo could not be rendered for A4 export.");
+ if(!fitCount)throw new Error("No photo could be placed on A4.");
+
+ photoCanvas.width=p.w;
+ photoCanvas.height=p.h;
+ photoCtx.setTransform(1,0,0,1,0,0);
+ photoCtx.globalCompositeOperation="source-over";
+ photoCtx.filter="none";
+ photoCtx.clearRect(0,0,p.w,p.h);
+ photoCtx.drawImage(canvas,0,0,p.w,p.h);
+
+ /* Guard against a blank tile before building the sheet. */
+ const probe=photoCtx.getImageData(Math.floor(p.w/2),Math.floor(p.h/2),1,1).data;
+ const hasVisiblePixels=probe[3]>0;
+ if(!hasVisiblePixels)throw new Error("The rendered photo tile is blank. Please reload the photo and try again.");
+
  for(let i=0;i<fitCount;i++){
    const col=i%maxCols,row=Math.floor(i/maxCols);
    a4ctx.drawImage(photoCanvas,col*p.w,row*p.h,p.w,p.h);
  }
+
  $("a4Preview").classList.remove("hidden");
- const previewCtx=$("a4Canvas").getContext("2d");
- previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);previewCtx.drawImage(a4,0,0);
+ const preview=$("a4Canvas");
+ preview.width=420;
+ preview.height=Math.round(420*H/W);
+ const previewCtx=preview.getContext("2d");
+ previewCtx.setTransform(1,0,0,1,0,0);
+ previewCtx.clearRect(0,0,preview.width,preview.height);
+ previewCtx.fillStyle="#fff";
+ previewCtx.fillRect(0,0,preview.width,preview.height);
+ previewCtx.drawImage(a4,0,0,preview.width,preview.height);
+
  const rows=Math.ceil(fitCount/maxCols);
  setStatus(state.copies>capacity
    ? "A4 can fit "+capacity+" photos at this selected size. "+state.copies+" requested, so "+fitCount+" were placed."
    : fitCount+" photos placed on A4 • "+maxCols+" across × "+rows+" rows.");
 }
-$("downloadPhoto").onclick=()=>{
+function canvasToBlob(canvasEl,mime,quality){
+ return new Promise((resolve,reject)=>{
+   try{
+     canvasEl.toBlob(blob=>blob?resolve(blob):reject(new Error("Browser could not encode the A4 image.")),mime,quality);
+   }catch(e){reject(e)}
+ });
+}
+$("downloadPhoto").onclick=async()=>{
  if(!state.img)return setStatus("Upload a photo first.");
- drawA4();
- const mime=state.format==="jpeg"?"image/jpeg":"image/png";
- const ext=state.format==="jpeg"?"jpg":"png";
- a4.toBlob(b=>{
-   if(!b){setStatus("A4 image could not be generated. Please try again.");return;}
-   const u=URL.createObjectURL(b),a=document.createElement("a");
+ const button=$("downloadPhoto"),oldText=button.textContent;
+ button.disabled=true;button.textContent="Preparing A4…";
+ try{
+   await new Promise(requestAnimationFrame);
+   drawA4();
+   const mime=state.format==="jpeg"?"image/jpeg":"image/png";
+   const ext=state.format==="jpeg"?"jpg":"png";
+   let blob=await canvasToBlob(a4,mime,state.format==="jpeg"?0.95:undefined);
+   if(!blob||blob.size<1000){
+     const data=a4.toDataURL(mime,state.format==="jpeg"?0.95:undefined);
+     if(data==="data:,")throw new Error("A4 canvas could not be encoded.");
+     const res=await fetch(data);
+     blob=await res.blob();
+   }
+   const u=URL.createObjectURL(blob),a=document.createElement("a");
    a.href=u;a.download="passport-photos-A4."+ext;
    document.body.appendChild(a);a.click();a.remove();
    setTimeout(()=>URL.revokeObjectURL(u),1500);
    setStatus("A4 sheet downloaded as "+ext.toUpperCase()+".");
- },mime,state.format==="jpeg"?0.95:undefined);
+ }catch(e){
+   console.error("ONESTOP A4 export:",e);
+   setStatus(e.message||"A4 export failed.");
+ }finally{
+   button.disabled=false;button.textContent=oldText;
+ }
 };
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
