@@ -75,25 +75,27 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 #borderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
 .mini-control input[type=range]{width:100%;accent-color:var(--blue)}
 .mini-control .range-val{display:block;margin-top:3px;font-size:9px}
-.background-tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.size-controls-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
+.size-controls-grid .field{min-width:0}
+.size-controls-grid .field input,.size-controls-grid .field select{height:30px;font-size:10px;padding:0 7px}
 .watermark-box{border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff;min-width:0}
+.size-watermark{margin-top:7px}
+.fixed-border-row{display:grid;grid-template-columns:1fr auto 34px auto;gap:8px;align-items:center;margin-top:7px;padding:6px 8px;border:1px solid #e0e8f2;border-radius:9px;background:#f8fbff;font-size:10px;font-weight:800;color:#38516f}
+.fixed-border-row input[type=color]{width:28px;height:24px;padding:2px;border:1px solid #ccdbea;border-radius:6px}
+.custom-bg-row{display:grid;grid-template-columns:auto 34px 1fr;align-items:center;gap:8px;padding:6px 8px;border:1px solid #e0e8f2;border-radius:9px;background:#f8fbff;font-size:10px;font-weight:800;color:#38516f}
+.custom-bg-row input[type=color]{width:30px;height:26px;padding:2px;border:1px solid #ccdbea;border-radius:6px}
+.custom-bg-row span{font-size:9px;color:var(--muted)}
+.name-style{border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff;margin-top:7px}
 .watermark-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
 .watermark-head label{font-size:10px;font-weight:800;color:#38516f}
 .watermark-head label input{accent-color:var(--blue);margin:0 5px 0 0}
 .watermark-head span{font-size:9px;color:var(--muted)}
-.background-tools-grid .name-date{margin-top:0}
 .watermark-box .field input{height:30px;font-size:10px}
-.text-style-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:7px}
+.text-style-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:6px}
 .text-style-grid .field input[type=color]{height:30px;padding:2px}
 .name-style{border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff}
 .name-style-title{font-size:10px;font-weight:800;color:#38516f;margin-bottom:5px}
-@media(max-width:600px){.background-tools-grid{grid-template-columns:1fr}.text-style-grid{grid-template-columns:1fr 1fr 1fr}}
-.bg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
-.bg-choice{height:42px;border:2px solid #d7e3f0;border-radius:9px;position:relative;overflow:hidden;padding:0}
-.bg-choice.active{border-color:var(--blue);box-shadow:0 0 0 2px #dcecff}
-.bg-choice span{position:absolute;inset:0}
-.bg-white{background:#fff}.bg-off{background:#f4f4ed}.bg-lightblue{background:#dff2ff}.bg-blue{background:#0090ff}.bg-red{background:#ff0000}
-.bg-choice input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+@media(max-width:600px){.size-controls-grid{grid-template-columns:1fr 1fr}.text-style-grid{grid-template-columns:1fr 1fr 1fr}}
 .name-date{display:flex;align-items:center;gap:8px;margin-top:10px;padding:9px;background:#f8fbff;border:1px solid #e0eaf5;border-radius:9px}
 .name-date input{accent-color:var(--blue)}
 .name-date label{font-size:11px;font-weight:800}
@@ -233,13 +235,15 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <button class="preset" data-w="50" data-h="70" data-label="5 × 7 cm"><b>Canada</b><small>5 × 7 cm • 50 × 70 mm</small></button>
 <button class="preset" data-w="35" data-h="50" data-label="3.5 × 5 cm"><b>Malaysia</b><small>3.5 × 5 cm • 35 × 50 mm</small></button>
 </div>
-<div class="custom-row">
-<div class="field"><label>Custom Width</label><input id="customW" type="number" min="1" step="0.1" placeholder="35"></div>
-<div class="field"><label>Custom Height</label><input id="customH" type="number" min="1" step="0.1" placeholder="45"></div>
-</div>
-<div class="custom-row">
+<div class="size-controls-grid">
+<div class="field"><label>W</label><input id="customW" type="number" min="1" step="0.1" placeholder="35"></div>
+<div class="field"><label>H</label><input id="customH" type="number" min="1" step="0.1" placeholder="45"></div>
 <div class="field"><label>Unit</label><select id="unit"><option value="mm">MM</option><option value="cm">CM</option><option value="in">Inch</option><option value="px">PX</option></select></div>
-<div class="dpi-row"><label>DPI</label><input id="dpi" type="number" min="72" max="1200" value="300"></div>
+<div class="field"><label>DPI</label><input id="dpi" type="number" min="72" max="1200" value="300"></div>
+</div>
+<div class="watermark-box size-watermark">
+<div class="watermark-head"><label><input id="watermarkEnabled" type="checkbox"> Watermark Text</label><span>Vertical • 50%</span></div>
+<div class="field"><input id="watermarkText" type="text" value="ONESTOP" placeholder="Enter watermark text"></div>
 </div>
 </div>
 </section>
@@ -257,43 +261,27 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <div class="range-row"><label>Contrast</label><input id="contrast" type="range" min="50" max="150" value="100"><span id="contrastVal" class="range-val">100%</span></div>
 <div class="range-row"><label>Saturation</label><input id="saturation" type="range" min="0" max="200" value="100"><span id="saturationVal" class="range-val">100%</span></div>
 <div class="hint">Drag the preview to reposition the photo. Zoom and adjustments update instantly.</div>
-<div class="border-gap-grid">
-<div class="mini-control">
-<label>Border</label>
-<div class="inline-tools">
-<button id="borderToggle" class="tool-btn" type="button">OFF</button>
+<div class="fixed-border-row">
+<span>Border <b>ON</b></span>
+<span>1 px</span>
 <input id="borderColor" type="color" value="#000000" title="Border color">
+<span>Gap 25 px</span>
 </div>
-</div>
-<div class="mini-control">
-<label>Thickness</label>
-<input id="borderWidth" type="range" min="0" max="30" step="1" value="2">
-<span id="borderWidthVal" class="range-val">2 px</span>
-</div>
-<div class="mini-control">
-<label>Gap / Inner Shrink</label>
-<input id="innerGap" type="range" min="0" max="30" step="1" value="0">
-<span id="innerGapVal" class="range-val">0 px</span>
-</div>
-</div>
-<div class="hint">Gap shrinks the photo equally from all four sides. The gap area stays white between the photo and border.</div>
+<div class="hint">Fixed border and equal 25 px inner shrink. Gap remains white.</div>
 </div>
 </section>
 
 <section class="tool-section">
 <div class="section-head"><strong>3. Background</strong><span>Remove &amp; replace</span></div>
 <div class="section-body">
-<div class="bg-grid">
-<button class="bg-choice active" data-bg="#ffffff" title="White"><span class="bg-white"></span></button>
-<button class="bg-choice" data-bg="#f4f4ed" title="Off White"><span class="bg-off"></span></button>
-<button class="bg-choice" data-bg="#dff2ff" title="Light Blue"><span class="bg-lightblue"></span></button>
-<button class="bg-choice" data-bg="#0090ff" title="Blue"><span class="bg-blue"></span></button>
-<button class="bg-choice" data-bg="#ff0000" title="Red"><span class="bg-red"></span></button>
+<div class="custom-bg-row">
+<label for="bgColor">Background</label>
+<input id="bgColor" type="color" value="#ffffff" title="Custom background color">
+<span id="bgColorValue">#FFFFFF</span>
 </div>
-<div class="bg-remove-row"><button id="removeBgBtn" class="bg-remove-btn" type="button">✂ Remove Background</button><span class="hint" style="margin:0">Optional — runs only when you click the button.</span></div>
-<div class="background-tools-grid">
+<div class="bg-remove-row"><button id="removeBgBtn" class="bg-remove-btn" type="button">✂ Remove Background</button><span class="hint" style="margin:0">Remove first, then choose any background color.</span></div>
 <div class="name-style">
-<div class="name-date" style="margin-top:0"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date</label></div>
+<div class="name-date" style="margin-top:7px"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date</label></div>
 <div id="ndFields" class="nd-fields hidden">
 <div class="field"><label>Name</label><input id="personName" type="text" placeholder="Your Name"></div>
 <div class="field"><label>Date</label><input id="photoDate" type="date"></div>
@@ -302,12 +290,6 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <div class="field"><label>Text Size</label><input id="nameTextSize" type="number" min="8" max="80" step="1" value="28"></div>
 <div class="field"><label>Text Color</label><input id="nameTextColor" type="color" value="#111111"></div>
 <div class="field"><label>Box Color</label><input id="nameBoxColor" type="color" value="#ffffff"></div>
-</div>
-</div>
-<div class="watermark-box">
-<div class="watermark-head"><label><input id="watermarkEnabled" type="checkbox"> Watermark Text</label><span>Vertical • 50%</span></div>
-<div class="field"><label>Watermark Text</label><input id="watermarkText" type="text" value="ONESTOP" placeholder="Enter watermark text"></div>
-<div class="hint">Fixed bottom-left, vertical, 50% opacity, inside the white gap.</div>
 </div>
 </div>
 </div>
@@ -351,8 +333,8 @@ const state={
  file:null,img:null,cutout:null,cutoutImage:null,cutoutUrl:"",objectUrl:"",resultUrl:"",
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
- borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,
-watermarkEnabled:false,watermarkText:"ONESTOP",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",
+ borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,
+ watermarkEnabled:false,watermarkText:"ONESTOP",
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
  nameDate:false,name:"",date:"",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",format:"png"
 };
@@ -393,6 +375,8 @@ function renderPhotoTo(targetCtx,w,h){
  targetCtx.rect(gap,gap,innerW,innerH);
  targetCtx.clip();
  targetCtx.filter="brightness("+state.brightness+"%) contrast("+state.contrast+"%) saturate("+state.saturation+"%)";
+ targetCtx.fillStyle=state.bg;
+ targetCtx.fillRect(gap,gap,innerW,innerH);
  targetCtx.drawImage(source,x,y,dw,dh);
  targetCtx.restore();
  if(state.nameDate){
@@ -419,7 +403,7 @@ function renderPhotoTo(targetCtx,w,h){
    const sideGap=gap;
    const maxFont=Math.max(7,Math.min(18,Math.round(sideGap*.58)));
    targetCtx.save();
-   targetCtx.translate(Math.max(2,sideGap*.5),h-Math.max(2,sideGap*.5));
+   targetCtx.translate(Math.max(2,sideGap*.48),h-Math.max(2,sideGap*.5));
    targetCtx.rotate(-Math.PI/2);
    targetCtx.fillStyle="rgba(17,17,17,.5)";
    targetCtx.font="700 "+maxFont+"px Arial";
@@ -448,9 +432,6 @@ function draw(){
  }
 }
 function setStatus(t){$("status").textContent=t}
-function markBg(btn){
- document.querySelectorAll(".bg-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
-}
 function renderValues(){
  ["zoom","brightness","contrast","saturation"].forEach(id=>{
    const el=$(id),v=el.value;
@@ -531,27 +512,7 @@ $("dpi").onchange=()=>{state.dpi=Math.max(72,Math.min(1200,+$("dpi").value||300)
 $("resetAdjust").onclick=()=>{state.zoom=1;state.brightness=100;state.contrast=100;state.saturation=100;state.offsetX=0;state.offsetY=0;$("zoom").value=1;$("brightness").value=100;$("contrast").value=100;$("saturation").value=100;renderValues()};
 $("fitFace").onclick=()=>{state.zoom=1.12;state.offsetX=0;state.offsetY=0;$("zoom").value=1.12;renderValues()};
 
-$("borderToggle").onclick=()=>{
- state.borderEnabled=!state.borderEnabled;
- $("borderToggle").textContent=state.borderEnabled?"ON":"OFF";
- $("borderToggle").classList.toggle("active",state.borderEnabled);
- draw();
- if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
-};
-$("borderColor").oninput=e=>{
- state.borderColor=e.target.value;
- if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
-};
-$("borderWidth").oninput=e=>{
- state.borderWidth=+e.target.value;
- $("borderWidthVal").textContent=state.borderWidth+" px";
- if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
-};
-$("innerGap").oninput=e=>{
- state.innerGap=+e.target.value;
- $("innerGapVal").textContent=state.innerGap+" px";
- if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
-};
+$("borderColor").oninput=e=>{state.borderColor=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 $("watermarkEnabled").onchange=()=>{state.watermarkEnabled=$("watermarkEnabled").checked;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 $("watermarkText").oninput=e=>{state.watermarkText=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 
@@ -563,7 +524,7 @@ canvas.addEventListener("pointermove",e=>{
 });
 canvas.addEventListener("pointerup",()=>state.dragging=false);canvas.addEventListener("pointercancel",()=>state.dragging=false);
 
-document.querySelectorAll(".bg-choice").forEach(btn=>btn.onclick=()=>{state.bg=btn.dataset.bg;markBg(btn);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}});
+$("bgColor").oninput=e=>{state.bg=e.target.value;$("bgColorValue").textContent=e.target.value.toUpperCase();if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 $("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").classList.toggle("hidden",!state.nameDate);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 $("personName").oninput=e=>{state.name=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};$("photoDate").oninput=e=>{state.date=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 [["nameTextSize","nameTextSize"],["nameTextColor","nameTextColor"],["nameBoxColor","nameBoxColor"]].forEach(([id,key])=>$(id).oninput=e=>{state[key]=id==="nameTextSize"?Math.max(8,Math.min(80,+e.target.value||28)):e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}});
@@ -673,11 +634,10 @@ $("downloadPhoto").onclick=async()=>{
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
-Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,watermarkEnabled:false,watermarkText:"ONESTOP"});
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,watermarkEnabled:false,watermarkText:"ONESTOP",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",bg:"#ffffff"});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
-$("borderToggle").textContent="OFF";
-$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
+$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderColor").value="#000000";$("bgColor").value="#ffffff";$("bgColorValue").textContent="#FFFFFF";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
