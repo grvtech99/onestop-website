@@ -65,7 +65,7 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 </div>
 <div id="actions" class="actionbar hidden"><button id="compare" class="btn secondary" type="button">◐ Before / After</button><button id="download" class="btn secondary" type="button">⬇ Download Image</button><button id="newImage" class="btn secondary" type="button">＋ New Image</button></div>
 <div id="status" class="status">Select an image to begin.</div>
-<div class="meta">AI background removal • Transparent PNG • Original image stays visible while processing</div>
+<div class="meta">AI background removal • BiRefNet • Transparent PNG • Original image stays visible while processing</div>
 </section>
 </section></main>
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
@@ -120,7 +120,7 @@ $("newImage").onclick=resetTool;
 
 async function getClient(){
   if(!clientPromise){
-    clientPromise=Client.connect("not-lain/background-removal",{
+    clientPromise=Client.connect("hf-applications/background-removal",{
       status_callback:status=>{
         if(status?.status==="building"||status?.status==="sleeping")
           $("status").textContent="Starting AI background remover…";
@@ -162,8 +162,8 @@ async function load(file){
 
   try{
     const app=await getClient();
-    const result=await app.predict("/png",[handle_file(file)]);
-    const output=result?.data?.[0];
+    const result=await app.predict("/image",[handle_file(file)]);
+    const output=result?.data?.[1];
     const outputUrl=extractOutputUrl(output);
 
     if(!outputUrl)throw new Error("AI returned no usable PNG output.");
