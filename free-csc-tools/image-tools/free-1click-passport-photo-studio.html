@@ -82,6 +82,9 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 .custom-count .hint{margin:0;align-self:end}
 .download-row{display:flex;gap:8px;margin-top:10px}
 .download-row button{flex:1}
+.format-row{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.format-choice{border:1px solid #ccdbea;background:#fff;color:#315175;border-radius:9px;padding:7px 8px;font-size:10px;font-weight:850}
+.format-choice.active{border-color:var(--blue);background:#f0f7ff;color:var(--blue)}
 .primary:disabled{opacity:.55;cursor:not-allowed}
 .hint{font-size:10px;color:var(--muted);line-height:1.4;margin-top:8px}
 .result-preview{margin-top:10px;border:1px solid var(--line);border-radius:10px;padding:8px;background:#f8fbff;text-align:center}
@@ -146,6 +149,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
   .print-choice small{font-size:9px}
   .download-row{gap:6px;margin-top:7px}
   .download-row .primary{padding:9px 8px;font-size:10px}
+.format-choice{padding:6px 7px;font-size:10px}
   .hint{font-size:9px;margin-top:5px}
 }
 /* On shorter/mobile layouts, allow natural page flow rather than forcing content into a tiny viewport. */
@@ -256,6 +260,10 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <div class="hint">A4 stays fixed. Columns and rows are calculated automatically from the selected photo size.</div>
 </div>
 </div>
+<div class="format-row">
+<button class="format-choice active" data-format="png" type="button">PNG</button>
+<button class="format-choice" data-format="jpeg" type="button">JPG</button>
+</div>
 <div class="download-row">
 <button id="downloadPhoto" class="primary" type="button">Download Photo</button>
 </div>
@@ -278,7 +286,7 @@ const state={
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:6,
  zoom:1,brightness:100,contrast:100,saturation:100,
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
- nameDate:false,name:"",date:""
+ nameDate:false,name:"",date:"",format:"png"
 };
 const canvas=$("canvas"),ctx=canvas.getContext("2d");
 const a4=$("a4Canvas"),a4ctx=a4.getContext("2d");
@@ -296,31 +304,33 @@ function loadImage(file){
    im.onerror=reject;im.src=u;
  });
 }
-function draw(){
- if(!state.img)return;
- fitSize();
- const w=canvas.width,h=canvas.height;
- ctx.clearRect(0,0,w,h);
- ctx.fillStyle=state.bg;ctx.fillRect(0,0,w,h);
+function renderPhotoTo(targetCtx,w,h){
  const source=state.cutout||state.img;
- const ar=w/h;
- const iw=source.naturalWidth||source.width,ih=source.naturalHeight||source.height;
+ if(!source)return;
+ targetCtx.clearRect(0,0,w,h);
+ targetCtx.fillStyle=state.bg;targetCtx.fillRect(0,0,w,h);
+ const ar=w/h,iw=source.naturalWidth||source.width,ih=source.naturalHeight||source.height;
+ if(!iw||!ih)return;
  const iar=iw/ih;
  let dw,dh;
  if(iar>ar){dh=h*state.zoom;dw=dh*iar}else{dw=w*state.zoom;dh=dw/iar}
  const x=(w-dw)/2+state.offsetX,y=(h-dh)/2+state.offsetY;
- ctx.save();
- ctx.filter=`brightness(${state.brightness}%) contrast(${state.contrast}%) saturate(${state.saturation}%)`;
- ctx.drawImage(source,x,y,dw,dh);
- ctx.restore();
+ targetCtx.save();
+ targetCtx.filter="brightness("+state.brightness+"%) contrast("+state.contrast+"%) saturate("+state.saturation+"%)";
+ targetCtx.drawImage(source,x,y,dw,dh);
+ targetCtx.restore();
  if(state.nameDate){
    const text=[state.name.trim(),state.date].filter(Boolean).join("  ");
    if(text){
-     ctx.save();ctx.fillStyle="#111";ctx.font=`bold ${Math.max(16,Math.round(w*.035))}px Arial`;
-     ctx.textAlign="center";ctx.textBaseline="bottom";ctx.fillText(text,w/2,h-10);ctx.restore();
+     targetCtx.save();targetCtx.fillStyle="#111";targetCtx.font="bold "+Math.max(16,Math.round(w*.035))+"px Arial";
+     targetCtx.textAlign="center";targetCtx.textBaseline="bottom";targetCtx.fillText(text,w/2,h-10);targetCtx.restore();
    }
  }
- $("sizeLabel").textContent=`${state.widthMm} × ${state.heightMm} mm`;
+}
+function draw(){
+ if(!state.img)return;
+ fitSize();renderPhotoTo(ctx,canvas.width,canvas.height);
+ $("sizeLabel").textContent=state.widthMm+" × "+state.heightMm+" mm";
 }
 function setStatus(t){$("status").textContent=t}
 function markBg(btn){
@@ -393,6 +403,10 @@ document.querySelectorAll(".bg-choice").forEach(btn=>btn.onclick=()=>{state.bg=b
 $("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").classList.toggle("hidden",!state.nameDate);draw()};
 $("personName").oninput=e=>{state.name=e.target.value;draw()};$("photoDate").oninput=e=>{state.date=e.target.value;draw()};
 
+document.querySelectorAll(".format-choice").forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll(".format-choice").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");state.format=btn.dataset.format;
+});
 document.querySelectorAll(".print-choice").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");state.copies=+btn.dataset.count; $("customCount").value="";
 });
@@ -403,23 +417,39 @@ function makePhotoBlob(){
 }
 function drawA4(){
  const W=Math.round(210*state.dpi/25.4),H=Math.round(297*state.dpi/25.4);
- a4.width=W;a4.height=H;a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
+ a4.width=W;a4.height=H;a4ctx.clearRect(0,0,W,H);a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
  const p=photoSize(),maxCols=Math.max(1,Math.floor(W/p.w)),maxRows=Math.max(1,Math.floor(H/p.h));
  const capacity=maxCols*maxRows,fitCount=Math.min(state.copies,capacity);
- for(let i=0;i<fitCount;i++){const col=i%maxCols,row=Math.floor(i/maxCols);a4ctx.drawImage(canvas,col*p.w,row*p.h,p.w,p.h)}
+ for(let i=0;i<fitCount;i++){
+   const col=i%maxCols,row=Math.floor(i/maxCols);
+   a4ctx.save();a4ctx.translate(col*p.w,row*p.h);renderPhotoTo(a4ctx,p.w,p.h);a4ctx.restore();
+ }
  $("a4Preview").classList.remove("hidden");
- const previewCtx=$("a4Canvas").getContext("2d");previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);previewCtx.drawImage(a4,0,0);
+ const previewCtx=$("a4Canvas").getContext("2d");
+ previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);previewCtx.drawImage(a4,0,0);
  const rows=Math.ceil(fitCount/maxCols);
- setStatus(state.copies>capacity?`A4 can fit ${capacity} photos at this selected size. ${state.copies} requested, so ${fitCount} were placed.`:`${fitCount} photos placed on A4 • ${maxCols} across × ${rows} rows.`);
+ setStatus(state.copies>capacity
+   ? "A4 can fit "+capacity+" photos at this selected size. "+state.copies+" requested, so "+fitCount+" were placed."
+   : fitCount+" photos placed on A4 • "+maxCols+" across × "+rows+" rows.");
 }
 $("downloadPhoto").onclick=()=>{
  if(!state.img)return setStatus("Upload a photo first.");
  drawA4();
- a4.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="passport-photos-A4.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)},"image/png");
+ const mime=state.format==="jpeg"?"image/jpeg":"image/png";
+ const ext=state.format==="jpeg"?"jpg":"png";
+ a4.toBlob(b=>{
+   if(!b){setStatus("A4 image could not be generated. Please try again.");return;}
+   const u=URL.createObjectURL(b),a=document.createElement("a");
+   a.href=u;a.download="passport-photos-A4."+ext;
+   document.body.appendChild(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(u),1500);
+   setStatus("A4 sheet downloaded as "+ext.toUpperCase()+".");
+ },mime,state.format==="jpeg"?0.95:undefined);
 };
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
- Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6});
+ Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6,format:"png"});
+document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  canvas.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("a4Preview").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
