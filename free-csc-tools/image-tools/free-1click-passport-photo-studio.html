@@ -354,7 +354,7 @@ function renderValues(){
    $(id+"Val").textContent=id==="zoom"?Number(v).toFixed(2)+"×":v+"%";
  });
  draw();
- if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
+ if(state.img && state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
 }
 async function blobToImage(blob){
  if(!blob)return null;
@@ -408,7 +408,8 @@ document.querySelectorAll(".preset").forEach(btn=>btn.onclick=()=>{
  if(state.img){
    draw();
    if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
- });
+ }
+});
 function customSize(){
  const u=$("unit").value,w=parseFloat($("customW").value),h=parseFloat($("customH").value);
  if(!w||!h)return;
@@ -444,7 +445,11 @@ document.querySelectorAll(".format-choice").forEach(btn=>btn.onclick=()=>{
  btn.classList.add("active");state.format=btn.dataset.format;
 });
 document.querySelectorAll(".print-choice").forEach(btn=>btn.onclick=()=>{
- document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");state.copies=+btn.dataset.count;$("customCount").value="";
+ document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));
+ btn.classList.add("active");
+ state.copies=+btn.dataset.count;
+ state.sheetMode=true;
+ $("customCount").value="";
  if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
 });
 $("customCount").oninput=e=>{
