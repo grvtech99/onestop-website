@@ -418,6 +418,179 @@ body{background:#edf5fd}
   .section-body{padding:10px}
 }
 
+
+/* ONESTOP SMART COMPACT CONTROLS — clear hierarchy, no clipping */
+.section-head{
+  background:linear-gradient(135deg,var(--brand),var(--brand2))!important;
+  border-bottom:0!important;
+  color:#fff!important;
+  box-shadow:0 4px 12px rgba(7,87,201,.12);
+}
+.section-head strong{
+  color:#fff!important;
+  font-size:13px!important;
+  font-weight:900;
+  letter-spacing:.15px
+}
+.section-head span{
+  color:rgba(255,255,255,.88)!important;
+  font-size:9px!important;
+  font-weight:700
+}
+.tool-section:before{display:none}
+.tool-section{border-color:#cfe2f5!important}
+.watermark-box,.name-style{
+  border:1px solid #b9d8f2!important;
+  border-left:3px solid var(--brand)!important;
+  background:linear-gradient(90deg,#f0f7ff,#fff)!important
+}
+.watermark-head label,.name-style-title{
+  color:var(--brand)!important;
+  font-weight:900!important
+}
+.watermark-head span{color:#68819c!important}
+.bg-remove-btn{
+  background:linear-gradient(135deg,var(--brand),var(--brand2))!important;
+  color:#fff!important;
+  border-color:var(--brand)!important;
+  box-shadow:0 4px 10px rgba(7,87,201,.14)
+}
+.custom-bg-row{
+  border:1px solid #b9d8f2!important;
+  border-left:3px solid var(--brand)!important;
+  background:#f4f9ff!important
+}
+.print-options .print-choice{
+  border:1px solid #9fc7eb!important;
+  background:#f4f9ff!important;
+  color:var(--brand)!important
+}
+.print-options .print-choice:hover,.print-options .print-choice.active{
+  background:linear-gradient(135deg,var(--brand),var(--brand2))!important;
+  color:#fff!important;
+  border-color:var(--brand)!important
+}
+.format-row{
+  background:#edf6ff;
+  border:1px solid #b9d8f2;
+  border-radius:10px;
+  padding:4px
+}
+.format-choice{
+  border:1px solid #9fc7eb!important;
+  background:#fff!important;
+  color:var(--brand)!important;
+  font-weight:900!important
+}
+.format-choice:hover,.format-choice.active{
+  background:linear-gradient(135deg,var(--brand),var(--brand2))!important;
+  color:#fff!important;
+  border-color:var(--brand)!important
+}
+.adjust-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;
+  margin-bottom:6px
+}
+.adjust-card{
+  position:relative;
+  min-width:0;
+  min-height:43px;
+  border:1px solid #c7dced;
+  border-radius:10px;
+  background:#f7fbff;
+  color:#315b82;
+  padding:6px 22px 6px 8px;
+  text-align:left;
+  cursor:pointer
+}
+.adjust-card:hover,.adjust-card.open{
+  border-color:#72b3e8;
+  background:#eef7ff;
+  color:var(--brand)
+}
+.adjust-card span{
+  display:block;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap
+}
+.adjust-card b{
+  display:block;
+  margin-top:2px;
+  font-size:10px;
+  color:var(--brand)
+}
+.adjust-card i{
+  position:absolute;
+  right:7px;
+  top:50%;
+  transform:translateY(-50%);
+  font-style:normal;
+  font-size:12px;
+  color:#6d88a4
+}
+.adjust-card.open i{transform:translateY(-50%) rotate(180deg)}
+.adjust-panels{min-height:0}
+.adjust-panel{
+  display:none;
+  padding:5px 8px 6px;
+  margin-bottom:5px;
+  border:1px solid #cfe2f5;
+  border-radius:8px;
+  background:#fff
+}
+.adjust-panel.open{display:block}
+.adjust-panel input[type=range]{width:100%;accent-color:var(--brand2)}
+.adjust-panel:after{
+  content:"Drag to adjust";
+  display:block;
+  margin-top:2px;
+  font-size:8px;
+  color:#7b90a6
+}
+.border-controls-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:6px!important
+}
+.border-controls-grid .mini-control{
+  min-width:0;
+  overflow:hidden
+}
+.border-controls-grid .mini-control>label{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+@media (min-width:981px){
+  .tools-fit{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr) minmax(0,1fr) minmax(176px,auto)!important;
+    gap:8px!important;
+    height:100%
+  }
+  .tools-fit>.tool-section:nth-child(1){grid-column:1;grid-row:1}
+  .tools-fit>.tool-section:nth-child(2){grid-column:2;grid-row:1}
+  .tools-fit>.tool-section:nth-child(3){grid-column:1;grid-row:2}
+  .tools-fit>.tool-section:nth-child(4){grid-column:2;grid-row:2}
+  .tools-fit>.tool-section:nth-child(5){grid-column:1 / -1;grid-row:3}
+  .tools-fit>.tool-section:nth-child(5) .section-body{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:8px;
+    align-items:center
+  }
+  .tools-fit>.tool-section:nth-child(5) .hint{grid-column:1 / -1}
+  .tools-fit>.tool-section:nth-child(2) .section-body{overflow:auto}
+  .tools-fit>.tool-section:nth-child(3) .section-body,
+  .tools-fit>.tool-section:nth-child(4) .section-body{padding-top:7px;padding-bottom:7px}
+}
+@media (max-width:980px){
+  .adjust-grid{grid-template-columns:1fr 1fr}
+  .border-controls-grid{grid-template-columns:1fr 1fr!important}
+}
+
 </style>
 </head>
 <body>
@@ -478,10 +651,18 @@ body{background:#edf5fd}
 <button class="tool-btn" id="fitFace">Fit / Center</button>
 <button class="tool-btn" id="resetAdjust">Reset Adjustments</button>
 </div>
-<div class="range-row"><label>Zoom</label><input id="zoom" type="range" min="1" max="2.5" step=".01" value="1"><span id="zoomVal" class="range-val">1.00×</span></div>
-<div class="range-row"><label>Brightness</label><input id="brightness" type="range" min="50" max="150" value="100"><span id="brightnessVal" class="range-val">100%</span></div>
-<div class="range-row"><label>Contrast</label><input id="contrast" type="range" min="50" max="150" value="100"><span id="contrastVal" class="range-val">100%</span></div>
-<div class="range-row"><label>Saturation</label><input id="saturation" type="range" min="0" max="200" value="100"><span id="saturationVal" class="range-val">100%</span></div>
+<div class="adjust-grid">
+<button class="adjust-card" type="button" data-control="zoom"><span>Zoom</span><b id="zoomVal">1.00×</b><i>⌄</i></button>
+<button class="adjust-card" type="button" data-control="brightness"><span>Brightness</span><b id="brightnessVal">100%</b><i>⌄</i></button>
+<button class="adjust-card" type="button" data-control="contrast"><span>Contrast</span><b id="contrastVal">100%</b><i>⌄</i></button>
+<button class="adjust-card" type="button" data-control="saturation"><span>Saturation</span><b id="saturationVal">100%</b><i>⌄</i></button>
+</div>
+<div class="adjust-panels">
+<div class="adjust-panel" data-panel="zoom"><input id="zoom" type="range" min="1" max="2.5" step=".01" value="1"></div>
+<div class="adjust-panel" data-panel="brightness"><input id="brightness" type="range" min="50" max="150" value="100"></div>
+<div class="adjust-panel" data-panel="contrast"><input id="contrast" type="range" min="50" max="150" value="100"></div>
+<div class="adjust-panel" data-panel="saturation"><input id="saturation" type="range" min="0" max="200" value="100"></div>
+</div>
 <div class="hint">Drag the preview to reposition the photo. Zoom and adjustments update instantly.</div>
 <div class="border-controls-grid">
 <div class="mini-control">
@@ -527,7 +708,13 @@ body{background:#edf5fd}
 <span id="bgColorValue">#FFFFFF</span>
 </div>
 <div class="bg-remove-row"><button id="removeBgBtn" class="bg-remove-btn" type="button">✂ Remove Background</button><span class="hint" style="margin:0">Remove first, then choose any background color.</span></div>
-<div class="name-style">
+
+</div>
+</section>
+
+<section class="tool-section">
+<div class="section-head"><strong>4. Name &amp; Date</strong><span>Optional text on photo</span></div>
+<div class="section-body"><div class="name-style">
 <div class="name-date" style="margin-top:7px"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date</label></div>
 <div id="ndFields" class="nd-fields hidden">
 <div class="field"><label>Name</label><input id="personName" type="text" placeholder="Your Name"></div>
@@ -538,12 +725,11 @@ body{background:#edf5fd}
 <div class="field"><label>Text Color</label><input id="nameTextColor" type="color" value="#111111"></div>
 <div class="field"><label>Box Color</label><input id="nameBoxColor" type="color" value="#ffffff"></div>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 
 <section class="tool-section">
-<div class="section-head"><strong>4. A4 Download &amp; Print</strong><span>300 DPI • A4 • Auto Fit</span></div>
+<div class="section-head"><strong>5. A4 Download &amp; Print</strong><span>300 DPI • A4 • Auto Fit</span></div>
 <div class="section-body">
 <div class="print-options">
 <button class="print-choice" data-count="6"><b>6</b><small>Photos</small></button>
@@ -765,6 +951,14 @@ $("customW").oninput=customSize;$("customH").oninput=customSize;$("unit").onchan
 $("dpi").onchange=()=>{state.dpi=Math.max(72,Math.min(1200,+$("dpi").value||300));if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 
 ["zoom","brightness","contrast","saturation"].forEach(id=>$(id).oninput=()=>{state[id]=+$(id).value;renderValues()});
+document.querySelectorAll(".adjust-card").forEach(card=>card.addEventListener("click",()=>{
+ const id=card.dataset.control;
+ const panel=document.querySelector('.adjust-panel[data-panel="'+id+'"]');
+ const wasOpen=panel.classList.contains("open");
+ document.querySelectorAll(".adjust-card").forEach(x=>x.classList.remove("open"));
+ document.querySelectorAll(".adjust-panel").forEach(x=>x.classList.remove("open"));
+ if(!wasOpen){card.classList.add("open");panel.classList.add("open");}
+}));
 $("resetAdjust").onclick=()=>{state.zoom=1;state.brightness=100;state.contrast=100;state.saturation=100;state.offsetX=0;state.offsetY=0;$("zoom").value=1;$("brightness").value=100;$("contrast").value=100;$("saturation").value=100;renderValues()};
 $("fitFace").onclick=()=>{state.zoom=1.12;state.offsetX=0;state.offsetY=0;$("zoom").value=1.12;renderValues()};
 
