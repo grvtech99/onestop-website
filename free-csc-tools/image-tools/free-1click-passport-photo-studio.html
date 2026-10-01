@@ -93,6 +93,63 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
 .hidden{display:none!important}
 @media(max-width:980px){.workspace{grid-template-columns:1fr}.preview-panel{min-height:520px}.stage{min-height:500px}.tools-panel{max-height:none}}
 @media(max-width:600px){.top{height:58px}.nav{padding:7px 11px}.brand strong{font-size:20px}.brand small{font-size:7.5px}.home{font-size:11px;padding:8px 10px}main{padding:8px}.workspace{gap:8px}.preview-panel,.tools-panel{border-radius:14px}.preview-panel{padding:8px}.preview-head h1{font-size:16px}.stage{min-height:420px}.drop{min-height:230px;padding:20px}.drop h2{font-size:19px}.preset-grid{grid-template-columns:1fr 1fr}.bg-grid{grid-template-columns:repeat(5,1fr)}.section-body{padding:9px}.tools-panel{padding:8px}}
+
+/* Desktop screen-fit layout */
+@media (min-width:981px){
+  html,body{height:100%;overflow:hidden}
+  .app{height:100dvh;min-height:0;overflow:hidden}
+  .top{height:56px}
+  main{height:calc(100dvh - 84px);min-height:0;padding:8px;overflow:hidden}
+  .workspace{height:100%;min-height:0}
+  .preview-panel,.tools-panel{height:100%;min-height:0}
+  .preview-panel{padding:10px}
+  .preview-head{margin-bottom:7px}
+  .preview-head h1{font-size:17px}
+  .stage{min-height:0}
+  .preview-footer{padding-top:7px}
+  .tools-panel{padding:8px;overflow:hidden}
+  .tool-section{margin-bottom:6px}
+  .section-head{padding:8px 10px}
+  .section-head strong{font-size:13px}
+  .section-body{padding:8px}
+  .preset-grid{gap:6px}
+  .preset{min-height:50px;padding:7px}
+  .preset b{font-size:11px}
+  .preset small{font-size:9px;margin-top:2px}
+  .custom-row{gap:6px;margin-top:6px}
+  .field{gap:2px}
+  .field label{font-size:9px}
+  .field input,.field select{height:32px}
+  .dpi-row{margin-top:0;gap:6px}
+  .dpi-row label{font-size:10px}
+  .dpi-row input{height:32px;width:74px}
+  .crop-toolbar{gap:5px;margin-bottom:6px}
+  .tool-btn{padding:6px 8px;font-size:10px}
+  .range-row{margin:5px 0;grid-template-columns:78px 1fr 40px;gap:6px}
+  .range-row label{font-size:10px}
+  .bg-grid{gap:5px}
+  .bg-choice{height:32px}
+  .name-date{margin-top:6px;padding:7px}
+  .name-date label{font-size:10px}
+  .nd-fields{gap:6px;margin-top:6px}
+  .print-options{gap:5px}
+  .print-choice{padding:7px 4px}
+  .download-row{gap:6px;margin-top:7px}
+  .download-row .primary{padding:9px 10px;font-size:11px}
+  .hint{font-size:9px;margin-top:5px}
+  .bg-remove-row{margin-top:7px}
+  .bg-remove-btn{height:34px;padding:0 11px;font-size:10px}
+}
+/* On shorter/mobile layouts, allow natural page flow rather than forcing content into a tiny viewport. */
+@media (max-width:980px){
+  main{padding:8px}
+  .bg-remove-row{margin-top:8px}
+}
+.bg-remove-row{display:flex;align-items:center;gap:8px}
+.bg-remove-btn{border:1px solid #bcd2ec;background:#eef6ff;color:#0757c9;border-radius:9px;font-weight:850;cursor:pointer}
+.bg-remove-btn:hover{border-color:#0757c9;background:#e4f1ff}
+.bg-remove-btn:disabled{opacity:.6;cursor:not-allowed}
+
 </style>
 </head>
 <body>
@@ -167,6 +224,7 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
 <button class="bg-choice" data-bg="#0090ff" title="Blue"><span class="bg-blue"></span></button>
 <button class="bg-choice" data-bg="#ff0000" title="Red"><span class="bg-red"></span></button>
 </div>
+<div class="bg-remove-row"><button id="removeBgBtn" class="bg-remove-btn" type="button">✂ Remove Background</button><span class="hint" style="margin:0">Optional — runs only when you click the button.</span></div>
 <div class="name-date"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date on Image</label></div>
 <div id="ndFields" class="nd-fields hidden">
 <div class="field"><label>Name</label><input id="personName" type="text" placeholder="Your Name"></div>
@@ -262,7 +320,7 @@ function renderValues(){
 }
 async function removeBg(){
  if(!state.img)return;
- $("processing").classList.remove("hidden");setStatus("Removing background…");
+ $("processing").classList.remove("hidden");$("removeBgBtn").disabled=true;$("removeBgBtn").textContent="Removing Background…";setStatus("Removing background…");
  try{
    if(!removeBg.engine){
      const mod=await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm");
@@ -272,14 +330,15 @@ async function removeBg(){
    draw();setStatus("Background removed successfully.");
  }catch(e){
    console.error(e);state.cutout=null;draw();setStatus(e.message||"Background removal failed.");
- }finally{$("processing").classList.add("hidden")}
+ }finally{$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent=state.cutout?"✓ Background Removed":"✂ Remove Background"}
 }
+$("removeBgBtn").onclick=removeBg;
 async function showFile(file){
  if(!file||!file.type.startsWith("image/"))return;
  state.file=file;state.cutout=null;state.offsetX=0;state.offsetY=0;state.zoom=1;
  state.img=await loadImage(file);
  $("uploadBox").classList.add("hidden");canvas.classList.remove("hidden");
- renderValues();await removeBg();
+ renderValues();setStatus("Photo loaded. Background removal is optional.");
 }
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
