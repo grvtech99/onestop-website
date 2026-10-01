@@ -159,7 +159,7 @@ async function processImage(){
   setStatus("Preparing AI model… first use may take longer while the model is cached.");
   try{
     const modelSize=$("mode").value;
-    const config={model:modelSize,progress:(key,current,total)=>{const p=Math.min(92,Math.max(5,Math.round(current/Math.max(total,1)*85)));$("bar").style.width=p+"%";setStatus(key==="fetch:download"?"Downloading AI model…":key==="compute:inference"?"Detecting foreground…":"Removing background…")}};
+    const config={model:modelSize,device:navigator.gpu?"gpu":"cpu",proxyToWorker:true,progress:(key,current,total)=>{const p=Math.min(92,Math.max(5,Math.round(current/Math.max(total,1)*85)));$("bar").style.width=p+"%";setStatus(key==="fetch:download"?"Downloading AI model…":key==="compute:inference"?"Detecting foreground…":"Removing background…")}};
     cutoutBlob=await removeBackground(sourceFile,config);
     $("engine").textContent=modelSize==="medium"?"High Accuracy":"Fast";
     $("bar").style.width="96%";
