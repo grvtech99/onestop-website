@@ -594,6 +594,159 @@ body{background:#edf5fd}
   .border-controls-grid{grid-template-columns:1fr 1fr!important}
 }
 
+
+/* FINAL DESKTOP FIT — content-sized rows, no hidden controls */
+@media (min-width:981px){
+  .tools-panel{
+    overflow:auto!important;
+    padding:8px!important;
+  }
+  .tools-fit{
+    height:auto!important;
+    min-height:100%!important;
+    align-content:start!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:auto auto minmax(168px,auto)!important;
+    gap:8px!important;
+  }
+  .tools-fit>.tool-section{
+    min-height:0!important;
+    height:auto!important;
+    overflow:visible!important;
+  }
+  .tools-fit>.tool-section:nth-child(1){grid-column:1;grid-row:1}
+  .tools-fit>.tool-section:nth-child(2){grid-column:2;grid-row:1}
+  .tools-fit>.tool-section:nth-child(3){grid-column:1;grid-row:2}
+  .tools-fit>.tool-section:nth-child(4){grid-column:2;grid-row:2}
+  .tools-fit>.tool-section:nth-child(5){grid-column:1 / -1;grid-row:3}
+
+  .tools-fit>.tool-section .section-body{
+    overflow:visible!important;
+    min-height:0!important;
+  }
+
+  /* Photo Size: keep every control, including Watermark, inside its natural box. */
+  .tools-fit>.tool-section:nth-child(1) .section-body{
+    padding:7px 8px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .preset-grid{
+    gap:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .preset{
+    min-height:49px!important;
+    padding:7px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .size-controls-grid{
+    margin-top:6px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .watermark-box{
+    margin-top:6px!important;
+    padding:6px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .watermark-head{
+    margin-bottom:4px!important;
+  }
+  .tools-fit>.tool-section:nth-child(1) .watermark-box .field input{
+    height:29px!important;
+  }
+
+  /* Crop: give the border controls a complete, stable bottom row. */
+  .tools-fit>.tool-section:nth-child(2) .section-body{
+    padding:7px 8px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .crop-toolbar{
+    margin-bottom:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .adjust-grid{
+    gap:5px!important;
+    margin-bottom:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .adjust-card{
+    min-height:40px!important;
+    padding:5px 18px 5px 7px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .border-controls-grid{
+    margin-top:5px!important;
+    gap:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .mini-control{
+    padding:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(2) .hint{
+    margin-top:4px!important;
+  }
+
+  /* Background: compact, but keep the actual Remove Background action clear. */
+  .tools-fit>.tool-section:nth-child(3) .section-body{
+    padding:7px 8px!important;
+  }
+  .tools-fit>.tool-section:nth-child(3) .custom-bg-row{
+    padding:5px 7px!important;
+  }
+  .tools-fit>.tool-section:nth-child(3) .bg-remove-row{
+    margin-top:6px!important;
+  }
+
+  /* Name & Date: keep it compact and balanced with Background. */
+  .tools-fit>.tool-section:nth-child(4) .section-body{
+    padding:7px 8px!important;
+  }
+  .tools-fit>.tool-section:nth-child(4) .name-style{
+    padding:6px!important;
+  }
+  .tools-fit>.tool-section:nth-child(4) .name-date{
+    padding:6px!important;
+  }
+  .tools-fit>.tool-section:nth-child(4) .text-style-grid{
+    margin-top:5px!important;
+  }
+
+  /* A4: deliberately compact; never consume the space needed by upper tools. */
+  .tools-fit>.tool-section:nth-child(5) .section-head{
+    min-height:35px!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .section-body{
+    padding:6px 8px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1.15fr) minmax(150px,.85fr)!important;
+    grid-template-rows:auto auto auto!important;
+    gap:5px 8px!important;
+    align-items:center!important;
+    overflow:visible!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .print-options{
+    grid-column:1;
+    grid-row:1;
+    gap:5px!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .custom-count{
+    grid-column:2;
+    grid-row:1;
+    margin-top:0!important;
+    gap:6px!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .format-row{
+    grid-column:1;
+    grid-row:2;
+    margin:0!important;
+    padding:3px!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .download-row{
+    grid-column:2;
+    grid-row:2;
+    margin:0!important;
+  }
+  .tools-fit>.tool-section:nth-child(5) .download-row .primary{
+    padding:8px!important;
+  }
+  .tools-fit>.tool-section:nth-child(5)>.section-body>.hint{
+    grid-column:1 / -1;
+    grid-row:3;
+    margin:0!important;
+    line-height:1.2!important;
+  }
+}
+
 </style>
 </head>
 <body>
