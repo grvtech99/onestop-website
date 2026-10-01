@@ -70,10 +70,10 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
 </div>
 <script type="module">
-import { Client, handle_file } from "https://cdn.jsdelivr.net/npm/@gradio/client@2.7.1/dist/index.min.js";
+import { removeBackground } from "https://cdn.jsdelivr.net/npm/@bg0/browser@0.1.2/+esm";
 
 const $=id=>document.getElementById(id);
-let currentUrl="",resultUrl="",currentFile=null,clientPromise=null;
+let currentUrl="",resultUrl="",currentFile=null;
 
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
@@ -89,21 +89,10 @@ $("file").onchange=e=>showImage(e.target.files?.[0]);
 }));
 $("drop").addEventListener("drop",e=>showImage(e.dataTransfer.files?.[0]));
 
-async function getClient(){
-  if(!clientPromise)clientPromise=Client.connect("not-lain/background-removal");
-  return clientPromise;
-}
-
-function outputUrl(value){
-  if(typeof value==="string")return value;
-  if(!value||typeof value!=="object")return "";
-  return value.url||value.path||value.data?.url||value.data?.path||"";
-}
-
 async function showImage(file){
   if(!file||!file.type.startsWith("image/"))return;
   if(currentUrl)URL.revokeObjectURL(currentUrl);
-  if(resultUrl&&resultUrl.startsWith("blob:"))URL.revokeObjectURL(resultUrl);
+  if(resultUrl)URL.revokeObjectURL(resultUrl);
   currentFile=file;
   currentUrl=URL.createObjectURL(file);
   resultUrl="";
@@ -111,19 +100,21 @@ async function showImage(file){
   $("image").classList.remove("hidden");
   $("upload").classList.add("hidden");
   $("actions").classList.add("hidden");
-  $("status").textContent="Removing background…";
+  $("status").textContent="Preparing AI…";
 
   try{
-    const app=await getClient();
-    const result=await app.predict("/image",[handle_file(file)]);
-    const processed=outputUrl(result?.data?.[1]);
-    if(!processed)throw new Error("No processed image returned.");
-    resultUrl=processed;
+    const result=await removeBackground(file,{
+      quality:"quality",
+      onProgress:({message})=>{
+        if(message)$("status").textContent=message;
+      }
+    });
+    resultUrl=URL.createObjectURL(result.blob);
     $("image").src=resultUrl;
     $("actions").classList.remove("hidden");
     $("status").textContent="Background removed successfully.";
   }catch(error){
-    console.error("Background remover:",error);
+    console.error("BG0 background remover:",error);
     $("status").textContent="Background removal failed. Original image is still shown.";
   }
 }
@@ -141,13 +132,13 @@ $("download").onclick=async()=>{
     setTimeout(()=>URL.revokeObjectURL(url),1000);
   }catch{
     const a=document.createElement("a");
-    a.href=resultUrl;a.download=name;a.target="_blank";document.body.appendChild(a);a.click();a.remove();
+    a.href=resultUrl;a.download=name;document.body.appendChild(a);a.click();a.remove();
   }
 };
 
 $("newImage").onclick=()=>{
   if(currentUrl)URL.revokeObjectURL(currentUrl);
-  if(resultUrl&&resultUrl.startsWith("blob:"))URL.revokeObjectURL(resultUrl);
+  if(resultUrl)URL.revokeObjectURL(resultUrl);
   currentUrl="";resultUrl="";currentFile=null;
   $("file").value="";
   $("image").src="";
