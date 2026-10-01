@@ -25,12 +25,12 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 .badge{background:#ffffff24;border:1px solid #ffffff45;padding:7px 10px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
 .work{min-height:0;display:grid;grid-template-columns:1.2fr .8fr;gap:8px}
 .card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;box-shadow:0 5px 18px #06265f0b;min-height:0}
-.preview-card{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0}
-.preview{min-width:0;min-height:0;display:flex;flex-direction:column}
+.preview-card{display:flex;min-width:0;min-height:0}
+.preview{width:100%;min-width:0;min-height:0;display:flex;flex-direction:column}
 .preview-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;margin-bottom:5px}
 .preview-title span{font-size:8px;color:var(--muted);font-weight:700}
 .canvas-wrap{position:relative;min-height:0;flex:1;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}
-.canvas-wrap img{max-width:100%;max-height:100%;display:block;object-fit:contain}
+.canvas-wrap img,.canvas-wrap canvas{max-width:100%;max-height:100%;display:block;object-fit:contain}.smart-preview{position:relative;flex:1;min-height:0}.preview-image{width:100%;height:100%;object-fit:contain}.processing-overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#0757c90f;backdrop-filter:blur(1px)}.processing-overlay.show{display:flex}.processing-box{width:min(320px,78%);padding:14px;border-radius:14px;background:#ffffffed;border:1px solid #d8e6f7;box-shadow:0 8px 28px #06265f1a;text-align:center}.processing-box strong{display:block;font-size:13px}.processing-box span{display:block;font-size:9px;color:#687992;margin-top:4px}.scan{height:4px;background:#e8edf4;border-radius:99px;margin-top:10px;overflow:hidden}.scan i{display:block;height:100%;width:35%;background:var(--grad);animation:scan 1.1s infinite ease-in-out}@keyframes scan{0%{transform:translateX(-110%)}100%{transform:translateX(310%)}}
 .placeholder{font-size:10px;color:#71819a;text-align:center;padding:15px}
 .input-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
 .drop{width:calc(100% - 18px);height:calc(100% - 18px);border:2px dashed #b8c8dd;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:#fbfdffdd;pointer-events:auto}
@@ -63,13 +63,13 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 .app{grid-template-rows:52px minmax(0,1fr) 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}
 .panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}
 .work{grid-template-columns:1fr;grid-template-rows:minmax(190px,36vh) minmax(0,1fr);gap:6px}
-.card{padding:8px;border-radius:11px}.preview-card{grid-template-columns:1fr 1fr;gap:6px}.preview-title{font-size:8px}.preview-title span{font-size:7px}
+.card{padding:8px;border-radius:11px}.preview-card{display:flex;gap:6px}.preview-title{font-size:8px}.preview-title span{font-size:7px}
 .drop h2{font-size:12px}.drop p{font-size:8px}.choose{font-size:10px;padding:7px 10px}
 .tools-card{overflow:auto}.settings{gap:6px}.field label{font-size:8px}.field select,.field input[type=color]{height:31px;font-size:10px}
 .bg-tab{height:30px;font-size:8px}.actions{grid-template-columns:1fr 1fr;gap:6px}.btn{height:35px;font-size:10px}.clear{height:31px}.stats{font-size:8px;gap:6px}.foot{font-size:8px}
 }
 @media(max-width:390px){
-.hero p{display:none}.badge{display:none}.preview-card{grid-template-columns:1fr 1fr}.work{grid-template-rows:minmax(175px,34vh) minmax(0,1fr)}.drop p{display:none}.brand small{font-size:6.5px}
+.hero p{display:none}.badge{display:none}.preview-card{display:flex}.work{grid-template-rows:minmax(175px,34vh) minmax(0,1fr)}.drop p{display:none}.brand small{font-size:6.5px}
 }
 </style>
 </head>
@@ -80,8 +80,16 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <section class="hero"><div><h1>Free 1Click Background Remover</h1><p>AI Background Removal • Hair &amp; Face Protection • Custom Background • Browser Based</p></div><div class="badge">AI • LOCAL</div></section>
 <section class="work">
 <section class="card preview-card">
-<div class="preview"><div class="preview-title">ORIGINAL <span id="inputMeta">No image</span></div><div id="inputCanvas" class="canvas-wrap"><div class="placeholder">Upload a portrait, passport photo, product photo or any image.</div><div class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div></div></div>
-<div class="preview"><div class="preview-title">RESULT <span id="resultMeta">Transparent PNG</span></div><div id="resultCanvas" class="canvas-wrap"><div id="resultPlaceholder" class="placeholder">Your AI-cutout will appear here.</div><canvas id="result" hidden></canvas></div></div>
+<div class="preview">
+<div class="preview-title">PREVIEW <span id="inputMeta">No image</span></div>
+<div id="previewStage" class="canvas-wrap smart-preview">
+<div id="resultPlaceholder" class="placeholder">Upload a portrait, passport photo, product photo or any image.</div>
+<img id="previewImage" class="preview-image" alt="Background remover preview" hidden>
+<canvas id="result" hidden></canvas>
+<div id="inputOverlay" class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose" type="button">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>
+<div id="processingOverlay" class="processing-overlay"><div class="processing-box"><strong id="processingTitle">Removing background…</strong><span id="processingText">Detecting subject and protecting edges.</span><div class="scan"><i></i></div></div></div>
+</div>
+</div>
 </section>
 <section class="card tools-card">
 <div class="settings">
@@ -100,7 +108,7 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <div class="progress"><div id="bar" class="bar"></div></div><div id="status" class="status">Ready. Your image stays in the browser.</div>
 </section>
 </section>
-<section class="card" style="padding:7px 11px"><div class="note"><b>Privacy:</b> AI processing runs in your browser. Your photo is not uploaded to ONESTOP. The AI model may be downloaded once and then cached by your browser.</div></section>
+<section class="card" style="padding:7px 11px"><div class="note"><b>Live Preview:</b> The same preview canvas is used for upload, processing and final background composition. <b>Privacy:</b> AI processing runs in your browser. Your photo is not uploaded to ONESTOP. The AI model may be downloaded once and then cached by your browser.</div></section>
 </section></main>
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
 </div>
@@ -114,8 +122,8 @@ $("pick").onclick=e=>{e.stopPropagation();$("files").click()};
 $("drop").onclick=()=>$("files").click();
 $("files").onchange=e=>loadSource(e.target.files?.[0]);
 $("pickBg").onclick=e=>{e.stopPropagation();$("bgImage").click()};
-$("bgImage").onchange=e=>{bgFile=e.target.files?.[0]||null;if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=bgFile?URL.createObjectURL(bgFile):"";if(cutoutBlob)renderResult();};
-$("bgColor").oninput=()=>{if(cutoutBlob)renderResult()};
+$("bgImage").onchange=e=>{bgFile=e.target.files?.[0]||null;if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=bgFile?URL.createObjectURL(bgFile):"";if(cutoutBlob){$("processingOverlay").classList.add("show");$("processingTitle").textContent="Applying background…";$("processingText").textContent="Updating the live preview.";renderResult().finally(()=>$("processingOverlay").classList.remove("show"));}};
+$("bgColor").oninput=()=>{if(cutoutBlob){renderResult();}};
 $("format").onchange=()=>{if(cutoutBlob)renderResult()};
 $("protection").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Protection mode changed. Click Remove Background again.");}};
 $("mode").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Mode changed. Click Remove Background again.");}};
@@ -126,6 +134,7 @@ document.querySelectorAll(".bg-tab").forEach(b=>b.onclick=()=>setBgMode(b.datase
 $("drop").addEventListener("drop",e=>loadSource(e.dataTransfer.files?.[0]));
 
 $("remove").onclick=processImage;
+$("previewStage").addEventListener("click",e=>{if(!sourceFile&&e.target.closest("#previewStage"))$("files").click()});
 $("download").onclick=downloadResult;
 $("reset").onclick=resetAll;
 
@@ -142,17 +151,22 @@ function loadSource(file){
   if(!file||!file.type.startsWith("image/"))return;
   if(sourceUrl)URL.revokeObjectURL(sourceUrl);
   sourceFile=file;sourceUrl=URL.createObjectURL(file);
-  const img=new Image();img.onload=()=>{
-    $("inputCanvas").innerHTML='<img id="sourcePreview" alt="Original image"><div class="input-overlay"><div id="drop" class="drop" style="display:none"></div></div>';
-    $("sourcePreview").src=sourceUrl;
+  const img=new Image();
+  img.onload=()=>{
+    $("previewImage").src=sourceUrl;
+    $("previewImage").hidden=false;
+    $("result").hidden=true;
+    $("resultPlaceholder").style.display="none";
+    $("inputOverlay").style.display="none";
     $("inputMeta").textContent=formatBytes(file.size);
     $("size").textContent=formatBytes(file.size);
     $("res").textContent=img.naturalWidth+" × "+img.naturalHeight;
     $("remove").disabled=false;$("reset").disabled=false;
-    $("result").hidden=true;$("resultPlaceholder").style.display="block";
-    cutoutBlob=null;$("download").disabled=true;
-    setStatus("Ready. Click Remove Background.");
-  };img.src=sourceUrl;
+    cutoutBlob=null;cutoutUrl="";
+    $("download").disabled=true;
+    setStatus("Image ready. Click Remove Background.");
+  };
+  img.src=sourceUrl;
 }
 async function processImage(){
   if(!sourceFile||busy)return;
@@ -166,7 +180,7 @@ async function processImage(){
       console.error(err);setStatus("AI engine could not load. Please refresh once or try another network connection.");return;
     }
   }
-  busy=true;$("remove").disabled=true;$("download").disabled=true;$("engine").textContent="Loading AI…";$("bar").style.width="4%";
+  busy=true;$("remove").disabled=true;$("download").disabled=true;$("engine").textContent="Processing…";$("bar").style.width="4%";$("processingOverlay").classList.add("show");$("processingTitle").textContent="Removing background…";$("processingText").textContent="Detecting face, hair, clothing and subject edges.";
   setStatus("Preparing AI model… first use may take longer while the model is cached.");
   try{
     const modelSize=$("mode").value;
@@ -181,9 +195,9 @@ async function processImage(){
     $("bar").style.width="96%";
     await renderResult();
     $("bar").style.width="100%";$("download").disabled=false;
-    setStatus("Done. Background removed. Choose transparent, color or image background.");
+    $("processingOverlay").classList.remove("show");$("previewImage").hidden=true;$("result").hidden=false;setStatus("Done. Background removed. Choose transparent, color or image background.");
   }catch(err){
-    console.error(err);setStatus("Could not process this image. Try a JPG/PNG/WebP or switch to Fast mode.");$("bar").style.width="0";
+    console.error(err);$("processingOverlay").classList.remove("show");setStatus("Could not process this image. Try a JPG/PNG/WebP or switch to Fast mode.");$("bar").style.width="0";
   }finally{busy=false;$("remove").disabled=!sourceFile}
 }
 
@@ -279,16 +293,20 @@ function loadImg(url){return new Promise((resolve,reject)=>{const i=new Image();
 
 async function renderResult(){
   if(!cutoutBlob)return;
-  const fg=new Image();fg.onload=async()=>{
-    const canvas=$("result"),ctx=canvas.getContext("2d");
-    canvas.width=fg.naturalWidth;canvas.height=fg.naturalHeight;
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    if(bgMode==="color"){ctx.fillStyle=$("bgColor").value;ctx.fillRect(0,0,canvas.width,canvas.height)}
-    if(bgMode==="image"&&bgUrl){
-      const bg=new Image();bg.onload=()=>{drawCover(ctx,bg,canvas.width,canvas.height);ctx.drawImage(fg,0,0);finishCanvas()};bg.src=bgUrl;return;
-    }
-    ctx.drawImage(fg,0,0);finishCanvas();
-  };fg.src=URL.createObjectURL(cutoutBlob);
+  if(cutoutUrl)URL.revokeObjectURL(cutoutUrl);
+  cutoutUrl=URL.createObjectURL(cutoutBlob);
+  const fg=await loadImg(cutoutUrl);
+  const canvas=$("result"),ctx=canvas.getContext("2d");
+  canvas.width=fg.naturalWidth;canvas.height=fg.naturalHeight;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if(bgMode==="color"){ctx.fillStyle=$("bgColor").value;ctx.fillRect(0,0,canvas.width,canvas.height)}
+  if(bgMode==="image"&&bgUrl){
+    const bg=await loadImg(bgUrl);
+    drawCover(ctx,bg,canvas.width,canvas.height);
+  }
+  ctx.drawImage(fg,0,0);
+  canvas.hidden=false;$("previewImage").hidden=true;$("resultPlaceholder").style.display="none";
+  $("inputMeta").textContent=bgMode==="transparent"?"Transparent PNG":bgMode==="color"?"Color Background":"Image Background";
 }
 function drawCover(ctx,img,w,h){
   const s=Math.max(w/img.naturalWidth,h/img.naturalHeight),nw=img.naturalWidth*s,nh=img.naturalHeight*s;
@@ -313,11 +331,18 @@ function downloadResult(){
   },mime,isJpg?.92:undefined);
 }
 function resetAll(){
-  if(sourceUrl)URL.revokeObjectURL(sourceUrl);sourceUrl="";sourceFile=null;cutoutBlob=null;
-  if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl="";bgFile=null;$("files").value="";$("bgImage").value="";
-  $("inputCanvas").innerHTML='<div class="placeholder">Upload a portrait, passport photo, product photo or any image.</div><div class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>';
-  location.reload();
+  if(sourceUrl)URL.revokeObjectURL(sourceUrl);sourceUrl="";
+  if(cutoutUrl)URL.revokeObjectURL(cutoutUrl);cutoutUrl="";
+  sourceFile=null;cutoutBlob=null;bgFile=null;
+  if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl="";
+  $("files").value="";$("bgImage").value="";
+  $("previewImage").hidden=true;$("result").hidden=true;
+  $("resultPlaceholder").style.display="block";$("inputOverlay").style.display="flex";
+  $("inputMeta").textContent="No image";$("size").textContent="0 B";$("res").textContent="—";$("engine").textContent="Ready";
+  $("remove").disabled=true;$("download").disabled=true;$("reset").disabled=true;$("bar").style.width="0";
+  $("processingOverlay").classList.remove("show");setStatus("Ready. Your image stays in the browser.");
 }
+
 </script>
 </body>
 </html>
