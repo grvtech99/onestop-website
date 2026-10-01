@@ -72,7 +72,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 .mini-control>label{display:block;font-size:10px;color:#38516f;font-weight:800;margin-bottom:5px}
 .inline-tools{display:flex;align-items:center;gap:6px}
 .inline-tools .tool-btn{flex:1;padding:6px 7px;font-size:10px}
-#borderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
+#borderColor,#innerBorderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
 .mini-control input[type=range]{width:100%;accent-color:var(--blue)}
 .mini-control .range-val{display:block;margin-top:3px;font-size:9px}
 .size-controls-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px}
@@ -283,8 +283,8 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 </div>
 </div>
 <div class="mini-control">
-<label>Border Color</label>
-<input id="borderColor" type="color" value="#000000" title="Border color">
+<label>Outer Border Color</label>
+<input id="borderColor" type="color" value="#000000" title="Outer border color">
 </div>
 <div class="mini-control">
 <label><input id="innerBorderEnabled" type="checkbox" checked> Inner Border</label>
@@ -292,6 +292,10 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <input id="innerBorderWidth" type="range" min="1" max="10" step="1" value="1">
 <span id="innerBorderWidthVal" class="range-val">1 px</span>
 </div>
+</div>
+<div class="mini-control">
+<label>Inner Border Color</label>
+<input id="innerBorderColor" type="color" value="#000000" title="Inner border color">
 </div>
 </div>
 <div class="hint">Outer border is always ON. Defaults: 1 px border + 25 px equal white gap. Inner border is ON by default and customizable.</div>
@@ -360,7 +364,7 @@ const state={
  file:null,img:null,cutout:null,cutoutImage:null,cutoutUrl:"",objectUrl:"",resultUrl:"",
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
- borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,innerBorderEnabled:true,innerBorderWidth:1,
+ borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,innerBorderEnabled:true,innerBorderWidth:1,innerBorderColor:"#000000",
  watermarkEnabled:false,watermarkText:"ONESTOP",
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
  nameDate:false,name:"",date:"",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",format:"png"
@@ -410,7 +414,7 @@ function renderPhotoTo(targetCtx,w,h){
  if(state.innerBorderEnabled&&state.innerBorderWidth>0){
    const ib=Math.min(state.innerBorderWidth,Math.floor(Math.min(innerW,innerH)/2));
    targetCtx.save();
-   targetCtx.strokeStyle=state.borderColor;
+   targetCtx.strokeStyle=state.innerBorderColor;
    targetCtx.lineWidth=ib;
    targetCtx.strokeRect(gap+ib/2,gap+ib/2,Math.max(1,innerW-ib),Math.max(1,innerH-ib));
    targetCtx.restore();
@@ -553,6 +557,7 @@ $("borderWidth").oninput=e=>{state.borderWidth=Math.max(1,Math.min(10,+e.target.
 $("innerGap").oninput=e=>{state.innerGap=Math.max(0,Math.min(50,+e.target.value||0));$("innerGapVal").textContent=state.innerGap+" px";if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 $("innerBorderEnabled").onchange=e=>{state.innerBorderEnabled=e.target.checked;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 $("innerBorderWidth").oninput=e=>{state.innerBorderWidth=Math.max(1,Math.min(10,+e.target.value||1));$("innerBorderWidthVal").textContent=state.innerBorderWidth+" px";if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
+$("innerBorderColor").oninput=e=>{state.innerBorderColor=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 $("watermarkEnabled").onchange=()=>{state.watermarkEnabled=$("watermarkEnabled").checked;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 $("watermarkText").oninput=e=>{state.watermarkText=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 
@@ -674,10 +679,10 @@ $("downloadPhoto").onclick=async()=>{
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
-Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,innerBorderEnabled:true,innerBorderWidth:1,watermarkEnabled:false,watermarkText:"ONESTOP",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",bg:"#ffffff"});
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:true,borderColor:"#000000",borderWidth:1,innerGap:25,innerBorderEnabled:true,innerBorderWidth:1,innerBorderColor:"#000000",watermarkEnabled:false,watermarkText:"ONESTOP",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",bg:"#ffffff"});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
-$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderColor").value="#000000";$("borderWidth").value=1;$("borderWidthVal").textContent="1 px";$("innerGap").value=25;$("innerGapVal").textContent="25 px";$("innerBorderEnabled").checked=true;$("innerBorderWidth").value=1;$("innerBorderWidthVal").textContent="1 px";$("bgColor").value="#ffffff";$("bgColorValue").textContent="#FFFFFF";
+$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderColor").value="#000000";$("borderWidth").value=1;$("borderWidthVal").textContent="1 px";$("innerGap").value=25;$("innerGapVal").textContent="25 px";$("innerBorderEnabled").checked=true;$("innerBorderWidth").value=1;$("innerBorderWidthVal").textContent="1 px";$("innerBorderColor").value="#000000";$("bgColor").value="#ffffff";$("bgColorValue").textContent="#FFFFFF";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
