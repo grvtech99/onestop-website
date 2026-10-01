@@ -118,35 +118,41 @@ async function removeBackground(file){
   });
 }
 
-async function applyBackground(bg){
+function setPreviewBackground(bg){
+  const preview=$("preview");
+  if(bg==="transparent"){
+    preview.style.backgroundColor="#f8fbff";
+    preview.style.backgroundImage="linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%)";
+    preview.style.backgroundSize="22px 22px";
+    preview.style.backgroundPosition="0 0,0 11px,11px -11px,-11px 0";
+  }else{
+    preview.style.backgroundImage="none";
+    preview.style.backgroundColor=bg;
+  }
+}
+
+function applyBackground(bg){
   if(!cutoutBlob)return;
   selectedBg=bg;
-  if(resultUrl)URL.revokeObjectURL(resultUrl);
-  if(bg==="transparent"){
-    resultUrl=URL.createObjectURL(cutoutBlob);
-    $("image").src=resultUrl;
-    $("status").textContent="Background removed successfully.";
-    return;
-  }
-  $("status").textContent="Applying background color…";
-  const url=URL.createObjectURL(cutoutBlob);
-  try{
-    const img=new Image();
-    img.decoding="async";
-    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url});
-    const canvas=document.createElement("canvas");
-    canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
-    const ctx=canvas.getContext("2d");
-    ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
-    ctx.drawImage(img,0,0);
-    const output=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
-    if(!output)throw new Error("Could not create output image.");
-    resultUrl=URL.createObjectURL(output);
-    $("image").src=resultUrl;
-    $("status").textContent="Background color applied successfully.";
-  }finally{
-    URL.revokeObjectURL(url);
-  }
+  setPreviewBackground(bg);
+  $("image").src=resultUrl;
+  $("status").textContent=bg==="transparent"
+    ?"Background removed successfully."
+    :"Background color applied.";
+}
+
+async function buildDownloadBlob(){
+  if(!cutoutBlob)return null;
+  if(selectedBg==="transparent")return cutoutBlob;
+  const bitmap=await createImageBitmap(cutoutBlob);
+  const canvas=document.createElement("canvas");
+  canvas.width=bitmap.width;canvas.height=bitmap.height;
+  const ctx=canvas.getContext("2d");
+  ctx.fillStyle=selectedBg;
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.drawImage(bitmap,0,0);
+  bitmap.close();
+  return await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
 }
 
 async function showImage(file){
@@ -164,7 +170,9 @@ async function showImage(file){
     const blob=await removeBackground(file);
     cutoutBlob=blob;
     resultUrl=URL.createObjectURL(blob);
-    $("image").src=resultUrl;$("actions").classList.remove("hidden");$("bgTools").classList.remove("hidden");
+    $("image").src=resultUrl;
+    setPreviewBackground("transparent");
+    $("actions").classList.remove("hidden");$("bgTools").classList.remove("hidden");
     $("status").textContent="Background removed successfully.";
   }catch(error){
     console.error("ONESTOP background remover:",error);
@@ -183,18 +191,35 @@ $("customBg").addEventListener("input",e=>{
   applyBackground(e.target.value);
 });
 
-$("download").onclick=()=>{
-  if(!resultUrl)return;
-  const suffix=selectedBg==="transparent"?"no-background":"bg-"+selectedBg.replace("#","");
-  const name=(currentFile?.name||"image").replace(/\.[^.]+$/,"")+"-"+suffix+".png";
-  const a=document.createElement("a");a.href=resultUrl;a.download=name;
-  document.body.appendChild(a);a.click();a.remove();
+$("download").onclick=async()=>{
+  if(!cutoutBlob)return;
+  const button=$("download");
+  button.disabled=true;
+  const oldText=button.textContent;
+  button.textContent="Preparing…";
+  try{
+    const blob=await buildDownloadBlob();
+    if(!blob)throw new Error("Could not create output image.");
+    const url=URL.createObjectURL(blob);
+    const suffix=selectedBg==="transparent"?"no-background":"bg-"+selectedBg.replace("#","");
+    const name=(currentFile?.name||"image").replace(/\.[^.]+$/,"")+"-"+suffix+".png";
+    const a=document.createElement("a");a.href=url;a.download=name;
+    document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  }catch(error){
+    console.error("ONESTOP background color export:",error);
+    $("status").textContent=error.message||"Could not create output image.";
+  }finally{
+    button.disabled=false;
+    button.textContent=oldText;
+  }
 };
 
 $("newImage").onclick=()=>{
   if(currentUrl)URL.revokeObjectURL(currentUrl);
   if(resultUrl)URL.revokeObjectURL(resultUrl);
   currentUrl="";resultUrl="";currentFile=null;cutoutBlob=null;selectedBg="transparent";$("file").value="";
+  setPreviewBackground("transparent");
   $("image").src="";$("image").classList.add("hidden");
   $("upload").classList.remove("hidden");$("actions").classList.add("hidden");$("bgTools").classList.add("hidden");
   document.querySelectorAll(".bg-swatch").forEach(x=>x.classList.remove("active"));
