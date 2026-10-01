@@ -135,7 +135,6 @@ function applyBackground(bg){
   if(!cutoutBlob)return;
   selectedBg=bg;
   setPreviewBackground(bg);
-  $("image").src=resultUrl;
   $("status").textContent=bg==="transparent"
     ?"Background removed successfully."
     :"Background color applied.";
