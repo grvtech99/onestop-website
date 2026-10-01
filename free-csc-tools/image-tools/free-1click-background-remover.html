@@ -17,7 +17,7 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 
 .hero{background:var(--grad);color:#fff;border-radius:18px;padding:18px 20px}.hero h1{margin:0;font-size:clamp(24px,4vw,34px);line-height:1.05;font-weight:900;letter-spacing:-.8px}.hero p{margin:7px 0 0;font-size:13px;line-height:1.45}
 .tool{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 10px 28px rgba(6,38,95,.07)}
 .preview{position:relative;width:100%;height:min(62dvh,560px);min-height:360px;border:1px solid #d8e4f2;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0}
-.preview img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain}.processing{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:16px;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(10,31,63,.25));z-index:3}.processing-card{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.96);color:#17345f;border:1px solid #dbe7f5;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800;box-shadow:0 8px 24px rgba(6,38,95,.14)}.spinner{width:17px;height:17px;border:2px solid #c8d8ea;border-top-color:var(--blue);border-radius:50%;animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.preview img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain}.processing{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:16px;pointer-events:none;background:linear-gradient(180deg,transparent 55%,rgba(10,31,63,.24));z-index:3}.processing.hidden{display:none}.processing-card{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.96);color:#17345f;border:1px solid #dbe7f5;border-radius:12px;padding:10px 14px;font-size:13px;font-weight:800;box-shadow:0 8px 24px rgba(6,38,95,.14)}.spinner{width:17px;height:17px;border:2px solid #c8d8ea;border-top-color:var(--blue);border-radius:50%;animation:spin .75s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 .upload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px}.drop{width:min(520px,92%);min-height:270px;border:2px dashed #b8c9df;border-radius:18px;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:28px 18px}.drop.drag{border-color:var(--blue);background:#eef6ff}
 .upload-icon{width:66px;height:66px;border-radius:18px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:34px;margin-bottom:12px}.drop h2{margin:0;font-size:22px;line-height:1.2;font-weight:850}.drop p{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}
 .choose{margin-top:17px;border:0;border-radius:11px;background:var(--grad);color:#fff;padding:12px 22px;font-size:15px;font-weight:850;cursor:pointer}
@@ -45,33 +45,118 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 
 </div>
 <script type="module">
 import { Client, handle_file } from "https://cdn.jsdelivr.net/npm/@gradio/client@2.7.1/dist/index.min.js";
+
 let sourceFile=null,originalUrl="",resultUrl="",clientPromise=null,showingAfter=true;
+
 const $=id=>document.getElementById(id);
+
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
-$("drop").onclick=()=>$("file").click();
+$("drop").onclick=()=> $("file").click();
 $("file").onchange=e=>load(e.target.files?.[0]);
-["dragenter","dragover"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.add("drag")}));
-["dragleave","drop"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.remove("drag")}));
+
+["dragenter","dragover"].forEach(t=>$("drop").addEventListener(t,e=>{
+  e.preventDefault();
+  $("drop").classList.add("drag");
+}));
+["dragleave","drop"].forEach(t=>$("drop").addEventListener(t,e=>{
+  e.preventDefault();
+  $("drop").classList.remove("drag");
+}));
 $("drop").addEventListener("drop",e=>load(e.dataTransfer.files?.[0]));
-$("download").onclick=()=>{if(!resultUrl)return;const a=document.createElement("a");a.href=resultUrl;a.download=(sourceFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-background.png";document.body.appendChild(a);a.click();a.remove()};
+
+$("download").onclick=()=>{
+  if(!resultUrl)return;
+  const a=document.createElement("a");
+  a.href=resultUrl;
+  a.download=(sourceFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-background.png";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+};
+
 $("compare").onclick=()=>{if(!originalUrl||!resultUrl)return;showingAfter=!showingAfter;$("image").src=showingAfter?resultUrl:originalUrl;$("compare").textContent=showingAfter?"◐ Before / After":"◐ After / Before";$("status").textContent=showingAfter?"After — background removed.":"Before — original image."};
 $("newImage").onclick=resetTool;
-async function getClient(){if(!clientPromise){clientPromise=Client.connect("not-lain/background-removal",{status_callback:status=>{if(status?.status==="building"||status?.status==="sleeping")$("processingText").textContent="Starting AI background remover…";else if(status?.status==="running")$("processingText").textContent="AI is removing background…"}})}return clientPromise}
-async function load(file){
- if(!file||!file.type.startsWith("image/"))return;
- sourceFile=file;
- if(originalUrl)URL.revokeObjectURL(originalUrl);
- if(resultUrl&&resultUrl.startsWith("blob:"))URL.revokeObjectURL(resultUrl);
- originalUrl=URL.createObjectURL(file);resultUrl="";showingAfter=true;
- $("image").src=originalUrl;$("image").classList.remove("hidden");$("upload").classList.add("hidden");$("actions").classList.add("hidden");$("processing").classList.remove("hidden");$("processingText").textContent="Removing background with AI…";$("status").textContent="Your original image is shown while processing…";
- try{
-  const app=await getClient();const result=await app.predict("/png",[handle_file(file)]);const output=result?.data?.[0];if(!output)throw new Error("The AI service returned no image.");
-  let outputUrl=output.url||output.data?.url||output.path||output.data?.path;if(!outputUrl)throw new Error("The AI service returned an invalid image.");
-  if(outputUrl.startsWith("http://")||outputUrl.startsWith("https://")){const response=await fetch(outputUrl);if(!response.ok)throw new Error("Could not download the processed image.");const blob=await response.blob();resultUrl=URL.createObjectURL(blob)}else{resultUrl=outputUrl}
-  showingAfter=true;$("image").src=resultUrl;$("processing").classList.add("hidden");$("actions").classList.remove("hidden");$("compare").textContent="◐ Before / After";$("status").textContent="Done — AI background removed.";
- }catch(error){console.error(error);$("processing").classList.add("hidden");$("status").textContent="Background removal failed. Your original image is still shown. Please try again."}
+
+async function getClient(){
+  if(!clientPromise){
+    clientPromise=Client.connect("not-lain/background-removal",{
+      status_callback:status=>{
+        if(status?.status==="building"||status?.status==="sleeping")
+          $("status").textContent="Starting AI background remover…";
+        else if(status?.status==="running")
+          $("status").textContent="AI is ready — removing background…";
+      }
+    });
+  }
+  return clientPromise;
 }
-function resetTool(){if(originalUrl)URL.revokeObjectURL(originalUrl);if(resultUrl&&resultUrl.startsWith("blob:"))URL.revokeObjectURL(resultUrl);sourceFile=null;originalUrl="";resultUrl="";showingAfter=true;$("file").value="";$("image").src="";$("image").classList.add("hidden");$("processing").classList.add("hidden");$("upload").classList.remove("hidden");$("actions").classList.add("hidden");$("compare").textContent="◐ Before / After";$("status").textContent="Select an image to begin."}
+
+async function load(file){
+  if(!file||!file.type.startsWith("image/"))return;
+
+  sourceFile=file;
+  if(originalUrl)URL.revokeObjectURL(originalUrl);
+  if(resultUrl){URL.revokeObjectURL(resultUrl);resultUrl=""}
+  originalUrl=URL.createObjectURL(file);
+  showingAfter=true;
+
+  $("image").src=originalUrl;
+  $("image").classList.remove("hidden");
+  $("upload").classList.add("hidden");
+  $("actions").classList.add("hidden");
+  $("processing").classList.remove("hidden");
+  $("processingText").textContent="Removing background with AI…";
+  $("status").textContent="Your original image is shown while processing…";
+
+  try{
+    const app=await getClient();
+    const result=await app.predict("/png",[handle_file(file)]);
+    const output=result?.data?.[0];
+
+    if(!output)throw new Error("The AI service returned no image.");
+
+    let outputUrl=output.url||output.data?.url||output.path||output.data?.path;
+
+    if(!outputUrl)throw new Error("The AI service returned an invalid image.");
+
+    if(outputUrl.startsWith("http://")||outputUrl.startsWith("https://")){
+      const response=await fetch(outputUrl);
+      if(!response.ok)throw new Error("Could not download the processed image.");
+      const blob=await response.blob();
+      resultUrl=URL.createObjectURL(blob);
+    }else{
+      resultUrl=outputUrl;
+    }
+
+    $("image").src=resultUrl;
+    $("image").classList.remove("hidden");
+    $("processing").classList.add("hidden");
+    $("actions").classList.remove("hidden");
+    $("compare").textContent="◐ Before / After";
+    $("status").textContent="Done — AI background removed.";
+  }catch(error){
+    console.error(error);
+    $("processing").classList.add("hidden");
+    $("status").textContent="Background removal failed. Your original image is still shown. Please try again.";
+  }
+}
+
+function resetTool(){
+  if(originalUrl)URL.revokeObjectURL(originalUrl);
+  if(resultUrl&&resultUrl.startsWith("blob:"))URL.revokeObjectURL(resultUrl);
+  sourceFile=null;
+  originalUrl="";
+  resultUrl="";
+  showingAfter=true;
+  $("file").value="";
+  $("image").src="";
+  $("image").classList.add("hidden");
+  $("processing").classList.add("hidden");
+  $("upload").classList.remove("hidden");
+  $("actions").classList.add("hidden");
+  $("compare").textContent="◐ Before / After";
+  $("status").textContent="Select an image to begin.";
+}
 </script>
 </body>
 </html>
