@@ -75,6 +75,12 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 #borderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
 .mini-control input[type=range]{width:100%;accent-color:var(--blue)}
 .mini-control .range-val{display:block;margin-top:3px;font-size:9px}
+.watermark-box{margin-top:7px;border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff}
+.watermark-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
+.watermark-head label{font-size:10px;font-weight:800;color:#38516f}
+.watermark-head label input{accent-color:var(--blue);margin:0 5px 0 0}
+.watermark-head span{font-size:9px;color:var(--muted)}
+.watermark-box .field input{height:30px;font-size:10px}
 .bg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .bg-choice{height:42px;border:2px solid #d7e3f0;border-radius:9px;position:relative;overflow:hidden;padding:0}
 .bg-choice.active{border-color:var(--blue);box-shadow:0 0 0 2px #dcecff}
@@ -264,6 +270,11 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 </div>
 </div>
 <div class="hint">Gap shrinks the photo equally from all four sides. The gap area stays white between the photo and border.</div>
+<div class="watermark-box">
+<div class="watermark-head"><label><input id="watermarkEnabled" type="checkbox"> Watermark Text</label><span>Fixed bottom-left</span></div>
+<div class="field"><label>Watermark Text</label><input id="watermarkText" type="text" value="ONESTOP" placeholder="Enter watermark text"></div>
+<div class="hint">Text stays fixed at the bottom-left footer area, inside the white gap between the photo and border.</div>
+</div>
 </div>
 </section>
 
@@ -325,6 +336,7 @@ const state={
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
  borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,
+watermarkEnabled:false,watermarkText:"ONESTOP",
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
  nameDate:false,name:"",date:"",format:"png"
 };
@@ -374,6 +386,21 @@ function renderPhotoTo(targetCtx,w,h){
      targetCtx.textAlign="center";targetCtx.textBaseline="bottom";
      targetCtx.fillText(text,w/2,h-Math.max(10,gap+4));targetCtx.restore();
    }
+ }
+ if(state.watermarkEnabled&&state.watermarkText.trim()&&gap>0){
+   const text=state.watermarkText.trim();
+   const footerH=gap;
+   const maxFont=Math.max(8,Math.min(18,Math.round(footerH*.62)));
+   targetCtx.save();
+   targetCtx.fillStyle="#111";
+   targetCtx.font="700 "+maxFont+"px Arial";
+   targetCtx.textAlign="left";
+   targetCtx.textBaseline="middle";
+   targetCtx.beginPath();
+   targetCtx.rect(1,h-footerH,w-2,footerH);
+   targetCtx.clip();
+   targetCtx.fillText(text,Math.max(2,gap+3),h-footerH/2);
+   targetCtx.restore();
  }
  if(state.borderEnabled&&state.borderWidth>0){
    const bw=Math.min(state.borderWidth,Math.floor(Math.min(w,h)/2));
@@ -499,6 +526,8 @@ $("innerGap").oninput=e=>{
  $("innerGapVal").textContent=state.innerGap+" px";
  if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
 };
+$("watermarkEnabled").onchange=()=>{state.watermarkEnabled=$("watermarkEnabled").checked;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
+$("watermarkText").oninput=e=>{state.watermarkText=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 
 canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.lastX=e.clientX;state.lastY=e.clientY;canvas.setPointerCapture(e.pointerId)});
 canvas.addEventListener("pointermove",e=>{
@@ -617,10 +646,11 @@ $("downloadPhoto").onclick=async()=>{
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
-Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0});
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,watermarkEnabled:false,watermarkText:"ONESTOP"});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
-$("borderToggle").textContent="OFF";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
+$("borderToggle").textContent="OFF";
+$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
