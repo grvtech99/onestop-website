@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "indian-pilot-smit-machchhar-flydubai-heroism",
+      "slug": "indian-pilot-smit-machchhar-flydubai-heroism",
+      "title": "भारतीय पायलट Smit Machchhar की बहादुरी: घायल होने के बावजूद 174 लोगों की सुरक्षा में निभाई अहम भूमिका",
+      "category": "Trending",
+      "summary": "Flydubai Flight FZ1073 के दौरान गंभीर cockpit incident में Captain Smit Machchhar के साहस, presence of mind और उस फैसले की कहानी जिसने यात्रियों और crew को aircraft को सुरक्षित संभालने में मदद का मौका दिया।",
+      "image": "images/smit-machchhar-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-10-01T23:45:00+05:30",
+      "updatedAt": "2026-10-01T18:15:00Z"
+    },
+    {
       "id": "flydubai-fz1073-israel-emergency-30-sept-2026",
       "slug": "flydubai-fz1073-israel-emergency-30-sept-2026",
       "title": "Israel जा रही Flydubai Flight FZ1073 में बड़ा हवाई संकट: Cockpit Incident, Hijack Alert और Saudi Arabia में Emergency Landing",
@@ -316,5 +328,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-09-30T15:08:51.928Z"
+  "updatedAt": "2026-10-01T18:15:00Z"
 }
