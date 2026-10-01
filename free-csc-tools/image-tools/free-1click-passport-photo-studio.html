@@ -67,6 +67,14 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 .range-row label{font-size:11px;font-weight:800;color:#38516f}
 .range-row input[type=range]{width:100%;accent-color:var(--blue)}
 .range-val{font-size:10px;text-align:right;color:var(--muted)}
+.border-gap-grid{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:7px;margin-top:8px}
+.mini-control{min-width:0;border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff}
+.mini-control>label{display:block;font-size:10px;color:#38516f;font-weight:800;margin-bottom:5px}
+.inline-tools{display:flex;align-items:center;gap:6px}
+.inline-tools .tool-btn{flex:1;padding:6px 7px;font-size:10px}
+#borderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
+.mini-control input[type=range]{width:100%;accent-color:var(--blue)}
+.mini-control .range-val{display:block;margin-top:3px;font-size:9px}
 .bg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .bg-choice{height:42px;border:2px solid #d7e3f0;border-radius:9px;position:relative;overflow:hidden;padding:0}
 .bg-choice.active{border-color:var(--blue);box-shadow:0 0 0 2px #dcecff}
@@ -141,6 +149,12 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
   .range-row{margin:5px 0;grid-template-columns:68px 1fr 40px;gap:6px}
   .range-row label{font-size:10px}
   .range-val{font-size:9px}
+  .border-gap-grid{gap:5px;margin-top:6px}
+  .mini-control{padding:6px}
+  .mini-control>label{font-size:9px;margin-bottom:4px}
+  .inline-tools .tool-btn{padding:5px 6px;font-size:9px}
+  #borderColor{width:30px;height:28px}
+  .mini-control .range-val{font-size:9px}
   .bg-grid{gap:5px}
   .bg-choice{height:32px}
   .bg-remove-row{margin-top:6px}
@@ -230,6 +244,26 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <div class="range-row"><label>Contrast</label><input id="contrast" type="range" min="50" max="150" value="100"><span id="contrastVal" class="range-val">100%</span></div>
 <div class="range-row"><label>Saturation</label><input id="saturation" type="range" min="0" max="200" value="100"><span id="saturationVal" class="range-val">100%</span></div>
 <div class="hint">Drag the preview to reposition the photo. Zoom and adjustments update instantly.</div>
+<div class="border-gap-grid">
+<div class="mini-control">
+<label>Border</label>
+<div class="inline-tools">
+<button id="borderToggle" class="tool-btn" type="button">OFF</button>
+<input id="borderColor" type="color" value="#000000" title="Border color">
+</div>
+</div>
+<div class="mini-control">
+<label>Thickness</label>
+<input id="borderWidth" type="range" min="0" max="30" step="1" value="2">
+<span id="borderWidthVal" class="range-val">2 px</span>
+</div>
+<div class="mini-control">
+<label>Gap / Inner Shrink</label>
+<input id="innerGap" type="range" min="0" max="30" step="1" value="0">
+<span id="innerGapVal" class="range-val">0 px</span>
+</div>
+</div>
+<div class="hint">Gap shrinks the photo equally from all four sides. The gap area stays white between the photo and border.</div>
 </div>
 </section>
 
@@ -290,6 +324,7 @@ const state={
  file:null,img:null,cutout:null,cutoutImage:null,cutoutUrl:"",objectUrl:"",resultUrl:"",
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
+ borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
  nameDate:false,name:"",date:"",format:"png"
 };
@@ -315,14 +350,20 @@ function renderPhotoTo(targetCtx,w,h){
  const source=state.cutoutImage||state.img;
  if(!source||!source.width&&!source.naturalWidth)return false;
  targetCtx.clearRect(0,0,w,h);
- targetCtx.fillStyle=state.bg;targetCtx.fillRect(0,0,w,h);
- const ar=w/h,iw=source.naturalWidth||source.width,ih=source.naturalHeight||source.height;
+ targetCtx.fillStyle="#fff";
+ targetCtx.fillRect(0,0,w,h);
+ const gap=Math.max(0,Math.min(state.innerGap,Math.floor(Math.min(w,h)/2)));
+ const innerW=Math.max(1,w-gap*2),innerH=Math.max(1,h-gap*2);
+ const ar=innerW/innerH,iw=source.naturalWidth||source.width,ih=source.naturalHeight||source.height;
  if(!iw||!ih)return false;
  const iar=iw/ih;
  let dw,dh;
- if(iar>ar){dh=h*state.zoom;dw=dh*iar}else{dw=w*state.zoom;dh=dw/iar}
- const x=(w-dw)/2+state.offsetX,y=(h-dh)/2+state.offsetY;
+ if(iar>ar){dh=innerH*state.zoom;dw=dh*iar}else{dw=innerW*state.zoom;dh=dw/iar}
+ const x=gap+(innerW-dw)/2+state.offsetX,y=gap+(innerH-dh)/2+state.offsetY;
  targetCtx.save();
+ targetCtx.beginPath();
+ targetCtx.rect(gap,gap,innerW,innerH);
+ targetCtx.clip();
  targetCtx.filter="brightness("+state.brightness+"%) contrast("+state.contrast+"%) saturate("+state.saturation+"%)";
  targetCtx.drawImage(source,x,y,dw,dh);
  targetCtx.restore();
@@ -330,8 +371,17 @@ function renderPhotoTo(targetCtx,w,h){
    const text=[state.name.trim(),state.date].filter(Boolean).join("  ");
    if(text){
      targetCtx.save();targetCtx.fillStyle="#111";targetCtx.font="bold "+Math.max(16,Math.round(w*.035))+"px Arial";
-     targetCtx.textAlign="center";targetCtx.textBaseline="bottom";targetCtx.fillText(text,w/2,h-10);targetCtx.restore();
+     targetCtx.textAlign="center";targetCtx.textBaseline="bottom";
+     targetCtx.fillText(text,w/2,h-Math.max(10,gap+4));targetCtx.restore();
    }
+ }
+ if(state.borderEnabled&&state.borderWidth>0){
+   const bw=Math.min(state.borderWidth,Math.floor(Math.min(w,h)/2));
+   targetCtx.save();
+   targetCtx.strokeStyle=state.borderColor;
+   targetCtx.lineWidth=bw;
+   targetCtx.strokeRect(bw/2,bw/2,w-bw,h-bw);
+   targetCtx.restore();
  }
  return true;
 }
@@ -427,6 +477,28 @@ $("dpi").onchange=()=>{state.dpi=Math.max(72,Math.min(1200,+$("dpi").value||300)
 ["zoom","brightness","contrast","saturation"].forEach(id=>$(id).oninput=()=>{state[id]=+$(id).value;renderValues()});
 $("resetAdjust").onclick=()=>{state.zoom=1;state.brightness=100;state.contrast=100;state.saturation=100;state.offsetX=0;state.offsetY=0;$("zoom").value=1;$("brightness").value=100;$("contrast").value=100;$("saturation").value=100;renderValues()};
 $("fitFace").onclick=()=>{state.zoom=1.12;state.offsetX=0;state.offsetY=0;$("zoom").value=1.12;renderValues()};
+
+$("borderToggle").onclick=()=>{
+ state.borderEnabled=!state.borderEnabled;
+ $("borderToggle").textContent=state.borderEnabled?"ON":"OFF";
+ $("borderToggle").classList.toggle("active",state.borderEnabled);
+ draw();
+ if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
+};
+$("borderColor").oninput=e=>{
+ state.borderColor=e.target.value;
+ if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
+};
+$("borderWidth").oninput=e=>{
+ state.borderWidth=+e.target.value;
+ $("borderWidthVal").textContent=state.borderWidth+" px";
+ if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
+};
+$("innerGap").oninput=e=>{
+ state.innerGap=+e.target.value;
+ $("innerGapVal").textContent=state.innerGap+" px";
+ if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}
+};
 
 canvas.addEventListener("pointerdown",e=>{state.dragging=true;state.lastX=e.clientX;state.lastY=e.clientY;canvas.setPointerCapture(e.pointerId)});
 canvas.addEventListener("pointermove",e=>{
@@ -545,9 +617,10 @@ $("downloadPhoto").onclick=async()=>{
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
-Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png"});
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png",borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
+$("borderToggle").textContent="OFF";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
