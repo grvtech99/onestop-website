@@ -3,248 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Free 1Click Background Remover by ONESTOP. Simple AI background removal for portraits, passport photos, products and more.">
+<meta name="description" content="Free 1Click Background Remover by ONESTOP. Instant browser based background removal for simple and solid backgrounds.">
 <title>Free 1Click Background Remover | ONESTOP</title>
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;background:#eef6ff;color:#14213d}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#eef6ff;color:#14213d}
 body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-:root{--blue:#0757c9;--blue2:#167be4;--cyan:#5bc8f4;--line:#dbe7f5;--muted:#61728c;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
-.app{min-height:100dvh;display:flex;flex-direction:column}
-.top{height:62px;background:#fff;border-bottom:1px solid #e3ebf5}
+:root{--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%);--line:#dbe7f5;--muted:#61728c;--blue:#0757c9}
+.app{min-height:100dvh;display:flex;flex-direction:column}.top{height:62px;background:#fff;border-bottom:1px solid #e3ebf5}
 .nav{max-width:1120px;height:100%;margin:auto;padding:8px 16px;display:flex;align-items:center;justify-content:space-between}
-.brand{text-decoration:none;color:#0757c9;line-height:1}
-.brand strong{display:block;font-size:23px;font-weight:900;letter-spacing:-.7px}
-.brand small{display:block;margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.7px;color:#172b4d}
-.home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;background:var(--grad);color:#fff;padding:9px 13px;border-radius:10px;font-size:12px;font-weight:800}
-main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 12px}
-.panel{width:min(760px,100%);display:flex;flex-direction:column;gap:12px}
-.hero{background:var(--grad);color:#fff;border-radius:18px;padding:18px 20px}
-.hero h1{margin:0;font-size:clamp(24px,4vw,34px);line-height:1.05;font-weight:900;letter-spacing:-.8px}
-.hero p{margin:7px 0 0;font-size:13px;line-height:1.45;opacity:.96}
+.brand{text-decoration:none;color:#0757c9;line-height:1}.brand strong{display:block;font-size:23px;font-weight:900;letter-spacing:-.7px}.brand small{display:block;margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.7px;color:#172b4d}
+.home{display:inline-flex;align-items:center;text-decoration:none;background:var(--grad);color:#fff;padding:9px 13px;border-radius:10px;font-size:12px;font-weight:800}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 12px}.panel{width:min(760px,100%);display:flex;flex-direction:column;gap:12px}
+.hero{background:var(--grad);color:#fff;border-radius:18px;padding:18px 20px}.hero h1{margin:0;font-size:clamp(24px,4vw,34px);line-height:1.05;font-weight:900;letter-spacing:-.8px}.hero p{margin:7px 0 0;font-size:13px;line-height:1.45}
 .tool{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 10px 28px rgba(6,38,95,.07)}
 .preview{position:relative;width:100%;height:min(62dvh,560px);min-height:360px;border:1px solid #d8e4f2;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0}
 .preview img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain}
-.upload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px}
-.drop{width:min(520px,92%);min-height:270px;border:2px dashed #b8c9df;border-radius:18px;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:28px 18px;transition:.18s}
-.drop.drag{border-color:var(--blue);background:#eef6ff;transform:scale(1.01)}
-.upload-icon{width:66px;height:66px;border-radius:18px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:34px;margin-bottom:12px}
-.drop h2{margin:0;font-size:22px;line-height:1.2;font-weight:850}
-.drop p{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}
-.choose{margin-top:17px;border:0;border-radius:11px;background:var(--grad);color:#fff;padding:12px 22px;font-size:15px;font-weight:850;cursor:pointer;box-shadow:0 7px 18px rgba(7,87,201,.2)}
-.actionbar{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 4px 2px}
-.btn{border:0;border-radius:11px;min-height:46px;padding:0 22px;font-size:15px;font-weight:850;cursor:pointer}
-.primary{background:var(--grad);color:#fff;box-shadow:0 7px 18px rgba(7,87,201,.2)}
-.secondary{background:#eaf3ff;color:var(--blue)}
-.btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
-.status{text-align:center;min-height:22px;padding:0 8px 3px;font-size:13px;color:var(--muted);line-height:1.45}
-.processing{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:blur(3px);z-index:5}
-.processing.show{display:flex}
-.processing-box{width:min(360px,82%);background:#fff;border:1px solid #dbe7f5;border-radius:16px;padding:22px;text-align:center;box-shadow:0 16px 40px rgba(6,38,95,.14)}
-.processing-box strong{display:block;font-size:18px;font-weight:900}
-.processing-box span{display:block;margin-top:6px;font-size:13px;line-height:1.45;color:var(--muted)}
-.scan{height:5px;margin-top:15px;background:#e7edf5;border-radius:99px;overflow:hidden}
-.scan i{display:block;width:34%;height:100%;background:var(--grad);animation:scan 1.15s ease-in-out infinite}
-@keyframes scan{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
-.meta{text-align:center;color:#72829a;font-size:12px;line-height:1.5;padding:0 8px 2px}
-.foot{text-align:center;padding:8px 12px 12px;color:#8997aa;font-size:11px}
-.hidden{display:none!important}
-@media(max-width:600px){
-.top{height:58px}.nav{padding:7px 11px}.brand strong{font-size:20px}.brand small{font-size:7.5px;letter-spacing:.45px}.home{font-size:11px;padding:8px 10px}
-main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}.hero h1{font-size:23px}.hero p{font-size:12px;margin-top:5px}
-.tool{padding:8px;border-radius:15px}.preview{height:58dvh;min-height:300px;border-radius:11px}
-.drop{min-height:235px;border-radius:14px;padding:22px 14px}.upload-icon{width:58px;height:58px;font-size:29px;border-radius:16px}.drop h2{font-size:19px}.drop p{font-size:13px}.choose{font-size:14px;padding:11px 18px}
-.actionbar{padding:10px 2px 2px}.btn{width:100%;font-size:14px;min-height:44px;padding:0 12px}.status{font-size:12px}.meta{font-size:11px}.foot{font-size:10px}
-}
+.upload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px}.drop{width:min(520px,92%);min-height:270px;border:2px dashed #b8c9df;border-radius:18px;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:28px 18px}.drop.drag{border-color:var(--blue);background:#eef6ff}
+.upload-icon{width:66px;height:66px;border-radius:18px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:34px;margin-bottom:12px}.drop h2{margin:0;font-size:22px;line-height:1.2;font-weight:850}.drop p{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}
+.choose{margin-top:17px;border:0;border-radius:11px;background:var(--grad);color:#fff;padding:12px 22px;font-size:15px;font-weight:850;cursor:pointer}
+.actionbar{display:flex;justify-content:center;gap:10px;padding:12px 4px 2px}.btn{border:0;border-radius:11px;min-height:46px;padding:0 22px;font-size:15px;font-weight:850;cursor:pointer}.secondary{background:#eaf3ff;color:var(--blue)}
+.status{text-align:center;min-height:22px;padding:0 8px 3px;font-size:13px;color:var(--muted);line-height:1.45}.meta{text-align:center;color:#72829a;font-size:12px;line-height:1.5;padding:0 8px 2px}.foot{text-align:center;padding:8px 12px 12px;color:#8997aa;font-size:11px}.hidden{display:none!important}
+@media(max-width:600px){.top{height:58px}.nav{padding:7px 11px}.brand strong{font-size:20px}.brand small{font-size:7.5px}.home{font-size:11px;padding:8px 10px}main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}.hero h1{font-size:23px}.hero p{font-size:12px}.tool{padding:8px;border-radius:15px}.preview{height:58dvh;min-height:300px;border-radius:11px}.drop{min-height:235px;border-radius:14px;padding:22px 14px}.upload-icon{width:58px;height:58px;font-size:29px}.drop h2{font-size:19px}.drop p{font-size:13px}.choose{font-size:14px;padding:11px 18px}.actionbar{padding:10px 2px 2px}.btn{width:100%;font-size:14px;min-height:44px}.status{font-size:12px}.meta{font-size:11px}.foot{font-size:10px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top">
-<div class="nav">
-<a class="brand" href="../index.html" aria-label="ONESTOP Computer and Skill Development Center"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a>
-<a class="home" href="../index.html">⌂ Home</a>
-</div>
-</header>
-
-<main>
-<section class="panel">
-<section class="hero">
-<h1>Free 1Click Background Remover</h1>
-<p>Upload your image → Remove Background → Download. Simple, fast and designed for portraits, passport photos, products and everyday images.</p>
-</section>
-
+<header class="top"><div class="nav"><a class="brand" href="../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">⌂ Home</a></div></header>
+<main><section class="panel">
+<section class="hero"><h1>Free 1Click Background Remover</h1><p>Upload → instant background removal → download. No AI model download, no server queue.</p></section>
 <section class="tool">
 <div id="preview" class="preview">
 <img id="image" alt="Background remover preview" class="hidden">
-<div id="upload" class="upload">
-<div id="drop" class="drop">
-<div class="upload-icon">🖼️</div>
-<h2>Select or Drag &amp; Drop Image</h2>
-<p>JPG • PNG • WebP</p>
-<button id="choose" class="choose" type="button">Select Image</button>
-<input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+<div id="upload" class="upload"><div id="drop" class="drop"><div class="upload-icon">🖼️</div><h2>Select or Drag &amp; Drop Image</h2><p>JPG • PNG • WebP</p><button id="choose" class="choose" type="button">Select Image</button><input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>
 </div>
-</div>
-<div id="processing" class="processing">
-<div class="processing-box">
-<strong id="processingTitle">Removing Background…</strong>
-<span id="processingText">AI is detecting the subject and refining the edges.</span>
-<div class="scan"><i></i></div>
-</div>
-</div>
-</div>
-
-<div id="actions" class="actionbar hidden">
-<button id="remove" class="btn primary" type="button">✂ Remove Background</button>
-<button id="download" class="btn secondary hidden" type="button">⬇ Download Image</button>
-<button id="newImage" class="btn secondary hidden" type="button">＋ New Image</button>
-</div>
+<div id="actions" class="actionbar hidden"><button id="download" class="btn secondary" type="button">⬇ Download Image</button><button id="newImage" class="btn secondary" type="button">＋ New Image</button></div>
 <div id="status" class="status">Select an image to begin.</div>
-<div class="meta">Free • One Click • Browser Based • No watermark</div>
+<div class="meta">Instant browser processing • No model download • No upload • Transparent PNG</div>
 </section>
-</section>
-</main>
-
+</section></main>
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
-
+</div>
 <script>
-let removeBackground = null;
-let sourceFile = null;
-let sourceUrl = "";
-let resultBlob = null;
-let resultUrl = "";
-let busy = false;
+let sourceFile=null,resultBlob=null,resultUrl="";
+const $=id=>document.getElementById(id);
+$("choose").onclick=e=>{e.stopPropagation();$("file").click()};
+$("drop").onclick=()=>$("file").click();
+$("file").onchange=e=>load(e.target.files?.[0]);
+["dragenter","dragover"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.add("drag")}));
+["dragleave","drop"].forEach(t=>$("drop").addEventListener(t,e=>{e.preventDefault();$("drop").classList.remove("drag")}));
+$("drop").addEventListener("drop",e=>load(e.dataTransfer.files?.[0]));
+$("download").onclick=()=>{if(!resultUrl)return;const a=document.createElement("a");a.href=resultUrl;a.download=(sourceFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-background.png";a.click()};
+$("newImage").onclick=resetTool;
 
-const $ = id => document.getElementById(id);
-const setStatus = msg => $("status").textContent = msg;
-
-$("choose").addEventListener("click", e => {
-  e.stopPropagation();
-  $("file").click();
-});
-$("drop").addEventListener("click", () => $("file").click());
-$("file").addEventListener("change", e => loadImage(e.target.files && e.target.files[0]));
-
-["dragenter","dragover"].forEach(type => $("drop").addEventListener(type, e => {
-  e.preventDefault();
-  e.stopPropagation();
-  $("drop").classList.add("drag");
-}));
-["dragleave","drop"].forEach(type => $("drop").addEventListener(type, e => {
-  e.preventDefault();
-  e.stopPropagation();
-  $("drop").classList.remove("drag");
-}));
-$("drop").addEventListener("drop", e => loadImage(e.dataTransfer.files && e.dataTransfer.files[0]));
-
-$("remove").addEventListener("click", processImage);
-$("download").addEventListener("click", downloadImage);
-$("newImage").addEventListener("click", resetTool);
-
-function loadImage(file) {
-  if (!file || !file.type.startsWith("image/")) {
-    setStatus("Please select a JPG, PNG or WebP image.");
-    return;
-  }
-  if (sourceUrl) URL.revokeObjectURL(sourceUrl);
-  if (resultUrl) URL.revokeObjectURL(resultUrl);
-
-  sourceFile = file;
-  sourceUrl = URL.createObjectURL(file);
-  resultBlob = null;
-  resultUrl = "";
-
-  $("image").src = sourceUrl;
-  $("image").classList.remove("hidden");
-  $("upload").classList.add("hidden");
-  $("actions").classList.remove("hidden");
-  $("remove").classList.remove("hidden");
-  $("download").classList.add("hidden");
-  $("newImage").classList.add("hidden");
-  $("processing").classList.remove("show");
-
-  const img = new Image();
-  img.onload = () => setStatus("Image ready. Click Remove Background.");
-  img.src = sourceUrl;
+function load(file){
+ if(!file||!file.type.startsWith("image/"))return;
+ sourceFile=file; if(resultUrl)URL.revokeObjectURL(resultUrl); resultBlob=null;resultUrl="";
+ $("upload").classList.add("hidden");$("actions").classList.add("hidden");$("status").textContent="Removing background…";
+ const img=new Image();img.onload=()=>instantRemove(img);img.src=URL.createObjectURL(file);
 }
 
-async function processImage() {
-  if (!sourceFile || busy) return;
-  busy = true;
-  $("remove").disabled = true;
-  $("processing").classList.add("show");
-  $("processingTitle").textContent = "Removing Background…";
-  $("processingText").textContent = "Detecting the subject and refining hair, face and edges.";
-  setStatus("Preparing AI engine…");
-
-  try {
-    if (!removeBackground) {
-      const mod = await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm");
-      removeBackground = mod.default || mod.removeBackground;
-      if (typeof removeBackground !== "function") throw new Error("AI engine unavailable");
-    }
-
-    const config = {
-      model: "medium",
-      device: navigator.gpu ? "gpu" : "cpu",
-      proxyToWorker: true,
-      progress: (key, current, total) => {
-        if (key === "fetch:download") setStatus("Loading AI model…");
-        else if (key === "compute:inference") setStatus("Detecting and removing background…");
-        else setStatus("Processing image…");
-      }
-    };
-
-    resultBlob = await removeBackground(sourceFile, config);
-    if (!(resultBlob instanceof Blob)) throw new Error("No image result returned");
-
-    if (resultUrl) URL.revokeObjectURL(resultUrl);
-    resultUrl = URL.createObjectURL(resultBlob);
-    $("image").src = resultUrl;
-    $("processing").classList.remove("show");
-    $("remove").classList.add("hidden");
-    $("download").classList.remove("hidden");
-    $("newImage").classList.remove("hidden");
-    setStatus("Done. Background removed successfully.");
-  } catch (error) {
-    console.error(error);
-    $("processing").classList.remove("show");
-    setStatus("Background removal failed. Please try again with a JPG, PNG or WebP image.");
-  } finally {
-    busy = false;
-    $("remove").disabled = false;
-  }
+function instantRemove(img){
+ const max=1800,scale=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+ const w=Math.max(1,Math.round(img.naturalWidth*scale)),h=Math.max(1,Math.round(img.naturalHeight*scale));
+ const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d",{willReadFrequently:true});x.drawImage(img,0,0,w,h);
+ const d=x.getImageData(0,0,w,h),p=d.data;
+ const step=Math.max(1,Math.floor(Math.min(w,h)/160)), samples=[];
+ for(let xx=0;xx<w;xx+=step){for(const yy of [0,h-1]){const i=(yy*w+xx)*4;samples.push([p[i],p[i+1],p[i+2]])}}
+ for(let yy=0;yy<h;yy+=step){for(const xx of [0,w-1]){const i=(yy*w+xx)*4;samples.push([p[i],p[i+1],p[i+2]])}}
+ const med=a=>{a.sort((u,v)=>u-v);return a[a.length>>1]},r=med(samples.map(a=>a[0])),g=med(samples.map(a=>a[1])),b=med(samples.map(a=>a[2]));
+ const seen=new Uint8Array(w*h),qx=new Int32Array(w*h),qy=new Int32Array(w*h);let head=0,tail=0;
+ const dist=(i)=>Math.sqrt((p[i]-r)**2+(p[i+1]-g)**2+(p[i+2]-b)**2);
+ const threshold=54,soft=88;
+ function push(px,py){if(px<0||py<0||px>=w||py>=h)return;const k=py*w+px;if(seen[k])return;seen[k]=1;qx[tail]=px;qy[tail]=py;tail++}
+ for(let xx=0;xx<w;xx++){push(xx,0);push(xx,h-1)}for(let yy=1;yy<h-1;yy++){push(0,yy);push(w-1,yy)}
+ while(head<tail){
+  const xx=qx[head],yy=qy[head];head++;const i=(yy*w+xx)*4;
+  if(dist(i)>soft)continue;
+  const alpha=dist(i)<=threshold?0:Math.max(0,Math.min(255,255*(dist(i)-threshold)/(soft-threshold)));
+  p[i+3]=Math.min(p[i+3],alpha);
+  push(xx+1,yy);push(xx-1,yy);push(xx,yy+1);push(xx,yy-1);
+ }
+ c.toBlob(blob=>{
+  if(!blob){$("status").textContent="Could not create the result.";return}
+  resultBlob=blob;resultUrl=URL.createObjectURL(blob);$("image").src=resultUrl;$("image").classList.remove("hidden");$("actions").classList.remove("hidden");$("status").textContent="Done — background removed instantly.";
+ },"image/png");
 }
 
-function downloadImage() {
-  if (!resultBlob || !resultUrl) return;
-  const base = (sourceFile?.name || "image").replace(/\.[^.]+$/, "");
-  const a = document.createElement("a");
-  a.href = resultUrl;
-  a.download = base + "-no-background.png";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
-function resetTool() {
-  if (sourceUrl) URL.revokeObjectURL(sourceUrl);
-  if (resultUrl) URL.revokeObjectURL(resultUrl);
-  sourceFile = null;
-  sourceUrl = "";
-  resultBlob = null;
-  resultUrl = "";
-  $("file").value = "";
-  $("image").removeAttribute("src");
-  $("image").classList.add("hidden");
-  $("upload").classList.remove("hidden");
-  $("actions").classList.add("hidden");
-  $("remove").classList.remove("hidden");
-  $("download").classList.add("hidden");
-  $("newImage").classList.add("hidden");
-  $("processing").classList.remove("show");
-  setStatus("Select an image to begin.");
+function resetTool(){
+ if(resultUrl)URL.revokeObjectURL(resultUrl);sourceFile=null;resultBlob=null;resultUrl="";$("file").value="";$("image").src="";$("image").classList.add("hidden");$("upload").classList.remove("hidden");$("actions").classList.add("hidden");$("status").textContent="Select an image to begin.";
 }
 </script>
 </body>
