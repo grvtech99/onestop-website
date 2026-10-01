@@ -3,346 +3,249 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Free 1Click Background Remover by ONESTOP. AI background removal with transparent, color or custom image backgrounds.">
+<meta name="description" content="Free 1Click Background Remover by ONESTOP. Simple AI background removal for portraits, passport photos, products and more.">
 <title>Free 1Click Background Remover | ONESTOP</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;overflow:hidden}
-body{font-family:Arial,"Segoe UI",sans-serif;background:#eef6ff;color:#14213d}
-:root{--blue:#0757c9;--line:#d8e6f7;--muted:#687992;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
-.app{height:100dvh;display:grid;grid-template-rows:56px 1fr 25px}
-.top{background:#fff;border-bottom:1px solid #e2eafa}
-.nav{height:56px;max-width:1180px;margin:auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}
-.brand{text-decoration:none;color:#0757c9}
-.brand strong{display:block;font-size:22px;font-weight:900;line-height:1}
-.brand small{display:block;font-size:8px;letter-spacing:.8px;font-weight:800;margin-top:4px}
-.home{background:var(--grad);color:#fff;padding:8px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:800}
-main{min-height:0;display:flex;align-items:center;justify-content:center;padding:8px 12px}
-.panel{width:min(1100px,100%);height:min(690px,calc(100dvh - 89px));display:grid;grid-template-rows:auto 1fr auto;gap:8px}
-.hero{background:var(--grad);color:#fff;border-radius:15px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.hero h1{margin:0;font-size:clamp(20px,3.5vw,34px)}
-.hero p{margin:3px 0 0;font-size:11px}
-.badge{background:#ffffff24;border:1px solid #ffffff45;padding:7px 10px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
-.work{min-height:0;display:grid;grid-template-columns:1.2fr .8fr;gap:8px}
-.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;box-shadow:0 5px 18px #06265f0b;min-height:0}
-.preview-card{display:flex;min-width:0;min-height:0}
-.preview{width:100%;min-width:0;min-height:0;display:flex;flex-direction:column}
-.preview-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;margin-bottom:5px}
-.preview-title span{font-size:8px;color:var(--muted);font-weight:700}
-.canvas-wrap{position:relative;min-height:0;flex:1;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}
-.canvas-wrap img,.canvas-wrap canvas{max-width:100%;max-height:100%;display:block;object-fit:contain}.smart-preview{position:relative;flex:1;min-height:0}.preview-image{width:100%;height:100%;object-fit:contain}.processing-overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#0757c90f;backdrop-filter:blur(1px)}.processing-overlay.show{display:flex}.processing-box{width:min(320px,78%);padding:14px;border-radius:14px;background:#ffffffed;border:1px solid #d8e6f7;box-shadow:0 8px 28px #06265f1a;text-align:center}.processing-box strong{display:block;font-size:13px}.processing-box span{display:block;font-size:9px;color:#687992;margin-top:4px}.scan{height:4px;background:#e8edf4;border-radius:99px;margin-top:10px;overflow:hidden}.scan i{display:block;height:100%;width:35%;background:var(--grad);animation:scan 1.1s infinite ease-in-out}@keyframes scan{0%{transform:translateX(-110%)}100%{transform:translateX(310%)}}
-.placeholder{font-size:10px;color:#71819a;text-align:center;padding:15px}
-.input-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
-.drop{width:calc(100% - 18px);height:calc(100% - 18px);border:2px dashed #b8c8dd;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:#fbfdffdd;pointer-events:auto}
-.drop.drag{border-color:var(--blue);background:#eef6ff}
-.drop h2{font-size:14px;margin:5px 0}.drop p{font-size:9px;color:var(--muted);margin:0}.choose{margin-top:8px;background:var(--grad);color:#fff;border:0;border-radius:9px;padding:8px 13px;font-size:11px;font-weight:800;cursor:pointer}
-.tools-card{overflow:auto}
-.settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field.full{grid-column:1/-1}
-.field select,.field input[type=color]{width:100%;height:35px;border:1px solid #cbd9e9;border-radius:8px;background:#fff;color:#14213d}
-.field input[type=color]{padding:3px;cursor:pointer}
-.bg-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
-.bg-tab{height:32px;border:1px solid #d1deec;background:#f7faff;color:#526681;border-radius:8px;font-size:9px;font-weight:900;cursor:pointer}
-.bg-tab.active{background:#eaf3ff;color:var(--blue);border-color:#9ec4f3}
-.bg-control{margin-top:8px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
-.btn{border:0;border-radius:9px;height:38px;font-weight:900;cursor:pointer}
-.primary{background:var(--grad);color:#fff;box-shadow:0 5px 13px #0757c933}
+html,body{margin:0;width:100%;min-height:100%;background:#eef6ff;color:#14213d}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+:root{--blue:#0757c9;--blue2:#167be4;--cyan:#5bc8f4;--line:#dbe7f5;--muted:#61728c;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+.app{min-height:100dvh;display:flex;flex-direction:column}
+.top{height:62px;background:#fff;border-bottom:1px solid #e3ebf5}
+.nav{max-width:1120px;height:100%;margin:auto;padding:8px 16px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;color:#0757c9;line-height:1}
+.brand strong{display:block;font-size:23px;font-weight:900;letter-spacing:-.7px}
+.brand small{display:block;margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.7px;color:#172b4d}
+.home{display:inline-flex;align-items:center;gap:7px;text-decoration:none;background:var(--grad);color:#fff;padding:9px 13px;border-radius:10px;font-size:12px;font-weight:800}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 12px}
+.panel{width:min(760px,100%);display:flex;flex-direction:column;gap:12px}
+.hero{background:var(--grad);color:#fff;border-radius:18px;padding:18px 20px}
+.hero h1{margin:0;font-size:clamp(24px,4vw,34px);line-height:1.05;font-weight:900;letter-spacing:-.8px}
+.hero p{margin:7px 0 0;font-size:13px;line-height:1.45;opacity:.96}
+.tool{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:0 10px 28px rgba(6,38,95,.07)}
+.preview{position:relative;width:100%;height:min(62dvh,560px);min-height:360px;border:1px solid #d8e4f2;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:22px 22px;background-position:0 0,0 11px,11px -11px,-11px 0}
+.preview img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;object-fit:contain}
+.upload{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:18px}
+.drop{width:min(520px,92%);min-height:270px;border:2px dashed #b8c9df;border-radius:18px;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;padding:28px 18px;transition:.18s}
+.drop.drag{border-color:var(--blue);background:#eef6ff;transform:scale(1.01)}
+.upload-icon{width:66px;height:66px;border-radius:18px;background:#eaf3ff;color:var(--blue);display:grid;place-items:center;font-size:34px;margin-bottom:12px}
+.drop h2{margin:0;font-size:22px;line-height:1.2;font-weight:850}
+.drop p{margin:8px 0 0;font-size:14px;line-height:1.45;color:var(--muted)}
+.choose{margin-top:17px;border:0;border-radius:11px;background:var(--grad);color:#fff;padding:12px 22px;font-size:15px;font-weight:850;cursor:pointer;box-shadow:0 7px 18px rgba(7,87,201,.2)}
+.actionbar{display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 4px 2px}
+.btn{border:0;border-radius:11px;min-height:46px;padding:0 22px;font-size:15px;font-weight:850;cursor:pointer}
+.primary{background:var(--grad);color:#fff;box-shadow:0 7px 18px rgba(7,87,201,.2)}
 .secondary{background:#eaf3ff;color:var(--blue)}
-.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
-.clear{width:100%;margin-top:7px;background:#fff0f0;color:#c62828;border:0;border-radius:9px;height:32px;font-size:10px;font-weight:900;cursor:pointer}
-.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:8px;color:var(--muted)}
-.stats b{color:#14213d}
-.progress{height:5px;background:#e8edf4;border-radius:9px;margin-top:6px;overflow:hidden}
-.bar{height:100%;width:0;background:var(--grad);transition:width .15s}
-.status{font-size:9px;color:var(--muted);margin-top:5px;min-height:12px}
-.note{font-size:9px;color:#6b7890}
-.foot{text-align:center;color:#8b98ab;font-size:9px;padding:5px 8px}
-#bgImage{display:none}
-@media(max-width:760px){
-.app{grid-template-rows:52px minmax(0,1fr) 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}
-.panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}
-.work{grid-template-columns:1fr;grid-template-rows:minmax(190px,36vh) minmax(0,1fr);gap:6px}
-.card{padding:8px;border-radius:11px}.preview-card{display:flex;gap:6px}.preview-title{font-size:8px}.preview-title span{font-size:7px}
-.drop h2{font-size:12px}.drop p{font-size:8px}.choose{font-size:10px;padding:7px 10px}
-.tools-card{overflow:auto}.settings{gap:6px}.field label{font-size:8px}.field select,.field input[type=color]{height:31px;font-size:10px}
-.bg-tab{height:30px;font-size:8px}.actions{grid-template-columns:1fr 1fr;gap:6px}.btn{height:35px;font-size:10px}.clear{height:31px}.stats{font-size:8px;gap:6px}.foot{font-size:8px}
-}
-@media(max-width:390px){
-.hero p{display:none}.badge{display:none}.preview-card{display:flex}.work{grid-template-rows:minmax(175px,34vh) minmax(0,1fr)}.drop p{display:none}.brand small{font-size:6.5px}
+.btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+.status{text-align:center;min-height:22px;padding:0 8px 3px;font-size:13px;color:var(--muted);line-height:1.45}
+.processing{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:rgba(255,255,255,.72);backdrop-filter:blur(3px);z-index:5}
+.processing.show{display:flex}
+.processing-box{width:min(360px,82%);background:#fff;border:1px solid #dbe7f5;border-radius:16px;padding:22px;text-align:center;box-shadow:0 16px 40px rgba(6,38,95,.14)}
+.processing-box strong{display:block;font-size:18px;font-weight:900}
+.processing-box span{display:block;margin-top:6px;font-size:13px;line-height:1.45;color:var(--muted)}
+.scan{height:5px;margin-top:15px;background:#e7edf5;border-radius:99px;overflow:hidden}
+.scan i{display:block;width:34%;height:100%;background:var(--grad);animation:scan 1.15s ease-in-out infinite}
+@keyframes scan{0%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+.meta{text-align:center;color:#72829a;font-size:12px;line-height:1.5;padding:0 8px 2px}
+.foot{text-align:center;padding:8px 12px 12px;color:#8997aa;font-size:11px}
+.hidden{display:none!important}
+@media(max-width:600px){
+.top{height:58px}.nav{padding:7px 11px}.brand strong{font-size:20px}.brand small{font-size:7.5px;letter-spacing:.45px}.home{font-size:11px;padding:8px 10px}
+main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}.hero h1{font-size:23px}.hero p{font-size:12px;margin-top:5px}
+.tool{padding:8px;border-radius:15px}.preview{height:58dvh;min-height:300px;border-radius:11px}
+.drop{min-height:235px;border-radius:14px;padding:22px 14px}.upload-icon{width:58px;height:58px;font-size:29px;border-radius:16px}.drop h2{font-size:19px}.drop p{font-size:13px}.choose{font-size:14px;padding:11px 18px}
+.actionbar{padding:10px 2px 2px}.btn{width:100%;font-size:14px;min-height:44px;padding:0 12px}.status{font-size:12px}.meta{font-size:11px}.foot{font-size:10px}
 }
 </style>
 </head>
 <body>
 <div class="app">
-<header class="top"><div class="nav"><a class="brand" href="../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">⌂ Home</a></div></header>
-<main><section class="panel">
-<section class="hero"><div><h1>Free 1Click Background Remover</h1><p>AI Background Removal • Hair &amp; Face Protection • Custom Background • Browser Based</p></div><div class="badge">AI • LOCAL</div></section>
-<section class="work">
-<section class="card preview-card">
-<div class="preview">
-<div class="preview-title">PREVIEW <span id="inputMeta">No image</span></div>
-<div id="previewStage" class="canvas-wrap smart-preview">
-<div id="resultPlaceholder" class="placeholder">Upload a portrait, passport photo, product photo or any image.</div>
-<img id="previewImage" class="preview-image" alt="Background remover preview" hidden>
-<canvas id="result" hidden></canvas>
-<div id="inputOverlay" class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose" type="button">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>
-<div id="processingOverlay" class="processing-overlay"><div class="processing-box"><strong id="processingTitle">Removing background…</strong><span id="processingText">Detecting subject and protecting edges.</span><div class="scan"><i></i></div></div></div>
+<header class="top">
+<div class="nav">
+<a class="brand" href="../index.html" aria-label="ONESTOP Computer and Skill Development Center"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a>
+<a class="home" href="../index.html">⌂ Home</a>
 </div>
-</div>
+</header>
+
+<main>
+<section class="panel">
+<section class="hero">
+<h1>Free 1Click Background Remover</h1>
+<p>Upload your image → Remove Background → Download. Simple, fast and designed for portraits, passport photos, products and everyday images.</p>
 </section>
-<section class="card tools-card">
-<div class="settings">
-<div class="field"><label>AI MODE</label><select id="mode"><option value="medium" selected>High Accuracy • Medium Model</option><option value="small">Fast • Small Model</option></select></div>
-<div class="field"><label>OUTPUT</label><select id="format"><option value="png" selected>PNG • Transparent</option><option value="jpg">JPG • Background</option></select></div>
-<div class="field full"><label>SUBJECT PROTECTION</label><select id="protection"><option value="auto" selected>Auto • Portrait / Passport Safe</option><option value="strong">Strong • Light Clothing Protection</option><option value="standard">Standard • AI Mask Only</option></select></div>
+
+<section class="tool">
+<div id="preview" class="preview">
+<img id="image" alt="Background remover preview" class="hidden">
+<div id="upload" class="upload">
+<div id="drop" class="drop">
+<div class="upload-icon">🖼️</div>
+<h2>Select or Drag &amp; Drop Image</h2>
+<p>JPG • PNG • WebP</p>
+<button id="choose" class="choose" type="button">Select Image</button>
+<input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
 </div>
-<div class="bg-control">
-<div class="field"><label>BACKGROUND</label><div class="bg-tabs"><button class="bg-tab active" data-bg="transparent">Transparent</button><button class="bg-tab" data-bg="color">Color</button><button class="bg-tab" data-bg="image">Image</button></div></div>
-<div id="colorControl" style="display:none;margin-top:7px"><input id="bgColor" type="color" value="#ffffff" aria-label="Background color"></div>
-<div id="imageControl" style="display:none;margin-top:7px"><button id="pickBg" class="btn secondary" style="width:100%;height:31px;font-size:9px">Choose Background Image</button><input id="bgImage" type="file" accept="image/jpeg,image/png,image/webp"></div>
 </div>
-<div class="actions"><button id="remove" class="btn primary" disabled>✂ Remove Background</button><button id="download" class="btn secondary" disabled>⬇ Download</button></div>
-<button id="reset" class="clear" disabled>Reset / New Image</button>
-<div class="stats"><span>Input <b id="size">0 B</b></span><span>Resolution <b id="res">—</b></span><span>Engine <b id="engine">Ready</b></span></div>
-<div class="progress"><div id="bar" class="bar"></div></div><div id="status" class="status">Ready. Your image stays in the browser.</div>
+<div id="processing" class="processing">
+<div class="processing-box">
+<strong id="processingTitle">Removing Background…</strong>
+<span id="processingText">AI is detecting the subject and refining the edges.</span>
+<div class="scan"><i></i></div>
+</div>
+</div>
+</div>
+
+<div id="actions" class="actionbar hidden">
+<button id="remove" class="btn primary" type="button">✂ Remove Background</button>
+<button id="download" class="btn secondary hidden" type="button">⬇ Download Image</button>
+<button id="newImage" class="btn secondary hidden" type="button">＋ New Image</button>
+</div>
+<div id="status" class="status">Select an image to begin.</div>
+<div class="meta">Free • One Click • Browser Based • No watermark</div>
 </section>
 </section>
-<section class="card" style="padding:7px 11px"><div class="note"><b>Live Preview:</b> The same preview canvas is used for upload, processing and final background composition. <b>Privacy:</b> AI processing runs in your browser. Your photo is not uploaded to ONESTOP. The AI model may be downloaded once and then cached by your browser.</div></section>
-</section></main>
+</main>
+
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
-</div>
 
 <script>
-let removeBackground=null;
-const $=id=>document.getElementById(id);
-let sourceFile=null, sourceUrl="", cutoutBlob=null, cutoutUrl="", bgMode="transparent", bgFile=null, bgUrl="", busy=false;
+let removeBackground = null;
+let sourceFile = null;
+let sourceUrl = "";
+let resultBlob = null;
+let resultUrl = "";
+let busy = false;
 
-$("pick").onclick=e=>{e.stopPropagation();$("files").click()};
-$("drop").onclick=()=>$("files").click();
-$("files").onchange=e=>loadSource(e.target.files?.[0]);
-$("pickBg").onclick=e=>{e.stopPropagation();$("bgImage").click()};
-$("bgImage").onchange=e=>{bgFile=e.target.files?.[0]||null;if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=bgFile?URL.createObjectURL(bgFile):"";if(cutoutBlob){$("processingOverlay").classList.add("show");$("processingTitle").textContent="Applying background…";$("processingText").textContent="Updating the live preview.";renderResult().finally(()=>$("processingOverlay").classList.remove("show"));}};
-$("bgColor").oninput=()=>{if(cutoutBlob){renderResult();}};
-$("format").onchange=()=>{if(cutoutBlob)renderResult()};
-$("protection").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Protection mode changed. Click Remove Background again.");}};
-$("mode").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Mode changed. Click Remove Background again.");}};
-document.querySelectorAll(".bg-tab").forEach(b=>b.onclick=()=>setBgMode(b.dataset.bg));
+const $ = id => document.getElementById(id);
+const setStatus = msg => $("status").textContent = msg;
 
-["dragenter","dragover"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.add("drag")}));
-["dragleave","drop"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.remove("drag")}));
-$("drop").addEventListener("drop",e=>loadSource(e.dataTransfer.files?.[0]));
+$("choose").addEventListener("click", e => {
+  e.stopPropagation();
+  $("file").click();
+});
+$("drop").addEventListener("click", () => $("file").click());
+$("file").addEventListener("change", e => loadImage(e.target.files && e.target.files[0]));
 
-$("remove").onclick=processImage;
-$("previewStage").addEventListener("click",e=>{if(!sourceFile&&e.target.closest("#previewStage"))$("files").click()});
-$("download").onclick=downloadResult;
-$("reset").onclick=resetAll;
+["dragenter","dragover"].forEach(type => $("drop").addEventListener(type, e => {
+  e.preventDefault();
+  e.stopPropagation();
+  $("drop").classList.add("drag");
+}));
+["dragleave","drop"].forEach(type => $("drop").addEventListener(type, e => {
+  e.preventDefault();
+  e.stopPropagation();
+  $("drop").classList.remove("drag");
+}));
+$("drop").addEventListener("drop", e => loadImage(e.dataTransfer.files && e.dataTransfer.files[0]));
 
-function setBgMode(mode){
-  bgMode=mode;
-  document.querySelectorAll(".bg-tab").forEach(b=>b.classList.toggle("active",b.dataset.bg===mode));
-  $("colorControl").style.display=mode==="color"?"block":"none";
-  $("imageControl").style.display=mode==="image"?"block":"none";
-  if(cutoutBlob)renderResult();
-}
-function setStatus(msg){$("status").textContent=msg}
-function formatBytes(n){if(!n)return"0 B";const u=["B","KB","MB","GB"],i=Math.min(3,Math.floor(Math.log(n)/Math.log(1024)));return(n/1024**i).toFixed(i?2:0)+" "+u[i]}
-function loadSource(file){
-  if(!file||!file.type.startsWith("image/"))return;
-  if(sourceUrl)URL.revokeObjectURL(sourceUrl);
-  sourceFile=file;sourceUrl=URL.createObjectURL(file);
-  const img=new Image();
-  img.onload=()=>{
-    $("previewImage").src=sourceUrl;
-    $("previewImage").hidden=false;
-    $("result").hidden=true;
-    $("resultPlaceholder").style.display="none";
-    $("inputOverlay").style.display="none";
-    $("inputMeta").textContent=formatBytes(file.size);
-    $("size").textContent=formatBytes(file.size);
-    $("res").textContent=img.naturalWidth+" × "+img.naturalHeight;
-    $("remove").disabled=false;$("reset").disabled=false;
-    cutoutBlob=null;cutoutUrl="";
-    $("download").disabled=true;
-    setStatus("Image ready. Click Remove Background.");
-  };
-  img.src=sourceUrl;
-}
-async function processImage(){
-  if(!sourceFile||busy)return;
-  if(!removeBackground){
-    try{
-      setStatus("Loading AI engine…");
-      const mod=await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm");
-      removeBackground=mod.default||mod.removeBackground;
-      if(typeof removeBackground!=="function")throw new Error("AI engine unavailable");
-    }catch(err){
-      console.error(err);setStatus("AI engine could not load. Please refresh once or try another network connection.");return;
-    }
+$("remove").addEventListener("click", processImage);
+$("download").addEventListener("click", downloadImage);
+$("newImage").addEventListener("click", resetTool);
+
+function loadImage(file) {
+  if (!file || !file.type.startsWith("image/")) {
+    setStatus("Please select a JPG, PNG or WebP image.");
+    return;
   }
-  busy=true;$("remove").disabled=true;$("download").disabled=true;$("engine").textContent="Processing…";$("bar").style.width="4%";$("processingOverlay").classList.add("show");$("processingTitle").textContent="Removing background…";$("processingText").textContent="Detecting face, hair, clothing and subject edges.";
-  setStatus("Preparing AI model… first use may take longer while the model is cached.");
-  try{
-    const modelSize=$("mode").value;
-    const config={model:modelSize,device:navigator.gpu?"gpu":"cpu",proxyToWorker:true,progress:(key,current,total)=>{const p=Math.min(92,Math.max(5,Math.round(current/Math.max(total,1)*85)));$("bar").style.width=p+"%";setStatus(key==="fetch:download"?"Downloading AI model…":key==="compute:inference"?"Detecting foreground…":"Removing background…")}};
-    cutoutBlob=await removeBackground(sourceFile,config);
-    const protection=$("protection").value;
-    if(protection!=="standard"){
-      setStatus("Applying portrait-safe foreground recovery…");
-      cutoutBlob=await protectPortraitClothing(sourceFile,cutoutBlob,protection);
-    }
-    $("engine").textContent=modelSize==="medium"?"High Accuracy + Protection":"Fast + Protection";
-    $("bar").style.width="96%";
-    await renderResult();
-    $("bar").style.width="100%";$("download").disabled=false;
-    $("processingOverlay").classList.remove("show");$("previewImage").hidden=true;$("result").hidden=false;setStatus("Done. Background removed. Choose transparent, color or image background.");
-  }catch(err){
-    console.error(err);$("processingOverlay").classList.remove("show");setStatus("Could not process this image. Try a JPG/PNG/WebP or switch to Fast mode.");$("bar").style.width="0";
-  }finally{busy=false;$("remove").disabled=!sourceFile}
+  if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+  if (resultUrl) URL.revokeObjectURL(resultUrl);
+
+  sourceFile = file;
+  sourceUrl = URL.createObjectURL(file);
+  resultBlob = null;
+  resultUrl = "";
+
+  $("image").src = sourceUrl;
+  $("image").classList.remove("hidden");
+  $("upload").classList.add("hidden");
+  $("actions").classList.remove("hidden");
+  $("remove").classList.remove("hidden");
+  $("download").classList.add("hidden");
+  $("newImage").classList.add("hidden");
+  $("processing").classList.remove("show");
+
+  const img = new Image();
+  img.onload = () => setStatus("Image ready. Click Remove Background.");
+  img.src = sourceUrl;
 }
 
-async function protectPortraitClothing(sourceBlob,cutoutBlob,level){
-  const srcUrl=URL.createObjectURL(sourceBlob),cutUrl=URL.createObjectURL(cutoutBlob);
-  try{
-    const [src,cut]=await Promise.all([loadImg(srcUrl),loadImg(cutUrl)]);
-    const maxSide=900, scale=Math.min(1,maxSide/Math.max(src.naturalWidth,src.naturalHeight));
-    const w=Math.max(1,Math.round(src.naturalWidth*scale)),h=Math.max(1,Math.round(src.naturalHeight*scale));
-    const oc=document.createElement("canvas");oc.width=w;oc.height=h;
-    const ox=oc.getContext("2d",{willReadFrequently:true});
-    ox.drawImage(src,0,0,w,h);
-    const od=ox.getImageData(0,0,w,h).data;
-    const mc=document.createElement("canvas");mc.width=w;mc.height=h;
-    const mx=mc.getContext("2d",{willReadFrequently:true});
-    mx.drawImage(cut,0,0,w,h);
-    const md=mx.getImageData(0,0,w,h).data;
+async function processImage() {
+  if (!sourceFile || busy) return;
+  busy = true;
+  $("remove").disabled = true;
+  $("processing").classList.add("show");
+  $("processingTitle").textContent = "Removing Background…";
+  $("processingText").textContent = "Detecting the subject and refining hair, face and edges.";
+  setStatus("Preparing AI engine…");
 
-    const br=[],bg=[],bb=[];
-    const step=Math.max(1,Math.floor(Math.min(w,h)/120));
-    for(let x=0;x<w;x+=step){
-      for(const y of [0,h-1]){
-        const i=(y*w+x)*4;br.push(od[i]);bg.push(od[i+1]);bb.push(od[i+2]);
-      }
-    }
-    for(let y=0;y<h;y+=step){
-      for(const x of [0,w-1]){
-        const i=(y*w+x)*4;br.push(od[i]);bg.push(od[i+1]);bb.push(od[i+2]);
-      }
-    }
-    const median=a=>{a.sort((x,y)=>x-y);return a[Math.floor(a.length/2)]};
-    const rb=median(br),rg=median(bg),rbl=median(bb);
-
-    const seed=new Uint8Array(w*h);
-    for(let i=0,p=0;i<seed.length;i++,p+=4) seed[i]=md[p+3]>=105?1:0;
-
-    const rad=level==="strong"?18:13;
-    const hpass=new Uint8Array(w*h),near=new Uint8Array(w*h);
-    for(let y=0;y<h;y++){
-      const base=y*w;let count=0;
-      for(let x=0;x<w;x++){
-        if(seed[base+x])count++;
-        if(x-rad-1>=0&&seed[base+x-rad-1])count--;
-        hpass[base+x]=count>0?1:0;
-      }
-    }
-    for(let x=0;x<w;x++){
-      let count=0;
-      for(let y=0;y<h;y++){
-        if(hpass[y*w+x])count++;
-        if(y-rad-1>=0&&hpass[(y-rad-1)*w+x])count--;
-        near[y*w+x]=count>0?1:0;
-      }
+  try {
+    if (!removeBackground) {
+      const mod = await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm");
+      removeBackground = mod.default || mod.removeBackground;
+      if (typeof removeBackground !== "function") throw new Error("AI engine unavailable");
     }
 
-    const guard=new Uint8Array(w*h);
-    const yStart=level==="strong"?0.32:0.40;
-    const brightMin=level==="strong"?140:165;
-    const distMin=level==="strong"?55:72;
-    for(let y=Math.floor(h*yStart);y<h;y++){
-      const row=y*w;
-      for(let x=Math.floor(w*.04);x<Math.ceil(w*.96);x++){
-        const i=row+x,p=i*4;
-        if(md[p+3]>=110||!near[i])continue;
-        const r=od[p],g=od[p+1],b=od[p+2],mxv=Math.max(r,g,b),mnv=Math.min(r,g,b);
-        const sat=mxv?((mxv-mnv)/mxv):0;
-        const dist=Math.hypot(r-rb,g-rg,b-rbl);
-        if(mxv>=brightMin&&sat<=0.34&&dist>=distMin)guard[i]=1;
+    const config = {
+      model: "medium",
+      device: navigator.gpu ? "gpu" : "cpu",
+      proxyToWorker: true,
+      progress: (key, current, total) => {
+        if (key === "fetch:download") setStatus("Loading AI model…");
+        else if (key === "compute:inference") setStatus("Detecting and removing background…");
+        else setStatus("Processing image…");
       }
-    }
+    };
 
-    const full=document.createElement("canvas");full.width=src.naturalWidth;full.height=src.naturalHeight;
-    const fx=full.getContext("2d",{willReadFrequently:true});
-    fx.drawImage(cut,0,0);const fd=fx.getImageData(0,0,full.width,full.height);
-    let restored=0;
-    for(let y=0;y<full.height;y++){
-      const sy=Math.min(h-1,Math.floor(y*scale)),srow=sy*w;
-      for(let x=0;x<full.width;x++){
-        const sx=Math.min(w-1,Math.floor(x*scale)),si=srow+sx;
-        if(!guard[si])continue;
-        const p=(y*full.width+x)*4;
-        if(fd.data[p+3]<110){fd.data[p+3]=255;restored++}
-      }
-    }
-    fx.putImageData(fd,0,0);
-    if(!restored)return cutoutBlob;
-    return await new Promise(resolve=>full.toBlob(resolve,"image/png"));
-  }finally{
-    URL.revokeObjectURL(srcUrl);URL.revokeObjectURL(cutUrl);
+    resultBlob = await removeBackground(sourceFile, config);
+    if (!(resultBlob instanceof Blob)) throw new Error("No image result returned");
+
+    if (resultUrl) URL.revokeObjectURL(resultUrl);
+    resultUrl = URL.createObjectURL(resultBlob);
+    $("image").src = resultUrl;
+    $("processing").classList.remove("show");
+    $("remove").classList.add("hidden");
+    $("download").classList.remove("hidden");
+    $("newImage").classList.remove("hidden");
+    setStatus("Done. Background removed successfully.");
+  } catch (error) {
+    console.error(error);
+    $("processing").classList.remove("show");
+    setStatus("Background removal failed. Please try again with a JPG, PNG or WebP image.");
+  } finally {
+    busy = false;
+    $("remove").disabled = false;
   }
 }
-function loadImg(url){return new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=url})}
 
-async function renderResult(){
-  if(!cutoutBlob)return;
-  if(cutoutUrl)URL.revokeObjectURL(cutoutUrl);
-  cutoutUrl=URL.createObjectURL(cutoutBlob);
-  const fg=await loadImg(cutoutUrl);
-  const canvas=$("result"),ctx=canvas.getContext("2d");
-  canvas.width=fg.naturalWidth;canvas.height=fg.naturalHeight;
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  if(bgMode==="color"){ctx.fillStyle=$("bgColor").value;ctx.fillRect(0,0,canvas.width,canvas.height)}
-  if(bgMode==="image"&&bgUrl){
-    const bg=await loadImg(bgUrl);
-    drawCover(ctx,bg,canvas.width,canvas.height);
-  }
-  ctx.drawImage(fg,0,0);
-  canvas.hidden=false;$("previewImage").hidden=true;$("resultPlaceholder").style.display="none";
-  $("inputMeta").textContent=bgMode==="transparent"?"Transparent PNG":bgMode==="color"?"Color Background":"Image Background";
-}
-function drawCover(ctx,img,w,h){
-  const s=Math.max(w/img.naturalWidth,h/img.naturalHeight),nw=img.naturalWidth*s,nh=img.naturalHeight*s;
-  ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);
-}
-function finishCanvas(){
-  const canvas=$("result");canvas.hidden=false;$("resultPlaceholder").style.display="none";
-  $("resultMeta").textContent=bgMode==="transparent"?"Transparent PNG":bgMode==="color"?"Color Background":"Image Background";
-}
-function downloadResult(){
-  const canvas=$("result");if(canvas.hidden)return;
-  const isJpg=$("format").value==="jpg";
-  const mime=isJpg?"image/jpeg":"image/png";
-  const bgRequired=isJpg||bgMode!=="transparent";
-  const out=document.createElement("canvas");out.width=canvas.width;out.height=canvas.height;const c=out.getContext("2d");
-  if(bgRequired){c.fillStyle=bgMode==="color"?$("bgColor").value:"#ffffff";c.fillRect(0,0,out.width,out.height)}
-  c.drawImage(canvas,0,0);
-  out.toBlob(blob=>{
-    if(!blob)return;
-    const a=document.createElement("a"),name=(sourceFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-bg."+(isJpg?"jpg":"png");
-    a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);
-  },mime,isJpg?.92:undefined);
-}
-function resetAll(){
-  if(sourceUrl)URL.revokeObjectURL(sourceUrl);sourceUrl="";
-  if(cutoutUrl)URL.revokeObjectURL(cutoutUrl);cutoutUrl="";
-  sourceFile=null;cutoutBlob=null;bgFile=null;
-  if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl="";
-  $("files").value="";$("bgImage").value="";
-  $("previewImage").hidden=true;$("result").hidden=true;
-  $("resultPlaceholder").style.display="block";$("inputOverlay").style.display="flex";
-  $("inputMeta").textContent="No image";$("size").textContent="0 B";$("res").textContent="—";$("engine").textContent="Ready";
-  $("remove").disabled=true;$("download").disabled=true;$("reset").disabled=true;$("bar").style.width="0";
-  $("processingOverlay").classList.remove("show");setStatus("Ready. Your image stays in the browser.");
+function downloadImage() {
+  if (!resultBlob || !resultUrl) return;
+  const base = (sourceFile?.name || "image").replace(/\.[^.]+$/, "");
+  const a = document.createElement("a");
+  a.href = resultUrl;
+  a.download = base + "-no-background.png";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
+function resetTool() {
+  if (sourceUrl) URL.revokeObjectURL(sourceUrl);
+  if (resultUrl) URL.revokeObjectURL(resultUrl);
+  sourceFile = null;
+  sourceUrl = "";
+  resultBlob = null;
+  resultUrl = "";
+  $("file").value = "";
+  $("image").removeAttribute("src");
+  $("image").classList.add("hidden");
+  $("upload").classList.remove("hidden");
+  $("actions").classList.add("hidden");
+  $("remove").classList.remove("hidden");
+  $("download").classList.add("hidden");
+  $("newImage").classList.add("hidden");
+  $("processing").classList.remove("show");
+  setStatus("Select an image to begin.");
+}
 </script>
 </body>
 </html>
