@@ -64,7 +64,7 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 </div>
 <div id="actions" class="actionbar hidden"><button id="download" class="btn secondary" type="button">⬇ Download Image</button><button id="newImage" class="btn secondary" type="button">＋ New Image</button></div>
 <div id="status" class="status">Select an image to begin.</div>
-<div class="meta">AI background removal • Transparent PNG • Powered by BGNinja</div>
+<div class="meta">AI background removal • Transparent PNG • ONESTOP Secure Proxy</div>
 </section>
 </section></main>
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
@@ -86,24 +86,38 @@ $("file").onchange=e=>showImage(e.target.files?.[0]);
 $("drop").addEventListener("drop",e=>showImage(e.dataTransfer.files?.[0]));
 
 async function removeBackground(file){
-  const formData=new FormData();
-  formData.append("file",file,file.name||"image.jpg");
-  formData.append("src","onestop-background-remover");
-  const response=await fetch("https://bgninja.com/api/remove",{
-    method:"POST",
-    body:formData
+  const dataUrl=await new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=()=>resolve(reader.result);
+    reader.onerror=()=>reject(new Error("Could not read the image."));
+    reader.readAsDataURL(file);
   });
-  if(!response.ok){
-    let message="";
-    try{const data=await response.json();message=data.error||data.detail||""}catch(_){}
-    if(response.status===402)throw new Error("Daily free limit reached. Please try again tomorrow.");
-    if(response.status===429)throw new Error("The service is busy. Please try again in a few seconds.");
-    if(response.status===413)throw new Error("Image is too large. Use an image under 99 MB and 30 MP.");
-    throw new Error(message||("Background removal failed (HTTP "+response.status+")."));
+  const base64=String(dataUrl).split(",")[1]||"";
+  if(!base64)throw new Error("Could not prepare the image.");
+
+  const response=await fetch("https://script.google.com/macros/s/AKfycbyxM15PAzw8QpbAFqHfJJlKGH1wXOJuUeHkaV7-gN1WXFQQ0zaW5rtoRDQb5GRynTg3VQ/exec",{
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body:JSON.stringify({
+      fileName:file.name||"image.jpg",
+      mimeType:file.type||"image/jpeg",
+      base64:base64
+    })
+  });
+
+  if(!response.ok)throw new Error("Background remover proxy returned HTTP "+response.status+".");
+  const data=await response.json();
+  if(!data.ok){
+    if(data.status===402)throw new Error("Background removal service limit reached. Please try again later.");
+    if(data.status===429)throw new Error("The service is busy. Please try again in a few seconds.");
+    if(data.status===413)throw new Error("Image is too large.");
+    throw new Error(data.error||"Background removal failed.");
   }
-  const type=response.headers.get("content-type")||"";
-  if(!type.includes("image/png"))throw new Error("The background-removal service returned an unexpected response.");
-  return await response.blob();
+  if(!data.base64)throw new Error("No processed image was returned.");
+  const binary=atob(data.base64);
+  const bytes=new Uint8Array(binary.length);
+  for(let i=0;i<binary.length;i++)bytes[i]=binary.charCodeAt(i);
+  return new Blob([bytes],{type:data.mimeType||"image/png"});
 }
 
 async function showImage(file){
