@@ -104,9 +104,8 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
 </div>
 
-<script type="module">
-import removeBackground from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm";
-
+<script>
+let removeBackground=null;
 const $=id=>document.getElementById(id);
 let sourceFile=null, sourceUrl="", cutoutBlob=null, cutoutUrl="", bgMode="transparent", bgFile=null, bgUrl="", busy=false;
 
@@ -155,6 +154,16 @@ function loadSource(file){
 }
 async function processImage(){
   if(!sourceFile||busy)return;
+  if(!removeBackground){
+    try{
+      setStatus("Loading AI engine…");
+      const mod=await import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm");
+      removeBackground=mod.default||mod.removeBackground;
+      if(typeof removeBackground!=="function")throw new Error("AI engine unavailable");
+    }catch(err){
+      console.error(err);setStatus("AI engine could not load. Please refresh once or try another network connection.");return;
+    }
+  }
   busy=true;$("remove").disabled=true;$("download").disabled=true;$("engine").textContent="Loading AI…";$("bar").style.width="4%";
   setStatus("Preparing AI model… first use may take longer while the model is cached.");
   try{
