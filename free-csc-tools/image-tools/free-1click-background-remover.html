@@ -38,7 +38,7 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 .drop h2{font-size:14px;margin:5px 0}.drop p{font-size:9px;color:var(--muted);margin:0}.choose{margin-top:8px;background:var(--grad);color:#fff;border:0;border-radius:9px;padding:8px 13px;font-size:11px;font-weight:800;cursor:pointer}
 .tools-card{overflow:auto}
 .settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}
+.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}.field.full{grid-column:1/-1}
 .field select,.field input[type=color]{width:100%;height:35px;border:1px solid #cbd9e9;border-radius:8px;background:#fff;color:#14213d}
 .field input[type=color]{padding:3px;cursor:pointer}
 .bg-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
@@ -87,6 +87,7 @@ main{min-height:0;display:flex;align-items:center;justify-content:center;padding
 <div class="settings">
 <div class="field"><label>AI MODE</label><select id="mode"><option value="medium" selected>High Accuracy • Medium Model</option><option value="small">Fast • Small Model</option></select></div>
 <div class="field"><label>OUTPUT</label><select id="format"><option value="png" selected>PNG • Transparent</option><option value="jpg">JPG • Background</option></select></div>
+<div class="field full"><label>SUBJECT PROTECTION</label><select id="protection"><option value="auto" selected>Auto • Portrait / Passport Safe</option><option value="strong">Strong • Light Clothing Protection</option><option value="standard">Standard • AI Mask Only</option></select></div>
 </div>
 <div class="bg-control">
 <div class="field"><label>BACKGROUND</label><div class="bg-tabs"><button class="bg-tab active" data-bg="transparent">Transparent</button><button class="bg-tab" data-bg="color">Color</button><button class="bg-tab" data-bg="image">Image</button></div></div>
@@ -116,6 +117,7 @@ $("pickBg").onclick=e=>{e.stopPropagation();$("bgImage").click()};
 $("bgImage").onchange=e=>{bgFile=e.target.files?.[0]||null;if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=bgFile?URL.createObjectURL(bgFile):"";if(cutoutBlob)renderResult();};
 $("bgColor").oninput=()=>{if(cutoutBlob)renderResult()};
 $("format").onchange=()=>{if(cutoutBlob)renderResult()};
+$("protection").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Protection mode changed. Click Remove Background again.");}};
 $("mode").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Mode changed. Click Remove Background again.");}};
 document.querySelectorAll(".bg-tab").forEach(b=>b.onclick=()=>setBgMode(b.dataset.bg));
 
@@ -170,7 +172,12 @@ async function processImage(){
     const modelSize=$("mode").value;
     const config={model:modelSize,device:navigator.gpu?"gpu":"cpu",proxyToWorker:true,progress:(key,current,total)=>{const p=Math.min(92,Math.max(5,Math.round(current/Math.max(total,1)*85)));$("bar").style.width=p+"%";setStatus(key==="fetch:download"?"Downloading AI model…":key==="compute:inference"?"Detecting foreground…":"Removing background…")}};
     cutoutBlob=await removeBackground(sourceFile,config);
-    $("engine").textContent=modelSize==="medium"?"High Accuracy":"Fast";
+    const protection=$("protection").value;
+    if(protection!=="standard"){
+      setStatus("Applying portrait-safe foreground recovery…");
+      cutoutBlob=await protectPortraitClothing(sourceFile,cutoutBlob,protection);
+    }
+    $("engine").textContent=modelSize==="medium"?"High Accuracy + Protection":"Fast + Protection";
     $("bar").style.width="96%";
     await renderResult();
     $("bar").style.width="100%";$("download").disabled=false;
@@ -179,6 +186,97 @@ async function processImage(){
     console.error(err);setStatus("Could not process this image. Try a JPG/PNG/WebP or switch to Fast mode.");$("bar").style.width="0";
   }finally{busy=false;$("remove").disabled=!sourceFile}
 }
+
+async function protectPortraitClothing(sourceBlob,cutoutBlob,level){
+  const srcUrl=URL.createObjectURL(sourceBlob),cutUrl=URL.createObjectURL(cutoutBlob);
+  try{
+    const [src,cut]=await Promise.all([loadImg(srcUrl),loadImg(cutUrl)]);
+    const maxSide=900, scale=Math.min(1,maxSide/Math.max(src.naturalWidth,src.naturalHeight));
+    const w=Math.max(1,Math.round(src.naturalWidth*scale)),h=Math.max(1,Math.round(src.naturalHeight*scale));
+    const oc=document.createElement("canvas");oc.width=w;oc.height=h;
+    const ox=oc.getContext("2d",{willReadFrequently:true});
+    ox.drawImage(src,0,0,w,h);
+    const od=ox.getImageData(0,0,w,h).data;
+    const mc=document.createElement("canvas");mc.width=w;mc.height=h;
+    const mx=mc.getContext("2d",{willReadFrequently:true});
+    mx.drawImage(cut,0,0,w,h);
+    const md=mx.getImageData(0,0,w,h).data;
+
+    const br=[],bg=[],bb=[];
+    const step=Math.max(1,Math.floor(Math.min(w,h)/120));
+    for(let x=0;x<w;x+=step){
+      for(const y of [0,h-1]){
+        const i=(y*w+x)*4;br.push(od[i]);bg.push(od[i+1]);bb.push(od[i+2]);
+      }
+    }
+    for(let y=0;y<h;y+=step){
+      for(const x of [0,w-1]){
+        const i=(y*w+x)*4;br.push(od[i]);bg.push(od[i+1]);bb.push(od[i+2]);
+      }
+    }
+    const median=a=>{a.sort((x,y)=>x-y);return a[Math.floor(a.length/2)]};
+    const rb=median(br),rg=median(bg),rbl=median(bb);
+
+    const seed=new Uint8Array(w*h);
+    for(let i=0,p=0;i<seed.length;i++,p+=4) seed[i]=md[p+3]>=105?1:0;
+
+    const rad=level==="strong"?18:13;
+    const hpass=new Uint8Array(w*h),near=new Uint8Array(w*h);
+    for(let y=0;y<h;y++){
+      const base=y*w;let count=0;
+      for(let x=0;x<w;x++){
+        if(seed[base+x])count++;
+        if(x-rad-1>=0&&seed[base+x-rad-1])count--;
+        hpass[base+x]=count>0?1:0;
+      }
+    }
+    for(let x=0;x<w;x++){
+      let count=0;
+      for(let y=0;y<h;y++){
+        if(hpass[y*w+x])count++;
+        if(y-rad-1>=0&&hpass[(y-rad-1)*w+x])count--;
+        near[y*w+x]=count>0?1:0;
+      }
+    }
+
+    const guard=new Uint8Array(w*h);
+    const yStart=level==="strong"?0.32:0.40;
+    const brightMin=level==="strong"?140:165;
+    const distMin=level==="strong"?55:72;
+    for(let y=Math.floor(h*yStart);y<h;y++){
+      const row=y*w;
+      for(let x=Math.floor(w*.04);x<Math.ceil(w*.96);x++){
+        const i=row+x,p=i*4;
+        if(md[p+3]>=110||!near[i])continue;
+        const r=od[p],g=od[p+1],b=od[p+2],mxv=Math.max(r,g,b),mnv=Math.min(r,g,b);
+        const sat=mxv?((mxv-mnv)/mxv):0;
+        const dist=Math.hypot(r-rb,g-rg,b-rbl);
+        if(mxv>=brightMin&&sat<=0.34&&dist>=distMin)guard[i]=1;
+      }
+    }
+
+    const full=document.createElement("canvas");full.width=src.naturalWidth;full.height=src.naturalHeight;
+    const fx=full.getContext("2d",{willReadFrequently:true});
+    fx.drawImage(cut,0,0);const fd=fx.getImageData(0,0,full.width,full.height);
+    let restored=0;
+    for(let y=0;y<full.height;y++){
+      const sy=Math.min(h-1,Math.floor(y*scale)),srow=sy*w;
+      for(let x=0;x<full.width;x++){
+        const sx=Math.min(w-1,Math.floor(x*scale)),si=srow+sx;
+        if(!guard[si])continue;
+        const p=(y*full.width+x)*4;
+        if(fd.data[p+3]<110){fd.data[p+3]=255;restored++}
+      }
+    }
+    fx.putImageData(fd,0,0);
+    if(!restored)return cutoutBlob;
+    return await new Promise(resolve=>full.toBlob(resolve,"image/png"));
+  }finally{
+    URL.revokeObjectURL(srcUrl);URL.revokeObjectURL(cutUrl);
+  }
+}
+function loadImg(url){return new Promise((resolve,reject)=>{const i=new Image();i.onload=()=>resolve(i);i.onerror=reject;i.src=url})}
+
 async function renderResult(){
   if(!cutoutBlob)return;
   const fg=new Image();fg.onload=async()=>{
