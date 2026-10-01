@@ -78,6 +78,8 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 .print-choice{border:1px solid #ccdbea;background:#fff;border-radius:10px;padding:10px 5px;text-align:center}
 .print-choice.active{border-color:var(--blue);background:#f0f7ff;color:var(--blue)}
 .print-choice b{display:block;font-size:15px}.print-choice small{font-size:9px;color:var(--muted)}
+.custom-count{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.custom-count .hint{margin:0;align-self:end}
 .download-row{display:flex;gap:8px;margin-top:10px}
 .download-row button{flex:1}
 .primary:disabled{opacity:.55;cursor:not-allowed}
@@ -241,7 +243,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 </section>
 
 <section class="tool-section">
-<div class="section-head"><strong>4. F4 Download &amp; Print</strong><span>300 DPI • F4</span></div>
+<div class="section-head"><strong>4. A4 Download &amp; Print</strong><span>300 DPI • A4 • Auto Fit</span></div>
 <div class="section-body">
 <div class="print-options">
 <button class="print-choice active" data-count="6"><b>6</b><small>Photos</small></button>
@@ -249,12 +251,17 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <button class="print-choice" data-count="18"><b>18</b><small>Photos</small></button>
 <button class="print-choice" data-count="36"><b>36</b><small>Photos</small></button>
 </div>
+<div class="custom-count">
+<div class="field"><label>Custom Number of Photos</label><input id="customCount" type="number" min="1" max="200" step="1" placeholder="e.g. 9"></div>
+<div class="hint">A4 stays fixed. Columns and rows are calculated automatically from the selected photo size.</div>
+</div>
+</div>
 <div class="download-row">
 <button id="downloadPhoto" class="primary" type="button">Download Photo</button>
-<button id="downloadA4" class="primary" type="button">Download F4 Sheet</button>
+</div>
 </div>
 <div id="a4Preview" class="result-preview hidden"><canvas id="a4Canvas"></canvas></div>
-<div class="hint">F4 sheet places the selected copies in a clean print grid. 6, 12, 18 and 36 are available.</div>
+<div class="hint">A4 = 210 × 297 mm. Photos keep the selected physical size; placement starts at the top and fills horizontally, then the next row.</div>
 </div>
 </section>
 </div>
@@ -387,52 +394,32 @@ $("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").c
 $("personName").oninput=e=>{state.name=e.target.value;draw()};$("photoDate").oninput=e=>{state.date=e.target.value;draw()};
 
 document.querySelectorAll(".print-choice").forEach(btn=>btn.onclick=()=>{
- document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");state.copies=+btn.dataset.count;
+ document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");state.copies=+btn.dataset.count; $("customCount").value="";
 });
+$("customCount").oninput=e=>{const n=Math.max(1,Math.min(200,Math.round(+e.target.value||1)));state.copies=n;document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));};
 
 function makePhotoBlob(){
  return new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.94));
 }
 function drawA4(){
- // F4 / Foolscap used by many Indian printers: 215 × 330 mm.
- // Work at 300 DPI so the exported sheet preserves the selected photo's physical size.
- const W=Math.round(215*state.dpi/25.4),H=Math.round(330*state.dpi/25.4);
+ const W=Math.round(210*state.dpi/25.4),H=Math.round(297*state.dpi/25.4);
  a4.width=W;a4.height=H;a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
-
- const p=photoSize(),margin=Math.round(5*state.dpi/25.4),gap=Math.round(2*state.dpi/25.4);
- const maxCols=Math.max(1,Math.floor((W-margin*2+gap)/(p.w+gap)));
- const maxRows=Math.max(1,Math.floor((H-margin*2+gap)/(p.h+gap)));
- const fitCount=Math.min(state.copies,maxCols*maxRows);
-
- // Start from the top-left and fill row-by-row, exactly as requested.
- for(let i=0;i<fitCount;i++){
-   const col=i%maxCols,row=Math.floor(i/maxCols);
-   const x=margin+col*(p.w+gap);
-   const y=margin+row*(p.h+gap);
-   a4ctx.drawImage(canvas,x,y,p.w,p.h);
- }
-
+ const p=photoSize(),maxCols=Math.max(1,Math.floor(W/p.w)),maxRows=Math.max(1,Math.floor(H/p.h));
+ const capacity=maxCols*maxRows,fitCount=Math.min(state.copies,capacity);
+ for(let i=0;i<fitCount;i++){const col=i%maxCols,row=Math.floor(i/maxCols);a4ctx.drawImage(canvas,col*p.w,row*p.h,p.w,p.h)}
  $("a4Preview").classList.remove("hidden");
- const previewCtx=$("a4Canvas").getContext("2d");
- previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);
- previewCtx.drawImage(a4,0,0);
-
- setStatus(state.copies>fitCount
-   ? `F4 sheet fits ${fitCount} of ${state.copies} selected photos at the selected size.`
-   : `F4 sheet: ${fitCount} photos fit at the selected size.`);
+ const previewCtx=$("a4Canvas").getContext("2d");previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);previewCtx.drawImage(a4,0,0);
+ const rows=Math.ceil(fitCount/maxCols);
+ setStatus(state.copies>capacity?`A4 can fit ${capacity} photos at this selected size. ${state.copies} requested, so ${fitCount} were placed.`:`${fitCount} photos placed on A4 • ${maxCols} across × ${rows} rows.`);
 }
-$("downloadPhoto").onclick=async()=>{
+$("downloadPhoto").onclick=()=>{
  if(!state.img)return setStatus("Upload a photo first.");
- const b=await makePhotoBlob(),u=URL.createObjectURL(b),a=document.createElement("a");
- a.href=u;a.download=(state.file?.name||"passport-photo").replace(/\.[^.]+$/,"")+"-passport.jpg";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
-};
-$("downloadA4").onclick=()=>{
- if(!state.img)return setStatus("Upload a photo first.");
- drawA4();a4.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="passport-photos-F4.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)},"image/png");
+ drawA4();
+ a4.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="passport-photos-A4.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)},"image/png");
 };
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
- Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0});
+ Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6});
  canvas.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("a4Preview").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
