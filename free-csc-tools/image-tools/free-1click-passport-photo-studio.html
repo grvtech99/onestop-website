@@ -27,8 +27,8 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 .preview-head span{font-size:11px;color:var(--muted)}
 .stage{position:relative;flex:1;min-height:620px;border:1px solid #d7e4f2;border-radius:15px;overflow:hidden;background:#f7fbff;background-image:linear-gradient(45deg,#e9eff6 25%,transparent 25%),linear-gradient(-45deg,#e9eff6 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e9eff6 75%),linear-gradient(-45deg,transparent 75%,#e9eff6 75%);background-size:24px 24px;background-position:0 0,0 12px,12px -12px,-12px 0;display:flex;align-items:center;justify-content:center}
 .stage canvas{max-width:96%;max-height:96%;width:auto;height:auto;display:block;box-shadow:0 8px 30px rgba(7,39,91,.18)}
-.sheet-preview{position:absolute;inset:10px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;overflow:hidden}
-.sheet-preview canvas{width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;box-shadow:0 8px 28px rgba(7,39,91,.16)}
+.sheet-preview{position:absolute;inset:10px;display:flex;align-items:center;justify-content:center;background:#e8eef5;border:1px solid #cbd7e4;border-radius:12px;overflow:hidden}
+.sheet-preview canvas{width:auto!important;height:auto!important;max-width:100%!important;max-height:100%!important;background:#fff;border:1px solid #bcc9d7;box-shadow:0 10px 30px rgba(7,39,91,.20)}
 .sheet-preview.hidden{display:none!important}
 .upload-box{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:20px}
 .drop{width:min(560px,92%);min-height:280px;border:2px dashed #b9cbe0;border-radius:18px;background:rgba(255,255,255,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px}
@@ -256,7 +256,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <div class="section-head"><strong>4. A4 Download &amp; Print</strong><span>300 DPI • A4 • Auto Fit</span></div>
 <div class="section-body">
 <div class="print-options">
-<button class="print-choice active" data-count="6"><b>6</b><small>Photos</small></button>
+<button class="print-choice" data-count="6"><b>6</b><small>Photos</small></button>
 <button class="print-choice" data-count="12"><b>12</b><small>Photos</small></button>
 <button class="print-choice" data-count="18"><b>18</b><small>Photos</small></button>
 <button class="print-choice" data-count="36"><b>36</b><small>Photos</small></button>
@@ -274,7 +274,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <button id="downloadPhoto" class="primary" type="button">Download Photo</button>
 </div>
 </div>
-<div class="hint">A4 = 210 × 297 mm. The selected quantity is shown live in the preview sheet; placement starts at the top and fills horizontally, then the next row.</div>
+<div class="hint">A4 = 210 × 297 mm. No quantity is selected by default. Click 6 / 12 / 18 / 36 or enter a custom number to open the live A4 preview; placement starts at the top and fills horizontally, then the next row.</div>
 </div>
 </section>
 </div>
@@ -288,7 +288,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 const $=id=>document.getElementById(id);
 const state={
  file:null,img:null,cutout:null,cutoutImage:null,cutoutUrl:"",objectUrl:"",resultUrl:"",
- widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:6,
+ widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
  nameDate:false,name:"",date:"",format:"png"
@@ -339,6 +339,10 @@ function draw(){
  if(!state.img)return;
  fitSize();renderPhotoTo(ctx,canvas.width,canvas.height);
  $("sizeLabel").textContent=state.widthMm+" × "+state.heightMm+" mm";
+ if(!state.sheetMode){
+   sheetPreview.classList.add("hidden");
+   canvas.classList.remove("hidden");
+ }
 }
 function setStatus(t){$("status").textContent=t}
 function markBg(btn){
@@ -376,7 +380,7 @@ async function removeBg(){
    state.cutout=await removeBg.engine(state.file,{model:"medium",device:navigator.gpu?"gpu":"cpu",proxyToWorker:true});
    state.cutoutImage=await blobToImage(state.cutout);
    if(!state.cutoutImage)throw new Error("Background removal returned no drawable image.");
-   draw();setStatus("Background removed successfully.");
+   draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}setStatus("Background removed successfully.");
  }catch(e){
    console.error(e);state.cutout=null;state.cutoutImage=null;draw();setStatus(e.message||"Background removal failed.");
  }finally{$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent=state.cutoutImage?"✓ Background Removed":"✂ Remove Background"}
@@ -384,12 +388,12 @@ async function removeBg(){
 $("removeBgBtn").onclick=removeBg;
 async function showFile(file){
  if(!file||!file.type.startsWith("image/"))return;
- state.file=file;state.cutout=null;state.offsetX=0;state.offsetY=0;state.zoom=1;
+ state.file=file;state.cutout=null;state.cutoutImage=null;state.offsetX=0;state.offsetY=0;state.zoom=1;state.sheetMode=false;
  state.img=await loadImage(file);
- $("uploadBox").classList.add("hidden");canvas.classList.remove("hidden");
+ $("uploadBox").classList.add("hidden");sheetPreview.classList.add("hidden");canvas.classList.remove("hidden");
  renderValues();
- try{drawA4()}catch(e){console.error(e);setStatus(e.message||"Could not build A4 preview.");}
- setStatus("Photo loaded • "+state.copies+" photos shown on A4.");
+ draw();
+ setStatus("Photo loaded • Select a quantity in A4 Download & Print to preview the sheet.");
 }
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
@@ -401,18 +405,23 @@ $("drop").addEventListener("drop",e=>showFile(e.dataTransfer.files?.[0]));
 document.querySelectorAll(".preset").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll(".preset").forEach(x=>x.classList.remove("active"));btn.classList.add("active");
  state.widthMm=+btn.dataset.w;state.heightMm=+btn.dataset.h;$("customW").value="";$("customH").value="";
- if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
-});
+ if(state.img){
+   draw();
+   if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
+ });
 function customSize(){
  const u=$("unit").value,w=parseFloat($("customW").value),h=parseFloat($("customH").value);
  if(!w||!h)return;
  const f=u==="cm"?10:u==="in"?25.4:u==="px"?25.4/state.dpi:1;
  state.widthMm=w*f;state.heightMm=h*f;
  document.querySelectorAll(".preset").forEach(x=>x.classList.remove("active"));
- if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
+ if(state.img){
+   draw();
+   if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
+ }
 }
 $("customW").oninput=customSize;$("customH").oninput=customSize;$("unit").onchange=customSize;
-$("dpi").onchange=()=>{state.dpi=Math.max(72,Math.min(1200,+$("dpi").value||300));if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}};
+$("dpi").onchange=()=>{state.dpi=Math.max(72,Math.min(1200,+$("dpi").value||300));if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 
 ["zoom","brightness","contrast","saturation"].forEach(id=>$(id).oninput=()=>{state[id]=+$(id).value;renderValues()});
 $("resetAdjust").onclick=()=>{state.zoom=1;state.brightness=100;state.contrast=100;state.saturation=100;state.offsetX=0;state.offsetY=0;$("zoom").value=1;$("brightness").value=100;$("contrast").value=100;$("saturation").value=100;renderValues()};
@@ -426,9 +435,9 @@ canvas.addEventListener("pointermove",e=>{
 });
 canvas.addEventListener("pointerup",()=>state.dragging=false);canvas.addEventListener("pointercancel",()=>state.dragging=false);
 
-document.querySelectorAll(".bg-choice").forEach(btn=>btn.onclick=()=>{state.bg=btn.dataset.bg;markBg(btn);if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}});
-$("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").classList.toggle("hidden",!state.nameDate);if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}};
-$("personName").oninput=e=>{state.name=e.target.value;if(state.img){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}};$("photoDate").oninput=e=>{state.date=e.target.value;if(state.img){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}};
+document.querySelectorAll(".bg-choice").forEach(btn=>btn.onclick=()=>{state.bg=btn.dataset.bg;markBg(btn);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}});
+$("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").classList.toggle("hidden",!state.nameDate);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
+$("personName").oninput=e=>{state.name=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};$("photoDate").oninput=e=>{state.date=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
 
 document.querySelectorAll(".format-choice").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll(".format-choice").forEach(x=>x.classList.remove("active"));
@@ -438,7 +447,18 @@ document.querySelectorAll(".print-choice").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));btn.classList.add("active");state.copies=+btn.dataset.count;$("customCount").value="";
  if(state.img){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}
 });
-$("customCount").oninput=e=>{const n=Math.max(1,Math.min(200,Math.round(+e.target.value||1)));state.copies=n;document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));if(state.img){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}};
+$("customCount").oninput=e=>{
+ const raw=e.target.value.trim();
+ document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));
+ if(!raw){
+   state.copies=0;state.sheetMode=false;
+   if(state.img){draw();setStatus("Single photo preview • select a quantity to preview A4.")}
+   return;
+ }
+ const n=Math.max(1,Math.min(200,Math.round(+raw)));
+ state.copies=n;state.sheetMode=true;
+ if(state.img){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}
+};
 
 function makePhotoBlob(){
  return new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.94));
@@ -520,9 +540,10 @@ $("downloadPhoto").onclick=async()=>{
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
-Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6,format:"png"});
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:0,sheetMode:false,format:"png"});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
- canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
+ document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
+canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
 </body>
