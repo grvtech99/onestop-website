@@ -1037,6 +1037,303 @@ body{background:#edf5fd}
   .section-head strong{font-size:11.5px!important}
 }
 
+
+/* SMART TOOL DOCK — accordion grouping, neutral surfaces, blue reserved for actions */
+:root{
+  --dock-bg:#f3f6fa;
+  --panel:#ffffff;
+  --panel-line:#d9e2ec;
+  --heading:#183b63;
+  --heading-2:#234e78;
+  --action:#0b67c9;
+  --action-2:#1681df;
+  --action-soft:#eaf4ff;
+  --text:#18324f;
+  --muted:#71839a;
+}
+.tools-panel{
+  background:var(--dock-bg)!important;
+  border-color:#d3deea!important;
+}
+.tool-section{
+  border:1px solid var(--panel-line)!important;
+  background:var(--panel)!important;
+  box-shadow:0 1px 3px rgba(24,59,99,.035)!important;
+  border-radius:9px!important;
+}
+.tool-section:hover{
+  box-shadow:0 2px 7px rgba(24,59,99,.055)!important;
+}
+.tool-section:before{display:none!important}
+
+/* Section header is deliberately NOT the same blue as action buttons. */
+.section-head{
+  min-height:36px!important;
+  padding:7px 10px!important;
+  background:#fff!important;
+  border-bottom:1px solid transparent!important;
+  color:var(--heading)!important;
+  cursor:pointer!important;
+  user-select:none;
+}
+.section-head:hover{background:#f7f9fc!important}
+.tool-section.is-open .section-head{
+  background:var(--heading)!important;
+  border-bottom-color:var(--heading)!important;
+}
+.section-head strong{
+  color:var(--heading)!important;
+  font-size:11.5px!important;
+  font-weight:900!important;
+}
+.tool-section.is-open .section-head strong{color:#fff!important}
+.section-head span{
+  color:#8191a4!important;
+  font-size:8.5px!important;
+}
+.tool-section.is-open .section-head span{color:rgba(255,255,255,.82)!important}
+.section-head strong:before{
+  width:4px!important;height:4px!important;
+  background:var(--action)!important;
+  box-shadow:none!important;
+}
+.tool-section.is-open .section-head strong:before{background:#6fd0ff!important}
+.section-head:after{
+  content:"⌄";
+  margin-left:auto;
+  color:#72859b;
+  font-size:13px;
+  font-weight:900;
+  line-height:1;
+  transition:transform .16s ease;
+}
+.tool-section.is-open .section-head:after{
+  color:#fff;
+  transform:rotate(180deg);
+}
+.section-body{
+  display:none!important;
+  border-top:0!important;
+}
+.tool-section.is-open .section-body{
+  display:block!important;
+  animation:toolOpen .14s ease-out;
+}
+@keyframes toolOpen{
+  from{opacity:.4;transform:translateY(-2px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Presets become compact selection chips instead of large cards. */
+.preset-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:5px!important;
+}
+.preset{
+  min-height:43px!important;
+  padding:6px 7px!important;
+  border-radius:7px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+}
+.preset b{font-size:9.5px!important;line-height:1.15!important}
+.preset small{font-size:7.8px!important;line-height:1.15!important;margin-top:2px!important}
+
+/* Size inputs form one compact control group. */
+.size-controls-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:5px!important;
+  margin-top:6px!important;
+}
+.size-controls-grid .field input,
+.size-controls-grid .field select{
+  height:29px!important;
+}
+
+/* Branding/watermark is secondary until enabled. */
+.watermark-box{
+  margin-top:6px!important;
+  padding:6px!important;
+  background:#f7f9fc!important;
+  border-color:#e0e7ef!important;
+}
+.watermark-box .field{display:none}
+.watermark-box.is-on .field{display:flex}
+.watermark-head{margin-bottom:0!important}
+.watermark-head span{font-size:8px!important}
+
+/* Adjustment tools: compact command strip. */
+.crop-toolbar{
+  display:grid!important;
+  grid-template-columns:1fr 1fr 1fr!important;
+  gap:5px!important;
+}
+.crop-toolbar .tool-btn{
+  min-height:29px!important;
+  padding:5px 6px!important;
+  font-size:9px!important;
+}
+.adjust-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:5px!important;
+  margin-top:6px!important;
+}
+.adjust-card{
+  min-height:38px!important;
+  padding:5px!important;
+  border-radius:7px!important;
+  background:#f8fafc!important;
+  border-color:#d9e3ed!important;
+}
+.adjust-card.open,
+.adjust-card:hover{
+  background:var(--action-soft)!important;
+  border-color:#8ebce5!important;
+}
+.adjust-card span{font-size:8.5px!important}
+.adjust-card b{font-size:9px!important}
+.adjust-card i{font-size:9px!important}
+
+/* Border is one secondary group; open only when needed. */
+.border-tools-toggle{
+  width:100%;
+  margin-top:7px;
+  height:28px;
+  border:1px solid #d7e1eb;
+  border-radius:7px;
+  background:#f7f9fc;
+  color:var(--heading-2);
+  font-size:9px;
+  font-weight:850;
+  text-align:left;
+  padding:0 8px;
+  cursor:pointer;
+}
+.border-tools-toggle:after{
+  content:"⌄";
+  float:right;
+  font-size:11px;
+}
+.border-tools-toggle.is-open:after{transform:rotate(180deg);display:inline-block}
+.border-controls-grid,
+.border-controls-grid + .hint{display:none!important}
+.border-controls-grid.is-open{display:grid!important}
+.border-controls-grid.is-open + .hint{display:block!important}
+.border-controls-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  gap:5px!important;
+  margin-top:5px!important;
+}
+.border-controls-grid .mini-control{min-height:48px!important}
+.border-hint{font-size:8px!important}
+
+/* Background: one compact row + one action, no oversized blank area. */
+.custom-bg-row{
+  grid-template-columns:auto 30px 1fr!important;
+  min-height:32px!important;
+  padding:4px 7px!important;
+}
+.bg-remove-row{
+  margin-top:5px!important;
+}
+.bg-remove-btn{
+  height:29px!important;
+  padding:0 10px!important;
+  background:var(--action-soft)!important;
+  border-color:#a9c9e6!important;
+  color:var(--action)!important;
+}
+
+/* Name/date: primary toggle row; advanced controls stay visually secondary. */
+.name-style{
+  padding:5px!important;
+  background:#f7f9fc!important;
+}
+.name-date{
+  margin-top:0!important;
+  min-height:30px!important;
+  padding:5px 7px!important;
+  background:#fff!important;
+}
+.text-style-grid{
+  margin-top:5px!important;
+}
+.nd-fields{margin-top:5px!important}
+
+/* A4 quantity is a compact segmented selector, not four large cards. */
+.print-options{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  gap:5px!important;
+}
+.print-choice{
+  min-height:31px!important;
+  height:31px!important;
+  padding:3px 4px!important;
+  border-radius:7px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+}
+.print-choice b{font-size:12px!important}
+.print-choice small{font-size:8px!important}
+.custom-count{
+  grid-template-columns:150px 1fr!important;
+  align-items:end!important;
+  margin-top:5px!important;
+}
+.custom-count .field input{height:29px!important}
+.format-row{
+  grid-template-columns:1fr 1fr!important;
+  max-width:220px!important;
+}
+.format-choice{
+  height:29px!important;
+  padding:4px 7px!important;
+}
+.download-row{margin-top:6px!important}
+.download-row .primary{
+  min-height:31px!important;
+  padding:7px 10px!important;
+}
+
+/* Only the true primary action gets solid action blue. */
+.tool-btn,
+.format-choice,
+.print-choice,
+.reset{
+  color:#365674!important;
+  background:#fff!important;
+}
+.tool-btn:hover,.tool-btn.active,
+.format-choice:hover,.format-choice.active,
+.print-choice:hover,.print-choice.active{
+  color:var(--action)!important;
+  background:var(--action-soft)!important;
+  border-color:#86b9e4!important;
+}
+.primary,.choose{
+  background:linear-gradient(135deg,var(--action),var(--action-2))!important;
+  color:#fff!important;
+}
+@media (min-width:981px){
+  .tools-fit{
+    display:flex!important;
+    flex-direction:column!important;
+    gap:5px!important;
+    min-height:100%!important;
+  }
+  .tools-fit>.tool-section:nth-child(5){grid-column:auto!important}
+  .section-body{padding:7px!important}
+}
+@media (max-width:600px){
+  .preset-grid{grid-template-columns:1fr 1fr!important}
+  .adjust-grid{grid-template-columns:1fr 1fr!important}
+  .custom-count{grid-template-columns:1fr!important}
+  .format-row{max-width:none!important}
+}
+
 </style>
 </head>
 <body>
@@ -1540,6 +1837,59 @@ document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("activ
 $("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderColor").value="#000000";$("borderWidth").value=1;$("borderWidthVal").textContent="1 px";$("innerGap").value=25;$("innerGapVal").textContent="25 px";$("innerBorderEnabled").checked=true;$("innerBorderWidth").value=1;$("innerBorderWidthVal").textContent="1 px";$("innerBorderColor").value="#000000";$("bgColor").value="#ffffff";$("bgColorValue").textContent="#FFFFFF";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
+
+/* Smart tool dock behavior: one main section open at a time. */
+(function(){
+  const sections=[...document.querySelectorAll(".tools-fit > .tool-section")];
+  sections.forEach((section,index)=>{
+    const head=section.querySelector(".section-head");
+    if(!head)return;
+    head.setAttribute("role","button");
+    head.setAttribute("tabindex","0");
+    head.setAttribute("aria-expanded",index===0?"true":"false");
+    section.classList.toggle("is-open",index===0);
+    const toggle=()=>{
+      const open=section.classList.contains("is-open");
+      sections.forEach(s=>{
+        s.classList.remove("is-open");
+        const h=s.querySelector(".section-head");
+        if(h)h.setAttribute("aria-expanded","false");
+      });
+      if(!open){
+        section.classList.add("is-open");
+        head.setAttribute("aria-expanded","true");
+      }
+    };
+    head.addEventListener("click",toggle);
+    head.addEventListener("keydown",e=>{
+      if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}
+    });
+  });
+
+  const wm=$("watermarkEnabled"),wmBox=document.querySelector(".watermark-box");
+  if(wm&&wmBox){
+    const sync=()=>wmBox.classList.toggle("is-on",wm.checked);
+    sync();
+    wm.addEventListener("change",sync);
+  }
+
+  const borderGrid=document.querySelector(".border-controls-grid");
+  if(borderGrid){
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="border-tools-toggle";
+    b.textContent="Border settings";
+    borderGrid.parentNode.insertBefore(b,borderGrid);
+    b.addEventListener("click",()=>{
+      const open=borderGrid.classList.toggle("is-open");
+      b.classList.toggle("is-open",open);
+      b.textContent=open?"Border settings":"Border settings";
+      b.setAttribute("aria-expanded",open?"true":"false");
+    });
+    b.setAttribute("aria-expanded","false");
+  }
+})();
+
 </script>
 </body>
 </html>
