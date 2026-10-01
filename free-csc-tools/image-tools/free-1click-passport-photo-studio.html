@@ -282,7 +282,7 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <script>
 const $=id=>document.getElementById(id);
 const state={
- file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",
+ file:null,img:null,cutout:null,cutoutImage:null,cutoutUrl:"",objectUrl:"",resultUrl:"",
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:6,
  zoom:1,brightness:100,contrast:100,saturation:100,
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
@@ -290,6 +290,7 @@ const state={
 };
 const canvas=$("canvas"),ctx=canvas.getContext("2d");
 const a4=$("a4Canvas"),a4ctx=a4.getContext("2d");
+const photoCanvas=document.createElement("canvas"),photoCtx=photoCanvas.getContext("2d");
 
 function mmToPx(mm){return Math.round(mm*state.dpi/25.4)}
 function photoSize(){return {w:mmToPx(state.widthMm),h:mmToPx(state.heightMm)}}
@@ -305,12 +306,12 @@ function loadImage(file){
  });
 }
 function renderPhotoTo(targetCtx,w,h){
- const source=state.cutout||state.img;
- if(!source)return;
+ const source=state.cutoutImage||state.img;
+ if(!source||!source.width&&!source.naturalWidth)return false;
  targetCtx.clearRect(0,0,w,h);
  targetCtx.fillStyle=state.bg;targetCtx.fillRect(0,0,w,h);
  const ar=w/h,iw=source.naturalWidth||source.width,ih=source.naturalHeight||source.height;
- if(!iw||!ih)return;
+ if(!iw||!ih)return false;
  const iar=iw/ih;
  let dw,dh;
  if(iar>ar){dh=h*state.zoom;dw=dh*iar}else{dw=w*state.zoom;dh=dw/iar}
@@ -326,6 +327,7 @@ function renderPhotoTo(targetCtx,w,h){
      targetCtx.textAlign="center";targetCtx.textBaseline="bottom";targetCtx.fillText(text,w/2,h-10);targetCtx.restore();
    }
  }
+ return true;
 }
 function draw(){
  if(!state.img)return;
@@ -343,6 +345,19 @@ function renderValues(){
  });
  draw();
 }
+async function blobToImage(blob){
+ if(!blob)return null;
+ if(typeof createImageBitmap==="function"){
+   try{return await createImageBitmap(blob)}catch(e){}
+ }
+ const url=URL.createObjectURL(blob);
+ return await new Promise((resolve,reject)=>{
+   const im=new Image();
+   im.onload=()=>{state.cutoutUrl=url;resolve(im)};
+   im.onerror=e=>{URL.revokeObjectURL(url);reject(e)};
+   im.src=url;
+ });
+}
 async function removeBg(){
  if(!state.img)return;
  $("processing").classList.remove("hidden");$("removeBgBtn").disabled=true;$("removeBgBtn").textContent="Removing Background…";setStatus("Removing background…");
@@ -352,10 +367,12 @@ async function removeBg(){
      removeBg.engine=mod.default||mod.removeBackground;
    }
    state.cutout=await removeBg.engine(state.file,{model:"medium",device:navigator.gpu?"gpu":"cpu",proxyToWorker:true});
+   state.cutoutImage=await blobToImage(state.cutout);
+   if(!state.cutoutImage)throw new Error("Background removal returned no drawable image.");
    draw();setStatus("Background removed successfully.");
  }catch(e){
-   console.error(e);state.cutout=null;draw();setStatus(e.message||"Background removal failed.");
- }finally{$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent=state.cutout?"✓ Background Removed":"✂ Remove Background"}
+   console.error(e);state.cutout=null;state.cutoutImage=null;draw();setStatus(e.message||"Background removal failed.");
+ }finally{$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent=state.cutoutImage?"✓ Background Removed":"✂ Remove Background"}
 }
 $("removeBgBtn").onclick=removeBg;
 async function showFile(file){
@@ -417,12 +434,16 @@ function makePhotoBlob(){
 }
 function drawA4(){
  const W=Math.round(210*state.dpi/25.4),H=Math.round(297*state.dpi/25.4);
- a4.width=W;a4.height=H;a4ctx.clearRect(0,0,W,H);a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
+ a4.width=W;a4.height=H;
+ a4ctx.setTransform(1,0,0,1,0,0);
+ a4ctx.clearRect(0,0,W,H);a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
  const p=photoSize(),maxCols=Math.max(1,Math.floor(W/p.w)),maxRows=Math.max(1,Math.floor(H/p.h));
  const capacity=maxCols*maxRows,fitCount=Math.min(state.copies,capacity);
+ photoCanvas.width=p.w;photoCanvas.height=p.h;
+ if(!renderPhotoTo(photoCtx,p.w,p.h))throw new Error("Photo could not be rendered for A4 export.");
  for(let i=0;i<fitCount;i++){
    const col=i%maxCols,row=Math.floor(i/maxCols);
-   a4ctx.save();a4ctx.translate(col*p.w,row*p.h);renderPhotoTo(a4ctx,p.w,p.h);a4ctx.restore();
+   a4ctx.drawImage(photoCanvas,col*p.w,row*p.h,p.w,p.h);
  }
  $("a4Preview").classList.remove("hidden");
  const previewCtx=$("a4Canvas").getContext("2d");
@@ -448,7 +469,8 @@ $("downloadPhoto").onclick=()=>{
 };
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
- Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6,format:"png"});
+ if(state.cutoutUrl){URL.revokeObjectURL(state.cutoutUrl);state.cutoutUrl="";}
+Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0,copies:6,format:"png"});
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  canvas.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("a4Preview").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
