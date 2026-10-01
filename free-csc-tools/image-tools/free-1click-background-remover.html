@@ -71,95 +71,127 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 </div>
 <script>
 const $=id=>document.getElementById(id);
-let currentUrl="",resultUrl="",currentFile=null,removeBackgroundFn=null,enginePromise=null;
+let currentUrl="",resultUrl="",currentFile=null;
+let enginePromise=null,engine=null,processor=null;
+const MODEL_ID="studioludens/birefnet-lite-512";
+const MODEL_REVISION="4a3c40c36c94093cc1e724d9ea428b8fa4b57dc7";
 
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
 $("file").onchange=e=>showImage(e.target.files?.[0]);
 
 ["dragenter","dragover"].forEach(type=>$("drop").addEventListener(type,e=>{
-  e.preventDefault();
-  $("drop").classList.add("drag");
+  e.preventDefault();$("drop").classList.add("drag");
 }));
 ["dragleave","drop"].forEach(type=>$("drop").addEventListener(type,e=>{
-  e.preventDefault();
-  $("drop").classList.remove("drag");
+  e.preventDefault();$("drop").classList.remove("drag");
 }));
 $("drop").addEventListener("drop",e=>showImage(e.dataTransfer.files?.[0]));
 
-async function getEngine(){
+async function loadEngine(){
   if(!enginePromise){
-    enginePromise=import("https://cdn.jsdelivr.net/npm/@bg0/browser@0.1.2/+esm")
-      .then(mod=>{
-        if(typeof mod.removeBackground!=="function")throw new Error("BG0 removeBackground export unavailable.");
-        removeBackgroundFn=mod.removeBackground;
-        return removeBackgroundFn;
-      })
-      .catch(error=>{
-        enginePromise=null;
-        throw error;
-      });
+    enginePromise=(async()=>{
+      $("status").textContent="Loading local AI engine…";
+      const mod=await import("https://cdn.jsdelivr.net/npm/@huggingface/transformers@4.3.0/+esm");
+      const {AutoProcessor,AutoModel,RawImage}=mod;
+      if(!AutoProcessor||!AutoModel||!RawImage)throw new Error("Transformers.js exports unavailable.");
+      processor=await AutoProcessor.from_pretrained(MODEL_ID,{revision:MODEL_REVISION});
+      engine=await AutoModel.from_pretrained(MODEL_ID,{revision:MODEL_REVISION,device:"wasm",dtype:"fp16"});
+      return {RawImage};
+    })().catch(error=>{enginePromise=null;throw error});
   }
   return enginePromise;
+}
+
+async function fileToRawImage(file,RawImage){
+  const bitmap=await createImageBitmap(file);
+  try{
+    const canvas=document.createElement("canvas");
+    canvas.width=bitmap.width;canvas.height=bitmap.height;
+    const ctx=canvas.getContext("2d",{willReadFrequently:true});
+    ctx.drawImage(bitmap,0,0);
+    return new RawImage(ctx.getImageData(0,0,bitmap.width,bitmap.height).data,bitmap.width,bitmap.height,4);
+  }finally{bitmap.close()}
+}
+
+async function makeTransparentPng(file,RawImage){
+  const source=await fileToRawImage(file,RawImage);
+  $("status").textContent="Preparing image…";
+  const inputs=await processor(source);
+  $("status").textContent="Removing background locally…";
+  const output=await engine(inputs);
+  const tensor=output.logits||output.output_image;
+  if(!tensor)throw new Error("Model returned no segmentation mask.");
+  const alpha=tensor.sigmoid().data,dims=tensor.dims||[];
+  const maskHeight=dims.at(-2),maskWidth=dims.at(-1);
+  if(!maskWidth||!maskHeight||!alpha?.length)throw new Error("Invalid segmentation mask.");
+
+  const bitmap=await createImageBitmap(file);
+  try{
+    const outputCanvas=document.createElement("canvas");
+    outputCanvas.width=bitmap.width;outputCanvas.height=bitmap.height;
+    const outCtx=outputCanvas.getContext("2d",{willReadFrequently:true});
+    outCtx.drawImage(bitmap,0,0);
+
+    const maskCanvas=document.createElement("canvas");
+    maskCanvas.width=maskWidth;maskCanvas.height=maskHeight;
+    const maskCtx=maskCanvas.getContext("2d");
+    const maskPixels=new Uint8ClampedArray(maskWidth*maskHeight*4);
+    for(let i=0;i<maskWidth*maskHeight;i++){
+      const a=Math.max(0,Math.min(255,Math.round(alpha[i]*255))),p=i*4;
+      maskPixels[p]=255;maskPixels[p+1]=255;maskPixels[p+2]=255;maskPixels[p+3]=a;
+    }
+    maskCtx.putImageData(new ImageData(maskPixels,maskWidth,maskHeight),0,0);
+
+    const fullMask=document.createElement("canvas");
+    fullMask.width=bitmap.width;fullMask.height=bitmap.height;
+    const fullCtx=fullMask.getContext("2d",{willReadFrequently:true});
+    fullCtx.imageSmoothingEnabled=true;
+    fullCtx.drawImage(maskCanvas,0,0,bitmap.width,bitmap.height);
+    const maskData=fullCtx.getImageData(0,0,bitmap.width,bitmap.height).data;
+    const imageData=outCtx.getImageData(0,0,bitmap.width,bitmap.height);
+    for(let i=0,p=3;i<maskData.length;i+=4,p+=4)imageData.data[p]=maskData[i];
+    outCtx.putImageData(imageData,0,0);
+
+    return await new Promise((resolve,reject)=>{
+      outputCanvas.toBlob(blob=>blob?resolve(blob):reject(new Error("PNG creation failed.")),"image/png");
+    });
+  }finally{bitmap.close()}
 }
 
 async function showImage(file){
   if(!file||!file.type.startsWith("image/"))return;
   if(currentUrl)URL.revokeObjectURL(currentUrl);
   if(resultUrl)URL.revokeObjectURL(resultUrl);
-  currentFile=file;
-  currentUrl=URL.createObjectURL(file);
-  resultUrl="";
-  $("image").src=currentUrl;
-  $("image").classList.remove("hidden");
-  $("upload").classList.add("hidden");
-  $("actions").classList.add("hidden");
+  currentFile=file;currentUrl=URL.createObjectURL(file);resultUrl="";
+  $("image").src=currentUrl;$("image").classList.remove("hidden");
+  $("upload").classList.add("hidden");$("actions").classList.add("hidden");
   $("status").textContent="Loading local AI engine…";
-
   try{
-    const removeBackground=removeBackgroundFn||await getEngine();
-    const result=await removeBackground(file,{
-      quality:"quality",
-      onProgress:({message})=>{
-        if(message)$("status").textContent=message;
-      }
-    });
-    resultUrl=URL.createObjectURL(result.blob);
-    $("image").src=resultUrl;
-    $("actions").classList.remove("hidden");
+    const {RawImage}=await loadEngine();
+    const blob=await makeTransparentPng(file,RawImage);
+    resultUrl=URL.createObjectURL(blob);
+    $("image").src=resultUrl;$("actions").classList.remove("hidden");
     $("status").textContent="Background removed successfully.";
   }catch(error){
-    console.error("BG0 background remover:",error);
-    $("status").textContent="Background removal failed. Original image is still shown.";
+    console.error("ONESTOP local background remover:",error);
+    $("status").textContent="Background removal failed. Please try again.";
   }
 }
 
-$("download").onclick=async()=>{
+$("download").onclick=()=>{
   if(!resultUrl)return;
   const name=(currentFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-background.png";
-  try{
-    const response=await fetch(resultUrl);
-    if(!response.ok)throw new Error("Download failed");
-    const blob=await response.blob();
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement("a");
-    a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-  }catch{
-    const a=document.createElement("a");
-    a.href=resultUrl;a.download=name;document.body.appendChild(a);a.click();a.remove();
-  }
+  const a=document.createElement("a");a.href=resultUrl;a.download=name;
+  document.body.appendChild(a);a.click();a.remove();
 };
 
 $("newImage").onclick=()=>{
   if(currentUrl)URL.revokeObjectURL(currentUrl);
   if(resultUrl)URL.revokeObjectURL(resultUrl);
-  currentUrl="";resultUrl="";currentFile=null;
-  $("file").value="";
-  $("image").src="";
-  $("image").classList.add("hidden");
-  $("upload").classList.remove("hidden");
-  $("actions").classList.add("hidden");
+  currentUrl="";resultUrl="";currentFile=null;$("file").value="";
+  $("image").src="";$("image").classList.add("hidden");
+  $("upload").classList.remove("hidden");$("actions").classList.add("hidden");
   $("status").textContent="Select an image to begin.";
 };
 </script>
