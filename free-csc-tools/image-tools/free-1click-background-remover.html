@@ -40,6 +40,15 @@ main{flex:1;display:flex;align-items:center;justify-content:center;padding:18px 
 .actionbar{display:flex;justify-content:center;gap:10px;padding:12px 4px 2px}
 .btn{border:0;border-radius:11px;min-height:46px;padding:0 22px;font-size:15px;font-weight:850;cursor:pointer}
 .secondary{background:#eaf3ff;color:var(--blue)}
+.bg-tools{border-top:1px solid #edf2f7;margin-top:8px;padding:11px 4px 2px;text-align:center}
+.bg-title{font-size:13px;font-weight:850;color:#27466f;margin-bottom:8px}
+.bg-row{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
+.bg-swatch{width:34px;height:34px;border-radius:50%;border:2px solid #d7e3f0;cursor:pointer;box-shadow:0 2px 7px rgba(6,38,95,.08);padding:0}
+.bg-swatch.active{border-color:var(--blue);box-shadow:0 0 0 3px #d9eaff}
+.bg-transparent{background:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:12px 12px;background-position:0 0,0 6px,6px -6px,-6px 0}
+.bg-white{background:#fff}.bg-lightblue{background:#dff2ff}.bg-blue{background:#0090ff}.bg-red{background:#ff0000}
+.bg-custom{overflow:hidden;position:relative}
+.bg-custom input{position:absolute;inset:-8px;width:50px;height:50px;opacity:0;cursor:pointer}
 .status{text-align:center;min-height:22px;padding:0 8px 3px;font-size:13px;color:var(--muted);line-height:1.45}
 .meta{text-align:center;color:#72829a;font-size:12px;line-height:1.5;padding:0 8px 2px}
 .foot{text-align:center;padding:8px 12px 12px;color:#8997aa;font-size:11px}
@@ -63,6 +72,17 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 <div id="upload" class="upload"><div id="drop" class="drop"><div class="upload-icon">🖼️</div><h2>Select or Drag &amp; Drop Image</h2><p>JPG • PNG • WebP</p><button id="choose" class="choose" type="button">Select Image</button><input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>
 </div>
 <div id="actions" class="actionbar hidden"><button id="download" class="btn secondary" type="button">⬇ Download Image</button><button id="newImage" class="btn secondary" type="button">＋ New Image</button></div>
+<div id="bgTools" class="bg-tools hidden">
+  <div class="bg-title">Background Color</div>
+  <div class="bg-row">
+    <button class="bg-swatch bg-transparent active" data-bg="transparent" type="button" title="Transparent" aria-label="Transparent"></button>
+    <button class="bg-swatch bg-white" data-bg="#ffffff" type="button" title="White" aria-label="White"></button>
+    <button class="bg-swatch bg-lightblue" data-bg="#dff2ff" type="button" title="Light Blue" aria-label="Light Blue"></button>
+    <button class="bg-swatch bg-blue" data-bg="#0090ff" type="button" title="Blue" aria-label="Blue"></button>
+    <button class="bg-swatch bg-red" data-bg="#ff0000" type="button" title="Red" aria-label="Red"></button>
+    <label class="bg-swatch bg-custom" title="Custom Color" aria-label="Custom Color"><input id="customBg" type="color" value="#ffffff"></label>
+  </div>
+</div>
 <div id="status" class="status">Select an image to begin.</div>
 <div class="meta">AI background removal • Transparent PNG • ONESTOP</div>
 </section>
@@ -71,7 +91,7 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 </div>
 <script>
 const $=id=>document.getElementById(id);
-let currentUrl="",resultUrl="",currentFile=null;
+let currentUrl="",resultUrl="",currentFile=null,cutoutBlob=null,selectedBg="transparent";
 
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
@@ -98,18 +118,53 @@ async function removeBackground(file){
   });
 }
 
+async function applyBackground(bg){
+  if(!cutoutBlob)return;
+  selectedBg=bg;
+  if(resultUrl)URL.revokeObjectURL(resultUrl);
+  if(bg==="transparent"){
+    resultUrl=URL.createObjectURL(cutoutBlob);
+    $("image").src=resultUrl;
+    $("status").textContent="Background removed successfully.";
+    return;
+  }
+  $("status").textContent="Applying background color…";
+  const url=URL.createObjectURL(cutoutBlob);
+  try{
+    const img=new Image();
+    img.decoding="async";
+    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=url});
+    const canvas=document.createElement("canvas");
+    canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+    const ctx=canvas.getContext("2d");
+    ctx.fillStyle=bg;ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(img,0,0);
+    const output=await new Promise(resolve=>canvas.toBlob(resolve,"image/png"));
+    if(!output)throw new Error("Could not create output image.");
+    resultUrl=URL.createObjectURL(output);
+    $("image").src=resultUrl;
+    $("status").textContent="Background color applied successfully.";
+  }finally{
+    URL.revokeObjectURL(url);
+  }
+}
+
 async function showImage(file){
   if(!file||!file.type.startsWith("image/"))return;
   if(currentUrl)URL.revokeObjectURL(currentUrl);
   if(resultUrl)URL.revokeObjectURL(resultUrl);
-  currentFile=file;currentUrl=URL.createObjectURL(file);resultUrl="";
+  currentFile=file;currentUrl=URL.createObjectURL(file);resultUrl="";cutoutBlob=null;selectedBg="transparent";
+  document.querySelectorAll(".bg-swatch").forEach(x=>x.classList.remove("active"));
+  document.querySelector('[data-bg="transparent"]').classList.add("active");
+  $("customBg").value="#ffffff";
   $("image").src=currentUrl;$("image").classList.remove("hidden");
-  $("upload").classList.add("hidden");$("actions").classList.add("hidden");
+  $("upload").classList.add("hidden");$("actions").classList.add("hidden");$("bgTools").classList.add("hidden");
   $("status").textContent="Removing background…";
   try{
     const blob=await removeBackground(file);
+    cutoutBlob=blob;
     resultUrl=URL.createObjectURL(blob);
-    $("image").src=resultUrl;$("actions").classList.remove("hidden");
+    $("image").src=resultUrl;$("actions").classList.remove("hidden");$("bgTools").classList.remove("hidden");
     $("status").textContent="Background removed successfully.";
   }catch(error){
     console.error("ONESTOP background remover:",error);
@@ -117,9 +172,21 @@ async function showImage(file){
   }
 }
 
+document.querySelectorAll(".bg-swatch[data-bg]").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".bg-swatch").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+  applyBackground(btn.dataset.bg);
+}));
+$("customBg").addEventListener("input",e=>{
+  document.querySelectorAll(".bg-swatch").forEach(x=>x.classList.remove("active"));
+  e.target.closest(".bg-swatch").classList.add("active");
+  applyBackground(e.target.value);
+});
+
 $("download").onclick=()=>{
   if(!resultUrl)return;
-  const name=(currentFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-background.png";
+  const suffix=selectedBg==="transparent"?"no-background":"bg-"+selectedBg.replace("#","");
+  const name=(currentFile?.name||"image").replace(/\.[^.]+$/,"")+"-"+suffix+".png";
   const a=document.createElement("a");a.href=resultUrl;a.download=name;
   document.body.appendChild(a);a.click();a.remove();
 };
@@ -127,9 +194,11 @@ $("download").onclick=()=>{
 $("newImage").onclick=()=>{
   if(currentUrl)URL.revokeObjectURL(currentUrl);
   if(resultUrl)URL.revokeObjectURL(resultUrl);
-  currentUrl="";resultUrl="";currentFile=null;$("file").value="";
+  currentUrl="";resultUrl="";currentFile=null;cutoutBlob=null;selectedBg="transparent";$("file").value="";
   $("image").src="";$("image").classList.add("hidden");
-  $("upload").classList.remove("hidden");$("actions").classList.add("hidden");
+  $("upload").classList.remove("hidden");$("actions").classList.add("hidden");$("bgTools").classList.add("hidden");
+  document.querySelectorAll(".bg-swatch").forEach(x=>x.classList.remove("active"));
+  document.querySelector('[data-bg="transparent"]').classList.add("active");
   $("status").textContent="Select an image to begin.";
 };
 </script>
