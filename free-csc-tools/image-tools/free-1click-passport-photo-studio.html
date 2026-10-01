@@ -18,8 +18,8 @@ button{cursor:pointer}
 .brand strong{display:block;font-size:23px;font-weight:900;letter-spacing:-.7px}
 .brand small{display:block;margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.7px;color:#172b4d}
 .home{display:inline-flex;align-items:center;text-decoration:none;background:var(--grad);color:#fff;padding:9px 13px;border-radius:10px;font-size:12px;font-weight:800}
-main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
-.workspace{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(390px,.75fr);gap:14px;min-height:calc(100dvh - 104px)}
+main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
+.workspace{display:grid;grid-template-columns:minmax(390px,.82fr) minmax(560px,1.18fr);gap:12px;min-height:calc(100dvh - 104px)}
 .preview-panel,.tools-panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 28px rgba(6,38,95,.07)}
 .preview-panel{padding:14px;display:flex;flex-direction:column;min-width:0}
 .preview-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
@@ -105,41 +105,46 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
   .preview-panel{padding:10px}
   .preview-head{margin-bottom:7px}
   .preview-head h1{font-size:17px}
-  .stage{min-height:0}
+  .stage{min-height:0;display:flex;align-items:center;justify-content:flex-start;background:#fff;border-color:#d7e4f2;padding-left:8px}
+  .stage canvas{max-width:min(92%,430px);max-height:92%;width:auto;height:auto}
   .preview-footer{padding-top:7px}
   .tools-panel{padding:8px;overflow:hidden}
-  .tools-fit{width:119.05%;transform:scale(.84);transform-origin:top left}
-  .tool-section{margin-bottom:6px}
+  .tools-fit{width:100%;transform:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto;gap:7px}
+  .tool-section{margin:0;min-width:0}
   .section-head{padding:8px 10px}
-  .section-head strong{font-size:13px}
+  .section-head strong{font-size:12px}
+  .section-head span{font-size:9px}
   .section-body{padding:8px}
   .preset-grid{gap:6px}
-  .preset{min-height:50px;padding:7px}
+  .preset{min-height:52px;padding:8px}
   .preset b{font-size:11px}
-  .preset small{font-size:9px;margin-top:2px}
+  .preset small{font-size:9px;margin-top:3px}
   .custom-row{gap:6px;margin-top:6px}
-  .field{gap:2px}
-  .field label{font-size:9px}
-  .field input,.field select{height:32px}
+  .field{gap:3px}
+  .field label{font-size:10px}
+  .field input,.field select{height:32px;font-size:11px}
   .dpi-row{margin-top:0;gap:6px}
   .dpi-row label{font-size:10px}
-  .dpi-row input{height:32px;width:74px}
+  .dpi-row input{height:32px;width:74px;font-size:11px}
   .crop-toolbar{gap:5px;margin-bottom:6px}
   .tool-btn{padding:6px 8px;font-size:10px}
-  .range-row{margin:5px 0;grid-template-columns:78px 1fr 40px;gap:6px}
+  .range-row{margin:5px 0;grid-template-columns:68px 1fr 40px;gap:6px}
   .range-row label{font-size:10px}
+  .range-val{font-size:9px}
   .bg-grid{gap:5px}
   .bg-choice{height:32px}
+  .bg-remove-row{margin-top:6px}
+  .bg-remove-btn{height:32px;padding:0 10px;font-size:10px}
   .name-date{margin-top:6px;padding:7px}
   .name-date label{font-size:10px}
   .nd-fields{gap:6px;margin-top:6px}
   .print-options{gap:5px}
   .print-choice{padding:7px 4px}
+  .print-choice b{font-size:14px}
+  .print-choice small{font-size:9px}
   .download-row{gap:6px;margin-top:7px}
-  .download-row .primary{padding:9px 10px;font-size:11px}
+  .download-row .primary{padding:9px 8px;font-size:10px}
   .hint{font-size:9px;margin-top:5px}
-  .bg-remove-row{margin-top:7px}
-  .bg-remove-btn{height:34px;padding:0 11px;font-size:10px}
 }
 /* On shorter/mobile layouts, allow natural page flow rather than forcing content into a tiny viewport. */
 @media (max-width:980px){
@@ -205,7 +210,7 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
 <div class="section-body">
 <div class="crop-toolbar">
 <button class="tool-btn active" data-ratio="size">Use Photo Size Ratio</button>
-<button class="tool-btn" id="fitFace">Fit Face</button>
+<button class="tool-btn" id="fitFace">Fit / Center</button>
 <button class="tool-btn" id="resetAdjust">Reset Adjustments</button>
 </div>
 <div class="range-row"><label>Zoom</label><input id="zoom" type="range" min="1" max="2.5" step=".01" value="1"><span id="zoomVal" class="range-val">1.00×</span></div>
@@ -236,7 +241,7 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
 </section>
 
 <section class="tool-section">
-<div class="section-head"><strong>4. A4 Download &amp; Print</strong><span>300 DPI • A4</span></div>
+<div class="section-head"><strong>4. F4 Download &amp; Print</strong><span>300 DPI • F4</span></div>
 <div class="section-body">
 <div class="print-options">
 <button class="print-choice active" data-count="6"><b>6</b><small>Photos</small></button>
@@ -246,10 +251,10 @@ main{width:min(1400px,100%);margin:auto;padding:14px;flex:1}
 </div>
 <div class="download-row">
 <button id="downloadPhoto" class="primary" type="button">Download Photo</button>
-<button id="downloadA4" class="primary" type="button">Download A4 Sheet</button>
+<button id="downloadA4" class="primary" type="button">Download F4 Sheet</button>
 </div>
 <div id="a4Preview" class="result-preview hidden"><canvas id="a4Canvas"></canvas></div>
-<div class="hint">A4 sheet places the selected copies in a clean print grid. 6, 12, 18 and 36 are available.</div>
+<div class="hint">F4 sheet places the selected copies in a clean print grid. 6, 12, 18 and 36 are available.</div>
 </div>
 </section>
 </div>
@@ -389,32 +394,32 @@ function makePhotoBlob(){
  return new Promise(resolve=>canvas.toBlob(resolve,"image/jpeg",.94));
 }
 function drawA4(){
- const W=2480,H=3508;
+ // F4 / Foolscap used by many Indian printers: 215 × 330 mm.
+ // Work at 300 DPI so the exported sheet preserves the selected photo's physical size.
+ const W=Math.round(215*state.dpi/25.4),H=Math.round(330*state.dpi/25.4);
  a4.width=W;a4.height=H;a4ctx.fillStyle="#fff";a4ctx.fillRect(0,0,W,H);
- const p=photoSize(),margin=45,gap=12;
- let cols=2;
- if(state.copies>=12)cols=3;
- if(state.copies>=36)cols=6;
- let rows=Math.ceil(state.copies/cols);
- const cellW=(W-margin*2-gap*(cols-1))/cols;
- const cellH=cellW*(p.h/p.w);
- if(cellH*rows+margin*2+gap*(rows-1)>H){
-   const cellH2=(H-margin*2-gap*(rows-1))/rows;
-   const cellW2=cellH2*(p.w/p.h);
-   for(let i=0;i<state.copies;i++){
-     const col=i%cols,row=Math.floor(i/cols);
-     const x=margin+col*(cellW2+gap),y=margin+row*(cellH2+gap);
-     a4ctx.drawImage(canvas,x,y,cellW2,cellH2);
-   }
- }else{
-   for(let i=0;i<state.copies;i++){
-     const col=i%cols,row=Math.floor(i/cols);
-     const x=margin+col*(cellW+gap),y=margin+row*(cellH+gap);
-     a4ctx.drawImage(canvas,x,y,cellW,cellH);
-   }
+
+ const p=photoSize(),margin=Math.round(5*state.dpi/25.4),gap=Math.round(2*state.dpi/25.4);
+ const maxCols=Math.max(1,Math.floor((W-margin*2+gap)/(p.w+gap)));
+ const maxRows=Math.max(1,Math.floor((H-margin*2+gap)/(p.h+gap)));
+ const fitCount=Math.min(state.copies,maxCols*maxRows);
+
+ // Start from the top-left and fill row-by-row, exactly as requested.
+ for(let i=0;i<fitCount;i++){
+   const col=i%maxCols,row=Math.floor(i/maxCols);
+   const x=margin+col*(p.w+gap);
+   const y=margin+row*(p.h+gap);
+   a4ctx.drawImage(canvas,x,y,p.w,p.h);
  }
+
  $("a4Preview").classList.remove("hidden");
- const previewCtx=$("a4Canvas").getContext("2d");previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);previewCtx.drawImage(a4,0,0);
+ const previewCtx=$("a4Canvas").getContext("2d");
+ previewCtx.clearRect(0,0,$("a4Canvas").width,$("a4Canvas").height);
+ previewCtx.drawImage(a4,0,0);
+
+ setStatus(state.copies>fitCount
+   ? `F4 sheet fits ${fitCount} of ${state.copies} selected photos at the selected size.`
+   : `F4 sheet: ${fitCount} photos fit at the selected size.`);
 }
 $("downloadPhoto").onclick=async()=>{
  if(!state.img)return setStatus("Upload a photo first.");
@@ -423,12 +428,12 @@ $("downloadPhoto").onclick=async()=>{
 };
 $("downloadA4").onclick=()=>{
  if(!state.img)return setStatus("Upload a photo first.");
- drawA4();a4.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="passport-photos-A4.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)},"image/png");
+ drawA4();a4.toBlob(b=>{const u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download="passport-photos-F4.png";a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)},"image/png");
 };
 $("reset").onclick=()=>{
  if(state.objectUrl)URL.revokeObjectURL(state.objectUrl);
  Object.assign(state,{file:null,img:null,cutout:null,objectUrl:"",resultUrl:"",offsetX:0,offsetY:0});
- canvas.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("a4Preview").classList.add("hidden");setStatus("Upload a photo to begin.");
+ canvas.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("a4Preview").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
 </body>
