@@ -69,11 +69,9 @@ main{padding:10px 9px}.panel{gap:9px}.hero{border-radius:14px;padding:14px 15px}
 </section></main>
 <footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
 </div>
-<script type="module">
-import { removeBackground } from "https://cdn.jsdelivr.net/npm/@bg0/browser@0.1.2/+esm";
-
+<script>
 const $=id=>document.getElementById(id);
-let currentUrl="",resultUrl="",currentFile=null;
+let currentUrl="",resultUrl="",currentFile=null,removeBackgroundFn=null,enginePromise=null;
 
 $("choose").onclick=e=>{e.stopPropagation();$("file").click()};
 $("drop").onclick=()=>$("file").click();
@@ -89,6 +87,22 @@ $("file").onchange=e=>showImage(e.target.files?.[0]);
 }));
 $("drop").addEventListener("drop",e=>showImage(e.dataTransfer.files?.[0]));
 
+async function getEngine(){
+  if(!enginePromise){
+    enginePromise=import("https://cdn.jsdelivr.net/npm/@bg0/browser@0.1.2/+esm")
+      .then(mod=>{
+        if(typeof mod.removeBackground!=="function")throw new Error("BG0 removeBackground export unavailable.");
+        removeBackgroundFn=mod.removeBackground;
+        return removeBackgroundFn;
+      })
+      .catch(error=>{
+        enginePromise=null;
+        throw error;
+      });
+  }
+  return enginePromise;
+}
+
 async function showImage(file){
   if(!file||!file.type.startsWith("image/"))return;
   if(currentUrl)URL.revokeObjectURL(currentUrl);
@@ -100,9 +114,10 @@ async function showImage(file){
   $("image").classList.remove("hidden");
   $("upload").classList.add("hidden");
   $("actions").classList.add("hidden");
-  $("status").textContent="Preparing AI…";
+  $("status").textContent="Loading local AI engine…";
 
   try{
+    const removeBackground=removeBackgroundFn||await getEngine();
     const result=await removeBackground(file,{
       quality:"quality",
       onProgress:({message})=>{
