@@ -75,12 +75,19 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 #borderColor{width:34px;height:30px;padding:2px;border:1px solid #ccdbea;border-radius:7px;background:#fff}
 .mini-control input[type=range]{width:100%;accent-color:var(--blue)}
 .mini-control .range-val{display:block;margin-top:3px;font-size:9px}
-.watermark-box{margin-top:7px;border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff}
+.background-tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.watermark-box{border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff;min-width:0}
 .watermark-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px}
 .watermark-head label{font-size:10px;font-weight:800;color:#38516f}
 .watermark-head label input{accent-color:var(--blue);margin:0 5px 0 0}
 .watermark-head span{font-size:9px;color:var(--muted)}
+.background-tools-grid .name-date{margin-top:0}
 .watermark-box .field input{height:30px;font-size:10px}
+.text-style-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:7px}
+.text-style-grid .field input[type=color]{height:30px;padding:2px}
+.name-style{border:1px solid #e0e8f2;border-radius:9px;padding:7px;background:#f8fbff}
+.name-style-title{font-size:10px;font-weight:800;color:#38516f;margin-bottom:5px}
+@media(max-width:600px){.background-tools-grid{grid-template-columns:1fr}.text-style-grid{grid-template-columns:1fr 1fr 1fr}}
 .bg-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
 .bg-choice{height:42px;border:2px solid #d7e3f0;border-radius:9px;position:relative;overflow:hidden;padding:0}
 .bg-choice.active{border-color:var(--blue);box-shadow:0 0 0 2px #dcecff}
@@ -270,11 +277,6 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 </div>
 </div>
 <div class="hint">Gap shrinks the photo equally from all four sides. The gap area stays white between the photo and border.</div>
-<div class="watermark-box">
-<div class="watermark-head"><label><input id="watermarkEnabled" type="checkbox"> Watermark Text</label><span>Fixed bottom-left</span></div>
-<div class="field"><label>Watermark Text</label><input id="watermarkText" type="text" value="ONESTOP" placeholder="Enter watermark text"></div>
-<div class="hint">Text stays fixed at the bottom-left footer area, inside the white gap between the photo and border.</div>
-</div>
 </div>
 </section>
 
@@ -289,10 +291,24 @@ main{width:min(1400px,100%);margin:auto;padding:10px;flex:1}
 <button class="bg-choice" data-bg="#ff0000" title="Red"><span class="bg-red"></span></button>
 </div>
 <div class="bg-remove-row"><button id="removeBgBtn" class="bg-remove-btn" type="button">✂ Remove Background</button><span class="hint" style="margin:0">Optional — runs only when you click the button.</span></div>
-<div class="name-date"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date on Image</label></div>
+<div class="background-tools-grid">
+<div class="name-style">
+<div class="name-date" style="margin-top:0"><input id="nameDate" type="checkbox"><label for="nameDate">Write Name &amp; Date</label></div>
 <div id="ndFields" class="nd-fields hidden">
 <div class="field"><label>Name</label><input id="personName" type="text" placeholder="Your Name"></div>
 <div class="field"><label>Date</label><input id="photoDate" type="date"></div>
+</div>
+<div class="text-style-grid">
+<div class="field"><label>Text Size</label><input id="nameTextSize" type="number" min="8" max="80" step="1" value="28"></div>
+<div class="field"><label>Text Color</label><input id="nameTextColor" type="color" value="#111111"></div>
+<div class="field"><label>Box Color</label><input id="nameBoxColor" type="color" value="#ffffff"></div>
+</div>
+</div>
+<div class="watermark-box">
+<div class="watermark-head"><label><input id="watermarkEnabled" type="checkbox"> Watermark Text</label><span>Vertical • 50%</span></div>
+<div class="field"><label>Watermark Text</label><input id="watermarkText" type="text" value="ONESTOP" placeholder="Enter watermark text"></div>
+<div class="hint">Fixed bottom-left, vertical, 50% opacity, inside the white gap.</div>
+</div>
 </div>
 </div>
 </section>
@@ -336,9 +352,9 @@ const state={
  widthMm:35,heightMm:45,dpi:300,bg:"#ffffff",copies:0,sheetMode:false,
  zoom:1,brightness:100,contrast:100,saturation:100,
  borderEnabled:false,borderColor:"#000000",borderWidth:2,innerGap:0,
-watermarkEnabled:false,watermarkText:"ONESTOP",
+watermarkEnabled:false,watermarkText:"ONESTOP",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",
  offsetX:0,offsetY:0,dragging:false,lastX:0,lastY:0,
- nameDate:false,name:"",date:"",format:"png"
+ nameDate:false,name:"",date:"",nameTextSize:28,nameTextColor:"#111111",nameBoxColor:"#ffffff",format:"png"
 };
 const canvas=$("canvas"),ctx=canvas.getContext("2d");
 const a4=$("a4Canvas"),a4ctx=a4.getContext("2d");
@@ -382,24 +398,34 @@ function renderPhotoTo(targetCtx,w,h){
  if(state.nameDate){
    const text=[state.name.trim(),state.date].filter(Boolean).join("  ");
    if(text){
-     targetCtx.save();targetCtx.fillStyle="#111";targetCtx.font="bold "+Math.max(16,Math.round(w*.035))+"px Arial";
-     targetCtx.textAlign="center";targetCtx.textBaseline="bottom";
-     targetCtx.fillText(text,w/2,h-Math.max(10,gap+4));targetCtx.restore();
+     const fontSize=Math.max(8,Math.min(80,Math.round(state.nameTextSize)));
+     const pad=Math.max(4,Math.round(fontSize*.28));
+     const boxH=fontSize+pad*2;
+     targetCtx.save();
+     targetCtx.font="700 "+fontSize+"px Arial";
+     const textW=targetCtx.measureText(text).width;
+     const boxW=Math.min(w-8,textW+pad*2);
+     const boxY=Math.max(2,h-gap-boxH-2);
+     targetCtx.fillStyle=state.nameBoxColor;
+     targetCtx.fillRect((w-boxW)/2,boxY,boxW,boxH);
+     targetCtx.fillStyle=state.nameTextColor;
+     targetCtx.textAlign="center";targetCtx.textBaseline="middle";
+     targetCtx.fillText(text,w/2,boxY+boxH/2);
+     targetCtx.restore();
    }
  }
  if(state.watermarkEnabled&&state.watermarkText.trim()&&gap>0){
    const text=state.watermarkText.trim();
-   const footerH=gap;
-   const maxFont=Math.max(8,Math.min(18,Math.round(footerH*.62)));
+   const sideGap=gap;
+   const maxFont=Math.max(7,Math.min(18,Math.round(sideGap*.58)));
    targetCtx.save();
-   targetCtx.fillStyle="#111";
+   targetCtx.translate(Math.max(2,sideGap*.5),h-Math.max(2,sideGap*.5));
+   targetCtx.rotate(-Math.PI/2);
+   targetCtx.fillStyle="rgba(17,17,17,.5)";
    targetCtx.font="700 "+maxFont+"px Arial";
    targetCtx.textAlign="left";
    targetCtx.textBaseline="middle";
-   targetCtx.beginPath();
-   targetCtx.rect(1,h-footerH,w-2,footerH);
-   targetCtx.clip();
-   targetCtx.fillText(text,Math.max(2,gap+3),h-footerH/2);
+   targetCtx.fillText(text,0,0);
    targetCtx.restore();
  }
  if(state.borderEnabled&&state.borderWidth>0){
@@ -540,6 +566,7 @@ canvas.addEventListener("pointerup",()=>state.dragging=false);canvas.addEventLis
 document.querySelectorAll(".bg-choice").forEach(btn=>btn.onclick=()=>{state.bg=btn.dataset.bg;markBg(btn);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}});
 $("nameDate").onchange=()=>{state.nameDate=$("nameDate").checked;$("ndFields").classList.toggle("hidden",!state.nameDate);if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(e){setStatus(e.message||"A4 preview failed.")}}}};
 $("personName").oninput=e=>{state.name=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};$("photoDate").oninput=e=>{state.date=e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}};
+[["nameTextSize","nameTextSize"],["nameTextColor","nameTextColor"],["nameBoxColor","nameBoxColor"]].forEach(([id,key])=>$(id).oninput=e=>{state[key]=id==="nameTextSize"?Math.max(8,Math.min(80,+e.target.value||28)):e.target.value;if(state.img){draw();if(state.sheetMode){try{drawA4()}catch(err){setStatus(err.message||"A4 preview failed.")}}}});
 
 document.querySelectorAll(".format-choice").forEach(btn=>btn.onclick=()=>{
  document.querySelectorAll(".format-choice").forEach(x=>x.classList.remove("active"));
@@ -650,7 +677,7 @@ Object.assign(state,{file:null,img:null,cutout:null,cutoutImage:null,objectUrl:"
 document.querySelectorAll(".format-choice").forEach(x=>x.classList.toggle("active",x.dataset.format==="png"));
  document.querySelectorAll(".print-choice").forEach(x=>x.classList.remove("active"));$("customCount").value="";
 $("borderToggle").textContent="OFF";
-$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
+$("watermarkEnabled").checked=false;$("watermarkText").value="ONESTOP";$("nameTextSize").value=28;$("nameTextColor").value="#111111";$("nameBoxColor").value="#ffffff";$("borderToggle").classList.remove("active");$("borderColor").value="#000000";$("borderWidth").value=2;$("borderWidthVal").textContent="2 px";$("innerGap").value=0;$("innerGapVal").textContent="0 px";
 canvas.classList.add("hidden");sheetPreview.classList.add("hidden");$("uploadBox").classList.remove("hidden");$("processing").classList.add("hidden");$("removeBgBtn").disabled=false;$("removeBgBtn").textContent="✂ Remove Background";setStatus("Upload a photo to begin.");
 };
 </script>
