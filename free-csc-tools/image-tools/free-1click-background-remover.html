@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Free 1Click Background Remover by ONESTOP. AI background removal with transparent, color or custom image backgrounds.">
+<title>Free 1Click Background Remover | ONESTOP</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden}
+body{font-family:Arial,"Segoe UI",sans-serif;background:#eef6ff;color:#14213d}
+:root{--blue:#0757c9;--line:#d8e6f7;--muted:#687992;--grad:linear-gradient(112deg,#0757c9 0%,#167be4 48%,#5bc8f4 100%)}
+.app{height:100dvh;display:grid;grid-template-rows:56px 1fr 25px}
+.top{background:#fff;border-bottom:1px solid #e2eafa}
+.nav{height:56px;max-width:1180px;margin:auto;padding:6px 16px;display:flex;align-items:center;justify-content:space-between}
+.brand{text-decoration:none;color:#0757c9}
+.brand strong{display:block;font-size:22px;font-weight:900;line-height:1}
+.brand small{display:block;font-size:8px;letter-spacing:.8px;font-weight:800;margin-top:4px}
+.home{background:var(--grad);color:#fff;padding:8px 12px;border-radius:9px;text-decoration:none;font-size:12px;font-weight:800}
+main{min-height:0;display:flex;align-items:center;justify-content:center;padding:8px 12px}
+.panel{width:min(1100px,100%);height:min(690px,calc(100dvh - 89px));display:grid;grid-template-rows:auto 1fr auto;gap:8px}
+.hero{background:var(--grad);color:#fff;border-radius:15px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.hero h1{margin:0;font-size:clamp(20px,3.5vw,34px)}
+.hero p{margin:3px 0 0;font-size:11px}
+.badge{background:#ffffff24;border:1px solid #ffffff45;padding:7px 10px;border-radius:999px;font-size:10px;font-weight:800;white-space:nowrap}
+.work{min-height:0;display:grid;grid-template-columns:1.2fr .8fr;gap:8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;padding:11px;box-shadow:0 5px 18px #06265f0b;min-height:0}
+.preview-card{display:grid;grid-template-columns:1fr 1fr;gap:8px;min-width:0}
+.preview{min-width:0;min-height:0;display:flex;flex-direction:column}
+.preview-title{display:flex;justify-content:space-between;align-items:center;font-size:10px;font-weight:900;margin-bottom:5px}
+.preview-title span{font-size:8px;color:var(--muted);font-weight:700}
+.canvas-wrap{position:relative;min-height:0;flex:1;border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background-color:#f8fbff;background-image:linear-gradient(45deg,#edf2f7 25%,transparent 25%),linear-gradient(-45deg,#edf2f7 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#edf2f7 75%),linear-gradient(-45deg,transparent 75%,#edf2f7 75%);background-size:18px 18px;background-position:0 0,0 9px,9px -9px,-9px 0}
+.canvas-wrap img{max-width:100%;max-height:100%;display:block;object-fit:contain}
+.placeholder{font-size:10px;color:#71819a;text-align:center;padding:15px}
+.input-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.drop{width:calc(100% - 18px);height:calc(100% - 18px);border:2px dashed #b8c8dd;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;background:#fbfdffdd;pointer-events:auto}
+.drop.drag{border-color:var(--blue);background:#eef6ff}
+.drop h2{font-size:14px;margin:5px 0}.drop p{font-size:9px;color:var(--muted);margin:0}.choose{margin-top:8px;background:var(--grad);color:#fff;border:0;border-radius:9px;padding:8px 13px;font-size:11px;font-weight:800;cursor:pointer}
+.tools-card{overflow:auto}
+.settings{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.field label{display:block;font-size:9px;font-weight:900;color:#526681;margin-bottom:4px}
+.field select,.field input[type=color]{width:100%;height:35px;border:1px solid #cbd9e9;border-radius:8px;background:#fff;color:#14213d}
+.field input[type=color]{padding:3px;cursor:pointer}
+.bg-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.bg-tab{height:32px;border:1px solid #d1deec;background:#f7faff;color:#526681;border-radius:8px;font-size:9px;font-weight:900;cursor:pointer}
+.bg-tab.active{background:#eaf3ff;color:var(--blue);border-color:#9ec4f3}
+.bg-control{margin-top:8px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.btn{border:0;border-radius:9px;height:38px;font-weight:900;cursor:pointer}
+.primary{background:var(--grad);color:#fff;box-shadow:0 5px 13px #0757c933}
+.secondary{background:#eaf3ff;color:var(--blue)}
+.btn:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.clear{width:100%;margin-top:7px;background:#fff0f0;color:#c62828;border:0;border-radius:9px;height:32px;font-size:10px;font-weight:900;cursor:pointer}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;font-size:8px;color:var(--muted)}
+.stats b{color:#14213d}
+.progress{height:5px;background:#e8edf4;border-radius:9px;margin-top:6px;overflow:hidden}
+.bar{height:100%;width:0;background:var(--grad);transition:width .15s}
+.status{font-size:9px;color:var(--muted);margin-top:5px;min-height:12px}
+.note{font-size:9px;color:#6b7890}
+.foot{text-align:center;color:#8b98ab;font-size:9px;padding:5px 8px}
+#bgImage{display:none}
+@media(max-width:760px){
+.app{grid-template-rows:52px minmax(0,1fr) 22px}.nav{height:52px;padding:5px 10px}.brand strong{font-size:19px}.brand small{font-size:7px}.home{font-size:10px;padding:7px 9px}
+.panel{height:calc(100dvh - 78px);gap:6px}.hero{padding:9px 11px;border-radius:11px}.hero h1{font-size:21px}.hero p{font-size:9px}.badge{font-size:8px;padding:5px 7px}
+.work{grid-template-columns:1fr;grid-template-rows:minmax(190px,36vh) minmax(0,1fr);gap:6px}
+.card{padding:8px;border-radius:11px}.preview-card{grid-template-columns:1fr 1fr;gap:6px}.preview-title{font-size:8px}.preview-title span{font-size:7px}
+.drop h2{font-size:12px}.drop p{font-size:8px}.choose{font-size:10px;padding:7px 10px}
+.tools-card{overflow:auto}.settings{gap:6px}.field label{font-size:8px}.field select,.field input[type=color]{height:31px;font-size:10px}
+.bg-tab{height:30px;font-size:8px}.actions{grid-template-columns:1fr 1fr;gap:6px}.btn{height:35px;font-size:10px}.clear{height:31px}.stats{font-size:8px;gap:6px}.foot{font-size:8px}
+}
+@media(max-width:390px){
+.hero p{display:none}.badge{display:none}.preview-card{grid-template-columns:1fr 1fr}.work{grid-template-rows:minmax(175px,34vh) minmax(0,1fr)}.drop p{display:none}.brand small{font-size:6.5px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="nav"><a class="brand" href="../index.html"><strong>ONESTOP</strong><small>COMPUTER &amp; SKILL DEVELOPMENT CENTER</small></a><a class="home" href="../index.html">⌂ Home</a></div></header>
+<main><section class="panel">
+<section class="hero"><div><h1>Free 1Click Background Remover</h1><p>AI Background Removal • Hair &amp; Face Protection • Custom Background • Browser Based</p></div><div class="badge">AI • LOCAL</div></section>
+<section class="work">
+<section class="card preview-card">
+<div class="preview"><div class="preview-title">ORIGINAL <span id="inputMeta">No image</span></div><div id="inputCanvas" class="canvas-wrap"><div class="placeholder">Upload a portrait, passport photo, product photo or any image.</div><div class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div></div></div>
+<div class="preview"><div class="preview-title">RESULT <span id="resultMeta">Transparent PNG</span></div><div id="resultCanvas" class="canvas-wrap"><div id="resultPlaceholder" class="placeholder">Your AI-cutout will appear here.</div><canvas id="result" hidden></canvas></div></div>
+</section>
+<section class="card tools-card">
+<div class="settings">
+<div class="field"><label>AI MODE</label><select id="mode"><option value="medium" selected>High Accuracy • Medium Model</option><option value="small">Fast • Small Model</option></select></div>
+<div class="field"><label>OUTPUT</label><select id="format"><option value="png" selected>PNG • Transparent</option><option value="jpg">JPG • Background</option></select></div>
+</div>
+<div class="bg-control">
+<div class="field"><label>BACKGROUND</label><div class="bg-tabs"><button class="bg-tab active" data-bg="transparent">Transparent</button><button class="bg-tab" data-bg="color">Color</button><button class="bg-tab" data-bg="image">Image</button></div></div>
+<div id="colorControl" style="display:none;margin-top:7px"><input id="bgColor" type="color" value="#ffffff" aria-label="Background color"></div>
+<div id="imageControl" style="display:none;margin-top:7px"><button id="pickBg" class="btn secondary" style="width:100%;height:31px;font-size:9px">Choose Background Image</button><input id="bgImage" type="file" accept="image/jpeg,image/png,image/webp"></div>
+</div>
+<div class="actions"><button id="remove" class="btn primary" disabled>✂ Remove Background</button><button id="download" class="btn secondary" disabled>⬇ Download</button></div>
+<button id="reset" class="clear" disabled>Reset / New Image</button>
+<div class="stats"><span>Input <b id="size">0 B</b></span><span>Resolution <b id="res">—</b></span><span>Engine <b id="engine">Ready</b></span></div>
+<div class="progress"><div id="bar" class="bar"></div></div><div id="status" class="status">Ready. Your image stays in the browser.</div>
+</section>
+</section>
+<section class="card" style="padding:7px 11px"><div class="note"><b>Privacy:</b> AI processing runs in your browser. Your photo is not uploaded to ONESTOP. The AI model may be downloaded once and then cached by your browser.</div></section>
+</section></main>
+<footer class="foot">ONESTOP DIGITAL SOLUTION • Free 1Click Background Remover</footer>
+</div>
+
+<script type="module">
+import removeBackground from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/+esm";
+
+const $=id=>document.getElementById(id);
+let sourceFile=null, sourceUrl="", cutoutBlob=null, cutoutUrl="", bgMode="transparent", bgFile=null, bgUrl="", busy=false;
+
+$("pick").onclick=e=>{e.stopPropagation();$("files").click()};
+$("drop").onclick=()=>$("files").click();
+$("files").onchange=e=>loadSource(e.target.files?.[0]);
+$("pickBg").onclick=e=>{e.stopPropagation();$("bgImage").click()};
+$("bgImage").onchange=e=>{bgFile=e.target.files?.[0]||null;if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl=bgFile?URL.createObjectURL(bgFile):"";if(cutoutBlob)renderResult();};
+$("bgColor").oninput=()=>{if(cutoutBlob)renderResult()};
+$("format").onchange=()=>{if(cutoutBlob)renderResult()};
+$("mode").onchange=()=>{if(cutoutBlob){cutoutBlob=null;$("download").disabled=true;$("result").hidden=true;$("resultPlaceholder").style.display="block";setStatus("Mode changed. Click Remove Background again.");}};
+document.querySelectorAll(".bg-tab").forEach(b=>b.onclick=()=>setBgMode(b.dataset.bg));
+
+["dragenter","dragover"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.add("drag")}));
+["dragleave","drop"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.remove("drag")}));
+$("drop").addEventListener("drop",e=>loadSource(e.dataTransfer.files?.[0]));
+
+$("remove").onclick=processImage;
+$("download").onclick=downloadResult;
+$("reset").onclick=resetAll;
+
+function setBgMode(mode){
+  bgMode=mode;
+  document.querySelectorAll(".bg-tab").forEach(b=>b.classList.toggle("active",b.dataset.bg===mode));
+  $("colorControl").style.display=mode==="color"?"block":"none";
+  $("imageControl").style.display=mode==="image"?"block":"none";
+  if(cutoutBlob)renderResult();
+}
+function setStatus(msg){$("status").textContent=msg}
+function formatBytes(n){if(!n)return"0 B";const u=["B","KB","MB","GB"],i=Math.min(3,Math.floor(Math.log(n)/Math.log(1024)));return(n/1024**i).toFixed(i?2:0)+" "+u[i]}
+function loadSource(file){
+  if(!file||!file.type.startsWith("image/"))return;
+  if(sourceUrl)URL.revokeObjectURL(sourceUrl);
+  sourceFile=file;sourceUrl=URL.createObjectURL(file);
+  const img=new Image();img.onload=()=>{
+    $("inputCanvas").innerHTML='<img id="sourcePreview" alt="Original image"><div class="input-overlay"><div id="drop" class="drop" style="display:none"></div></div>';
+    $("sourcePreview").src=sourceUrl;
+    $("inputMeta").textContent=formatBytes(file.size);
+    $("size").textContent=formatBytes(file.size);
+    $("res").textContent=img.naturalWidth+" × "+img.naturalHeight;
+    $("remove").disabled=false;$("reset").disabled=false;
+    $("result").hidden=true;$("resultPlaceholder").style.display="block";
+    cutoutBlob=null;$("download").disabled=true;
+    setStatus("Ready. Click Remove Background.");
+  };img.src=sourceUrl;
+}
+async function processImage(){
+  if(!sourceFile||busy)return;
+  busy=true;$("remove").disabled=true;$("download").disabled=true;$("engine").textContent="Loading AI…";$("bar").style.width="4%";
+  setStatus("Preparing AI model… first use may take longer while the model is cached.");
+  try{
+    const modelSize=$("mode").value;
+    const config={model:modelSize,progress:(key,current,total)=>{const p=Math.min(92,Math.max(5,Math.round(current/Math.max(total,1)*85)));$("bar").style.width=p+"%";setStatus(key==="fetch:download"?"Downloading AI model…":key==="compute:inference"?"Detecting foreground…":"Removing background…")}};
+    cutoutBlob=await removeBackground(sourceFile,config);
+    $("engine").textContent=modelSize==="medium"?"High Accuracy":"Fast";
+    $("bar").style.width="96%";
+    await renderResult();
+    $("bar").style.width="100%";$("download").disabled=false;
+    setStatus("Done. Background removed. Choose transparent, color or image background.");
+  }catch(err){
+    console.error(err);setStatus("Could not process this image. Try a JPG/PNG/WebP or switch to Fast mode.");$("bar").style.width="0";
+  }finally{busy=false;$("remove").disabled=!sourceFile}
+}
+async function renderResult(){
+  if(!cutoutBlob)return;
+  const fg=new Image();fg.onload=async()=>{
+    const canvas=$("result"),ctx=canvas.getContext("2d");
+    canvas.width=fg.naturalWidth;canvas.height=fg.naturalHeight;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(bgMode==="color"){ctx.fillStyle=$("bgColor").value;ctx.fillRect(0,0,canvas.width,canvas.height)}
+    if(bgMode==="image"&&bgUrl){
+      const bg=new Image();bg.onload=()=>{drawCover(ctx,bg,canvas.width,canvas.height);ctx.drawImage(fg,0,0);finishCanvas()};bg.src=bgUrl;return;
+    }
+    ctx.drawImage(fg,0,0);finishCanvas();
+  };fg.src=URL.createObjectURL(cutoutBlob);
+}
+function drawCover(ctx,img,w,h){
+  const s=Math.max(w/img.naturalWidth,h/img.naturalHeight),nw=img.naturalWidth*s,nh=img.naturalHeight*s;
+  ctx.drawImage(img,(w-nw)/2,(h-nh)/2,nw,nh);
+}
+function finishCanvas(){
+  const canvas=$("result");canvas.hidden=false;$("resultPlaceholder").style.display="none";
+  $("resultMeta").textContent=bgMode==="transparent"?"Transparent PNG":bgMode==="color"?"Color Background":"Image Background";
+}
+function downloadResult(){
+  const canvas=$("result");if(canvas.hidden)return;
+  const isJpg=$("format").value==="jpg";
+  const mime=isJpg?"image/jpeg":"image/png";
+  const bgRequired=isJpg||bgMode!=="transparent";
+  const out=document.createElement("canvas");out.width=canvas.width;out.height=canvas.height;const c=out.getContext("2d");
+  if(bgRequired){c.fillStyle=bgMode==="color"?$("bgColor").value:"#ffffff";c.fillRect(0,0,out.width,out.height)}
+  c.drawImage(canvas,0,0);
+  out.toBlob(blob=>{
+    if(!blob)return;
+    const a=document.createElement("a"),name=(sourceFile?.name||"image").replace(/\.[^.]+$/,"")+"-no-bg."+(isJpg?"jpg":"png");
+    a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1200);
+  },mime,isJpg?.92:undefined);
+}
+function resetAll(){
+  if(sourceUrl)URL.revokeObjectURL(sourceUrl);sourceUrl="";sourceFile=null;cutoutBlob=null;
+  if(bgUrl)URL.revokeObjectURL(bgUrl);bgUrl="";bgFile=null;$("files").value="";$("bgImage").value="";
+  $("inputCanvas").innerHTML='<div class="placeholder">Upload a portrait, passport photo, product photo or any image.</div><div class="input-overlay"><div id="drop" class="drop"><div style="font-size:25px">🖼️</div><h2>Drop Image Here</h2><p>JPG / PNG / WebP • One image at a time</p><button id="pick" class="choose">Choose Image</button><input id="files" type="file" accept="image/jpeg,image/png,image/webp" hidden></div></div>';
+  location.reload();
+}
+</script>
+</body>
+</html>
