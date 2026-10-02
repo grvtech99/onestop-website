@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20261002-15';
+  const MANIFEST_URL = './data/articles.json?v=20261002-16';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -49,14 +49,16 @@
   function liked(id){try{return localStorage.getItem('gw-liked-'+id)==='1';}catch(_){return false;}}
   function card(a){
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
-    const image=String(a.image||a.coverImage||a.thumbnail||'');
+    const imageBase=String(a.image||a.coverImage||a.thumbnail||'');
+    const image=imageBase ? imageBase + (imageBase.includes('?')?'&':'?') + 'v=' + encodeURIComponent(String(a.updatedAt||a.publishedAt||'')) : '';
     const media=image?`<div class=\"post-cover-link\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image)}\" alt=\"${esc(a.title)}\" width=\"104\" height=\"59\" loading=\"lazy\" decoding=\"async\" fetchpriority=\"low\"></a><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
     const metaParts=[];const authorName=String(a.author||'Gaurav Yadav').trim()||'Gaurav Yadav';metaParts.push(`<span class="author">${esc(authorName)}</span>`);const published=a.publishedAt||a.date||a.updatedAt||a.createdAt||'';if(published){const d=new Date(published);metaParts.push(Number.isNaN(d.getTime())?esc(published):esc(new Intl.DateTimeFormat('hi-IN',{day:'numeric',month:'short',year:'numeric'}).format(d)));}const meta=metaParts.length?`<div class="post-meta" aria-label="लेखक और प्रकाशित तारीख">${metaParts.join(' · ')}</div>`:'';return `<article class="post">${media}<div class="post-content"><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2>${meta}</div></article>`;
   }
   function featured(a){
     if(!a)return '';
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
-    const image=String(a.image||a.coverImage||a.thumbnail||'');
+    const imageBase=String(a.image||a.coverImage||a.thumbnail||'');
+    const image=imageBase ? imageBase + (imageBase.includes('?')?'&':'?') + 'v=' + encodeURIComponent(String(a.updatedAt||a.publishedAt||'')) : '';
     const media=image?`<a class=\"featured-media\" href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img src=\"${esc(image)}\" alt=\"${esc(a.title)}\" width=\"1280\" height=\"720\" loading=\"eager\" decoding=\"async\" fetchpriority=\"high\"></a>`:'';
     const summary=String(a.summary||a.description||'');
     return `<article class=\"featured-story\">${media}<div class=\"featured-copy\"><span class=\"featured-label\">FEATURED STORY · आज की खास कहानी</span><p class=\"featured-category\">${esc(a.category||'Gaurav’s World')}</p><a class=\"featured-title\" href=\"${esc(href)}\">${esc(a.title)}</a>${summary?`<p class=\"featured-summary\">${esc(summary)}</p>`:''}<a class=\"featured-read\" href=\"${esc(href)}\">पूरा लेख पढ़ें <span aria-hidden=\"true\">→</span></a></div></article>`;
