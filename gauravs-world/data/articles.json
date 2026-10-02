@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "ai-cyber-crime-ai-powered-scams",
+      "slug": "ai-cyber-crime-ai-powered-scams",
+      "title": "AI से Cyber Crime: AI-Powered Scams से कैसे बचें?",
+      "category": "Technology",
+      "summary": "AI अब सिर्फ useful tools बनाने के लिए नहीं, बल्कि phishing, deepfake, voice cloning और impersonation scams को ज्यादा convincing बनाने के लिए भी इस्तेमाल हो रहा है। जानिए AI-powered cyber scams कैसे काम करते हैं और उनसे बचने के practical तरीके क्या हैं।",
+      "image": "images/ai-cyber-crime-ai-powered-scams-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-10-02T14:30:00+05:30",
+      "updatedAt": "2026-10-02T09:00:00Z"
+    },
+    {
       "id": "india-ai-always-on-agents-persistent-ai-agents-2026",
       "slug": "india-ai-always-on-agents-persistent-ai-agents-2026",
       "title": "India में AI का Next Step: Always-On AI Agents क्या होते हैं?",
@@ -352,5 +364,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-10-02T17:17:54.877Z"
+  "updatedAt": "2026-10-02T09:00:00Z"
 }
