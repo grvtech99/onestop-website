@@ -1,0 +1,129 @@
+name: Build Thar OG branded hero
+
+on:
+  push:
+    paths:
+      - ".github/workflows/build-thar-og-hero.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install image tools and Devanagari font
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends fonts-deva
+          python -m pip install --quiet pillow
+
+      - name: Download real Thar OG photo
+        run: |
+          curl -L --fail --retry 3 --max-time 60 \
+            'https://imgd.aeplcdn.com/642x336/n/cw/ec/219824/thar-facelift-exterior-right-front-three-quarter-6.jpeg?isig=0&q=80' \
+            -o /tmp/thar-og-source.jpg
+
+      - name: Build branded WebP hero
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageDraw, ImageFont, ImageFilter
+          import os, textwrap
+
+          W, H = 1280, 720
+          src = Image.open('/tmp/thar-og-source.jpg').convert('RGB')
+          ratio = max(W/src.width, H/src.height)
+          nw, nh = int(src.width*ratio), int(src.height*ratio)
+          src = src.resize((nw, nh), Image.Resampling.LANCZOS)
+          left = (nw-W)//2
+          top = (nh-H)//2
+          bg = src.crop((left, top, left+W, top+H))
+
+          # Premium dark-blue editorial treatment while keeping the real vehicle photo visible.
+          overlay = Image.new('RGBA', (W,H), (7,28,62,0))
+          od = ImageDraw.Draw(overlay)
+          od.rectangle((0,0,W,H), fill=(5,24,55,72))
+          od.rectangle((0,0,560,H), fill=(4,22,55,205))
+          bg = Image.alpha_composite(bg.convert('RGBA'), overlay)
+
+          # Subtle bottom information band.
+          band = Image.new('RGBA',(W,142),(3,18,45,0))
+          bd = ImageDraw.Draw(band)
+          bd.rectangle((0,0,W,142), fill=(3,18,45,238))
+          bg.alpha_composite(band,(0,H-142))
+
+          regular = '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
+          dev = '/usr/share/fonts/truetype/deva/DejaVuSansDevanagari-Bold.ttf'
+          if not os.path.exists(dev):
+              dev = regular
+
+          f_brand = ImageFont.truetype(regular, 34)
+          f_tag = ImageFont.truetype(regular, 22)
+          f_title_en = ImageFont.truetype(regular, 58)
+          f_title_hi = ImageFont.truetype(dev, 45)
+          f_price = ImageFont.truetype(dev, 34)
+          f_small = ImageFont.truetype(regular, 22)
+          f_feature = ImageFont.truetype(dev, 21)
+
+          d = ImageDraw.Draw(bg)
+
+          # Top-left Gaurav's World branding.
+          d.rounded_rectangle((28,22,405,82), radius=18, fill=(255,255,255,242))
+          d.text((48,34), "Gaurav’s World", font=f_brand, fill=(16,91,190,255))
+
+          # Top-right category.
+          d.rounded_rectangle((1005,22,1250,78), radius=18, fill=(232,32,32,245))
+          d.text((1032,36), "TRENDING • AUTO", font=f_tag, fill=(255,255,255,255))
+
+          # Headline panel.
+          d.text((42,126), "नई Mahindra", font=f_title_hi, fill=(255,255,255,255))
+          d.text((42,188), "Thar OG", font=f_title_en, fill=(255,214,28,255))
+          d.rounded_rectangle((42,260,265,312), radius=14, fill=(232,32,32,250))
+          d.text((63,270), "लॉन्च", font=f_title_hi, fill=(255,255,255,255))
+
+          # Price.
+          d.text((42,332), "₹10.32 लाख से शुरू", font=f_price, fill=(255,224,40,255))
+          d.text((44,377), "Introductory Ex-showroom Price", font=f_small, fill=(255,255,255,235))
+
+          # Launch/delivery dates.
+          d.rounded_rectangle((40,430,548,495), radius=14, fill=(10,52,104,235), outline=(40,142,255,255), width=2)
+          d.text((58,441), "Launch: 22 September 2026   •   Deliveries: 11 October 2026", font=f_small, fill=(255,255,255,255))
+
+          # Bottom feature cards.
+          cards = [
+              ("4x4", "हर रास्ते के लिए"),
+              ("6 Airbags", "सुरक्षा में बड़ा upgrade"),
+              ("ELD", "बेहतर off-road control"),
+              ("MUD • SAND • SNOW", "Terrain Modes"),
+          ]
+          x0, y0, gap, cw = 28, H-118, 14, 294
+          for i,(head,sub) in enumerate(cards):
+              x=x0+i*(cw+gap)
+              d.rounded_rectangle((x,y0,x+cw,H-18), radius=16, fill=(8,46,92,245), outline=(35,139,255,255), width=2)
+              d.text((x+18,y0+16), head, font=f_tag, fill=(255,218,35,255))
+              d.text((x+18,y0+50), sub, font=f_feature, fill=(255,255,255,245))
+
+          out='gauravs-world/images/mahindra-thar-og-2026-hero.webp'
+          os.makedirs(os.path.dirname(out), exist_ok=True)
+          bg.convert('RGB').save(out, 'WEBP', quality=86, method=6)
+          print(out, os.path.getsize(out))
+          PY
+
+      - name: Commit hero image
+        run: |
+          git config user.name "grvtech99"
+          git config user.email "109285656+grvtech99@users.noreply.github.com"
+          git add gauravs-world/images/mahindra-thar-og-2026-hero.webp
+          git commit -m "Add branded Thar OG hero image"
+          git push
+
+      - name: Remove temporary workflow
+        if: success()
+        run: |
+          rm -f .github/workflows/build-thar-og-hero.yml
+          git add .github/workflows/build-thar-og-hero.yml
+          git commit -m "Remove temporary Thar OG hero workflow"
+          git push
