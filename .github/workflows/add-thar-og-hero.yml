@@ -30,12 +30,7 @@ jobs:
           open("/tmp/thar.jpg","wb").write(data)
           PY
           mkdir -p gauravs-world/images
-          python - <<'PY'
-          from PIL import Image
-          im=Image.open("/tmp/thar.jpg").convert("RGB")
-          im.save("gauravs-world/images/mahindra-thar-og-2026-hero.webp","WEBP",quality=88,method=6)
-          print(im.size)
-          PY
+          magick /tmp/thar.jpg -strip -quality 88 gauravs-world/images/mahindra-thar-og-2026-hero.webp
       - name: Commit image and point manifest to it
         run: |
           python - <<'PY'
