@@ -1,6 +1,8 @@
 name: Build Always-On AI hero WebP
 on:
-  workflow_dispatch:
+  push:
+    paths:
+      - 'gauravs-world/images/always-on-ai-agents-hero.svg'
 permissions:
   contents: write
 jobs:
