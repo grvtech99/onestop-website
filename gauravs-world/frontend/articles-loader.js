@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20261003-23';
+  const MANIFEST_URL = './data/articles.json?v=20261003-24';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -80,7 +80,7 @@
       return `<section class="home-section"><div class="section-head"><h2>${name}</h2><button class="section-view" type="button" data-view="${esc(key)}">View all →</button></div><div class="section-grid">${body}</div></section>`;
     };
     let html=featured(lead);
-    html+=section('Latest Articles',remaining.slice(0,6).map((a,i)=>({...a,__homePriority:i<2?'eager':'lazy'})),'all');
+    html+=section('Latest Articles',remaining.slice(0,6).map((a,i)=>({...a,__homePriority:i===0?'eager':'lazy'})),'all');
     groups.forEach((group,index)=>{
       const keys=new Set(group.keys.map(x=>x.toLowerCase()));
       const items=filtered.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
