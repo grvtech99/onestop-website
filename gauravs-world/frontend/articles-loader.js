@@ -50,7 +50,7 @@
   function homepageImage(imageBase,width,version){
     if(!imageBase)return {src:'',original:''};
     const original=imageBase+(imageBase.includes('?')?'&':'?')+'v='+version;
-    const local=/^images\\/[A-Za-z0-9][A-Za-z0-9._\\/-]*\\.(?:webp|png|jpe?g)$/i.test(imageBase)&&!imageBase.includes('..');
+    const local=/^images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:webp|png|jpe?g)$/i.test(imageBase)&&!imageBase.includes('..');
     if(!local)return {src:original,original};
     const dot=imageBase.lastIndexOf('.');
     const name=imageBase.slice(0,dot).split('/').pop();
