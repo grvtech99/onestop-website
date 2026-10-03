@@ -266,8 +266,10 @@
       if (!a || !a.title) throw new Error('invalid article');
       const body = a.bodyHtml ? sanitizeStoredHtml(a.bodyHtml) : (a.bodyMarkdown || a.body || a.content || '');
       const imagePath = String(a.image || a.coverImage || '').trim();
-      const coverUrl = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(imagePath) && !imagePath.includes('..') ? `./${imagePath}` : '';
-      const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(coverUrl)}" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
+      const validImagePath = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(imagePath) && !imagePath.includes('..');
+      const coverUrl = validImagePath ? `./${imagePath}` : '';
+      const optimizedBase = validImagePath ? `./${imagePath.replace(/\\.(png|jpe?g|webp|svg)$/i,'').replace(/^images\\//,'images/optimized/')}` : '';
+      const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(optimizedBase ? optimizedBase + '-480.webp' : coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(optimizedBase ? optimizedBase + '-1200.webp' : coverUrl)}" srcset="${esc(optimizedBase ? optimizedBase + '-480.webp 480w, ' + optimizedBase + '-800.webp 800w, ' + optimizedBase + '-1200.webp 1200w' : coverUrl)}" sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px" width="1200" height="675" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='${esc(coverUrl)}'"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${a.bodyHtml ? body : markdown(body)}</div>`;
       addBreadcrumb(a.category || 'General', a.title);
       addShareControls(a.title);
