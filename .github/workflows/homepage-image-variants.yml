@@ -1,8 +1,9 @@
-name: Homepage Image Variants
+name: Homepage and Article Image Variants
 on:
   push:
     paths:
       - 'gauravs-world/data/articles.json'
+      - 'gauravs-world/data/articles/**'
       - 'gauravs-world/images/**'
       - '!gauravs-world/images/optimized/**'
 permissions:
@@ -16,21 +17,53 @@ jobs:
         with:
           node-version: 20
       - run: npm install --no-save sharp@0.33.5
-      - name: Generate 480px and 960px WebP variants
+      - name: Generate responsive WebP variants
         run: |
           node <<'NODE'
           const fs=require('fs'),path=require('path'),sharp=require('sharp');
-          const m=JSON.parse(fs.readFileSync('gauravs-world/data/articles.json','utf8'));
-          const imgs=[...new Set(m.articles.map(a=>String(a.image||'')).filter(p=>/^images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:webp|png|jpe?g)$/i.test(p)))];
+          const root='gauravs-world';
+          const index=JSON.parse(fs.readFileSync(path.join(root,'data/articles.json'),'utf8'));
+          const sources=new Set();
+          const add=(v)=>{
+            const p=String(v||'').trim();
+            if(/^images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:webp|png|jpe?g|svg)$/i.test(p)) sources.add(p);
+          };
+          (index.articles||[]).forEach(a=>add(a.image||a.coverImage));
+          const dir=path.join(root,'data/articles');
+          if(fs.existsSync(dir)){
+            for(const file of fs.readdirSync(dir)){
+              if(!file.endsWith('.json')) continue;
+              try{
+                const a=JSON.parse(fs.readFileSync(path.join(dir,file),'utf8'));
+                add(a.image||a.coverImage);
+              }catch(_){}
+            }
+          }
           (async()=>{
-            const out='gauravs-world/images/optimized';
+            const out=path.join(root,'images/optimized');
             fs.mkdirSync(out,{recursive:true});
-            for(const rel of imgs){
-              const src=path.join('gauravs-world',rel);
+            const targets=[480,800,1200];
+            for(const rel of sources){
+              const src=path.join(root,rel);
               if(!fs.existsSync(src)) continue;
               const b=path.basename(rel,path.extname(rel));
-              await sharp(src).resize({width:480,withoutEnlargement:true,fit:'inside'}).webp({quality:78,effort:5}).toFile(path.join(out,b+'-480.webp'));
-              await sharp(src).resize({width:960,withoutEnlargement:true,fit:'inside'}).webp({quality:82,effort:5}).toFile(path.join(out,b+'-960.webp'));
+              for(const width of targets){
+                let result=null;
+                for(const q of [80,74,68,62,56,50,44,38]){
+                  result=await sharp(src).resize({
+                    width,height:Math.round(width*9/16),fit:'cover',position:'centre',withoutEnlargement:true
+                  }).webp({quality:q,effort:6}).toBuffer();
+                  if(result.length<=100*1024) break;
+                }
+                let actualWidth=width;
+                while(result.length>100*1024 && actualWidth>360){
+                  actualWidth=Math.round(actualWidth*0.9);
+                  result=await sharp(src).resize({
+                    width:actualWidth,height:Math.round(actualWidth*9/16),fit:'cover',position:'centre',withoutEnlargement:true
+                  }).webp({quality:38,effort:6}).toBuffer();
+                }
+                fs.writeFileSync(path.join(out,b+'-'+width+'.webp'),result);
+              }
             }
           })().catch(e=>{console.error(e);process.exit(1)});
           NODE
@@ -39,5 +72,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add gauravs-world/images/optimized
-          git diff --cached --quiet || git commit -m "Update homepage image variants"
+          git diff --cached --quiet || git commit -m "Optimize article and homepage image variants"
           git push
