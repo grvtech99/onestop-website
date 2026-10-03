@@ -1,10 +1,11 @@
 /* Published article reader enhancement. Render Markdown images and formatting safely. */
 (() => {
   'use strict';
+  window.__gwArticleLoaderStarted = true;
   const params = new URLSearchParams(location.search);
-  const id = params.get('id');
+  const id = String(params.get('id') || params.get('slug') || '').trim();
   const legacy = new Set(['computer-basics','online-safety','ai-tools','digital-skills','pdf-mobile','typing-practice']);
-  if (!id || legacy.has(id) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)) return;
+  if (!id || legacy.has(id) || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(id)) return;
   const root = document.getElementById('article');
   if (!root) return;
   const esc = value => String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -260,26 +261,26 @@
       } catch (_) { window.prompt('Copy article link:', url); }
     });
   }
-  fetch(`./data/articles/${encodeURIComponent(id)}.json?v=20260924-5`,{cache:'no-cache'})
+  const articleUrl = new URL(`./data/articles/${encodeURIComponent(id)}.json?v=20261003-article10`, location.href).href;
+  fetch(articleUrl,{cache:'no-store',credentials:'same-origin'})
     .then(r => { if (!r.ok) throw new Error('not found'); return r.json(); })
     .then(a => {
       if (!a || !a.title) throw new Error('invalid article');
       const body = a.bodyHtml ? sanitizeStoredHtml(a.bodyHtml) : (a.bodyMarkdown || a.body || a.content || '');
       const imagePath = String(a.image || a.coverImage || '').trim();
-      const validImagePath = /^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(imagePath) && !imagePath.includes('..');
-      const coverUrl = validImagePath ? `./${imagePath}` : '';
-      const optimizedBase = validImagePath ? `./${imagePath.replace(/\.(png|jpe?g|webp|svg)$/i,'').replace(/^images\//,'images/optimized/')}` : '';
-      const cover = coverUrl ? `<figure class="article-cover"><img class="article-image-bg" src="${esc(optimizedBase ? optimizedBase + '-480.webp' : coverUrl)}" alt="" aria-hidden="true" loading="eager" decoding="async"><img src="${esc(optimizedBase ? optimizedBase + '-1200.webp' : coverUrl)}" srcset="${esc(optimizedBase ? optimizedBase + '-480.webp 480w, ' + optimizedBase + '-800.webp 800w, ' + optimizedBase + '-1200.webp 1200w' : coverUrl)}" sizes="(max-width: 600px) 480px, (max-width: 900px) 800px, 1200px" width="1200" height="675" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async" onerror="this.onerror=null;this.removeAttribute('srcset');this.src='${esc(coverUrl)}'"></figure>` : '';
+      const coverUrl = safeImageUrl(imagePath);
+      const cover = coverUrl ? `<figure class="article-cover"><img src="${esc(coverUrl)}" width="1200" height="675" alt="${esc(a.title)}" loading="eager" fetchpriority="high" decoding="async"></figure>` : '';
       root.innerHTML = `<span class="tag">${esc(a.category || 'General')}</span><h1>${esc(a.title)}</h1>${cover}<p class="date">${esc(a.updatedAt || a.date || 'Published')}</p>${a.summary ? `<p class="notice">${esc(a.summary)}</p>` : ''}<div class="article-body">${a.bodyHtml ? body : markdown(body)}</div>`;
-      addBreadcrumb(a.category || 'General', a.title);
-      addShareControls(a.title);
+      try { addBreadcrumb(a.category || 'General', a.title); } catch (_) {}
+      try { addShareControls(a.title); } catch (_) {}
       root.querySelectorAll('.article-body img').forEach(img => {
         img.style.display = 'block'; img.style.width = '100%'; img.style.maxWidth = '100%'; img.style.height = '100%'; img.style.maxHeight = 'none'; img.style.margin = '0 auto'; img.style.objectFit = 'contain'; img.style.borderRadius = '10px';
         img.addEventListener('error', () => { const figure = img.closest('figure'); if (figure) figure.remove(); else img.remove(); });
       });
       document.title = `${a.title} | Gaurav's World`;
       window.gwArticle = a;
+      window.__gwArticleLoaded = true;
       window.dispatchEvent(new CustomEvent('gw:article-loaded',{detail:a}));
     })
-    .catch(() => { root.innerHTML = `<h1>${esc(readable)}</h1><p>यह लेख अभी लोड नहीं हो पाया। कृपया इंटरनेट कनेक्शन जाँचकर पेज दोबारा खोलें।</p><p><a href="./">सभी लेखों पर वापस जाएँ</a></p>`; });
+    .catch((error) => { console.error('Gaurav’s World article load failed:', error); root.innerHTML = `<h1>${esc(readable)}</h1><p>यह लेख अभी लोड नहीं हो पाया। कृपया पेज को एक बार refresh करें।</p><p><a href="./">सभी लेखों पर वापस जाएँ</a></p>`; });
 })();
