@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20261003-22';
+  const MANIFEST_URL = './data/articles.json?v=20261003-23';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -90,6 +90,7 @@
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),author:String(item.author||'Gaurav Yadav'),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
 async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'Gaurav Yadav',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'https://onestopfzd.in/gauravs-world/author-gaurav.html',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
+  function preloadFeatured(list){const lead=list.slice().sort((a,b)=>timestamp(b)-timestamp(a))[0];const imageBase=lead?String(lead.image||lead.coverImage||lead.thumbnail||''):'';if(!imageBase)return;const image=imageBase+(imageBase.includes('?')?'&':'?')+'v='+encodeURIComponent(String(lead.updatedAt||lead.publishedAt||''));const img=new Image();img.fetchPriority='high';img.decoding='async';img.src=image;}
   function revealFeed(){requestAnimationFrame(()=>root.classList.add('home-ready'));}
   root.addEventListener('click',async event=>{
     const view=event.target.closest('[data-view]');if(view){const key=view.dataset.view||'all';listMode=true;listModeKeys=null;listModeCategory='all';if(key.startsWith('group-')){const index=Number(key.slice(6));const group=groups[index];if(group)listModeKeys=group.keys.map(x=>x.toLowerCase());}category.value='all';root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
@@ -99,5 +100,5 @@ async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.aut
   search.addEventListener('input',()=>render(window.articles||fallbackArticles));
   category.addEventListener('change',()=>{listMode=false;listModeCategory='all';listModeKeys=null;render(window.articles||fallbackArticles);});
   root.innerHTML='';
-  fetch(MANIFEST_URL,{cache:'default'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));const list=Array.from(byId.values());window.articles=list;render(list);revealFeed();}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class="empty">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';revealFeed();});
+  fetch(MANIFEST_URL,{cache:'default'}).then(r=>{if(!r.ok)throw new Error('manifest unavailable: '+r.status);return r.json();}).then(data=>{const published=Array.isArray(data.articles)?data.articles.map(normalize).filter(Boolean):[];const byId=new Map(fallbackArticles.map(a=>[String(a.slug||a.id),a]));published.forEach(a=>byId.set(a.id,a));const list=Array.from(byId.values());window.articles=list;preloadFeatured(list);render(list);revealFeed();}).catch(()=>{window.articles=fallbackArticles;render(fallbackArticles);if(!fallbackArticles.length)root.innerHTML='<div class="empty">लेख लोड नहीं हो पाए। कृपया refresh करें।</div>';revealFeed();});
 })();
