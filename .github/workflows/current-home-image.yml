@@ -1,0 +1,31 @@
+name: Build current homepage image variants
+on:
+  push:
+    paths:
+      - '.github/current-home-image.trigger'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save sharp@0.33.5
+      - name: Generate current variants
+        run: |
+          node <<'NODE'
+          const fs=require('fs'),path=require('path'),sharp=require('sharp');
+          const m=JSON.parse(fs.readFileSync('gauravs-world/data/articles.json','utf8'));
+          const imgs=[...new Set(m.articles.map(a=>String(a.image||'')).filter(p=>/^images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:webp|png|jpe?g)$/i.test(p)))];
+          (async()=>{for(const rel of imgs){const src=path.join('gauravs-world',rel);if(!fs.existsSync(src))continue;const b=path.basename(rel,path.extname(rel));const out='gauravs-world/images/optimized';fs.mkdirSync(out,{recursive:true});await sharp(src).resize({width:480,withoutEnlargement:true,fit:'inside'}).webp({quality:78,effort:5}).toFile(path.join(out,b+'-480.webp'));await sharp(src).resize({width:960,withoutEnlargement:true,fit:'inside'}).webp({quality:82,effort:5}).toFile(path.join(out,b+'-960.webp'));}})().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gauravs-world/images/optimized
+          git diff --cached --quiet || git commit -m "Refresh current homepage image variants"
+          git push
