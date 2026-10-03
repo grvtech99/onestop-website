@@ -1,7 +1,7 @@
 /* Category-aware compact homepage feed. */
 (function () {
   'use strict';
-  const MANIFEST_URL = './data/articles.json?v=20261003-24';
+  const MANIFEST_URL = './data/articles.json?v=20261003-25';
   const root = document.getElementById('posts');
   const search = document.getElementById('search');
   const category = document.getElementById('category');
@@ -47,12 +47,27 @@
   const esc = value => String(value == null ? '' : value).replace(/[&<>\\"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','\\"':'&quot;',"'":'&#39;'}[ch]));
   function timestamp(a){const v=Date.parse(a.updatedAt||a.publishedAt||a.date||a.createdAt||'');return Number.isFinite(v)?v:0;}
   function liked(id){try{return localStorage.getItem('gw-liked-'+id)==='1';}catch(_){return false;}}
+  function homepageImage(imageBase,width,version){
+    if(!imageBase)return {src:'',original:''};
+    const original=imageBase+(imageBase.includes('?')?'&':'?')+'v='+version;
+    const local=/^images\\/[A-Za-z0-9][A-Za-z0-9._\\/-]*\\.(?:webp|png|jpe?g)$/i.test(imageBase)&&!imageBase.includes('..');
+    if(!local)return {src:original,original};
+    const dot=imageBase.lastIndexOf('.');
+    const name=imageBase.slice(0,dot).split('/').pop();
+    return {src:'./images/optimized/'+name+'-'+width+'.webp?v='+version,original};
+  }
+  function wireImageFallbacks(){
+    root.querySelectorAll('img[data-original-src]').forEach(img=>img.addEventListener('error',()=>{
+      if(img.dataset.fallbackApplied==='1')return;
+      img.dataset.fallbackApplied='1'; img.src=img.dataset.originalSrc;
+    }));
+  }
   function card(a, priorityMode=(a&&a.__homePriority)||'lazy'){
     const id=String(a.slug||a.id||'');const eager=priorityMode==='eager';const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
     const imageBase=String(a.image||a.coverImage||a.thumbnail||'');
     const version=encodeURIComponent(String(a.updatedAt||a.publishedAt||''));
-    const image=imageBase ? imageBase + (imageBase.includes('?')?'&':'?') + 'v=' + version : '';
-    const media=image?`<div class=\"post-cover-link\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image)}\" alt=\"${esc(a.title)}\" width=\"104\" height=\"59\" loading=\"${eager?'eager':'lazy'}\" decoding=\"async\" fetchpriority=\"${eager?'high':'auto'}\"></a><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
+    const image=homepageImage(imageBase,480,version);
+    const media=image.src?`<div class=\"post-cover-link\"><a href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img class=\"post-cover\" src=\"${esc(image.src)}\" data-original-src=\"${esc(image.original)}\" alt=\"${esc(a.title)}\" width=\"104\" height=\"59\" loading=\"${eager?'eager':'lazy'}\" decoding=\"async\" fetchpriority=\"${eager?'high':'auto'}\"></a><span class=\"post-actions\"><button class=\"post-action like-action${liked(id)?' is-liked':''}\" type=\"button\" data-like=\"${esc(id)}\" aria-label=\"Like\" aria-pressed=\"${liked(id)}\"><svg viewBox=\"0 0 24 24\"><path d=\"M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z\"/></svg></button><button class=\"post-action share-action\" type=\"button\" data-share=\"${esc(id)}\" data-title=\"${esc(a.title)}\" data-url=\"${esc(new URL(href,location.href).href)}\" aria-label=\"Share\"><svg viewBox=\"0 0 24 24\"><circle cx=\"18\" cy=\"5\" r=\"3\"/><circle cx=\"6\" cy=\"12\" r=\"3\"/><circle cx=\"18\" cy=\"19\" r=\"3\"/><path d=\"m8.7 10.7 6.6-4.4M8.7 13.3l6.6 4.4\"/></svg></button></span></div>`:`<a class=\"post-cover-link\" href=\"${esc(href)}\"></a>`;
     const metaParts=[];const authorName=String(a.author||'Gaurav Yadav').trim()||'Gaurav Yadav';metaParts.push(`<span class="author">${esc(authorName)}</span>`);const published=a.publishedAt||a.date||a.updatedAt||a.createdAt||'';if(published){const d=new Date(published);metaParts.push(Number.isNaN(d.getTime())?esc(published):esc(new Intl.DateTimeFormat('hi-IN',{day:'numeric',month:'short',year:'numeric'}).format(d)));}const meta=metaParts.length?`<div class="post-meta" aria-label="लेखक और प्रकाशित तारीख">${metaParts.join(' · ')}</div>`:'';return `<article class="post">${media}<div class="post-content"><h2><a class="post-title" href="${esc(href)}">${esc(a.title)}</a></h2>${meta}</div></article>`;
   }
   function featured(a){
@@ -60,8 +75,8 @@
     const id=String(a.slug||a.id||'');const href=`article-dynamic.html?id=${encodeURIComponent(id)}`;
     const imageBase=String(a.image||a.coverImage||a.thumbnail||'');
     const version=encodeURIComponent(String(a.updatedAt||a.publishedAt||''));
-    const image=imageBase ? imageBase + (imageBase.includes('?')?'&':'?') + 'v=' + version : '';
-    const media=image?`<a class=\"featured-media\" href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img src=\"${esc(image)}\" alt=\"${esc(a.title)}\" width=\"1280\" height=\"720\" loading=\"eager\" decoding=\"async\" fetchpriority=\"high\"></a>`:'';
+    const image=homepageImage(imageBase,960,version);
+    const media=image.src?`<a class=\"featured-media\" href=\"${esc(href)}\" aria-label=\"${esc(a.title)} पढ़ें\"><img src=\"${esc(image.src)}\" data-original-src=\"${esc(image.original)}\" alt=\"${esc(a.title)}\" width=\"1280\" height=\"720\" loading=\"eager\" decoding=\"async\" fetchpriority=\"high\"></a>`:'';
     const summary=String(a.summary||a.description||'');
     return `<article class=\"featured-story\">${media}<div class=\"featured-copy\"><span class=\"featured-label\">FEATURED STORY · आज की खास कहानी</span><p class=\"featured-category\">${esc(a.category||'Gaurav’s World')}</p><a class=\"featured-title\" href=\"${esc(href)}\">${esc(a.title)}</a>${summary?`<p class=\"featured-summary\">${esc(summary)}</p>`:''}<a class=\"featured-read\" href=\"${esc(href)}\">पूरा लेख पढ़ें <span aria-hidden=\"true\">→</span></a></div></article>`;
   }
@@ -74,7 +89,7 @@
   function render(list){
     const q=search.value.trim().toLowerCase();const selected=listMode?listModeCategory:category.value;
     const filtered=list.filter(a=>{const cat=String(a.category||'').toLowerCase();const inScope=listMode&&Array.isArray(listModeKeys)?listModeKeys.includes(cat):(selected==='all'||cat===selected.toLowerCase());return inScope&&(String(a.title||'')+' '+String(a.description||a.summary||'')+' '+String(a.category||'')).toLowerCase().includes(q);}).slice().sort((a,b)=>timestamp(b)-timestamp(a));
-    if(listMode || selected!=='all' || q) {root.innerHTML=filtered.length?filtered.map(card).join(''):'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';return;}
+    if(listMode || selected!=='all' || q) {root.innerHTML=filtered.length?filtered.map(card).join(''):'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';wireImageFallbacks();return;}
     const lead=filtered[0];
     const remaining=lead?filtered.filter(a=>String(a.slug||a.id)!==String(lead.slug||lead.id)):filtered;
     const section=(name,items,key)=>{
@@ -88,11 +103,11 @@
       const items=filtered.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
       html+=section(group.title,items,'group-'+index);
     });
-    root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
+    root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';\n    wireImageFallbacks();
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),author:String(item.author||'Gaurav Yadav'),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
 async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'Gaurav Yadav',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'https://onestopfzd.in/gauravs-world/author-gaurav.html',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
-  function preloadFeatured(list){const lead=list.slice().sort((a,b)=>timestamp(b)-timestamp(a))[0];const imageBase=lead?String(lead.image||lead.coverImage||lead.thumbnail||''):'';if(!imageBase)return;const image=imageBase+(imageBase.includes('?')?'&':'?')+'v='+encodeURIComponent(String(lead.updatedAt||lead.publishedAt||''));const img=new Image();img.fetchPriority='high';img.decoding='async';img.src=image;}
+  function preloadFeatured(list){const lead=list.slice().sort((a,b)=>timestamp(b)-timestamp(a))[0];const imageBase=lead?String(lead.image||lead.coverImage||lead.thumbnail||''):'';if(!imageBase)return;const image=homepageImage(imageBase,960,encodeURIComponent(String(lead.updatedAt||lead.publishedAt||'')));const img=new Image();img.fetchPriority='high';img.decoding='async';img.src=image.src;}
   function revealFeed(){requestAnimationFrame(()=>root.classList.add('home-ready'));}
   root.addEventListener('click',async event=>{
     const view=event.target.closest('[data-view]');if(view){const key=view.dataset.view||'all';listMode=true;listModeKeys=null;listModeCategory='all';if(key.startsWith('group-')){const index=Number(key.slice(6));const group=groups[index];if(group)listModeKeys=group.keys.map(x=>x.toLowerCase());}category.value='all';root.scrollIntoView({behavior:'smooth',block:'start'});render(window.articles||fallbackArticles);return;}
