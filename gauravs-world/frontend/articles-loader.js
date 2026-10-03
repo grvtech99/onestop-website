@@ -76,11 +76,11 @@
     const lead=filtered[0];
     const remaining=lead?filtered.filter(a=>String(a.slug||a.id)!==String(lead.slug||lead.id)):filtered;
     const section=(name,items,key)=>{
-      const body=items.length?items.map((a,i)=>card(a, key==='all' && i<3)).join(''):'<div class="smart-empty">इस category में अभी कोई published article नहीं है।</div>';
+      const body=items.length?items.map((a,i)=>card(a, key==='all' && i<3 ? 'eager' : 'lazy')).join(''):'<div class="smart-empty">इस category में अभी कोई published article नहीं है।</div>';
       return `<section class="home-section"><div class="section-head"><h2>${name}</h2><button class="section-view" type="button" data-view="${esc(key)}">View all →</button></div><div class="section-grid">${body}</div></section>`;
     };
     let html=featured(lead);
-    html+=section('Latest Articles',remaining.slice(0,6).map((a,i)=>({...a,__homePriority:i===0?'eager':'lazy'})),'all');
+    html+=section('Latest Articles',remaining.slice(0,6),'all');
     groups.forEach((group,index)=>{
       const keys=new Set(group.keys.map(x=>x.toLowerCase()));
       const items=filtered.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
