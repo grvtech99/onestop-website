@@ -1,0 +1,28 @@
+name: Build Drishyam Hero WebP
+on:
+  push:
+    paths:
+      - 'gauravs-world/images/drishyam-3-box-office-day-2-hero.svg'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Convert SVG to WebP
+        working-directory: gauravs-world
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install sharp@0.33.5 >/dev/null 2>&1
+          node -e "require('sharp')('images/drishyam-3-box-office-day-2-hero.svg').resize(1280,720,{fit:'cover'}).webp({quality:84}).toFile('images/drishyam-3-box-office-day-2-hero.webp').then(()=>console.log('WebP built'))"
+      - name: Commit WebP
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gauravs-world/images/drishyam-3-box-office-day-2-hero.webp
+          git diff --cached --quiet || git commit -m "Add Drishyam 3 Day 2 hero WebP"
+          git push
