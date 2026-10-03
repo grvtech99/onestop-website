@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "3-indian-space-startups-falcon-9-2026",
+      "slug": "3-indian-space-startups-falcon-9-2026",
+      "title": "3 Indian Space Startups का Space Mission: Falcon 9 Launch Explained",
+      "category": "Science",
+      "summary": "SpaceX के Falcon 9 Transporter-18 rideshare mission में Dhruva Space, SatLeo Labs और TakeMe2Space की technologies orbit तक पहुंचीं। जानिए LEAP-2, TAPAS-1 और MOI-1A क्या कर रहे हैं और India के private space sector के लिए यह mission क्यों महत्वपूर्ण है।",
+      "image": "images/indian-space-startups-falcon9-2026-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-10-03T10:00:00+05:30",
+      "updatedAt": "2026-10-03T04:30:00Z"
+    },
+    {
       "id": "ai-cyber-crime-ai-powered-scams",
       "slug": "ai-cyber-crime-ai-powered-scams",
       "title": "AI से Cyber Crime: AI-Powered Scams से कैसे बचें?",
