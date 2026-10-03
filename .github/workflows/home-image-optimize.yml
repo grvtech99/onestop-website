@@ -1,0 +1,45 @@
+name: Build homepage responsive image variants
+on:
+  push:
+    paths:
+      - '.github/home-image-optimize.trigger'
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install image processor
+        run: npm install --no-save sharp@0.33.5
+      - name: Build homepage variants from manifest
+        run: |
+          node <<'NODE'
+          const fs=require('fs');
+          const path=require('path');
+          const sharp=require('sharp');
+          const manifest=JSON.parse(fs.readFileSync('gauravs-world/data/articles.json','utf8'));
+          const items=[...new Map(manifest.articles.map(a=>[a.image,a])).values()]
+            .map(a=>String(a.image||'')).filter(p=>/^images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:webp|png|jpe?g)$/i.test(p));
+          (async()=>{
+            for(const rel of items){
+              const src=path.join('gauravs-world',rel);
+              if(!fs.existsSync(src)) continue;
+              const base=path.basename(rel,path.extname(rel));
+              const outdir=path.join('gauravs-world','images','optimized');
+              fs.mkdirSync(outdir,{recursive:true});
+              await sharp(src).resize({width:480,withoutEnlargement:true,fit:'inside'}).webp({quality:78,effort:5}).toFile(path.join(outdir,base+'-480.webp'));
+              await sharp(src).resize({width:960,withoutEnlargement:true,fit:'inside'}).webp({quality:82,effort:5}).toFile(path.join(outdir,base+'-960.webp'));
+            }
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Commit variants
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add gauravs-world/images/optimized
+          git diff --cached --quiet || git commit -m "Add responsive homepage image variants"
+          git push
