@@ -13,5 +13,38 @@
   <a href="./?category=History#posts" aria-label="History"><span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v5l3 2M4 12H2"></path></svg></span><span>History</span></a>
   <a href="./#posts" aria-label="More"><span class="nav-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.3"></circle><circle cx="12" cy="12" r="1.3"></circle><circle cx="18" cy="12" r="1.3"></circle></svg></span><span>More</span></a>
 </nav>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script><script src="./frontend/article-loader.js?v=20261003-richhtml8"></script><script src="./frontend/article-seo.js?v=20260925-1"></script><script src="./frontend/article-reading-enhancements.js?v=20260924-4"></script>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script><script>
+(function(){
+  'use strict';
+  const root=document.getElementById('article');
+  if(!root) return;
+  const p=new URLSearchParams(location.search);
+  const id=String(p.get('id')||p.get('slug')||'').trim();
+  if(!id || !/^[A-Za-z0-9][A-Za-z0-9._-]*$/.test(id)) return;
+  function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+  function md(v){
+    return String(v||'').replace(/\r/g,'').split('\n').map(s=>s.trim()).filter(Boolean).map(s=>{
+      if(/^###\s+/.test(s)) return '<h3>'+esc(s.replace(/^###\s+/,''))+'</h3>';
+      if(/^##\s+/.test(s)) return '<h2>'+esc(s.replace(/^##\s+/,''))+'</h2>';
+      if(/^#\s+/.test(s)) return '<h2>'+esc(s.replace(/^#\s+/,''))+'</h2>';
+      if(/^[-*+]\s+/.test(s)) return '<p>• '+esc(s.replace(/^[-*+]\s+/,''))+'</p>';
+      return '<p>'+esc(s).replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')+'</p>';
+    }).join('');
+  }
+  setTimeout(function(){
+    if(window.__gwArticleLoaded || !root.textContent.includes('लेख लोड हो रहा है') && !root.textContent.includes('लेख खोला जा रहा है')) return;
+    fetch(new URL('./data/articles/'+encodeURIComponent(id)+'.json?v=20261003-fallback1',location.href).href,{cache:'no-store',credentials:'same-origin'})
+      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+      .then(a=>{
+        if(window.__gwArticleLoaded || !a || !a.title) return;
+        const image=/^https:\/\/[a-z0-9.-]+\//i.test(String(a.image||'')) ? String(a.image) : (/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*\.(png|jpe?g|webp|svg)$/i.test(String(a.image||'')) ? './'+a.image : '');
+        const body=a.bodyHtml ? String(a.bodyHtml) : md(a.bodyMarkdown||a.body||a.content||'');
+        root.innerHTML='<span class="tag">'+esc(a.category||'General')+'</span><h1>'+esc(a.title)+'</h1>'+(image?'<figure class="article-cover"><img src="'+esc(image)+'" width="1200" height="675" alt="'+esc(a.title)+'" loading="eager" decoding="async"></figure>':'')+'<p class="date">'+esc(a.updatedAt||a.date||'Published')+'</p>'+(a.summary?'<p class="notice">'+esc(a.summary)+'</p>':'')+'<div class="article-body">'+body+'</div>';
+        window.gwArticle=a; window.__gwArticleLoaded=true; window.dispatchEvent(new CustomEvent('gw:article-loaded',{detail:a}));
+      })
+      .catch(err=>console.error('Gaurav’s World fallback loader failed:',err));
+  },1200);
+})();
+</script>
+<script src="./frontend/article-loader.js?v=20261003-richhtml9"></script><script src="./frontend/article-seo.js?v=20261003-2"></script><script src="./frontend/article-reading-enhancements.js?v=20261003-5"></script>
 </body></html>
