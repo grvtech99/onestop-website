@@ -141,7 +141,9 @@
     return /^(TOP IMPORTANT INFORMATION|IMPORTANT DATES|AGE LIMIT|CATEGORY-WISE VACANCY|EDUCATIONAL QUALIFICATION|SELECTION PROCESS|APPLICATION FEE|IMPORTANT LINKS|IMPORTANT NOTE)$/i.test(String(text || '').trim());
   }
   function markdown(source) {
-    const lines = String(source || '').replace(/\r/g, '').split('\n');
+    // Web citations are for ChatGPT's response UI only; never render their control tokens inside published articles.
+    const cleanSource = String(source || '').replace(/(?:cite|url|entity|filenavlist)[^]*/g, '').replace(/memcite/g, '');
+    const lines = cleanSource.replace(/\r/g, '').split('\n');
     const out = []; let list = null;
     const closeList = () => { if (list === 'ul') out.push('</ul>'); if (list === 'ol') out.push('</ol>'); list = null; };
     for (let i = 0; i < lines.length; i++) {
