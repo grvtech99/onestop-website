@@ -103,7 +103,8 @@
       const items=filtered.filter(a=>keys.has(String(a.category||'').toLowerCase())).slice(0,6);
       html+=section(group.title,items,'group-'+index);
     });
-    root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';\n    wireImageFallbacks();
+    root.innerHTML=html||'<div class=\"empty\">अभी कोई प्रकाशित लेख नहीं मिला।</div>';
+    wireImageFallbacks();
   }
   function normalize(item){if(!item||typeof item!=='object'||!item.title||!(item.slug||item.id))return null;const id=String(item.slug||item.id);return {...item,id,slug:id,title:String(item.title),category:String(item.category||'General'),summary:String(item.summary||item.description||''),description:String(item.summary||item.description||''),image:String(item.image||item.coverImage||item.thumbnail||''),author:String(item.author||'Gaurav Yadav'),updatedAt:item.updatedAt||'',publishedAt:item.publishedAt||item.date||''};}
 async function hydrateMissingMetadata(list){const needs=list.filter(a=>a&&!a.author||a&&!a.publishedAt);if(!needs.length)return list;const results=await Promise.all(needs.map(async a=>{try{const r=await fetch(`./data/articles/${encodeURIComponent(a.id||a.slug)}.json`,{cache:'no-cache'});if(!r.ok)return a;const full=await r.json();return {...a,author:full.author||a.author||'Gaurav Yadav',authorUrl:full.authorUrl||full.authorURL||a.authorUrl||'https://onestopfzd.in/gauravs-world/author-gaurav.html',publishedAt:full.publishedAt||a.publishedAt||'',updatedAt:full.updatedAt||a.updatedAt||''};}catch(_){return a;}}));const byId=new Map(results.map(a=>[String(a.slug||a.id),a]));return list.map(a=>byId.get(String(a.slug||a.id))||a);}
