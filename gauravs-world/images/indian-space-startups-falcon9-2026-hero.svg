@@ -34,4 +34,5 @@
 </g>
 <rect x="25" y="630" width="1230" height="70" rx="18" fill="#061a38" stroke="#1a8cff" stroke-width="2"/>
 <g class="sans"><text x="170" y="661" text-anchor="middle" class="yellow" font-size="22" font-weight="900">FALCON 9</text><text x="170" y="686" text-anchor="middle" class="white small">Global rideshare</text><text x="470" y="661" text-anchor="middle" class="yellow" font-size="22" font-weight="900">THERMAL INTELLIGENCE</text><text x="470" y="686" text-anchor="middle" class="white small">Earth observation</text><text x="800" y="661" text-anchor="middle" class="yellow" font-size="22" font-weight="900">AI IN ORBIT</text><text x="800" y="686" text-anchor="middle" class="white small">Process data in space</text><text x="1085" y="661" text-anchor="middle" class="yellow" font-size="22" font-weight="900">NEW SPACE INDIA</text><text x="1085" y="686" text-anchor="middle" class="white small">Startups to orbit</text></g>
+<!-- trigger build -->
 </svg>
