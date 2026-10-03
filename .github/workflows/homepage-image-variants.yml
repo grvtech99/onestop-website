@@ -2,6 +2,7 @@ name: Homepage and Article Image Variants
 on:
   push:
     paths:
+      - '.github/workflows/homepage-image-variants.yml'
       - 'gauravs-world/data/articles.json'
       - 'gauravs-world/data/articles/**'
       - 'gauravs-world/images/**'
