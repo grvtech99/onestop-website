@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "robots-jump-molten-steel-terminator-style-figure-f02",
+      "slug": "robots-jump-molten-steel-terminator-style-figure-f02",
+      "title": "Humanoid Robots ने Molten Steel में लगाई छलांग! Terminator 2 जैसा Real-Life Scene",
+      "category": "Technology",
+      "summary": "Figure AI ने अपने retired F.02 humanoid robots को Finland के एक 75-ton electric arc furnace में molten steel के हवाले करके decommission किया। Arnold Schwarzenegger की Terminator वाली सलाह से शुरू हुआ यह stunt असल में proprietary technology को सुरक्षित तरीके से retire करने और अगले-generation robots पर focus करने की कहानी है।",
+      "image": "images/robots-jump-molten-steel-terminator-style.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-10-06T15:50:00+05:30",
+      "updatedAt": "2026-10-06T15:50:00+05:30"
+    },
+    {
       "id": "ai-fake-image-jail-cyber-safety",
       "slug": "ai-fake-image-jail-cyber-safety",
       "title": "AI Fake Image भेजने पर Jail? पूरा मामला समझिए",
@@ -448,5 +460,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-10-06T02:59:42.755Z"
+  "updatedAt": "2026-10-06T15:50:00+05:30"
 }
