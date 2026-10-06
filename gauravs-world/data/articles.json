@@ -1,6 +1,18 @@
 {
   "articles": [
     {
+      "id": "russia-plague-lab-accident-irkutsk-2026",
+      "slug": "russia-plague-lab-accident-irkutsk-2026",
+      "title": "Russia Plague Lab Mystery: Test Tube Leak या अफवाह? पूरा मामला समझिए",
+      "category": "Technology",
+      "summary": "Russia के Irkutsk में Anti-Plague Research Institute की 28 वर्षीय lab worker Darya Shipilova की pneumonia से मौत के बाद कथित plague lab leak की खबरें वायरल हुईं। करीब 200 contacts की निगरानी और quarantine measures की reports सामने आईं, लेकिन test tube टूटने, plague infection या wider outbreak की कोई पुष्टि नहीं हुई। जानिए पूरा मामला और latest WHO-ECDC assessment।",
+      "image": "images/russia-plague-lab-alert-irkutsk.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "publishedAt": "2026-10-06T22:10:00+05:30",
+      "updatedAt": "2026-10-06T22:10:00+05:30"
+    },
+    {
       "id": "robots-jump-molten-steel-terminator-style-figure-f02",
       "slug": "robots-jump-molten-steel-terminator-style-figure-f02",
       "title": "Humanoid Robots ने Molten Steel में लगाई छलांग! Terminator 2 जैसा Real-Life Scene",
@@ -460,5 +472,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-10-06T16:37:18.778Z"
+  "updatedAt": "2026-10-06T22:10:00+05:30"
 }
