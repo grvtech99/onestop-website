@@ -83,7 +83,7 @@
     let value = esc(text);
     const protectedParts = [];
     const protect = html => '@@GWPROTECT' + protectedParts.push(html) + '@@';
-    value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:png|jpe?g|webp))\)/gi, (whole, alt, rawUrl) => {
+    value = value.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|images\/[A-Za-z0-9][A-Za-z0-9._\/-]*\.(?:png|jpe?g|webp|svg))\)/gi, (whole, alt, rawUrl) => {
       const url = safeImageUrl(rawUrl);
       return url ? protect('<figure class="article-inline-image"><img class="article-image-bg" src="' + esc(url) + '" alt="" aria-hidden="true" loading="lazy" decoding="async"><img src="' + esc(url) + '" alt="' + esc(alt) + '" loading="lazy" decoding="async"><figcaption>' + esc(alt) + '</figcaption></figure>') : esc(whole);
     });
