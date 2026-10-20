@@ -3,7 +3,7 @@
 .latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:8px;align-self:stretch;height:100%;padding:0 16px;background:#0757c9;color:#fff;font-size:11px;font-weight:900;letter-spacing:.55px;white-space:nowrap}
 .latest-ticker-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#ff4b55;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
 .latest-ticker-window{flex:1 1 auto;min-width:0;height:100%;overflow:hidden;display:flex;align-items:center}
-.latest-ticker-track{display:flex;flex:0 0 auto;width:max-content;max-width:none;flex-wrap:nowrap;align-items:center;height:100%;white-space:nowrap;animation:latestTickerScroll 48s linear infinite;will-change:transform}
+.latest-ticker-track{display:flex;flex:0 0 auto;width:max-content;max-width:none;flex-wrap:nowrap;align-items:center;height:100%;white-space:nowrap;animation:latestTickerScroll 48s linear infinite;animation-play-state:running;will-change:transform}
 .latest-ticker-window:hover .latest-ticker-track,.latest-ticker-window:focus-within .latest-ticker-track{animation-play-state:paused}
 .latest-ticker-item{display:inline-flex;flex:0 0 auto;align-items:center;gap:10px;height:100%;min-height:0;padding:0 22px;color:#17365f;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;line-height:1.2}
 .latest-ticker-item:hover,.latest-ticker-item:focus-visible{color:#0757c9;text-decoration:underline;text-underline-offset:3px}
@@ -11,5 +11,5 @@
 .latest-ticker-loading,.latest-ticker-empty{display:inline-flex;flex:0 0 auto;align-items:center;height:100%;min-height:0;padding:0 18px;color:#60708d;font-size:12px;white-space:nowrap}
 @keyframes latestTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:600px){.latest-ticker{height:36px;min-height:36px;max-height:36px}.latest-ticker-label{padding:0 10px;gap:6px;font-size:9px;letter-spacing:.25px}.latest-ticker-item{padding:0 14px;font-size:12px}.latest-ticker-track{animation-duration:38s}}
-/* Respect reduced-motion preferences without allowing the ticker to wrap into multiple rows. */
-@media(prefers-reduced-motion:reduce){.latest-ticker-track{animation:none;transform:none;flex-wrap:nowrap;width:max-content}.latest-ticker-window{overflow-x:auto}.latest-ticker-item{white-space:nowrap}}
+/* Keep the ticker moving on desktop too, even when the OS requests reduced motion; users can pause it by hovering or focusing a link. */
+@media(prefers-reduced-motion:reduce){.latest-ticker-track{animation:latestTickerScroll 48s linear infinite;animation-play-state:running;flex-wrap:nowrap;width:max-content}.latest-ticker-window{overflow:hidden}.latest-ticker-item{white-space:nowrap}}
