@@ -1,15 +1,15 @@
 /* Latest Gaurav's World articles ticker. Isolated styles; existing site styles remain unchanged. */
-.latest-ticker{display:flex;align-items:center;gap:0;width:100%;height:42px;min-height:42px;max-height:42px;overflow:hidden;background:#eaf2ff;border-top:1px solid #cbdcf8;border-bottom:1px solid #cbdcf8;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);color:#14213d}
-.latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:8px;align-self:stretch;height:100%;padding:0 16px;background:#0757c9;color:#fff;font-size:11px;font-weight:900;letter-spacing:.55px;white-space:nowrap;box-shadow:3px 0 9px rgba(7,87,201,.12)}
-.latest-ticker-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#ff4b55;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
+.latest-ticker{display:flex;align-items:center;gap:0;width:100%;height:46px;min-height:46px;max-height:46px;overflow:hidden;background:#102b50;border-top:1px solid #0b2140;border-bottom:1px solid #0b2140;box-shadow:0 3px 10px rgba(13,35,67,.14);color:#fff}
+.latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:9px;align-self:stretch;height:100%;padding:0 18px;background:#d71920;color:#fff;font-size:11px;font-weight:900;letter-spacing:.7px;white-space:nowrap;box-shadow:3px 0 12px rgba(0,0,0,.18)}
+.latest-ticker-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.22);animation:latestTickerPulse 1.5s ease-in-out infinite}
 .latest-ticker-window{flex:1 1 auto;min-width:0;height:100%;overflow:hidden;display:flex;align-items:center}
 .latest-ticker-track{display:flex;flex:0 0 auto;width:max-content;max-width:none;flex-wrap:nowrap;align-items:center;height:100%;white-space:nowrap;animation:latestTickerScroll 48s linear infinite;animation-play-state:running;will-change:transform}
 .latest-ticker-window:hover .latest-ticker-track,.latest-ticker-window:focus-within .latest-ticker-track{animation-play-state:paused}
-.latest-ticker-item{display:inline-flex;flex:0 0 auto;align-items:center;gap:10px;height:100%;min-height:0;padding:0 22px;color:#17365f;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;line-height:1.2}
-.latest-ticker-item:hover,.latest-ticker-item:focus-visible{color:#0757c9;text-decoration:underline;text-underline-offset:3px}
-.latest-ticker-separator{width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:#dc2626}
-.latest-ticker-loading,.latest-ticker-empty{display:inline-flex;flex:0 0 auto;align-items:center;height:100%;min-height:0;padding:0 18px;color:#60708d;font-size:12px;white-space:nowrap}
-@keyframes latestTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media(max-width:600px){.latest-ticker{height:36px;min-height:36px;max-height:36px}.latest-ticker-label{padding:0 10px;gap:6px;font-size:9px;letter-spacing:.25px}.latest-ticker-item{padding:0 14px;font-size:12px}.latest-ticker-track{animation-duration:38s}}
+.latest-ticker-item{display:inline-flex;flex:0 0 auto;align-items:center;gap:10px;height:100%;min-height:0;padding:0 24px;color:#fff;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap;line-height:1.2}
+.latest-ticker-item:hover,.latest-ticker-item:focus-visible{color:#dbeafe;text-decoration:underline;text-underline-offset:3px}
+.latest-ticker-separator{width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:#ff5b62;box-shadow:0 0 0 2px rgba(255,255,255,.1)}
+.latest-ticker-loading,.latest-ticker-empty{display:inline-flex;flex:0 0 auto;align-items:center;height:100%;min-height:0;padding:0 18px;color:#e2eaf5;font-size:12px;white-space:nowrap}
+@keyframes latestTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}\n@keyframes latestTickerPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+@media(max-width:600px){.latest-ticker{height:40px;min-height:40px;max-height:40px}.latest-ticker-label{padding:0 11px;gap:7px;font-size:9px;letter-spacing:.35px}.latest-ticker-item{padding:0 15px;font-size:12px}.latest-ticker-track{animation-duration:38s}}
 /* Keep the ticker moving on desktop too, even when the OS requests reduced motion; users can pause it by hovering or focusing a link. */
 @media(prefers-reduced-motion:reduce){.latest-ticker-track{animation:latestTickerScroll 48s linear infinite;animation-play-state:running;flex-wrap:nowrap;width:max-content}.latest-ticker-window{overflow:hidden}.latest-ticker-item{white-space:nowrap}}
