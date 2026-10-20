@@ -1,6 +1,6 @@
 /* Latest Gaurav's World articles ticker. Isolated styles; existing site styles remain unchanged. */
-.latest-ticker{display:flex;align-items:center;gap:0;width:100%;height:42px;min-height:42px;max-height:42px;overflow:hidden;background:#f4f8ff;border-top:1px solid #e2eafa;border-bottom:1px solid #d9e6fa;color:#14213d}
-.latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:8px;align-self:stretch;height:100%;padding:0 16px;background:#0757c9;color:#fff;font-size:11px;font-weight:900;letter-spacing:.55px;white-space:nowrap}
+.latest-ticker{display:flex;align-items:center;gap:0;width:100%;height:42px;min-height:42px;max-height:42px;overflow:hidden;background:#eaf2ff;border-top:1px solid #cbdcf8;border-bottom:1px solid #cbdcf8;box-shadow:inset 0 1px 0 rgba(255,255,255,.8);color:#14213d}
+.latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;justify-content:center;gap:8px;align-self:stretch;height:100%;padding:0 16px;background:#0757c9;color:#fff;font-size:11px;font-weight:900;letter-spacing:.55px;white-space:nowrap;box-shadow:3px 0 9px rgba(7,87,201,.12)}
 .latest-ticker-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#ff4b55;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
 .latest-ticker-window{flex:1 1 auto;min-width:0;height:100%;overflow:hidden;display:flex;align-items:center}
 .latest-ticker-track{display:flex;flex:0 0 auto;width:max-content;max-width:none;flex-wrap:nowrap;align-items:center;height:100%;white-space:nowrap;animation:latestTickerScroll 48s linear infinite;animation-play-state:running;will-change:transform}
