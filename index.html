@@ -20,6 +20,35 @@ nav{display:flex;gap:25px;align-items:center}nav a{color:#223354;font-weight:700
 
 /* Prevent accidental duplicate Job Update quick-access buttons. */
 .hero-quick a[href="government-job-update/onestop-updates.html"] ~ a[href="government-job-update/onestop-updates.html"]{display:none!important}
+
+/* SAFE HERO ALIGNMENT — scoped to homepage hero; keeps ticker and content intact */
+.hero .hero-inner{padding-top:26px;padding-bottom:72px;column-gap:42px;row-gap:0;align-items:center}
+.hero .hero-quick{padding-top:0;margin-bottom:26px;gap:12px;align-self:start}
+.hero .hero-quick a{min-height:40px}
+.hero .badge{margin-bottom:14px}
+.hero h1{margin:12px 0 16px}
+.hero .actions{margin-top:24px}
+#onestop-speed-widget{top:26px!important;right:max(20px,calc((100vw - 1140px)/2))!important}
+@media(max-width:850px){
+ .hero .hero-inner{padding:0 18px 42px;row-gap:0}
+ .hero .hero-quick{padding-top:22px;margin-bottom:22px;gap:10px}
+ .hero .badge{margin-bottom:12px}
+ .hero h1{margin:12px 0 14px;line-height:1.08}
+ .hero .actions{margin-top:22px}
+ #onestop-speed-widget{top:auto!important;right:auto!important}
+}
+@media(max-width:520px){
+ .hero .hero-inner{padding:0 18px 34px}
+ .hero .hero-quick{padding-top:20px;margin-bottom:20px;gap:8px}
+ .hero .hero-quick a{min-height:38px}
+ .hero .badge{line-height:1.45;padding:8px 12px;margin-bottom:10px}
+ .hero h1{font-size:clamp(34px,8.6vw,42px);line-height:1.08;letter-spacing:-.8px;margin:10px 0 14px}
+ .hero p{line-height:1.55}
+ .hero .actions{gap:10px;margin-top:20px}
+ .hero .btn{padding:12px 15px}
+ .hero .hero-card{margin-top:8px}
+}
+
 </style>
 <meta name="google-site-verification" content="43g7QTVkBiYpQZ6HorNj6TK_HbbY0bpH4GwiZtm6k90" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1083654273012557" crossorigin="anonymous"></script>
