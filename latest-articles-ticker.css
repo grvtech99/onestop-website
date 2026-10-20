@@ -1,0 +1,14 @@
+/* Latest Gaurav's World articles ticker. Isolated styles; existing site styles remain unchanged. */
+.latest-ticker{display:flex;align-items:center;gap:0;width:100%;min-height:40px;overflow:hidden;background:#f4f8ff;border-top:1px solid #e2eafa;border-bottom:1px solid #d9e6fa;color:#14213d}
+.latest-ticker-label{position:relative;z-index:2;display:flex;flex:0 0 auto;align-items:center;gap:8px;align-self:stretch;padding:0 16px;background:#0757c9;color:#fff;font-size:11px;font-weight:900;letter-spacing:.55px;white-space:nowrap}
+.latest-ticker-dot{width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:#ff4b55;box-shadow:0 0 0 3px rgba(255,255,255,.2)}
+.latest-ticker-window{flex:1 1 auto;min-width:0;overflow:hidden}
+.latest-ticker-track{display:flex;width:max-content;align-items:center;animation:latestTickerScroll 48s linear infinite;will-change:transform}
+.latest-ticker-window:hover .latest-ticker-track,.latest-ticker-window:focus-within .latest-ticker-track{animation-play-state:paused}
+.latest-ticker-item{display:inline-flex;align-items:center;gap:10px;min-height:40px;padding:0 22px;color:#17365f;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+.latest-ticker-item:hover,.latest-ticker-item:focus-visible{color:#0757c9;text-decoration:underline;text-underline-offset:3px}
+.latest-ticker-separator{width:5px;height:5px;flex:0 0 5px;border-radius:50%;background:#dc2626}
+.latest-ticker-loading,.latest-ticker-empty{display:inline-flex;align-items:center;min-height:40px;padding:0 18px;color:#60708d;font-size:12px}
+@keyframes latestTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:600px){.latest-ticker{min-height:36px}.latest-ticker-label{padding:0 10px;gap:6px;font-size:9px;letter-spacing:.25px}.latest-ticker-item{min-height:36px;padding:0 14px;font-size:12px}.latest-ticker-track{animation-duration:38s}}
+@media(prefers-reduced-motion:reduce){.latest-ticker-track{animation:none;transform:none;flex-wrap:wrap;width:100%}.latest-ticker-window{overflow-x:auto}.latest-ticker-item{white-space:normal}}
