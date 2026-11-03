@@ -1,6 +1,27 @@
 {
   "articles": [
     {
+      "id": "europe-supermarket-refrigeration-cyberattacks-november-2026",
+      "slug": "europe-supermarket-refrigeration-cyberattacks-november-2026",
+      "title": "यूरोप के सुपरमार्केट फ्रिज पर साइबर अटैक: 50°C तक बढ़ा तापमान, खाना फेंकना पड़ा",
+      "category": "Technology",
+      "summary": "2 नवंबर 2026 को यूरोप के कई देशों में सुपरमार्केट refrigeration systems प्रभावित हुए। फ्रिज और फ्रीजर का तापमान बढ़ने से दुकानों को chilled और frozen food हटाना पड़ा। जानिए किन देशों में घटनाएं हुईं, तकनीकी जोखिम क्या है और क्या पुष्टि हुई है।",
+      "image": "images/europe-supermarket-fridge-cyberattack-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Cyber Attack",
+        "Europe News",
+        "Supermarket",
+        "Food Supply Chain",
+        "Operational Technology",
+        "Cyber Security"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-03T20:10:00+05:30",
+      "updatedAt": "2026-11-03T20:10:00+05:30"
+    },
+    {
       "id": "binance-current-status-withdrawals-liquidity-bankruptcy-2026",
       "slug": "binance-current-status-withdrawals-liquidity-bankruptcy-2026",
       "title": "Binance की ताज़ा स्थिति 2026: Withdrawals शुरू, क्या कंपनी दिवालिया होने वाली है?",
