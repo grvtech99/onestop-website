@@ -14,3 +14,6 @@
 @media(max-width:600px){.latest-ticker{height:40px;min-height:40px;max-height:40px}.latest-ticker-label{padding:0 11px;gap:7px;font-size:9px;letter-spacing:.35px}.latest-ticker-item{padding:0 15px;font-size:12px}.latest-ticker-track{animation-duration:38s}}
 /* Keep the ticker moving on desktop too, even when the OS requests reduced motion; users can pause it by hovering or focusing a link. */
 @media(prefers-reduced-motion:reduce){.latest-ticker-track{animation:latestTickerScroll 48s linear infinite;animation-play-state:running;flex-wrap:nowrap;width:max-content}.latest-ticker-window{overflow:hidden}.latest-ticker-item{white-space:nowrap}}
+
+/* Second ticker uses the same shared visual rules; only add a subtle divider between stacked rows. */
+#free-csc-tools-ticker{border-top:1px solid rgba(255,255,255,.12)}
