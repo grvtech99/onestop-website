@@ -1,6 +1,28 @@
 {
   "articles": [
     {
+      "id": "microsoft-global-outage-outlook-teams-copilot-november-2026",
+      "slug": "microsoft-global-outage-outlook-teams-copilot-november-2026",
+      "title": "Microsoft Global Outage 2026: Outlook, Teams और Copilot क्यों हुए डाउन? असली वजह और ताज़ा अपडेट",
+      "category": "Technology",
+      "summary": "12–13 नवंबर 2026 को Microsoft 365 की बड़ी वैश्विक outage ने Outlook, Teams, Copilot, Exchange Online और कई cloud services को प्रभावित किया। जानिए server failures, authentication/routing configuration, cyberattack की आशंका, 74 देशों में असर और recovery की ताज़ा स्थिति।",
+      "image": "images/microsoft-global-outage-2026-hero.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Microsoft Outage",
+        "Microsoft 365",
+        "Outlook Down",
+        "Teams Down",
+        "Copilot",
+        "Cloud Computing",
+        "Cyber Security"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-13T16:50:00+05:30",
+      "updatedAt": "2026-11-13T16:50:00+05:30"
+    },
+    {
       "id": "europe-supermarket-refrigeration-cyberattacks-november-2026",
       "slug": "europe-supermarket-refrigeration-cyberattacks-november-2026",
       "title": "यूरोप के सुपरमार्केट फ्रिज पर साइबर अटैक: 50°C तक बढ़ा तापमान, खाना फेंकना पड़ा",
