@@ -6,21 +6,11 @@
       "title": "Microsoft Global Outage 2026: Outlook, Teams और Copilot क्यों हुए डाउन? असली वजह और ताज़ा अपडेट",
       "category": "Technology",
       "summary": "12–13 नवंबर 2026 को Microsoft 365 की बड़ी वैश्विक outage ने Outlook, Teams, Copilot, Exchange Online और कई cloud services को प्रभावित किया। जानिए server failures, authentication/routing configuration, cyberattack की आशंका, 74 देशों में असर और recovery की ताज़ा स्थिति।",
-      "image": "images/microsoft-global-outage-2026-hero.webp",
+      "image": "images/1000216315.webp",
       "author": "Gaurav Yadav",
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "tags": [
-        "Microsoft Outage",
-        "Microsoft 365",
-        "Outlook Down",
-        "Teams Down",
-        "Copilot",
-        "Cloud Computing",
-        "Cyber Security"
-      ],
-      "status": "published",
       "publishedAt": "2026-11-13T16:50:00+05:30",
-      "updatedAt": "2026-11-13T16:50:00+05:30"
+      "updatedAt": "2026-11-13T11:24:07.364Z"
     },
     {
       "id": "europe-supermarket-refrigeration-cyberattacks-november-2026",
@@ -626,5 +616,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-11-04T01:07:00.673Z"
+  "updatedAt": "2026-11-13T11:24:07.364Z"
 }
