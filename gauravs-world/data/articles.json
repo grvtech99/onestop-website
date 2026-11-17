@@ -4,23 +4,13 @@
       "id": "us-faa-nationwide-airline-ground-stop-telecom-router-outage-november-2026",
       "slug": "us-faa-nationwide-airline-ground-stop-telecom-router-outage-november-2026",
       "title": "अमेरिका में सभी उड़ानों पर रोक: FAA सिस्टम फेलियर से 12,462 फ्लाइट्स रद्द, आखिर क्या थी असली वजह?",
-      "category": "World News",
+      "category": "Technology",
       "summary": "13 नवंबर 2026 को अमेरिका में FAA ने communications और radar data में अस्थिरता के कारण nationwide ground stop लगाया। करीब 4 घंटे 21 मिनट तक departures रुके और FAA के अनुसार 12,462 उड़ानें रद्द हुईं। जांच में पुराने telecom network, router और copper-to-fiber maintenance का कनेक्शन सामने आया। जानिए पूरी घटना, कारण, साइबर अटैक की स्थिति और ताजा अपडेट।",
-      "image": "images/us-faa-nationwide-ground-stop-2026.webp",
+      "image": "images/1000217833.webp",
       "author": "Gaurav Yadav",
       "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
-      "tags": [
-        "US Flight Shutdown",
-        "FAA Ground Stop",
-        "Airline News",
-        "Flight Cancellations",
-        "Aviation Technology",
-        "L3Harris",
-        "Cyber Security"
-      ],
-      "status": "published",
       "publishedAt": "2026-11-17T20:20:00+05:30",
-      "updatedAt": "2026-11-17T20:20:00+05:30"
+      "updatedAt": "2026-11-17T14:58:23.549Z"
     },
     {
       "id": "nvidia-jensen-huang-alice-huang-scandal-resignation-2026",
@@ -650,5 +640,5 @@
       "updatedAt": "2026-09-24T06:22:58.287Z"
     }
   ],
-  "updatedAt": "2026-11-13T11:33:40.134Z"
+  "updatedAt": "2026-11-17T14:58:23.549Z"
 }
