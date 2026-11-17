@@ -1,6 +1,28 @@
 {
   "articles": [
     {
+      "id": "optimizely-supply-chain-cyberattack-178-organizations-november-2026",
+      "slug": "optimizely-supply-chain-cyberattack-178-organizations-november-2026",
+      "title": "178 बड़ी वेबसाइटों पर साइबर हमला: BBC, CNN, Zoom और HSBC के Visitors कैसे बने निशाना?",
+      "category": "Technology",
+      "summary": "16 नवंबर 2026 को Optimizely Web Experimentation में vulnerability का फायदा उठाकर 178 संगठनों की वेबसाइटों के visitors तक malicious JavaScript पहुंचाया गया। इस code को crypto wallet addresses बदलने, payment card details चुराने, cookies और screenshots लेने तथा पुराने iPhone/iPad को exploit kits से निशाना बनाने के लिए बनाया गया था। जानिए पूरा मामला, असली तकनीकी तरीका, क्या पुष्टि हुई और users को क्या करना चाहिए।",
+      "image": "images/optimizely-178-websites-cyberattack-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Cyber Attack",
+        "Optimizely",
+        "Supply Chain Attack",
+        "Website Security",
+        "Cryptocurrency Theft",
+        "Data Privacy",
+        "iPhone Security"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-17T22:00:00+05:30",
+      "updatedAt": "2026-11-17T22:00:00+05:30"
+    },
+    {
       "id": "japan-fugaku-supercomputer-cyberattack-riken-4597-users-november-2026",
       "slug": "japan-fugaku-supercomputer-cyberattack-riken-4597-users-november-2026",
       "title": "जापान के Fugaku Supercomputer पर साइबर हमला: 4,597 यूजर्स की जानकारी खतरे में, क्या हुआ था?",
