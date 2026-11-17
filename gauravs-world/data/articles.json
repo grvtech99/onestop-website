@@ -1,6 +1,28 @@
 {
   "articles": [
     {
+      "id": "japan-fugaku-supercomputer-cyberattack-riken-4597-users-november-2026",
+      "slug": "japan-fugaku-supercomputer-cyberattack-riken-4597-users-november-2026",
+      "title": "जापान के Fugaku Supercomputer पर साइबर हमला: 4,597 यूजर्स की जानकारी खतरे में, क्या हुआ था?",
+      "category": "Technology",
+      "summary": "जापान की सरकारी शोध संस्था RIKEN ने Fugaku सुपरकंप्यूटर के operational network में unauthorized access की पुष्टि की। अधिकतम 4,597 Fugaku और RIKYU users की जानकारी प्रभावित हो सकती है। SSH keys और external service credentials तक पहुंच की आशंका, compromised servers पर malicious programs और research data leak की जांच—पूरी रिपोर्ट।",
+      "image": "images/japan-fugaku-supercomputer-cyberattack-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Japan Cyber Attack",
+        "Fugaku Supercomputer",
+        "RIKEN",
+        "Data Breach",
+        "Cyber Security",
+        "Research Data",
+        "Japan News"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-17T20:35:00+05:30",
+      "updatedAt": "2026-11-17T20:35:00+05:30"
+    },
+    {
       "id": "us-faa-nationwide-airline-ground-stop-telecom-router-outage-november-2026",
       "slug": "us-faa-nationwide-airline-ground-stop-telecom-router-outage-november-2026",
       "title": "अमेरिका में सभी उड़ानों पर रोक: FAA सिस्टम फेलियर से 12,462 फ्लाइट्स रद्द, आखिर क्या थी असली वजह?",
