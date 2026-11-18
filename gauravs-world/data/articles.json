@@ -1,6 +1,27 @@
 {
   "articles": [
     {
+      "id": "coinbase-india-inr-withdrawals-banking-partner-outage-november-2026",
+      "slug": "coinbase-india-inr-withdrawals-banking-partner-outage-november-2026",
+      "title": "Coinbase ने भारत में रुपये की निकासी रोकी: बैंकिंग पार्टनर की खराबी, अब क्या है यूजर्स के पैसे का स्टेटस?",
+      "category": "Cryptocurrency",
+      "summary": "Coinbase India ने 9 नवंबर 2026 से banking partner outage के कारण INR withdrawals रोक दी थीं। 17 नवंबर से failed payouts को alternative banking route के जरिए batches में process करना शुरू किया गया है, लेकिन app में नियमित withdrawal विकल्प अभी भी unavailable है। जानिए असली वजह, UPI और crypto withdrawals की स्थिति, 48–72 घंटे वाला support process और भारतीय users के लिए जरूरी सावधानियां।",
+      "image": "images/coinbase-india-inr-withdrawals-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Coinbase India",
+        "INR Withdrawals",
+        "Crypto Exchange",
+        "Banking Outage",
+        "Indian Crypto Market",
+        "Cryptocurrency News"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-18T09:10:00+05:30",
+      "updatedAt": "2026-11-18T09:10:00+05:30"
+    },
+    {
       "id": "optimizely-supply-chain-cyberattack-178-organizations-november-2026",
       "slug": "optimizely-supply-chain-cyberattack-178-organizations-november-2026",
       "title": "178 बड़ी वेबसाइटों पर साइबर हमला: BBC, CNN, Zoom और HSBC के Visitors कैसे बने निशाना?",
