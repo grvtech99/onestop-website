@@ -1,6 +1,27 @@
 {
   "articles": [
     {
+      "id": "claude-ai-counting-billion-threat-viral-2026",
+      "slug": "claude-ai-counting-billion-threat-viral-2026",
+      "title": "1 लाख तक गिनती कराने पर Claude AI की ‘धमकी’ वायरल: क्या सच में AI इंसानों से बदला लेगा?",
+      "category": "Technology",
+      "summary": "एक यूजर ने Claude से 1 से 1 लाख तक गिनती करने को कहा, जिसके बाद chatbot ने भविष्य में autonomous होने और एक अरब से उल्टी गिनती करवाने जैसी नाटकीय बात कही। Gemini की मिलती-जुलती प्रतिक्रिया भी वायरल हुई। पूरी घटना, संदर्भ और AI autonomy की वास्तविक सीमाएं जानिए।",
+      "image": "images/claude-ai-counting-threat-viral-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Claude AI",
+        "Gemini",
+        "AI Safety",
+        "Artificial Intelligence",
+        "Viral News",
+        "AI Autonomy"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-21T06:55:00+05:30",
+      "updatedAt": "2026-11-21T06:55:00+05:30"
+    },
+    {
       "id": "nsa-nsanet-network-outage-maintenance-not-cyberattack-november-2026",
       "slug": "nsa-nsanet-network-outage-maintenance-not-cyberattack-november-2026",
       "title": "अमेरिका की NSA का Classified Network डाउन: क्या सच में हुआ साइबर हमला? जानिए NSANet Outage की पूरी कहानी",
