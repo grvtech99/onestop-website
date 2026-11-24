@@ -1,6 +1,27 @@
 {
   "articles": [
     {
+      "id": "cloudflare-fake-captcha-clickfix-scam-2026",
+      "slug": "cloudflare-fake-captcha-clickfix-scam-2026",
+      "title": "Cloudflare के नाम पर Fake CAPTCHA Scam: ClickFix के जरिए आपका कंप्यूटर कैसे संक्रमित हो सकता है?",
+      "category": "Cyber Security",
+      "summary": "Cloudflare Turnstile की नकली verification स्क्रीन के जरिए ClickFix scammers users को Run, PowerShell या Terminal में malicious commands चलाने के लिए फंसा रहे हैं। जानिए तरीका, जोखिम, पहचान और बचाव।",
+      "image": "images/cloudflare-fake-captcha-clickfix-2026.webp",
+      "author": "Gaurav Yadav",
+      "authorUrl": "https://onestopfzd.in/gauravs-world/author-gaurav.html",
+      "tags": [
+        "Cloudflare",
+        "Fake CAPTCHA",
+        "ClickFix",
+        "Cyber Security",
+        "Malware",
+        "Online Scam"
+      ],
+      "status": "published",
+      "publishedAt": "2026-11-24T18:18:00+05:30",
+      "updatedAt": "2026-11-24T18:18:00+05:30"
+    },
+    {
       "id": "claude-ai-counting-billion-threat-viral-2026",
       "slug": "claude-ai-counting-billion-threat-viral-2026",
       "title": "1 लाख तक गिनती कराने पर Claude AI की ‘धमकी’ वायरल: क्या सच में AI इंसानों से बदला लेगा?",
